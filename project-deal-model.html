@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Custody Deal Model — Shannon Hecker</title>
+  <meta name="description" content="A bespoke deal modelling tool for custodian teams — multi-step flows with progressive disclosure and clear visual hierarchy for complex financial modelling." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
+      --c-ink:#0A0A0A; --c-mid:#595959; --c-light:#999999;
+      --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --t-sm:clamp(13px,1.4vw,14px); --t-base:clamp(15px,1.6vw,17px);
+      --t-md:clamp(17px,1.8vw,20px); --t-lg:clamp(22px,2.4vw,28px);
+      --t-xl:clamp(30px,3.8vw,44px); --t-2xl:clamp(42px,5.5vw,60px);
+      --r-pill:999px; --r-card:20px; --r-panel:16px; --r-chip:8px; --r-input:10px;
+      --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.56,.64,1);
+      --tf:140ms; --tb:220ms; --ts:420ms; --tr:650ms;
+      --sh-xs:0 1px 3px rgba(0,0,0,.04); --sh-sm:0 2px 10px rgba(0,0,0,.06);
+      --sh-md:0 6px 24px rgba(0,0,0,.08); --sh-lg:0 12px 48px rgba(0,0,0,.10);
+      --mw:1340px; --pad:clamp(28px,6vw,88px); --nav:72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{font-family:var(--font);background:var(--c-bg);color:var(--c-ink);
+      line-height:1.75;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    ::-webkit-scrollbar{width:3px;}
+    ::-webkit-scrollbar-track{background:var(--c-bg);}
+    ::-webkit-scrollbar-thumb{background:var(--c-ghost);border-radius:99px;}
+    a{color:inherit;text-decoration:none;}
+    img{display:block;max-width:100%;}
+    button{font-family:var(--font);}
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);}
+    /* Scroll reveal */
+    .rv{opacity:0;transform:translateY(20px);transition:opacity var(--tr) var(--ease),transform var(--tr) var(--ease);}
+    .rv.on{opacity:1;transform:translateY(0);}
+    .rv[data-d="1"]{transition-delay:.06s;} .rv[data-d="2"]{transition-delay:.12s;}
+    .rv[data-d="3"]{transition-delay:.18s;} .rv[data-d="4"]{transition-delay:.24s;}
+    .rv[data-d="5"]{transition-delay:.30s;} .rv[data-d="6"]{transition-delay:.36s;}
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);
+      display:flex;align-items:center;transition:background var(--ts) var(--ease),border-color var(--ts) var(--ease),backdrop-filter var(--ts) var(--ease);border-bottom:1px solid transparent;}
+    .nav.s{background:rgba(255,255,255,.92);border-color:var(--c-rule);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+    .nav-inner{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);width:100%;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;color:var(--c-ink);transition:opacity var(--tb) var(--ease),transform 0.4s var(--ease);}
+    .nav-logo:hover{opacity:.6;transform:rotate(45deg);}
+    .nav-links{list-style:none;display:flex;align-items:center;gap:4px;}
+    .nav-links a{font-size:13px;font-weight:400;color:#595959;letter-spacing:.01em;border-radius:var(--r-pill);padding:8px 16px;transition:background var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-links a:hover{background:#111;color:#fff;}
+    .nav.s .nav-links a{color:#595959;}
+    .nav-cta{font-size:13px;font-weight:400;color:#595959;border:1px solid #c0c0c0;border-radius:var(--r-pill);padding:8px 20px;transition:background var(--tb) var(--ease),border-color var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-cta:hover{background:#111;border-color:#111;color:#fff;}
+    .nav.s .nav-cta{color:#595959;}
+    .nav.s .nav-cta:hover{background:#111;border-color:#111;color:#fff;}
+    .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;}
+    .nav-burger span{display:block;width:22px;height:1.5px;background:var(--c-ink);border-radius:99px;transition:transform var(--tb) var(--ease),opacity var(--tb) var(--ease);}
+    .nav-burger.o span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .nav-burger.o span:nth-child(2){opacity:0;}
+    .nav-burger.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .nav-drawer{position:fixed;top:var(--nav);left:0;right:0;background:rgba(255,255,255,.97);
+      backdrop-filter:blur(16px);border-bottom:1px solid var(--c-rule);padding:24px var(--pad);
+      z-index:199;display:flex;flex-direction:column;gap:4px;
+      transform:translateY(-110%);opacity:0;pointer-events:none;
+      transition:transform var(--ts) var(--ease),opacity var(--ts) var(--ease);}
+    .nav-drawer.o{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .nav-drawer a{font-size:20px;font-weight:600;color:var(--c-ink);padding:12px 0;border-bottom:1px solid var(--c-rule);transition:opacity var(--tb) var(--ease);}
+    .nav-drawer a:hover{opacity:.5;}
+    /* Section heading */
+    .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
+    .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
+    .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
+    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:500;letter-spacing:-.03em;line-height:1;}
+    .sh-period{color:var(--c-ghost);}
+    .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
+    .sh-link:hover{color:var(--c-ink);}
+    /* Footer */
+    .footer{border-top:1px solid var(--c-rule);padding:40px 0;}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .footer-copy{font-size:13px;font-weight:300;color:var(--c-light);}
+    .footer-li{font-size:13px;font-weight:500;color:var(--c-mid);display:inline-flex;align-items:center;gap:5px;transition:color var(--tb) var(--ease);}
+    .footer-li:hover{color:var(--c-ink);}
+    /* Chip tags */
+    .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
+    .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
+    /* Responsive */
+    @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
+  </style>
+  <style>
+    .proj-page { padding-top: var(--nav); }
+    /* Hero */
+    .proj-hero {
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--c-bg);
+    }
+    .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
+    .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
+    .proj-breadcrumb a:hover { color:var(--c-ink); }
+    .proj-breadcrumb-sep { color:var(--c-rule-dk); }
+    .proj-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
+    .proj-title { font-size:clamp(36px,5.5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:32px; }
+    .proj-subtitle { font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--c-mid);max-width:640px;line-height:1.65;margin-bottom:48px; }
+    .proj-meta-row { display:flex;gap:40px;flex-wrap:wrap;padding:32px 0;border-top:1px solid var(--c-rule);border-bottom:1px solid var(--c-rule);margin-bottom:64px; }
+    .proj-meta-item { display:flex;flex-direction:column;gap:4px; }
+    .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
+    .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
+    /* Cover image */
+    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:16px;margin-bottom:80px;display:block; }
+    .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:16px;margin-bottom:80px; }
+    /* Content sections */
+    .proj-content { padding-bottom:120px; }
+    .proj-section { margin-bottom:72px; }
+    .proj-section-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:16px;display:block; }
+    .proj-section-title { font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:20px; }
+    .proj-body { font-size:clamp(15px,1.5vw,17px);font-weight:300;color:var(--c-mid);line-height:1.85;max-width:720px; }
+    .proj-body strong { font-weight:600;color:var(--c-ink); }
+    .proj-body p + p { margin-top:16px; }
+    /* Image grid */
+    .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0; }
+    .proj-img-grid img { width:100%;border-radius:12px;object-fit:cover;aspect-ratio:4/3; }
+    .proj-img-full { width:100%;border-radius:16px;margin:40px 0;display:block; }
+    .proj-img-ph { border-radius:12px;aspect-ratio:4/3; }
+    .proj-img-full-ph { border-radius:16px;aspect-ratio:21/7;margin:40px 0; }
+    /* Outcome pills */
+    .proj-outcomes { display:flex;gap:16px;flex-wrap:wrap;margin:32px 0; }
+    .proj-outcome { background:var(--c-panel);border:1px solid var(--c-rule);border-radius:var(--r-card);padding:20px 28px;display:flex;flex-direction:column;gap:6px;min-width:180px; }
+    .proj-outcome-num { font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink); }
+    .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light); }
+    /* Tags */
+    .proj-tags { display:flex;gap:8px;flex-wrap:wrap;margin-top:32px; }
+    .proj-tag { font-size:12px;font-weight:400;color:var(--c-mid);background:var(--c-panel);border:1px solid var(--c-rule);border-radius:var(--r-pill);padding:6px 16px; }
+    /* Next project nav */
+    .proj-next { padding:60px 0;border-top:1px solid var(--c-rule); }
+    .proj-next-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
+    .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
+    .proj-next-link:hover { gap:20px; }
+    .proj-next-link svg { flex-shrink:0;transition:transform var(--tb) var(--spring); }
+    .proj-next-link:hover svg { transform:translateX(4px); }
+    @media(max-width:900px){
+      .proj-img-grid{grid-template-columns:1fr;}
+      .proj-meta-row{gap:24px;}
+      .proj-outcomes{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
+        <svg width="36" height="33" viewBox="0 0 80 73" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Intro</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener">Resume ↗</a>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-drawer" id="drawer" aria-hidden="true">
+    <a href="index.html">Intro</a>
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener">Resume ↗</a>
+  </div>
+
+  <main class="proj-page">
+    <div class="wrap">
+
+      <!-- Hero -->
+      <div class="proj-hero">
+        <div class="proj-breadcrumb rv">
+          <a href="work.html">Work</a>
+          <span class="proj-breadcrumb-sep">›</span>
+          <span>Global Custody Deal Model</span>
+        </div>
+        <span class="proj-eyebrow rv" data-d="1">Product Design · Finance · Multi-step Flows</span>
+        <h1 class="proj-title rv" data-d="2">Global Custody Deal Model</h1>
+        <p class="proj-subtitle rv" data-d="3">A bespoke deal modelling tool for custodian teams — multi-step flows with progressive disclosure and clear visual hierarchy for complex financial modelling.</p>
+        <div class="proj-meta-row rv" data-d="4">
+          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Lead Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2023</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Tags</span><span class="proj-meta-value">Product Design · Finance · Multi-step Flows</span></div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <img src="https://framerusercontent.com/images/l04WyjN6mE5wTLUIvAZ0iZBhFY.png" alt="Global Custody Deal Model" class="proj-cover rv"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <div class="proj-cover-ph ph-2" style="display:none;"></div>
+
+      <!-- Content -->
+      <div class="proj-content">
+
+        <!-- Challenge -->
+        <div class="proj-section rv">
+          <span class="proj-section-label">The Challenge</span>
+          <div class="proj-body"><p>Global custody deal teams were using spreadsheets and email chains to model and communicate bespoke custodial deals. The process was error-prone, time-consuming and created no audit trail — a significant compliance risk.</p></div>
+        </div>
+
+
+        <!-- Approach -->
+        <div class="proj-section rv">
+          <span class="proj-section-label">My Approach</span>
+          <div class="proj-body"><p>I designed a <strong>structured deal creation wizard</strong> with 5 distinct steps, each surfacing only the relevant inputs at the right stage. Real-time validation prevented common errors, and an auto-generated deal summary was produced at the end for client sign-off.</p><p>A key design challenge was accommodating both simple and highly complex deals without overwhelming simpler use cases. I achieved this with <strong>adaptive form complexity</strong> — additional fields unlocked progressively as deal complexity increased.</p></div>
+        </div>
+
+
+        <!-- Outcomes -->
+        <div class="proj-section rv">
+          <span class="proj-section-label">Outcomes</span>
+          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">100%</span><span class="proj-outcome-label">Process digitalised</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">Deal creation 2hrs → 20mins</span><span class="proj-outcome-label">Time saved</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">Full</span><span class="proj-outcome-label">Audit trail</span></div></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="proj-tags rv"><span class="proj-tag">Product Design</span><span class="proj-tag">Finance</span><span class="proj-tag">Multi-step Flows</span><span class="proj-tag">Progressive Disclosure</span><span class="proj-tag">Interaction Design</span></div>
+
+      </div>
+    </div>
+
+    <!-- Next project -->
+    <div class="proj-next">
+      <div class="wrap">
+        <span class="proj-next-label rv">Next Project</span>
+        <a href="project-algo-center.html" class="proj-next-link rv" data-d="1">
+          Execute Algo Center
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div style="display:flex;align-items:center;gap:20px;">
+          <a href="index.html" class="nav-logo" style="color:var(--c-light);">
+            <svg width="24" height="22" viewBox="0 0 80 73" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener">Linkedin ↗</a>
+        </div>
+        <span class="footer-copy">©2026 Shannon Hecker &bull; Product Designer</span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function bootHero() { document.body.classList.add('loaded'); }
+    if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
+    else { setTimeout(bootHero, 400); }
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
+    const burgerBtn = document.getElementById('burger');
+    const drawerEl  = document.getElementById('drawer');
+    let isOpen = false;
+    burgerBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      burgerBtn.classList.toggle('o', isOpen);
+      drawerEl.classList.toggle('o', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen);
+      drawerEl.setAttribute('aria-hidden', !isOpen);
+    });
+    function closeDrawer() { isOpen=false; burgerBtn.classList.remove('o'); drawerEl.classList.remove('o'); }
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+    }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+    document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (!t) return; e.preventDefault();
+        window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior:'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
