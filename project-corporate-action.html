@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Corporate Action Manager — Shannon Hecker</title>
+  <title>Corporate Action Manager · Shannon Hecker</title>
   <meta name="description" content="Redesign of a legacy corporate actions trading tool, achieving a 40% improvement in task completion speed for operations and trading teams." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -146,6 +146,23 @@
       .proj-meta-row{gap:24px;}
       .proj-outcomes{flex-direction:column;}
     }
+    /* Difference-blend circle cursor */
+    #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
+    #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
+    /* Footer visual: pink/amber gradient + wave canvas */
+    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
+    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
+    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
+    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
+    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
+    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
+    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
+    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
+    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
+    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
+    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
+    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
+    .footer{border-top:none;}
   </style>
 </head>
 <body>
@@ -212,14 +229,14 @@
         <!-- Challenge -->
         <div class="proj-section rv">
           <span class="proj-section-label">The Challenge</span>
-          <div class="proj-body"><p>The existing corporate actions platform was a 15-year-old legacy system with no coherent visual language. Operations staff were processing hundreds of time-sensitive corporate events daily — but the tool made every action require multiple clicks, scrolls and manual data cross-checking.</p><p>Errors were costly. Missed or misprocessed corporate actions could result in financial penalties.</p></div>
+          <div class="proj-body"><p>The existing corporate actions platform was a 15-year-old legacy system with no coherent visual language. Operations staff were processing hundreds of time-sensitive corporate events daily, yet the tool required multiple clicks, scrolls and manual data cross-checks for every action.</p><p>Errors were costly. Missed or misprocessed corporate actions could result in direct financial penalties.</p></div>
         </div>
 
 
         <!-- Approach -->
         <div class="proj-section rv">
           <span class="proj-section-label">My Approach</span>
-          <div class="proj-body"><p>I shadowed operations staff for a full week to understand their real workflows — not the documented ones. This revealed that 60% of the time was spent on status checking and data reconciliation, not actual processing.</p><p>The redesign introduced a <strong>priority queue view</strong> at the top level, with contextual actions surfaced inline. A colour-coded urgency system and keyboard-first navigation reduced cognitive load significantly.</p></div>
+          <div class="proj-body"><p>I shadowed operations staff for a full week to understand their real workflows, not the documented ones. This revealed that 60% of the time was spent on status checking and data reconciliation, not actual processing.</p><p>The redesign introduced a <strong>priority queue view</strong> at the top level, with contextual actions surfaced inline. A colour-coded urgency system and keyboard-first navigation reduced cognitive load significantly.</p></div>
         </div>
 
 
@@ -249,6 +266,8 @@
     </div>
   </main>
 
+  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
+
   <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
@@ -262,6 +281,7 @@
       </div>
     </div>
   </footer>
+  <div id="img-cursor" aria-hidden="true"></div>
   <script>
     function bootHero() { document.body.classList.add('loaded'); }
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
@@ -290,6 +310,9 @@
         window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior:'smooth' });
       });
     });
+    /* Difference-blend circle cursor */
+    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
   </script>
 </body>
 </html>

@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Work — Shannon Hecker</title>
-  <meta name="description" content="All case studies by Shannon Hecker, Product Designer at J.P. Morgan." />
+  <title>Work · Shannon Hecker</title>
+  <meta name="description" content="All case studies by Shannon Hecker, Lead Product Designer at Barclays." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
       --c-ink:#0A0A0A; --c-mid:#595959; --c-light:#999999;
       --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
       --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
       --t-sm:clamp(13px,1.4vw,14px); --t-base:clamp(15px,1.6vw,17px);
       --t-md:clamp(17px,1.8vw,20px); --t-lg:clamp(22px,2.4vw,28px);
       --t-xl:clamp(30px,3.8vw,44px); --t-2xl:clamp(42px,5.5vw,60px);
@@ -73,7 +74,7 @@
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
-    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:500;letter-spacing:-.03em;line-height:1;}
+    .sh-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,34px);font-weight:500;letter-spacing:-.02em;line-height:1;}
     .sh-period{color:var(--c-ghost);}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
@@ -89,34 +90,22 @@
     /* Responsive */
     @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
 
-    /* ── Glossy cursor for card hover ── */
-    #card-cursor {
+    /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
+    #img-cursor {
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px; height: 80px;
+      width: 70px; height: 70px;
       border-radius: 50%;
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(12px) saturate(1.6);
-      -webkit-backdrop-filter: blur(12px) saturate(1.6);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow: 0 4px 20px rgba(0,0,0,.12),
-                  inset 0 1px 0 rgba(255,255,255,.6);
+      background: #ffffff;
+      mix-blend-mode: difference;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-      transition: opacity 0.22s ease, transform 0.28s ease;
+      transform: translate(-50%, -50%) scale(0.3);
+      transition: opacity 0.25s ease, transform 0.4s cubic-bezier(.22,1,.36,1);
       will-change: transform, opacity;
     }
-    #card-cursor.visible {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .pcard { cursor: none; }
+    #img-cursor.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   </style>
   <style>
     .bento{
@@ -152,41 +141,28 @@
     .work-page { padding-top: calc(var(--nav) + 100px); padding-bottom: 160px; }
     .work-hero { padding: 0 0 80px; }
     .work-hero-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
-    .work-hero-title { font-size:clamp(40px,6vw,80px);font-weight:800;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
+    .work-hero-title { font-family:var(--font-display);font-size:clamp(40px,6vw,80px);font-weight:700;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
     .work-hero-sub { font-size:clamp(15px,1.5vw,18px);font-weight:300;color:var(--c-mid);max-width:520px;line-height:1.75; }
 
-    /* ── Glossy cursor for card hover ── */
-    #card-cursor {
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(12px) saturate(1.6);
-      -webkit-backdrop-filter: blur(12px) saturate(1.6);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow: 0 4px 20px rgba(0,0,0,.12),
-                  inset 0 1px 0 rgba(255,255,255,.6);
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-      transition: opacity 0.22s ease, transform 0.28s ease;
-      will-change: transform, opacity;
-    }
-    #card-cursor.visible {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .pcard { cursor: none; }
+    .pcard { cursor: pointer; }
+    /* ── Footer visual: pink/amber gradient + wave canvas ── */
+    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
+    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
+    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
+    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
+    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
+    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
+    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
+    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
+    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
+    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
+    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
+    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
+    .footer{border-top:none;}
   </style>
 </head>
 <body>
-  <div id="card-cursor" aria-hidden="true"></div>
+  <div id="img-cursor" aria-hidden="true"></div>
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
@@ -223,7 +199,7 @@
       <div class="work-hero rv">
         <span class="work-hero-eyebrow">Portfolio</span>
         <h1 class="work-hero-title">All Work.</h1>
-        <p class="work-hero-sub">09 projects spanning B2B fintech, design systems, and enterprise UX — built at J.P. Morgan and beyond.</p>
+        <p class="work-hero-sub">09 projects spanning trading platforms, AI-enhanced workflows, and enterprise design systems across Barclays, J.P. Morgan, and beyond.</p>
       </div>
       <div class="bento">
         <div class="bc-6 rv" data-d="1">
@@ -316,7 +292,7 @@
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Corporate Action Manager</div>
-              <p class="pcard-desc">Redesigned legacy trading tool — 40% faster task completion.</p>
+              <p class="pcard-desc">Redesigned a legacy corporate actions tool, delivering 40% faster task completion for operations teams.</p>
               <div class="pcard-tags"><span class="chip chip-default">Enterprise UX</span><span class="chip chip-default">Accessibility</span></div>
             </div>
           </a>
@@ -392,7 +368,7 @@
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Execute Algo Center</div>
-              <p class="pcard-desc">Algorithmic trading execution centre — real-time monitoring for algo desks.</p>
+              <p class="pcard-desc">Unified algorithmic trading execution centre with real-time monitoring and intervention controls for algo desks.</p>
               <div class="pcard-tags"><span class="chip chip-default">Trading UX</span><span class="chip chip-default">Real-time Data</span></div>
             </div>
           </a>
@@ -400,6 +376,8 @@
       </div>
     </div>
   </main>
+
+  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
 
   <footer class="footer">
     <div class="wrap">
@@ -410,7 +388,7 @@
           </a>
           <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener">Linkedin ↗</a>
         </div>
-        <span class="footer-copy">©2026 Shannon Hecker &bull; Product Designer</span>
+        <span class="footer-copy">©2026 Shannon Hecker &bull; Lead Product Designer</span>
       </div>
     </div>
   </footer>
@@ -443,21 +421,19 @@
       });
     });
 
-    /* ── Glossy cursor on card hover ── */
-    (function cardCursor() {
-      const cursor = document.getElementById('card-cursor');
+    /* ── Difference-blend circle cursor ── */
+    (function imageCursor() {
+      const cursor = document.getElementById('img-cursor');
       if (!cursor) return;
       let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
-      const LERP = 0.14;
-      document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
-      document.querySelectorAll('.pcard').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          cursor.classList.add('visible');
+      const LERP = 0.12;
+      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      document.querySelectorAll('.pcard, .pcard-img').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('active');
           if (!rafId) rafId = requestAnimationFrame(tick);
         });
-        card.addEventListener('mouseleave', () => {
-          cursor.classList.remove('visible');
-        });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
       });
       function tick() {
         cx += (tx - cx) * LERP;
@@ -466,6 +442,7 @@
         rafId = requestAnimationFrame(tick);
       }
     })();
+    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
   </script>
 </body>
 </html>

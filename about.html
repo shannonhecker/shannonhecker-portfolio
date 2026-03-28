@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Shannon Hecker</title>
-  <meta name="description" content="London-based UI & UX Designer with 10+ years experience at J.P. Morgan crafting clean, accessible interfaces." />
+  <title>About · Shannon Hecker · Lead Product Designer</title>
+  <meta name="description" content="London-based Lead Product Designer with 10+ years experience at Barclays and J.P. Morgan, crafting clean, accessible interfaces for trading platforms and enterprise products." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
     /* ============================================================
        DESIGN TOKENS
@@ -24,8 +24,9 @@
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
 
-      /* Font — Inter, matching Shannon's site */
+      /* Fonts — Inter (UI) + Noto Serif Display (editorial headings) */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: 'Noto Serif Display', Georgia, 'Times New Roman', serif;
 
       /* Type scale — FusionFlow proportions */
       --t-micro: clamp(9px,  1vw,   10px);
@@ -429,9 +430,10 @@
 
     /* Hero name — title case, 700 weight, FusionFlow style */
     .hero-name {
+      font-family: var(--font-display);
       font-size: clamp(72px, 13vw, 160px);
-      font-weight: 600;
-      letter-spacing: -.04em;
+      font-weight: 700;
+      letter-spacing: -.03em;
       line-height: .88;
       text-transform: uppercase;
       color: #0a0a0a;
@@ -575,48 +577,25 @@
       border-color: rgba(0,0,0,.10);
     }
 
-    /* ── Custom cursor — "View" pill that follows mouse over cards ── */
-    #card-cursor {
+    /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
+    #img-cursor {
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px; height: 72px;
+      width: 70px; height: 70px;
       border-radius: 50%;
-      /* Frosted glass pill look */
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(12px) saturate(1.6);
-      -webkit-backdrop-filter: blur(12px) saturate(1.6);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow: 0 4px 20px rgba(0,0,0,.12),
-                  inset 0 1px 0 rgba(255,255,255,.6);
-      /* start hidden + small */
+      background: #ffffff;
+      mix-blend-mode: difference;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-      transition: opacity 0.22s var(--ease),
-                  transform 0.28s var(--ease),
-                  width 0.22s var(--ease),
-                  height 0.22s var(--ease);
-      /* smooth lag via JS rAF lerp */
+      transform: translate(-50%, -50%) scale(0.3);
+      transition: opacity 0.25s var(--ease),
+                  transform 0.4s var(--ease);
       will-change: transform, opacity;
     }
-
-    #card-cursor.visible {
+    #img-cursor.active {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
-    }
-
-    #card-cursor-label {
-      font-family: var(--font);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--c-ink);
-      user-select: none;
     }
 
     .pcard-img {
@@ -1027,9 +1006,10 @@
       border-bottom: 1px solid var(--c-rule);
     }
     .approach-headline {
+      font-family: var(--font-display);
       font-size: clamp(32px, 5vw, 64px);
       font-weight: 600;
-      letter-spacing: -.03em;
+      letter-spacing: -.02em;
       line-height: 1.1;
       color: var(--c-ink);
       margin-bottom: 48px;
@@ -1050,9 +1030,10 @@
 
     .exp-item {}
     .exp-company {
+      font-family: var(--font-display);
       font-size: clamp(24px, 3.5vw, 44px);
       font-weight: 500;
-      letter-spacing: -.03em;
+      letter-spacing: -.02em;
       color: var(--c-ink);
       margin-bottom: 4px;
       opacity: 0;
@@ -1173,6 +1154,20 @@
       .approach { padding: 60px 0 48px; }
       .experience, .expertise, .education { padding: 60px 0; }
     }
+    /* ── Footer visual: pink/amber gradient + wave canvas ── */
+    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
+    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
+    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
+    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
+    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
+    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
+    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
+    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
+    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
+    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
+    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
+    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
+    .footer{border-top:none;}
   </style>
 </head>
 <body>
@@ -1245,23 +1240,43 @@
       <div class="exp-list">
 
         <div class="exp-item rv">
-          <h3 class="exp-company">J.P. Morgan, London</h3>
-          <div class="exp-role">UI/UX Designer (Vice President)</div>
-          <div class="exp-dates">2016 – Present</div>
+          <h3 class="exp-company">Barclays, London</h3>
+          <div class="exp-role">Lead Product Designer</div>
+          <div class="exp-dates">2025 – Present</div>
           <ul class="exp-bullets">
-            <li>Designed and developed user-friendly, data-driven interfaces to support decision-making for financial products.</li>
-            <li>Collaborated with UX and product teams to ensure consistent interaction design across multiple platforms.</li>
-            <li>Delivered high-standard, pixel-perfect UI aligned with internal brand and compliance guidelines.</li>
-            <li>Built and maintained scalable Figma design systems used by 5+ cross-functional teams.</li>
-            <li>Worked closely with developers to ensure seamless handoff and implementation.</li>
-            <li>Drove ADA-compliant design standards to improve accessibility and usability.</li>
-            <li>Explored AI-driven design workflows to enhance efficiency and personalization.</li>
+            <li>Leading product design for FX and MarketsOne, Barclays' core trading and markets platform.</li>
+            <li>Designing an AI-first workflow leveraging Claude AI and LLMs to surface insights and reduce cognitive load for traders.</li>
+            <li>Building the MarketsOne Design System, establishing tokens, components, and governance across the platform.</li>
+            <li>Transforming the FX Price Viewer and trading tools with a refined, data-dense UI system.</li>
+            <li>Partnering with engineering and product to ensure rigorous design QA and seamless handoff.</li>
           </ul>
           <div class="exp-key-projects">
             <div class="exp-key-label">Key Projects</div>
             <ul class="exp-key-list">
-              <li>J.P. Morgan Design System — Scalable component library, reduced dev/design time.</li>
-              <li>Analytics Dashboard Redesign — Improved user task flow efficiency.</li>
+              <li>MarketsOne Design System: Cross-platform token and component library powering Barclays trading products.</li>
+              <li>FX AI Workflow: LLM-powered interface integrating Claude AI into trader decision-making workflows.</li>
+              <li>FX Price Viewer Redesign: High-density data UI with real-time streaming and WCAG 2.1 AA compliance.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item rv" data-d="0">
+          <h3 class="exp-company">J.P. Morgan, London</h3>
+          <div class="exp-role">VP Product Design</div>
+          <div class="exp-dates">2016 – 2023</div>
+          <ul class="exp-bullets">
+            <li>Designed and developed user-friendly, data-driven interfaces to support decision-making for financial products.</li>
+            <li>Collaborated with UX and product teams to ensure consistent interaction design across multiple platforms.</li>
+            <li>Delivered pixel-perfect UI aligned with internal brand and compliance guidelines.</li>
+            <li>Built and maintained scalable Figma design systems used by 5+ cross-functional teams.</li>
+            <li>Worked closely with developers to ensure seamless handoff and implementation.</li>
+            <li>Drove WCAG-compliant design standards to improve accessibility and usability.</li>
+          </ul>
+          <div class="exp-key-projects">
+            <div class="exp-key-label">Key Projects</div>
+            <ul class="exp-key-list">
+              <li>J.P. Morgan Design System: Scalable Figma component library that reduced design-to-dev time across 5+ product teams.</li>
+              <li>Analytics Dashboard Redesign: Restructured information architecture, improving task completion efficiency by 25%.</li>
             </ul>
           </div>
         </div>
@@ -1320,14 +1335,15 @@
     <div class="wrap">
       <span class="section-label rv">expertise.</span>
       <div class="expertise-grid rv" data-d="1">
-        <span class="expertise-tag">UI/UX Design for Trading &amp; Data Platforms</span>
-        <span class="expertise-tag">Stakeholder-Facing Product Design</span>
+        <span class="expertise-tag">AI Design &amp; LLM Workflows</span>
+        <span class="expertise-tag">Trading Platform UI/UX</span>
         <span class="expertise-tag">Real-Time Data &amp; Complex Interactions</span>
         <span class="expertise-tag">Figma (components, auto layout, tokens)</span>
-        <span class="expertise-tag">ADA/WCAG and EAA Accessibility Compliance</span>
+        <span class="expertise-tag">WCAG 2.1 AA Accessibility Compliance</span>
         <span class="expertise-tag">Design Systems &amp; Pattern Libraries</span>
         <span class="expertise-tag">Developer Handoff &amp; Design QA</span>
         <span class="expertise-tag">Agile Workflow &amp; DesignOps</span>
+        <span class="expertise-tag">Stakeholder Communication</span>
       </div>
     </div>
   </section>
@@ -1343,11 +1359,14 @@
         </div>
         <div class="edu-item rv" data-d="2">
           <div class="edu-school">Ling Tung University, Taiwan</div>
-          <div class="edu-degree">BA in Digital Media Arts &amp; Management, 2008–2010</div>
+          <div class="edu-degree">BA in Digital Media Arts &amp; Management, 2006–2010</div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ── FOOTER VISUAL ── -->
+  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
 
   <!-- ── FOOTER ── -->
   <footer class="footer">
@@ -1359,10 +1378,13 @@
           </a>
           <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener">Linkedin ↗</a>
         </div>
-        <span class="footer-copy">©2026 Shannon Hecker &bull; UI &amp; UX Designer</span>
+        <span class="footer-copy">©2026 Shannon Hecker &bull; Lead Product Designer</span>
       </div>
     </div>
   </footer>
+
+  <!-- Difference-blend circle cursor -->
+  <div id="img-cursor" aria-hidden="true"></div>
 
   <script>
     /* Boot */
@@ -1470,6 +1492,29 @@
       }
       requestAnimationFrame(draw);
     })();
+
+    /* ── Difference-blend circle cursor ── */
+    (function imageCursor() {
+      const cursor = document.getElementById('img-cursor');
+      if (!cursor) return;
+      let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
+      const LERP = 0.12;
+      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      document.querySelectorAll('.pcard, .pcard-img, .about-portrait-panel').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('active');
+          if (!rafId) rafId = requestAnimationFrame(tick);
+        });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+      });
+      function tick() {
+        cx += (tx - cx) * LERP;
+        cy += (ty - cy) * LERP;
+        cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+        rafId = requestAnimationFrame(tick);
+      }
+    })();
+    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
   </script>
 </body>
 </html>

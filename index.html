@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shannon Hecker — Product Designer</title>
-  <meta name="description" content="London-based UI & UX Designer crafting clean, accessible interfaces for complex products." />
+  <title>Shannon Hecker · Lead Product Designer</title>
+  <meta name="description" content="London-based Lead Product Designer specialising in trading platforms, AI-enhanced workflows, and enterprise design systems at Barclays and J.P. Morgan." />
 
   <!--
     FONT : Inter — clean geometric sans-serif matching shannonhecker.com
@@ -15,7 +15,7 @@
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
@@ -33,8 +33,9 @@
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
 
-      /* Font — Inter, matching Shannon's site */
+      /* Fonts — Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: 'Noto Serif Display', Georgia, 'Times New Roman', serif;
 
       /* Type scale — FusionFlow proportions */
       --t-micro: clamp(9px,  1vw,   10px);
@@ -257,9 +258,10 @@
     }
 
     .sh-text {
+      font-family: var(--font-display);
       font-size: clamp(22px, 2.8vw, 34px);
       font-weight: 500;
-      letter-spacing: -.03em;
+      letter-spacing: -.02em;
       line-height: 1;
     }
     .sh-period { color: var(--c-ghost); }
@@ -456,11 +458,12 @@
       box-shadow: 0 0 0 3px rgba(34,197,94,.16);
     }
 
-    /* Hero name — title case, 700 weight, FusionFlow style */
+    /* Hero name — editorial serif display heading */
     .hero-name {
+      font-family: var(--font-display);
       font-size: clamp(72px, 13vw, 160px);
-      font-weight: 800;
-      letter-spacing: -.05em;
+      font-weight: 700;
+      letter-spacing: -.03em;
       line-height: .85;
       text-transform: uppercase;
       color: #0a0a0a;
@@ -598,7 +601,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 1px 4px rgba(0,0,0,.03);
-      cursor: none;                                   /* hide default cursor — glass circle takes over */
+      cursor: pointer;
       transition: box-shadow var(--ts) var(--ease),
                   transform   var(--ts) var(--ease),
                   border-color var(--ts) var(--ease);
@@ -609,48 +612,25 @@
       border-color: rgba(0,0,0,.10);
     }
 
-    /* ── Custom cursor — "View" pill that follows mouse over cards ── */
-    #card-cursor {
+    /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
+    #img-cursor {
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px; height: 72px;
+      width: 70px; height: 70px;
       border-radius: 50%;
-      /* Frosted glass pill look */
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(12px) saturate(1.6);
-      -webkit-backdrop-filter: blur(12px) saturate(1.6);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow: 0 4px 20px rgba(0,0,0,.12),
-                  inset 0 1px 0 rgba(255,255,255,.6);
-      /* start hidden + small */
+      background: #ffffff;
+      mix-blend-mode: difference;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-      transition: opacity 0.22s var(--ease),
-                  transform 0.28s var(--ease),
-                  width 0.22s var(--ease),
-                  height 0.22s var(--ease);
-      /* smooth lag via JS rAF lerp */
+      transform: translate(-50%, -50%) scale(0.3);
+      transition: opacity 0.25s var(--ease),
+                  transform 0.4s var(--ease);
       will-change: transform, opacity;
     }
-
-    #card-cursor.visible {
+    #img-cursor.active {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
-    }
-
-    #card-cursor-label {
-      font-family: var(--font);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--c-ink);
-      user-select: none;
     }
 
     .pcard-img {
@@ -762,11 +742,12 @@
       margin-bottom: 28px;
     }
 
-    /* Bio intro — FusionFlow: 500 weight, generous size */
+    /* Bio intro — editorial serif display */
     .about-intro {
+      font-family: var(--font-display);
       font-size: clamp(26px, 3.5vw, 40px);
       font-weight: 500;
-      letter-spacing: -.04em;
+      letter-spacing: -.02em;
       line-height: 1.15;
       margin-bottom: 28px;
       color: var(--c-ink);
@@ -855,9 +836,10 @@
     }
 
     .contact-heading {
+      font-family: var(--font-display);
       font-size: clamp(40px, 6vw, 76px);
       font-weight: 600;
-      letter-spacing: -.05em;
+      letter-spacing: -.03em;
       line-height: .95;
       margin-bottom: 24px;
     }
@@ -1256,12 +1238,108 @@
       transition: color 0.2s var(--ease);
     }
     .sh-row span[style]:hover { color: var(--c-light) !important; }
+
+    /* ============================================================
+       FOOTER VISUAL — pink / amber gradient + guilloché wave canvas
+       Mirrors the hero aesthetic from shannonhecker.com
+       ============================================================ */
+    .footer-visual {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+      background: #fff;
+      pointer-events: none;
+    }
+    /* Top blend: dissolve from the page above */
+    .footer-visual::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, #fff 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 4;
+    }
+    /* Bottom blend: dissolve into footer bar */
+    .footer-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent 0%, #fff 100%);
+      pointer-events: none;
+      z-index: 4;
+    }
+    .fv-blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .fv-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(88px);
+    }
+    /* Rose / pink — left-centre */
+    .fv-orb-1 {
+      width: 70vw; height: 140%;
+      top: -20%; left: -8%;
+      background: radial-gradient(ellipse,
+        rgba(255,145,185,0.90) 0%,
+        rgba(255,145,185,0.52) 45%,
+        transparent 72%
+      );
+      animation: fvDrift1 16s ease-in-out infinite;
+    }
+    /* Warm amber / gold — right */
+    .fv-orb-2 {
+      width: 62vw; height: 140%;
+      top: -25%; right: -6%;
+      background: radial-gradient(ellipse,
+        rgba(255,198,95,0.86) 0%,
+        rgba(255,198,95,0.48) 45%,
+        transparent 72%
+      );
+      animation: fvDrift2 19s ease-in-out infinite;
+    }
+    /* Peach blend — centre overlap */
+    .fv-orb-3 {
+      width: 52vw; height: 120%;
+      top: 5%; left: 22%;
+      background: radial-gradient(ellipse,
+        rgba(255,175,135,0.60) 0%,
+        rgba(255,175,135,0.28) 45%,
+        transparent 72%
+      );
+      animation: fvDrift3 23s ease-in-out infinite;
+    }
+    @keyframes fvDrift1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%     { transform: translate(28px,-22px) scale(1.04); }
+    }
+    @keyframes fvDrift2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%     { transform: translate(-22px,32px) scale(0.96); }
+    }
+    @keyframes fvDrift3 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%     { transform: translate(-18px,-26px) scale(1.07); }
+    }
+    #footer-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      display: block;
+    }
+    /* Remove top border from footer bar — gradient provides visual break */
+    .footer { border-top: none; }
   </style>
 </head>
 <body>
 
-  <!-- Custom glass cursor — shown when hovering over project cards -->
-  <div id="card-cursor" aria-hidden="true"></div>
+  <!-- Difference-blend circle cursor -->
+  <div id="img-cursor" aria-hidden="true"></div>
 
   <!-- ============================================================
        NAV — Shannon's style: clean horizontal links
@@ -1330,11 +1408,11 @@
 
       <!-- Role / status line -->
       <div class="hero-role-line">
-<span class="hero-role-text">Product Designer</span>
+<span class="hero-role-text">Lead Product Designer</span>
         <span class="hero-role-sep"></span>
         <span class="hero-role-text">London</span>
         <span class="hero-role-sep"></span>
-        <span class="hero-role-text">J.P. Morgan</span>
+        <span class="hero-role-text">Barclays</span>
       </div>
 
       <!-- Shannon Hecker name -->
@@ -1353,11 +1431,11 @@
       <div class="hero-sub">
         <div class="hero-sub-content">
           <p class="hero-tagline">
-            Designing <strong>crisp, intuitive interfaces</strong><br/>for complex products.
+            Designing <strong>clarity into complexity</strong><br/>for high-stakes financial products.
           </p>
           <p class="hero-descriptor">
-            I specialise in designing clean, cohesive UIs
-            that bring clarity to complexity, with accessibility built in.
+            Lead Product Designer at Barclays, specialising in trading platforms,
+            AI-enhanced workflows, and enterprise design systems.
           </p>
 
           <!-- Stats row -->
@@ -1407,7 +1485,7 @@
         <span class="sh-eyebrow">Portfolio</span>
         <div class="sh-row">
           <span class="sh-text">featured work<span class="sh-period">.</span></span>
-          <span style="font-size:12px;font-weight:300;color:var(--c-ghost);letter-spacing:.04em;align-self:center;">09 projects · 2016–2025</span>
+          <span style="font-size:12px;font-weight:300;color:var(--c-ghost);letter-spacing:.04em;align-self:center;">09 projects · 2016–2026</span>
           <a href="work.html" class="sh-link">
             All Work
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -1489,7 +1567,7 @@
             <div class="pcard-body">
               <div class="pcard-meta"><span class="pcard-num">04 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Corporate Action Manager</div>
-              <p class="pcard-desc">Redesigned legacy trading tool — 40% faster task completion.</p>
+              <p class="pcard-desc">Redesigned a legacy corporate actions tool, delivering 40% faster task completion for operations teams.</p>
               <div class="pcard-tags"><span class="ptag">Enterprise UX</span><span class="ptag">Accessibility</span></div>
             </div>
           </div>
@@ -1524,7 +1602,7 @@
             <div class="pcard-body">
               <div class="pcard-meta"><span class="pcard-num">06 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Global Custody Deal Model</div>
-              <p class="pcard-desc">Bespoke deal modelling tool for custodian teams — multi-step flows with progressive disclosure and clear visual hierarchy.</p>
+              <p class="pcard-desc">Bespoke deal modelling tool for custodian teams, featuring multi-step flows with progressive disclosure and clear visual hierarchy.</p>
               <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Finance</span><span class="ptag">Interaction Design</span></div>
             </div>
           </div>
@@ -1549,11 +1627,11 @@
 
       <div class="about-bento">
         <div class="about-panel rv">
-          <div class="about-eyebrow">London-based Designer</div>
+          <div class="about-eyebrow">London-based Lead Product Designer</div>
           <p class="about-intro">10+ years turning<br/>complexity into clarity.</p>
-          <p class="about-body">I'm a <strong>London-based visual, UI, and UX designer</strong> with <strong>10+ years</strong> of experience creating beautiful, <strong>intuitive experiences</strong> that make digital interactions effortless and enjoyable.</p>
-          <p class="about-body">Whether it's interaction design, <strong>data-heavy dashboards</strong>, or scalable <strong>design systems</strong>, I focus on clarity, usability, and <strong>accessibility (ADA/WCAG)</strong>.</p>
-          <p class="about-body">I'm endlessly curious about how <strong>AI</strong> can enhance design. Exploring new tools and blending creativity with innovation keeps me inspired.</p>
+          <p class="about-body">I'm a <strong>London-based Lead Product Designer</strong> at <strong>Barclays</strong>, with over a decade of experience shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise-grade <strong>design systems</strong> across global fintech.</p>
+          <p class="about-body">Previously at <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-heavy dashboards</strong> and complex financial tools, keeping usability, <strong>WCAG accessibility</strong>, and scalability at the core of every decision.</p>
+          <p class="about-body">Today I'm focused on integrating <strong>AI and LLM tooling</strong> into design workflows, building smarter, faster, and more intuitive interfaces for high-stakes environments.</p>
           <div class="about-links">
             <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a href="/cdn-cgi/l/email-protection#f2819a939c9c9d9c9a9791999780919a979cb2959f939b9edc919d9f" class="about-link">Email ↗</a>
@@ -1568,12 +1646,17 @@
           <div class="about-skills-panel rv" data-d="2">
             <div class="skills-label">Tools & Methods</div>
             <div class="skills-list">
-              <span class="skill">Figma</span><span class="skill">Framer</span>
-              <span class="skill">Protopie</span><span class="skill">Spline</span>
-              <span class="skill">Lottie</span><span class="skill">Zeroheight</span>
-              <span class="skill">Maze</span><span class="skill">Hotjar</span>
-              <span class="skill">WCAG 2.2</span><span class="skill">Design Tokens</span>
-              <span class="skill">Atomic Design</span><span class="skill">User Testing</span>
+              <span class="skill">AI Design & LLM Workflows</span>
+              <span class="skill">Trading Platform UI/UX</span>
+              <span class="skill">Design Systems</span>
+              <span class="skill">Figma</span>
+              <span class="skill">WCAG 2.1 AA</span>
+              <span class="skill">Design QA & Dev Handoff</span>
+              <span class="skill">Stakeholder Communication</span>
+              <span class="skill">Agile & DesignOps</span>
+              <span class="skill">Framer</span>
+              <span class="skill">Protopie</span>
+              <span class="skill">Spline</span>
             </div>
           </div>
         </div>
@@ -1629,13 +1712,25 @@
   </section>
 
   <!-- ============================================================
+       FOOTER VISUAL — pink/amber gradient + guilloché wave canvas
+       ============================================================ -->
+  <div class="footer-visual" aria-hidden="true">
+    <div class="fv-blobs">
+      <div class="fv-orb fv-orb-1"></div>
+      <div class="fv-orb fv-orb-2"></div>
+      <div class="fv-orb fv-orb-3"></div>
+    </div>
+    <canvas id="footer-canvas"></canvas>
+  </div>
+
+  <!-- ============================================================
        FOOTER — Shannon's style: © · role · LinkedIn
        ============================================================ -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
         <span class="footer-copy">©2026 Shannon Hecker</span>
-        <span class="footer-role">UI & UX Designer</span>
+        <span class="footer-role">Lead Product Designer</span>
         <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener">
           Linkedin
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -1833,44 +1928,27 @@
       requestAnimationFrame(draw);
     })();
 
-    /* ── 8.   /* ── 8. Custom glass cursor for project cards ─────────────
-       A frosted-glass pill follows the mouse when hovering any
-       .pcard. Uses rAF lerp for a smooth lagging feel.
+    /* ── 8. Difference-blend circle cursor (matches shannonhecker.com) ────
+       White 70px circle with mix-blend-mode:difference follows the mouse
+       over any image area — inverts colors for a striking Framer-style feel.
        ────────────────────────────────────────────────────────── */
-    (function cardCursor() {
-      const cursor = document.getElementById('card-cursor');
+    (function imageCursor() {
+      const cursor = document.getElementById('img-cursor');
       if (!cursor) return;
+      let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
+      const LERP = 0.12;
 
-      /* Target position (raw mouse) and current rendered position */
-      let tx = 0, ty = 0;
-      let cx = 0, cy = 0;
-      let visible = false;
-      let rafId = null;
+      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
 
-      /* Lerp factor — lower = more lag, higher = snappier */
-      const LERP = 0.14;
-
-      /* Track mouse everywhere */
-      document.addEventListener('mousemove', (e) => {
-        tx = e.clientX;
-        ty = e.clientY;
-      });
-
-      /* Show cursor when entering any card */
-      document.querySelectorAll('.pcard').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          visible = true;
-          cursor.classList.add('visible');
+      /* Activate on all image-bearing elements */
+      document.querySelectorAll('.pcard, .pcard-img').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('active');
           if (!rafId) rafId = requestAnimationFrame(tick);
         });
-
-        card.addEventListener('mouseleave', () => {
-          visible = false;
-          cursor.classList.remove('visible');
-        });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
       });
 
-      /* Animation loop — lerp position for smooth lag */
       function tick() {
         cx += (tx - cx) * LERP;
         cy += (ty - cy) * LERP;
@@ -1973,6 +2051,96 @@
           if (waveBg)     waveBg.style.transform     = '';
         }
       }
+    })();
+
+    /* ── Footer wave canvas ──────────────────────────────────────
+       Same guilloché technique as the hero wave, adapted for the
+       pink/amber gradient — white semi-transparent lines over colour.
+       ────────────────────────────────────────────────────────── */
+    (function footerWave() {
+      const canvas = document.getElementById('footer-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const N          = 85;
+      const SPEED      = 0.00026;
+      const PHASE_STEP = 0.19;
+      const LW         = 0.72;
+      const BAND_T     = 0.05;
+      const BAND_B     = 0.95;
+      const AMPL       = 0.040;
+
+      let lines = [];
+
+      function build(W, H) {
+        lines = [];
+        const bH = H * (BAND_B - BAND_T);
+        const sp = bH / (N - 1);
+        const am = bH * AMPL;
+        for (let i = 0; i < N; i++) {
+          const t    = i / (N - 1);
+          const bell = 0.35 + 0.65 * Math.sin(t * Math.PI);
+          lines.push({ y0: H * BAND_T + i * sp, amp: am * bell, ph: i * PHASE_STEP });
+        }
+      }
+
+      function resize() {
+        const r = canvas.getBoundingClientRect();
+        const d = window.devicePixelRatio || 1;
+        canvas.width  = Math.round(r.width  * d);
+        canvas.height = Math.round(r.height * d);
+        ctx.setTransform(d, 0, 0, d, 0, 0);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.lineCap  = 'round';
+        ctx.lineJoin = 'round';
+        build(r.width, r.height);
+      }
+
+      new ResizeObserver(resize).observe(canvas);
+      resize();
+
+      const STEPS = 480;
+      let t0 = null;
+
+      function draw(ts) {
+        if (!t0) t0 = ts;
+        const el = ts - t0;
+        const d  = window.devicePixelRatio || 1;
+        const W  = canvas.width  / d;
+        const H  = canvas.height / d;
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = 'rgba(255,255,255,0.52)';
+        ctx.lineWidth   = LW;
+        lines.forEach(ln => {
+          const phi = el * SPEED + ln.ph;
+          ctx.beginPath();
+          for (let s = 0; s <= STEPS; s++) {
+            const nx = s / STEPS;
+            const px = nx * W;
+            const py = ln.y0
+                     + ln.amp        * Math.sin(phi       + nx * Math.PI * 4.0)
+                     + ln.amp * 0.28 * Math.sin(phi * 1.5 + nx * Math.PI * 8.0 + 1.4)
+                     + ln.amp * 0.10 * Math.sin(phi * 2.1 + nx * Math.PI * 12.0 + 2.8);
+            s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+        });
+        /* Edge fades — dissolve into white at top and bottom */
+        const fT = ctx.createLinearGradient(0, 0, 0, H * 0.18);
+        fT.addColorStop(0, 'rgba(255,255,255,1)');
+        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = fT;
+        ctx.fillRect(0, 0, W, H * 0.18);
+        const fB = ctx.createLinearGradient(0, H * 0.80, 0, H);
+        fB.addColorStop(0, 'rgba(255,255,255,0)');
+        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        ctx.fillStyle = fB;
+        ctx.fillRect(0, H * 0.80, W, H * 0.20);
+        requestAnimationFrame(draw);
+      }
+
+      requestAnimationFrame(draw);
     })();
   </script>
 </body>
