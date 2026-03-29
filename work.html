@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work · Shannon Hecker</title>
-  <meta name="description" content="All case studies by Shannon Hecker, Lead Product Designer at Barclays." />
+  <meta name="description" content="Case studies by Shannon Hecker, Lead Product Designer: enterprise fintech, design systems, analytics, and trading workflows." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
-      --c-ink:#0A0A0A; --c-mid:#595959; --c-light:#999999;
+      --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#999999;
       --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
       --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
@@ -74,7 +74,7 @@
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
-    .sh-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,34px);font-weight:500;letter-spacing:-.02em;line-height:1;}
+    .sh-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.02em;line-height:1;}
     .sh-period{color:var(--c-ghost);}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
@@ -88,7 +88,12 @@
     .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
     .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
     /* Responsive */
-    @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
+    @media(max-width:900px){
+      .nav-links,.nav-cta{display:none;}
+      .nav-burger{display:flex;}
+      .footer-visual{margin-top:-200px;}
+      .work-page{padding-bottom:28px;}
+    }
 
     /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
     #img-cursor {
@@ -110,11 +115,11 @@
   <style>
     .bento{
       display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
-      gap:24px;
+      grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+      gap:20px;
     }
     .bc-6,.bc-4,.bc-8,.bc-12{grid-column:span 1;}
-    .pcard{display:block;text-decoration:none;background:var(--c-surface);border-radius:12px;overflow:hidden;
+    .pcard{display:block;text-decoration:none;background:var(--c-surface);border-radius:8px;overflow:hidden;
       border:1px solid rgba(0,0,0,.06);position:relative;
       box-shadow:0 1px 4px rgba(0,0,0,.03);cursor:pointer;
       transition:box-shadow var(--ts) var(--ease),transform var(--ts) var(--ease);}
@@ -130,6 +135,7 @@
     .ph-4{background:linear-gradient(145deg,#081214,#0e2e2e 55%,#1a5858);color:rgba(255,255,255,.22);}
     .ph-5{background:linear-gradient(145deg,#101010,#1e1e1e 55%,#303030);color:rgba(255,255,255,.22);}
     .ph-6{background:linear-gradient(145deg,#161008,#361e0e 55%,#643418);color:rgba(255,255,255,.22);}
+    .ph-7{background:linear-gradient(145deg,#0a1628,#0e2a4a 55%,#1a4a7a);color:rgba(255,255,255,.22);}
     .pcard-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:6px;}
     .pcard-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;}
     .pcard-num{font-size:11px;font-weight:500;color:var(--c-light);letter-spacing:.04em;}
@@ -138,28 +144,35 @@
     .pcard-desc{font-size:13px;font-weight:300;color:var(--c-mid);line-height:1.55;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     .pcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
     @media(max-width:400px){ .bento{grid-template-columns:1fr;} }
-    .work-page { padding-top: calc(var(--nav) + 100px); padding-bottom: 160px; }
+    .work-page {
+      padding-top: calc(var(--nav) + 100px);
+      padding-bottom: 40px;
+      position: relative;
+      z-index: 2;
+    }
     .work-hero { padding: 0 0 80px; }
     .work-hero-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
-    .work-hero-title { font-family:var(--font-display);font-size:clamp(40px,6vw,80px);font-weight:700;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
+    .work-hero-title { font-family:var(--font-display);font-size:clamp(40px,6vw,80px);font-weight:600;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
     .work-hero-sub { font-size:clamp(15px,1.5vw,18px);font-weight:300;color:var(--c-mid);max-width:520px;line-height:1.75; }
 
     .pcard { cursor: pointer; }
     /* ── Footer visual: pink/amber gradient + wave canvas ── */
-    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
+    @property --fv-aurora{syntax:'<number>';inherits:true;initial-value:0;}.footer-visual{position:relative;z-index:1;height:480px;margin-top:-280px;overflow:hidden;background:#fff;pointer-events:none;animation:footerAuroraColor 26s ease-in-out infinite alternate;}
     .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
     .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
     .fv-blobs{position:absolute;inset:0;pointer-events:none;}
     .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
-    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
-    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
-    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
+    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,145,185,.90) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.78)) 0%,color-mix(in srgb,rgba(255,145,185,.52) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.42)) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
+    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,198,95,.86) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.72)) 0%,color-mix(in srgb,rgba(255,198,95,.48) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.38)) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
+    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,175,135,.60) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,205,110,.52)) 0%,color-mix(in srgb,rgba(255,175,135,.28) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,195,85,.24)) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
     @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
     @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
     @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
+    @keyframes footerAuroraColor{0%{--fv-aurora:0;}100%{--fv-aurora:1;}}
     #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
-    .footer{border-top:none;}
+    .footer{border-top:none;position:relative;z-index:3;background:#fff;}
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 <body>
   <div id="img-cursor" aria-hidden="true"></div>
@@ -199,10 +212,48 @@
       <div class="work-hero rv">
         <span class="work-hero-eyebrow">Portfolio</span>
         <h1 class="work-hero-title">All Work.</h1>
-        <p class="work-hero-sub">09 projects spanning trading platforms, AI-enhanced workflows, and enterprise design systems across Barclays, J.P. Morgan, and beyond.</p>
+        <p class="work-hero-sub">Eleven projects across trading and markets UX, data visualisation, design systems, and AI-supported workflows. Work from Barclays, J.P. Morgan, and select product design challenges.</p>
       </div>
       <div class="bento">
         <div class="bc-6 rv" data-d="1">
+          <a href="project-barclays-data-viz.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard data visualisation" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
+              <div class="pcard-overlay"><span class="pcard-overlay-title">Barclays Data Visualisation</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta">
+                <span class="pcard-num">01 / 11</span>
+                <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="pcard-title">Barclays Data Visualisation</div>
+              <p class="pcard-desc">Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts in a Barclays-aligned shell.</p>
+              <div class="pcard-tags"><span class="chip chip-default">Data Viz</span><span class="chip chip-default">Barclays</span><span class="chip chip-default">Enterprise UX</span></div>
+            </div>
+          </a>
+        </div>
+        <div class="bc-6 rv" data-d="2">
+          <a href="project-tripup.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/tripup-hifi.png" alt="TripUp mobile app high-fidelity screens" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-4" style="display:none;">TripUp</div>
+              <div class="pcard-overlay"><span class="pcard-overlay-title">TripUp</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta">
+                <span class="pcard-num">02 / 11</span>
+                <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="pcard-title">TripUp</div>
+              <p class="pcard-desc">Product design challenge for Bending Spoons: group travel, polls, and shared expenses in one mobile flow.</p>
+              <div class="pcard-tags"><span class="chip chip-default">Mobile UX</span><span class="chip chip-default">Case study</span><span class="chip chip-default">Figma</span></div>
+            </div>
+          </a>
+        </div>
+        <div class="bc-6 rv" data-d="3">
           <a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/oNwGkqwGjCeIuRVQSSHSB2G0k8.png?scale-down-to=2048" alt="Fusion Analytics Dashboard" loading="lazy"
@@ -212,16 +263,16 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">01 / 09</span>
+                <span class="pcard-num">03 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Fusion Analytics Dashboard</div>
-              <p class="pcard-desc">Complex B2B analytics platform surfacing real-time financial data with clarity.</p>
+              <p class="pcard-desc">B2B analytics platform: real-time financial data, WCAG 2.2 AA, and a modular dashboard system.</p>
               <div class="pcard-tags"><span class="chip chip-default">Product Design</span><span class="chip chip-default">Data Viz</span><span class="chip chip-default">Fintech</span></div>
             </div>
           </a>
         </div>
-        <div class="bc-6 rv" data-d="2">
+        <div class="bc-6 rv" data-d="4">
           <a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/PhhDnFzX6z5QSN5NDLfw6R1RpU.png?lossless=1" alt="Fusion Design System" loading="lazy"
@@ -231,11 +282,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">02 / 09</span>
+                <span class="pcard-num">04 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Fusion Design System</div>
-              <p class="pcard-desc">Scalable token-based system, 200+ components across enterprise finance products.</p>
+              <p class="pcard-desc">Token-based design system: 200+ components for enterprise finance products, specified in Figma.</p>
               <div class="pcard-tags"><span class="chip chip-default">Design System</span><span class="chip chip-default">Tokens</span><span class="chip chip-default">Figma</span></div>
             </div>
           </a>
@@ -250,11 +301,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">03 / 09</span>
+                <span class="pcard-num">05 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Fusion Data Solution</div>
-              <p class="pcard-desc">End-to-end UX translating complex technical workflows into guided journeys.</p>
+              <p class="pcard-desc">End-to-end UX: complex technical workflows turned into guided, shippable journeys.</p>
               <div class="pcard-tags"><span class="chip chip-default">UX Research</span><span class="chip chip-default">B2B SaaS</span></div>
             </div>
           </a>
@@ -269,11 +320,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">04 / 09</span>
+                <span class="pcard-num">06 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">UI Toolkit</div>
-              <p class="pcard-desc">Comprehensive reusable UI component library accelerating product teams.</p>
+              <p class="pcard-desc">Reusable UI component library: patterns and specs that speed delivery across product squads.</p>
               <div class="pcard-tags"><span class="chip chip-default">UI Design</span><span class="chip chip-default">Components</span><span class="chip chip-default">Figma</span></div>
             </div>
           </a>
@@ -288,7 +339,7 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">05 / 09</span>
+                <span class="pcard-num">07 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Corporate Action Manager</div>
@@ -307,11 +358,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">06 / 09</span>
+                <span class="pcard-num">08 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Complex Assets Derivatives Valuation</div>
-              <p class="pcard-desc">Intuitive valuation interface for complex derivatives for trading desks.</p>
+              <p class="pcard-desc">Derivatives valuation for trading desks: dense inputs and outputs made scannable and actionable.</p>
               <div class="pcard-tags"><span class="chip chip-default">Finance UX</span><span class="chip chip-default">Data Viz</span></div>
             </div>
           </a>
@@ -326,11 +377,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">07 / 09</span>
+                <span class="pcard-num">09 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">JPMM Research Platform</div>
-              <p class="pcard-desc">Financial research discovery for analysts. Content-heavy, IA-first design.</p>
+              <p class="pcard-desc">Research discovery for analysts: IA-first navigation through content-heavy institutional research.</p>
               <div class="pcard-tags"><span class="chip chip-default">Research</span><span class="chip chip-default">JPMorgan</span></div>
             </div>
           </a>
@@ -345,11 +396,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">08 / 09</span>
+                <span class="pcard-num">10 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Global Custody Deal Model</div>
-              <p class="pcard-desc">Bespoke deal modelling tool for custodian teams with progressive disclosure.</p>
+              <p class="pcard-desc">Bespoke deal modelling for custodian teams: multi-step flows, progressive disclosure, clear visual hierarchy.</p>
               <div class="pcard-tags"><span class="chip chip-default">Product Design</span><span class="chip chip-default">Finance</span></div>
             </div>
           </a>
@@ -364,11 +415,11 @@
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">09 / 09</span>
+                <span class="pcard-num">11 / 11</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Execute Algo Center</div>
-              <p class="pcard-desc">Unified algorithmic trading execution centre with real-time monitoring and intervention controls for algo desks.</p>
+              <p class="pcard-desc">Algo execution centre: live order monitoring, intervention controls, and desk-ready information density.</p>
               <div class="pcard-tags"><span class="chip chip-default">Trading UX</span><span class="chip chip-default">Real-time Data</span></div>
             </div>
           </a>

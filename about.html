@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About · Shannon Hecker · Lead Product Designer</title>
-  <meta name="description" content="London-based Lead Product Designer with 10+ years experience at Barclays and J.P. Morgan, crafting clean, accessible interfaces for trading platforms and enterprise products." />
+  <title>About me · Shannon Hecker · Lead Product Designer</title>
+  <meta name="description" content="Lead Product Designer in London. 10+ years in fintech: trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
        DESIGN TOKENS
        ============================================================ */
     :root {
-      /* Colours — pure white, like Shannon's site */
+      /* Colours - pure white, like Shannon's site */
       --c-bg:       #FFFFFF;
       --c-surface:  #FFFFFF;
       --c-panel:    #F5F5F5;
@@ -24,11 +24,11 @@
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
 
-      /* Fonts — Inter (UI) + Noto Serif Display (editorial headings) */
+      /* Fonts - Inter (UI) + Noto Serif Display (editorial headings) */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-display: 'Noto Serif Display', Georgia, 'Times New Roman', serif;
 
-      /* Type scale — FusionFlow proportions */
+      /* Type scale - FusionFlow proportions */
       --t-micro: clamp(9px,  1vw,   10px);
       --t-tiny:  clamp(11px, 1.2vw, 12px);
       --t-sm:    clamp(13px, 1.4vw, 14px);
@@ -37,7 +37,7 @@
       --t-lg:    clamp(22px, 2.4vw, 28px);
       --t-xl:    clamp(30px, 3.8vw, 44px);
       --t-2xl:   clamp(42px, 5.5vw, 60px);
-      --t-hero:  clamp(56px, 9vw,  112px);   /* slightly reined in — not all-caps so reads larger */
+      --t-hero:  clamp(56px, 9vw,  112px);   /* slightly reined in - not all-caps so reads larger */
 
       /* cofolios corner radius system */
       --r-pill:  999px;
@@ -57,7 +57,7 @@
       --sh-md: 0 6px 24px rgba(0,0,0,.08);
       --sh-lg: 0 12px 48px rgba(0,0,0,.10);
 
-      /* Layout — FusionFlow uses very generous horizontal padding */
+      /* Layout - FusionFlow uses very generous horizontal padding */
       --mw:  1340px;
       --pad: clamp(28px, 6vw, 88px);   /* wider side margins */
       --nav: 72px;
@@ -72,8 +72,8 @@
       font-family: var(--font);
       background: var(--c-bg);
       color: var(--c-ink);
-      line-height: 1.75;         /* more open — FusionFlow uses generous leading */
-      font-weight: 300;          /* light as base weight — FusionFlow feel */
+      line-height: 1.75;         /* more open - FusionFlow uses generous leading */
+      font-weight: 300;          /* light as base weight - FusionFlow feel */
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -106,7 +106,7 @@
     .wrap { max-width:var(--mw); margin:0 auto; padding:0 var(--pad); }
 
     /* ============================================================
-       NAVIGATION — matches Shannon's site: simple horizontal links
+       NAVIGATION - matches Shannon's site: simple horizontal links
        ============================================================ */
     .nav {
       position: fixed;
@@ -123,7 +123,7 @@
 
     /* Frosted glass on scroll */
     .nav.s {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.92);
       border-color: var(--c-rule);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -139,49 +139,62 @@
       justify-content: space-between;
     }
 
-    /* Logo mark — SVG monogram */
+    /* Logo mark - SVG monogram */
     .nav-logo {
       display: flex;
       align-items: center;
       color: var(--c-ink);
-      transition: opacity var(--tb) var(--ease);
+      transition: opacity var(--tb) var(--ease), transform 0.4s var(--ease);
     }
-    .nav-logo:hover { opacity: .6; }
+    .nav-logo:hover { opacity: .6; transform: rotate(45deg); }
 
-    /* Links — FusionFlow: 400 weight, more spaced */
     .nav-links {
       list-style: none;
       display: flex;
       align-items: center;
-      gap: 44px;
+      gap: 4px;
     }
 
     .nav-links a {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--c-mid);
-      letter-spacing: -.01em;
-      transition: color var(--tb) var(--ease);
+      font-size: 13px;
+      font-weight: 400;
+      color: #595959;
+      letter-spacing: .01em;
+      border-radius: var(--r-pill);
+      padding: 8px 16px;
+      transition: background var(--tb) var(--ease), color var(--tb) var(--ease);
     }
-    .nav-links a:hover { color: var(--c-ink); }
+    .nav-links a:hover { background: #111; color: #fff; }
+    .nav-links a[aria-current="page"] {
+      color: var(--c-ink);
+      font-weight: 500;
+    }
+    .nav-links a[aria-current="page"]:hover {
+      background: #111;
+      color: #fff;
+    }
 
-    /* CTA — FusionFlow: more padding, cleaner pill */
+    .nav.s .nav-links a { color: #595959; }
+    .nav.s .nav-links a[aria-current="page"] { color: var(--c-ink); }
+
     .nav-cta {
       font-size: 13px;
-      font-weight: 600;
-      color: var(--c-ink);
-      border: 1.5px solid var(--c-rule-dk);
+      font-weight: 400;
+      color: #595959;
+      border: 1px solid #c0c0c0;
       border-radius: var(--r-pill);
-      padding: 9px 22px;
+      padding: 8px 20px;
       transition: background var(--tb) var(--ease),
                   border-color var(--tb) var(--ease),
                   color var(--tb) var(--ease);
     }
     .nav-cta:hover {
-      background: var(--c-ink);
-      border-color: var(--c-ink);
+      background: #111;
+      border-color: #111;
       color: #fff;
     }
+    .nav.s .nav-cta { color: #595959; }
+    .nav.s .nav-cta:hover { background: #111; border-color: #111; color: #fff; }
 
     /* Mobile burger */
     .nav-burger {
@@ -217,7 +230,7 @@
     .nav-drawer a:hover { opacity:.5; }
 
     /* ============================================================
-       SECTION HEADING — FusionFlow: tiny uppercase eyebrow +
+       SECTION HEADING - FusionFlow: tiny uppercase eyebrow +
        clean title, generous gap below
        ============================================================ */
     .sh {
@@ -228,7 +241,7 @@
       margin-bottom: 56px;
     }
 
-    /* Eyebrow label — FusionFlow tiny uppercase tag above title */
+    /* Eyebrow label - FusionFlow tiny uppercase tag above title */
     .sh-eyebrow {
       font-size: 10px;
       font-weight: 600;
@@ -237,7 +250,7 @@
       color: var(--c-light);
     }
 
-    /* Title row — title + optional link side by side */
+    /* Title row - title + optional link side by side */
     .sh-row {
       display: flex;
       align-items: baseline;
@@ -248,7 +261,7 @@
 
     .sh-text {
       font-size: clamp(22px, 2.8vw, 34px);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -.03em;
       line-height: 1;
     }
@@ -292,6 +305,13 @@
       z-index: 2;
     }
 
+    /* Subtle purple ↔ cyan colour drift on hero aurora (inherits into .orb) */
+    @property --aurora {
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+
     /* ── LAYER 1: Soft colour orbs (right side only) ── */
     #wave-bg {
       position: absolute;
@@ -302,6 +322,7 @@
       opacity: 0;
       overflow: hidden;
       transition: opacity 1.6s ease 0.3s;
+      animation: auroraColor 22s ease-in-out infinite alternate;
     }
     body.loaded #wave-bg { opacity: 1; }
 
@@ -310,46 +331,46 @@
       border-radius: 50%;
       filter: blur(90px);
     }
-    /* Lavender — upper centre-right */
+    /* Lavender - upper centre-right (eases toward cyan as --aurora rises) */
     .orb-1 {
       width: 55vw; height: 70vh;
       top: -15%; right: 10%;
       background: radial-gradient(ellipse,
-        rgba(196,181,253,0.92) 0%,
-        rgba(196,181,253,0.55) 45%,
+        color-mix(in srgb, rgba(196,181,253,0.92) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.78)) 0%,
+        color-mix(in srgb, rgba(196,181,253,0.55) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.42)) 45%,
         transparent 72%
       );
       animation: orbDrift1 14s ease-in-out infinite;
     }
-    /* Cyan — mid right */
+    /* Cyan - mid right (eases toward lavender) */
     .orb-2 {
       width: 48vw; height: 60vh;
       top: 20%; right: -6%;
       background: radial-gradient(ellipse,
-        rgba(103,232,249,0.88) 0%,
-        rgba(103,232,249,0.50) 45%,
+        color-mix(in srgb, rgba(103,232,249,0.88) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.72)) 0%,
+        color-mix(in srgb, rgba(103,232,249,0.50) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.40)) 45%,
         transparent 72%
       );
       animation: orbDrift2 17s ease-in-out infinite;
     }
-    /* Periwinkle — centre blend */
+    /* Periwinkle - centre blend (shifts toward teal) */
     .orb-3 {
       width: 42vw; height: 55vh;
       top: 5%; right: -2%;
       background: radial-gradient(ellipse,
-        rgba(129,140,248,0.80) 0%,
-        rgba(129,140,248,0.42) 45%,
+        color-mix(in srgb, rgba(129,140,248,0.80) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.62)) 0%,
+        color-mix(in srgb, rgba(129,140,248,0.42) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.34)) 45%,
         transparent 72%
       );
       animation: orbDrift3 20s ease-in-out infinite;
     }
-    /* Teal — lower right */
+    /* Teal - lower right (shifts toward violet) */
     .orb-4 {
       width: 38vw; height: 50vh;
       bottom: -5%; right: 2%;
       background: radial-gradient(ellipse,
-        rgba(94,234,212,0.75) 0%,
-        rgba(94,234,212,0.38) 45%,
+        color-mix(in srgb, rgba(94,234,212,0.75) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.62)) 0%,
+        color-mix(in srgb, rgba(94,234,212,0.38) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.32)) 45%,
         transparent 72%
       );
       animation: orbDrift4 12s ease-in-out infinite;
@@ -369,6 +390,11 @@
     @keyframes orbDrift4 {
       0%,100% { transform: translate(0,0) scale(1); }
       50%     { transform: translate(-15px,30px) scale(1.04); }
+    }
+
+    @keyframes auroraColor {
+      0%   { --aurora: 0; }
+      100% { --aurora: 1; }
     }
 
     /* Mobile: full-width gentle wash */
@@ -401,7 +427,7 @@
     .hero .wrap  { position:relative; z-index:2; }
     .hero-scroll { z-index:2; }
 
-    /* ── Hero text — Inter style matching Shannon's site ── */
+    /* ── Hero text - Inter style matching Shannon's site ── */
 
     /* Availability badge */
     .hero-avail {
@@ -428,16 +454,22 @@
       box-shadow: 0 0 0 3px rgba(34,197,94,.16);
     }
 
-    /* Hero name — title case, 700 weight, FusionFlow style */
+    /* Hero name - title case, 700 weight, FusionFlow style */
     .hero-name {
       font-family: var(--font-display);
       font-size: clamp(72px, 13vw, 160px);
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: -.03em;
       line-height: .88;
       text-transform: uppercase;
       color: #0a0a0a;
       margin-bottom: 80px;
+    }
+    .hero-name--about {
+      text-transform: none;
+      font-size: clamp(52px, 11vw, 120px);
+      font-weight: 400;
+      letter-spacing: -.035em;
     }
 
     .hero-name-line { display:block; overflow:hidden; line-height:1.0; }
@@ -461,7 +493,7 @@
     }
     body.loaded .hero-rule { transform:scaleX(1); }
 
-    /* Sub row — vertical line left, stacked text right */
+    /* Sub row - vertical line left, stacked text right */
     .hero-sub {
       display: flex;
       align-items: stretch;
@@ -475,7 +507,7 @@
     body.loaded .hero-sub { opacity:1; transform:translateY(0); }
     .hero-sub { margin-left: 40%; }
 
-    /* The solid vertical line — 1px, full height of text block */
+    /* The solid vertical line - 1px, full height of text block */
     .hero-vline {
       width: 1px;
       flex-shrink: 0;
@@ -501,13 +533,13 @@
 
     .hero-tagline {
       font-size: clamp(20px, 2.4vw, 30px);
-      font-weight: 600;
+      font-weight: 400;
       color: var(--c-ink);
       line-height: 1.3;
       letter-spacing: -.02em;
       max-width: 500px;
     }
-    .hero-tagline strong { color:var(--c-ink); font-weight:600; }
+    .hero-tagline strong { color:var(--c-ink); font-weight:500; }
 
     .hero-descriptor {
       font-size: var(--t-base);
@@ -516,7 +548,7 @@
       line-height: 1.75;
       letter-spacing: -.01em;
       max-width: 480px;
-      text-align: left;            /* left-aligned — sits below tagline */
+      text-align: left;            /* left-aligned - sits below tagline */
     }
 
     /* Scroll nudge */
@@ -543,7 +575,7 @@
     @keyframes scrollTick { 0%{left:-100%} 100%{left:100%} }
 
     /* ============================================================
-       WORK — bento card grid (cofolios corner radius)
+       WORK - bento card grid (cofolios corner radius)
        ============================================================ */
     .work { padding:160px 0; }
 
@@ -566,7 +598,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 1px 4px rgba(0,0,0,.03);
-      cursor: none;                                   /* hide default cursor — glass circle takes over */
+      cursor: none;                                   /* hide default cursor - glass circle takes over */
       transition: box-shadow var(--ts) var(--ease),
                   transform   var(--ts) var(--ease),
                   border-color var(--ts) var(--ease);
@@ -627,7 +659,7 @@
     .ph-6{background:linear-gradient(145deg,#161008,#361e0e 55%,#643418);color:rgba(255,255,255,.22);}
 
 
-    /* Card body — hidden by default, revealed on hover with dark overlay */
+    /* Card body - hidden by default, revealed on hover with dark overlay */
     .pcard { position: relative; }
     .pcard-body {
       position: absolute;
@@ -680,7 +712,7 @@
     .pcard-tags { display:none; }
 
     /* ============================================================
-       ABOUT — two rounded panels
+       ABOUT - two rounded panels
        ============================================================ */
     .about { padding:160px 0; border-top:1px solid var(--c-rule); }
 
@@ -707,10 +739,10 @@
       margin-bottom: 28px;
     }
 
-    /* Bio intro — FusionFlow: 500 weight, generous size */
+    /* Bio intro - FusionFlow: 500 weight, generous size */
     .about-intro {
       font-size: clamp(26px, 3.5vw, 40px);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -.04em;
       line-height: 1.15;
       margin-bottom: 28px;
@@ -785,9 +817,14 @@
     .skill:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
 
     /* ============================================================
-       CONTACT — two rounded panels
+       CONTACT - two rounded panels
        ============================================================ */
-    .contact { padding:160px 0; border-top:1px solid var(--c-rule); }
+    .contact {
+      padding: 160px 0 36px;
+      border-top: 1px solid var(--c-rule);
+      position: relative;
+      z-index: 2;
+    }
 
     .contact-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
@@ -801,7 +838,7 @@
 
     .contact-heading {
       font-size: clamp(40px, 6vw, 76px);
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: -.05em;
       line-height: .95;
       margin-bottom: 24px;
@@ -881,9 +918,15 @@
     .f-btn:hover { background:#333; transform:translateY(-1px); box-shadow:var(--sh-md); }
 
     /* ============================================================
-       FOOTER — matches Shannon's: © · role · LinkedIn
+       FOOTER - matches Shannon's: © · role · LinkedIn
        ============================================================ */
-    .footer { border-top:1px solid var(--c-rule); padding:40px 0; }
+    .footer {
+      border-top: none;
+      padding: 40px 0;
+      position: relative;
+      z-index: 3;
+      background: #fff;
+    }
     .footer-inner {
       display:flex; align-items:center;
       justify-content:space-between; gap:16px; flex-wrap:wrap;
@@ -925,6 +968,8 @@
       .bc-6 .pcard-img,.bc-4 .pcard-img { aspect-ratio:16/10; }
       .about-bento,.contact-bento { grid-template-columns:1fr; gap:12px; }
       .footer-inner { flex-direction:column; align-items:flex-start; gap:6px; }
+      .footer-visual { margin-top: -200px; }
+      .contact { padding-bottom: 28px; }
     }
     @media (max-width:560px) {
       .hero-vline { display:none; }
@@ -1155,20 +1200,21 @@
       .experience, .expertise, .education { padding: 60px 0; }
     }
     /* ── Footer visual: pink/amber gradient + wave canvas ── */
-    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
+    @property --fv-aurora{syntax:'<number>';inherits:true;initial-value:0;}.footer-visual{position:relative;z-index:1;height:480px;margin-top:-280px;overflow:hidden;background:#fff;pointer-events:none;animation:footerAuroraColor 26s ease-in-out infinite alternate;}
     .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
     .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
     .fv-blobs{position:absolute;inset:0;pointer-events:none;}
     .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
-    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
-    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
-    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
+    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,145,185,.90) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.78)) 0%,color-mix(in srgb,rgba(255,145,185,.52) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.42)) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
+    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,198,95,.86) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.72)) 0%,color-mix(in srgb,rgba(255,198,95,.48) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.38)) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
+    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,175,135,.60) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,205,110,.52)) 0%,color-mix(in srgb,rgba(255,175,135,.28) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,195,85,.24)) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
     @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
     @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
     @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
+    @keyframes footerAuroraColor{0%{--fv-aurora:0;}100%{--fv-aurora:1;}}
     #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
-    .footer{border-top:none;}
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 <body>
 
@@ -1186,7 +1232,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Intro</a></li>
-        <li><a href="about.html" style="color:var(--c-ink);font-weight:500;">About</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
         <li><a href="index.html#work">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
@@ -1216,9 +1262,8 @@
     </div>
     <canvas id="wave-canvas" aria-hidden="true"></canvas>
     <div class="wrap">
-      <h1 class="hero-name" aria-label="Shannon Hecker">
-        <span class="hero-name-line"><span class="hero-name-inner">Shannon</span></span>
-        <span class="hero-name-line"><span class="hero-name-inner">Hecker</span></span>
+      <h1 class="hero-name hero-name--about" aria-label="About me">
+        <span class="hero-name-line"><span class="hero-name-inner">about me</span></span>
       </h1>
     </div>
   </section>
@@ -1227,9 +1272,9 @@
   <section class="approach">
     <div class="wrap">
       <span class="section-label rv">my approach.</span>
-      <h2 class="approach-headline rv" data-d="1">I design with purpose,<br/>balancing innovation, usability,<br/>and scalability.</h2>
-      <p class="approach-body rv" data-d="2">I start by understanding real user needs, then explore ideas through collaborative prototyping and iterative feedback.</p>
-      <p class="approach-body rv" data-d="3" style="margin-top:20px;">I use design systems and AI-powered tools to work faster and smarter, always keeping accessibility and clarity at the core. Whether I'm simplifying a complex dashboard or shaping a multi-product ecosystem, my goal is to create thoughtful, inclusive experiences that last.</p>
+      <h2 class="approach-headline rv" data-d="1">I anchor design in outcomes:<br/>usable today, scalable tomorrow,<br/>accessible by default.</h2>
+      <p class="approach-body rv" data-d="2">I start from user and business constraints, then validate direction through prototyping, research, and tight feedback loops with product and engineering.</p>
+      <p class="approach-body rv" data-d="3" style="margin-top:20px;">Design systems and modern tooling (including AI where it earns its place) speed delivery without trading off clarity. Whether I am untangling a dense dashboard or defining patterns across a platform, the goal is inclusive, maintainable product UX that teams can ship and iterate.</p>
     </div>
   </section>
 

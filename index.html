@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shannon Hecker · Lead Product Designer</title>
-  <meta name="description" content="London-based Lead Product Designer specialising in trading platforms, AI-enhanced workflows, and enterprise design systems at Barclays and J.P. Morgan." />
+  <meta name="description" content="Lead Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
 
   <!--
-    FONT : Inter — clean geometric sans-serif matching shannonhecker.com
+    FONT : Inter - clean geometric sans-serif matching shannonhecker.com
     STYLE: Shannon's own site aesthetic (clean, minimal, white, sans-serif)
            + cofolios.com corner radius language
     HERO : Morphing blob aurora (Vivid Motion® style) + guilloché wave
-           lines layered on top — both animations together
+           lines layered on top - both animations together
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,7 +22,7 @@
        DESIGN TOKENS
        ============================================================ */
     :root {
-      /* Colours — pure white, like Shannon's site */
+      /* Colours - pure white, like Shannon's site */
       --c-bg:       #FFFFFF;
       --c-surface:  #FFFFFF;
       --c-panel:    #F5F5F5;
@@ -33,11 +33,11 @@
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
 
-      /* Fonts — Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
+      /* Fonts - Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-display: 'Noto Serif Display', Georgia, 'Times New Roman', serif;
 
-      /* Type scale — FusionFlow proportions */
+      /* Type scale - FusionFlow proportions */
       --t-micro: clamp(9px,  1vw,   10px);
       --t-tiny:  clamp(11px, 1.2vw, 12px);
       --t-sm:    clamp(13px, 1.4vw, 14px);
@@ -46,11 +46,11 @@
       --t-lg:    clamp(22px, 2.4vw, 28px);
       --t-xl:    clamp(30px, 3.8vw, 44px);
       --t-2xl:   clamp(42px, 5.5vw, 60px);
-      --t-hero:  clamp(56px, 9vw,  112px);   /* slightly reined in — not all-caps so reads larger */
+      --t-hero:  clamp(56px, 9vw,  112px);   /* slightly reined in - not all-caps so reads larger */
 
       /* cofolios corner radius system */
       --r-pill:  999px;
-      --r-card:   20px;
+      --r-card:   14px;
       --r-panel:  16px;
       --r-chip:    8px;
       --r-input:  10px;
@@ -66,7 +66,7 @@
       --sh-md: 0 6px 24px rgba(0,0,0,.08);
       --sh-lg: 0 12px 48px rgba(0,0,0,.10);
 
-      /* Layout — FusionFlow uses very generous horizontal padding */
+      /* Layout - FusionFlow uses very generous horizontal padding */
       --mw:  1340px;
       --pad: clamp(28px, 6vw, 88px);   /* wider side margins */
       --nav: 72px;
@@ -81,8 +81,8 @@
       font-family: var(--font);
       background: var(--c-bg);
       color: var(--c-ink);
-      line-height: 1.75;         /* more open — FusionFlow uses generous leading */
-      font-weight: 300;          /* light as base weight — FusionFlow feel */
+      line-height: 1.75;         /* more open - FusionFlow uses generous leading */
+      font-weight: 300;          /* light as base weight - FusionFlow feel */
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -115,7 +115,7 @@
     .wrap { max-width:var(--mw); margin:0 auto; padding:0 var(--pad); }
 
     /* ============================================================
-       NAVIGATION — matches Shannon's site: simple horizontal links
+       NAVIGATION - matches Shannon's site: simple horizontal links
        ============================================================ */
     .nav {
       position: fixed;
@@ -148,7 +148,7 @@
       justify-content: space-between;
     }
 
-    /* Logo mark — SVG monogram */
+    /* Logo mark - SVG monogram */
     .nav-logo {
       display: flex;
       align-items: center;
@@ -157,7 +157,7 @@
     }
     .nav-logo:hover { opacity: .6; transform: rotate(45deg); }
 
-    /* Links — FusionFlow: 400 weight, more spaced */
+    /* Links - FusionFlow: 400 weight, more spaced */
     .nav-links {
       list-style: none;
       display: flex;
@@ -176,7 +176,7 @@
     }
     .nav-links a:hover { background: #111111; color: #ffffff; }
 
-    /* CTA — FusionFlow: more padding, cleaner pill */
+    /* CTA - FusionFlow: more padding, cleaner pill */
     .nav-cta {
       font-size: 13px;
       font-weight: 400;
@@ -228,7 +228,7 @@
     .nav-drawer a:hover { opacity:.5; }
 
     /* ============================================================
-       SECTION HEADING — FusionFlow: tiny uppercase eyebrow +
+       SECTION HEADING - FusionFlow: tiny uppercase eyebrow +
        clean title, generous gap below
        ============================================================ */
     .sh {
@@ -239,7 +239,7 @@
       margin-bottom: 56px;
     }
 
-    /* Eyebrow label — FusionFlow tiny uppercase tag above title */
+    /* Eyebrow label - FusionFlow tiny uppercase tag above title */
     .sh-eyebrow {
       font-size: 10px;
       font-weight: 600;
@@ -248,7 +248,7 @@
       color: var(--c-light);
     }
 
-    /* Title row — title + optional link side by side */
+    /* Title row - title + optional link side by side */
     .sh-row {
       display: flex;
       align-items: baseline;
@@ -260,7 +260,7 @@
     .sh-text {
       font-family: var(--font-display);
       font-size: clamp(22px, 2.8vw, 34px);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -.02em;
       line-height: 1;
     }
@@ -279,11 +279,23 @@
       align-items: center;
       gap: 8px;
       flex-shrink: 0;
-      transition: background var(--tb) var(--ease), color var(--tb) var(--ease), border-color var(--tb) var(--ease);
+      transform: translate3d(0, 0, 0);
+      transition:
+        background 0.5s var(--ease),
+        color 0.5s var(--ease),
+        border-color 0.5s var(--ease),
+        box-shadow 0.5s var(--ease),
+        transform 0.5s var(--ease);
     }
-    .sh-link:hover { background: #111; color: #fff; border-color: #111; }
-    .sh-link svg { transition: transform var(--tb) var(--spring); }
-    .sh-link:hover svg { transform: translateX(3px); }
+    .sh-link:hover {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transform: translate3d(0, -1px, 0);
+    }
+    .sh-link svg { transition: transform 0.55s var(--spring); }
+    .sh-link:hover svg { transform: translateX(4px); }
 
     /* ============================================================
        HERO
@@ -312,6 +324,13 @@
       z-index: 3;
     }
 
+    /* Subtle purple ↔ cyan colour drift on hero aurora (inherits into .orb) */
+    @property --aurora {
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+
     /* ── LAYER 1: Soft colour orbs (right side only) ── */
     #wave-bg {
       position: absolute;
@@ -322,6 +341,7 @@
       opacity: 0;
       overflow: hidden;
       transition: opacity 1.6s ease 0.3s;
+      animation: auroraColor 22s ease-in-out infinite alternate;
       -webkit-mask-image: linear-gradient(to bottom,
         black 0%,
         black 55%,
@@ -340,46 +360,46 @@
       border-radius: 50%;
       filter: blur(90px);
     }
-    /* Lavender — upper right */
+    /* Lavender - upper right (eases toward cyan as --aurora rises) */
     .orb-1 {
       width: 55vw; height: 70vh;
       top: -15%; right: 10%;
       background: radial-gradient(ellipse,
-        rgba(196,181,253,0.92) 0%,
-        rgba(196,181,253,0.55) 45%,
+        color-mix(in srgb, rgba(196,181,253,0.92) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.78)) 0%,
+        color-mix(in srgb, rgba(196,181,253,0.55) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.42)) 45%,
         transparent 72%
       );
       animation: orbDrift1 14s ease-in-out infinite;
     }
-    /* Cyan — mid right */
+    /* Cyan - mid right (eases toward lavender) */
     .orb-2 {
       width: 48vw; height: 60vh;
       top: 20%; right: -6%;
       background: radial-gradient(ellipse,
-        rgba(103,232,249,0.88) 0%,
-        rgba(103,232,249,0.50) 45%,
+        color-mix(in srgb, rgba(103,232,249,0.88) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.72)) 0%,
+        color-mix(in srgb, rgba(103,232,249,0.50) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.40)) 45%,
         transparent 72%
       );
       animation: orbDrift2 17s ease-in-out infinite;
     }
-    /* Periwinkle — centre blend */
+    /* Periwinkle - centre blend (shifts toward teal) */
     .orb-3 {
       width: 42vw; height: 55vh;
       top: 5%; right: -2%;
       background: radial-gradient(ellipse,
-        rgba(129,140,248,0.80) 0%,
-        rgba(129,140,248,0.42) 45%,
+        color-mix(in srgb, rgba(129,140,248,0.80) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.62)) 0%,
+        color-mix(in srgb, rgba(129,140,248,0.42) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.34)) 45%,
         transparent 72%
       );
       animation: orbDrift3 20s ease-in-out infinite;
     }
-    /* Teal — lower right */
+    /* Teal - lower right (shifts toward violet) */
     .orb-4 {
       width: 38vw; height: 50vh;
       bottom: -5%; right: 2%;
       background: radial-gradient(ellipse,
-        rgba(94,234,212,0.75) 0%,
-        rgba(94,234,212,0.38) 45%,
+        color-mix(in srgb, rgba(94,234,212,0.75) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.62)) 0%,
+        color-mix(in srgb, rgba(94,234,212,0.38) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.32)) 45%,
         transparent 72%
       );
       animation: orbDrift4 12s ease-in-out infinite;
@@ -399,6 +419,11 @@
     @keyframes orbDrift4 {
       0%,100% { transform: translate(0,0) scale(1); }
       50%     { transform: translate(-15px,30px) scale(1.04); }
+    }
+
+    @keyframes auroraColor {
+      0%   { --aurora: 0; }
+      100% { --aurora: 1; }
     }
 
     /* Mobile: full-width gentle wash */
@@ -431,7 +456,7 @@
     .hero .wrap  { position:relative; z-index:2; }
     .hero-scroll { z-index:2; }
 
-    /* ── Hero text — Inter style matching Shannon's site ── */
+    /* ── Hero text - Inter style matching Shannon's site ── */
 
     /* Availability badge */
     .hero-avail {
@@ -458,11 +483,11 @@
       box-shadow: 0 0 0 3px rgba(34,197,94,.16);
     }
 
-    /* Hero name — editorial serif display heading */
+    /* Hero name - editorial serif display heading */
     .hero-name {
       font-family: var(--font-display);
       font-size: clamp(72px, 13vw, 160px);
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: -.03em;
       line-height: .85;
       text-transform: uppercase;
@@ -491,7 +516,7 @@
     }
     body.loaded .hero-rule { transform:scaleX(1); }
 
-    /* Sub row — vertical line left, stacked text right */
+    /* Sub row - vertical line left, stacked text right */
     .hero-sub {
       display: flex;
       align-items: stretch;
@@ -504,7 +529,7 @@
     }
     body.loaded .hero-sub { opacity:1; transform:translateY(0); }
 
-    /* The solid vertical line — hidden per recommendation */
+    /* The solid vertical line - hidden per recommendation */
     .hero-vline {
       display: none !important;
       width: 1px;
@@ -531,13 +556,13 @@
 
     .hero-tagline {
       font-size: clamp(20px, 2.4vw, 30px);
-      font-weight: 600;
+      font-weight: 400;
       color: var(--c-ink);
       line-height: 1.3;
       letter-spacing: -.02em;
       max-width: 500px;
     }
-    .hero-tagline strong { color:var(--c-ink); font-weight:600; }
+    .hero-tagline strong { color:var(--c-ink); font-weight:500; }
 
     .hero-descriptor {
       font-size: var(--t-base);
@@ -546,7 +571,7 @@
       line-height: 1.75;
       letter-spacing: -.01em;
       max-width: 480px;
-      text-align: left;            /* left-aligned — sits below tagline */
+      text-align: left;            /* left-aligned - sits below tagline */
     }
 
     /* Scroll nudge */
@@ -578,24 +603,52 @@
     .hero-scroll-chevron { animation: chevronBounce 1.8s ease-in-out infinite 1.6s; }
 
     /* ============================================================
-       WORK — bento card grid (cofolios corner radius)
+       WORK - bento card grid (cofolios corner radius)
        ============================================================ */
     .work { padding:160px 0; }
 
+    /* Featured grid - 2 columns (Framer-style), larger tiles than 4-up */
+    .work .bento {
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:clamp(28px, 3.5vw, 40px);
+    }
     .bento {
       display:grid;
       grid-template-columns:repeat(12,1fr);
-      gap:40px;
+      gap:24px;
     }
+    .bc-3  { grid-column:span 3; }
     .bc-6  { grid-column:span 6; }
     .bc-4  { grid-column:span 4; }
     .bc-8  { grid-column:span 8; }
     .bc-12 { grid-column:span 12; }
 
     /* ── Project card ── */
+    a.pcard {
+      text-decoration: none;
+      color: inherit;
+    }
+    a.pcard:focus-visible {
+      outline: 2px solid var(--c-ink);
+      outline-offset: 3px;
+    }
+    .work .pcard {
+      border-radius: 10px;
+      transform: translate3d(0, 0, 0);
+      transition:
+        box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .work .pcard:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translate3d(0, -3px, 0);
+      border-color: rgba(0,0,0,0.12);
+    }
     .pcard {
       background: var(--c-surface);
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid rgba(0,0,0,.06);
       display: flex;
@@ -637,6 +690,17 @@
       overflow:hidden; position:relative;
       background:var(--c-panel); flex-shrink:0;
     }
+    /* GPU layer + paint containment - reduces blur when card + image both transform */
+    .work .pcard-img {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      contain: paint;
+    }
+    .bc-3  .pcard-img { aspect-ratio:16/10; }
+    /* Featured work: 3 columns - ~same proportions as traditional-designs Framer grid */
+    .work .bc-4 .pcard-img { aspect-ratio:3/2; min-height:clamp(180px, 22vw, 300px); }
     .bc-6  .pcard-img { aspect-ratio:16/10; }
     .bc-4  .pcard-img { aspect-ratio:4/3;   }
     .bc-8  .pcard-img { aspect-ratio:16/8;  }
@@ -646,8 +710,19 @@
       width:100%; height:100%; object-fit:cover;
       transition:transform .9s var(--ease);
     }
+    .work .pcard-img img,
+    .work .pcard-img .ph {
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     .pcard:hover .pcard-img img,
     .pcard:hover .pcard-img .ph { transform:scale(1.04); }
+    .work .pcard:hover .pcard-img img,
+    .work .pcard:hover .pcard-img .ph {
+      transform: translate3d(0, 0, 0) scale(1.025);
+    }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;
@@ -660,9 +735,11 @@
     .ph-4{background:linear-gradient(145deg,#081214,#0e2e2e 55%,#1a5858);color:rgba(255,255,255,.22);}
     .ph-5{background:linear-gradient(145deg,#101010,#1e1e1e 55%,#303030);color:rgba(255,255,255,.22);}
     .ph-6{background:linear-gradient(145deg,#161008,#361e0e 55%,#643418);color:rgba(255,255,255,.22);}
+    .ph-7{background:linear-gradient(145deg,#0a1628,#0e2a4a 55%,#1a4a7a);color:rgba(255,255,255,.22);}
+    .ph-8{background:linear-gradient(145deg,#141018,#2a2242 55%,#403060);color:rgba(255,255,255,.22);}
 
 
-    /* Card body — hidden by default, revealed on hover with dark overlay */
+    /* Card body - hidden by default, revealed on hover with dark overlay */
     .pcard { position: relative; }
     .pcard-body {
       position: absolute;
@@ -675,6 +752,11 @@
       background: rgba(0,0,0,0);
       opacity: 0;
       transition: opacity 0.3s ease, background 0.3s ease;
+    }
+    .work .pcard-body {
+      transition:
+        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .pcard:hover .pcard-body {
       opacity: 1;
@@ -701,6 +783,10 @@
       letter-spacing: -.02em;
       line-height: 1.2;
     }
+    .work .pcard-title,
+    .work .pcard-desc {
+      transition: color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     /* One-line description */
     .pcard-desc {
       font-size: var(--t-base);
@@ -714,8 +800,51 @@
     }
     .pcard-tags { display:none; }
 
+    /* Framer-style label on image (always visible; fades when hover overlay shows) */
+    .work .pcard-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 22px 26px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.28) 52%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .work .pcard-caption-title {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.25;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+    }
+    .work .pcard:hover .pcard-caption { opacity: 0; }
+    .work .pcard-body { z-index: 2; }
+
+    .sh-title-group {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.2vw, 24px);
+      min-width: 0;
+    }
+    .sh-work-portrait {
+      width: clamp(52px, 6vw, 76px);
+      height: clamp(52px, 6vw, 76px);
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+      flex-shrink: 0;
+      border: 1px solid var(--c-rule);
+      box-shadow: var(--sh-xs);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
     /* ============================================================
-       ABOUT — two rounded panels
+       ABOUT - two rounded panels
        ============================================================ */
     .about { padding:160px 0; border-top:1px solid var(--c-rule); }
 
@@ -742,11 +871,11 @@
       margin-bottom: 28px;
     }
 
-    /* Bio intro — editorial serif display */
+    /* Bio intro - editorial serif display */
     .about-intro {
       font-family: var(--font-display);
       font-size: clamp(26px, 3.5vw, 40px);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -.02em;
       line-height: 1.15;
       margin-bottom: 28px;
@@ -821,9 +950,14 @@
     .skill:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
 
     /* ============================================================
-       CONTACT — two rounded panels
+       CONTACT - two rounded panels
        ============================================================ */
-    .contact { padding:160px 0; border-top:1px solid var(--c-rule); }
+    .contact {
+      padding: 160px 0 36px;
+      border-top: 1px solid var(--c-rule);
+      position: relative;
+      z-index: 2;
+    }
 
     .contact-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
@@ -838,7 +972,7 @@
     .contact-heading {
       font-family: var(--font-display);
       font-size: clamp(40px, 6vw, 76px);
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: -.03em;
       line-height: .95;
       margin-bottom: 24px;
@@ -853,17 +987,6 @@
       max-width: 340px;
       margin-bottom: 36px;
     }
-
-    .contact-email {
-      font-size:clamp(12px,1.4vw,15px); font-weight:600;
-      letter-spacing:-.01em; color:var(--c-ink);
-      border:1.5px solid var(--c-rule-dk);
-      border-radius:var(--r-pill); padding:11px 22px;
-      display:inline-flex; align-items:center; gap:7px;
-      align-self:flex-start;
-      transition:all var(--tb) var(--ease);
-    }
-    .contact-email:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
 
     .contact-form-panel {
       background:var(--c-surface); border:1px solid var(--c-rule);
@@ -918,9 +1041,15 @@
     .f-btn:hover { background:#333; transform:translateY(-1px); box-shadow:var(--sh-md); }
 
     /* ============================================================
-       FOOTER — matches Shannon's: © · role · LinkedIn
+       FOOTER - matches Shannon's: © · role · LinkedIn
        ============================================================ */
-    .footer { border-top:1px solid var(--c-rule); padding:40px 0; }
+    .footer {
+      border-top: none;
+      padding: 40px 0;
+      position: relative;
+      z-index: 3;
+      background: #fff;
+    }
     .footer-inner {
       display:flex; align-items:center;
       justify-content:space-between; gap:16px; flex-wrap:wrap;
@@ -951,6 +1080,8 @@
        ============================================================ */
     @media (max-width:600px) {
       .hero-tagline { max-width: 400px; }
+      .sh-row { flex-wrap: wrap; gap: 16px; }
+      .sh-title-group { width: 100%; }
     }
     @media (max-width:900px) {
       .nav-links, .nav-cta { display:none; }
@@ -958,11 +1089,19 @@
       .hero-sub { max-width:100%; }
       #wave-canvas { width:90%; }
       .bento { grid-template-columns:1fr; }
-      .bc-6,.bc-4,.bc-8,.bc-12 { grid-column:span 1; }
-      .bc-6 .pcard-img,.bc-4 .pcard-img { aspect-ratio:16/10; }
+      .bc-3,.bc-6,.bc-4,.bc-8,.bc-12 { grid-column:span 1; }
+      .bc-3 .pcard-img,.bc-6 .pcard-img,.bc-4 .pcard-img { aspect-ratio:16/10; }
+      .work .bc-4 .pcard-img { aspect-ratio:3/2; min-height:200px; }
       .about-bento,.contact-bento { grid-template-columns:1fr; gap:12px; }
       .footer-inner { flex-direction:column; align-items:flex-start; gap:6px; }
+      .footer-visual { margin-top: -200px; }
+      .contact { padding-bottom: 28px; }
     }
+    /* Tablet: 2 columns (Framer-style breakpoint) */
+    @media (max-width:1100px) and (min-width:901px) {
+      .work .bento .bc-4 { grid-column: span 6; }
+    }
+
     @media (max-width:560px) {
 
     }
@@ -1232,7 +1371,7 @@
     }
     .pcard:hover .pcard-title { color: #ffffff; }
 
-    /* Section count label (09 projects) */
+    /* Section count label (portfolio totals) */
     .sh-row span[style] {
       cursor: default;
       transition: color 0.2s var(--ease);
@@ -1240,15 +1379,24 @@
     .sh-row span[style]:hover { color: var(--c-light) !important; }
 
     /* ============================================================
-       FOOTER VISUAL — pink / amber gradient + guilloché wave canvas
+       FOOTER VISUAL - pink / amber gradient + guilloché wave canvas
        Mirrors the hero aesthetic from shannonhecker.com
        ============================================================ */
+    @property --fv-aurora {
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+
     .footer-visual {
       position: relative;
+      z-index: 1;
       height: 480px;
+      margin-top: -280px;
       overflow: hidden;
       background: #fff;
       pointer-events: none;
+      animation: footerAuroraColor 26s ease-in-out infinite alternate;
     }
     /* Top blend: dissolve from the page above */
     .footer-visual::before {
@@ -1280,35 +1428,35 @@
       border-radius: 50%;
       filter: blur(88px);
     }
-    /* Rose / pink — left-centre */
+    /* Rose / pink - drifts toward amber as --fv-aurora rises */
     .fv-orb-1 {
       width: 70vw; height: 140%;
       top: -20%; left: -8%;
       background: radial-gradient(ellipse,
-        rgba(255,145,185,0.90) 0%,
-        rgba(255,145,185,0.52) 45%,
+        color-mix(in srgb, rgba(255,145,185,0.90) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,198,95,0.78)) 0%,
+        color-mix(in srgb, rgba(255,145,185,0.52) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,198,95,0.42)) 45%,
         transparent 72%
       );
       animation: fvDrift1 16s ease-in-out infinite;
     }
-    /* Warm amber / gold — right */
+    /* Warm amber / gold - drifts toward rose */
     .fv-orb-2 {
       width: 62vw; height: 140%;
       top: -25%; right: -6%;
       background: radial-gradient(ellipse,
-        rgba(255,198,95,0.86) 0%,
-        rgba(255,198,95,0.48) 45%,
+        color-mix(in srgb, rgba(255,198,95,0.86) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,145,185,0.72)) 0%,
+        color-mix(in srgb, rgba(255,198,95,0.48) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,145,185,0.38)) 45%,
         transparent 72%
       );
       animation: fvDrift2 19s ease-in-out infinite;
     }
-    /* Peach blend — centre overlap */
+    /* Peach - shifts between pink-leaning and gold-leaning */
     .fv-orb-3 {
       width: 52vw; height: 120%;
       top: 5%; left: 22%;
       background: radial-gradient(ellipse,
-        rgba(255,175,135,0.60) 0%,
-        rgba(255,175,135,0.28) 45%,
+        color-mix(in srgb, rgba(255,175,135,0.60) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,205,110,0.52)) 0%,
+        color-mix(in srgb, rgba(255,175,135,0.28) calc((1 - var(--fv-aurora, 0)) * 100%), rgba(255,195,85,0.24)) 45%,
         transparent 72%
       );
       animation: fvDrift3 23s ease-in-out infinite;
@@ -1325,6 +1473,10 @@
       0%,100% { transform: translate(0,0) scale(1); }
       50%     { transform: translate(-18px,-26px) scale(1.07); }
     }
+    @keyframes footerAuroraColor {
+      0%   { --fv-aurora: 0; }
+      100% { --fv-aurora: 1; }
+    }
     #footer-canvas {
       position: absolute;
       inset: 0;
@@ -1332,9 +1484,8 @@
       z-index: 2;
       display: block;
     }
-    /* Remove top border from footer bar — gradient provides visual break */
-    .footer { border-top: none; }
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 <body>
 
@@ -1342,7 +1493,7 @@
   <div id="img-cursor" aria-hidden="true"></div>
 
   <!-- ============================================================
-       NAV — Shannon's style: clean horizontal links
+       NAV - Shannon's style: clean horizontal links
        ============================================================ -->
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
@@ -1386,8 +1537,8 @@
        HERO
        Layer stack (back → front):
          0. .hero white background
-         1. .blobs — morphing aurora orbs (CSS only)
-         2. #wave-canvas — guilloché silk lines (Canvas JS)
+         1. .blobs - morphing aurora orbs (CSS only)
+         2. #wave-canvas - guilloché silk lines (Canvas JS)
          3. .wrap text content
        ============================================================ -->
   <section class="hero" id="hero">
@@ -1431,28 +1582,27 @@
       <div class="hero-sub">
         <div class="hero-sub-content">
           <p class="hero-tagline">
-            Designing <strong>clarity into complexity</strong><br/>for high-stakes financial products.
+            Product design for <strong>regulated finance</strong>:<br/>usable data, coherent systems, delivery teams can ship.
           </p>
           <p class="hero-descriptor">
-            Lead Product Designer at Barclays, specialising in trading platforms,
-            AI-enhanced workflows, and enterprise design systems.
+            Lead Product Designer at Barclays. Former VP Product Design at J.P. Morgan. I focus on trading and markets platforms, design systems at scale, and AI-supported product development without sacrificing accessibility or craft.
           </p>
 
           <!-- Stats row -->
           <div class="hero-stats">
             <div class="hero-stat">
               <span class="hero-stat-num">10+</span>
-              <span class="hero-stat-label">Years in Fintech</span>
+              <span class="hero-stat-label">Years in fintech</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
               <span class="hero-stat-num">15+</span>
-              <span class="hero-stat-label">Years experience</span>
+              <span class="hero-stat-label">Years in design</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-              <span class="hero-stat-num">09</span>
-              <span class="hero-stat-label">Case studies</span>
+              <span class="hero-stat-num">11</span>
+              <span class="hero-stat-label">Published case studies</span>
             </div>
           </div>
 
@@ -1484,8 +1634,11 @@
       <div class="sh rv">
         <span class="sh-eyebrow">Portfolio</span>
         <div class="sh-row">
-          <span class="sh-text">featured work<span class="sh-period">.</span></span>
-          <span style="font-size:12px;font-weight:300;color:var(--c-ghost);letter-spacing:.04em;align-self:center;">09 projects · 2016–2026</span>
+          <div class="sh-title-group">
+            <img src="assets/photo.jpeg" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" />
+            <span class="sh-text">featured work<span class="sh-period">.</span></span>
+          </div>
+          <span class="sh-meta">11 projects · 9 featured · 2016 to 2026</span>
           <a href="work.html" class="sh-link">
             All Work
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -1497,115 +1650,197 @@
 
       <div class="bento">
 
-        <!-- 01 + 02: two equal large cards -->
-        <div class="bc-6 rv" data-d="1">
-          <div class="pcard">
+        <!-- 3×3 grid (nine featured cards): newest first, aligned with work.html imagery where listed -->
+        <div class="bc-4 rv" data-d="1">
+          <a href="project-barclays-data-viz.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/barclays-stock-dashboard.png"
+                   alt="Barclays stock dashboard data visualisation" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Barclays Data Visualisation</span>
+              </div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta">
+                <span class="pcard-num">01 / 09</span>
+                <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="pcard-title">Barclays Data Visualisation</div>
+              <p class="pcard-desc">Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts in a Barclays-aligned shell.</p>
+              <div class="pcard-tags"><span class="ptag">Data Viz</span><span class="ptag">Barclays</span><span class="ptag">Enterprise UX</span></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="bc-4 rv" data-d="2">
+          <a href="project-tripup.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/tripup-hifi.png"
+                   alt="TripUp: Bending Spoons product design challenge" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-4" style="display:none;">TripUp</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">TripUp</span>
+              </div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta">
+                <span class="pcard-num">02 / 09</span>
+                <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="pcard-title">TripUp</div>
+              <p class="pcard-desc">Product design challenge for Bending Spoons: group travel, polls, and shared expenses in one mobile flow.</p>
+              <div class="pcard-tags"><span class="ptag">Mobile UX</span><span class="ptag">Case study</span><span class="ptag">Figma</span></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="bc-4 rv" data-d="3">
+          <a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/oNwGkqwGjCeIuRVQSSHSB2G0k8.png?scale-down-to=2048"
                    alt="Fusion Analytics Dashboard" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">Analytics Dashboard</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Fusion Analytics Dashboard</span>
+              </div>
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">01 / 06</span>
+                <span class="pcard-num">03 / 09</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
-              <div class="pcard-title">Fusion Analytic Dashboard</div>
-              <p class="pcard-desc">Complex B2B analytics platform surfacing real-time financial data with clarity. WCAG 2.2 AA throughout.</p>
+              <div class="pcard-title">Fusion Analytics Dashboard</div>
+              <p class="pcard-desc">B2B analytics platform: real-time financial data, WCAG 2.2 AA, and a modular dashboard system.</p>
               <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Data Viz</span><span class="ptag">Fintech</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
-        <div class="bc-6 rv" data-d="2">
-          <div class="pcard">
+        <div class="bc-4 rv" data-d="4">
+          <a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/PhhDnFzX6z5QSN5NDLfw6R1RpU.png?lossless=1"
                    alt="Fusion Design System" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Design System</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Fusion Design System</span>
+              </div>
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">02 / 06</span>
+                <span class="pcard-num">04 / 09</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Fusion Design System</div>
-              <p class="pcard-desc">Scalable token-based system, 200+ components across enterprise finance products. Built in Figma.</p>
+              <p class="pcard-desc">Token-based design system: 200+ components for enterprise finance products, specified in Figma.</p>
               <div class="pcard-tags"><span class="ptag">Design System</span><span class="ptag">Tokens</span><span class="ptag">Figma</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
-        <!-- 03 + 04 + 05: three smaller cards -->
         <div class="bc-4 rv" data-d="1">
-          <div class="pcard">
+          <a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/Fk4C7UhTf2KmyAAsaSX6HWKp8A.png?lossless=1"
                    alt="Fusion Data Solution" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Data Solution</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Fusion Data Solution</span>
+              </div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">03 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">05 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Fusion Data Solution</div>
-              <p class="pcard-desc">End-to-end UX translating complex technical workflows into guided journeys.</p>
+              <p class="pcard-desc">End-to-end UX: complex technical workflows turned into guided, shippable journeys.</p>
               <div class="pcard-tags"><span class="ptag">UX Research</span><span class="ptag">B2B SaaS</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="bc-4 rv" data-d="2">
-          <div class="pcard">
+          <a href="project-ui-toolkit.html" class="pcard">
+            <div class="pcard-img">
+              <img src="https://framerusercontent.com/images/buOdPyYNv7nn1Cq3yNobi85a5P8.png?lossless=1"
+                   alt="UI Toolkit component library" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-8" style="display:none;">UI Toolkit</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">UI Toolkit</span>
+              </div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta"><span class="pcard-num">06 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-title">UI Toolkit</div>
+              <p class="pcard-desc">Reusable UI component library: patterns and specs that speed delivery across product squads.</p>
+              <div class="pcard-tags"><span class="ptag">UI Design</span><span class="ptag">Components</span><span class="ptag">Figma</span></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="bc-4 rv" data-d="3">
+          <a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/KgUyecb5PlmBKZxT0JNTN6s.png?lossless=1"
                    alt="Corporate Action Manager" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">Corporate Action Manager</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Corporate Action Manager</span>
+              </div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">04 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">07 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Corporate Action Manager</div>
               <p class="pcard-desc">Redesigned a legacy corporate actions tool, delivering 40% faster task completion for operations teams.</p>
               <div class="pcard-tags"><span class="ptag">Enterprise UX</span><span class="ptag">Accessibility</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
-        <div class="bc-4 rv" data-d="3">
-          <div class="pcard">
+        <div class="bc-4 rv" data-d="4">
+          <a href="project-research.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/Fr2ngSfi6PfZwTYdJRmWg3mxEw.png"
                    alt="JPMM Research" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-5" style="display:none;">JPMM Research</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">JPMM Research Platform</span>
+              </div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">05 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">08 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">JPMM Research Platform</div>
-              <p class="pcard-desc">Financial research discovery for analysts. Content-heavy, IA-first design.</p>
+              <p class="pcard-desc">Research discovery for analysts: IA-first navigation through content-heavy institutional research.</p>
               <div class="pcard-tags"><span class="ptag">Research</span><span class="ptag">JPMorgan</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
-        <!-- 06: full-width featured -->
-        <div class="bc-12 rv" data-d="2">
-          <div class="pcard">
+        <div class="bc-4 rv" data-d="1">
+          <a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
               <img src="https://framerusercontent.com/images/l04WyjN6mE5wTLUIvAZ0iZBhFY.png"
                    alt="Global Custody Deal Model" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-6" style="display:none;">Global Custody Deal Model</div>
+              <div class="pcard-caption" aria-hidden="true">
+                <span class="pcard-caption-title">Global Custody Deal Model</span>
+              </div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">06 / 06</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">09 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Global Custody Deal Model</div>
-              <p class="pcard-desc">Bespoke deal modelling tool for custodian teams, featuring multi-step flows with progressive disclosure and clear visual hierarchy.</p>
+              <p class="pcard-desc">Bespoke deal modelling for custodian teams: multi-step flows, progressive disclosure, clear visual hierarchy.</p>
               <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Finance</span><span class="ptag">Interaction Design</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
       </div><!-- /bento -->
@@ -1682,11 +1917,8 @@
         <div class="contact-left rv">
           <div>
             <h2 class="contact-heading">Let's<br/>Connect!</h2>
-            <p class="contact-sub">Open to exciting UI / UX design opportunities. Let's chat about how I can help your team craft clean, accessible interfaces that elevate your product.</p>
+            <p class="contact-sub">Open to lead and senior product design roles in fintech and enterprise SaaS. I help organisations ship accessible, measurable product UX from discovery through development.</p>
           </div>
-          <a href="/cdn-cgi/l/email-protection#deadb6bfb0b0b1b0b6bbbdb5bbacbdb6bbb09eb9b3bfb7b2f0bdb1b3" class="contact-email">
-            <span class="__cf_email__" data-cfemail="fe8d969f90909190969b9d959b8c9d969b90be99939f9792d09d9193">[email&#160;protected]</span> ↗
-          </a>
         </div>
 
         <div class="contact-form-panel rv" data-d="1">
@@ -1712,7 +1944,7 @@
   </section>
 
   <!-- ============================================================
-       FOOTER VISUAL — pink/amber gradient + guilloché wave canvas
+       FOOTER VISUAL - pink/amber gradient + guilloché wave canvas
        ============================================================ -->
   <div class="footer-visual" aria-hidden="true">
     <div class="fv-blobs">
@@ -1724,7 +1956,7 @@
   </div>
 
   <!-- ============================================================
-       FOOTER — Shannon's style: © · role · LinkedIn
+       FOOTER - Shannon's style: © · role · LinkedIn
        ============================================================ -->
   <footer class="footer">
     <div class="wrap">
@@ -1812,13 +2044,13 @@
 
        Technique (same as screenshot reference):
          • 52 ultra-thin hairline lines (0.55px)
-         • Tight vertical band — all lines in 18%–82% of height
+         • Tight vertical band - all lines in 18%–82% of height
          • Uniform PHASE_STEP (0.18 rad) between adjacent lines
            → guilloché mesh texture, not chaotic random waves
          • Colour per x-position: violet left → cyan right
          • Edge fade masks: lines dissolve into white at sides
-         • Very slow speed: 0.00012 rad/ms — barely breathing
-         • NO mouse parallax — pure slow undulation only
+         • Very slow speed: 0.00012 rad/ms - barely breathing
+         • NO mouse parallax - pure slow undulation only
        ────────────────────────────────────────────────────── */
     (function waveCanvas() {
       const canvas = document.getElementById('wave-canvas');
@@ -1876,7 +2108,7 @@
       resize();
 
       function edgeFade(W, H) {
-        /* Left edge only — fade waves into white where name text is */
+        /* Left edge only - fade waves into white where name text is */
         const fw = W * 0.12;
         const fL = ctx.createLinearGradient(0, 0, fw, 0);
         fL.addColorStop(0, 'rgba(255,255,255,1)');
@@ -1930,7 +2162,7 @@
 
     /* ── 8. Difference-blend circle cursor (matches shannonhecker.com) ────
        White 70px circle with mix-blend-mode:difference follows the mouse
-       over any image area — inverts colors for a striking Framer-style feel.
+       over any image area - inverts colors for a striking Framer-style feel.
        ────────────────────────────────────────────────────────── */
     (function imageCursor() {
       const cursor = document.getElementById('img-cursor');
@@ -1957,7 +2189,7 @@
       }
     })();
 
-    /* ── Vertical line parallax — scroll + mouse ─────────────────
+    /* ── Vertical line parallax - scroll + mouse ─────────────────
        The line shifts up/down slightly with scroll and follows
        the mouse vertically for a living, interactive feel.
        ────────────────────────────────────────────────────────── */
@@ -1972,7 +2204,7 @@
 
       const SCROLL_FACTOR = 0.18;   /* how much scroll moves the line */
       const MOUSE_FACTOR  = 18;     /* max px shift from mouse */
-      const LERP          = 0.08;   /* smoothing — lower = more lag */
+      const LERP          = 0.08;   /* smoothing - lower = more lag */
 
       /* Track mouse position relative to hero */
       const hero = document.getElementById('hero');
@@ -1988,7 +2220,7 @@
         scrollY = window.scrollY;
       }, { passive: true });
 
-      /* Animation loop — lerp toward target */
+      /* Animation loop - lerp toward target */
       function tick() {
         targetY = scrollY * SCROLL_FACTOR + mouseY * MOUSE_FACTOR;
         currentY += (targetY - currentY) * LERP;
@@ -2013,7 +2245,7 @@
       const heroName    = document.querySelector('.hero-name');
       const roleLine    = document.querySelector('.hero-role-line');
       const heroSub     = document.querySelector('.hero-sub');
-      /* waveCanvas and waveBg stay fixed — no parallax */
+      /* waveCanvas and waveBg stay fixed - no parallax */
       const hero        = document.getElementById('hero');
       if (!heroName || !hero) return;
 
@@ -2037,12 +2269,12 @@
         const heroH = hero.offsetHeight;
         const inHero = scrollY < (heroH - 40);
 
-        /* Text — parallax upward */
+        /* Text - parallax upward */
         if (heroName) heroName.style.transform = `translateY(${scrollY * -0.28}px)`;
         if (roleLine) roleLine.style.transform = `translateY(${scrollY * -0.22}px)`;
         if (heroSub)  heroSub.style.transform  = `translateY(${scrollY * -0.16}px)`;
 
-        /* Background — counteract scroll to stay pinned in place */
+        /* Background - counteract scroll to stay pinned in place */
         if (inHero) {
           if (waveCanvas) waveCanvas.style.transform = `translateY(${scrollY}px)`;
           if (waveBg)     waveBg.style.transform     = `translateY(${scrollY}px)`;
@@ -2055,7 +2287,7 @@
 
     /* ── Footer wave canvas ──────────────────────────────────────
        Same guilloché technique as the hero wave, adapted for the
-       pink/amber gradient — white semi-transparent lines over colour.
+       pink/amber gradient - white semi-transparent lines over colour.
        ────────────────────────────────────────────────────────── */
     (function footerWave() {
       const canvas = document.getElementById('footer-canvas');
@@ -2126,7 +2358,7 @@
           }
           ctx.stroke();
         });
-        /* Edge fades — dissolve into white at top and bottom */
+        /* Edge fades - dissolve into white at top and bottom */
         const fT = ctx.createLinearGradient(0, 0, 0, H * 0.18);
         fT.addColorStop(0, 'rgba(255,255,255,1)');
         fT.addColorStop(1, 'rgba(255,255,255,0)');

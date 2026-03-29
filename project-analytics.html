@@ -8,10 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
       --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
-      --c-ink:#0A0A0A; --c-mid:#595959; --c-light:#999999;
+      --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#999999;
       --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
       --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --t-sm:clamp(13px,1.4vw,14px); --t-base:clamp(15px,1.6vw,17px);
@@ -23,6 +25,7 @@
       --sh-xs:0 1px 3px rgba(0,0,0,.04); --sh-sm:0 2px 10px rgba(0,0,0,.06);
       --sh-md:0 6px 24px rgba(0,0,0,.08); --sh-lg:0 12px 48px rgba(0,0,0,.10);
       --mw:1340px; --pad:clamp(28px,6vw,88px); --nav:72px;
+      --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{font-size:16px;scroll-behavior:smooth;}
@@ -73,7 +76,7 @@
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
-    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:500;letter-spacing:-.03em;line-height:1;}
+    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1;}
     .sh-period{color:var(--c-ghost);}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
@@ -90,30 +93,140 @@
     @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
   </style>
   <style>
-    .proj-page { padding-top: var(--nav); }
+    .proj-page { padding-top: var(--nav); position: relative; z-index: 2; }
     /* Hero */
     .proj-hero {
-      padding: 80px 0 0;
+      padding: 56px 0 0;
       position: relative;
       overflow: hidden;
       background: var(--c-bg);
     }
+    .proj-title-post {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 400;
+      letter-spacing: -.03em;
+      line-height: 1.08;
+      margin: 44px 0 18px;
+    }
+    .proj-lead {
+      font-size: clamp(17px, 1.8vw, 20px);
+      font-weight: 300;
+      color: var(--c-mid);
+      line-height: 1.65;
+      max-width: 640px;
+      margin-bottom: 52px;
+    }
+    .proj-about-layout {
+      display: grid;
+      grid-template-columns: minmax(108px, min(24vw, 220px)) minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 80px);
+      align-items: start;
+    }
+    .proj-about-main { min-width: 0; }
+    .proj-about-main .proj-body { max-width: 680px; }
+    .proj-about-label {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.8vw, 32px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin-bottom: 0;
+      text-transform: lowercase;
+      line-height: 1.12;
+      position: sticky;
+      top: calc(var(--nav) + 24px);
+    }
+    .proj-about-dot { color: var(--c-ghost); }
+    .proj-about-block { margin-bottom: 44px; }
+    .proj-about-h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+      margin-bottom: 14px;
+    }
+    .proj-nda {
+      margin: 52px 0 0;
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+      background: #fff;
+      box-shadow: none;
+    }
+    .proj-nda-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 38% 45%, rgba(130, 224, 255, 0.42) 0%, transparent 58%),
+        radial-gradient(ellipse 50% 48% at 44% 52%, rgba(175, 240, 255, 0.35) 0%, transparent 52%);
+    }
+    .proj-nda-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(48px, 9vw, 96px) clamp(24px, 5vw, 48px);
+      min-height: clamp(260px, 36vw, 340px);
+    }
+    .proj-nda-rule {
+      width: min(220px, 55vw);
+      height: 1px;
+      margin: 0;
+      border: none;
+      background: linear-gradient(90deg, transparent, rgba(10, 10, 10, 0.12), transparent);
+    }
+    .proj-nda-rule--spaced { margin: 22px 0; }
+    .proj-nda-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4.2vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: var(--c-ink);
+      margin: 0;
+    }
+    .proj-nda-lead {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3.4vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--c-ink);
+      margin: 6px 0 0;
+    }
+    .proj-nda-body {
+      font-family: var(--font);
+      font-size: clamp(14px, 1.45vw, 16px);
+      font-weight: 300;
+      color: #555;
+      line-height: 1.65;
+      max-width: 36em;
+      margin: 0;
+    }
+
     .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
     .proj-breadcrumb a:hover { color:var(--c-ink); }
     .proj-breadcrumb-sep { color:var(--c-rule-dk); }
     .proj-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
-    .proj-title { font-size:clamp(36px,5.5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:32px; }
+    .proj-title { font-size:clamp(36px,5.5vw,72px);font-weight:700;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:32px; }
     .proj-subtitle { font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--c-mid);max-width:640px;line-height:1.65;margin-bottom:48px; }
-    .proj-meta-row { display:flex;gap:40px;flex-wrap:wrap;padding:32px 0;border-top:1px solid var(--c-rule);border-bottom:1px solid var(--c-rule);margin-bottom:64px; }
+    .proj-meta-row { display:flex;gap:40px;flex-wrap:wrap;padding:0 0 28px;border-top:none;border-bottom:1px solid var(--c-rule);margin-bottom:32px; }
     .proj-meta-item { display:flex;flex-direction:column;gap:4px; }
     .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
     .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
     /* Cover image */
-    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:16px;margin-bottom:80px;display:block; }
-    .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:16px;margin-bottom:80px; }
+    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block; }
+    .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
     /* Content sections */
-    .proj-content { padding-bottom:120px; }
+    .proj-content { padding-bottom:40px; }
     .proj-section { margin-bottom:72px; }
     .proj-section-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:16px;display:block; }
     .proj-section-title { font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:20px; }
@@ -122,22 +235,59 @@
     .proj-body p + p { margin-top:16px; }
     /* Image grid */
     .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0; }
-    .proj-img-grid img { width:100%;border-radius:12px;object-fit:cover;aspect-ratio:4/3; }
-    .proj-img-full { width:100%;border-radius:16px;margin:40px 0;display:block; }
-    .proj-img-ph { border-radius:12px;aspect-ratio:4/3; }
-    .proj-img-full-ph { border-radius:16px;aspect-ratio:21/7;margin:40px 0; }
+    .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3; }
+    .proj-img-full { width:100%;border-radius:0;margin:40px 0;display:block; }
+    .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
+    .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:40px 0; }
+    /* Case study media (analytics page) */
+    .proj-media { margin: 0 0 48px; }
+    .proj-media-frame {
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+    .proj-media-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .proj-media-cap { margin-top: 14px; max-width: 680px; }
+    .proj-media-cap-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+      margin-bottom: 6px;
+    }
+    .proj-media-cap-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--c-mid);
+      line-height: 1.65;
+    }
+    .proj-media-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(16px, 2.5vw, 24px);
+      margin: 8px 0 48px;
+    }
+    .proj-media-split .proj-media { margin-bottom: 0; }
     /* Outcome pills */
     .proj-outcomes { display:flex;gap:16px;flex-wrap:wrap;margin:32px 0; }
-    .proj-outcome { background:var(--c-panel);border:1px solid var(--c-rule);border-radius:var(--r-card);padding:20px 28px;display:flex;flex-direction:column;gap:6px;min-width:180px; }
+    .proj-outcome { background:var(--c-panel);border:none;border-radius:0;padding:20px 28px;display:flex;flex-direction:column;gap:6px;min-width:180px; }
     .proj-outcome-num { font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink); }
     .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light); }
     /* Tags */
     .proj-tags { display:flex;gap:8px;flex-wrap:wrap;margin-top:32px; }
-    .proj-tag { font-size:12px;font-weight:400;color:var(--c-mid);background:var(--c-panel);border:1px solid var(--c-rule);border-radius:var(--r-pill);padding:6px 16px; }
+    .proj-tag { font-size:12px;font-weight:400;color:var(--c-mid);background:var(--c-panel);border:none;border-radius:0;padding:6px 16px; }
     /* Next project nav */
-    .proj-next { padding:60px 0;border-top:1px solid var(--c-rule); }
-    .proj-next-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
-    .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
+    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
+    .proj-next-label { font-family:var(--font-display);font-size:clamp(20px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;text-transform:lowercase;color:var(--c-ink);margin-bottom:20px;display:block; }
+    .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:400;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
     .proj-next-link:hover { gap:20px; }
     .proj-next-link svg { flex-shrink:0;transition:transform var(--tb) var(--spring); }
     .proj-next-link:hover svg { transform:translateX(4px); }
@@ -145,25 +295,17 @@
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:24px;}
       .proj-outcomes{flex-direction:column;}
+      .proj-about-layout{grid-template-columns:1fr;gap:20px;}
+      .proj-about-label{position:static;margin-bottom:8px;}
+      .proj-media-split{grid-template-columns:1fr;}
+      .proj-next{padding-bottom:20px;}
     }
     /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
     #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
-    /* Footer visual: pink/amber gradient + wave canvas */
-    .footer-visual{position:relative;height:480px;overflow:hidden;background:#fff;pointer-events:none;}
-    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
-    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
-    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
-    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
-    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,rgba(255,145,185,.90) 0%,rgba(255,145,185,.52) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
-    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,rgba(255,198,95,.86) 0%,rgba(255,198,95,.48) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
-    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,rgba(255,175,135,.60) 0%,rgba(255,175,135,.28) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
-    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
-    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
-    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
-    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
-    .footer{border-top:none;}
+    .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 <body>
   <nav class="nav" id="nav" aria-label="Main navigation">
@@ -207,54 +349,94 @@
           <span class="proj-breadcrumb-sep">›</span>
           <span>Fusion Analytics Dashboard</span>
         </div>
-        <span class="proj-eyebrow rv" data-d="1">Product Design · Fintech · Data Visualisation</span>
-        <h1 class="proj-title rv" data-d="2">Fusion Analytics Dashboard</h1>
-        <p class="proj-subtitle rv" data-d="3">A complex B2B analytics platform surfacing real-time financial data with clarity and precision for decision-makers across J.P. Morgan.</p>
-        <div class="proj-meta-row rv" data-d="4">
+        <div class="proj-meta-row rv" data-d="1">
           <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Lead Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2022–2023</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Tags</span><span class="proj-meta-value">Product Design · Data Viz · Fintech</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Lead Product Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="https://framerusercontent.com/images/oNwGkqwGjCeIuRVQSSHSB2G0k8.png?scale-down-to=2048" alt="Fusion Analytics Dashboard" class="proj-cover rv"
+      <img src="assets/analytics-hero-montage.png" alt="Fusion analytics dashboard: layered views of performance tables, allocation charts, and reporting modules" class="proj-cover rv"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
+      <h1 class="proj-title-post rv" data-d="2">Fusion Analytics Dashboard</h1>
+      <p class="proj-lead rv" data-d="3">A complex B2B analytics platform surfacing real-time financial data with clarity and precision for decision-makers across J.P. Morgan.</p>
+
       <!-- Content -->
       <div class="proj-content">
+        <div class="proj-about-layout">
+        <h2 class="proj-about-label rv">about<span class="proj-about-dot">.</span></h2>
+        <div class="proj-about-main">
 
-        <!-- Challenge -->
-        <div class="proj-section rv">
-          <span class="proj-section-label">The Challenge</span>
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Project Summary</h3>
           <div class="proj-body"><p>Financial analysts were working with dense, poorly structured dashboards that made it difficult to surface the right insights at the right time. The legacy interface had grown organically over years with no coherent information architecture, leading to high cognitive load and task inefficiencies.</p><p>The goal was to redesign the platform from the ground up, bringing <strong>clarity to complexity</strong> while maintaining the full depth of data that power users required.</p></div>
         </div>
 
-        <!-- Image grid -->
-        <div class="proj-img-grid rv">
-          <img src="https://framerusercontent.com/images/4zNalo8YtA3CrN8xtTB6W17oc.jpeg" alt="" loading="lazy" />
-          <img src="https://framerusercontent.com/images/8vsos78cRZFUd6Lw2cysrDc6jM.jpeg" alt="" loading="lazy" />
+        <figure class="proj-media rv">
+          <div class="proj-media-frame">
+            <img src="assets/analytics-widgets-grid.png" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="proj-media-cap">
+            <span class="proj-media-cap-label">Modular analytics surface</span>
+            <span class="proj-media-cap-text">A consistent card system for dense financial data (tables, bar and area charts, allocation views, combined bar-line trends) so specialists can scan, compare, and drill down without losing context.</span>
+          </figcaption>
+        </figure>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">My Role</h3>
+          <div class="proj-body"><p>As <strong>Lead Product Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
         </div>
 
-        <!-- Approach -->
-        <div class="proj-section rv">
-          <span class="proj-section-label">My Approach</span>
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Design Process</h3>
           <div class="proj-body"><p>I began with a <strong>discovery phase</strong>, conducting 12 stakeholder interviews and analysing task flows to identify friction points. The most critical finding was that users were switching between 7+ screens to complete a single workflow.</p><p>I designed a <strong>unified dashboard architecture</strong> with contextual panels, progressive disclosure for advanced features, and a token-based design system to ensure scalability. Every component was tested for WCAG 2.2 AA compliance, with particular attention to colour contrast in data visualisation.</p></div>
         </div>
 
-        <!-- Full-width image placeholder -->
-        <img src="https://framerusercontent.com/images/Cyi6iLN4TJjRaufkfnAgzlNnJDg.jpeg" alt="" class="proj-img-full rv" loading="lazy" />
+        <div class="proj-media-split rv">
+          <figure class="proj-media">
+            <div class="proj-media-frame">
+              <img src="assets/analytics-configuration.png" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
+            </div>
+            <figcaption class="proj-media-cap">
+              <span class="proj-media-cap-label">Configuration &amp; reporting</span>
+              <span class="proj-media-cap-text">Column, group, and display controls so analysts tailor grids and hierarchies to each workflow while staying on the analysis surface.</span>
+            </figcaption>
+          </figure>
+          <figure class="proj-media">
+            <div class="proj-media-frame">
+              <img src="assets/analytics-combination-chart.png" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
+            </div>
+            <figcaption class="proj-media-cap">
+              <span class="proj-media-cap-label">Data visualisation</span>
+              <span class="proj-media-cap-text">Combination charts and linked tables for time-based comparison: bars, lines, and tabular detail aligned for board-ready reporting.</span>
+            </figcaption>
+          </figure>
+        </div>
 
-        <!-- Outcomes -->
-        <div class="proj-section rv">
-          <span class="proj-section-label">Outcomes</span>
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Outcomes</h3>
           <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">40%</span><span class="proj-outcome-label">Reduction in task time</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">12+</span><span class="proj-outcome-label">Screens consolidated</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">WCAG</span><span class="proj-outcome-label">AA Compliant</span></div></div>
         </div>
 
-        <!-- Tags -->
         <div class="proj-tags rv"><span class="proj-tag">Product Design</span><span class="proj-tag">Data Viz</span><span class="proj-tag">Fintech</span><span class="proj-tag">WCAG 2.2</span><span class="proj-tag">Figma</span><span class="proj-tag">Design Systems</span></div>
+
+        <figure class="proj-nda rv" role="note" aria-label="Private project">
+          <div class="proj-nda-glow" aria-hidden="true"></div>
+          <div class="proj-nda-inner">
+            <hr class="proj-nda-rule" />
+            <h3 class="proj-nda-title">Oops!</h3>
+            <p class="proj-nda-lead">This project is private!</p>
+            <hr class="proj-nda-rule proj-nda-rule--spaced" />
+            <p class="proj-nda-body">Due to NDA restrictions, I can&rsquo;t share the full work publicly, but I&rsquo;d be happy to walk you through it in person.</p>
+          </div>
+        </figure>
+
+        </div>
+        </div>
 
       </div>
     </div>
@@ -262,7 +444,7 @@
     <!-- Next project -->
     <div class="proj-next">
       <div class="wrap">
-        <span class="proj-next-label rv">Next Project</span>
+        <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
         <a href="project-design-system.html" class="proj-next-link rv" data-d="1">
           Fusion Design System
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -273,7 +455,6 @@
     </div>
   </main>
 
-  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
 
   <footer class="footer">
     <div class="wrap">
@@ -318,8 +499,7 @@
       });
     });
     /* Difference-blend circle cursor */
-    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
-    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
+    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda,.proj-media').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
   </script>
 </body>
 </html>
