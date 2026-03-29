@@ -683,10 +683,7 @@
     .pcard-img img, .pcard-img .ph {
       width: 100%; height: 100%; object-fit: cover;
       object-position: center top;
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .pcard:hover .pcard-img img,
-    .pcard:hover .pcard-img .ph { transform: scale(1.05); }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;
@@ -707,28 +704,26 @@
       inset: 0;
       display: flex;
       align-items: flex-end;
-      padding: clamp(16px, 3vw, 28px);
+      padding: 20px;
       opacity: 0;
-      transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.3s ease;
       z-index: 2;
     }
     .pcard-body::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg,
-        rgba(0,0,0,0) 30%,
-        rgba(0,0,0,0.55) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
       border-radius: inherit;
     }
     .pcard:hover .pcard-body { opacity: 1; }
     .pcard-title {
       position: relative;
-      font-family: var(--font-display);
-      font-size: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
       font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.15;
+      letter-spacing: 0;
+      line-height: 1.2em;
       color: #ffffff;
     }
     .pcard-meta,
