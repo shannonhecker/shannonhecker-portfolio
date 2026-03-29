@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work · Shannon Hecker</title>
   <meta name="description" content="Case studies by Shannon Hecker, Lead Product Designer: enterprise fintech, design systems, analytics, and trading workflows." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -52,6 +57,10 @@
     .nav-links{list-style:none;display:flex;align-items:center;gap:4px;}
     .nav-links a{font-size:13px;font-weight:400;color:#595959;letter-spacing:.01em;border-radius:var(--r-pill);padding:8px 16px;transition:background var(--tb) var(--ease),color var(--tb) var(--ease);}
     .nav-links a:hover{background:#111;color:#fff;}
+    /* Current page: no inline color (inline beats :hover and hides label on black bg) */
+    .nav-links a[aria-current="page"]{color:var(--c-ink);font-weight:500;}
+    .nav.s .nav-links a[aria-current="page"]{color:var(--c-ink);}
+    .nav-links a[aria-current="page"]:hover{color:#fff;}
     .nav.s .nav-links a{color:#595959;}
     .nav-cta{font-size:13px;font-weight:400;color:#595959;border:1px solid #c0c0c0;border-radius:var(--r-pill);padding:8px 20px;transition:background var(--tb) var(--ease),border-color var(--tb) var(--ease),color var(--tb) var(--ease);}
     .nav-cta:hover{background:#111;border-color:#111;color:#fff;}
@@ -74,8 +83,8 @@
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
-    .sh-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.02em;line-height:1;}
-    .sh-period{color:var(--c-ghost);}
+    .sh-text{font-family:var(--font);font-size:clamp(16px,1.2vw,18px);font-weight:600;color:#000000;letter-spacing:-.01em;line-height:1.25;text-transform:lowercase;}
+    .sh-period{color:#000000;}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
     /* Footer */
@@ -91,8 +100,12 @@
     @media(max-width:900px){
       .nav-links,.nav-cta{display:none;}
       .nav-burger{display:flex;}
-      .footer-visual{margin-top:-200px;}
       .work-page{padding-bottom:28px;}
+      .work-hero-visual .fv-blobs { left: 0; }
+      #work-hero-canvas { width: 90%; }
+      .work-hero-visual .fv-orb-1 { width: 80vw; height: 50vh; top: -5%; right: -10%; opacity: 0.55; filter: blur(70px); }
+      .work-hero-visual .fv-orb-2 { width: 65vw; height: 45vh; top: 10%; right: -12%; opacity: 0.50; filter: blur(70px); }
+      .work-hero-visual .fv-orb-3 { width: 60vw; height: 40vh; bottom: 0; top: auto; right: -5%; opacity: 0.45; filter: blur(70px); }
     }
 
     /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
@@ -113,20 +126,19 @@
     #img-cursor.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   </style>
   <style>
+    /* Framer-style 3-column grid (exact Framer values) */
     .bento{
       display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns:repeat(3, minmax(50px, 1fr));
       gap:20px;
     }
-    .bc-6,.bc-4,.bc-8,.bc-12{grid-column:span 1;}
-    .pcard{display:block;text-decoration:none;background:var(--c-surface);border-radius:8px;overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);position:relative;
-      box-shadow:0 1px 4px rgba(0,0,0,.03);cursor:pointer;
-      transition:box-shadow var(--ts) var(--ease),transform var(--ts) var(--ease);}
-    .pcard:hover{box-shadow:var(--sh-md);transform:translateY(-2px);}
-    .pcard-img{aspect-ratio:3/2;overflow:hidden;position:relative;background:var(--c-panel);}
-    .pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),filter .3s ease;}
-    .pcard:hover .pcard-img img{transform:scale(1.03);}
+    .bc-3,.bc-4,.bc-6,.bc-8,.bc-12{grid-column:span 1;}
+    .pcard{display:block;position:relative;text-decoration:none;background:#fff;
+      border:none;border-radius:8px;overflow:hidden;box-shadow:none;cursor:pointer;}
+    .pcard:hover{}
+    .pcard-img{aspect-ratio:1/1;overflow:hidden;position:relative;background:var(--c-panel);}
+    .pcard-img img, .pcard-img .ph{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+    .pcard:hover .pcard-img img,.pcard:hover .pcard-img .ph{transform:scale(1.05);}
     .pcard-overlay{display:none;}
     .ph{display:flex;align-items:flex-end;padding:18px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;min-height:100%;}
     .ph-1{background:linear-gradient(145deg,#0c1828,#1a3a68 55%,#2468b0);color:rgba(255,255,255,.22);}
@@ -136,41 +148,126 @@
     .ph-5{background:linear-gradient(145deg,#101010,#1e1e1e 55%,#303030);color:rgba(255,255,255,.22);}
     .ph-6{background:linear-gradient(145deg,#161008,#361e0e 55%,#643418);color:rgba(255,255,255,.22);}
     .ph-7{background:linear-gradient(145deg,#0a1628,#0e2a4a 55%,#1a4a7a);color:rgba(255,255,255,.22);}
-    .pcard-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:6px;}
-    .pcard-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-    .pcard-num{font-size:11px;font-weight:500;color:var(--c-light);letter-spacing:.04em;}
-    .pcard-arrow{display:none;}
-    .pcard-title{font-size:clamp(15px,1.7vw,18px);font-weight:500;letter-spacing:-.02em;line-height:1.2;color:var(--c-ink);}
-    .pcard-desc{font-size:13px;font-weight:300;color:var(--c-mid);line-height:1.55;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .pcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-    @media(max-width:400px){ .bento{grid-template-columns:1fr;} }
+    /* Title overlay - hidden by default, appears on hover (Framer exact) */
+    .pcard-body{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(16px,3vw,28px);
+      opacity:0;transition:opacity .4s cubic-bezier(.22,1,.36,1);z-index:2;}
+    .pcard-body::before{content:'';position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 100%);border-radius:inherit;}
+    .pcard:hover .pcard-body{opacity:1;}
+    .pcard-title{position:relative;font-family:var(--font-display);font-size:20px;font-weight:500;
+      letter-spacing:-.01em;line-height:1.15;color:#fff;}
+    .pcard-meta,.pcard-num,.pcard-arrow,.pcard-desc,.pcard-tags{display:none !important;}
+    @media(max-width:809px){ .bento{grid-template-columns:repeat(1, minmax(50px, 1fr));} }
     .work-page {
-      padding-top: calc(var(--nav) + 100px);
+      padding-top: 0;
       padding-bottom: 40px;
       position: relative;
       z-index: 2;
     }
-    .work-hero { padding: 0 0 80px; }
+    /* Pink/amber aurora + lines behind work listing hero only */
+    .work-hero-band {
+      position: relative;
+      overflow: hidden;
+      padding-top: calc(var(--nav) + 48px);
+      padding-bottom: 80px;
+    }
+    @property --wh-aurora { syntax: '<number>'; inherits: true; initial-value: 0; }
+    .work-hero-visual {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: #fff;
+      animation: workHeroAuroraColor 26s ease-in-out infinite alternate;
+    }
+    .work-hero-visual::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(to bottom, #fff 0%, transparent 100%);
+      z-index: 4;
+      pointer-events: none;
+    }
+    .work-hero-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent 0%, #fff 100%);
+      z-index: 4;
+      pointer-events: none;
+    }
+    /* Blobs confined to top-right band (matches index hero: left 36% clear for copy) */
+    .work-hero-visual .fv-blobs {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      left: 36%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .work-hero-visual .fv-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(88px);
+    }
+    .work-hero-visual .fv-orb-1 {
+      width: 55vw; height: 70vh; top: -15%; right: 10%; left: auto;
+      background: radial-gradient(ellipse,
+        color-mix(in srgb, rgba(255,145,185,.90) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,198,95,.78)) 0%,
+        color-mix(in srgb, rgba(255,145,185,.52) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,198,95,.42)) 45%,
+        transparent 72%);
+      animation: fvDrift1 16s ease-in-out infinite;
+    }
+    .work-hero-visual .fv-orb-2 {
+      width: 48vw; height: 60vh; top: 20%; right: -6%; left: auto;
+      background: radial-gradient(ellipse,
+        color-mix(in srgb, rgba(255,198,95,.86) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,145,185,.72)) 0%,
+        color-mix(in srgb, rgba(255,198,95,.48) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,145,185,.38)) 45%,
+        transparent 72%);
+      animation: fvDrift2 19s ease-in-out infinite;
+    }
+    .work-hero-visual .fv-orb-3 {
+      width: 42vw; height: 55vh; top: 5%; right: -2%; left: auto;
+      background: radial-gradient(ellipse,
+        color-mix(in srgb, rgba(255,175,135,.60) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,205,110,.52)) 0%,
+        color-mix(in srgb, rgba(255,175,135,.28) calc((1 - var(--wh-aurora, 0)) * 100%), rgba(255,195,85,.24)) 45%,
+        transparent 72%);
+      animation: fvDrift3 23s ease-in-out infinite;
+    }
+    @keyframes workHeroAuroraColor {
+      0% { --wh-aurora: 0; }
+      100% { --wh-aurora: 1; }
+    }
+    @keyframes fvDrift1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(28px, -22px) scale(1.04); }
+    }
+    @keyframes fvDrift2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-22px, 32px) scale(0.96); }
+    }
+    @keyframes fvDrift3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-18px, -26px) scale(1.07); }
+    }
+    #work-hero-canvas {
+      position: absolute;
+      top: 0; right: 0;
+      width: 65%;
+      height: 100%;
+      z-index: 2;
+      display: block;
+    }
+    .work-hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .work-hero { padding: 0; }
     .work-hero-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
     .work-hero-title { font-family:var(--font-display);font-size:clamp(40px,6vw,80px);font-weight:600;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
     .work-hero-sub { font-size:clamp(15px,1.5vw,18px);font-weight:300;color:var(--c-mid);max-width:520px;line-height:1.75; }
 
-    .pcard { cursor: pointer; }
-    /* ── Footer visual: pink/amber gradient + wave canvas ── */
-    @property --fv-aurora{syntax:'<number>';inherits:true;initial-value:0;}.footer-visual{position:relative;z-index:1;height:480px;margin-top:-280px;overflow:hidden;background:#fff;pointer-events:none;animation:footerAuroraColor 26s ease-in-out infinite alternate;}
-    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
-    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
-    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
-    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
-    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,145,185,.90) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.78)) 0%,color-mix(in srgb,rgba(255,145,185,.52) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.42)) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
-    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,198,95,.86) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.72)) 0%,color-mix(in srgb,rgba(255,198,95,.48) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.38)) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
-    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,175,135,.60) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,205,110,.52)) 0%,color-mix(in srgb,rgba(255,175,135,.28) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,195,85,.24)) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
-    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
-    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
-    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
-    @keyframes footerAuroraColor{0%{--fv-aurora:0;}100%{--fv-aurora:1;}}
-    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
-    .footer{border-top:none;position:relative;z-index:3;background:#fff;}
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -190,7 +287,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Intro</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="work.html" style="color:var(--c-ink);font-weight:500;">Work</a></li>
+        <li><a href="work.html" aria-current="page">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
       <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener">Resume ↗</a>
@@ -208,17 +305,29 @@
   </div>
 
   <main class="work-page">
-    <div class="wrap">
-      <div class="work-hero rv">
-        <span class="work-hero-eyebrow">Portfolio</span>
-        <h1 class="work-hero-title">All Work.</h1>
-        <p class="work-hero-sub">Eleven projects across trading and markets UX, data visualisation, design systems, and AI-supported workflows. Work from Barclays, J.P. Morgan, and select product design challenges.</p>
+    <header class="work-hero-band">
+      <div class="work-hero-visual" aria-hidden="true">
+        <div class="fv-blobs">
+          <div class="fv-orb fv-orb-1"></div>
+          <div class="fv-orb fv-orb-2"></div>
+          <div class="fv-orb fv-orb-3"></div>
+        </div>
+        <canvas id="work-hero-canvas"></canvas>
       </div>
+      <div class="wrap work-hero-inner">
+        <div class="work-hero rv">
+          <span class="work-hero-eyebrow">Portfolio</span>
+          <h1 class="work-hero-title">All Work.</h1>
+          <p class="work-hero-sub">Eleven projects across trading and markets UX, data visualisation, design systems, and AI-supported workflows. Work from Barclays, J.P. Morgan, and select product design challenges.</p>
+        </div>
+      </div>
+    </header>
+    <div class="wrap">
       <div class="bento">
         <div class="bc-6 rv" data-d="1">
           <a href="project-barclays-data-viz.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard data visualisation" loading="lazy"
+              <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Barclays Data Visualisation</span></div>
@@ -237,7 +346,7 @@
         <div class="bc-6 rv" data-d="2">
           <a href="project-tripup.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/tripup-hifi.png" alt="TripUp mobile app high-fidelity screens" loading="lazy"
+              <img src="assets/tripup-hifi.png" alt="TripUp mobile app high-fidelity screens" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">TripUp</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">TripUp</span></div>
@@ -256,7 +365,7 @@
         <div class="bc-6 rv" data-d="3">
           <a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/oNwGkqwGjCeIuRVQSSHSB2G0k8.png?scale-down-to=2048" alt="Fusion Analytics Dashboard" loading="lazy"
+              <img src="assets/Analytics%201.png" alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">Fusion Analytics Dashboard</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Analytics Dashboard</span></div>
@@ -275,7 +384,7 @@
         <div class="bc-6 rv" data-d="4">
           <a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/PhhDnFzX6z5QSN5NDLfw6R1RpU.png?lossless=1" alt="Fusion Design System" loading="lazy"
+              <img src="assets/System%201.png" alt="Fusion Design System" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Fusion Design System</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Design System</span></div>
@@ -294,7 +403,7 @@
         <div class="bc-4 rv" data-d="3">
           <a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/Fk4C7UhTf2KmyAAsaSX6HWKp8A.png?lossless=1" alt="Fusion Data Solution" loading="lazy"
+              <img src="assets/Data%20Managment%201.png" alt="Fusion Data Solution" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Fusion Data Solution</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Data Solution</span></div>
@@ -313,7 +422,7 @@
         <div class="bc-4 rv" data-d="1">
           <a href="project-ui-toolkit.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/buOdPyYNv7nn1Cq3yNobi85a5P8.png?lossless=1" alt="UI Toolkit" loading="lazy"
+              <img src="assets/UI%20Toolkit%201.png" alt="UI Toolkit" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">UI Toolkit</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">UI Toolkit</span></div>
@@ -332,7 +441,7 @@
         <div class="bc-4 rv" data-d="2">
           <a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/KgUyecb5PlmBKZxT0JNTN6s.png?lossless=1" alt="Corporate Action Manager" loading="lazy"
+              <img src="assets/Corporate%20Action%20Manager%201.png" alt="Corporate Action Manager" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-5" style="display:none;">Corporate Action Manager</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Corporate Action Manager</span></div>
@@ -351,7 +460,7 @@
         <div class="bc-8 rv" data-d="3">
           <a href="project-complex-assets.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/MvkAGqNpdgEJjmm3zdQj8uEeVME.png?lossless=1" alt="Complex Assets Derivatives Valuation" loading="lazy"
+              <img src="assets/Complex%20Assets%201.png" alt="Complex Assets Derivatives Valuation" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-6" style="display:none;">Complex Assets Derivatives Valuation</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Complex Assets Derivatives Valuation</span></div>
@@ -370,7 +479,7 @@
         <div class="bc-4 rv" data-d="1">
           <a href="project-research.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/Fr2ngSfi6PfZwTYdJRmWg3mxEw.png" alt="JPMM Research Platform" loading="lazy"
+              <img src="assets/Research%201.png" alt="JPMM Research Platform" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">JPMM Research Platform</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">JPMM Research Platform</span></div>
@@ -389,7 +498,7 @@
         <div class="bc-4 rv" data-d="2">
           <a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/l04WyjN6mE5wTLUIvAZ0iZBhFY.png" alt="Global Custody Deal Model" loading="lazy"
+              <img src="assets/DealModel%201.png" alt="Global Custody Deal Model" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Global Custody Deal Model</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Global Custody Deal Model</span></div>
@@ -408,14 +517,14 @@
         <div class="bc-8 rv" data-d="3">
           <a href="project-algo-center.html" class="pcard">
             <div class="pcard-img">
-              <img src="https://framerusercontent.com/images/hXi5ZE6xeT7T0uOJjXldkGUkVwg.png" alt="Execute Algo Center" loading="lazy"
+              <img src="assets/AlgoCenter%201.png" alt="Execute Algo Center" loading="lazy" decoding="async"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Execute Algo Center</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Execute Algo Center</span></div>
             </div>
             <div class="pcard-body">
               <div class="pcard-meta">
-                <span class="pcard-num">11 / 11</span>
+                <span class="pcard-num">11 / 12</span>
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title">Execute Algo Center</div>
@@ -424,11 +533,27 @@
             </div>
           </a>
         </div>
+        <div class="bc-4 rv" data-d="4">
+          <a href="project-dps-brand.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/dps-brand-identity.png" alt="Digital &amp; Platform Services Brand Identity" loading="lazy" decoding="async"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="ph ph-1" style="display:none;">D&amp;PS Brand Identity</div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta">
+                <span class="pcard-num">12 / 12</span>
+                <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="pcard-title">D&amp;PS Brand Identity</div>
+              <p class="pcard-desc">Internal brand identity for J.P. Morgan's Digital &amp; Platform Services: visual system, typography, and guidelines.</p>
+              <div class="pcard-tags"><span class="chip chip-default">Brand Identity</span><span class="chip chip-default">Visual Design</span></div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </main>
-
-  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
 
   <footer class="footer">
     <div class="wrap">
@@ -493,7 +618,83 @@
         rafId = requestAnimationFrame(tick);
       }
     })();
-    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
+    (function workHeroWave() {
+      const canvas = document.getElementById('work-hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const N = 90, SPEED = 0.00034, PHASE_STEP = 0.17, LW = 0.85, BAND_T = 0.08, BAND_B = 0.92, AMPL = 0.042;
+      let lines = [], waveGrad = null;
+      function buildGrad(W) {
+        const g = ctx.createLinearGradient(0, 0, W, 0);
+        g.addColorStop(0, 'rgba(255,255,255,0)');
+        g.addColorStop(0.06, 'rgba(255,255,255,0.70)');
+        g.addColorStop(0.50, 'rgba(255,255,255,0.75)');
+        g.addColorStop(0.94, 'rgba(255,255,255,0.65)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        waveGrad = g;
+      }
+      function build(W, H) {
+        lines = [];
+        const bH = H * (BAND_B - BAND_T), sp = bH / (N - 1), am = bH * AMPL;
+        for (let i = 0; i < N; i++) {
+          const t = i / (N - 1), bell = 0.4 + 0.6 * Math.sin(t * Math.PI);
+          lines.push({ y0: H * BAND_T + i * sp, amp: am * bell, ph: i * PHASE_STEP });
+        }
+        buildGrad(W);
+      }
+      function resize() {
+        const r = canvas.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+        canvas.width = Math.round(r.width * d);
+        canvas.height = Math.round(r.height * d);
+        ctx.setTransform(d, 0, 0, d, 0, 0);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        build(r.width, r.height);
+      }
+      new ResizeObserver(resize).observe(canvas);
+      resize();
+      const STEPS = 480;
+      let t0 = null;
+      function edgeFade(W, H) {
+        const fw = W * 0.12;
+        const fL = ctx.createLinearGradient(0, 0, fw, 0);
+        fL.addColorStop(0, 'rgba(255,255,255,1)');
+        fL.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = fL; ctx.fillRect(0, 0, fw, H);
+        const fT = ctx.createLinearGradient(0, 0, 0, H * 0.08);
+        fT.addColorStop(0, 'rgba(255,255,255,1)');
+        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = fT; ctx.fillRect(0, 0, W, H * 0.08);
+        const fB = ctx.createLinearGradient(0, H * 0.88, 0, H);
+        fB.addColorStop(0, 'rgba(255,255,255,0)');
+        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        ctx.fillStyle = fB; ctx.fillRect(0, H * 0.88, W, H * 0.12);
+      }
+      function draw(ts) {
+        if (!t0) t0 = ts;
+        const el = ts - t0, d = window.devicePixelRatio || 1, W = canvas.width / d, H = canvas.height / d;
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = waveGrad;
+        ctx.lineWidth = LW;
+        lines.forEach(ln => {
+          const phi = el * SPEED + ln.ph;
+          ctx.beginPath();
+          for (let s = 0; s <= STEPS; s++) {
+            const nx = s / STEPS, px = nx * W,
+              py = ln.y0 + ln.amp * Math.sin(phi + nx * Math.PI * 4)
+                + ln.amp * 0.28 * Math.sin(phi * 1.5 + nx * Math.PI * 8 + 1.4)
+                + ln.amp * 0.10 * Math.sin(phi * 2.1 + nx * Math.PI * 12 + 2.8);
+            s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+        });
+        edgeFade(W, H);
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
   </script>
 </body>
 </html>

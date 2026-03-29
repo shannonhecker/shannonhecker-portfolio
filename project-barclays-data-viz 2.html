@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JPMM Research Platform · Shannon Hecker</title>
-  <meta name="description" content="Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets." />
+  <title>Barclays Data Visualisation · Stock dashboard · Shannon Hecker</title>
+  <meta name="description" content="Case study: equities monitoring dashboard for Barclays-aligned enterprise UX, with filters, charts, heatmaps, and responsive layouts." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -222,6 +222,29 @@
     /* Cover image */
     .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
+    /* Barclays dashboard hero - full mock without tight crop */
+    .proj-cover--barclays {
+      aspect-ratio: auto;
+      width: 100%;
+      height: auto;
+      max-height: min(70vh, 880px);
+      object-fit: contain;
+      object-position: center top;
+      background: #ffffff;
+    }
+    .proj-cover-ph--barclays {
+      aspect-ratio: 21/9;
+      min-height: 200px;
+      background: #ffffff;
+    }
+    .proj-img-full.proj-barclays-wide {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+      margin: 40px auto;
+      display: block;
+      background: #ffffff;
+    }
     /* Content sections */
     .proj-content { padding-bottom:40px; }
     .proj-section { margin-bottom:72px; }
@@ -306,23 +329,23 @@
         <div class="proj-breadcrumb rv">
           <a href="work.html">Work</a>
           <span class="proj-breadcrumb-sep">›</span>
-          <span>JPMM Research Platform</span>
+          <span>Barclays Data Visualisation</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan Markets</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2018–2019</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UX Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">Barclays</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Dashboard &amp; data visualisation</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2025</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Product Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="assets/Research%201.png" alt="JPMM Research Platform" class="proj-cover rv" decoding="async"
+      <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard: desktop view with charts, heatmap, and sparklines" class="proj-cover proj-cover--barclays rv"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
-      <div class="proj-cover-ph ph-1" style="display:none;"></div>
+      <div class="proj-cover-ph proj-cover-ph--barclays" style="display:none;"></div>
 
-      <h1 class="proj-title-post rv" data-d="2">JPMM Research Platform</h1>
-      <p class="proj-lead rv" data-d="3">Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets.</p>
+      <h1 class="proj-title-post rv" data-d="2">Barclays Data Visualisation</h1>
+      <p class="proj-lead rv" data-d="3">End-to-end product design for an equities dashboard: global filters, multi-series charts, a price-move heatmap, and responsive layouts that stay true to Barclays patterns while keeping dense market data scannable.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -332,36 +355,29 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Analysts and clients consuming J.P. Morgan research were struggling to find relevant content within a sprawling library of thousands of reports, notes and data publications. Search was inadequate, and personalisation was non-existent. Every user saw the same undifferentiated feed.</p></div>
+          <div class="proj-body"><p><strong>Context.</strong> Equity and sector specialists need to compare positions, spot drift, and validate stories without hunting across screens. The product opportunity was to bring <strong>EoD prices, daily change, sector trends, and cross-name moves</strong> into one coherent surface inside the Barclays shell.</p><p><strong>Approach.</strong> I framed the job as scan-first analysis: establish hierarchy, then layer charts and tables so power users get density while typography and colour semantics keep gains, losses, and neutral states instantly readable.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>UX Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>I owned <strong>information architecture</strong>, the dashboard grid, chart and table treatments, and breakpoint behaviour from desktop through narrow viewports. Deliverables included annotated layouts and component-level specs so engineering could align implementation with the intended scanning path and accessibility of the data.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I conducted a full <strong>content audit and taxonomy redesign</strong>, working with research authors, editorial staff and end-users to build a meaningful classification system. This formed the backbone of a new faceted search and filtering experience.</p><p>The interface was designed with <strong>information density in mind</strong>. Analysts needed to scan many results quickly, so the design prioritised information-dense list views over card-heavy layouts, with progressive detail on hover.</p></div>
+          <div class="proj-body"><p><strong>Solution.</strong> The desktop experience anchors on <strong>global filters</strong> (company, sector, date range) and a modular card system: summary tiles, multi-line and bar charts, sector area views, a <strong>price-change heatmap</strong>, and per-stock sparklines so users can triage before drilling in.</p><p><strong>Responsive behaviour.</strong> The narrow layout reflows the same modules into a single column with preserved reading order and chart legibility, so analysts get a consistent mental model whether they are at a desk or on a constrained display.</p></div>
         </div>
 
-        <!-- Full-width image placeholder -->
+        <figure class="rv">
+          <img src="assets/barclays-stock-dashboard-responsive.png" alt="Barclays stock dashboard: desktop and narrow responsive layouts" class="proj-img-full proj-barclays-wide" width="1600" height="900" loading="lazy" decoding="async" />
+        </figure>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">4x</span><span class="proj-outcome-label">Search result relevance</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">Research reads +35%</span><span class="proj-outcome-label">Engagement increase</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">IA</span><span class="proj-outcome-label">Redesigned from scratch</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Reusable dashboard module system</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">2</span><span class="proj-outcome-label">Desktop and narrow layouts with shared IA</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">6+</span><span class="proj-outcome-label">Viz patterns: line, bar, area, heatmap, spark</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tag">Research</span><span class="proj-tag">Information Architecture</span><span class="proj-tag">Content Design</span><span class="proj-tag">JPMorgan</span><span class="proj-tag">UX Strategy</span></div>
-
-        <figure class="proj-nda rv" role="note" aria-label="Private project">
-          <div class="proj-nda-glow" aria-hidden="true"></div>
-          <div class="proj-nda-inner">
-            <h3 class="proj-nda-title">Oops!</h3>
-            <p class="proj-nda-lead">This project is private!</p>
-            <p class="proj-nda-body">Due to NDA restrictions, I can&rsquo;t share the full work publicly, but I&rsquo;d be happy to walk you through it in person.</p>
-          </div>
-        </figure>
+        <div class="proj-tags rv"><span class="proj-tag">Data Viz</span><span class="proj-tag">Barclays</span><span class="proj-tag">Dashboard</span><span class="proj-tag">Finance</span><span class="proj-tag">Responsive</span><span class="proj-tag">Enterprise UX</span></div>
 
         </div>
         </div>
@@ -373,8 +389,8 @@
     <div class="proj-next">
       <div class="wrap">
         <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
-        <a href="project-deal-model.html" class="proj-next-link rv" data-d="1">
-          Global Custody Deal Model
+        <a href="project-tripup.html" class="proj-next-link rv" data-d="1">
+          TripUp
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -427,7 +443,7 @@
       });
     });
     /* Difference-blend circle cursor */
-    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-cover,.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
   </script>
 </body>
 </html>

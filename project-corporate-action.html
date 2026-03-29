@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Corporate Action Manager · Shannon Hecker</title>
   <meta name="description" content="Redesign of a legacy corporate actions trading tool, achieving a 40% improvement in task completion speed for operations and trading teams." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -76,8 +81,8 @@
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
-    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1;}
-    .sh-period{color:var(--c-ghost);}
+    .sh-text{font-family:var(--font);font-size:clamp(16px,1.2vw,18px);font-weight:600;color:#000000;letter-spacing:-.01em;line-height:1.25;text-transform:lowercase;}
+    .sh-period{color:#000000;}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
     /* Footer */
@@ -161,8 +166,8 @@
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(ellipse 65% 55% at 38% 45%, rgba(130, 224, 255, 0.42) 0%, transparent 58%),
-        radial-gradient(ellipse 50% 48% at 44% 52%, rgba(175, 240, 255, 0.35) 0%, transparent 52%);
+        radial-gradient(ellipse 70% 60% at 50% 48%, rgba(130, 224, 255, 0.36) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 50% at 50% 52%, rgba(175, 240, 255, 0.28) 0%, transparent 52%);
     }
     .proj-nda-inner {
       position: relative;
@@ -175,14 +180,6 @@
       padding: clamp(48px, 9vw, 96px) clamp(24px, 5vw, 48px);
       min-height: clamp(260px, 36vw, 340px);
     }
-    .proj-nda-rule {
-      width: min(220px, 55vw);
-      height: 1px;
-      margin: 0;
-      border: none;
-      background: linear-gradient(90deg, transparent, rgba(10, 10, 10, 0.12), transparent);
-    }
-    .proj-nda-rule--spaced { margin: 22px 0; }
     .proj-nda-title {
       font-family: var(--font-display);
       font-size: clamp(28px, 4.2vw, 42px);
@@ -208,7 +205,7 @@
       color: #555;
       line-height: 1.65;
       max-width: 36em;
-      margin: 0;
+      margin: clamp(14px, 2.5vw, 22px) 0 0;
     }
 
     .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
@@ -320,7 +317,7 @@
       </div>
 
       <!-- Cover -->
-      <img src="https://framerusercontent.com/images/KgUyecb5PlmBKZxT0JNTN6s.png?lossless=1" alt="Corporate Action Manager" class="proj-cover rv"
+      <img src="assets/Corporate%20Action%20Manager%201.png" alt="Corporate Action Manager" class="proj-cover rv" decoding="async"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-5" style="display:none;"></div>
 
@@ -358,10 +355,8 @@
         <figure class="proj-nda rv" role="note" aria-label="Private project">
           <div class="proj-nda-glow" aria-hidden="true"></div>
           <div class="proj-nda-inner">
-            <hr class="proj-nda-rule" />
             <h3 class="proj-nda-title">Oops!</h3>
             <p class="proj-nda-lead">This project is private!</p>
-            <hr class="proj-nda-rule proj-nda-rule--spaced" />
             <p class="proj-nda-body">Due to NDA restrictions, I can&rsquo;t share the full work publicly, but I&rsquo;d be happy to walk you through it in person.</p>
           </div>
         </figure>

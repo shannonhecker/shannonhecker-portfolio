@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About me · Shannon Hecker · Lead Product Designer</title>
   <meta name="description" content="Lead Product Designer in London. 10+ years in fintech: trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -248,7 +253,10 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--c-light);
+      cursor: default;
+      transition: color 0.2s var(--ease), letter-spacing 0.2s var(--ease);
     }
+    .sh-eyebrow:hover { color: var(--c-mid); letter-spacing: .28em; }
 
     /* Title row - title + optional link side by side */
     .sh-row {
@@ -260,59 +268,93 @@
     }
 
     .sh-text {
-      font-size: clamp(22px, 2.8vw, 34px);
-      font-weight: 400;
-      letter-spacing: -.03em;
-      line-height: 1;
+      font-family: var(--font);
+      font-size: clamp(16px, 1.2vw, 18px);
+      font-weight: 600;
+      color: #000000;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      text-transform: lowercase;
+      cursor: default;
+      transition: color 0.2s var(--ease);
     }
-    .sh-period { color: var(--c-ghost); }
+    .sh-text:hover { color: var(--c-ink); }
+    .sh-period { color: #000000; }
 
     .sh-link {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--c-light);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .01em;
+      text-transform: none;
+      color: #595959;
+      border: 1px solid #c0c0c0;
+      border-radius: var(--r-pill);
+      padding: 8px 20px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-shrink: 0;
-      transition: color var(--tb) var(--ease);
+      transform: translate3d(0, 0, 0);
+      transition:
+        background 0.5s var(--ease),
+        color 0.5s var(--ease),
+        border-color 0.5s var(--ease),
+        box-shadow 0.5s var(--ease),
+        transform 0.5s var(--ease);
     }
-    .sh-link:hover { color: var(--c-ink); }
-    .sh-link svg { transition: transform var(--tb) var(--spring); }
-    .sh-link:hover svg { transform: translateX(3px); }
+    .sh-link:hover {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transform: translate3d(0, -1px, 0);
+    }
+    .sh-link svg { transition: transform 0.55s var(--spring); }
+    .sh-link:hover svg { transform: translateX(4px); }
 
     /* ============================================================
        HERO
        ============================================================ */
     .hero {
       padding-top: calc(var(--nav) + 60px);
-      padding-bottom: 140px;
+      padding-bottom: clamp(180px, 26vh, 320px);
+      min-height: 88vh;
+      min-height: 88dvh;
       position: relative;
       overflow: hidden;
       background: #fff;
     }
 
-    /* Bottom-edge white bleed: hero dissolves gently into the page below */
+    /* Merged hero: same vertical rhythm as index .hero (padding-bottom + fade) */
+    .hero.hero--about-merged {
+      padding-bottom: 140px;
+      min-height: auto;
+    }
+
+    /* Bottom-edge white bleed (index-aligned) */
     .hero::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+      height: 220px;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0)   0%,
+        rgba(255,255,255,0.4) 40%,
+        rgba(255,255,255,0.85) 70%,
+        rgba(255,255,255,1)   100%
+      );
       pointer-events: none;
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* Subtle purple ↔ cyan colour drift on hero aurora (inherits into .orb) */
+    /* Subtle purple ↔ cyan colour drift (same as index hero) */
     @property --aurora {
       syntax: '<number>';
       inherits: true;
       initial-value: 0;
     }
 
-    /* ── LAYER 1: Soft colour orbs (right side only) ── */
+    /* ── LAYER 1: Soft colour orbs (right side only — matches index) ── */
     #wave-bg {
       position: absolute;
       top: 0; bottom: 0;
@@ -323,6 +365,16 @@
       overflow: hidden;
       transition: opacity 1.6s ease 0.3s;
       animation: auroraColor 22s ease-in-out infinite alternate;
+      -webkit-mask-image: linear-gradient(to bottom,
+        black 0%,
+        black 55%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(to bottom,
+        black 0%,
+        black 55%,
+        transparent 100%
+      );
     }
     body.loaded #wave-bg { opacity: 1; }
 
@@ -331,46 +383,42 @@
       border-radius: 50%;
       filter: blur(90px);
     }
-    /* Lavender - upper centre-right (eases toward cyan as --aurora rises) */
     .orb-1 {
       width: 55vw; height: 70vh;
       top: -15%; right: 10%;
       background: radial-gradient(ellipse,
-        color-mix(in srgb, rgba(196,181,253,0.92) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.78)) 0%,
-        color-mix(in srgb, rgba(196,181,253,0.55) calc((1 - var(--aurora, 0)) * 100%), rgba(103,232,249,0.42)) 45%,
+        color-mix(in srgb, rgba(255,239,168,0.92) calc((1 - var(--aurora, 0)) * 100%), rgba(143,201,255,0.78)) 0%,
+        color-mix(in srgb, rgba(255,239,168,0.55) calc((1 - var(--aurora, 0)) * 100%), rgba(143,201,255,0.42)) 45%,
         transparent 72%
       );
       animation: orbDrift1 14s ease-in-out infinite;
     }
-    /* Cyan - mid right (eases toward lavender) */
     .orb-2 {
       width: 48vw; height: 60vh;
       top: 20%; right: -6%;
       background: radial-gradient(ellipse,
-        color-mix(in srgb, rgba(103,232,249,0.88) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.72)) 0%,
-        color-mix(in srgb, rgba(103,232,249,0.50) calc((1 - var(--aurora, 0)) * 100%), rgba(196,181,253,0.40)) 45%,
+        color-mix(in srgb, rgba(143,201,255,0.88) calc((1 - var(--aurora, 0)) * 100%), rgba(255,239,168,0.72)) 0%,
+        color-mix(in srgb, rgba(143,201,255,0.50) calc((1 - var(--aurora, 0)) * 100%), rgba(255,239,168,0.40)) 45%,
         transparent 72%
       );
       animation: orbDrift2 17s ease-in-out infinite;
     }
-    /* Periwinkle - centre blend (shifts toward teal) */
     .orb-3 {
       width: 42vw; height: 55vh;
       top: 5%; right: -2%;
       background: radial-gradient(ellipse,
-        color-mix(in srgb, rgba(129,140,248,0.80) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.62)) 0%,
-        color-mix(in srgb, rgba(129,140,248,0.42) calc((1 - var(--aurora, 0)) * 100%), rgba(94,234,212,0.34)) 45%,
+        color-mix(in srgb, rgba(255,239,168,0.80) calc((1 - var(--aurora, 0)) * 100%), rgba(143,201,255,0.62)) 0%,
+        color-mix(in srgb, rgba(255,239,168,0.42) calc((1 - var(--aurora, 0)) * 100%), rgba(143,201,255,0.34)) 45%,
         transparent 72%
       );
       animation: orbDrift3 20s ease-in-out infinite;
     }
-    /* Teal - lower right (shifts toward violet) */
     .orb-4 {
       width: 38vw; height: 50vh;
       bottom: -5%; right: 2%;
       background: radial-gradient(ellipse,
-        color-mix(in srgb, rgba(94,234,212,0.75) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.62)) 0%,
-        color-mix(in srgb, rgba(94,234,212,0.38) calc((1 - var(--aurora, 0)) * 100%), rgba(167,139,250,0.32)) 45%,
+        color-mix(in srgb, rgba(143,201,255,0.75) calc((1 - var(--aurora, 0)) * 100%), rgba(255,239,168,0.62)) 0%,
+        color-mix(in srgb, rgba(143,201,255,0.38) calc((1 - var(--aurora, 0)) * 100%), rgba(255,239,168,0.32)) 45%,
         transparent 72%
       );
       animation: orbDrift4 12s ease-in-out infinite;
@@ -397,7 +445,6 @@
       100% { --aurora: 1; }
     }
 
-    /* Mobile: full-width gentle wash */
     @media (max-width: 900px) {
       #wave-bg { left: 0; overflow: hidden; }
       .orb-1 { width:80vw; height:50vh; top:-5%;  right:-10%; opacity:0.55; filter:blur(70px); }
@@ -406,12 +453,7 @@
       .orb-4 { width:50vw; height:35vh; top:35%;  right:-8%;  opacity:0.40; filter:blur(70px); }
     }
 
-    /* ── LAYER 2: Guilloché wave canvas ── */
-    /*
-      Canvas sits directly above the blobs but below the text.
-      The wave lines overlay the aurora effect, adding the fine
-      mesh texture from the original screenshot.
-    */
+    /* ── LAYER 2: Guilloché lines (vertical, right band) ── */
     #wave-canvas {
       position: absolute;
       top: 0; right: 0;
@@ -460,16 +502,19 @@
       font-size: clamp(72px, 13vw, 160px);
       font-weight: 400;
       letter-spacing: -.03em;
-      line-height: .88;
+      line-height: .85;
       text-transform: uppercase;
       color: #0a0a0a;
       margin-bottom: 80px;
     }
+    /* Match work.html .work-hero-title (“All Work.”); sentence case for About */
     .hero-name--about {
       text-transform: none;
-      font-size: clamp(52px, 11vw, 120px);
-      font-weight: 400;
-      letter-spacing: -.035em;
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 600;
+      letter-spacing: -.03em;
+      line-height: .9;
+      margin-bottom: clamp(48px, 9vw, 96px);
     }
 
     .hero-name-line { display:block; overflow:hidden; line-height:1.0; }
@@ -532,23 +577,32 @@
     }
 
     .hero-tagline {
-      font-size: clamp(20px, 2.4vw, 30px);
-      font-weight: 400;
+      font-family: var(--font);
+      font-size: clamp(22px, 2.75vw, 32px);
+      font-weight: 600;
       color: var(--c-ink);
-      line-height: 1.3;
+      line-height: 1.35;
       letter-spacing: -.02em;
       max-width: 500px;
+      text-align: left;
     }
-    .hero-tagline strong { color:var(--c-ink); font-weight:500; }
-
+    .hero-tagline strong {
+      font-weight: 700;
+      color: var(--c-ink);
+    }
     .hero-descriptor {
+      font-family: var(--font);
       font-size: var(--t-base);
       font-weight: 300;
       color: var(--c-mid);
       line-height: 1.75;
       letter-spacing: -.01em;
-      max-width: 480px;
-      text-align: left;            /* left-aligned - sits below tagline */
+      max-width: 500px;
+      text-align: left;
+    }
+    .hero-descriptor strong {
+      color: var(--c-ink);
+      font-weight: 600;
     }
 
     /* Scroll nudge */
@@ -579,35 +633,25 @@
        ============================================================ */
     .work { padding:160px 0; }
 
+    /* Framer-style 3-column grid (exact Framer values) */
     .bento {
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:40px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(50px, 1fr));
+      gap: 20px;
     }
-    .bc-6  { grid-column:span 6; }
-    .bc-4  { grid-column:span 4; }
-    .bc-8  { grid-column:span 8; }
-    .bc-12 { grid-column:span 12; }
+    .bc-3, .bc-4, .bc-6, .bc-8, .bc-12 { grid-column: span 1; }
 
-    /* ── Project card ── */
     .pcard {
-      background: var(--c-surface);
-      border-radius: 12px;
+      display: block;
+      position: relative;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1px solid rgba(0,0,0,.06);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 1px 4px rgba(0,0,0,.03);
-      cursor: none;                                   /* hide default cursor - glass circle takes over */
-      transition: box-shadow var(--ts) var(--ease),
-                  transform   var(--ts) var(--ease),
-                  border-color var(--ts) var(--ease);
+      box-shadow: none;
+      cursor: pointer;
     }
-    .pcard:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,.06);
-      transform: translateY(-2px);
-      border-color: rgba(0,0,0,.10);
-    }
+    .pcard:hover { }
 
     /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
     #img-cursor {
@@ -631,20 +675,18 @@
     }
 
     .pcard-img {
-      overflow:hidden; position:relative;
-      background:var(--c-panel); flex-shrink:0;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      position: relative;
+      background: var(--c-panel);
     }
-    .bc-6  .pcard-img { aspect-ratio:16/10; }
-    .bc-4  .pcard-img { aspect-ratio:4/3;   }
-    .bc-8  .pcard-img { aspect-ratio:16/8;  }
-    .bc-12 .pcard-img { aspect-ratio:21/7;  }
-
     .pcard-img img, .pcard-img .ph {
-      width:100%; height:100%; object-fit:cover;
-      transition:transform .9s var(--ease);
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: center top;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .pcard:hover .pcard-img img,
-    .pcard:hover .pcard-img .ph { transform:scale(1.04); }
+    .pcard:hover .pcard-img .ph { transform: scale(1.05); }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;
@@ -659,57 +701,42 @@
     .ph-6{background:linear-gradient(145deg,#161008,#361e0e 55%,#643418);color:rgba(255,255,255,.22);}
 
 
-    /* Card body - hidden by default, revealed on hover with dark overlay */
-    .pcard { position: relative; }
+    /* Title overlay - hidden by default, appears on hover (Framer exact) */
     .pcard-body {
       position: absolute;
       inset: 0;
-      padding: 24px 28px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 6px;
-      background: rgba(0,0,0,0);
+      align-items: flex-end;
+      padding: clamp(16px, 3vw, 28px);
       opacity: 0;
-      transition: opacity 0.3s ease, background 0.3s ease;
+      transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 2;
     }
-    .pcard:hover .pcard-body {
-      opacity: 1;
-      background: rgba(0,0,0,0.52);
+    .pcard-body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0) 30%,
+        rgba(0,0,0,0.55) 100%);
+      border-radius: inherit;
     }
-    /* Text colours on dark overlay */
-    .pcard:hover .pcard-title { color: #ffffff; }
-    .pcard:hover .pcard-desc  { color: rgba(255,255,255,0.80); }
-    .pcard:hover .pcard-num   { color: rgba(255,255,255,0.55); }
-    .pcard:hover .pcard-arrow { color: rgba(255,255,255,0.70); }
-    .pcard:hover .ptag        { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.85); }
-
-    .pcard-meta {
-      display:flex; align-items:center;
-      justify-content:space-between; gap:8px;
-    }
-
-    .pcard-num  { display:none; }
-    .pcard-arrow { display:none; }
-
+    .pcard:hover .pcard-body { opacity: 1; }
     .pcard-title {
-      font-size: clamp(15px,1.7vw,20px);
+      position: relative;
+      font-family: var(--font-display);
+      font-size: 20px;
       font-weight: 500;
-      letter-spacing: -.02em;
-      line-height: 1.2;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #ffffff;
     }
-    /* One-line description */
-    .pcard-desc {
-      font-size: var(--t-base);
-      font-weight: 300;
-      color: var(--c-mid);
-      letter-spacing: -.01em;
-      line-height: 1.6;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .pcard-tags { display:none; }
+    .pcard-meta,
+    .pcard-num,
+    .pcard-arrow,
+    .pcard-desc,
+    .pcard-tags,
+    .pcard-caption { display: none !important; }
 
     /* ============================================================
        ABOUT - two rounded panels
@@ -921,10 +948,10 @@
        FOOTER - matches Shannon's: © · role · LinkedIn
        ============================================================ */
     .footer {
-      border-top: none;
+      border-top: 1px solid var(--c-rule);
       padding: 40px 0;
       position: relative;
-      z-index: 3;
+      z-index: 2;
       background: #fff;
     }
     .footer-inner {
@@ -956,24 +983,25 @@
        RESPONSIVE
        ============================================================ */
     @media (max-width:600px) {
-      .hero-tagline { max-width: 400px; }
+      .hero-tagline,
+      .hero-descriptor { max-width: min(520px, 100%); }
+      .approach-headline,
+      .approach-body { max-width: 100%; }
     }
     @media (max-width:900px) {
       .nav-links, .nav-cta { display:none; }
       .nav-burger { display:flex; }
       .hero-sub { max-width:100%; }
-      #wave-canvas { width:90%; }
-      .bento { grid-template-columns:1fr; }
-      .bc-6,.bc-4,.bc-8,.bc-12 { grid-column:span 1; }
-      .bc-6 .pcard-img,.bc-4 .pcard-img { aspect-ratio:16/10; }
+      #wave-canvas { width: 90%; }
+      .bento { grid-template-columns:repeat(2, 1fr); }
       .about-bento,.contact-bento { grid-template-columns:1fr; gap:12px; }
       .footer-inner { flex-direction:column; align-items:flex-start; gap:6px; }
-      .footer-visual { margin-top: -200px; }
       .contact { padding-bottom: 28px; }
     }
     @media (max-width:560px) {
       .hero-vline { display:none; }
       .hero-sub { gap:0; }
+      /* grid already 1-col at 900px */
     }
 
     /* ── Hero scroll animations ── */
@@ -1035,41 +1063,53 @@
 
     .about-page { padding-top: calc(var(--nav) + 80px); }
 
-    /* Section label */
-    .section-label {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--c-light);
-      letter-spacing: -.01em;
-      margin-bottom: 40px;
-      display: block;
+    /* ── My approach (inside merged hero; spacing from index hero → work flow) ── */
+    .approach--merged {
+      position: relative;
+      z-index: 3;
+      margin-top: 0;
+      padding: 0;
+      border-bottom: none;
+      background: none;
     }
-
-    /* ── Approach section ── */
-    .approach {
-      padding: 100px 0 80px;
-      border-bottom: 1px solid var(--c-rule);
+    /* Framer-style “my approach” stack: ref traditional-designs framer about */
+    .approach--merged .sh.sh--approach {
+      gap: 0;
+      margin-bottom: clamp(18px, 2.2vw, 26px);
     }
     .approach-headline {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 64px);
-      font-weight: 600;
-      letter-spacing: -.02em;
-      line-height: 1.1;
-      color: var(--c-ink);
-      margin-bottom: 48px;
-      max-width: 760px;
+      font-family: var(--font);
+      font-size: clamp(40px, 4.6vw, 56px);
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin: 0 0 clamp(40px, 5vw, 56px);
+      max-width: min(720px, 70vw);
     }
     .approach-body {
-      font-size: clamp(15px, 1.5vw, 18px);
-      font-weight: 300;
-      color: var(--c-mid);
-      line-height: 1.8;
-      max-width: 680px;
+      font-family: var(--font);
+      font-size: clamp(14px, 1.05vw, 15px);
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      max-width: min(720px, 70vw);
+      margin-bottom: 1.35em;
+    }
+    .approach-body:last-child { margin-bottom: 0; }
+    .approach-body strong {
+      color: #0a0a0a;
+      font-weight: 500;
     }
 
-    /* ── Experience section ── */
-    .experience { padding: 80px 0; border-bottom: 1px solid var(--c-rule); }
+    /* ── Experience section (index .work / .about vertical rhythm: 160px) ── */
+    .experience {
+      padding: 160px 0;
+      border-top: 1px solid var(--c-rule);
+      border-bottom: 1px solid var(--c-rule);
+      background: #fff;
+    }
 
     .exp-list { display: flex; flex-direction: column; gap: 64px; }
 
@@ -1079,6 +1119,7 @@
       font-size: clamp(24px, 3.5vw, 44px);
       font-weight: 500;
       letter-spacing: -.02em;
+      line-height: 1.15;
       color: var(--c-ink);
       margin-bottom: 4px;
       opacity: 0;
@@ -1087,13 +1128,14 @@
     }
     .exp-item.on .exp-company { opacity: 1; transform: translateY(0); }
     .exp-role {
-      font-size: 14px;
+      font-size: var(--t-sm);
       font-weight: 400;
+      letter-spacing: var(--track-ui);
       color: var(--c-mid);
       margin-bottom: 10px;
     }
     .exp-dates {
-      font-size: 12px;
+      font-size: var(--t-tiny);
       font-weight: 300;
       color: var(--c-light);
       letter-spacing: .04em;
@@ -1107,10 +1149,11 @@
       max-width: 680px;
     }
     .exp-bullets li {
-      font-size: clamp(14px, 1.4vw, 16px);
+      font-size: var(--t-base);
       font-weight: 300;
       color: var(--c-mid);
-      line-height: 1.7;
+      line-height: 1.75;
+      letter-spacing: -.01em;
       padding-left: 16px;
       position: relative;
     }
@@ -1126,9 +1169,9 @@
       border-top: 1px solid var(--c-rule);
     }
     .exp-key-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: .12em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--c-light);
       margin-bottom: 10px;
@@ -1140,8 +1183,10 @@
       gap: 6px;
     }
     .exp-key-list li {
-      font-size: 14px;
+      font-size: var(--t-sm);
       font-weight: 300;
+      line-height: 1.55;
+      letter-spacing: -.01em;
       color: var(--c-mid);
       padding-left: 16px;
       position: relative;
@@ -1149,7 +1194,7 @@
     .exp-key-list li::before { content: '→'; position: absolute; left: 0; color: var(--c-ghost); }
 
     /* ── Expertise section ── */
-    .expertise { padding: 80px 0; border-bottom: 1px solid var(--c-rule); }
+    .expertise { padding: 160px 0; border-bottom: 1px solid var(--c-rule); }
     .expertise-grid {
       display: flex;
       flex-wrap: wrap;
@@ -1157,31 +1202,37 @@
       max-width: 760px;
     }
     .expertise-tag {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 300;
       color: var(--c-mid);
       background: var(--c-panel);
       border: 1px solid var(--c-rule);
       border-radius: var(--r-pill);
-      padding: 8px 20px;
-      transition: background var(--tb) var(--ease), color var(--tb) var(--ease);
+      padding: 7px 16px;
+      cursor: default;
+      transition: background var(--tb) var(--ease),
+                  color var(--tb) var(--ease),
+                  border-color var(--tb) var(--ease);
     }
     .expertise-tag:hover { background: var(--c-ink); color: #fff; border-color: var(--c-ink); }
 
     /* ── Education section ── */
-    .education { padding: 80px 0 120px; }
+    .education { padding: 160px 0 120px; }
     .edu-list { display: flex; flex-direction: column; gap: 40px; max-width: 680px; }
     .edu-item {}
     .edu-school {
+      font-family: var(--font-display);
       font-size: clamp(20px, 2.5vw, 28px);
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: -.02em;
-      color: var(--c-mid);
+      line-height: 1.15;
+      color: var(--c-ink);
       margin-bottom: 4px;
     }
     .edu-degree {
-      font-size: 14px;
+      font-size: var(--t-sm);
       font-weight: 300;
+      letter-spacing: -.01em;
       color: var(--c-light);
     }
 
@@ -1196,23 +1247,14 @@
     .rv[data-d="6"]{ transition-delay:.48s; }
 
     @media (max-width:900px) {
-      .approach { padding: 60px 0 48px; }
-      .experience, .expertise, .education { padding: 60px 0; }
+      .experience,
+      .expertise,
+      .education {
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+      .education { padding-bottom: 120px; }
     }
-    /* ── Footer visual: pink/amber gradient + wave canvas ── */
-    @property --fv-aurora{syntax:'<number>';inherits:true;initial-value:0;}.footer-visual{position:relative;z-index:1;height:480px;margin-top:-280px;overflow:hidden;background:#fff;pointer-events:none;animation:footerAuroraColor 26s ease-in-out infinite alternate;}
-    .footer-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,#fff 0%,transparent 100%);pointer-events:none;z-index:4;}
-    .footer-visual::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent 0%,#fff 100%);pointer-events:none;z-index:4;}
-    .fv-blobs{position:absolute;inset:0;pointer-events:none;}
-    .fv-orb{position:absolute;border-radius:50%;filter:blur(88px);}
-    .fv-orb-1{width:70vw;height:140%;top:-20%;left:-8%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,145,185,.90) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.78)) 0%,color-mix(in srgb,rgba(255,145,185,.52) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,198,95,.42)) 45%,transparent 72%);animation:fvDrift1 16s ease-in-out infinite;}
-    .fv-orb-2{width:62vw;height:140%;top:-25%;right:-6%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,198,95,.86) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.72)) 0%,color-mix(in srgb,rgba(255,198,95,.48) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,145,185,.38)) 45%,transparent 72%);animation:fvDrift2 19s ease-in-out infinite;}
-    .fv-orb-3{width:52vw;height:120%;top:5%;left:22%;background:radial-gradient(ellipse,color-mix(in srgb,rgba(255,175,135,.60) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,205,110,.52)) 0%,color-mix(in srgb,rgba(255,175,135,.28) calc((1 - var(--fv-aurora, 0)) * 100%),rgba(255,195,85,.24)) 45%,transparent 72%);animation:fvDrift3 23s ease-in-out infinite;}
-    @keyframes fvDrift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(28px,-22px) scale(1.04);}}
-    @keyframes fvDrift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-22px,32px) scale(.96);}}
-    @keyframes fvDrift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-18px,-26px) scale(1.07);}}
-    @keyframes footerAuroraColor{0%{--fv-aurora:0;}100%{--fv-aurora:1;}}
-    #footer-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;}
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -1233,7 +1275,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Intro</a></li>
         <li><a href="about.html" aria-current="page">About</a></li>
-        <li><a href="index.html#work">Work</a></li>
+        <li><a href="work.html">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
       <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener">Resume ↗</a>
@@ -1247,13 +1289,13 @@
   <div class="nav-drawer" id="drawer" aria-hidden="true">
     <a href="index.html">Intro</a>
     <a href="about.html">About</a>
-    <a href="index.html#work">Work</a>
+    <a href="work.html">Work</a>
     <a href="index.html#contact">Contact</a>
     <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener">Resume ↗</a>
   </div>
 
-  <!-- ── HERO (same as index) ── -->
-  <section class="hero" id="hero">
+  <!-- ── HERO + MY APPROACH: one wave field (gradient + canvas) behind both ── -->
+  <section class="hero hero--about-merged" id="hero">
     <div id="wave-bg" aria-hidden="true">
       <div class="orb orb-1"></div>
       <div class="orb orb-2"></div>
@@ -1265,23 +1307,29 @@
       <h1 class="hero-name hero-name--about" aria-label="About me">
         <span class="hero-name-line"><span class="hero-name-inner">about me</span></span>
       </h1>
-    </div>
-  </section>
 
-  <!-- ── MY APPROACH ── -->
-  <section class="approach">
-    <div class="wrap">
-      <span class="section-label rv">my approach.</span>
-      <h2 class="approach-headline rv" data-d="1">I anchor design in outcomes:<br/>usable today, scalable tomorrow,<br/>accessible by default.</h2>
-      <p class="approach-body rv" data-d="2">I start from user and business constraints, then validate direction through prototyping, research, and tight feedback loops with product and engineering.</p>
-      <p class="approach-body rv" data-d="3" style="margin-top:20px;">Design systems and modern tooling (including AI where it earns its place) speed delivery without trading off clarity. Whether I am untangling a dense dashboard or defining patterns across a platform, the goal is inclusive, maintainable product UX that teams can ship and iterate.</p>
+      <div class="approach approach--merged" role="region" aria-labelledby="about-approach-heading">
+        <div class="sh sh--approach rv">
+          <div class="sh-row">
+            <span class="sh-text">my approach<span class="sh-period">.</span></span>
+          </div>
+        </div>
+        <h2 id="about-approach-heading" class="approach-headline rv" data-d="1">I anchor design in outcomes:<br/>usable today, scalable tomorrow,<br/>accessible by default.</h2>
+        <p class="approach-body rv" data-d="2">I start from user and business constraints, then validate direction through prototyping, research, and tight feedback loops with product and engineering.</p>
+        <p class="approach-body rv" data-d="3">Design systems and modern tooling (including AI where it earns its place) speed delivery without trading off clarity. Whether I am untangling a dense dashboard or defining patterns across a platform, the goal is inclusive, maintainable product UX that teams can ship and iterate.</p>
+      </div>
     </div>
   </section>
 
   <!-- ── EXPERIENCE ── -->
   <section class="experience">
     <div class="wrap">
-      <span class="section-label rv">experience.</span>
+      <div class="sh rv">
+        <span class="sh-eyebrow">Career</span>
+        <div class="sh-row">
+          <span class="sh-text">experience<span class="sh-period">.</span></span>
+        </div>
+      </div>
       <div class="exp-list">
 
         <div class="exp-item rv">
@@ -1378,7 +1426,12 @@
   <!-- ── EXPERTISE ── -->
   <section class="expertise">
     <div class="wrap">
-      <span class="section-label rv">expertise.</span>
+      <div class="sh rv">
+        <span class="sh-eyebrow">Capabilities</span>
+        <div class="sh-row">
+          <span class="sh-text">expertise<span class="sh-period">.</span></span>
+        </div>
+      </div>
       <div class="expertise-grid rv" data-d="1">
         <span class="expertise-tag">AI Design &amp; LLM Workflows</span>
         <span class="expertise-tag">Trading Platform UI/UX</span>
@@ -1396,7 +1449,12 @@
   <!-- ── EDUCATION ── -->
   <section class="education">
     <div class="wrap">
-      <span class="section-label rv">education.</span>
+      <div class="sh rv">
+        <span class="sh-eyebrow">Academic</span>
+        <div class="sh-row">
+          <span class="sh-text">education<span class="sh-period">.</span></span>
+        </div>
+      </div>
       <div class="edu-list">
         <div class="edu-item rv" data-d="1">
           <div class="edu-school">London Metropolitan University</div>
@@ -1409,9 +1467,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ── FOOTER VISUAL ── -->
-  <div class="footer-visual" aria-hidden="true"><div class="fv-blobs"><div class="fv-orb fv-orb-1"></div><div class="fv-orb fv-orb-2"></div><div class="fv-orb fv-orb-3"></div></div><canvas id="footer-canvas"></canvas></div>
 
   <!-- ── FOOTER ── -->
   <footer class="footer">
@@ -1465,69 +1520,105 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.rv, .exp-item').forEach(el => ro.observe(el));
 
-    /* ── Wave canvas ── */
-    (function waveCanvas() {
+    /* ── About hero: guilloché lines (vertical, #FFEFA8 ↔ #8FC9FF) ── */
+    (function waveCanvasAbout() {
       const canvas = document.getElementById('wave-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      const N = 68, SPEED = 0.00034, PHASE_STEP = 0.16, LW = 1.1, BAND_T = 0.08, BAND_B = 0.92, AMPL = 0.057;
-      let lines = [], waveGrad = null;
+      const N = 90;
+      const SPEED = 0.00034;
+      const PHASE_STEP = 0.17;
+      const LW = 0.85;
+      const BAND_L = 0.08;
+      const BAND_R = 0.92;
+      const AMPL = 0.042;
+      let lines = [];
+      let waveGrad = null;
 
-      function buildGrad(W) {
-        const g = ctx.createLinearGradient(0, 0, W, 0);
-        g.addColorStop(0,    'rgba(255,255,255, 0)');
-        g.addColorStop(0.06, 'rgba(255,255,255, 0.70)');
-        g.addColorStop(0.50, 'rgba(255,255,255, 0.75)');
-        g.addColorStop(0.94, 'rgba(255,255,255, 0.65)');
-        g.addColorStop(1,    'rgba(255,255,255, 0)');
+      function buildGrad(H) {
+        const g = ctx.createLinearGradient(0, 0, 0, H);
+        g.addColorStop(0,    'rgba(255,239,168, 0)');
+        g.addColorStop(0.06, 'rgba(255,239,168, 0.70)');
+        g.addColorStop(0.35, 'rgba(200,220,210, 0.75)');
+        g.addColorStop(0.65, 'rgba(143,201,255, 0.75)');
+        g.addColorStop(0.94, 'rgba(143,201,255, 0.65)');
+        g.addColorStop(1,    'rgba(143,201,255, 0)');
         waveGrad = g;
       }
+
       function build(W, H) {
         lines = [];
-        const bH = H * (BAND_B - BAND_T), sp = bH / (N - 1), am = bH * AMPL;
+        const bW = W * (BAND_R - BAND_L);
+        const sp = bW / (N - 1);
+        const am = bW * AMPL;
         for (let i = 0; i < N; i++) {
-          const t = i / (N - 1), bell = 0.4 + 0.6 * Math.sin(t * Math.PI);
-          lines.push({ y0: H * BAND_T + i * sp, amp: am * bell, ph: i * PHASE_STEP });
+          const t = i / (N - 1);
+          const bell = 0.4 + 0.6 * Math.sin(t * Math.PI);
+          lines.push({ x0: W * BAND_L + i * sp, amp: am * bell, ph: i * PHASE_STEP });
         }
-        buildGrad(W);
+        buildGrad(H);
       }
+
       function resize() {
-        const r = canvas.getBoundingClientRect(), d = window.devicePixelRatio || 1;
-        canvas.width = Math.round(r.width * d); canvas.height = Math.round(r.height * d);
+        const r = canvas.getBoundingClientRect();
+        const d = window.devicePixelRatio || 1;
+        canvas.width = Math.round(r.width * d);
+        canvas.height = Math.round(r.height * d);
         ctx.setTransform(d, 0, 0, d, 0, 0);
-        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
         build(r.width, r.height);
       }
       new ResizeObserver(resize).observe(canvas);
       resize();
 
       function edgeFade(W, H) {
-        const fw = W * 0.12;
+        const fh = H * 0.12;
+        const fT = ctx.createLinearGradient(0, 0, 0, fh);
+        fT.addColorStop(0, 'rgba(255,255,255,1)');
+        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = fT; ctx.fillRect(0, 0, W, fh);
+        const fB = ctx.createLinearGradient(0, H - fh, 0, H);
+        fB.addColorStop(0, 'rgba(255,255,255,0)');
+        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        ctx.fillStyle = fB; ctx.fillRect(0, H - fh, W, fh);
+        const fw = W * 0.08;
         const fL = ctx.createLinearGradient(0, 0, fw, 0);
-        fL.addColorStop(0, 'rgba(255,255,255,1)'); fL.addColorStop(1, 'rgba(255,255,255,0)');
+        fL.addColorStop(0, 'rgba(255,255,255,1)');
+        fL.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = fL; ctx.fillRect(0, 0, fw, H);
-        const fT = ctx.createLinearGradient(0, 0, 0, H * 0.08);
-        fT.addColorStop(0, 'rgba(255,255,255,1)'); fT.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = fT; ctx.fillRect(0, 0, W, H * 0.08);
-        const fB = ctx.createLinearGradient(0, H * 0.88, 0, H);
-        fB.addColorStop(0, 'rgba(255,255,255,0)'); fB.addColorStop(1, 'rgba(255,255,255,1)');
-        ctx.fillStyle = fB; ctx.fillRect(0, H * 0.88, W, H * 0.12);
+        const fR = ctx.createLinearGradient(W - fw, 0, W, 0);
+        fR.addColorStop(0, 'rgba(255,255,255,0)');
+        fR.addColorStop(1, 'rgba(255,255,255,1)');
+        ctx.fillStyle = fR; ctx.fillRect(W - fw, 0, fw, H);
       }
 
-      const STEPS = 480; let t0 = null;
+      const STEPS = 480;
+      let t0 = null;
+
       function draw(ts) {
         if (!t0) t0 = ts;
-        const el = ts - t0, d = window.devicePixelRatio || 1;
-        const W = canvas.width / d, H = canvas.height / d;
+        const el = ts - t0;
+        const d = window.devicePixelRatio || 1;
+        const W = canvas.width / d;
+        const H = canvas.height / d;
         ctx.clearRect(0, 0, W, H);
-        ctx.strokeStyle = waveGrad; ctx.lineWidth = LW;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = waveGrad;
+        ctx.lineWidth = LW;
         lines.forEach(ln => {
           const phi = el * SPEED + ln.ph;
           ctx.beginPath();
           for (let s = 0; s <= STEPS; s++) {
-            const nx = s / STEPS, px = nx * W;
-            const py = ln.y0 + ln.amp * Math.sin(phi + nx * Math.PI * 3.2)
-                              + ln.amp * 0.26 * Math.sin(phi * 1.7 + nx * Math.PI * 7.6 + 1.4);
+            const ny = s / STEPS;
+            const py = ny * H;
+            const px = ln.x0
+              + ln.amp * Math.sin(phi + ny * Math.PI * 4.0)
+              + ln.amp * 0.28 * Math.sin(phi * 1.5 + ny * Math.PI * 8.0 + 1.4)
+              + ln.amp * 0.10 * Math.sin(phi * 2.1 + ny * Math.PI * 12.0 + 2.8);
             s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
           }
           ctx.stroke();
@@ -1536,6 +1627,47 @@
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
+    })();
+
+    /* ── Hero text parallax on scroll (same behaviour as index) ── */
+    (function heroParallax() {
+      const heroName = document.querySelector('.hero-name');
+      const roleLine = document.querySelector('.hero-role-line');
+      const heroSub  = document.querySelector('.hero-sub');
+      const hero     = document.getElementById('hero');
+      if (!heroName || !hero) return;
+
+      let scrollY = 0;
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      const waveCanvas = document.getElementById('wave-canvas');
+      const waveBg     = document.getElementById('wave-bg');
+
+      function update() {
+        ticking = false;
+        const heroH = hero.offsetHeight;
+        const inHero = scrollY < (heroH - 40);
+
+        if (heroName) heroName.style.transform = `translateY(${scrollY * -0.28}px)`;
+        if (roleLine) roleLine.style.transform = `translateY(${scrollY * -0.22}px)`;
+        if (heroSub)  heroSub.style.transform  = `translateY(${scrollY * -0.16}px)`;
+
+        if (inHero) {
+          if (waveCanvas) waveCanvas.style.transform = `translateY(${scrollY}px)`;
+          if (waveBg)     waveBg.style.transform     = `translateY(${scrollY}px)`;
+        } else {
+          if (waveCanvas) waveCanvas.style.transform = '';
+          if (waveBg)     waveBg.style.transform     = '';
+        }
+      }
     })();
 
     /* ── Difference-blend circle cursor ── */
@@ -1559,7 +1691,6 @@
         rafId = requestAnimationFrame(tick);
       }
     })();
-    (function footerWave(){const c=document.getElementById('footer-canvas');if(!c)return;const x=c.getContext('2d');const N=85,SP=.00026,PS=.19,LW=.72,BT=.05,BB=.95,AM=.040;let lines=[];function build(W,H){lines=[];const bH=H*(BB-BT),sp=bH/(N-1),am=bH*AM;for(let i=0;i<N;i++){const t=i/(N-1),b=.35+.65*Math.sin(t*Math.PI);lines.push({y0:H*BT+i*sp,amp:am*b,ph:i*PS});}}function resize(){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);x.setTransform(d,0,0,d,0,0);x.lineCap='round';x.lineJoin='round';build(r.width,r.height);}new ResizeObserver(resize).observe(c);resize();const ST=480;let t0=null;function draw(ts){if(!t0)t0=ts;const el=ts-t0,d=window.devicePixelRatio||1,W=c.width/d,H=c.height/d;x.clearRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.52)';x.lineWidth=LW;lines.forEach(ln=>{const phi=el*SP+ln.ph;x.beginPath();for(let s=0;s<=ST;s++){const nx=s/ST,px=nx*W,py=ln.y0+ln.amp*Math.sin(phi+nx*Math.PI*4)+ln.amp*.28*Math.sin(phi*1.5+nx*Math.PI*8+1.4)+ln.amp*.10*Math.sin(phi*2.1+nx*Math.PI*12+2.8);s===0?x.moveTo(px,py):x.lineTo(px,py);}x.stroke();});const fT=x.createLinearGradient(0,0,0,H*.18);fT.addColorStop(0,'rgba(255,255,255,1)');fT.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=fT;x.fillRect(0,0,W,H*.18);const fB=x.createLinearGradient(0,H*.80,0,H);fB.addColorStop(0,'rgba(255,255,255,0)');fB.addColorStop(1,'rgba(255,255,255,1)');x.fillStyle=fB;x.fillRect(0,H*.80,W,H*.20);requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
   </script>
 </body>
 </html>

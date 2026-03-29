@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JPMM Research Platform · Shannon Hecker</title>
-  <meta name="description" content="Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets." />
+  <title>TripUp · Bending Spoons design challenge · Shannon Hecker</title>
+  <meta name="description" content="TripUp mobile product design case study for Bending Spoons: group travel, polls, shared expenses, and itineraries in one cohesive flow." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -222,6 +222,28 @@
     /* Cover image */
     .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
+    /* TripUp: wide wireflow hero - show full artboard without cropping */
+    .proj-cover--tripup {
+      aspect-ratio: auto;
+      width: 100%;
+      height: auto;
+      max-height: min(72vh, 920px);
+      object-fit: contain;
+      object-position: center top;
+      background: #0c0c0e;
+    }
+    .proj-cover-ph--tripup {
+      aspect-ratio: 21/9;
+      min-height: 200px;
+      background: linear-gradient(145deg, #12121a, #0a0a0f);
+    }
+    .proj-img-full.proj-tripup-hifi {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+      margin: 40px auto;
+      display: block;
+    }
     /* Content sections */
     .proj-content { padding-bottom:40px; }
     .proj-section { margin-bottom:72px; }
@@ -306,23 +328,23 @@
         <div class="proj-breadcrumb rv">
           <a href="work.html">Work</a>
           <span class="proj-breadcrumb-sep">›</span>
-          <span>JPMM Research Platform</span>
+          <span>TripUp</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan Markets</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2018–2019</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UX Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">Bending Spoons</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Case study</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2025</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UX/UI Designer</span></div>
         </div>
       </div>
 
-      <!-- Cover -->
-      <img src="assets/Research%201.png" alt="JPMM Research Platform" class="proj-cover rv" decoding="async"
+      <!-- Cover (wireflow - full width, no crop) -->
+      <img src="assets/tripup-wireflow.png" alt="TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting" class="proj-cover proj-cover--tripup rv"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
-      <div class="proj-cover-ph ph-1" style="display:none;"></div>
+      <div class="proj-cover-ph proj-cover-ph--tripup ph-1" style="display:none;"></div>
 
-      <h1 class="proj-title-post rv" data-d="2">JPMM Research Platform</h1>
-      <p class="proj-lead rv" data-d="3">Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets.</p>
+      <h1 class="proj-title-post rv" data-d="2">TripUp</h1>
+      <p class="proj-lead rv" data-d="3">A group travel concept for the Bending Spoons product design challenge: collective polls, transparent expense splitting, and trip context in one mobile experience.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -332,36 +354,29 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Analysts and clients consuming J.P. Morgan research were struggling to find relevant content within a sprawling library of thousands of reports, notes and data publications. Search was inadequate, and personalisation was non-existent. Every user saw the same undifferentiated feed.</p></div>
+          <div class="proj-body"><p><strong>TripUp</strong> is a take-home product design exercise for <strong>Bending Spoons</strong>: a mobile experience for group trip planning with polls for decisions, shared cost logging, and balances visible without leaving the trip context.</p><p>The brief, wireflow, and UI explorations are captured in Figma. <a href="https://www.figma.com/deck/tk8MYJSAkpKLqFfI63okPk?node-id=1-166&t=TNZr0CjpGrB8vGYO-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener" style="color:var(--c-ink);text-decoration:underline;text-underline-offset:3px;">Open the Figma file ↗</a></p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>UX Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>As <strong>UX/UI Designer</strong> on this time-boxed challenge, I owned problem framing, information architecture, end-to-end flows, wireframes, and high-fidelity mobile UI, delivered in Figma with a concise narrative for review.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I conducted a full <strong>content audit and taxonomy redesign</strong>, working with research authors, editorial staff and end-users to build a meaningful classification system. This formed the backbone of a new faceted search and filtering experience.</p><p>The interface was designed with <strong>information density in mind</strong>. Analysts needed to scan many results quickly, so the design prioritised information-dense list views over card-heavy layouts, with progressive detail on hover.</p></div>
+          <div class="proj-body"><p>I started with a <strong>16-screen wireflow</strong> from app launch through inviting friends, publishing a dinner poll, voting, syncing the winning venue to the itinerary, and logging an expense with <strong>granular split rules</strong> (for example excluding specific people from part of a bill).</p><p>High-fidelity work centred on three pillars: <strong>Active Polls</strong> (live voting and results), <strong>Log Expenses</strong> (split toggles, line items, and save flows), and the <strong>trip hub</strong> for Lisbon, with tabs for summary, schedule, expenses, polls, and chat plus filters and payment status.</p></div>
         </div>
 
-        <!-- Full-width image placeholder -->
+        <figure class="rv">
+          <img src="assets/tripup-hifi.png" alt="TripUp high-fidelity screens: active polls, log expenses, and trip expense hub" class="proj-img-full proj-tripup-hifi" width="1600" height="900" loading="lazy" decoding="async" />
+        </figure>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">4x</span><span class="proj-outcome-label">Search result relevance</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">Research reads +35%</span><span class="proj-outcome-label">Engagement increase</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">IA</span><span class="proj-outcome-label">Redesigned from scratch</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">16</span><span class="proj-outcome-label">Wireflow screens mapped end-to-end</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Hi-fi modules: polls, expenses, trip hub</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Shareable Figma source of truth</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tag">Research</span><span class="proj-tag">Information Architecture</span><span class="proj-tag">Content Design</span><span class="proj-tag">JPMorgan</span><span class="proj-tag">UX Strategy</span></div>
-
-        <figure class="proj-nda rv" role="note" aria-label="Private project">
-          <div class="proj-nda-glow" aria-hidden="true"></div>
-          <div class="proj-nda-inner">
-            <h3 class="proj-nda-title">Oops!</h3>
-            <p class="proj-nda-lead">This project is private!</p>
-            <p class="proj-nda-body">Due to NDA restrictions, I can&rsquo;t share the full work publicly, but I&rsquo;d be happy to walk you through it in person.</p>
-          </div>
-        </figure>
+        <div class="proj-tags rv"><span class="proj-tag">Mobile UX</span><span class="proj-tag">Figma</span><span class="proj-tag">Case study</span><span class="proj-tag">Travel</span><span class="proj-tag">Bending Spoons</span><span class="proj-tag">Prototyping</span></div>
 
         </div>
         </div>
@@ -373,8 +388,8 @@
     <div class="proj-next">
       <div class="wrap">
         <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
-        <a href="project-deal-model.html" class="proj-next-link rv" data-d="1">
-          Global Custody Deal Model
+        <a href="project-analytics.html" class="proj-next-link rv" data-d="1">
+          Fusion Analytics Dashboard
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>

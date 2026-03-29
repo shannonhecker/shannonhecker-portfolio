@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JPMM Research Platform · Shannon Hecker</title>
-  <meta name="description" content="Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets." />
+  <title>Digital & Platform Services Brand Identity · Shannon Hecker</title>
+  <meta name="description" content="Internal brand identity for J.P. Morgan's Digital & Platform Services division: visual system, typography, iconography, and guidelines across digital channels." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -43,13 +43,11 @@
     img{display:block;max-width:100%;}
     button{font-family:var(--font);}
     .wrap{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);}
-    /* Scroll reveal */
     .rv{opacity:0;transform:translateY(20px);transition:opacity var(--tr) var(--ease),transform var(--tr) var(--ease);}
     .rv.on{opacity:1;transform:translateY(0);}
     .rv[data-d="1"]{transition-delay:.06s;} .rv[data-d="2"]{transition-delay:.12s;}
     .rv[data-d="3"]{transition-delay:.18s;} .rv[data-d="4"]{transition-delay:.24s;}
     .rv[data-d="5"]{transition-delay:.30s;} .rv[data-d="6"]{transition-delay:.36s;}
-    /* Nav */
     .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);
       display:flex;align-items:center;transition:background var(--ts) var(--ease),border-color var(--ts) var(--ease),backdrop-filter var(--ts) var(--ease);border-bottom:1px solid transparent;}
     .nav.s{background:rgba(255,255,255,.92);border-color:var(--c-rule);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
@@ -77,7 +75,6 @@
     .nav-drawer.o{transform:translateY(0);opacity:1;pointer-events:auto;}
     .nav-drawer a{font-size:20px;font-weight:600;color:var(--c-ink);padding:12px 0;border-bottom:1px solid var(--c-rule);transition:opacity var(--tb) var(--ease);}
     .nav-drawer a:hover{opacity:.5;}
-    /* Section heading */
     .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
     .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
     .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
@@ -85,21 +82,17 @@
     .sh-period{color:#000000;}
     .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
     .sh-link:hover{color:var(--c-ink);}
-    /* Footer */
     .footer{border-top:1px solid var(--c-rule);padding:40px 0;}
     .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
     .footer-copy{font-size:13px;font-weight:300;color:var(--c-light);}
     .footer-li{font-size:13px;font-weight:500;color:var(--c-mid);display:inline-flex;align-items:center;gap:5px;transition:color var(--tb) var(--ease);}
     .footer-li:hover{color:var(--c-ink);}
-    /* Chip tags */
     .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
     .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
-    /* Responsive */
     @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
   </style>
   <style>
     .proj-page { padding-top: var(--nav); position: relative; z-index: 2; }
-    /* Hero */
     .proj-hero {
       padding: 56px 0 0;
       position: relative;
@@ -219,10 +212,8 @@
     .proj-meta-item { display:flex;flex-direction:column;gap:4px; }
     .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
     .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
-    /* Cover image */
     .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
-    /* Content sections */
     .proj-content { padding-bottom:40px; }
     .proj-section { margin-bottom:72px; }
     .proj-section-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:16px;display:block; }
@@ -230,21 +221,17 @@
     .proj-body { font-size:clamp(15px,1.5vw,17px);font-weight:300;color:var(--c-mid);line-height:1.85;max-width:720px; }
     .proj-body strong { font-weight:600;color:var(--c-ink); }
     .proj-body p + p { margin-top:16px; }
-    /* Image grid */
     .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0; }
     .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3; }
     .proj-img-full { width:100%;border-radius:0;margin:40px 0;display:block; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:40px 0; }
-    /* Outcome pills */
     .proj-outcomes { display:flex;gap:16px;flex-wrap:wrap;margin:32px 0; }
     .proj-outcome { background:var(--c-panel);border:none;border-radius:0;padding:20px 28px;display:flex;flex-direction:column;gap:6px;min-width:180px; }
     .proj-outcome-num { font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink); }
     .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light); }
-    /* Tags */
     .proj-tags { display:flex;gap:8px;flex-wrap:wrap;margin-top:32px; }
     .proj-tag { font-size:12px;font-weight:400;color:var(--c-mid);background:var(--c-panel);border:none;border-radius:0;padding:6px 16px; }
-    /* Next project nav */
     .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
     .proj-next-label { font-family:var(--font-display);font-size:clamp(20px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;text-transform:lowercase;color:var(--c-ink);margin-bottom:20px;display:block; }
     .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:400;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
@@ -259,7 +246,6 @@
       .proj-about-label{position:static;margin-bottom:8px;}
       .proj-next{padding-bottom:20px;}
     }
-    /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
     #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
@@ -306,23 +292,23 @@
         <div class="proj-breadcrumb rv">
           <a href="work.html">Work</a>
           <span class="proj-breadcrumb-sep">›</span>
-          <span>JPMM Research Platform</span>
+          <span>D&amp;PS Brand Identity</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan Markets</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2018–2019</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UX Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Brand Identity</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2020</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Visual Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="assets/Research%201.png" alt="JPMM Research Platform" class="proj-cover rv" decoding="async"
+      <img src="assets/dps-brand-identity.png" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" decoding="async"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
-      <h1 class="proj-title-post rv" data-d="2">JPMM Research Platform</h1>
-      <p class="proj-lead rv" data-d="3">Financial research discovery and consumption platform for analysts, with information architecture-first design for JPMorgan Markets.</p>
+      <h1 class="proj-title-post rv" data-d="2">Digital &amp; Platform Services Brand Identity</h1>
+      <p class="proj-lead rv" data-d="3">A cohesive visual identity for J.P. Morgan's operational and technology backbone, unifying messaging across digital channels, internal communications, and executive presentations.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -332,27 +318,25 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Analysts and clients consuming J.P. Morgan research were struggling to find relevant content within a sprawling library of thousands of reports, notes and data publications. Search was inadequate, and personalisation was non-existent. Every user saw the same undifferentiated feed.</p></div>
+          <div class="proj-body"><p>Digital &amp; Platform Services (DPS) is the operational and technology backbone of J.P. Morgan, supporting the firm's investment services, innovation, and client platforms. As part of an internal initiative, the team needed a clear and cohesive brand identity to unify its messaging across digital channels, internal communications, and executive presentations.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>UX Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>As a <strong>Visual Designer</strong>, I collaborated with a team of designers and the design lead to develop the DPS brand identity. Our goal was to create a visual system that reflected the sophistication and scale of the platform while remaining adaptable across multiple touchpoints.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I conducted a full <strong>content audit and taxonomy redesign</strong>, working with research authors, editorial staff and end-users to build a meaningful classification system. This formed the backbone of a new faceted search and filtering experience.</p><p>The interface was designed with <strong>information density in mind</strong>. Analysts needed to scan many results quickly, so the design prioritised information-dense list views over card-heavy layouts, with progressive detail on hover.</p></div>
+          <h3 class="proj-about-h3">Key Contributions</h3>
+          <div class="proj-body"><p>I helped define the visual language by establishing <strong>typography, colour, iconography, and layout systems</strong>, and created a comprehensive brand guideline for consistent use across teams. I designed visual assets and templates for presentations, microsites, and internal campaigns, ensuring accessibility and clarity throughout.</p><p>By collaborating closely with stakeholders, I aligned the visual direction with business goals and delivered scalable assets reusable across design, marketing, and communications.</p></div>
         </div>
-
-        <!-- Full-width image placeholder -->
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome rv"><span class="proj-outcome-num">4x</span><span class="proj-outcome-label">Search result relevance</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">Research reads +35%</span><span class="proj-outcome-label">Engagement increase</span></div><div class="proj-outcome rv"><span class="proj-outcome-num">IA</span><span class="proj-outcome-label">Redesigned from scratch</span></div></div>
+          <h3 class="proj-about-h3">Impact</h3>
+          <div class="proj-body"><p>The new brand identity elevated the visibility of Digital &amp; Platform Services across the firm, improving engagement with internal teams and enhancing the professionalism of external-facing communications. The visual system streamlined design workflows and became a reference for future DPS initiatives.</p></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tag">Research</span><span class="proj-tag">Information Architecture</span><span class="proj-tag">Content Design</span><span class="proj-tag">JPMorgan</span><span class="proj-tag">UX Strategy</span></div>
+        <div class="proj-tags rv"><span class="proj-tag">Brand Identity</span><span class="proj-tag">Visual Design</span><span class="proj-tag">Typography</span><span class="proj-tag">Iconography</span><span class="proj-tag">Guidelines</span></div>
 
         <figure class="proj-nda rv" role="note" aria-label="Private project">
           <div class="proj-nda-glow" aria-hidden="true"></div>
@@ -373,8 +357,8 @@
     <div class="proj-next">
       <div class="wrap">
         <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
-        <a href="project-deal-model.html" class="proj-next-link rv" data-d="1">
-          Global Custody Deal Model
+        <a href="project-barclays-data-viz.html" class="proj-next-link rv" data-d="1">
+          Barclays Data Visualisation
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -426,7 +410,6 @@
         window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior:'smooth' });
       });
     });
-    /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
   </script>
 </body>
