@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shannon Hecker · Lead Product Designer</title>
-  <meta name="description" content="Lead Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
+  <title>Shannon Hecker · Senior Product Designer</title>
+  <meta name="description" content="Senior Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
 
   <!--
     FONT : Inter - clean geometric sans-serif matching shannonhecker.com
@@ -20,8 +20,8 @@
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shannonhecker.com/" />
-  <meta property="og:title" content="Shannon Hecker · Lead Product Designer" />
-  <meta property="og:description" content="Lead Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
+  <meta property="og:title" content="Shannon Hecker · Senior Product Designer" />
+  <meta property="og:description" content="Senior Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -573,12 +573,12 @@
     /* Lead + supporting copy (paired with about .approach-headline / .approach-body) */
     .hero-tagline {
       font-family: var(--font);
-      font-size: clamp(28px, 3.5vw, 44px);
+      font-size: clamp(24px, 2.8vw, 36px);
       font-weight: 400;
       color: #000000;
       line-height: 1.28;
       letter-spacing: -.022em;
-      max-width: 680px;
+      max-width: 1200px;
       text-align: left;
     }
     .hero-tagline strong {
@@ -695,7 +695,10 @@
     .pcard-img img, .pcard-img .ph {
       width: 100%; height: 100%; object-fit: cover;
       object-position: center top;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
+    .pcard:hover .pcard-img img,
+    .pcard:hover .pcard-img .ph { transform: scale(1.05); }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;
@@ -718,26 +721,28 @@
       inset: 0;
       display: flex;
       align-items: flex-end;
-      padding: 20px;
+      padding: clamp(16px, 3vw, 28px);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 2;
     }
     .pcard-body::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0) 30%,
+        rgba(0,0,0,0.55) 100%);
       border-radius: inherit;
     }
     .pcard:hover .pcard-body { opacity: 1; }
     .pcard-title {
       position: relative;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
+      font-family: var(--font-display);
+      font-size: 20px;
       font-weight: 500;
-      letter-spacing: 0;
-      line-height: 1.2em;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
       color: #ffffff;
     }
     .pcard-meta,
@@ -834,7 +839,7 @@
     .about-portrait-panel {
       background:var(--c-panel); border:1px solid var(--c-rule);
       border-radius:var(--r-card); overflow:hidden;
-      flex:1; min-height:240px; position:relative;
+      flex:0 0 auto; height:clamp(326px, 32vw, 446px); position:relative;
       box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
     }
     .about-portrait-panel img {
@@ -1236,11 +1241,12 @@
       gap: 3px;
     }
     .hero-stat-num {
-      font-size: clamp(18px, 2vw, 24px);
+      font-size: clamp(28px, 3vw, 38px);
       font-weight: 700;
       letter-spacing: -.03em;
       color: var(--c-ink);
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
     .hero-stat-label {
       font-size: 10px;
@@ -1391,6 +1397,15 @@
     }
     .sh-row span[style]:hover { color: var(--c-light) !important; }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .rv { opacity: 1; transform: none; }
+      .hero-name-inner { transform: none !important; clip-path: none !important; }
+    }
+
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -1423,7 +1438,7 @@
       </ul>
 
       <a href="assets/CV_ShannonH.pdf"
-         class="nav-cta" target="_blank" rel="noopener">Resume ↗</a>
+         class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
 
       <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1437,7 +1452,7 @@
     <a href="#work"    onclick="closeDrawer()">Work</a>
     <a href="#contact" onclick="closeDrawer()">Contact</a>
     <a href="assets/CV_ShannonH.pdf"
-       target="_blank" rel="noopener">Resume ↗</a>
+       target="_blank" rel="noopener noreferrer">Resume ↗</a>
   </div>
 
   <!-- ============================================================
@@ -1466,7 +1481,7 @@
 
       <!-- Role / status line -->
       <div class="hero-role-line">
-<span class="hero-role-text">Lead Product Designer</span>
+<span class="hero-role-text">Senior Product Designer</span>
         <span class="hero-role-sep"></span>
         <span class="hero-role-text">London</span>
         <span class="hero-role-sep"></span>
@@ -1489,27 +1504,27 @@
       <div class="hero-sub">
         <div class="hero-sub-content">
           <p class="hero-tagline">
-            Product design for <strong>regulated finance</strong>:<br/>usable data, coherent systems, delivery teams can ship.
+            Shaping <strong>complex finance</strong> into products<br/>people actually want to use,<br/>and teams love to ship.
           </p>
           <p class="hero-descriptor">
-            Lead Product Designer at Barclays. Former VP Product Design at J.P. Morgan. I focus on trading and markets platforms, design systems at scale, and AI-supported product development without sacrificing accessibility or craft.
+            Senior Product Designer at Barclays, building trading platforms, enterprise systems, and AI-powered workflows. Previously VP Product Design at J.P. Morgan, leading UX for data-intensive financial tools used by thousands daily.
           </p>
 
           <!-- Stats row -->
           <div class="hero-stats">
             <div class="hero-stat">
-              <span class="hero-stat-num">10+</span>
+              <span class="hero-stat-num" data-target="10" data-suffix="+">0+</span>
               <span class="hero-stat-label">Years in fintech</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-              <span class="hero-stat-num">15+</span>
+              <span class="hero-stat-num" data-target="15" data-suffix="+">0+</span>
               <span class="hero-stat-label">Years in design</span>
             </div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat">
-              <span class="hero-stat-num">11</span>
-              <span class="hero-stat-label">Published case studies</span>
+              <span class="hero-stat-num" data-target="11" data-suffix="">0</span>
+              <span class="hero-stat-label">Case studies</span>
             </div>
           </div>
 
@@ -1545,7 +1560,6 @@
             <img src="assets/photo-avatar.png" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" />
             <span class="sh-text">featured work<span class="sh-period">.</span></span>
           </div>
-          <span class="sh-meta">11 projects · 9 featured · 2016 to 2026</span>
           <a href="work.html" class="sh-link">
             All Work
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -1745,7 +1759,7 @@
               <div class="pcard-meta"><span class="pcard-num">09 / 09</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title">Global Custody Deal Model</div>
               <p class="pcard-desc">Bespoke deal modelling for custodian teams: multi-step flows, progressive disclosure, clear visual hierarchy.</p>
-              <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Finance</span><span class="ptag">Interaction Design</span></div>
+              <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Finance</span></div>
             </div>
           </a>
         </div>
@@ -1769,15 +1783,15 @@
 
       <div class="about-bento">
         <div class="about-panel rv">
-          <div class="about-eyebrow">London-based Lead Product Designer</div>
+          <div class="about-eyebrow">London-based Senior Product Designer</div>
           <p class="about-intro">10+ years turning<br/>complexity into clarity.</p>
-          <p class="about-body">I'm a <strong>London-based Lead Product Designer</strong> at <strong>Barclays</strong>, with over a decade of experience shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise-grade <strong>design systems</strong> across global fintech.</p>
-          <p class="about-body">Previously at <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-heavy dashboards</strong> and complex financial tools, keeping usability, <strong>WCAG accessibility</strong>, and scalability at the core of every decision.</p>
-          <p class="about-body">Today I'm focused on integrating <strong>AI and LLM tooling</strong> into design workflows, building smarter, faster, and more intuitive interfaces for high-stakes environments.</p>
+          <p class="about-body">I'm a Senior Product Designer at <strong>Barclays</strong>, shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise <strong>design systems</strong> across global fintech for over a decade.</p>
+          <p class="about-body">At <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-intensive dashboards</strong> and complex financial tools used by thousands, with <strong>WCAG accessibility</strong> and scalability built into every decision.</p>
+          <p class="about-body">Now I'm bringing <strong>AI and LLM tooling</strong> into the design process, building faster, smarter interfaces for high-stakes trading environments.</p>
           <div class="about-links">
-            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             <a href="/cdn-cgi/l/email-protection#f2819a939c9c9d9c9a9791999780919a979cb2959f939b9edc919d9f" class="about-link">Email ↗</a>
-            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener">Resume ↗</a>
+            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Resume ↗</a>
           </div>
         </div>
 
@@ -1788,17 +1802,17 @@
           <div class="about-skills-panel rv" data-d="2">
             <div class="skills-label">Tools & Methods</div>
             <div class="skills-list">
-              <span class="skill">AI Design & LLM Workflows</span>
-              <span class="skill">Trading Platform UI/UX</span>
               <span class="skill">Design Systems</span>
+              <span class="skill">Trading Platform UI/UX</span>
+              <span class="skill">AI Design & LLM Workflows</span>
               <span class="skill">Figma</span>
               <span class="skill">WCAG 2.1 AA</span>
+              <span class="skill">Data Visualisation</span>
               <span class="skill">Design QA & Dev Handoff</span>
               <span class="skill">Stakeholder Communication</span>
               <span class="skill">Agile & DesignOps</span>
               <span class="skill">Framer</span>
               <span class="skill">Protopie</span>
-              <span class="skill">Spline</span>
             </div>
           </div>
         </div>
@@ -1823,8 +1837,8 @@
       <div class="contact-bento">
         <div class="contact-left rv">
           <div>
-            <h2 class="contact-heading">Let's<br/>Connect!</h2>
-            <p class="contact-sub">Open to lead and senior product design roles in fintech and enterprise SaaS. I help organisations ship accessible, measurable product UX from discovery through development.</p>
+            <h2 class="contact-heading">Let's<br/>Talk.</h2>
+            <p class="contact-sub">Open to lead and senior product design roles in fintech and enterprise SaaS. I help teams ship accessible, measurable product experiences from discovery through delivery.</p>
           </div>
         </div>
 
@@ -1842,7 +1856,7 @@
               <label class="f-label" for="fmsg">Message</label>
               <textarea class="f-input f-textarea" id="fmsg" placeholder="Tell me about your project…" required></textarea>
             </div>
-            <button class="f-btn" type="submit">Send It!</button>
+            <button class="f-btn" type="submit">Send Message</button>
           </form>
         </div>
       </div>
@@ -1866,8 +1880,8 @@
     <div class="wrap">
       <div class="footer-inner">
         <span class="footer-copy">©2026 Shannon Hecker</span>
-        <span class="footer-role">Lead Product Designer</span>
-        <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener">
+        <span class="footer-role">Senior Product Designer</span>
+        <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener noreferrer">
           Linkedin
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path d="M1.5 8.5L8.5 1.5M8.5 1.5H4.5M8.5 1.5V5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -1897,6 +1911,34 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
     }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
     document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+    /* ── 3b. Stat counter animation ──────────────────────── */
+    (function() {
+      const nums = document.querySelectorAll('.hero-stat-num[data-target]');
+      if (!nums.length) return;
+      const duration = 1800;
+      function ease(t) { return 1 - Math.pow(1 - t, 3); }
+      function animateNum(el) {
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || '';
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min((now - start) / duration, 1);
+          el.textContent = Math.round(ease(t) * target) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+      const so = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            nums.forEach(animateNum);
+            so.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      so.observe(nums[0].closest('.hero-stats') || nums[0]);
+    })();
 
     /* ── 4. Mobile nav ───────────────────────────────────── */
     const burgerBtn = document.getElementById('burger');
@@ -1929,15 +1971,20 @@
     /* ── 6. Contact form ─────────────────────────────────── */
     function handleForm(e) {
       e.preventDefault();
+      const btn     = e.target.querySelector('.f-btn');
       const name    = document.getElementById('fname').value.trim();
       const email   = document.getElementById('femail').value.trim();
       const message = document.getElementById('fmsg').value.trim();
       const subject = encodeURIComponent('Portfolio enquiry from ' + name);
       const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
       window.location.href = 'mailto:shannonheckerchen@gmail.com?subject=' + subject + '&body=' + body;
-      const btn = e.target.querySelector('.f-btn');
-      btn.textContent = 'Opening email…'; btn.style.background = '#555'; btn.disabled = true;
-      setTimeout(() => { btn.textContent = 'Send It!'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3000);
+      btn.textContent = 'Opening email\u2026'; btn.style.background = '#555'; btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
     }
 
     /* ── 7. Guilloché wave canvas ──────────────────────────
@@ -2033,6 +2080,10 @@
       let t0 = null;
 
       function draw(ts) {
+        if (!document.hasFocus() || canvas.getBoundingClientRect().bottom < 0) {
+          requestAnimationFrame(draw);
+          return;
+        }
         if (!t0) t0 = ts;
         const el = ts - t0;
         const d  = window.devicePixelRatio || 1;
@@ -2218,6 +2269,10 @@
       const ST = 480;
       let t0 = null;
       function draw(ts) {
+        if (!document.hasFocus() || c.getBoundingClientRect().bottom < 0) {
+          requestAnimationFrame(draw);
+          return;
+        }
         if (!t0) t0 = ts;
         const el = ts - t0, d = window.devicePixelRatio || 1, W = c.width / d, H = c.height / d;
         x.clearRect(0, 0, W, H);
