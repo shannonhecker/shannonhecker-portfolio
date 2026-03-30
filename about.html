@@ -1089,7 +1089,7 @@
     }
     .approach-headline {
       font-family: var(--font);
-      font-size: clamp(40px, 4.6vw, 56px);
+      font-size: clamp(28px, 3.2vw, 40px);
       font-weight: 700;
       color:var(--c-ink);
       line-height: 1.12;
@@ -1151,57 +1151,14 @@
       letter-spacing: .04em;
       margin-bottom: 20px;
     }
-    .exp-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-width: 680px;
-    }
-    .exp-bullets li {
+    .exp-summary {
       font-size: var(--t-base);
       font-weight: 300;
       color: var(--c-mid);
       line-height: 1.75;
       letter-spacing: -.01em;
-      padding-left: 16px;
-      position: relative;
+      max-width: 620px;
     }
-    .exp-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--c-ghost);
-    }
-    .exp-key-projects {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--c-rule);
-    }
-    .exp-key-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--c-light);
-      margin-bottom: 10px;
-    }
-    .exp-key-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .exp-key-list li {
-      font-size: var(--t-sm);
-      font-weight: 300;
-      line-height: 1.55;
-      letter-spacing: -.01em;
-      color: var(--c-mid);
-      padding-left: 16px;
-      position: relative;
-    }
-    .exp-key-list li::before { content: '→'; position: absolute; left: 0; color: var(--c-ghost); }
 
     /* ── Expertise section ── */
     .expertise { padding: clamp(100px, 14vw, 180px) 0; border-bottom: 1px solid var(--c-rule); }
@@ -1226,17 +1183,9 @@
     }
     .expertise-tag:hover { background: var(--c-ink); color: #fff; border-color: var(--c-ink); }
 
-    /* ── Education section ── */
-    .education { padding: clamp(100px, 14vw, 180px) 0 120px; }
-    .edu-list { display: flex; flex-direction: column; gap: 40px; max-width: 680px; }
-    .edu-item {}
-    .edu-school {
-      font-family: var(--font-display);
-      font-size: clamp(20px, 2.5vw, 28px);
-      font-weight: 500;
-      letter-spacing: -.02em;
-      line-height: 1.15;
-      color: var(--c-ink);
+    /* ── Education section (removed) ── */
+    .edu-placeholder {
+      display: none;
       margin-bottom: 4px;
     }
     .edu-degree {
@@ -1336,8 +1285,8 @@
           </div>
         </div>
         <h2 id="about-approach-heading" class="approach-headline rv" data-d="1">I anchor design in outcomes:<br/>usable today, scalable tomorrow,<br/>accessible always.</h2>
-        <p class="approach-body rv" data-d="2">Every project starts with user and business constraints. I validate direction through prototyping, research, and tight feedback loops with product and engineering.</p>
-        <p class="approach-body rv" data-d="3">Design systems and modern tooling, including AI where it earns its place, speed delivery without trading off clarity. Whether untangling a dense dashboard or defining patterns across a platform, the goal is inclusive, maintainable UX that teams can ship and iterate.</p>
+        <p class="approach-body rv" data-d="2">Every project begins with real constraints, user needs, business goals, and technical realities. I validate direction early through prototyping, research, and tight feedback loops with product and engineering, so decisions are grounded before pixels are final.</p>
+        <p class="approach-body rv" data-d="3">Design systems and modern tooling, including AI where it genuinely adds value, accelerate delivery without compromising clarity. Whether simplifying a data-dense dashboard or establishing patterns that scale across a platform, the goal is always the same: inclusive, maintainable experiences that teams can ship with confidence and iterate on with ease.</p>
       </div>
     </div>
   </section>
@@ -1357,87 +1306,42 @@
           <h3 class="exp-company">Barclays, London</h3>
           <div class="exp-role">Senior Product Designer</div>
           <div class="exp-dates">2025 – Present</div>
-          <ul class="exp-bullets">
-            <li>Leading product design for FX and MarketsOne, Barclays' core trading and markets platform.</li>
-            <li>Designing an AI-first workflow leveraging Claude AI and LLMs to surface insights and reduce cognitive load for traders.</li>
-            <li>Building the MarketsOne Design System, establishing tokens, components, and governance across the platform.</li>
-            <li>Transforming the FX Price Viewer and trading tools with a refined, data-dense UI system.</li>
-            <li>Partnering with engineering and product to ensure rigorous design QA and seamless handoff.</li>
-          </ul>
-          <div class="exp-key-projects">
-            <div class="exp-key-label">Key Projects</div>
-            <ul class="exp-key-list">
-              <li>MarketsOne Design System: Cross-platform token and component library powering Barclays trading products.</li>
-              <li>FX AI Workflow: LLM-powered interface integrating Claude AI into trader decision-making workflows.</li>
-              <li>FX Price Viewer Redesign: High-density data UI with real-time streaming and WCAG 2.1 AA compliance.</li>
-            </ul>
-          </div>
+          <p class="exp-summary">Own product design for FX and MarketsOne, Barclays' core trading platform. Architecting the MarketsOne Design System, designing AI-first workflows with Claude AI, and reshaping trading tools into a refined, data-dense UI built for speed and accessibility.</p>
         </div>
 
         <div class="exp-item rv" data-d="0">
           <h3 class="exp-company">J.P. Morgan, London</h3>
           <div class="exp-role">VP Product Design</div>
           <div class="exp-dates">2016 – 2023</div>
-          <ul class="exp-bullets">
-            <li>Designed and developed user-friendly, data-driven interfaces to support decision-making for financial products.</li>
-            <li>Collaborated with UX and product teams to ensure consistent interaction design across multiple platforms.</li>
-            <li>Delivered pixel-perfect UI aligned with internal brand and compliance guidelines.</li>
-            <li>Built and maintained scalable Figma design systems used by 5+ cross-functional teams.</li>
-            <li>Worked closely with developers to ensure seamless handoff and implementation.</li>
-            <li>Drove WCAG-compliant design standards to improve accessibility and usability.</li>
-          </ul>
-          <div class="exp-key-projects">
-            <div class="exp-key-label">Key Projects</div>
-            <ul class="exp-key-list">
-              <li>J.P. Morgan Design System: Scalable Figma component library that reduced design-to-dev time across 5+ product teams.</li>
-              <li>Analytics Dashboard Redesign: Restructured information architecture, improving task completion efficiency by 25%.</li>
-            </ul>
-          </div>
+          <p class="exp-summary">Shaped complex financial interfaces across trading, data management, and analytics. Built and scaled a Figma design system adopted by 5+ product teams, translated dense data workflows into clear experiences, and embedded WCAG-compliant accessibility standards across the platform.</p>
         </div>
 
         <div class="exp-item rv" data-d="1">
           <h3 class="exp-company">Pegasus Global Travel, London</h3>
           <div class="exp-role">Graphic Designer</div>
           <div class="exp-dates">2015</div>
-          <ul class="exp-bullets">
-            <li>Led the visual design of the company website, delivering a clean, modern interface.</li>
-            <li>Created promotional assets and videos to boost brand awareness and marketing reach.</li>
-            <li>Designed marketing materials that improved cross-channel visual consistency.</li>
-          </ul>
+          <p class="exp-summary">Designed the company website end-to-end and produced promotional assets and video content, unifying the brand across all channels.</p>
         </div>
 
         <div class="exp-item rv" data-d="2">
           <h3 class="exp-company">Genuine C&amp;C Inc, Taiwan</h3>
           <div class="exp-role">Visual Designer &amp; Web Developer</div>
           <div class="exp-dates">2011 – 2015</div>
-          <ul class="exp-bullets">
-            <li>Developed and maintained the company's IT-B2B platform, enhancing client usability.</li>
-            <li>Designed and implemented the front-end for the corporate website.</li>
-            <li>Led UI/UX initiatives for a client-facing network platform.</li>
-            <li>Created digital marketing assets including videos, banners and social graphics.</li>
-          </ul>
+          <p class="exp-summary">Designed and maintained the B2B platform, built the corporate website front-end, and led UI/UX direction for a client-facing network platform.</p>
         </div>
 
         <div class="exp-item rv" data-d="3">
           <h3 class="exp-company">Eastern Shine Production Co., Ltd.</h3>
           <div class="exp-role">Website Designer, Graphic Designer</div>
           <div class="exp-dates">2011</div>
-          <ul class="exp-bullets">
-            <li>Designed web platforms with a focus on usability and engagement.</li>
-            <li>Art directed a high-profile government video project, ensuring visual quality.</li>
-            <li>Supported storytelling through script-based graphics and post-production editing.</li>
-          </ul>
+          <p class="exp-summary">Designed web platforms focused on usability and art directed a government video project from concept to delivery.</p>
         </div>
 
         <div class="exp-item rv" data-d="4">
           <h3 class="exp-company">Reeborn Information., Ltd</h3>
           <div class="exp-role">Website Designer</div>
           <div class="exp-dates">2008 – 2010</div>
-          <ul class="exp-bullets">
-            <li>Designed corporate visual identity and online platform interfaces.</li>
-            <li>Created dynamic graphics and digital content assets.</li>
-            <li>Edited product photos to support e-commerce and marketing use.</li>
-          </ul>
+          <p class="exp-summary">Designed corporate visual identity and web platform interfaces, with digital content and product photography for e-commerce.</p>
         </div>
 
       </div>
@@ -1463,28 +1367,6 @@
         <span class="expertise-tag">Developer Handoff &amp; Design QA</span>
         <span class="expertise-tag">Agile Workflow &amp; DesignOps</span>
         <span class="expertise-tag">Stakeholder Communication</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── EDUCATION ── -->
-  <section class="education">
-    <div class="wrap">
-      <div class="sh rv">
-        <span class="sh-eyebrow">Academic</span>
-        <div class="sh-row">
-          <span class="sh-text">education<span class="sh-period">.</span></span>
-        </div>
-      </div>
-      <div class="edu-list">
-        <div class="edu-item rv" data-d="1">
-          <div class="edu-school">London Metropolitan University</div>
-          <div class="edu-degree">MA in Digital Media, 2015–2016</div>
-        </div>
-        <div class="edu-item rv" data-d="2">
-          <div class="edu-school">Ling Tung University, Taiwan</div>
-          <div class="edu-degree">BA in Digital Media Arts &amp; Management, 2006–2010</div>
-        </div>
       </div>
     </div>
   </section>
