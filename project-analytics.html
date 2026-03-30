@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-795LXWTYWM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fusion Analytics Dashboard · Shannon Hecker</title>
@@ -221,7 +229,7 @@
     .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
     .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
     /* Cover image */
-    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block; }
+    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block;image-rendering:auto; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
     /* Content sections */
     .proj-content { padding-bottom:40px; }
@@ -353,19 +361,19 @@
         </div>
         <div class="proj-meta-row rv" data-d="1">
           <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2022–2023</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Senior Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Analytics Dashboard</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2022–2024</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UI/UX Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="assets/Analytics%201.png" alt="Fusion analytics dashboard: layered views of performance tables, allocation charts, and reporting modules" class="proj-cover rv" decoding="async"
+      <img src="assets/Fusion%20Analytics%20Dashboard%20banner.png" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" decoding="async"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Analytics Dashboard</h1>
-      <p class="proj-lead rv" data-d="3">A complex B2B analytics platform surfacing real-time financial data with clarity and precision for decision-makers across J.P. Morgan.</p>
+      <p class="proj-lead rv" data-d="3">A flagship internal product to modernize how trading and ops teams access high-volume data, with intuitive data selection and interactive visualizations built on Fusion Data Cubes.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -374,8 +382,8 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Financial analysts were working with dense, poorly structured dashboards that made it difficult to surface the right insights at the right time. The legacy interface had grown organically over years with no coherent information architecture, leading to high cognitive load and task inefficiencies.</p><p>The goal was to redesign the platform from the ground up, bringing <strong>clarity to complexity</strong> while maintaining the full depth of data that power users required.</p></div>
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p>I worked on Fusion's new performance analytics features, which provide detailed insights into <strong>returns, attribution, and risk</strong> across asset classes. We partnered with FactSet to integrate their analytics engine, allowing asset managers to focus on alpha generation while using Fusion's clean, unified interface for data and board-ready reporting.</p><p>The challenge was creating intuitive, board-quality dashboards that translate complex analytics into clear, actionable insights. It had to handle <strong>advanced filtering, deep slicing of data</strong>, and remain user-friendly under pressure, all while modernizing the legacy RaaS UI into a responsive web-based flex layout.</p></div>
         </div>
 
         <figure class="proj-media rv">
@@ -383,19 +391,19 @@
             <img src="assets/analytics-widgets-grid.png" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
           </div>
           <figcaption class="proj-media-cap">
-            <span class="proj-media-cap-label">Modular analytics surface</span>
-            <span class="proj-media-cap-text">A consistent card system for dense financial data (tables, bar and area charts, allocation views, combined bar-line trends) so specialists can scan, compare, and drill down without losing context.</span>
+            <span class="proj-media-cap-label">Dashboard modules</span>
+            <span class="proj-media-cap-text">Performance tables, returns charts, allocation donuts, and trend visualizations, all built as modular widgets that asset managers can configure to their workflow.</span>
           </figcaption>
         </figure>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>Senior Product Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>I led <strong>UI and visual design</strong>, working closely with a UX designer and product owner, embedded across cross-functional teams. I defined visual identity, component structure, and accessibility layers, all built in Figma with <strong>Salt Design System</strong>. A lot of time was spent translating trading desk needs into meaningful interaction models, creating reusable components and ensuring <strong>accessible, cohesive experiences</strong> across the platform.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I began with a <strong>discovery phase</strong>, conducting 12 stakeholder interviews and analysing task flows to identify friction points. The most critical finding was that users were switching between 7+ screens to complete a single workflow.</p><p>I designed a <strong>unified dashboard architecture</strong> with contextual panels, progressive disclosure for advanced features, and a token-based design system to ensure scalability. Every component was tested for WCAG 2.2 AA compliance, with particular attention to colour contrast in data visualisation.</p></div>
+          <div class="proj-body"><p>I collaborated with the product owner to <strong>gather requirements and align on goals</strong>, then worked closely with UX designers to iterate on mockups. We reviewed designs with the product and development teams, incorporating feedback and ensuring accessibility with an <strong>ADA specialist</strong>.</p><p>Once finalized, I partnered with developers to ensure <strong>pixel-perfect implementation</strong>, maintaining daily standups to keep the team aligned and on track. The dashboard was designed to handle large datasets, both real-time and historical, with filtering, toggles, aggregation views, and comparison tools. I kept the interface <strong>modular</strong> to adapt to varying data cube complexity and user role permissions.</p></div>
         </div>
 
         <div class="proj-media-split rv">
@@ -404,8 +412,8 @@
               <img src="assets/analytics-configuration.png" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
             </div>
             <figcaption class="proj-media-cap">
-              <span class="proj-media-cap-label">Configuration &amp; reporting</span>
-              <span class="proj-media-cap-text">Column, group, and display controls so analysts tailor grids and hierarchies to each workflow while staying on the analysis surface.</span>
+              <span class="proj-media-cap-label">Configuration panel</span>
+              <span class="proj-media-cap-text">Column, group, and display controls built with Salt Design System components, letting analysts tailor grids and data hierarchies without leaving the analysis surface.</span>
             </figcaption>
           </figure>
           <figure class="proj-media">
@@ -413,27 +421,29 @@
               <img src="assets/analytics-combination-chart.png" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
             </div>
             <figcaption class="proj-media-cap">
-              <span class="proj-media-cap-label">Data visualisation</span>
-              <span class="proj-media-cap-text">Combination charts and linked tables for time-based comparison: bars, lines, and tabular detail aligned for board-ready reporting.</span>
+              <span class="proj-media-cap-label">Combination charts</span>
+              <span class="proj-media-cap-text">Fund vs benchmark bars with excess line overlays and linked data tables, designed for board-ready reporting and at-a-glance performance comparison.</span>
             </figcaption>
           </figure>
         </div>
 
+        <figure class="proj-media rv">
+          <div class="proj-media-frame">
+            <img src="assets/Fusion%20Analytics%20Dashboard%2002.png" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="proj-media-cap">
+            <span class="proj-media-cap-label">Sustainable investment reporting</span>
+            <span class="proj-media-cap-text">ESG scores, rating trends, emissions tracking, and controversies data, layered across issuer-level reports with configurable dashboard pages and deep data exploration.</span>
+          </figcaption>
+        </figure>
+
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">40%</span><span class="proj-outcome-label">Reduction in task time</span></div><div class="proj-outcome"><span class="proj-outcome-num">12+</span><span class="proj-outcome-label">Screens consolidated</span></div><div class="proj-outcome"><span class="proj-outcome-num">WCAG</span><span class="proj-outcome-label">AA Compliant</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">Phase 2</span><span class="proj-outcome-label">External clients signed after launch</span></div><div class="proj-outcome"><span class="proj-outcome-num">Reusable</span><span class="proj-outcome-label">Patterns adopted across Fusion modules</span></div><div class="proj-outcome"><span class="proj-outcome-num">WCAG</span><span class="proj-outcome-label">AA Compliant with ADA review</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Product Design · Data Viz · Fintech · WCAG 2.2 · Figma · Design Systems</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">UI/UX Design · Data Visualisation · Figma · Salt Design System · Accessibility (ADA/WCAG) · FactSet Integration · Enterprise Dashboard · J.P. Morgan</span></div>
 
-        <figure class="proj-nda rv" role="note" aria-label="Private project">
-          <div class="proj-nda-glow" aria-hidden="true"></div>
-          <div class="proj-nda-inner">
-            <h3 class="proj-nda-title">Oops!</h3>
-            <p class="proj-nda-lead">This project is under NDA.</p>
-            <p class="proj-nda-body">I can&rsquo;t share full details publicly, but I&rsquo;m happy to walk through the work in a conversation.</p>
-          </div>
-        </figure>
 
         </div>
         </div>
