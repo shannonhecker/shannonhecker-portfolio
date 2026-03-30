@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /assets/*.png
+Disallow: /assets/*.jpg
+Disallow: /assets/*.jpeg
+Disallow: /assets/*.webp
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /assets/
