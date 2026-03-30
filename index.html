@@ -644,7 +644,24 @@
     /* ============================================================
        WORK - bento card grid (cofolios corner radius)
        ============================================================ */
-    .work { padding:clamp(100px, 14vw, 180px) 0; }
+    .section-divider {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .section-divider::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: rgba(0,0,0,0.06);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s cubic-bezier(.22,1,.36,1);
+    }
+    .section-divider.on::after {
+      transform: scaleX(1);
+    }
+    .work { padding:clamp(72px, 10vw, 120px) 0; }
 
     /* Framer-style 3-column grid (exact Framer values) */
     .work .bento,
@@ -786,7 +803,7 @@
     /* ============================================================
        ABOUT - two rounded panels
        ============================================================ */
-    .about { padding:clamp(100px, 14vw, 180px) 0; }
+    .about { padding:clamp(72px, 10vw, 120px) 0; }
 
     .about-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
@@ -899,7 +916,7 @@
        CONTACT - two rounded panels
        ============================================================ */
     .contact {
-      padding: clamp(100px, 14vw, 180px) 0 36px;
+      padding: clamp(72px, 10vw, 120px) 0 36px;
       position: relative;
       z-index: 2;
     }
@@ -1846,12 +1863,13 @@
     </div>
   </section>
 
+  <div class="section-divider" aria-hidden="true"></div>
+
   <!-- ============================================================
        ABOUT
        ============================================================ -->
   <section class="about" id="about">
     <div class="wrap">
-      <hr style="border:none; border-top:1px solid var(--c-rule); margin:0;" />
 
       <div class="sh rv">
         <span class="sh-eyebrow">Who I Am</span>
@@ -1900,12 +1918,13 @@
     </div>
   </section>
 
+  <div class="section-divider" aria-hidden="true"></div>
+
   <!-- ============================================================
        CONTACT
        ============================================================ -->
   <section class="contact" id="contact">
     <div class="wrap">
-      <hr style="border:none; border-top:1px solid var(--c-rule); margin:0;" />
 
       <div class="sh rv">
         <span class="sh-eyebrow">Get In Touch</span>
@@ -1990,7 +2009,7 @@
     const ro = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
     }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
-    document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+    document.querySelectorAll('.rv, .section-divider').forEach(el => ro.observe(el));
 
     /* ── 3b. Stat counter animation ──────────────────────── */
     (function() {
