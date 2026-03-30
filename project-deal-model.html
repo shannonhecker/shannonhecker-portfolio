@@ -278,6 +278,9 @@
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
   
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -441,6 +444,10 @@
     });
     /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>

@@ -12,8 +12,8 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TripUp · Bending Spoons design challenge · Shannon Hecker</title>
-  <meta name="description" content="TripUp mobile product design case study for Bending Spoons: group travel, polls, shared expenses, and itineraries in one cohesive flow." />
+  <title>TripUp · Group Travel App Redesign · Shannon Hecker</title>
+  <meta name="description" content="TripUp mobile product design: group travel coordination with polls, shared expense splitting, itineraries, and real-time updates in one cohesive experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -303,6 +303,9 @@
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
   
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -349,8 +352,8 @@
           <span>TripUp</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">Bending Spoons</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Case study</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">TripUp Redesign</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Mobile App Design</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2025</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UX/UI Designer</span></div>
         </div>
@@ -362,7 +365,7 @@
       <div class="proj-cover-ph proj-cover-ph--tripup ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">TripUp</h1>
-      <p class="proj-lead rv" data-d="3">A group travel concept for the Bending Spoons product design challenge: collective polls, transparent expense splitting, and trip context in one mobile experience.</p>
+      <p class="proj-lead rv" data-d="3">Redesigning a group travel app to bring polls, shared expenses, itineraries, and real-time coordination into one seamless mobile experience.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -371,18 +374,18 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p><strong>TripUp</strong> is a take-home product design exercise for <strong>Bending Spoons</strong>: a mobile experience for group trip planning with polls for decisions, shared cost logging, and balances visible without leaving the trip context.</p><p>The brief, wireflow, and UI explorations are captured in Figma. <a href="https://www.figma.com/deck/tk8MYJSAkpKLqFfI63okPk?node-id=1-166&t=TNZr0CjpGrB8vGYO-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener noreferrer" style="color:var(--c-ink);text-decoration:underline;text-underline-offset:3px;">Open the Figma file ↗</a></p></div>
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p><strong>The brief.</strong> Enhance the TripUp mobile app to facilitate <strong>group decision making and expense tracking</strong> during trips, prioritising fast and seamless experiences. The goal was to support quick planning through polls, real-time feedback with vote results and itinerary updates, and easy expense tracking and settlement.</p><p><strong>The core problem.</strong> Group travel coordination is fragmented across too many tools. Decisions get buried in group chats, expenses are tracked in separate apps, and itineraries live in yet another place. Users need one surface that brings polls, payments, and plans together with minimal friction.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>UX/UI Designer</strong> on this time-boxed challenge, I owned problem framing, information architecture, end-to-end flows, wireframes, and high-fidelity mobile UI, delivered in Figma with a concise narrative for review.</p></div>
+          <div class="proj-body"><p>I owned the full end-to-end design process, from <strong>user research and competitor analysis</strong> through to wireflows, user journey mapping, visual design direction, and high-fidelity mobile UI. Deliverables included user personas, a complete wireflow, a colour and typography system, and polished screens optimised for iPhone 16.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I started with a <strong>16-screen wireflow</strong> from app launch through inviting friends, publishing a dinner poll, voting, syncing the winning venue to the itinerary, and logging an expense with <strong>granular split rules</strong> (for example excluding specific people from part of a bill).</p><p>High-fidelity work centred on three pillars: <strong>Active Polls</strong> (live voting and results), <strong>Log Expenses</strong> (split toggles, line items, and save flows), and the <strong>trip hub</strong> for Lisbon, with tabs for summary, schedule, expenses, polls, and chat plus filters and payment status.</p></div>
+          <div class="proj-body"><p><strong>User research.</strong> I created two user personas to represent the core audience: the Organiser (plans trips, manages logistics, needs shared control) and the Participant (wants to vote, pay, and stay updated with minimal effort). Key insight: group decisions happen spontaneously mid-trip, so the interface needs to support a <strong>two-tap rule</strong> for low friction.</p><p><strong>Competitor analysis.</strong> I audited Splitwise, Tricount, and Settle Up across navigation, expense input, split options, and balance display. The gap was clear: existing tools handle expense splitting well but lack travel-optimised features like polls, itinerary syncing, and real-time group coordination.</p><p><strong>User journey mapping.</strong> I mapped the complete user journey from opening the app through adding a friend, creating a dinner poll, group voting, the winning choice syncing automatically to the itinerary, logging the expense with granular split rules, and settling balances.</p><p><strong>UI solution.</strong> The visual direction is friendly, modern, and clean with a focus on fast tap targets and clear feedback. High-fidelity screens centre on three prioritised interactions: <strong>Poll Creation</strong> (quick interface to add options and launch votes), <strong>Live Voting View</strong> (real-time feedback on group choices), and <strong>Expense Split</strong> (simple input with auto-adjustments and instant confirmation). Smart defaults like pre-filled groups, quick poll templates, and expense reminders keep the experience lightweight.</p></div>
         </div>
 
         <figure class="rv">
@@ -391,10 +394,10 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">16</span><span class="proj-outcome-label">Wireflow screens mapped end-to-end</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Hi-fi modules: polls, expenses, trip hub</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Shareable Figma source of truth</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">15+</span><span class="proj-outcome-label">Wireflow screens mapped end-to-end</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Hi-fi interactions: polls, voting, expenses</span></div><div class="proj-outcome"><span class="proj-outcome-num">2</span><span class="proj-outcome-label">User personas with journey maps</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Mobile UX · Figma · Case study · Travel · Bending Spoons · Prototyping</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Mobile UX · UI Design · Figma · User Research · Competitor Analysis · Prototyping · Travel · Expense Splitting</span></div>
 
         </div>
         </div>
@@ -461,6 +464,10 @@
     });
     /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>

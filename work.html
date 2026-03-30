@@ -286,6 +286,9 @@
     .work-hero-title { font-family:var(--font-display);font-size:clamp(40px,6vw,80px);font-weight:600;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin-bottom:24px; }
     .work-hero-sub { font-size:clamp(15px,1.5vw,18px);font-weight:300;color:var(--c-mid);max-width:520px;line-height:1.75; }
 
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -720,6 +723,10 @@
       }, { threshold: 0 }).observe(canvas);
       animId = requestAnimationFrame(draw);
     })();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>

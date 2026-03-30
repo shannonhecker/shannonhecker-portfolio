@@ -1480,6 +1480,9 @@
     }
 
   
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -2395,6 +2398,10 @@
       requestAnimationFrame(draw);
     })();
 
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>

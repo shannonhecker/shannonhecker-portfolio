@@ -12,8 +12,8 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barclays Data Visualisation · Stock dashboard · Shannon Hecker</title>
-  <meta name="description" content="Case study: equities monitoring dashboard for Barclays-aligned enterprise UX, with filters, charts, heatmaps, and responsive layouts." />
+  <title>Barclays Data Visualisation · Stock Dashboard Design Task · Shannon Hecker</title>
+  <meta name="description" content="Design task for Barclays Front Office: a stock price dashboard with interactive filters, multi-chart data visualisation, and responsive desktop-to-tablet layouts." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -304,6 +304,9 @@
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
   
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -351,9 +354,9 @@
         </div>
         <div class="proj-meta-row rv" data-d="1">
           <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">Barclays</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Dashboard &amp; data visualisation</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Data Visualisation Dashboard</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2025</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UI/UX Designer</span></div>
         </div>
       </div>
 
@@ -363,7 +366,7 @@
       <div class="proj-cover-ph proj-cover-ph--barclays" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Barclays Data Visualisation</h1>
-      <p class="proj-lead rv" data-d="3">End-to-end product design for an equities dashboard: global filters, multi-series charts, a price-move heatmap, and responsive layouts that stay true to Barclays patterns while keeping dense market data scannable.</p>
+      <p class="proj-lead rv" data-d="3">Designing a stock performance dashboard that turns raw financial data into clear, filterable visualisations with interactive charts, heatmaps, and responsive layouts for desktop and tablet.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -372,18 +375,18 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p><strong>Context.</strong> Equity and sector specialists need to compare positions, spot drift, and validate stories without hunting across screens. The product opportunity was to bring <strong>EoD prices, daily change, sector trends, and cross-name moves</strong> into one coherent surface inside the Barclays shell.</p><p><strong>Approach.</strong> I framed the job as scan-first analysis: establish hierarchy, then layer charts and tables so power users get density while typography and colour semantics keep gains, losses, and neutral states instantly readable.</p></div>
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p><strong>The brief.</strong> The project centred on raw stock price data for <strong>six companies across two sectors</strong> (Technology and Finance), covering end-of-day prices, daily price changes, and daily percentage changes over a five-day window. The challenge was to design a dashboard that lets financial professionals perform <strong>end-of-week stock performance analysis</strong> quickly and confidently.</p><p><strong>The core problem.</strong> Dense, multi-dimensional financial data needs to be instantly scannable. Users should be able to spot the biggest movers, compare sectors at a glance, and drill into individual company trends without losing context.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>I owned <strong>information architecture</strong>, the dashboard grid, chart and table treatments, and breakpoint behaviour from desktop through narrow viewports. Deliverables included annotated layouts and component-level specs so engineering could align implementation with the intended scanning path and accessibility of the data.</p></div>
+          <div class="proj-body"><p>I owned the full end-to-end design, from <strong>data analysis and information architecture</strong> through to high-fidelity UI and interactive prototyping. That included structuring the raw data, defining the visual hierarchy, selecting appropriate chart types, building a colour and typography system aligned to brand guidelines, and delivering responsive layouts for <strong>desktop and iPad</strong>.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p><strong>Solution.</strong> The desktop experience anchors on <strong>global filters</strong> (company, sector, date range) and a modular card system: summary tiles, multi-line and bar charts, sector area views, a <strong>price-change heatmap</strong>, and per-stock sparklines so users can triage before drilling in.</p><p><strong>Responsive behaviour.</strong> The narrow layout reflows the same modules into a single column with preserved reading order and chart legibility, so analysts get a consistent mental model whether they are at a desk or on a constrained display.</p></div>
+          <div class="proj-body"><p><strong>Understanding the data.</strong> I started by cleaning and restructuring the provided datasets, consolidating percentage changes, EoD prices, and daily differences into a format that would support multiple visualisation types. This step was critical for identifying which chart patterns would surface the right insights.</p><p><strong>Information architecture.</strong> I structured the dashboard around three views: an <strong>overview</strong> (week summary with top risers/fallers and sector trends), a <strong>sector view</strong> (Technology vs Finance comparison), and a <strong>company view</strong> (individual daily trends). Global filters for company, sector, and date range sit at the top so users can slice data without losing their place.</p><p><strong>Visual exploration.</strong> I tested line charts (small multiples), horizontal bar charts, heatmap matrices, sector comparison area charts, and interactive data tables, referencing D3.js patterns to ensure the visualisations would translate cleanly to an Angular + D3 build. The final dashboard uses a modular card system with <strong>summary tiles, multi-series line charts, stacked bar charts, a colour-coded heatmap</strong>, and per-company sparklines.</p><p><strong>Responsive design.</strong> The tablet layout preserves the same mental model as desktop with the same modules and reading order, reflowed into a narrower grid. Typography, spacing, and colour semantics stay consistent across breakpoints.</p></div>
         </div>
 
         <figure class="rv">
@@ -392,10 +395,10 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Reusable dashboard module system</span></div><div class="proj-outcome"><span class="proj-outcome-num">2</span><span class="proj-outcome-label">Desktop and narrow layouts with shared IA</span></div><div class="proj-outcome"><span class="proj-outcome-num">6+</span><span class="proj-outcome-label">Viz patterns: line, bar, area, heatmap, spark</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">6+</span><span class="proj-outcome-label">Visualisation patterns delivered</span></div><div class="proj-outcome"><span class="proj-outcome-num">2</span><span class="proj-outcome-label">Responsive breakpoints (Desktop + iPad)</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Dashboard views (Overview, Sector, Company)</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Data Viz · Barclays · Dashboard · Finance · Responsive · Enterprise UX</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Data Visualisation · Dashboard Design · Barclays · Figma · D3.js · Angular · Responsive · Financial Services · Enterprise UX</span></div>
 
         </div>
         </div>
@@ -462,6 +465,10 @@
     });
     /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-cover,.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>

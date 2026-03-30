@@ -12,8 +12,8 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fusion Design System · Shannon Hecker</title>
-  <meta name="description" content="A scalable, token-based design system with 200+ components powering enterprise finance products across 5+ cross-functional teams at J.P. Morgan." />
+  <title>Fusion Design System · Enterprise Component Library · Shannon Hecker</title>
+  <meta name="description" content="A scalable, token-based design system powering enterprise finance products with reusable Figma components, accessibility compliance, and cross-team collaboration." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -278,6 +278,9 @@
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
   
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-touch-callout:none; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -324,20 +327,20 @@
           <span>Fusion Design System</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Design System</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2020–Present</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Design Systems Lead</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">Fusion Design System</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Design System &amp; Component Library</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2022-2024</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UI/UX Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="assets/System%201.png" alt="Fusion Design System" class="proj-cover rv" decoding="async"
+      <img src="assets/Fusion%20ds%20banner.png" alt="Fusion Design System: data catalog, ESG datasets, and cloud-native data platform" class="proj-cover rv" decoding="async"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-2" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Design System</h1>
-      <p class="proj-lead rv" data-d="3">A scalable, token-based design system with 200+ components powering enterprise finance products across 5+ cross-functional teams at J.P. Morgan.</p>
+      <p class="proj-lead rv" data-d="3">Building a scalable, token-based design system with reusable Figma components, accessibility compliance, and dev-ready handoff powering enterprise finance products across multiple cross-functional teams.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -346,29 +349,30 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Multiple product teams were building the same components independently, resulting in visual inconsistency, duplicated effort and slow delivery cycles. There was no single source of truth for design or code.</p><p>The brief was to build a <strong>unified, scalable design system</strong> that could serve diverse products, from trading dashboards to compliance tools, without becoming a bottleneck.</p></div>
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p><strong>The problem.</strong> Multiple product teams were building the same components independently, resulting in visual inconsistency, duplicated effort, and slow delivery cycles. There was no single source of truth for design or code, and each new feature meant rebuilding patterns that already existed elsewhere.</p><p><strong>The goal.</strong> Build a <strong>unified, scalable design system</strong> that could serve diverse enterprise products, from analytics dashboards to data management tools, without becoming a bottleneck. The system needed to support complex data-dense interfaces while maintaining consistency, accessibility, and cross-team collaboration.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>Design Systems Lead</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>As part of the core design team, I focused on <strong>UI and visual design</strong>, working closely with a UX designer and product owner embedded across cross-functional teams. I contributed to visual identity, component structure, and accessibility layers, all built in Figma with the Salt Design System as a foundation. A significant part of my role involved translating complex data requirements into meaningful, reusable interaction patterns.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I architected the system using <strong>atomic design principles</strong>, starting with global design tokens (colour, spacing, typography) and building up through atoms, molecules, and organism-level components.</p><p>All components were built with <strong>auto layout and variants</strong> in Figma, with thorough documentation in Zeroheight. I worked closely with engineering to create a corresponding React component library, ensuring pixel-perfect parity between design and implementation.</p></div>
+          <div class="proj-body"><p><strong>Requirements gathering.</strong> I collaborated with the product owner to define requirements and align on goals, then worked closely with UX designers to iterate on mockups. Designs were reviewed with the product and development teams, incorporating feedback and ensuring accessibility with an ADA specialist.</p><p><strong>Component architecture.</strong> I built the system using <strong>design tokens, auto layout, and variants</strong> in Figma, creating a comprehensive pattern library including Studio Header, Dataviz (HighCharts), Ag-Grid, Progress Tracker, Vertical Nav, Side Drawer, Full Screen Form Panel, Field Selection Rules, Toolbar, Attributes Drawer, Content Details, Year/Week Picker, Nav Bar, App Header, Tabs, Horizontal Cards, and more.</p><p><strong>Accessibility.</strong> Every component was validated against <strong>WCAG 2.1 AA</strong> standards using Colour Contrast Analyser and axe DevTools. Accessibility was not an afterthought but embedded at each step of the design process.</p><p><strong>Developer handoff.</strong> Once designs were finalised, I partnered with developers to ensure pixel-perfect implementation, maintaining daily standups to keep the team aligned throughout the process. Components were delivered dev-ready with clear documentation and specifications.</p></div>
         </div>
 
-        <!-- Full-width image placeholder -->
-        <div class="proj-img-full-ph ph-2 rv"></div>
+        <figure class="rv">
+          <img src="assets/Fusion%20d02.png" alt="Fusion platform: unified data experience, data catalog, and portfolio management" class="proj-img-full" width="2000" height="1200" loading="lazy" decoding="async" style="width:100%;height:auto;" />
+        </figure>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">200+</span><span class="proj-outcome-label">Components built</span></div><div class="proj-outcome"><span class="proj-outcome-num">5+</span><span class="proj-outcome-label">Teams using system</span></div><div class="proj-outcome"><span class="proj-outcome-num">60%</span><span class="proj-outcome-label">Faster design delivery</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">20+</span><span class="proj-outcome-label">Reusable pattern components</span></div><div class="proj-outcome"><span class="proj-outcome-num">5+</span><span class="proj-outcome-label">Cross-functional teams adopted</span></div><div class="proj-outcome"><span class="proj-outcome-num">AA</span><span class="proj-outcome-label">WCAG 2.1 accessibility compliance</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Design System · Design Tokens · Figma · Component Library · Atomic Design · Zeroheight</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Design System · Figma · Salt Design System · Design Tokens · Component Library · Accessibility (ADA/WCAG) · Enterprise UX · Cross-team Collaboration</span></div>
 
         <figure class="proj-nda rv" role="note" aria-label="Private project">
           <div class="proj-nda-glow" aria-hidden="true"></div>
@@ -444,6 +448,10 @@
     });
     /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
   </script>
 </body>
 </html>
