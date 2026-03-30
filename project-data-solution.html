@@ -69,6 +69,9 @@
     .nav-links{list-style:none;display:flex;align-items:center;gap:4px;}
     .nav-links a{font-size:13px;font-weight:400;color:var(--c-nav);letter-spacing:.01em;border-radius:var(--r-pill);padding:8px 16px;transition:background var(--tb) var(--ease),color var(--tb) var(--ease);}
     .nav-links a:hover{background:var(--c-hover);color:#fff;}
+    .nav-links a[aria-current="page"]{background:var(--c-ink);color:#fff;font-weight:500;}
+    .nav-links a[aria-current="page"]:hover{background:var(--c-hover);color:#fff;}
+    .nav.s .nav-links a[aria-current="page"]{background:var(--c-ink);color:#fff;}
     .nav.s .nav-links a{color:var(--c-nav);}
     .nav-cta{font-size:13px;font-weight:400;color:var(--c-nav);border:1px solid var(--c-border);border-radius:var(--r-pill);padding:8px 20px;transition:background var(--tb) var(--ease),border-color var(--tb) var(--ease),color var(--tb) var(--ease);}
     .nav-cta:hover{background:var(--c-hover);border-color:var(--c-hover);color:#fff;}
@@ -105,6 +108,18 @@
     .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
     .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
     /* Responsive */
+    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
+    /* Prev/Next project nav */
+    .proj-nav { display:flex;align-items:center;justify-content:space-between;gap:24px; }
+    .proj-nav-item { display:flex;flex-direction:column;gap:4px; }
+    .proj-nav-item--next { align-items:flex-end;margin-left:auto; }
+    .proj-nav-hint { font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--c-light); }
+    .proj-nav-link { display:inline-flex;align-items:center;gap:10px;font-size:clamp(18px,2.2vw,28px);font-weight:400;letter-spacing:-.02em;color:var(--c-ink);transition:gap var(--tb) var(--spring),color var(--tb) var(--ease); }
+    .proj-nav-link:hover { gap:16px;color:var(--c-mid); }
+    .proj-nav-link svg { flex-shrink:0;width:20px;height:20px;transition:transform var(--tb) var(--spring); }
+    .proj-nav-item--prev .proj-nav-link:hover svg { transform:translateX(-3px); }
+    .proj-nav-item--next .proj-nav-link:hover svg { transform:translateX(3px); }
+    @media(max-width:600px){ .proj-nav-link{font-size:16px;} }
     @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
   
   </style>
@@ -258,12 +273,6 @@
     .proj-tags-label { font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px; }
     .proj-tags-list { font-size:13px;font-weight:400;color:var(--c-mid);line-height:1.7; }
     /* Next project nav */
-    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
-    .proj-next-label { font-family:var(--font-display);font-size:clamp(20px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;text-transform:lowercase;color:var(--c-ink);margin-bottom:20px;display:block; }
-    .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:400;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
-    .proj-next-link:hover { gap:20px; }
-    .proj-next-link svg { flex-shrink:0;transition:transform var(--tb) var(--spring); }
-    .proj-next-link:hover svg { transform:translateX(4px); }
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:24px;}
@@ -299,7 +308,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Intro</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="work.html">Work</a></li>
+        <li><a href="work.html" aria-current="page">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
       <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
@@ -327,20 +336,20 @@
           <span>Fusion Data Solution</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Web App</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2021–2022</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Senior UX Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">Fusion Data Solution</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Enterprise Web App</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2022-2024</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">UI/UX Designer</span></div>
         </div>
       </div>
 
       <!-- Cover -->
-      <img src="assets/Data%20Managment%201.png" alt="Fusion Data Solution" class="proj-cover rv" decoding="async"
+      <img src="assets/Fusion%20data%20banner.png" alt="Fusion Data Solution: data quality summary, DQ rules, and transaction management" class="proj-cover rv" decoding="async"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-3" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Data Solution</h1>
-      <p class="proj-lead rv" data-d="3">End-to-end UX design translating highly complex technical data workflows into clear, guided user journeys for financial data analysts.</p>
+      <p class="proj-lead rv" data-d="3">Simplifying complex data workflows into a unified, user-friendly interface that supports fast, informed decision-making.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -349,29 +358,21 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>A critical internal data management platform had grown so complex that onboarding new analysts took weeks. The UI exposed raw technical configurations directly to end users, with no abstraction or guided flows.</p><p>Teams were raising frequent support tickets for tasks that should have been self-serve, costing significant engineering time.</p></div>
+          <h3 class="proj-about-h3">Overview</h3>
+          <div class="proj-body"><p>Designed the interface for an enterprise data management platform, transforming dense technical workflows into clear, guided experiences for data analysts and operations teams.</p><p>The platform handled large-scale data ingestion, validation, and distribution across multiple business lines. Users needed to monitor data quality, configure automated rules, and resolve exceptions quickly, often under time pressure.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>Senior UX Designer</strong>, I partnered with product, engineering, and research leads to own interface and interaction design from exploration through release: workshops, critique cycles, detailed Figma specifications, and handoff teams can build against, with accessibility and cross-product consistency embedded at each step.</p></div>
+          <div class="proj-body"><p>As a <strong>UI/UX Designer</strong>, I collaborated with product and engineering teams to deliver end-to-end interface design, from stakeholder workshops and user research through to detailed Figma specifications and developer handoff.</p><p>I focused on simplifying complex configuration screens, improving error-state handling, and ensuring consistency across the platform's core modules.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I ran a comprehensive <strong>user research programme</strong> including contextual inquiry sessions, task analysis, and journey mapping with 8 analysts across 3 teams. This revealed that 80% of pain came from just 3 core workflows.</p><p>I redesigned those workflows using <strong>progressive disclosure</strong>, hiding advanced configuration behind sensible defaults, with a step-by-step guided mode for new users and a power mode for experts.</p></div>
+          <h3 class="proj-about-h3">Key Focus Areas</h3>
+          <div class="proj-body"><p>Data quality monitoring, workflow automation, transaction management, and reporting dashboards, all designed with progressive disclosure to serve both new and expert users.</p><p>Key design challenges included balancing information density with clarity, creating flexible table and filter patterns, and designing intuitive rule-builder interfaces for non-technical users.</p></div>
         </div>
 
-        <!-- Full-width image placeholder -->
-        <div class="proj-img-full-ph ph-3 rv"></div>
-
-        <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">80%</span><span class="proj-outcome-label">Support tickets reduced</span></div><div class="proj-outcome"><span class="proj-outcome-num">3 wks → 3 days</span><span class="proj-outcome-label">Onboarding time</span></div><div class="proj-outcome"><span class="proj-outcome-num">94%</span><span class="proj-outcome-label">User satisfaction</span></div></div>
-        </div>
-
-        <div class="proj-tags rv"><span class="proj-tags-list">UX Research · B2B SaaS · User Testing · Information Architecture · Prototyping</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">UI/UX Design · Enterprise · Data Visualisation · Figma · Information Architecture · Accessibility</span></div>
 
         <figure class="proj-nda rv" role="note" aria-label="Private project">
           <div class="proj-nda-glow" aria-hidden="true"></div>
@@ -388,16 +389,25 @@
       </div>
     </div>
 
-    <!-- Next project -->
+    <!-- Project navigation -->
     <div class="proj-next">
       <div class="wrap">
-        <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
-        <a href="project-ui-toolkit.html" class="proj-next-link rv" data-d="1">
-          UI Toolkit
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="proj-nav rv">
+          <div class="proj-nav-item proj-nav-item--prev">
+            <span class="proj-nav-hint">Previous</span>
+            <a href="project-design-system.html" class="proj-nav-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Design System
+            </a>
+          </div>
+          <div class="proj-nav-item proj-nav-item--next">
+            <span class="proj-nav-hint">Next</span>
+            <a href="project-ui-toolkit.html" class="proj-nav-link">
+              UI Toolkit
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </main>

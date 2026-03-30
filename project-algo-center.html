@@ -105,6 +105,18 @@
     .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
     .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
     /* Responsive */
+    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
+    /* Prev/Next project nav */
+    .proj-nav { display:flex;align-items:center;justify-content:space-between;gap:24px; }
+    .proj-nav-item { display:flex;flex-direction:column;gap:4px; }
+    .proj-nav-item--next { align-items:flex-end;margin-left:auto; }
+    .proj-nav-hint { font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--c-light); }
+    .proj-nav-link { display:inline-flex;align-items:center;gap:10px;font-size:clamp(18px,2.2vw,28px);font-weight:400;letter-spacing:-.02em;color:var(--c-ink);transition:gap var(--tb) var(--spring),color var(--tb) var(--ease); }
+    .proj-nav-link:hover { gap:16px;color:var(--c-mid); }
+    .proj-nav-link svg { flex-shrink:0;width:20px;height:20px;transition:transform var(--tb) var(--spring); }
+    .proj-nav-item--prev .proj-nav-link:hover svg { transform:translateX(-3px); }
+    .proj-nav-item--next .proj-nav-link:hover svg { transform:translateX(3px); }
+    @media(max-width:600px){ .proj-nav-link{font-size:16px;} }
     @media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-burger{display:flex;}}
   
   </style>
@@ -258,12 +270,6 @@
     .proj-tags-label { font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px; }
     .proj-tags-list { font-size:13px;font-weight:400;color:var(--c-mid);line-height:1.7; }
     /* Next project nav */
-    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
-    .proj-next-label { font-family:var(--font-display);font-size:clamp(20px,2.6vw,28px);font-weight:500;letter-spacing:-.02em;text-transform:lowercase;color:var(--c-ink);margin-bottom:20px;display:block; }
-    .proj-next-link { display:inline-flex;align-items:center;gap:12px;font-size:clamp(24px,3vw,40px);font-weight:400;letter-spacing:-.03em;color:var(--c-ink);transition:gap var(--tb) var(--spring); }
-    .proj-next-link:hover { gap:20px; }
-    .proj-next-link svg { flex-shrink:0;transition:transform var(--tb) var(--spring); }
-    .proj-next-link:hover svg { transform:translateX(4px); }
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:24px;}
@@ -385,16 +391,25 @@
       </div>
     </div>
 
-    <!-- Next project -->
+    <!-- Project navigation -->
     <div class="proj-next">
       <div class="wrap">
-        <span class="proj-next-label rv">more to explore<span class="proj-about-dot">.</span></span>
-        <a href="project-dps-brand.html" class="proj-next-link rv" data-d="1">
-          D&amp;PS Brand Identity
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M6 16h20M18 8l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="proj-nav rv">
+          <div class="proj-nav-item proj-nav-item--prev">
+            <span class="proj-nav-hint">Previous</span>
+            <a href="project-deal-model.html" class="proj-nav-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Deal Model
+            </a>
+          </div>
+          <div class="proj-nav-item proj-nav-item--next">
+            <span class="proj-nav-hint">Next</span>
+            <a href="project-dps-brand.html" class="proj-nav-link">
+              DPS Brand
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </main>
