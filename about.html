@@ -28,6 +28,7 @@
       --c-ghost:    #CCCCCC;
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
+      --c-ink-pure:#000000; --c-nav:#595959; --c-hover:#111111; --c-border:#c0c0c0;
 
       /* Fonts - Inter (UI) + Noto Serif Display (editorial headings) */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -46,7 +47,7 @@
 
       /* cofolios corner radius system */
       --r-pill:  999px;
-      --r-card:   20px;
+      --r-card:16px;
       --r-panel:  16px;
       --r-chip:    8px;
       --r-input:  10px;
@@ -128,7 +129,7 @@
 
     /* Frosted glass on scroll */
     .nav.s {
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,.9);
       border-color: var(--c-rule);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -163,30 +164,30 @@
     .nav-links a {
       font-size: 13px;
       font-weight: 400;
-      color: #595959;
+      color:var(--c-nav);
       letter-spacing: .01em;
       border-radius: var(--r-pill);
       padding: 8px 16px;
       transition: background var(--tb) var(--ease), color var(--tb) var(--ease);
     }
-    .nav-links a:hover { background: #111; color: #fff; }
+    .nav-links a:hover { background:var(--c-hover); color: #fff; }
     .nav-links a[aria-current="page"] {
       color: var(--c-ink);
       font-weight: 500;
     }
     .nav-links a[aria-current="page"]:hover {
-      background: #111;
+      background:var(--c-hover);
       color: #fff;
     }
 
-    .nav.s .nav-links a { color: #595959; }
+    .nav.s .nav-links a { color:var(--c-nav); }
     .nav.s .nav-links a[aria-current="page"] { color: var(--c-ink); }
 
     .nav-cta {
       font-size: 13px;
       font-weight: 400;
-      color: #595959;
-      border: 1px solid #c0c0c0;
+      color:var(--c-nav);
+      border: 1px solid var(--c-border);
       border-radius: var(--r-pill);
       padding: 8px 20px;
       transition: background var(--tb) var(--ease),
@@ -194,12 +195,12 @@
                   color var(--tb) var(--ease);
     }
     .nav-cta:hover {
-      background: #111;
-      border-color: #111;
+      background:var(--c-hover);
+      border-color:var(--c-hover);
       color: #fff;
     }
-    .nav.s .nav-cta { color: #595959; }
-    .nav.s .nav-cta:hover { background: #111; border-color: #111; color: #fff; }
+    .nav.s .nav-cta { color:var(--c-nav); }
+    .nav.s .nav-cta:hover { background:var(--c-hover); border-color:var(--c-hover); color: #fff; }
 
     /* Mobile burger */
     .nav-burger {
@@ -271,7 +272,7 @@
       font-family: var(--font);
       font-size: clamp(16px, 1.2vw, 18px);
       font-weight: 600;
-      color: #000000;
+      color:var(--c-ink);
       letter-spacing: -0.01em;
       line-height: 1.25;
       text-transform: lowercase;
@@ -279,15 +280,15 @@
       transition: color 0.2s var(--ease);
     }
     .sh-text:hover { color: var(--c-ink); }
-    .sh-period { color: #000000; }
+    .sh-period { color:var(--c-ink); }
 
     .sh-link {
       font-size: 13px;
       font-weight: 400;
       letter-spacing: .01em;
       text-transform: none;
-      color: #595959;
-      border: 1px solid #c0c0c0;
+      color:var(--c-nav);
+      border: 1px solid var(--c-border);
       border-radius: var(--r-pill);
       padding: 8px 20px;
       display: inline-flex;
@@ -303,9 +304,9 @@
         transform 0.5s var(--ease);
     }
     .sh-link:hover {
-      background: #111;
+      background:var(--c-hover);
       color: #fff;
-      border-color: #111;
+      border-color:var(--c-hover);
       box-shadow: 0 6px 20px rgba(0,0,0,0.12);
       transform: translate3d(0, -1px, 0);
     }
@@ -631,7 +632,7 @@
     /* ============================================================
        WORK - bento card grid (cofolios corner radius)
        ============================================================ */
-    .work { padding:160px 0; }
+    .work { padding: clamp(100px, 14vw, 180px) 0; }
 
     /* Framer-style 3-column grid (exact Framer values) */
     .bento {
@@ -741,7 +742,7 @@
     /* ============================================================
        ABOUT - two rounded panels
        ============================================================ */
-    .about { padding:160px 0; border-top:1px solid var(--c-rule); }
+    .about { padding: clamp(100px, 14vw, 180px) 0; border-top:1px solid var(--c-rule); }
 
     .about-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
@@ -847,7 +848,7 @@
        CONTACT - two rounded panels
        ============================================================ */
     .contact {
-      padding: 160px 0 36px;
+      padding: clamp(100px, 14vw, 180px) 0 36px;
       border-top: 1px solid var(--c-rule);
       position: relative;
       z-index: 2;
@@ -949,7 +950,7 @@
        ============================================================ */
     .footer {
       border-top: 1px solid var(--c-rule);
-      padding: 40px 0;
+      padding: clamp(32px, 5vw, 56px) 0;
       position: relative;
       z-index: 2;
       background: #fff;
@@ -1081,7 +1082,7 @@
       font-family: var(--font);
       font-size: clamp(40px, 4.6vw, 56px);
       font-weight: 700;
-      color: #000000;
+      color:var(--c-ink);
       line-height: 1.12;
       letter-spacing: -0.03em;
       margin: 0 0 clamp(40px, 5vw, 56px);
@@ -1105,7 +1106,7 @@
 
     /* ── Experience section (index .work / .about vertical rhythm: 160px) ── */
     .experience {
-      padding: 160px 0;
+      padding: clamp(100px, 14vw, 180px) 0;
       border-top: 1px solid var(--c-rule);
       border-bottom: 1px solid var(--c-rule);
       background: #fff;
@@ -1194,7 +1195,7 @@
     .exp-key-list li::before { content: '→'; position: absolute; left: 0; color: var(--c-ghost); }
 
     /* ── Expertise section ── */
-    .expertise { padding: 160px 0; border-bottom: 1px solid var(--c-rule); }
+    .expertise { padding: clamp(100px, 14vw, 180px) 0; border-bottom: 1px solid var(--c-rule); }
     .expertise-grid {
       display: flex;
       flex-wrap: wrap;
@@ -1217,7 +1218,7 @@
     .expertise-tag:hover { background: var(--c-ink); color: #fff; border-color: var(--c-ink); }
 
     /* ── Education section ── */
-    .education { padding: 160px 0 120px; }
+    .education { padding: clamp(100px, 14vw, 180px) 0 120px; }
     .edu-list { display: flex; flex-direction: column; gap: 40px; max-width: 680px; }
     .edu-item {}
     .edu-school {

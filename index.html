@@ -29,7 +29,7 @@
   <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
@@ -46,6 +46,10 @@
       --c-ghost:    #CCCCCC;
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
+      --c-ink-pure: #000000;
+      --c-nav:      #595959;
+      --c-hover:    #111111;
+      --c-border:   #c0c0c0;
 
       /* Fonts - Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -60,11 +64,9 @@
       --t-lg:    clamp(22px, 2.4vw, 28px);
       --t-xl:    clamp(30px, 3.8vw, 44px);
       --t-2xl:   clamp(42px, 5.5vw, 60px);
-      --t-hero:  clamp(56px, 9vw,  112px);   /* slightly reined in - not all-caps so reads larger */
-
       /* cofolios corner radius system */
       --r-pill:  999px;
-      --r-card:   14px;
+      --r-card:   16px;
       --r-panel:  16px;
       --r-chip:    8px;
       --r-input:  10px;
@@ -146,7 +148,7 @@
 
     /* Frosted glass on scroll */
     .nav.s {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.9);
       border-color: var(--c-rule);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -182,20 +184,20 @@
     .nav-links a {
       font-size: 13px;
       font-weight: 400;
-      color: #595959;
+      color: var(--c-nav);
       letter-spacing: .01em;
       border-radius: var(--r-pill);
       padding: 8px 16px;
       transition: background var(--tb) var(--ease), color var(--tb) var(--ease);
     }
-    .nav-links a:hover { background: #111111; color: #ffffff; }
+    .nav-links a:hover { background: var(--c-hover); color: #ffffff; }
 
     /* CTA - FusionFlow: more padding, cleaner pill */
     .nav-cta {
       font-size: 13px;
       font-weight: 400;
-      color: #595959;
-      border: 1px solid #c0c0c0;
+      color: var(--c-nav);
+      border: 1px solid var(--c-border);
       border-radius: var(--r-pill);
       padding: 8px 20px;
       transition: background var(--tb) var(--ease),
@@ -203,8 +205,8 @@
                   color var(--tb) var(--ease);
     }
     .nav-cta:hover {
-      background: #111111;
-      border-color: #111111;
+      background: var(--c-hover);
+      border-color: var(--c-hover);
       color: #fff;
     }
 
@@ -275,20 +277,20 @@
       font-family: var(--font);
       font-size: clamp(16px, 1.2vw, 18px);
       font-weight: 600;
-      color: #000000;
+      color: var(--c-ink);
       letter-spacing: -0.01em;
       line-height: 1.25;
       text-transform: lowercase;
     }
-    .sh-period { color: #000000; }
+    .sh-period { color: var(--c-ink); }
 
     .sh-link {
       font-size: 13px;
       font-weight: 400;
       letter-spacing: .01em;
       text-transform: none;
-      color: #595959;
-      border: 1px solid #c0c0c0;
+      color: var(--c-nav);
+      border: 1px solid var(--c-border);
       border-radius: var(--r-pill);
       padding: 8px 20px;
       display: inline-flex;
@@ -304,9 +306,9 @@
         transform 0.5s var(--ease);
     }
     .sh-link:hover {
-      background: #111;
+      background: var(--c-hover);
       color: #fff;
-      border-color: #111;
+      border-color: var(--c-hover);
       box-shadow: 0 6px 20px rgba(0,0,0,0.12);
       transform: translate3d(0, -1px, 0);
     }
@@ -567,6 +569,7 @@
     .hero-sub-content {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       gap: 14px;
     }
 
@@ -575,7 +578,7 @@
       font-family: var(--font);
       font-size: clamp(24px, 2.8vw, 36px);
       font-weight: 400;
-      color: #000000;
+      color: var(--c-ink);
       line-height: 1.28;
       letter-spacing: -.022em;
       max-width: 1200px;
@@ -583,7 +586,7 @@
     }
     .hero-tagline strong {
       font-weight: 600;
-      color: #000000;
+      color: var(--c-ink);
     }
     .hero-descriptor {
       font-family: var(--font);
@@ -592,7 +595,7 @@
       color: #555555;
       line-height: 1.75;
       letter-spacing: -.01em;
-      max-width: 680px;
+      max-width: 620px;
       text-align: left;
       cursor: default;
       transition: color 0.2s var(--ease);
@@ -633,14 +636,14 @@
     /* ============================================================
        WORK - bento card grid (cofolios corner radius)
        ============================================================ */
-    .work { padding:160px 0; }
+    .work { padding:clamp(100px, 14vw, 180px) 0; }
 
     /* Framer-style 3-column grid (exact Framer values) */
     .work .bento,
     .bento {
       display: grid;
       grid-template-columns: repeat(3, minmax(50px, 1fr));
-      gap: 20px;
+      gap: clamp(12px, 2vw, 20px);
     }
     .bc-3, .bc-4, .bc-6, .bc-8, .bc-12 { grid-column: span 1; }
 
@@ -775,7 +778,7 @@
     /* ============================================================
        ABOUT - two rounded panels
        ============================================================ */
-    .about { padding:160px 0; border-top:1px solid var(--c-rule); }
+    .about { padding:clamp(100px, 14vw, 180px) 0; }
 
     .about-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 
@@ -888,8 +891,7 @@
        CONTACT - two rounded panels
        ============================================================ */
     .contact {
-      padding: 160px 0 36px;
-      border-top: 1px solid var(--c-rule);
+      padding: clamp(100px, 14vw, 180px) 0 36px;
       position: relative;
       z-index: 2;
     }
@@ -1074,7 +1076,7 @@
        ============================================================ */
     .footer {
       border-top: none;
-      padding: 40px 0;
+      padding: clamp(32px, 5vw, 56px) 0;
       position: relative;
       z-index: 3;
       background: #fff;
@@ -1107,15 +1109,10 @@
     /* ============================================================
        RESPONSIVE
        ============================================================ */
-    @media (max-width:600px) {
-      .hero-tagline,
-      .hero-descriptor { max-width: min(520px, 100%); }
-      .sh-row { flex-wrap: wrap; gap: 16px; }
-      .sh-title-group { width: 100%; }
-    }
     @media (max-width:900px) {
       .nav-links, .nav-cta { display:none; }
       .nav-burger { display:flex; }
+      .hero { padding-bottom: 80px; }
       .hero-sub { max-width:100%; }
       #wave-canvas { width:90%; }
       .bento { grid-template-columns: repeat(2, 1fr); }
@@ -1129,11 +1126,20 @@
       .footer-visual .fv-orb-3 { width: 60vw; height: 40vh; bottom: 0; left: -5%; top: auto; right: auto; opacity: 0.45; filter: blur(70px); }
       .contact { padding-bottom: 28px; }
     }
-    /* Grid already 1-col at 900px; no extra breakpoint needed */
-
-    @media (max-width:560px) {
-
+    @media (max-width:768px) {
+      .hero-stats { flex-direction: column; gap: 16px; align-items: flex-start; }
     }
+    @media (max-width:600px) {
+      .hero-tagline,
+      .hero-descriptor { max-width: min(520px, 100%); }
+      .sh-row { flex-wrap: wrap; gap: 16px; }
+      .sh-title-group { width: 100%; }
+      .bento { grid-template-columns: 1fr; }
+      .hero { padding-bottom: 60px; }
+      .work, .about { padding: clamp(60px, 10vw, 100px) 0; }
+      .contact { padding: clamp(60px, 10vw, 100px) 0 36px; }
+    }
+
 
     /* ── Hero scroll animations ── */
 
@@ -1266,35 +1272,43 @@
     .hero-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: var(--font);
-      font-size: 13px;
-      font-weight: 400;
-      color: #595959;
-      border: 1px solid #c0c0c0;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .01em;
+      color: var(--c-ink);
+      border: 1.5px solid var(--c-ink);
       border-radius: var(--r-pill);
-      padding: 10px 24px;
-      margin-top: 36px;
+      padding: 14px 32px;
+      margin-top: 40px;
       cursor: pointer;
       background: none;
       text-decoration: none;
       opacity: 0;
       transform: translateY(10px);
       transition:
-        background var(--tb) var(--ease),
-        color var(--tb) var(--ease),
-        border-color var(--tb) var(--ease),
+        background var(--ts) var(--ease),
+        color var(--ts) var(--ease),
+        border-color var(--ts) var(--ease),
+        box-shadow var(--ts) var(--ease),
         opacity 0.6s var(--ease) 1.1s,
         transform 0.6s var(--ease) 1.1s;
     }
     body.loaded .hero-cta { opacity: 1; transform: translateY(0); }
     .hero-cta:hover {
-      background: #111111;
-      border-color: #111111;
+      background: var(--c-ink);
+      border-color: var(--c-ink);
       color: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
     }
-    .hero-cta svg { transition: transform var(--tb) var(--spring); }
-    .hero-cta:hover svg { transform: translateX(4px); }
+    .hero-cta svg { transition: transform 0.4s var(--spring); }
+    .hero-cta:hover svg { transform: translateY(3px); }
+    @keyframes cta-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+    .hero-cta:hover svg { animation: cta-bounce 1.2s ease-in-out infinite; }
 
 
 
@@ -1532,7 +1546,7 @@
           <a href="#work" class="hero-cta">
             View Work
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 2v9M2.5 7l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
 
@@ -1560,12 +1574,6 @@
             <img src="assets/photo-avatar.png" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" />
             <span class="sh-text">featured work<span class="sh-period">.</span></span>
           </div>
-          <a href="work.html" class="sh-link">
-            All Work
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
         </div>
       </div>
 
@@ -1765,6 +1773,15 @@
         </div>
 
       </div><!-- /bento -->
+
+      <div class="work-cta rv" style="text-align:center; margin-top:48px;">
+        <a href="work.html" class="sh-link">
+          All Work
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1773,6 +1790,7 @@
        ============================================================ -->
   <section class="about" id="about">
     <div class="wrap">
+      <hr style="border:none; border-top:1px solid var(--c-rule); margin:0;" />
 
       <div class="sh rv">
         <span class="sh-eyebrow">Who I Am</span>
@@ -1826,6 +1844,7 @@
        ============================================================ -->
   <section class="contact" id="contact">
     <div class="wrap">
+      <hr style="border:none; border-top:1px solid var(--c-rule); margin:0;" />
 
       <div class="sh rv">
         <span class="sh-eyebrow">Get In Touch</span>
