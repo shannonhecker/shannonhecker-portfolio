@@ -1479,6 +1479,19 @@
       .hero-name-inner { transform: none !important; clip-path: none !important; }
     }
 
+  
+    /* image-sharpening */
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    .proj-cover, .proj-img-full, .proj-media-frame img, .pcard-img img {
+      filter: contrast(1.02) saturate(1.03);
+      image-rendering: auto;
+    }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
