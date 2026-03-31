@@ -1140,7 +1140,7 @@
       .hero { padding-bottom: 80px; }
       .hero-sub { max-width:100%; }
       #wave-canvas { width:90%; }
-      .bento { grid-template-columns: repeat(2, 1fr); }
+      .work .bento, .bento { grid-template-columns: repeat(2, 1fr); }
       .about-bento,.contact-bento { grid-template-columns:1fr; gap:12px; }
       .footer-inner { flex-direction:column; align-items:flex-start; gap:6px; }
       .footer-visual { margin-top: -200px; }
@@ -1151,15 +1151,12 @@
       .footer-visual .fv-orb-3 { width: 60vw; height: 40vh; bottom: 0; left: -5%; top: auto; right: auto; opacity: 0.45; filter: blur(70px); }
       .contact { padding-bottom: 28px; }
     }
-    @media (max-width:768px) {
-      .hero-stats { flex-direction: column; gap: 16px; align-items: flex-start; }
-    }
     @media (max-width:600px) {
       .hero-tagline,
       .hero-descriptor { max-width: min(520px, 100%); }
       .sh-row { flex-wrap: wrap; gap: 16px; }
       .sh-title-group { width: 100%; }
-      .bento { grid-template-columns: 1fr; }
+      .work .bento, .bento { grid-template-columns: 1fr; }
       .hero { padding-bottom: 60px; }
       .work, .about { padding: clamp(60px, 10vw, 100px) 0; }
       .contact { padding: clamp(60px, 10vw, 100px) 0 36px; }
@@ -1265,6 +1262,15 @@
       flex-wrap: wrap;
     }
     body.loaded .hero-stats { opacity: 1; transform: translateY(0); }
+    @media (max-width:900px) {
+      .hero-stats { display:grid; grid-template-columns:repeat(3, auto); gap:16px 20px; align-items:start; justify-content:start; }
+      .hero-stat-divider { display:none; }
+      .hero-stats > div[style*="margin-left:auto"] { display:none; }
+      .hero-cta { grid-column: 1; }
+    }
+    @media (max-width:480px) {
+      .hero-stats { grid-template-columns:1fr; }
+    }
 
     .hero-stat {
       display: flex;
@@ -1272,7 +1278,7 @@
       gap: 3px;
     }
     .hero-stat-num {
-      font-size: clamp(28px, 3vw, 38px);
+      font-size: clamp(36px, 4vw, 48px);
       font-weight: 700;
       letter-spacing: -.03em;
       color: var(--c-ink);
@@ -1390,7 +1396,7 @@
 
 
     @media (max-width: 900px) {
-      .hero-stats { gap: 20px; }
+      .hero-stats { flex-direction: column; gap: 16px; align-items: flex-start; }
     }
 
     /* ── Text label hover effects ── */
@@ -1498,8 +1504,10 @@
 
   
       /* Block image copy/drag */
-    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:auto; }
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none; }
     img { -webkit-touch-callout:none; }
+    .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
+    .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
   <script type="text/javascript">
@@ -1550,7 +1558,7 @@
   <!-- Mobile drawer -->
   <div class="nav-drawer" id="drawer" aria-hidden="true">
     <a href="#about"   onclick="closeDrawer()">About</a>
-    <a href="#work"    onclick="closeDrawer()">Work</a>
+    <a href="work.html">Work</a>
     <a href="#contact" onclick="closeDrawer()">Contact</a>
     <a href="assets/CV_ShannonH.pdf"
        target="_blank" rel="noopener noreferrer">Resume ↗</a>
@@ -2426,7 +2434,17 @@
 
       /* Block right-click on images */
     document.addEventListener('contextmenu', function(e) {
-      if (e.target.tagName === 'IMG') e.preventDefault();
+      if (e.target.tagName === 'IMG' || e.target.classList.contains('img-shield')) e.preventDefault();
+    });
+    document.querySelectorAll('img').forEach(function(img) {
+      if (img.closest('.nav-logo') || img.width < 40) return;
+      var parent = img.parentElement;
+      if (parent.style.position !== 'relative' && parent.style.position !== 'absolute') {
+        parent.style.position = 'relative';
+      }
+      var shield = document.createElement('div');
+      shield.className = 'img-shield';
+      parent.insertBefore(shield, img.nextSibling);
     });
   </script>
 </body>
