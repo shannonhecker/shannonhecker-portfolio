@@ -152,6 +152,20 @@ html[data-theme="dark"] .hero {
   background: #121212 !important;
 }
 
+/* Smooth the orb container's left edge so it blends naturally */
+html[data-theme="dark"] #wave-bg {
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%, black 30%,
+      black 50%, transparent 100%),
+    linear-gradient(to bottom, black 0%, black 55%, transparent 100%) !important;
+  -webkit-mask-composite: destination-in !important;
+  mask-image: linear-gradient(to right,
+      transparent 0%, black 30%,
+      black 50%, transparent 100%),
+    linear-gradient(to bottom, black 0%, black 55%, transparent 100%) !important;
+  mask-composite: intersect !important;
+}
+
 /* Hero title: hardcoded #0a0a0a → high-emphasis white */
 html[data-theme="dark"] .hero-name {
   color: rgba(255,255,255,0.87) !important;
