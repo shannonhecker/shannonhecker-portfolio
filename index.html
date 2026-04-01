@@ -234,11 +234,9 @@
 
     /* Mobile drawer */
     .nav-drawer {
-      position:fixed; top:var(--nav); left:0; right:0;
-      background:rgba(255,255,255,.97);
-      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--c-rule);
-      padding:24px var(--pad); z-index:199;
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:#fff;
+      padding:100px var(--pad) 40px; z-index:199;
       display:flex; flex-direction:column; gap:4px;
       transform:translateY(-110%); opacity:0; pointer-events:none;
       transition:transform var(--ts) var(--ease), opacity var(--ts) var(--ease);
@@ -1557,7 +1555,7 @@
 
   <!-- Mobile drawer -->
   <div class="nav-drawer" id="drawer" aria-hidden="true">
-    <a href="#about"   onclick="closeDrawer()">About</a>
+    <a href="about.html">About</a>
     <a href="work.html">Work</a>
     <a href="#contact" onclick="closeDrawer()">Contact</a>
     <a href="assets/CV_ShannonH.pdf"
@@ -2064,12 +2062,32 @@
       drawerEl.classList.toggle('o', isOpen);
       burgerBtn.setAttribute('aria-expanded', isOpen);
       drawerEl.setAttribute('aria-hidden', !isOpen);
+      if(isOpen){
+        document.body.dataset.scrollY=window.scrollY;
+        document.body.style.position='fixed';
+        document.body.style.top=`-${window.scrollY}px`;
+        document.body.style.width='100%';
+        document.body.style.overflow='hidden';
+      }else{
+        const scrollY=document.body.dataset.scrollY;
+        document.body.style.position='';
+        document.body.style.top='';
+        document.body.style.width='';
+        document.body.style.overflow='';
+        window.scrollTo(0,parseInt(scrollY||'0'));
+      }
     });
     function closeDrawer() {
       isOpen = false;
       burgerBtn.classList.remove('o'); drawerEl.classList.remove('o');
       burgerBtn.setAttribute('aria-expanded', false);
       drawerEl.setAttribute('aria-hidden', true);
+      const scrollY=document.body.dataset.scrollY;
+      document.body.style.position='';
+      document.body.style.top='';
+      document.body.style.width='';
+      document.body.style.overflow='';
+      window.scrollTo(0,parseInt(scrollY||'0'));
     }
 
     /* ── 5. Smooth anchor scroll ─────────────────────────── */
