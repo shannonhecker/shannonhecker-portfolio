@@ -413,14 +413,14 @@ html[data-theme="dark"] .work-hero-visual::after {
   background: linear-gradient(to bottom, transparent 0%, #121212 100%) !important;
 }
 
-/* Dark mode: orbs full-width, above canvas — no dark block */
+/* Dark mode: orbs full-width, canvas on top so strokes are visible */
 html[data-theme="dark"] .work-hero-visual .fv-blobs {
   left: 0 !important;
-  z-index: 3 !important;
+  z-index: 1 !important;
   overflow: visible !important;
 }
 html[data-theme="dark"] #work-hero-canvas {
-  z-index: 1 !important;
+  z-index: 3 !important;
   left: 0 !important;
   width: 100% !important;
   background: transparent !important;

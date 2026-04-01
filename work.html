@@ -695,6 +695,7 @@
       const ctx = canvas.getContext('2d');
       const N = 90, SPEED = 0.00034, PHASE_STEP = 0.17, LW = 0.85, BAND_T = 0.08, BAND_B = 0.92, AMPL = 0.042;
       let lines = [], waveGrad = null, visible = true, animId = null;
+      let dpr = window.devicePixelRatio || 1;
 
       function bgRGBA(a) {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -756,7 +757,6 @@
       const PI4 = Math.PI * 4;
       const PI8 = Math.PI * 8;
       const PI12 = Math.PI * 12;
-      let dpr = window.devicePixelRatio || 1;
       let t0 = null;
       function edgeFade(W, H) {
         const fw = W * 0.12;
