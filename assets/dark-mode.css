@@ -424,6 +424,10 @@ html[data-theme="dark"] #work-hero-canvas {
   left: 0 !important;
   width: 100% !important;
   background: transparent !important;
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%, black 45%, black 100%) !important;
+  mask-image: linear-gradient(to right,
+      transparent 0%, black 45%, black 100%) !important;
 }
 html[data-theme="dark"] .work-hero-inner {
   background: transparent !important;
