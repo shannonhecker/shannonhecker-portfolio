@@ -233,6 +233,9 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(88px);
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     .work-hero-visual .fv-orb-1 {
       width: 55vw; height: 70vh; top: -15%; right: 10%; left: auto;
@@ -281,6 +284,9 @@
       height: 100%;
       z-index: 2;
       display: block;
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     .work-hero-inner {
       position: relative;
@@ -725,10 +731,11 @@
         buildGrad(W);
       }
       function resize() {
-        const r = canvas.getBoundingClientRect(), d = window.devicePixelRatio || 1;
-        canvas.width = Math.round(r.width * d);
-        canvas.height = Math.round(r.height * d);
-        ctx.setTransform(d, 0, 0, d, 0, 0);
+        const r = canvas.getBoundingClientRect();
+        dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.round(r.width * dpr);
+        canvas.height = Math.round(r.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
         ctx.lineCap = 'round';
@@ -744,7 +751,12 @@
         build(r.width, r.height);
       });
 
-      const STEPS = 480;
+      const STEPS = 240;
+      const invSteps = 1 / STEPS;
+      const PI4 = Math.PI * 4;
+      const PI8 = Math.PI * 8;
+      const PI12 = Math.PI * 12;
+      let dpr = window.devicePixelRatio || 1;
       let t0 = null;
       function edgeFade(W, H) {
         const fw = W * 0.12;
@@ -764,22 +776,29 @@
       function draw(ts) {
         if (!visible) { animId = null; return; }
         if (!t0) t0 = ts;
-        const el = ts - t0, d = window.devicePixelRatio || 1, W = canvas.width / d, H = canvas.height / d;
+        const el = ts - t0, W = canvas.width / dpr, H = canvas.height / dpr;
         ctx.clearRect(0, 0, W, H);
         ctx.strokeStyle = waveGrad;
         ctx.lineWidth = LW;
-        lines.forEach(ln => {
+        for (let i = 0, len = lines.length; i < len; i++) {
+          const ln = lines[i];
           const phi = el * SPEED + ln.ph;
+          const y0 = ln.y0;
+          const amp = ln.amp;
+          const amp028 = amp * 0.28;
+          const amp010 = amp * 0.10;
+          const phi15 = phi * 1.5;
+          const phi21 = phi * 2.1;
           ctx.beginPath();
           for (let s = 0; s <= STEPS; s++) {
-            const nx = s / STEPS, px = nx * W,
-              py = ln.y0 + ln.amp * Math.sin(phi + nx * Math.PI * 4)
-                + ln.amp * 0.28 * Math.sin(phi * 1.5 + nx * Math.PI * 8 + 1.4)
-                + ln.amp * 0.10 * Math.sin(phi * 2.1 + nx * Math.PI * 12 + 2.8);
+            const nx = s * invSteps, px = nx * W,
+              py = y0 + amp * Math.sin(phi + nx * PI4)
+                + amp028 * Math.sin(phi15 + nx * PI8 + 1.4)
+                + amp010 * Math.sin(phi21 + nx * PI12 + 2.8);
             s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
           }
           ctx.stroke();
-        });
+        }
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         if (!isDark) edgeFade(W, H);
         animId = requestAnimationFrame(draw);

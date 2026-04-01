@@ -332,6 +332,7 @@
       position: relative;
       overflow: hidden;
       background: #fff;
+      contain: layout style paint;
     }
 
     /* Merged hero: same vertical rhythm as index .hero (padding-bottom + fade) */
@@ -391,6 +392,9 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(90px);
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     .orb-1 {
       width: 55vw; height: 70vh;
@@ -471,6 +475,9 @@
       z-index: 1;
       opacity: 0;
       transition: opacity 1.4s ease 0.3s;
+      will-change: transform;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     body.loaded #wave-canvas { opacity:1; }
 
@@ -1557,7 +1564,12 @@
         ctx.fillStyle = fR; ctx.fillRect(W - fw, 0, fw, H);
       }
 
-      const STEPS = 480;
+      const STEPS = 240;
+      const invSteps = 1 / STEPS;
+      const PI4 = Math.PI * 4;
+      const PI8 = Math.PI * 8;
+      const PI12 = Math.PI * 12;
+      let dpr = window.devicePixelRatio || 1;
       let t0 = null;
       let waveVisible = true;
 
@@ -1571,28 +1583,34 @@
         if (!waveVisible) return;
         if (!t0) t0 = ts;
         const el = ts - t0;
-        const d = window.devicePixelRatio || 1;
-        const W = canvas.width / d;
-        const H = canvas.height / d;
+        const W = canvas.width / dpr;
+        const H = canvas.height / dpr;
         ctx.clearRect(0, 0, W, H);
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = waveGrad;
         ctx.lineWidth = LW;
-        lines.forEach(ln => {
+        for (let i = 0, len = lines.length; i < len; i++) {
+          const ln = lines[i];
           const phi = el * SPEED + ln.ph;
+          const amp = ln.amp;
+          const amp028 = amp * 0.28;
+          const amp010 = amp * 0.10;
+          const x0 = ln.x0;
+          const phi15 = phi * 1.5;
+          const phi21 = phi * 2.1;
           ctx.beginPath();
           for (let s = 0; s <= STEPS; s++) {
-            const ny = s / STEPS;
+            const ny = s * invSteps;
             const py = ny * H;
-            const px = ln.x0
-              + ln.amp * Math.sin(phi + ny * Math.PI * 4.0)
-              + ln.amp * 0.28 * Math.sin(phi * 1.5 + ny * Math.PI * 8.0 + 1.4)
-              + ln.amp * 0.10 * Math.sin(phi * 2.1 + ny * Math.PI * 12.0 + 2.8);
+            const px = x0
+              + amp * Math.sin(phi + ny * PI4)
+              + amp028 * Math.sin(phi15 + ny * PI8 + 1.4)
+              + amp010 * Math.sin(phi21 + ny * PI12 + 2.8);
             s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
           }
           ctx.stroke();
-        });
+        }
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         if (!isDark) edgeFade(W, H);
         requestAnimationFrame(draw);
