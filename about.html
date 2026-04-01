@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
   <script>
@@ -9,7 +10,6 @@
     gtag('js', new Date());
     gtag('config', 'G-795LXWTYWM');
   </script>
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About me · Shannon Hecker · Senior Product Designer</title>
   <meta name="description" content="Senior Product Designer in London. 10+ years in fintech: trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan." />
@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
     /* ============================================================
        DESIGN TOKENS
@@ -1600,6 +1600,7 @@
 
     /* ── Difference-blend circle cursor ── */
     (function imageCursor() {
+      if (matchMedia('(pointer: coarse)').matches) return;
       const cursor = document.getElementById('img-cursor');
       if (!cursor) return;
       let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
@@ -1610,7 +1611,10 @@
           cursor.classList.add('active');
           if (!rafId) rafId = requestAnimationFrame(tick);
         });
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('active');
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        });
       });
       function tick() {
         cx += (tx - cx) * LERP;

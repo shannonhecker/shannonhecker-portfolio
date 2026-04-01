@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
   <script>
@@ -9,7 +10,6 @@
     gtag('js', new Date());
     gtag('config', 'G-795LXWTYWM');
   </script>
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shannon Hecker · Senior Product Designer</title>
   <meta name="description" content="Senior Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
@@ -37,7 +37,7 @@
   <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
@@ -519,39 +519,7 @@
       margin-bottom: 80px;
     }
 
-    .hero-name-line { display:block; overflow:hidden; line-height:1.0; }
-    .hero-name-inner {
-      display:block;
-      transform: translateY(106%);
-      transition: transform var(--tr) var(--ease);
-    }
-    body.loaded .hero-name-inner { transform:translateY(0); }
-    body.loaded .hero-name-line:nth-child(1) .hero-name-inner { transition-delay:.04s; }
-    body.loaded .hero-name-line:nth-child(2) .hero-name-inner { transition-delay:.16s; }
-
-    /* Thin rule */
-    .hero-rule {
-      display: none;
-      height:1px; background:transparent;
-      transform:scaleX(0); transform-origin:left;
-      transition:transform .85s var(--ease) .5s;
-      margin-top: 16px;
-      margin-bottom: 36px;
-    }
-    body.loaded .hero-rule { transform:scaleX(1); }
-
     /* Sub row - vertical line left, stacked text right */
-    .hero-sub {
-      display: flex;
-      align-items: stretch;
-      gap: 28px;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .65s var(--ease) .72s,
-                  transform .65s var(--ease) .72s;
-      max-width: 680px;
-    }
-    body.loaded .hero-sub { opacity:1; transform:translateY(0); }
 
     /* The solid vertical line - hidden per recommendation */
     .hero-vline {
@@ -689,8 +657,6 @@
       box-shadow: none;
       cursor: pointer;
     }
-    .pcard:hover { }
-
     /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
     #img-cursor {
       position: fixed;
@@ -1182,14 +1148,18 @@
 
     /* Subtitle fades + slides up */
     .hero-sub {
-      opacity: 0 !important;
-      transform: translateY(22px) !important;
+      display: flex;
+      align-items: stretch;
+      gap: 28px;
+      max-width: 680px;
+      opacity: 0;
+      transform: translateY(22px);
       transition: opacity 0.8s cubic-bezier(.22,1,.36,1) 0.85s,
-                  transform 0.8s cubic-bezier(.22,1,.36,1) 0.85s !important;
+                  transform 0.8s cubic-bezier(.22,1,.36,1) 0.85s;
     }
     body.loaded .hero-sub {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Vline grows down */
@@ -2213,11 +2183,14 @@
       const STEPS = 480;
       let t0 = null;
 
+      let heroWaveVisible = true;
+      new IntersectionObserver(([e]) => {
+        heroWaveVisible = e.isIntersecting;
+        if (heroWaveVisible) requestAnimationFrame(draw);
+      }, { threshold: 0 }).observe(canvas);
+
       function draw(ts) {
-        if (!document.hasFocus() || canvas.getBoundingClientRect().bottom < 0) {
-          requestAnimationFrame(draw);
-          return;
-        }
+        if (!heroWaveVisible) return;
         if (!t0) t0 = ts;
         const el = ts - t0;
         const d  = window.devicePixelRatio || 1;
@@ -2254,6 +2227,7 @@
        over any image area - inverts colors for a striking Framer-style feel.
        ────────────────────────────────────────────────────────── */
     (function imageCursor() {
+      if (matchMedia('(pointer: coarse)').matches) return;
       const cursor = document.getElementById('img-cursor');
       if (!cursor) return;
       let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
@@ -2267,7 +2241,10 @@
           cursor.classList.add('active');
           if (!rafId) rafId = requestAnimationFrame(tick);
         });
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('active');
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        });
       });
 
       function tick() {
@@ -2278,48 +2255,7 @@
       }
     })();
 
-    /* ── Vertical line parallax - scroll + mouse ─────────────────
-       The line shifts up/down slightly with scroll and follows
-       the mouse vertically for a living, interactive feel.
-       ────────────────────────────────────────────────────────── */
-    (function vlineParallax() {
-      const vline = document.querySelector('.hero-vline');
-      if (!vline) return;
-
-      let mouseY   = 0;   /* normalised -1 → +1 across hero height */
-      let scrollY  = 0;   /* px scrolled */
-      let currentY = 0;   /* current rendered offset */
-      let targetY  = 0;   /* target offset */
-
-      const SCROLL_FACTOR = 0.18;   /* how much scroll moves the line */
-      const MOUSE_FACTOR  = 18;     /* max px shift from mouse */
-      const LERP          = 0.08;   /* smoothing - lower = more lag */
-
-      /* Track mouse position relative to hero */
-      const hero = document.getElementById('hero');
-      document.addEventListener('mousemove', (e) => {
-        if (!hero) return;
-        const rect = hero.getBoundingClientRect();
-        /* Normalise: -1 at top, 0 at centre, +1 at bottom */
-        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      });
-
-      /* Track scroll */
-      window.addEventListener('scroll', () => {
-        scrollY = window.scrollY;
-      }, { passive: true });
-
-      /* Animation loop - lerp toward target */
-      function tick() {
-        targetY = scrollY * SCROLL_FACTOR + mouseY * MOUSE_FACTOR;
-        currentY += (targetY - currentY) * LERP;
-        vline.style.marginTop = `${currentY * 0.5}px`;
-        requestAnimationFrame(tick);
-      }
-
-      /* Start only after page is loaded so scaleY animation finishes first */
-      setTimeout(() => requestAnimationFrame(tick), 1200);
-    })();
+    /* vlineParallax removed - .hero-vline is display:none */
 
 
     /* ── Hero text parallax on scroll ────────────────────────────────
@@ -2380,7 +2316,7 @@
       if (!c) return;
       const x = c.getContext('2d');
       const N = 85, SP = 0.00026, PS = 0.19, LW = 0.72, BT = 0.05, BB = 0.95, AM = 0.040;
-      let lines = [];
+      let lines = [], footerGrad = null;
       function build(W, H) {
         lines = [];
         const bH = H * (BB - BT), sp = bH / (N - 1), am = bH * AM;
@@ -2388,6 +2324,12 @@
           const t = i / (N - 1), b = 0.35 + 0.65 * Math.sin(t * Math.PI);
           lines.push({ y0: H * BT + i * sp, amp: am * b, ph: i * PS });
         }
+        footerGrad = x.createLinearGradient(0, 0, W, 0);
+        footerGrad.addColorStop(0, 'rgba(255,255,255,0)');
+        footerGrad.addColorStop(0.06, 'rgba(255,255,255,0.70)');
+        footerGrad.addColorStop(0.50, 'rgba(255,255,255,0.75)');
+        footerGrad.addColorStop(0.94, 'rgba(255,255,255,0.65)');
+        footerGrad.addColorStop(1, 'rgba(255,255,255,0)');
       }
       function resize() {
         const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
@@ -2402,21 +2344,19 @@
       resize();
       const ST = 480;
       let t0 = null;
+
+      let footerWaveVisible = true;
+      new IntersectionObserver(([e]) => {
+        footerWaveVisible = e.isIntersecting;
+        if (footerWaveVisible) requestAnimationFrame(draw);
+      }, { threshold: 0 }).observe(c);
+
       function draw(ts) {
-        if (!document.hasFocus() || c.getBoundingClientRect().bottom < 0) {
-          requestAnimationFrame(draw);
-          return;
-        }
+        if (!footerWaveVisible) return;
         if (!t0) t0 = ts;
         const el = ts - t0, d = window.devicePixelRatio || 1, W = c.width / d, H = c.height / d;
         x.clearRect(0, 0, W, H);
-        const g = x.createLinearGradient(0, 0, W, 0);
-        g.addColorStop(0, 'rgba(255,255,255,0)');
-        g.addColorStop(0.06, 'rgba(255,255,255,0.70)');
-        g.addColorStop(0.50, 'rgba(255,255,255,0.75)');
-        g.addColorStop(0.94, 'rgba(255,255,255,0.65)');
-        g.addColorStop(1, 'rgba(255,255,255,0)');
-        x.strokeStyle = g;
+        x.strokeStyle = footerGrad;
         x.lineWidth = LW;
         lines.forEach(ln => {
           const phi = el * SP + ln.ph;
