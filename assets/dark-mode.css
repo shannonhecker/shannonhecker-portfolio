@@ -1,0 +1,227 @@
+/* ================================================================
+   DARK MODE
+   Scoped to html[data-theme="dark"] for explicit toggle,
+   and @media (prefers-color-scheme: dark) for first-time visitors.
+   ================================================================ */
+
+/* ── Toggle button ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill, 999px);
+  cursor: pointer;
+  color: var(--c-nav);
+  transition: background 220ms cubic-bezier(.22,1,.36,1),
+              border-color 220ms cubic-bezier(.22,1,.36,1),
+              color 220ms cubic-bezier(.22,1,.36,1);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--c-hover);
+  border-color: var(--c-hover);
+  color: #fff;
+}
+
+/* Show sun icon in dark mode, moon in light mode */
+.theme-icon--sun  { display: none; }
+.theme-icon--moon { display: block; }
+
+/* Mobile drawer toggle */
+.theme-toggle--drawer {
+  margin-top: 16px;
+  align-self: flex-start;
+}
+
+@media (max-width: 900px) {
+  .theme-toggle:not(.theme-toggle--drawer) { display: none; }
+}
+@media (min-width: 901px) {
+  .theme-toggle--drawer { display: none; }
+}
+
+
+/* ================================================================
+   DARK PALETTE – Explicit toggle
+   ================================================================ */
+html[data-theme="dark"] {
+  --c-bg:       #0F0F0F;
+  --c-surface:  #1A1A1A;
+  --c-panel:    #1F1F1F;
+  --c-ink:      #E8E8E8;
+  --c-mid:      #A0A0A0;
+  --c-light:    #777777;
+  --c-ghost:    #444444;
+  --c-rule:     #2A2A2A;
+  --c-rule-dk:  #3A3A3A;
+  --c-ink-pure: #FFFFFF;
+  --c-nav:      #A0A0A0;
+  --c-hover:    #E8E8E8;
+  --c-border:   #3A3A3A;
+
+  --sh-xs: 0 1px 3px rgba(0,0,0,.15);
+  --sh-sm: 0 2px 10px rgba(0,0,0,.25);
+  --sh-md: 0 6px 24px rgba(0,0,0,.35);
+  --sh-lg: 0 12px 48px rgba(0,0,0,.45);
+
+  color-scheme: dark;
+}
+
+/* ── Toggle icon swap ── */
+html[data-theme="dark"] .theme-icon--sun  { display: block; }
+html[data-theme="dark"] .theme-icon--moon { display: none; }
+
+html[data-theme="dark"] .theme-toggle:hover {
+  color: #0F0F0F;
+}
+
+/* ── Nav overrides ── */
+html[data-theme="dark"] .nav.s {
+  background: rgba(15,15,15,0.9);
+}
+
+html[data-theme="dark"] .nav-drawer {
+  background: #0F0F0F;
+}
+
+html[data-theme="dark"] .nav-cta:hover,
+html[data-theme="dark"] .nav.s .nav-cta:hover {
+  color: #0F0F0F;
+}
+
+/* ── Card overrides ── */
+html[data-theme="dark"] .pcard {
+  background: var(--c-surface);
+}
+html[data-theme="dark"] .pcard-img {
+  background: var(--c-surface);
+}
+html[data-theme="dark"] .pcard-img img,
+html[data-theme="dark"] .pcard-img .ph {
+  background: var(--c-surface);
+}
+
+/* Placeholder cards */
+html[data-theme="dark"] .ph-1, html[data-theme="dark"] .ph-2,
+html[data-theme="dark"] .ph-3, html[data-theme="dark"] .ph-4,
+html[data-theme="dark"] .ph-5, html[data-theme="dark"] .ph-6,
+html[data-theme="dark"] .ph-7, html[data-theme="dark"] .ph-8 {
+  background: var(--c-panel) !important;
+  color: rgba(255,255,255,0.08) !important;
+}
+
+/* ── Hover states that invert ── */
+html[data-theme="dark"] .skill:hover,
+html[data-theme="dark"] .about-link:hover,
+html[data-theme="dark"] .expertise-tag:hover {
+  background: var(--c-ink);
+  color: #0F0F0F;
+  border-color: var(--c-ink);
+}
+
+/* ── Hero gradient fade ── */
+html[data-theme="dark"] .hero::after {
+  background: linear-gradient(to bottom,
+    rgba(15,15,15,0)   0%,
+    rgba(15,15,15,0.4)  40%,
+    rgba(15,15,15,0.85) 70%,
+    rgba(15,15,15,1)    100%) !important;
+}
+
+/* ── Footer visual fades ── */
+html[data-theme="dark"] .fv::before {
+  background: linear-gradient(to bottom, #0F0F0F 0%, transparent 100%) !important;
+}
+html[data-theme="dark"] .fv::after {
+  background: linear-gradient(to bottom, transparent 0%, #0F0F0F 100%) !important;
+}
+
+/* ── Form overrides ── */
+html[data-theme="dark"] .f-input:focus {
+  background: var(--c-surface);
+}
+html[data-theme="dark"] .f-submit {
+  color: #0F0F0F;
+}
+html[data-theme="dark"] .f-submit:hover {
+  background: #fff;
+  border-color: #fff;
+}
+
+/* ── Scrollbar ── */
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #0F0F0F;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--c-ghost);
+}
+
+/* ── Project page overrides ── */
+html[data-theme="dark"] .proj-cover {
+  background: var(--c-surface) !important;
+}
+html[data-theme="dark"] .proj-img-grid img {
+  background: var(--c-surface) !important;
+}
+html[data-theme="dark"] .proj-img-full {
+  background: var(--c-surface) !important;
+}
+
+/* ── Cursor blend (stays white in both modes) ── */
+html[data-theme="dark"] #img-cursor {
+  background: #ffffff;
+}
+
+/* ── Logo SVG - ensure visibility ── */
+html[data-theme="dark"] .nav-logo svg {
+  color: var(--c-ink);
+}
+
+/* ── Orb vibrancy boost in dark mode ── */
+html[data-theme="dark"] .orb {
+  opacity: 0.8;
+}
+html[data-theme="dark"] .fv-orb {
+  opacity: 0.65;
+}
+
+/* ── Smooth transition for theme switch ── */
+html[data-theme="dark"] *,
+html[data-theme="dark"] *::before,
+html[data-theme="dark"] *::after {
+  transition-duration: 0s !important;
+}
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, fill 300ms ease !important;
+}
+
+
+/* ================================================================
+   SYSTEM PREFERENCE – first-time visitors (no localStorage)
+   ================================================================ */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]):not([data-theme="dark"]) {
+    --c-bg:       #0F0F0F;
+    --c-surface:  #1A1A1A;
+    --c-panel:    #1F1F1F;
+    --c-ink:      #E8E8E8;
+    --c-mid:      #A0A0A0;
+    --c-light:    #777777;
+    --c-ghost:    #444444;
+    --c-rule:     #2A2A2A;
+    --c-rule-dk:  #3A3A3A;
+    --c-ink-pure: #FFFFFF;
+    --c-nav:      #A0A0A0;
+    --c-hover:    #E8E8E8;
+    --c-border:   #3A3A3A;
+    color-scheme: dark;
+  }
+}

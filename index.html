@@ -10,6 +10,8 @@
     gtag('js', new Date());
     gtag('config', 'G-795LXWTYWM');
   </script>
+    <script src="assets/dark-mode.js"></script>
+  <link rel="stylesheet" href="assets/dark-mode.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shannon Hecker · Senior Product Designer</title>
   <meta name="description" content="Senior Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
@@ -1523,6 +1525,12 @@
       <a href="assets/CV_ShannonH.pdf"
          class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
 
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
       <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1536,6 +1544,11 @@
     <a href="#contact" onclick="closeDrawer()">Contact</a>
     <a href="assets/CV_ShannonH.pdf"
        target="_blank" rel="noopener noreferrer">Resume ↗</a>
+  
+    <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
   </div>
 
   <!-- ============================================================
@@ -2118,6 +2131,11 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
+      function bgRGBA(a) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return isDark ? 'rgba(15,15,15,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+      }
+
       const N          = 90;
       const SPEED      = 0.00034;
       const PHASE_STEP = 0.17;
@@ -2130,12 +2148,15 @@
       let waveGrad = null;
 
       function buildGrad(W) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var base = isDark ? [200,200,200] : [255,255,255];
+        var r = base[0], g2 = base[1], b = base[2];
         const g = ctx.createLinearGradient(0, 0, W, 0);
-        g.addColorStop(0,    'rgba(255,255,255, 0)');
-        g.addColorStop(0.06, 'rgba(255,255,255, 0.70)');
-        g.addColorStop(0.50, 'rgba(255,255,255, 0.75)');
-        g.addColorStop(0.94, 'rgba(255,255,255, 0.65)');
-        g.addColorStop(1,    'rgba(255,255,255, 0)');
+        g.addColorStop(0,    'rgba('+r+','+g2+','+b+', 0)');
+        g.addColorStop(0.06, 'rgba('+r+','+g2+','+b+', 0.70)');
+        g.addColorStop(0.50, 'rgba('+r+','+g2+','+b+', 0.75)');
+        g.addColorStop(0.94, 'rgba('+r+','+g2+','+b+', 0.65)');
+        g.addColorStop(1,    'rgba('+r+','+g2+','+b+', 0)');
         waveGrad = g;
       }
 
@@ -2168,21 +2189,27 @@
       new ResizeObserver(resize).observe(canvas);
       resize();
 
+      /* Rebuild on theme change */
+      window.addEventListener('theme-changed', function() {
+        var r = canvas.getBoundingClientRect();
+        build(r.width, r.height);
+      });
+
       function edgeFade(W, H) {
-        /* Left edge only - fade waves into white where name text is */
+        /* Left edge only - fade waves into background where name text is */
         const fw = W * 0.12;
         const fL = ctx.createLinearGradient(0, 0, fw, 0);
-        fL.addColorStop(0, 'rgba(255,255,255,1)');
-        fL.addColorStop(1, 'rgba(255,255,255,0)');
+        fL.addColorStop(0, bgRGBA(1));
+        fL.addColorStop(1, bgRGBA(0));
         ctx.fillStyle = fL; ctx.fillRect(0, 0, fw, H);
         /* Top + bottom fade */
         const fT = ctx.createLinearGradient(0, 0, 0, H * 0.08);
-        fT.addColorStop(0, 'rgba(255,255,255,1)');
-        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        fT.addColorStop(0, bgRGBA(1));
+        fT.addColorStop(1, bgRGBA(0));
         ctx.fillStyle = fT; ctx.fillRect(0, 0, W, H * 0.08);
         const fB = ctx.createLinearGradient(0, H * 0.88, 0, H);
-        fB.addColorStop(0, 'rgba(255,255,255,0)');
-        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        fB.addColorStop(0, bgRGBA(0));
+        fB.addColorStop(1, bgRGBA(1));
         ctx.fillStyle = fB; ctx.fillRect(0, H * 0.88, W, H * 0.12);
       }
 
@@ -2323,6 +2350,17 @@
       const x = c.getContext('2d');
       const N = 85, SP = 0.00026, PS = 0.19, LW = 0.72, BT = 0.05, BB = 0.95, AM = 0.040;
       let lines = [], footerGrad = null;
+
+      function fBgRGBA(a) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return isDark ? 'rgba(15,15,15,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+      }
+      function fStrokeRGBA(a) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var v = isDark ? 200 : 255;
+        return 'rgba(' + v + ',' + v + ',' + v + ',' + a + ')';
+      }
+
       function build(W, H) {
         lines = [];
         const bH = H * (BB - BT), sp = bH / (N - 1), am = bH * AM;
@@ -2331,11 +2369,11 @@
           lines.push({ y0: H * BT + i * sp, amp: am * b, ph: i * PS });
         }
         footerGrad = x.createLinearGradient(0, 0, W, 0);
-        footerGrad.addColorStop(0, 'rgba(255,255,255,0)');
-        footerGrad.addColorStop(0.06, 'rgba(255,255,255,0.70)');
-        footerGrad.addColorStop(0.50, 'rgba(255,255,255,0.75)');
-        footerGrad.addColorStop(0.94, 'rgba(255,255,255,0.65)');
-        footerGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        footerGrad.addColorStop(0, fStrokeRGBA(0));
+        footerGrad.addColorStop(0.06, fStrokeRGBA(0.70));
+        footerGrad.addColorStop(0.50, fStrokeRGBA(0.75));
+        footerGrad.addColorStop(0.94, fStrokeRGBA(0.65));
+        footerGrad.addColorStop(1, fStrokeRGBA(0));
       }
       function resize() {
         const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
@@ -2357,6 +2395,12 @@
         if (footerWaveVisible) requestAnimationFrame(draw);
       }, { threshold: 0 }).observe(c);
 
+      /* Rebuild on theme change */
+      window.addEventListener('theme-changed', function() {
+        var r = c.getBoundingClientRect();
+        build(r.width, r.height);
+      });
+
       function draw(ts) {
         if (!footerWaveVisible) return;
         if (!t0) t0 = ts;
@@ -2376,21 +2420,21 @@
           }
           x.stroke();
         });
-        /* Fade into page on the inner (right) edge — canvas is bottom-left */
+        /* Fade into page on the inner (right) edge */
         const fw = W * 0.12;
         const fR = x.createLinearGradient(W - fw, 0, W, 0);
-        fR.addColorStop(0, 'rgba(255,255,255,0)');
-        fR.addColorStop(1, 'rgba(255,255,255,1)');
+        fR.addColorStop(0, fBgRGBA(0));
+        fR.addColorStop(1, fBgRGBA(1));
         x.fillStyle = fR;
         x.fillRect(W - fw, 0, fw, H);
         const fT = x.createLinearGradient(0, 0, 0, H * 0.08);
-        fT.addColorStop(0, 'rgba(255,255,255,1)');
-        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        fT.addColorStop(0, fBgRGBA(1));
+        fT.addColorStop(1, fBgRGBA(0));
         x.fillStyle = fT;
         x.fillRect(0, 0, W, H * 0.08);
         const fB = x.createLinearGradient(0, H * 0.88, 0, H);
-        fB.addColorStop(0, 'rgba(255,255,255,0)');
-        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        fB.addColorStop(0, fBgRGBA(0));
+        fB.addColorStop(1, fBgRGBA(1));
         x.fillStyle = fB;
         x.fillRect(0, H * 0.88, W, H * 0.12);
         requestAnimationFrame(draw);
