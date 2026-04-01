@@ -9,7 +9,7 @@
   }
   document.documentElement.setAttribute('data-theme', theme);
   var meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0F0F0F' : '#ffffff');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#121212' : '#ffffff');
 })();
 
 /* Toggle + system-preference listener – after DOM ready */
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', next === 'dark' ? '#0F0F0F' : '#ffffff');
+      if (meta) meta.setAttribute('content', next === 'dark' ? '#121212' : '#ffffff');
       /* Notify canvas code to rebuild gradients */
       window.dispatchEvent(new CustomEvent('theme-changed'));
     });

@@ -1,25 +1,40 @@
 /* ================================================================
    DARK MODE
-   Scoped to html[data-theme="dark"] for explicit toggle,
-   and @media (prefers-color-scheme: dark) for first-time visitors.
+   Following Material Design 3 and Microsoft Fluent 2 best practices.
+
+   Key principles applied:
+   – Background: #121212 (M2 canonical, not pure black)
+   – Text: rgba(255,255,255,0.87) high-emphasis (M2), not pure white
+   – Elevation: lighter surfaces = higher elevation
+   – Accents: desaturated / lighter tones
+   – Borders: subtle (12% white or outline-variant)
+   – Sun icon in dark mode, moon icon in light mode (target-state)
    ================================================================ */
+
+/* ── Nav right group (Resume + toggle) ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
 
 /* ── Toggle button ── */
 .theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   background: none;
   border: 1px solid var(--c-border);
-  border-radius: var(--r-pill, 999px);
+  border-radius: 50%;
   cursor: pointer;
   color: var(--c-nav);
+  padding: 0;
   transition: background 220ms cubic-bezier(.22,1,.36,1),
               border-color 220ms cubic-bezier(.22,1,.36,1),
               color 220ms cubic-bezier(.22,1,.36,1);
-  margin-left: 8px;
   flex-shrink: 0;
 }
 .theme-toggle:hover {
@@ -27,8 +42,12 @@
   border-color: var(--c-hover);
   color: #fff;
 }
+.theme-toggle svg {
+  width: 15px;
+  height: 15px;
+}
 
-/* Show sun icon in dark mode, moon in light mode */
+/* Icon convention: moon in light = "click for dark", sun in dark = "click for light" */
 .theme-icon--sun  { display: none; }
 .theme-icon--moon { display: block; }
 
@@ -36,10 +55,16 @@
 .theme-toggle--drawer {
   margin-top: 16px;
   align-self: flex-start;
+  width: 36px;
+  height: 36px;
+}
+.theme-toggle--drawer svg {
+  width: 18px;
+  height: 18px;
 }
 
 @media (max-width: 900px) {
-  .theme-toggle:not(.theme-toggle--drawer) { display: none; }
+  .nav-right { display: none; }
 }
 @media (min-width: 901px) {
   .theme-toggle--drawer { display: none; }
@@ -47,63 +72,124 @@
 
 
 /* ================================================================
-   DARK PALETTE – Explicit toggle
+   DARK PALETTE
+   Material Design 3 tonal surface scale with Fluent-informed greys.
    ================================================================ */
 html[data-theme="dark"] {
-  --c-bg:       #0F0F0F;
-  --c-surface:  #1A1A1A;
-  --c-panel:    #1F1F1F;
-  --c-ink:      #E8E8E8;
-  --c-mid:      #A0A0A0;
-  --c-light:    #777777;
-  --c-ghost:    #444444;
-  --c-rule:     #2A2A2A;
-  --c-rule-dk:  #3A3A3A;
-  --c-ink-pure: #FFFFFF;
-  --c-nav:      #A0A0A0;
-  --c-hover:    #E8E8E8;
-  --c-border:   #3A3A3A;
+  /* Surface scale (M3 tonal: lower = darker, higher = lighter) */
+  --c-bg:       #121212;                    /* M2 canonical dark surface */
+  --c-surface:  #1D1B20;                    /* M3 surface-container-low */
+  --c-panel:    #211F26;                    /* M3 surface-container */
 
-  --sh-xs: 0 1px 3px rgba(0,0,0,.15);
-  --sh-sm: 0 2px 10px rgba(0,0,0,.25);
-  --sh-md: 0 6px 24px rgba(0,0,0,.35);
-  --sh-lg: 0 12px 48px rgba(0,0,0,.45);
+  /* Text (M2: 87% / 60% / 38% white) */
+  --c-ink:      rgba(255,255,255,0.87);     /* High emphasis */
+  --c-mid:      rgba(255,255,255,0.60);     /* Medium emphasis */
+  --c-light:    rgba(255,255,255,0.38);     /* Disabled / hint */
+  --c-ghost:    rgba(255,255,255,0.12);     /* Ghost / divider */
+  --c-ink-pure: #FFFFFF;
+
+  /* Borders (M3 outline-variant) */
+  --c-rule:     rgba(255,255,255,0.12);     /* M2 divider standard */
+  --c-rule-dk:  rgba(255,255,255,0.20);
+  --c-border:   rgba(255,255,255,0.16);
+
+  /* Interactive */
+  --c-nav:      rgba(255,255,255,0.60);
+  --c-hover:    rgba(255,255,255,0.87);
+
+  /* Shadows (invisible on dark — elevation via surface lightening) */
+  --sh-xs: none;
+  --sh-sm: none;
+  --sh-md: none;
+  --sh-lg: none;
 
   color-scheme: dark;
 }
 
-/* ── Toggle icon swap ── */
+
+/* ================================================================
+   ICON SWAP
+   ================================================================ */
 html[data-theme="dark"] .theme-icon--sun  { display: block; }
 html[data-theme="dark"] .theme-icon--moon { display: none; }
 
 html[data-theme="dark"] .theme-toggle:hover {
-  color: #0F0F0F;
+  color: #121212;
 }
 
-/* ── Nav overrides ── */
+
+/* ================================================================
+   NAVIGATION
+   M3: top app bar uses surface-container on scroll (~#211F26)
+   ================================================================ */
 html[data-theme="dark"] .nav.s {
-  background: rgba(15,15,15,0.9);
+  background: rgba(18,18,18,0.92) !important;
+  border-color: rgba(255,255,255,0.08) !important;
 }
 
 html[data-theme="dark"] .nav-drawer {
-  background: #0F0F0F;
+  background: #121212 !important;
+}
+
+/* Hover: invert for dark (text becomes dark on light bg) */
+html[data-theme="dark"] .nav-links a:hover {
+  background: rgba(255,255,255,0.87);
+  color: #121212 !important;
 }
 
 html[data-theme="dark"] .nav-cta:hover,
 html[data-theme="dark"] .nav.s .nav-cta:hover {
-  color: #0F0F0F;
+  background: rgba(255,255,255,0.87);
+  border-color: rgba(255,255,255,0.87);
+  color: #121212 !important;
 }
 
-/* ── Card overrides ── */
+
+/* ================================================================
+   HERO  (hardcoded background + text colors)
+   ================================================================ */
+html[data-theme="dark"] .hero {
+  background: #121212 !important;
+}
+
+/* Hero title: hardcoded #0a0a0a → high-emphasis white */
+html[data-theme="dark"] .hero-name {
+  color: rgba(255,255,255,0.87) !important;
+}
+
+/* Hero descriptor strong text */
+html[data-theme="dark"] .hero-descriptor strong {
+  color: rgba(255,255,255,0.87) !important;
+}
+
+/* Hero bottom fade: dissolve into dark page */
+html[data-theme="dark"] .hero::after {
+  background: linear-gradient(to bottom,
+    rgba(18,18,18,0)    0%,
+    rgba(18,18,18,0.4)  40%,
+    rgba(18,18,18,0.85) 70%,
+    rgba(18,18,18,1)    100%) !important;
+}
+
+
+/* ================================================================
+   CARDS  (hardcoded #fff backgrounds → elevated dark surface)
+   M3: cards use surface-container-low (#1D1B20)
+   ================================================================ */
 html[data-theme="dark"] .pcard {
-  background: var(--c-surface);
+  background: var(--c-surface) !important;
 }
 html[data-theme="dark"] .pcard-img {
-  background: var(--c-surface);
+  background: var(--c-surface) !important;
 }
 html[data-theme="dark"] .pcard-img img,
 html[data-theme="dark"] .pcard-img .ph {
-  background: var(--c-surface);
+  background: var(--c-surface) !important;
+}
+
+/* Card title overlay text stays white (already on dark gradient) */
+html[data-theme="dark"] .pcard-title {
+  color: #fff;
 }
 
 /* Placeholder cards */
@@ -115,113 +201,284 @@ html[data-theme="dark"] .ph-7, html[data-theme="dark"] .ph-8 {
   color: rgba(255,255,255,0.08) !important;
 }
 
-/* ── Hover states that invert ── */
+
+/* ================================================================
+   HOVER STATES  (light: dark bg + white text → dark: light bg + dark text)
+   Every interactive element with hardcoded color:#fff on hover
+   ================================================================ */
+html[data-theme="dark"] .sh-link:hover,
 html[data-theme="dark"] .skill:hover,
 html[data-theme="dark"] .about-link:hover,
-html[data-theme="dark"] .expertise-tag:hover {
-  background: var(--c-ink);
-  color: #0F0F0F;
-  border-color: var(--c-ink);
+html[data-theme="dark"] .expertise-tag:hover,
+html[data-theme="dark"] .contact-email:hover {
+  background: rgba(255,255,255,0.87) !important;
+  color: #121212 !important;
+  border-color: rgba(255,255,255,0.87) !important;
 }
-
-/* ── Hero gradient fade ── */
-html[data-theme="dark"] .hero::after {
-  background: linear-gradient(to bottom,
-    rgba(15,15,15,0)   0%,
-    rgba(15,15,15,0.4)  40%,
-    rgba(15,15,15,0.85) 70%,
-    rgba(15,15,15,1)    100%) !important;
-}
-
-/* ── Footer visual fades ── */
-html[data-theme="dark"] .fv::before {
-  background: linear-gradient(to bottom, #0F0F0F 0%, transparent 100%) !important;
-}
-html[data-theme="dark"] .fv::after {
-  background: linear-gradient(to bottom, transparent 0%, #0F0F0F 100%) !important;
-}
-
-/* ── Form overrides ── */
-html[data-theme="dark"] .f-input:focus {
-  background: var(--c-surface);
-}
-html[data-theme="dark"] .f-submit {
-  color: #0F0F0F;
-}
-html[data-theme="dark"] .f-submit:hover {
-  background: #fff;
-  border-color: #fff;
-}
-
-/* ── Scrollbar ── */
-html[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #0F0F0F;
-}
-html[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: var(--c-ghost);
-}
-
-/* ── Project page overrides ── */
-html[data-theme="dark"] .proj-cover {
-  background: var(--c-surface) !important;
-}
-html[data-theme="dark"] .proj-img-grid img {
-  background: var(--c-surface) !important;
-}
-html[data-theme="dark"] .proj-img-full {
-  background: var(--c-surface) !important;
-}
-
-/* ── Cursor blend (stays white in both modes) ── */
-html[data-theme="dark"] #img-cursor {
-  background: #ffffff;
-}
-
-/* ── Logo SVG - ensure visibility ── */
-html[data-theme="dark"] .nav-logo svg {
-  color: var(--c-ink);
-}
-
-/* ── Orb vibrancy boost in dark mode ── */
-html[data-theme="dark"] .orb {
-  opacity: 0.8;
-}
-html[data-theme="dark"] .fv-orb {
-  opacity: 0.65;
-}
-
-/* ── Smooth transition for theme switch ── */
-html[data-theme="dark"] *,
-html[data-theme="dark"] *::before,
-html[data-theme="dark"] *::after {
-  transition-duration: 0s !important;
-}
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, fill 300ms ease !important;
+html[data-theme="dark"] .sh-link:hover svg {
+  color: #121212 !important;
 }
 
 
 /* ================================================================
-   SYSTEM PREFERENCE – first-time visitors (no localStorage)
+   FOOTER VISUAL  (hardcoded #fff bg → dark)
+   ================================================================ */
+html[data-theme="dark"] .footer-visual,
+html[data-theme="dark"] .fv {
+  background: #121212 !important;
+}
+
+html[data-theme="dark"] .fv::before {
+  background: linear-gradient(to bottom, #121212 0%, transparent 100%) !important;
+}
+html[data-theme="dark"] .fv::after {
+  background: linear-gradient(to bottom, transparent 0%, #121212 100%) !important;
+}
+
+html[data-theme="dark"] .footer-visual::before {
+  background: linear-gradient(to bottom, #121212 0%, transparent 100%) !important;
+}
+html[data-theme="dark"] .footer-visual::after {
+  background: linear-gradient(to bottom, transparent 0%, #121212 100%) !important;
+}
+
+
+/* ================================================================
+   FOOTER  (hardcoded #fff → dark)
+   ================================================================ */
+html[data-theme="dark"] .footer {
+  background: #121212 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+
+/* ================================================================
+   ABOUT PAGE – approach section (hardcoded dark text → light)
+   ================================================================ */
+html[data-theme="dark"] .approach-body {
+  color: rgba(255,255,255,0.60) !important;
+}
+html[data-theme="dark"] .approach-body strong {
+  color: rgba(255,255,255,0.87) !important;
+}
+html[data-theme="dark"] .about-body {
+  color: rgba(255,255,255,0.60) !important;
+}
+html[data-theme="dark"] .about-body strong {
+  color: rgba(255,255,255,0.87) !important;
+}
+
+
+/* ================================================================
+   EXPERIENCE / SECTIONS  (hardcoded #fff → dark)
+   ================================================================ */
+html[data-theme="dark"] .experience {
+  background: #121212 !important;
+}
+
+
+/* ================================================================
+   FORMS
+   M3: input fields use surface-container on dark
+   ================================================================ */
+html[data-theme="dark"] .f-input {
+  background: var(--c-surface) !important;
+  color: rgba(255,255,255,0.87) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+html[data-theme="dark"] .f-input:focus {
+  background: var(--c-panel) !important;
+  border-color: rgba(255,255,255,0.60) !important;
+}
+html[data-theme="dark"] .f-input::placeholder {
+  color: rgba(255,255,255,0.38);
+}
+html[data-theme="dark"] .f-submit,
+html[data-theme="dark"] .f-btn {
+  background: rgba(255,255,255,0.87) !important;
+  color: #121212 !important;
+  border-color: rgba(255,255,255,0.87) !important;
+}
+html[data-theme="dark"] .f-submit:hover,
+html[data-theme="dark"] .f-btn:hover {
+  background: #fff !important;
+  border-color: #fff !important;
+}
+
+
+/* ================================================================
+   SCROLLBAR  (M3-informed subtle styling)
+   ================================================================ */
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #121212;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.16);
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+
+/* ================================================================
+   PROJECT PAGES  (hardcoded #fff backgrounds → dark)
+   ================================================================ */
+html[data-theme="dark"] .proj-page {
+  background: #121212 !important;
+}
+html[data-theme="dark"] .proj-hero {
+  background: #121212 !important;
+}
+html[data-theme="dark"] .proj-next {
+  background: #121212 !important;
+}
+
+/* Project image containers — keep white bg for screenshots */
+html[data-theme="dark"] .proj-cover,
+html[data-theme="dark"] .proj-cover-ph {
+  background: #fff !important;
+}
+html[data-theme="dark"] .proj-img-grid img {
+  background: #fff !important;
+}
+html[data-theme="dark"] .proj-img-full,
+html[data-theme="dark"] .proj-img-full-ph {
+  background: #fff !important;
+}
+
+/* Project breadcrumb link */
+html[data-theme="dark"] .proj-breadcrumb a {
+  color: rgba(255,255,255,0.60);
+}
+
+
+/* ================================================================
+   NDA BLOCK  (hardcoded #fff bg + light glow → dark)
+   ================================================================ */
+html[data-theme="dark"] .proj-nda {
+  background: transparent !important;
+}
+html[data-theme="dark"] .proj-nda-glow {
+  background:
+    radial-gradient(ellipse 65% 55% at 38% 45%, rgba(130, 224, 255, 0.12) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 48% at 44% 52%, rgba(175, 240, 255, 0.08) 0%, transparent 52%) !important;
+}
+html[data-theme="dark"] .proj-nda-title {
+  color: rgba(255,255,255,0.87) !important;
+}
+html[data-theme="dark"] .proj-nda-lead {
+  color: rgba(255,255,255,0.87) !important;
+}
+html[data-theme="dark"] .proj-nda-body {
+  color: rgba(255,255,255,0.60) !important;
+}
+html[data-theme="dark"] .proj-nda-rule {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent) !important;
+}
+
+
+/* ================================================================
+   WORK PAGE  (hero + grids + visual band)
+   ================================================================ */
+html[data-theme="dark"] .work-hero {
+  background: transparent !important;
+}
+html[data-theme="dark"] .work-hero-band {
+  background: transparent !important;
+}
+html[data-theme="dark"] .work-hero-visual {
+  background: transparent !important;
+}
+html[data-theme="dark"] .work-hero-visual::before {
+  background: linear-gradient(to bottom, #121212 0%, transparent 100%) !important;
+}
+html[data-theme="dark"] .work-hero-visual::after {
+  background: linear-gradient(to bottom, transparent 0%, #121212 100%) !important;
+}
+
+/* Dark mode: orbs full-width, above canvas — no dark block */
+html[data-theme="dark"] .work-hero-visual .fv-blobs {
+  left: 0 !important;
+  z-index: 3 !important;
+  overflow: visible !important;
+}
+html[data-theme="dark"] #work-hero-canvas {
+  z-index: 1 !important;
+  left: 0 !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+html[data-theme="dark"] .work-hero-inner {
+  background: transparent !important;
+}
+html[data-theme="dark"] .work-page {
+  background: transparent !important;
+}
+
+
+/* ================================================================
+   CURSOR (mix-blend-mode: difference — stays white in both modes)
+   ================================================================ */
+html[data-theme="dark"] #img-cursor {
+  background: #ffffff !important;
+}
+
+
+/* ================================================================
+   LOGO
+   ================================================================ */
+html[data-theme="dark"] .nav-logo svg {
+  color: rgba(255,255,255,0.87);
+}
+
+
+/* ================================================================
+   ORBS (vibrancy boost in dark — pastels pop on dark backgrounds)
+   M3: desaturated / lighter accent tones on dark surfaces
+   ================================================================ */
+html[data-theme="dark"] .orb {
+  opacity: 0.7;
+}
+html[data-theme="dark"] .fv-orb {
+  opacity: 0.55;
+}
+
+
+/* ================================================================
+   IMAGES  (M3: reduce brightness ~15% to reduce glare on dark bg)
+   ================================================================ */
+html[data-theme="dark"] .pcard-img img:not(.ph),
+html[data-theme="dark"] .proj-cover,
+html[data-theme="dark"] .proj-img-grid img,
+html[data-theme="dark"] .proj-img-full,
+html[data-theme="dark"] .about-portrait-img {
+  filter: brightness(0.88);
+  transition: filter 0.3s ease;
+}
+html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
+  filter: brightness(1);
+}
+
+
+/* ================================================================
+   SYSTEM PREFERENCE – first-time visitors (no localStorage set)
+   Duplicates the dark palette for prefers-color-scheme users
    ================================================================ */
 @media (prefers-color-scheme: dark) {
   html:not([data-theme="light"]):not([data-theme="dark"]) {
-    --c-bg:       #0F0F0F;
-    --c-surface:  #1A1A1A;
-    --c-panel:    #1F1F1F;
-    --c-ink:      #E8E8E8;
-    --c-mid:      #A0A0A0;
-    --c-light:    #777777;
-    --c-ghost:    #444444;
-    --c-rule:     #2A2A2A;
-    --c-rule-dk:  #3A3A3A;
+    --c-bg:       #121212;
+    --c-surface:  #1D1B20;
+    --c-panel:    #211F26;
+    --c-ink:      rgba(255,255,255,0.87);
+    --c-mid:      rgba(255,255,255,0.60);
+    --c-light:    rgba(255,255,255,0.38);
+    --c-ghost:    rgba(255,255,255,0.12);
+    --c-rule:     rgba(255,255,255,0.12);
+    --c-rule-dk:  rgba(255,255,255,0.20);
     --c-ink-pure: #FFFFFF;
-    --c-nav:      #A0A0A0;
-    --c-hover:    #E8E8E8;
-    --c-border:   #3A3A3A;
+    --c-nav:      rgba(255,255,255,0.60);
+    --c-hover:    rgba(255,255,255,0.87);
+    --c-border:   rgba(255,255,255,0.16);
     color-scheme: dark;
   }
 }

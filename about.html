@@ -1259,12 +1259,13 @@
         <li><a href="work.html">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
-      <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <div class="nav-right">
+        <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
+      </div>
 
       <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1467,7 +1468,7 @@
 
       function bgRGBA(a) {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        return isDark ? 'rgba(15,15,15,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+        return isDark ? 'rgba(18,18,18,' + a + ')' : 'rgba(255,255,255,' + a + ')';
       }
 
       const N = 90;
@@ -1481,13 +1482,23 @@
       let waveGrad = null;
 
       function buildGrad(H) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const g = ctx.createLinearGradient(0, 0, 0, H);
-        g.addColorStop(0,    'rgba(255,239,168, 0)');
-        g.addColorStop(0.06, 'rgba(255,239,168, 0.70)');
-        g.addColorStop(0.35, 'rgba(200,220,210, 0.75)');
-        g.addColorStop(0.65, 'rgba(143,201,255, 0.75)');
-        g.addColorStop(0.94, 'rgba(143,201,255, 0.65)');
-        g.addColorStop(1,    'rgba(143,201,255, 0)');
+        if (isDark) {
+          g.addColorStop(0,    'rgba(255,239,168, 0)');
+          g.addColorStop(0.06, 'rgba(255,239,168, 0.30)');
+          g.addColorStop(0.35, 'rgba(200,220,210, 0.30)');
+          g.addColorStop(0.65, 'rgba(143,201,255, 0.30)');
+          g.addColorStop(0.94, 'rgba(143,201,255, 0.30)');
+          g.addColorStop(1,    'rgba(143,201,255, 0)');
+        } else {
+          g.addColorStop(0,    'rgba(255,239,168, 0)');
+          g.addColorStop(0.06, 'rgba(255,239,168, 0.70)');
+          g.addColorStop(0.35, 'rgba(200,220,210, 0.75)');
+          g.addColorStop(0.65, 'rgba(143,201,255, 0.75)');
+          g.addColorStop(0.94, 'rgba(143,201,255, 0.65)');
+          g.addColorStop(1,    'rgba(143,201,255, 0)');
+        }
         waveGrad = g;
       }
 
@@ -1582,7 +1593,8 @@
           }
           ctx.stroke();
         });
-        edgeFade(W, H);
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (!isDark) edgeFade(W, H);
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);

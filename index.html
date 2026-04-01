@@ -1522,14 +1522,14 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
 
-      <a href="assets/CV_ShannonH.pdf"
+      <div class="nav-right">
+        <a href="assets/CV_ShannonH.pdf"
          class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
-
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
+      </div>
 
       <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -2133,7 +2133,7 @@
 
       function bgRGBA(a) {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        return isDark ? 'rgba(15,15,15,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+        return isDark ? 'rgba(18,18,18,' + a + ')' : 'rgba(255,255,255,' + a + ')';
       }
 
       const N          = 90;
@@ -2149,14 +2149,22 @@
 
       function buildGrad(W) {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        var base = isDark ? [200,200,200] : [255,255,255];
-        var r = base[0], g2 = base[1], b = base[2];
         const g = ctx.createLinearGradient(0, 0, W, 0);
-        g.addColorStop(0,    'rgba('+r+','+g2+','+b+', 0)');
-        g.addColorStop(0.06, 'rgba('+r+','+g2+','+b+', 0.70)');
-        g.addColorStop(0.50, 'rgba('+r+','+g2+','+b+', 0.75)');
-        g.addColorStop(0.94, 'rgba('+r+','+g2+','+b+', 0.65)');
-        g.addColorStop(1,    'rgba('+r+','+g2+','+b+', 0)');
+        if (isDark) {
+          /* Stroke gradient matches hero orb colours: lavender → cyan → teal */
+          g.addColorStop(0,    'rgba(196,181,253, 0)');
+          g.addColorStop(0.06, 'rgba(196,181,253, 0.30)');
+          g.addColorStop(0.35, 'rgba(103,232,249, 0.30)');
+          g.addColorStop(0.65, 'rgba(129,140,248, 0.30)');
+          g.addColorStop(0.94, 'rgba(94,234,212, 0.30)');
+          g.addColorStop(1,    'rgba(94,234,212, 0)');
+        } else {
+          g.addColorStop(0,    'rgba(255,255,255, 0)');
+          g.addColorStop(0.06, 'rgba(255,255,255, 0.70)');
+          g.addColorStop(0.50, 'rgba(255,255,255, 0.75)');
+          g.addColorStop(0.94, 'rgba(255,255,255, 0.65)');
+          g.addColorStop(1,    'rgba(255,255,255, 0)');
+        }
         waveGrad = g;
       }
 
@@ -2248,7 +2256,8 @@
           }
           ctx.stroke();
         });
-        edgeFade(W, H);
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (!isDark) edgeFade(W, H);
         requestAnimationFrame(draw);
       }
 
@@ -2353,15 +2362,10 @@
 
       function fBgRGBA(a) {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        return isDark ? 'rgba(15,15,15,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+        return isDark ? 'rgba(18,18,18,' + a + ')' : 'rgba(255,255,255,' + a + ')';
       }
-      function fStrokeRGBA(a) {
-        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        var v = isDark ? 200 : 255;
-        return 'rgba(' + v + ',' + v + ',' + v + ',' + a + ')';
-      }
-
       function build(W, H) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         lines = [];
         const bH = H * (BB - BT), sp = bH / (N - 1), am = bH * AM;
         for (let i = 0; i < N; i++) {
@@ -2369,11 +2373,21 @@
           lines.push({ y0: H * BT + i * sp, amp: am * b, ph: i * PS });
         }
         footerGrad = x.createLinearGradient(0, 0, W, 0);
-        footerGrad.addColorStop(0, fStrokeRGBA(0));
-        footerGrad.addColorStop(0.06, fStrokeRGBA(0.70));
-        footerGrad.addColorStop(0.50, fStrokeRGBA(0.75));
-        footerGrad.addColorStop(0.94, fStrokeRGBA(0.65));
-        footerGrad.addColorStop(1, fStrokeRGBA(0));
+        if (isDark) {
+          /* Stroke gradient matches footer orb colours: pink → amber → coral */
+          footerGrad.addColorStop(0, 'rgba(255,145,185, 0)');
+          footerGrad.addColorStop(0.06, 'rgba(255,145,185, 0.30)');
+          footerGrad.addColorStop(0.35, 'rgba(255,198,95, 0.30)');
+          footerGrad.addColorStop(0.65, 'rgba(255,175,135, 0.30)');
+          footerGrad.addColorStop(0.94, 'rgba(255,205,110, 0.30)');
+          footerGrad.addColorStop(1, 'rgba(255,205,110, 0)');
+        } else {
+          footerGrad.addColorStop(0, 'rgba(255,255,255,0)');
+          footerGrad.addColorStop(0.06, 'rgba(255,255,255,0.70)');
+          footerGrad.addColorStop(0.50, 'rgba(255,255,255,0.75)');
+          footerGrad.addColorStop(0.94, 'rgba(255,255,255,0.65)');
+          footerGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        }
       }
       function resize() {
         const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
@@ -2421,22 +2435,25 @@
           x.stroke();
         });
         /* Fade into page on the inner (right) edge */
-        const fw = W * 0.12;
-        const fR = x.createLinearGradient(W - fw, 0, W, 0);
-        fR.addColorStop(0, fBgRGBA(0));
-        fR.addColorStop(1, fBgRGBA(1));
-        x.fillStyle = fR;
-        x.fillRect(W - fw, 0, fw, H);
-        const fT = x.createLinearGradient(0, 0, 0, H * 0.08);
-        fT.addColorStop(0, fBgRGBA(1));
-        fT.addColorStop(1, fBgRGBA(0));
-        x.fillStyle = fT;
-        x.fillRect(0, 0, W, H * 0.08);
-        const fB = x.createLinearGradient(0, H * 0.88, 0, H);
-        fB.addColorStop(0, fBgRGBA(0));
-        fB.addColorStop(1, fBgRGBA(1));
-        x.fillStyle = fB;
-        x.fillRect(0, H * 0.88, W, H * 0.12);
+        var isDarkF = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (!isDarkF) {
+          const fw = W * 0.12;
+          const fR = x.createLinearGradient(W - fw, 0, W, 0);
+          fR.addColorStop(0, fBgRGBA(0));
+          fR.addColorStop(1, fBgRGBA(1));
+          x.fillStyle = fR;
+          x.fillRect(W - fw, 0, fw, H);
+          const fT = x.createLinearGradient(0, 0, 0, H * 0.08);
+          fT.addColorStop(0, fBgRGBA(1));
+          fT.addColorStop(1, fBgRGBA(0));
+          x.fillStyle = fT;
+          x.fillRect(0, 0, W, H * 0.08);
+          const fB = x.createLinearGradient(0, H * 0.88, 0, H);
+          fB.addColorStop(0, fBgRGBA(0));
+          fB.addColorStop(1, fBgRGBA(1));
+          x.fillStyle = fB;
+          x.fillRect(0, H * 0.88, W, H * 0.12);
+        }
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);

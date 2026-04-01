@@ -325,12 +325,13 @@
         <li><a href="work.html" aria-current="page">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
-      <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <div class="nav-right">
+        <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
+      </div>
 
       <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -688,13 +689,30 @@
       const ctx = canvas.getContext('2d');
       const N = 90, SPEED = 0.00034, PHASE_STEP = 0.17, LW = 0.85, BAND_T = 0.08, BAND_B = 0.92, AMPL = 0.042;
       let lines = [], waveGrad = null, visible = true, animId = null;
+
+      function bgRGBA(a) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return isDark ? 'rgba(18,18,18,' + a + ')' : 'rgba(255,255,255,' + a + ')';
+      }
+
       function buildGrad(W) {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const g = ctx.createLinearGradient(0, 0, W, 0);
-        g.addColorStop(0, 'rgba(255,255,255,0)');
-        g.addColorStop(0.06, 'rgba(255,255,255,0.70)');
-        g.addColorStop(0.50, 'rgba(255,255,255,0.75)');
-        g.addColorStop(0.94, 'rgba(255,255,255,0.65)');
-        g.addColorStop(1, 'rgba(255,255,255,0)');
+        if (isDark) {
+          /* Stroke gradient matches work hero orb colours: pink → amber → coral */
+          g.addColorStop(0, 'rgba(255,145,185, 0)');
+          g.addColorStop(0.06, 'rgba(255,145,185, 0.30)');
+          g.addColorStop(0.35, 'rgba(255,198,95, 0.30)');
+          g.addColorStop(0.65, 'rgba(255,175,135, 0.30)');
+          g.addColorStop(0.94, 'rgba(255,205,110, 0.30)');
+          g.addColorStop(1, 'rgba(255,205,110, 0)');
+        } else {
+          g.addColorStop(0, 'rgba(255,255,255,0)');
+          g.addColorStop(0.06, 'rgba(255,255,255,0.70)');
+          g.addColorStop(0.50, 'rgba(255,255,255,0.75)');
+          g.addColorStop(0.94, 'rgba(255,255,255,0.65)');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+        }
         waveGrad = g;
       }
       function build(W, H) {
@@ -719,21 +737,28 @@
       }
       new ResizeObserver(resize).observe(canvas);
       resize();
+
+      /* Rebuild on theme change */
+      window.addEventListener('theme-changed', function() {
+        var r = canvas.getBoundingClientRect();
+        build(r.width, r.height);
+      });
+
       const STEPS = 480;
       let t0 = null;
       function edgeFade(W, H) {
         const fw = W * 0.12;
         const fL = ctx.createLinearGradient(0, 0, fw, 0);
-        fL.addColorStop(0, 'rgba(255,255,255,1)');
-        fL.addColorStop(1, 'rgba(255,255,255,0)');
+        fL.addColorStop(0, bgRGBA(1));
+        fL.addColorStop(1, bgRGBA(0));
         ctx.fillStyle = fL; ctx.fillRect(0, 0, fw, H);
         const fT = ctx.createLinearGradient(0, 0, 0, H * 0.08);
-        fT.addColorStop(0, 'rgba(255,255,255,1)');
-        fT.addColorStop(1, 'rgba(255,255,255,0)');
+        fT.addColorStop(0, bgRGBA(1));
+        fT.addColorStop(1, bgRGBA(0));
         ctx.fillStyle = fT; ctx.fillRect(0, 0, W, H * 0.08);
         const fB = ctx.createLinearGradient(0, H * 0.88, 0, H);
-        fB.addColorStop(0, 'rgba(255,255,255,0)');
-        fB.addColorStop(1, 'rgba(255,255,255,1)');
+        fB.addColorStop(0, bgRGBA(0));
+        fB.addColorStop(1, bgRGBA(1));
         ctx.fillStyle = fB; ctx.fillRect(0, H * 0.88, W, H * 0.12);
       }
       function draw(ts) {
@@ -755,7 +780,8 @@
           }
           ctx.stroke();
         });
-        edgeFade(W, H);
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (!isDark) edgeFade(W, H);
         animId = requestAnimationFrame(draw);
       }
       new IntersectionObserver(function(entries) {
