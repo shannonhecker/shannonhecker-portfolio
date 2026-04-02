@@ -23,7 +23,8 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -408,8 +409,8 @@
       </div>
 
       <!-- Cover -->
-      <img src="assets/Fusion%20Analytics%20Dashboard%20banner.png" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" decoding="async"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <img src="assets/Fusion%20Analytics%20Dashboard%20banner.webp" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" decoding="async" fetchpriority="high"
+           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Analytics Dashboard</h1>
@@ -428,7 +429,10 @@
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
-            <img src="assets/analytics-widgets-grid.png" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
+              <picture>
+                <source srcset="assets/analytics-widgets-grid.webp" type="image/webp">
+                <img src="assets/analytics-widgets-grid.png" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
+              </picture>
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Dashboard modules</span>
@@ -449,7 +453,10 @@
         <div class="proj-media-split rv">
           <figure class="proj-media">
             <div class="proj-media-frame">
-              <img src="assets/analytics-configuration.png" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
+              <picture>
+                <source srcset="assets/analytics-configuration.webp" type="image/webp">
+                <img src="assets/analytics-configuration.png" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <figcaption class="proj-media-cap">
               <span class="proj-media-cap-label">Configuration panel</span>
@@ -458,7 +465,10 @@
           </figure>
           <figure class="proj-media">
             <div class="proj-media-frame">
-              <img src="assets/analytics-combination-chart.png" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
+              <picture>
+                <source srcset="assets/analytics-combination-chart.webp" type="image/webp">
+                <img src="assets/analytics-combination-chart.png" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <figcaption class="proj-media-cap">
               <span class="proj-media-cap-label">Combination charts</span>
@@ -469,7 +479,10 @@
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
-            <img src="assets/Fusion%20Analytics%20Dashboard%2002.png" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
+              <picture>
+                <source srcset="assets/Fusion%20Analytics%20Dashboard%2002.webp" type="image/webp">
+                <img src="assets/Fusion%20Analytics%20Dashboard%2002.png" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
+              </picture>
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Sustainable investment reporting</span>

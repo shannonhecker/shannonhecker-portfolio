@@ -23,7 +23,8 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -372,8 +373,8 @@
       </div>
 
       <!-- Cover -->
-      <img src="assets/Fusion%20ds%20banner.png" alt="Fusion Design System: data catalog, ESG datasets, and cloud-native data platform" class="proj-cover rv" decoding="async"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <img src="assets/Fusion%20ds%20banner.webp" alt="Fusion Design System: data catalog, ESG datasets, and cloud-native data platform" class="proj-cover rv" decoding="async" fetchpriority="high"
+           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
       <div class="proj-cover-ph ph-2" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Design System</h1>
@@ -401,7 +402,10 @@
         </div>
 
         <figure class="rv">
-          <img src="assets/Fusion%20d02.png" alt="Fusion platform: unified data experience, data catalog, and portfolio management" class="proj-img-full" width="2000" height="1200" loading="lazy" decoding="async" style="width:100%;height:auto;" />
+          <picture>
+            <source srcset="assets/Fusion%20d02.webp" type="image/webp">
+            <img src="assets/Fusion%20d02.png" alt="Fusion platform: unified data experience, data catalog, and portfolio management" class="proj-img-full" width="2000" height="1200" loading="lazy" decoding="async" style="width:100%;height:auto;" />
+          </picture>
         </figure>
 
         <div class="proj-about-block rv">

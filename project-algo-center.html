@@ -23,7 +23,8 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -370,8 +371,8 @@
       </div>
 
       <!-- Cover -->
-      <img src="assets/algo%20banner.png" alt="Execute Algo Center" class="proj-cover rv" decoding="async"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <img src="assets/algo%20banner.webp" alt="Execute Algo Center" class="proj-cover rv" decoding="async" fetchpriority="high"
+           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
       <div class="proj-cover-ph ph-3" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Execute Algo Center</h1>
@@ -398,7 +399,10 @@
           <div class="proj-body"><p>I designed a <strong>real-time monitoring cockpit</strong>: a single-screen command centre giving operators instant visibility into all running strategies, with anomaly highlighting and one-click intervention controls.</p><p>The design used a <strong>traffic-light status system</strong> with ambient colour-coding so operators could assess overall portfolio health at a glance, then drill into specific strategies needing attention. All interactions were optimised for speed, with critical actions requiring a maximum of 2 clicks.</p></div>
         </div>
 
-        <img src="assets/algo02.png" alt="Execute Algo Center order analysis and market structure view" class="proj-img-full rv" width="2000" height="1200" style="width:100%;height:auto;" decoding="async" loading="lazy" />
+        <picture>
+          <source srcset="assets/algo02.webp" type="image/webp">
+          <img src="assets/algo02.png" alt="Execute Algo Center order analysis and market structure view" class="proj-img-full rv" width="2000" height="1200" style="width:100%;height:auto;" decoding="async" loading="lazy" />
+        </picture>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>

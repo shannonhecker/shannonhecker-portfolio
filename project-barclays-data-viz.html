@@ -18,7 +18,8 @@
   <meta name="description" content="Design task for Barclays Front Office: a stock price dashboard with interactive filters, multi-chart data visualisation, and responsive desktop-to-tablet layouts." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -399,8 +400,8 @@
       </div>
 
       <!-- Cover -->
-      <img src="assets/barclays-banner.png" alt="Barclays stock dashboard: desktop, tablet, and mobile views" class="proj-cover proj-cover--barclays rv"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <img src="assets/barclays-banner.webp" alt="Barclays stock dashboard: desktop, tablet, and mobile views" class="proj-cover proj-cover--barclays rv" fetchpriority="high"
+           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
       <div class="proj-cover-ph proj-cover-ph--barclays" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Barclays Data Visualisation</h1>
@@ -428,7 +429,10 @@
         </div>
 
         <figure class="rv">
-          <img src="assets/barclays-02.png" alt="Barclays stock dashboard: detailed chart modules, heatmap, and sector views" class="proj-img-full proj-barclays-wide" width="1600" height="900" loading="lazy" decoding="async" />
+          <picture>
+            <source srcset="assets/barclays-02.webp" type="image/webp">
+            <img src="assets/barclays-02.png" alt="Barclays stock dashboard: detailed chart modules, heatmap, and sector views" class="proj-img-full proj-barclays-wide" width="1600" height="900" loading="lazy" decoding="async" />
+          </picture>
         </figure>
 
         <div class="proj-about-block rv">

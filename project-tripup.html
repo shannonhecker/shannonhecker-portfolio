@@ -18,7 +18,8 @@
   <meta name="description" content="TripUp mobile product design: group travel coordination with polls, shared expense splitting, itineraries, and real-time updates in one cohesive experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -399,8 +400,8 @@
       </div>
 
       <!-- Cover (wireflow - full width, no crop) -->
-      <img src="assets/tripup banner.png" alt="TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting" class="proj-cover proj-cover--tripup rv"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <img src="assets/tripup banner.webp" alt="TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting" class="proj-cover proj-cover--tripup rv" fetchpriority="high"
+           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
       <div class="proj-cover-ph proj-cover-ph--tripup ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">TripUp</h1>
@@ -428,7 +429,10 @@
         </div>
 
         <figure class="rv">
-          <img src="assets/tripup02.png" alt="TripUp high-fidelity screens: active polls, log expenses, and trip expense hub" class="proj-img-full proj-tripup-hifi" width="1600" height="900" loading="lazy" decoding="async" />
+          <picture>
+            <source srcset="assets/tripup02.webp" type="image/webp">
+            <img src="assets/tripup02.png" alt="TripUp high-fidelity screens: active polls, log expenses, and trip expense hub" class="proj-img-full proj-tripup-hifi" width="1600" height="900" loading="lazy" decoding="async" />
+          </picture>
         </figure>
 
         <div class="proj-about-block rv">
