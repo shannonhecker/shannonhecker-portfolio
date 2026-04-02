@@ -11,10 +11,10 @@
     gtag('config', 'G-795LXWTYWM');
   </script>
   <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital & Platform Services Brand Identity · Shannon Hecker</title>
+  <title>Digital &amp; Platform Services Brand Identity · Shannon Hecker</title>
   <meta name="description" content="Internal brand identity for J.P. Morgan's Digital & Platform Services division: visual system, typography, iconography, and guidelines across digital channels." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -26,6 +26,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+.skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
+.skip-link:focus{top:16px;}
+:focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
     :root {
       --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
       --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#999999;
@@ -80,7 +83,7 @@
     .nav-burger.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
     .nav-drawer {
       position:fixed; top:0; left:0; right:0; bottom:0;
-      background:#fff;
+      background:var(--c-bg, #fff);
       padding:100px var(--pad) 40px; z-index:199;
       display:flex; flex-direction:column; gap:4px;
       transform:translateY(-110%); opacity:0; pointer-events:none;
@@ -286,6 +289,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
@@ -329,7 +333,7 @@
     </button>
   </div>
 
-  <main class="proj-page">
+  <main id="main-content" class="proj-page">
     <div class="wrap">
 
       <!-- Hero -->
@@ -459,6 +463,16 @@
       }
     });
     function closeDrawer() { isOpen=false; burgerBtn.classList.remove('o'); drawerEl.classList.remove('o'); }
+    /* Instantly show elements already in viewport on page load */
+    document.querySelectorAll('.rv').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 40 && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('on');
+        el.offsetHeight; /* force reflow */
+        el.style.transition = '';
+      }
+    });
     const ro = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
     }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });

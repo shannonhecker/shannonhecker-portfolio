@@ -10,9 +10,9 @@
     gtag('js', new Date());
     gtag('config', 'G-795LXWTYWM');
   </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work · Shannon Hecker</title>
   <meta name="description" content="Case studies by Shannon Hecker, Senior Product Designer: enterprise fintech, design systems, analytics, and trading workflows." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -24,6 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+.skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
+.skip-link:focus{top:16px;}
+:focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
     :root {
       --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
       --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#999999;
@@ -84,7 +87,7 @@
     .nav-burger.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
     .nav-drawer {
       position:fixed; top:0; left:0; right:0; bottom:0;
-      background:#fff;
+      background:var(--c-bg, #fff);
       padding:100px var(--pad) 40px; z-index:199;
       display:flex; flex-direction:column; gap:4px;
       transform:translateY(-110%); opacity:0; pointer-events:none;
@@ -313,6 +316,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <div id="img-cursor" aria-hidden="true"></div>
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
@@ -357,7 +361,7 @@
     </button>
   </div>
 
-  <main class="work-page">
+  <main id="main-content" class="work-page">
     <header class="work-hero-band">
       <div class="work-hero-visual" aria-hidden="true">
         <div class="fv-blobs">
@@ -381,6 +385,7 @@
           <a href="project-barclays-data-viz.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Barclays Data Visualisation</span></div>
@@ -400,6 +405,7 @@
           <a href="project-tripup.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/tripup-hifi.png" alt="TripUp mobile app high-fidelity screens" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">TripUp</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">TripUp</span></div>
@@ -419,6 +425,7 @@
           <a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Analytics%201.png" alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">Fusion Analytics Dashboard</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Analytics Dashboard</span></div>
@@ -438,6 +445,7 @@
           <a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/System%201.png" alt="Fusion Design System" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Fusion Design System</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Design System</span></div>
@@ -457,6 +465,7 @@
           <a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Data%20Managment%201.png" alt="Fusion Data Solution" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Fusion Data Solution</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Fusion Data Solution</span></div>
@@ -476,6 +485,7 @@
           <a href="project-ui-toolkit.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/UI%20Toolkit%201.png" alt="UI Toolkit" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">UI Toolkit</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">UI Toolkit</span></div>
@@ -495,6 +505,7 @@
           <a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Corporate%20Action%20Manager%201.png" alt="Corporate Action Manager" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-5" style="display:none;">Corporate Action Manager</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Corporate Action Manager</span></div>
@@ -514,6 +525,7 @@
           <a href="project-complex-assets.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Complex%20Assets%201.png" alt="Complex Assets Derivatives Valuation" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-6" style="display:none;">Complex Assets Derivatives Valuation</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Complex Assets Derivatives Valuation</span></div>
@@ -533,6 +545,7 @@
           <a href="project-research.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Research%201.png" alt="JPMM Research Platform" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">JPMM Research Platform</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">JPMM Research Platform</span></div>
@@ -552,6 +565,7 @@
           <a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/DealModel%201.png" alt="Global Custody Deal Model" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Global Custody Deal Model</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Global Custody Deal Model</span></div>
@@ -571,6 +585,7 @@
           <a href="project-algo-center.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/AlgoCenter%201.png" alt="Execute Algo Center" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Execute Algo Center</div>
               <div class="pcard-overlay"><span class="pcard-overlay-title">Execute Algo Center</span></div>
@@ -590,6 +605,7 @@
           <a href="project-dps-brand.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/dps-brand-identity.png" alt="Digital &amp; Platform Services Brand Identity" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">D&amp;PS Brand Identity</div>
             </div>
@@ -652,6 +668,16 @@
       }
     });
     function closeDrawer() { isOpen=false; burgerBtn.classList.remove('o'); drawerEl.classList.remove('o'); }
+    /* Instantly show elements already in viewport on page load */
+    document.querySelectorAll('.rv').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 40 && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('on');
+        el.offsetHeight; /* force reflow */
+        el.style.transition = '';
+      }
+    });
     const ro = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
     }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });

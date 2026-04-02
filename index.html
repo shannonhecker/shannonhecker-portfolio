@@ -10,9 +10,9 @@
     gtag('js', new Date());
     gtag('config', 'G-795LXWTYWM');
   </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shannon Hecker · Senior Product Designer</title>
   <meta name="description" content="Senior Product Designer in London. Trading and markets UX, enterprise design systems, and AI-assisted workflows at Barclays. Previously VP Product Design at J.P. Morgan." />
 
@@ -42,6 +42,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+.skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
+.skip-link:focus{top:16px;}
+:focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
     /* ============================================================
        DESIGN TOKENS
        ============================================================ */
@@ -237,7 +240,7 @@
     /* Mobile drawer */
     .nav-drawer {
       position:fixed; top:0; left:0; right:0; bottom:0;
-      background:#fff;
+      background:var(--c-bg, #fff);
       padding:100px var(--pad) 40px; z-index:199;
       display:flex; flex-direction:column; gap:4px;
       transform:translateY(-110%); opacity:0; pointer-events:none;
@@ -960,7 +963,7 @@
       transition: border-color var(--tb) var(--ease),
                   background var(--tb) var(--ease);
     }
-    .f-input:focus { border-color:var(--c-ink); background:#fff; }
+    .f-input:focus { border-color:var(--c-ink); background:var(--c-bg, #fff); }
     .f-input::placeholder { color:var(--c-ghost); font-weight:300; }
     .f-textarea { resize:vertical; min-height:120px; }
     .f-btn {
@@ -1508,6 +1511,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Difference-blend circle cursor -->
   <div id="img-cursor" aria-hidden="true"></div>
@@ -1564,6 +1568,7 @@
     </button>
   </div>
 
+  <main id="main-content">
   <!-- ============================================================
        HERO
        Layer stack (back → front):
@@ -1678,6 +1683,7 @@
             <div class="pcard-img">
               <img src="assets/barclays-stock-dashboard.png"
                    alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1701,6 +1707,7 @@
             <div class="pcard-img">
               <img src="assets/tripup-hifi.png"
                    alt="TripUp: Bending Spoons product design challenge" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">TripUp</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1724,6 +1731,7 @@
             <div class="pcard-img">
               <img src="assets/Analytics%201.png"
                    alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-1" style="display:none;">Analytics Dashboard</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1747,6 +1755,7 @@
             <div class="pcard-img">
               <img src="assets/System%201.png"
                    alt="Fusion Design System" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-2" style="display:none;">Design System</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1770,6 +1779,7 @@
             <div class="pcard-img">
               <img src="assets/Data%20Managment%201.png"
                    alt="Fusion Data Solution" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-3" style="display:none;">Data Solution</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1790,6 +1800,7 @@
             <div class="pcard-img">
               <img src="assets/UI%20Toolkit%201.png"
                    alt="UI Toolkit component library" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-8" style="display:none;">UI Toolkit</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1810,6 +1821,7 @@
             <div class="pcard-img">
               <img src="assets/Corporate%20Action%20Manager%201.png"
                    alt="Corporate Action Manager" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-4" style="display:none;">Corporate Action Manager</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1830,6 +1842,7 @@
             <div class="pcard-img">
               <img src="assets/Research%201.png"
                    alt="JPMM Research" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-5" style="display:none;">JPMM Research</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1850,6 +1863,7 @@
             <div class="pcard-img">
               <img src="assets/DealModel%201.png"
                    alt="Global Custody Deal Model" loading="lazy" decoding="async"
+                   width="800" height="450"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
               <div class="ph ph-6" style="display:none;">Global Custody Deal Model</div>
               <div class="pcard-caption" aria-hidden="true">
@@ -1989,6 +2003,8 @@
     <canvas id="footer-canvas"></canvas>
   </div>
 
+  </main>
+
   <!-- ============================================================
        FOOTER - Shannon's style: © · role · LinkedIn
        ============================================================ -->
@@ -2023,6 +2039,16 @@
     }, { passive:true });
 
     /* ── 3. Scroll reveal ────────────────────────────────── */
+    /* Instantly show elements already in viewport on page load */
+    document.querySelectorAll('.rv').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 40 && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('on');
+        el.offsetHeight; /* force reflow */
+        el.style.transition = '';
+      }
+    });
     const ro = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
     }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });

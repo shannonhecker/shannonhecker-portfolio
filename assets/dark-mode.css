@@ -223,6 +223,14 @@ html[data-theme="dark"] .ph-7, html[data-theme="dark"] .ph-8 {
    HOVER STATES  (light: dark bg + white text → dark: light bg + dark text)
    Every interactive element with hardcoded color:#fff on hover
    ================================================================ */
+/* ── Expertise tags (about page) ── */
+html[data-theme="dark"] .expertise-tag {
+  color: rgba(255,255,255,0.87) !important;
+  background: rgba(255,255,255,0.10) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  font-weight: 400 !important;
+}
+
 html[data-theme="dark"] .sh-link:hover,
 html[data-theme="dark"] .skill:hover,
 html[data-theme="dark"] .about-link:hover,
