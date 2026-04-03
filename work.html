@@ -57,11 +57,11 @@
     button{font-family:var(--font);}
     .wrap{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);}
     /* Scroll reveal */
-    .rv{opacity:0;transform:translateY(20px);transition:opacity var(--tr) var(--ease),transform var(--tr) var(--ease);}
+    .rv{opacity:0;transform:translateY(32px);transition:opacity var(--tr) var(--ease),transform var(--tr) var(--ease);}
     .rv.on{opacity:1;transform:translateY(0);}
-    .rv[data-d="1"]{transition-delay:.06s;} .rv[data-d="2"]{transition-delay:.12s;}
-    .rv[data-d="3"]{transition-delay:.18s;} .rv[data-d="4"]{transition-delay:.24s;}
-    .rv[data-d="5"]{transition-delay:.30s;} .rv[data-d="6"]{transition-delay:.36s;}
+    .rv[data-d="1"]{transition-delay:.1s;} .rv[data-d="2"]{transition-delay:.2s;}
+    .rv[data-d="3"]{transition-delay:.3s;} .rv[data-d="4"]{transition-delay:.4s;}
+    .rv[data-d="5"]{transition-delay:.5s;} .rv[data-d="6"]{transition-delay:.6s;}
     /* Nav */
     .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);
       display:flex;align-items:center;transition:background var(--ts) var(--ease),border-color var(--ts) var(--ease),backdrop-filter var(--ts) var(--ease);border-bottom:1px solid transparent;}
@@ -159,9 +159,10 @@
       gap: clamp(12px, 2vw, 20px);
     }
     .bc-3,.bc-4,.bc-6,.bc-8,.bc-12{grid-column:span 1;}
+    .pcard-article{display:contents;}
     .pcard{display:block;position:relative;text-decoration:none;background:#fff;
-      border:none;border-radius:8px;overflow:hidden;box-shadow:none;cursor:pointer;-webkit-mask-image:-webkit-radial-gradient(white,black);isolation:isolate;}
-    .pcard:hover{}
+      border:none;border-radius:8px;overflow:hidden;box-shadow:var(--sh-xs);cursor:pointer;-webkit-mask-image:-webkit-radial-gradient(white,black);isolation:isolate;transition:box-shadow var(--tb) var(--ease);}
+    .pcard:hover{box-shadow:var(--sh-md);}
     .pcard-img{aspect-ratio:1/1;overflow:hidden;position:relative;background:#fff;-webkit-backface-visibility:hidden;-webkit-transform:translateZ(0);border-radius:inherit;}
     .pcard-img img, .pcard-img .ph{width:100%;height:100%;object-fit:cover;object-position:center top;background:#fff;transition:transform .5s cubic-bezier(.22,1,.36,1);}
     .pcard:hover .pcard-img img,.pcard:hover .pcard-img .ph{transform:scale(1.05);}
@@ -291,6 +292,7 @@
       will-change: transform;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      contain: layout style paint;
     }
     .work-hero-inner {
       position: relative;
@@ -383,7 +385,7 @@
     <div class="wrap">
       <div class="bento">
         <div class="bc-6 rv" data-d="1">
-          <a href="project-barclays-data-viz.html" class="pcard">
+          <article class="pcard-article"><a href="project-barclays-data-viz.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/barclays-stock-dashboard.webp" alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -400,10 +402,10 @@
               <p class="pcard-desc">Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts in a Barclays-aligned shell.</p>
               <div class="pcard-tags"><span class="chip chip-default">Data Viz</span><span class="chip chip-default">Barclays</span><span class="chip chip-default">Enterprise UX</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-6 rv" data-d="2">
-          <a href="project-tripup.html" class="pcard">
+          <article class="pcard-article"><a href="project-tripup.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/tripup-hifi.webp" alt="TripUp mobile app high-fidelity screens" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -420,10 +422,10 @@
               <p class="pcard-desc">Product design challenge for Bending Spoons: group travel, polls, and shared expenses in one mobile flow.</p>
               <div class="pcard-tags"><span class="chip chip-default">Mobile UX</span><span class="chip chip-default">Case study</span><span class="chip chip-default">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-6 rv" data-d="3">
-          <a href="project-analytics.html" class="pcard">
+          <article class="pcard-article"><a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Analytics%201.webp" alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -440,10 +442,10 @@
               <p class="pcard-desc">B2B analytics platform: real-time financial data, WCAG 2.2 AA, and a modular dashboard system.</p>
               <div class="pcard-tags"><span class="chip chip-default">Product Design</span><span class="chip chip-default">Data Viz</span><span class="chip chip-default">Fintech</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-6 rv" data-d="4">
-          <a href="project-design-system.html" class="pcard">
+          <article class="pcard-article"><a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/System%201.webp" alt="Fusion Design System" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -460,10 +462,10 @@
               <p class="pcard-desc">Token-based design system: 200+ components for enterprise finance products, specified in Figma.</p>
               <div class="pcard-tags"><span class="chip chip-default">Design System</span><span class="chip chip-default">Tokens</span><span class="chip chip-default">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="3">
-          <a href="project-data-solution.html" class="pcard">
+          <article class="pcard-article"><a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Data%20Managment%201.webp" alt="Fusion Data Solution" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -480,10 +482,10 @@
               <p class="pcard-desc">End-to-end UX: complex technical workflows turned into guided, shippable journeys.</p>
               <div class="pcard-tags"><span class="chip chip-default">UX Research</span><span class="chip chip-default">B2B SaaS</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="1">
-          <a href="project-ui-toolkit.html" class="pcard">
+          <article class="pcard-article"><a href="project-ui-toolkit.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/UI%20Toolkit%201.webp" alt="UI Toolkit" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -500,10 +502,10 @@
               <p class="pcard-desc">Reusable UI component library: patterns and specs that speed delivery across product squads.</p>
               <div class="pcard-tags"><span class="chip chip-default">UI Design</span><span class="chip chip-default">Components</span><span class="chip chip-default">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="2">
-          <a href="project-corporate-action.html" class="pcard">
+          <article class="pcard-article"><a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Corporate%20Action%20Manager%201.webp" alt="Corporate Action Manager" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -520,10 +522,10 @@
               <p class="pcard-desc">Redesigned a legacy corporate actions tool, delivering 40% faster task completion for operations teams.</p>
               <div class="pcard-tags"><span class="chip chip-default">Enterprise UX</span><span class="chip chip-default">Accessibility</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-8 rv" data-d="3">
-          <a href="project-complex-assets.html" class="pcard">
+          <article class="pcard-article"><a href="project-complex-assets.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Complex%20Assets%201.webp" alt="Complex Assets Derivatives Valuation" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -540,10 +542,10 @@
               <p class="pcard-desc">Derivatives valuation for trading desks: dense inputs and outputs made scannable and actionable.</p>
               <div class="pcard-tags"><span class="chip chip-default">Finance UX</span><span class="chip chip-default">Data Viz</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="1">
-          <a href="project-research.html" class="pcard">
+          <article class="pcard-article"><a href="project-research.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Research%201.webp" alt="JPMM Research Platform" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -560,10 +562,10 @@
               <p class="pcard-desc">Research discovery for analysts: IA-first navigation through content-heavy institutional research.</p>
               <div class="pcard-tags"><span class="chip chip-default">Research</span><span class="chip chip-default">JPMorgan</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="2">
-          <a href="project-deal-model.html" class="pcard">
+          <article class="pcard-article"><a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/DealModel%201.webp" alt="Global Custody Deal Model" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -580,10 +582,10 @@
               <p class="pcard-desc">Bespoke deal modelling for custodian teams: multi-step flows, progressive disclosure, clear visual hierarchy.</p>
               <div class="pcard-tags"><span class="chip chip-default">Product Design</span><span class="chip chip-default">Finance</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-8 rv" data-d="3">
-          <a href="project-algo-center.html" class="pcard">
+          <article class="pcard-article"><a href="project-algo-center.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/AlgoCenter%201.webp" alt="Execute Algo Center" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -600,10 +602,10 @@
               <p class="pcard-desc">Algo execution centre: live order monitoring, intervention controls, and desk-ready information density.</p>
               <div class="pcard-tags"><span class="chip chip-default">Trading UX</span><span class="chip chip-default">Real-time Data</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
         <div class="bc-4 rv" data-d="4">
-          <a href="project-dps-brand.html" class="pcard">
+          <article class="pcard-article"><a href="project-dps-brand.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/dps-brand-identity.webp" alt="Digital &amp; Platform Services Brand Identity" loading="lazy" decoding="async"
                    width="800" height="450"
@@ -619,7 +621,7 @@
               <p class="pcard-desc">Internal brand identity for J.P. Morgan's Digital &amp; Platform Services: visual system, typography, and guidelines.</p>
               <div class="pcard-tags"><span class="chip chip-default">Brand Identity</span><span class="chip chip-default">Visual Design</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
       </div>
     </div>

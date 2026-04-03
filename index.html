@@ -64,6 +64,7 @@
       --c-nav:      #595959;
       --c-hover:    #111111;
       --c-border:   #c0c0c0;
+      --c-accent:   #4A90D9;
 
       /* Fonts - Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -128,16 +129,16 @@
        ============================================================ */
     .rv {
       opacity:0;
-      transform:translateY(20px);
+      transform:translateY(32px);
       transition:opacity var(--tr) var(--ease), transform var(--tr) var(--ease);
     }
     .rv.on { opacity:1; transform:translateY(0); }
-    .rv[data-d="1"]{ transition-delay:.06s; }
-    .rv[data-d="2"]{ transition-delay:.12s; }
-    .rv[data-d="3"]{ transition-delay:.18s; }
-    .rv[data-d="4"]{ transition-delay:.24s; }
-    .rv[data-d="5"]{ transition-delay:.30s; }
-    .rv[data-d="6"]{ transition-delay:.36s; }
+    .rv[data-d="1"]{ transition-delay:.1s; }
+    .rv[data-d="2"]{ transition-delay:.2s; }
+    .rv[data-d="3"]{ transition-delay:.3s; }
+    .rv[data-d="4"]{ transition-delay:.4s; }
+    .rv[data-d="5"]{ transition-delay:.5s; }
+    .rv[data-d="6"]{ transition-delay:.6s; }
 
     /* ============================================================
        LAYOUT
@@ -486,6 +487,7 @@
       will-change: transform;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      contain: layout style paint;
     }
     body.loaded #wave-canvas { opacity:1; }
 
@@ -660,6 +662,7 @@
       outline: 2px solid var(--c-ink);
       outline-offset: 3px;
     }
+    .pcard-article { display: contents; }
     .pcard {
       display: block;
       position: relative;
@@ -667,11 +670,13 @@
       border: none;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: none;
+      box-shadow: var(--sh-xs);
       cursor: pointer;
       -webkit-mask-image: -webkit-radial-gradient(white, black);
       isolation: isolate;
+      transition: box-shadow var(--tb) var(--ease);
     }
+    .pcard:hover { box-shadow: var(--sh-md); }
     /* ── Difference-blend circle cursor (matches shannonhecker.com) ── */
     #img-cursor {
       position: fixed;
@@ -1083,6 +1088,7 @@
       will-change: transform;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+      contain: layout style paint;
     }
 
     /* ============================================================
@@ -1683,7 +1689,7 @@
 
         <!-- 3×3 grid (nine featured cards): newest first, aligned with work.html imagery where listed -->
         <div class="bc-4 rv" data-d="1">
-          <a href="project-barclays-data-viz.html" class="pcard">
+          <article class="pcard-article"><a href="project-barclays-data-viz.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/barclays-stock-dashboard.webp"
                    alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async"
@@ -1703,11 +1709,11 @@
               <p class="pcard-desc">Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts in a Barclays-aligned shell.</p>
               <div class="pcard-tags"><span class="ptag">Data Viz</span><span class="ptag">Barclays</span><span class="ptag">Enterprise UX</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="2">
-          <a href="project-tripup.html" class="pcard">
+          <article class="pcard-article"><a href="project-tripup.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/tripup-hifi.webp"
                    alt="TripUp: Bending Spoons product design challenge" loading="lazy" decoding="async"
@@ -1727,11 +1733,11 @@
               <p class="pcard-desc">Product design challenge for Bending Spoons: group travel, polls, and shared expenses in one mobile flow.</p>
               <div class="pcard-tags"><span class="ptag">Mobile UX</span><span class="ptag">Case study</span><span class="ptag">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="3">
-          <a href="project-analytics.html" class="pcard">
+          <article class="pcard-article"><a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Analytics%201.webp"
                    alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
@@ -1751,11 +1757,11 @@
               <p class="pcard-desc">B2B analytics platform: real-time financial data, WCAG 2.2 AA, and a modular dashboard system.</p>
               <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Data Viz</span><span class="ptag">Fintech</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="4">
-          <a href="project-design-system.html" class="pcard">
+          <article class="pcard-article"><a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/System%201.webp"
                    alt="Fusion Design System" loading="lazy" decoding="async"
@@ -1775,11 +1781,11 @@
               <p class="pcard-desc">Token-based design system: 200+ components for enterprise finance products, specified in Figma.</p>
               <div class="pcard-tags"><span class="ptag">Design System</span><span class="ptag">Tokens</span><span class="ptag">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="1">
-          <a href="project-data-solution.html" class="pcard">
+          <article class="pcard-article"><a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Data%20Managment%201.webp"
                    alt="Fusion Data Solution" loading="lazy" decoding="async"
@@ -1796,11 +1802,11 @@
               <p class="pcard-desc">End-to-end UX: complex technical workflows turned into guided, shippable journeys.</p>
               <div class="pcard-tags"><span class="ptag">UX Research</span><span class="ptag">B2B SaaS</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="2">
-          <a href="project-ui-toolkit.html" class="pcard">
+          <article class="pcard-article"><a href="project-ui-toolkit.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/UI%20Toolkit%201.webp"
                    alt="UI Toolkit component library" loading="lazy" decoding="async"
@@ -1817,11 +1823,11 @@
               <p class="pcard-desc">Reusable UI component library: patterns and specs that speed delivery across product squads.</p>
               <div class="pcard-tags"><span class="ptag">UI Design</span><span class="ptag">Components</span><span class="ptag">Figma</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="3">
-          <a href="project-corporate-action.html" class="pcard">
+          <article class="pcard-article"><a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Corporate%20Action%20Manager%201.webp"
                    alt="Corporate Action Manager" loading="lazy" decoding="async"
@@ -1838,11 +1844,11 @@
               <p class="pcard-desc">Redesigned a legacy corporate actions tool, delivering 40% faster task completion for operations teams.</p>
               <div class="pcard-tags"><span class="ptag">Enterprise UX</span><span class="ptag">Accessibility</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="4">
-          <a href="project-research.html" class="pcard">
+          <article class="pcard-article"><a href="project-research.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/Research%201.webp"
                    alt="JPMM Research" loading="lazy" decoding="async"
@@ -1859,11 +1865,11 @@
               <p class="pcard-desc">Research discovery for analysts: IA-first navigation through content-heavy institutional research.</p>
               <div class="pcard-tags"><span class="ptag">Research</span><span class="ptag">JPMorgan</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
         <div class="bc-4 rv" data-d="1">
-          <a href="project-deal-model.html" class="pcard">
+          <article class="pcard-article"><a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/DealModel%201.webp"
                    alt="Global Custody Deal Model" loading="lazy" decoding="async"
@@ -1880,7 +1886,7 @@
               <p class="pcard-desc">Bespoke deal modelling for custodian teams: multi-step flows, progressive disclosure, clear visual hierarchy.</p>
               <div class="pcard-tags"><span class="ptag">Product Design</span><span class="ptag">Finance</span></div>
             </div>
-          </a>
+          </a></article>
         </div>
 
       </div><!-- /bento -->
