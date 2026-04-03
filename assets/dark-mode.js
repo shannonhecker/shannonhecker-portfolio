@@ -5,7 +5,7 @@
   if (stored === 'dark' || stored === 'light') {
     theme = stored;
   } else {
-    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    theme = 'light';
   }
   document.documentElement.setAttribute('data-theme', theme);
   var meta = document.querySelector('meta[name="theme-color"]');
