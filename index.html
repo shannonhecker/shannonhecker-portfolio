@@ -495,7 +495,6 @@
 
     /* Hero text above both layers */
     .hero .wrap  { position:relative; z-index:2; }
-    .hero-scroll { z-index:2; }
 
     /* ── Hero text - Inter style matching Shannon's site ── */
 
@@ -596,34 +595,6 @@
       font-weight: 500;
     }
 
-    /* Scroll nudge */
-    .hero-scroll {
-      position:absolute; bottom:32px; left:var(--pad);
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-      opacity:0; transition:opacity .6s ease 1.4s;
-      cursor: pointer;
-    }
-    body.loaded .hero-scroll { opacity:1; transition: opacity 0.6s ease 1.6s; }
-    .hero-scroll-label {
-      font-size:10px; font-weight:500;
-      letter-spacing:.18em; text-transform:uppercase;
-      color:var(--c-light);
-    }
-    .hero-scroll-chevron {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-    }
-    .hero-scroll-chevron span {
-      display: block; width: 10px; height: 1px;
-      background: var(--c-light); border-radius: 1px;
-    }
-    .hero-scroll-chevron span:first-child  { transform: rotate(40deg) translateX(3px); }
-    .hero-scroll-chevron span:last-child   { transform: rotate(-40deg) translateX(-3px); }
-    @keyframes chevronBounce {
-      0%, 100% { transform: translateY(0); opacity: 1; }
-      50%       { transform: translateY(5px); opacity: 0.4; }
-    }
-    .hero-scroll-chevron { animation: chevronBounce 1.8s ease-in-out infinite 1.6s; }
-
     /* ============================================================
        WORK - bento card grid (cofolios corner radius)
        ============================================================ */
@@ -713,10 +684,13 @@
       width: 100%; height: 100%; object-fit: cover;
       object-position: center top;
       background: #fff;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      will-change: transform;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .pcard:hover .pcard-img img,
-    .pcard:hover .pcard-img .ph { transform: scale(1.05); }
+    .pcard:hover .pcard-img .ph { transform: translateZ(0) scale(1.05); }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;
@@ -1212,16 +1186,6 @@
       transition: opacity 0.7s ease 0.1s;
     }
     body.loaded .hero-avail { opacity: 1; }
-
-    /* Scroll label fades in last */
-    .hero-scroll {
-      opacity: 0;
-      transition: opacity 0.6s ease 1.2s;
-      background: none;
-      border: none;
-      font-family: var(--font);
-    }
-    body.loaded .hero-scroll { opacity: 1; }
 
     /* ── Hero extras ── */
 
@@ -1728,10 +1692,6 @@
 
     </div>
 
-    <button type="button" class="hero-scroll" aria-label="Scroll down to content" onclick="window.scrollTo({top:window.innerHeight,behavior:'smooth'})">
-      <span class="hero-scroll-label" aria-hidden="true">Scroll</span>
-      <span class="hero-scroll-chevron" aria-hidden="true"><span></span><span></span></span>
-    </button>
   </section>
 
   <!-- ============================================================
@@ -2055,7 +2015,7 @@
                 <div class="ask-messages" id="ask-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
                 <form class="ask-form" id="ask-form" autocomplete="off">
                   <label for="ask-input" class="sr-only">Ask Shannon a question</label>
-                  <textarea class="ask-input" id="ask-input" rows="2" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to."></textarea>
+                  <textarea class="ask-input" id="ask-input" rows="2" maxlength="1000" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to."></textarea>
                 </form>
                 <div class="ask-bottom-bar">
                   <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text">

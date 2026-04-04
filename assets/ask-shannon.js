@@ -11,6 +11,7 @@
 
   /* ── Config ── */
   const ASK_API_URL = window.ASK_API_URL || 'http://localhost:3001/api/chat';
+  const FETCH_TIMEOUT_MS = 30000;
 
   /* ── DOM refs ── */
   const messagesEl     = document.getElementById('ask-messages');
@@ -179,13 +180,17 @@
 
     var fullText = '';
 
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS);
+
     try {
       /* Send only the last 10 messages to avoid exceeding context limits */
       var recentHistory = history.slice(-10);
       var res = await fetch(ASK_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: recentHistory })
+        body: JSON.stringify({ messages: recentHistory }),
+        signal: controller.signal
       });
 
       if (!res.ok) {
@@ -199,6 +204,7 @@
       while (true) {
         var chunk = await reader.read();
         if (chunk.done) break;
+        clearTimeout(timeout);
 
         buffer += decoder.decode(chunk.value, { stream: true });
 
@@ -233,7 +239,12 @@
 
     } catch (err) {
       bubble.remove();
-      showError(err.message);
+      var msg = err.name === 'AbortError'
+        ? 'The request timed out — the AI took too long to respond.'
+        : err.message;
+      showError(msg);
+    } finally {
+      clearTimeout(timeout);
     }
 
     /* Deactivate glow "thinking" state */
@@ -282,10 +293,17 @@
   }
 
   /* ── Minimal markdown → HTML (bold, links, line breaks, auto-link) ── */
+  function isSafeUrl(url) {
+    return /^https?:\/\//i.test(url) || /^mailto:/i.test(url);
+  }
+
   function formatMarkdown(text) {
     return escapeHtml(text)
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, function (match, label, url) {
+        if (!isSafeUrl(url)) return label;
+        return '<a href="' + url + '" target="_blank" rel="noopener">' + label + '</a>';
+      })
       /* Auto-link emails */
       .replace(/([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>')
       /* Auto-link URLs (not already inside an href) */

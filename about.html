@@ -718,10 +718,13 @@
       width: 100%; height: 100%; object-fit: cover;
       object-position: center top;
       background: #fff;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      will-change: transform;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .pcard:hover .pcard-img img,
-    .pcard:hover .pcard-img .ph { transform: scale(1.05); }
+    .pcard:hover .pcard-img .ph { transform: translateZ(0) scale(1.05); }
 
     .ph {
       display:flex; align-items:flex-end; padding:18px;

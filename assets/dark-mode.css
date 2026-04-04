@@ -482,7 +482,7 @@ html[data-theme="dark"] .proj-img-grid img,
 html[data-theme="dark"] .proj-img-full,
 html[data-theme="dark"] .about-portrait-img {
   filter: brightness(0.88);
-  transition: filter 0.3s ease;
+  transition: filter 0.5s var(--ease), transform 0.5s var(--ease);
 }
 html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
   filter: brightness(1);

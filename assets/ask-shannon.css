@@ -513,6 +513,19 @@
   .ask-bottom-bar { flex-wrap: wrap; gap: 8px; }
 }
 
+@media (max-width: 480px) {
+  .ask-panel { padding: 16px; }
+  .ask-msg { max-width: 95%; font-size: 13px; padding: 10px 14px; border-radius: 14px; }
+  .ask-chip { font-size: 11px; padding: 5px 10px; }
+  .ask-suggestions { gap: 6px; }
+  .ask-send { width: 36px; height: 36px; }
+  .ask-send svg { width: 14px; height: 14px; }
+  .ask-mic { width: 32px; height: 32px; }
+  .ask-input { font-size: 14px; }
+  .ask-glow-wrap { border-radius: 20px; }
+  .ask-panel { border-radius: 18px; }
+}
+
 
 /* ================================================================
    14. DARK MODE

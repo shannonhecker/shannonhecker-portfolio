@@ -7,8 +7,7 @@
      NAV        .nav, .nav-inner, .nav-logo, .nav-links, .nav-cta,
                 .nav-burger, .nav-drawer, .nav-right
      HERO       .hero, .hero-name, .hero-tagline, .hero-descriptor,
-                .hero-role-line, .hero-stats, .hero-cta, .hero-scroll,
-                .hero-avail
+                .hero-role-line, .hero-stats, .hero-cta, .hero-avail
      SECTION    .sh, .sh-eyebrow, .sh-row, .sh-text, .sh-link
      CARDS      .pcard, .pcard-img, .pcard-body, .pcard-title
      ABOUT      .about-panel, .about-bento, .about-intro, .about-body,
@@ -635,30 +634,6 @@ body.loaded .hero-stats {
 }
 @keyframes cta-spin { to { --cta-angle: 360deg; } }
 
-/* Scroll nudge */
-.hero-scroll {
-  position: absolute;
-  bottom: 32px;
-  left: var(--pad);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-  z-index: 2;
-  cursor: pointer;
-  transition: opacity 0.6s ease 1.2s;
-}
-body.loaded .hero-scroll { opacity: 1; }
-.hero-scroll-label {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: var(--track-overline-tight);
-  text-transform: uppercase;
-  color: var(--c-ghost);
-}
-
-
 /* ================================================================
    AURORA ORBS — Blurred gradient ellipses
    Used in hero (top-right) and footer (bottom-left).
@@ -734,7 +709,6 @@ a.pcard:focus-visible {
   overflow: hidden;
   box-shadow: var(--sh-xs);
   cursor: pointer;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
   isolation: isolate;
   transition: box-shadow var(--tb) var(--ease);
 }
@@ -752,9 +726,12 @@ a.pcard:focus-visible {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center top;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  will-change: transform;
   transition: transform 0.5s var(--ease);
 }
-.pcard:hover .pcard-img img { transform: scale(1.05); }
+.pcard:hover .pcard-img img { transform: translateZ(0) scale(1.05); }
 
 /* Card body — overlay with gradient, appears on hover */
 .pcard-body {
@@ -764,6 +741,7 @@ a.pcard:focus-visible {
   align-items: flex-end;
   padding: clamp(16px, 3vw, 28px);
   opacity: 0;
+  will-change: opacity;
   transition: opacity 0.4s var(--ease);
   z-index: 2;
 }
@@ -1211,6 +1189,26 @@ a.pcard:focus-visible {
   .contact { padding: clamp(60px, 10vw, 100px) 0 36px; }
 }
 
+@media (max-width: 480px) {
+  .hero-name { margin-bottom: 48px; }
+  .hero-role-line { flex-wrap: wrap; gap: 6px; }
+  .hero-role-sep { display: none; }
+  .hero-sub { gap: 18px; }
+  .hero-stats { grid-template-columns: repeat(2, auto); gap: 12px 16px; }
+  .about-panel { padding: clamp(28px, 5vw, 44px); }
+  .contact-left,
+  .contact-form-panel { padding: clamp(28px, 5vw, 44px); }
+  .about-links { gap: 8px; }
+  .about-link { padding: 8px 18px; font-size: 12px; }
+  .skill { font-size: 12px; padding: 6px 12px; }
+  .f-input { font-size: 14px; padding: 12px 14px; }
+  .f-btn { padding: 13px 32px; font-size: 13px; }
+  .nav-drawer { padding-top: 80px; }
+  .nav-drawer a { font-size: 18px; }
+  .sh-text { font-size: clamp(28px, 7vw, 36px); }
+  .footer-visual { height: 360px; margin-top: -160px; }
+}
+
 @media (min-width: 901px) {
   .theme-toggle--drawer { display: none; }
 }
@@ -1335,7 +1333,7 @@ html[data-theme="dark"] .fv-orb { opacity: 0.55; }
 html[data-theme="dark"] .pcard-img img:not(.ph),
 html[data-theme="dark"] .about-portrait-img {
   filter: brightness(0.88);
-  transition: filter 0.3s ease;
+  transition: filter 0.5s var(--ease), transform 0.5s var(--ease);
 }
 html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
   filter: brightness(1);
