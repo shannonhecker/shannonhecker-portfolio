@@ -180,10 +180,12 @@
     var fullText = '';
 
     try {
+      /* Send only the last 10 messages to avoid exceeding context limits */
+      var recentHistory = history.slice(-10);
       var res = await fetch(ASK_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history })
+        body: JSON.stringify({ messages: recentHistory })
       });
 
       if (!res.ok) {
@@ -219,7 +221,9 @@
               textNode.innerHTML = formatMarkdown(fullText);
               scrollToBottom();
             }
-          } catch (_) { /* skip malformed chunks */ }
+          } catch (parseErr) {
+            if (parseErr.message && parseErr.message !== 'Unexpected token') throw parseErr;
+          }
         }
       }
 
