@@ -8,5 +8,7 @@ services:
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: ADMIN_TOKEN
+        sync: false
       - key: NODE_ENV
         value: production
