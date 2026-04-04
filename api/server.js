@@ -254,18 +254,24 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
   }
 
+  /* Skip logging for local dev / owner testing */
+  const origin = req.headers.origin || '';
+  const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+  const isOwner = req.headers['x-no-track'] === process.env.ADMIN_TOKEN;
+  const shouldLog = !isLocal && !isOwner;
+
   /* Log the visitor's question */
   const userMsg = messages.filter(m => m.role === 'user').pop();
   const rawIp = cleanIp(req);
   const visitorId = hashIp(rawIp);
-  const geo = await geoLookup(rawIp);
-  const visitor = trackVisitor(visitorId, geo);
+  const geo = shouldLog ? await geoLookup(rawIp) : { city: 'Local', country: 'Dev' };
+  const visitor = shouldLog ? trackVisitor(visitorId, geo) : { isNew: false, visits: 0 };
 
   /* Session = same visitor within a 30-min window */
   const sessionBucket = Math.floor(Date.now() / (30 * 60 * 1000));
   const sessionId = visitorId + '-' + sessionBucket;
 
-  const logEntry = {
+  const logEntry = shouldLog ? {
     timestamp: new Date().toISOString(),
     question: userMsg ? userMsg.content : '',
     messages: messages,
@@ -276,7 +282,7 @@ app.post('/api/chat', async (req, res) => {
     totalVisits: visitor.visits,
     location: geo,
     userAgent: req.headers['user-agent'] || ''
-  };
+  } : null;
 
   /* Set up SSE streaming */
   res.setHeader('Content-Type', 'text/event-stream');
@@ -309,19 +315,23 @@ app.post('/api/chat', async (req, res) => {
     res.write('data: [DONE]\n\n');
     res.end();
 
-    /* Log completed conversation */
-    logEntry.response = fullResponse;
-    logEntry.status = 'ok';
-    logConversation(logEntry);
+    /* Log completed conversation (skip local/owner requests) */
+    if (logEntry) {
+      logEntry.response = fullResponse;
+      logEntry.status = 'ok';
+      logConversation(logEntry);
+    }
 
   } catch (err) {
     console.error('Anthropic API error:', err.message);
     res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
     res.end();
 
-    logEntry.status = 'error';
-    logEntry.error = err.message;
-    logConversation(logEntry);
+    if (logEntry) {
+      logEntry.status = 'error';
+      logEntry.error = err.message;
+      logConversation(logEntry);
+    }
   }
 });
 
