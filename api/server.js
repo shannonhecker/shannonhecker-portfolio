@@ -196,9 +196,106 @@ app.get('/api/health', (req, res) => {
 });
 
 /* ------------------------------------------------------------------ */
-/*  GET /api/conversations — view recent visitor questions            */
+/*  GET /api/conversations — dashboard + JSON API                     */
 /*  Protected with a simple token from env var                        */
 /* ------------------------------------------------------------------ */
+function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function fmtTime(iso) {
+  return new Date(iso).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+function buildDashboard(allConvos, recent, token) {
+  const total = allConvos.length;
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayCount = allConvos.filter(c => c.timestamp.startsWith(todayStr)).length;
+  const errorCount = allConvos.filter(c => c.status === 'error').length;
+  const errorRate = total > 0 ? ((errorCount / total) * 100).toFixed(1) : '0.0';
+  const mobileCount = allConvos.filter(c => c.userAgent.includes('Mobile')).length;
+  const desktopCount = total - mobileCount;
+
+  const cards = recent.length === 0
+    ? '<div class="empty">No conversations yet. Questions from visitors will appear here.</div>'
+    : recent.map(c => {
+        const device = c.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
+        const resp = c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : '';
+        return `<div class="card">
+          <div class="card-top">
+            <span class="time">${fmtTime(c.timestamp)}</span>
+            <span class="badge ${c.status === 'ok' ? 'ok' : 'err'}">${c.status === 'ok' ? 'Success' : 'Error'}</span>
+          </div>
+          <div class="question">${escHtml(c.question)}</div>
+          ${c.status === 'error' ? `<div class="error-msg">${escHtml(c.error)}</div>` : `<div class="response">${escHtml(resp)}</div>`}
+          <div class="meta">
+            <span class="device">${device === 'Mobile' ? '&#128241;' : '&#128187;'} ${device}</span>
+            <span class="msgs">${c.messageCount} msg${c.messageCount !== 1 ? 's' : ''} in thread</span>
+          </div>
+        </div>`;
+      }).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ask Shannon - Conversations</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F5F5;color:#0A0A0A;-webkit-font-smoothing:antialiased}
+header{background:#0A0A0A;color:#fff;padding:24px 32px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:20px;font-weight:600;letter-spacing:-.02em}
+header .sub{font-size:12px;color:#999;display:flex;align-items:center;gap:8px}
+header .dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+main{max-width:960px;margin:0 auto;padding:24px 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.stat{background:#fff;border-radius:16px;padding:22px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.stat-val{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.stat-label{font-size:11px;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.14em;margin-top:6px}
+.stat-val.green{color:#2E7D32}
+.stat-val.red{color:#D32F2F}
+.stat-val.blue{color:#4A90D9}
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.time{font-size:12px;color:#999;font-weight:400}
+.badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.02em}
+.badge.ok{background:rgba(46,125,50,.1);color:#2E7D32}
+.badge.err{background:rgba(211,47,47,.1);color:#D32F2F}
+.question{font-size:15px;font-weight:600;line-height:1.5;margin-bottom:8px;color:#0A0A0A}
+.response{font-size:13px;font-weight:300;line-height:1.7;color:#555;border-left:2px solid #E8E8E8;padding-left:12px}
+.error-msg{font-size:13px;color:#D32F2F;background:rgba(211,47,47,.06);padding:8px 12px;border-radius:8px}
+.meta{display:flex;gap:16px;margin-top:12px;font-size:11px;color:#999}
+.empty{text-align:center;padding:60px 20px;color:#999;font-size:15px;font-weight:300}
+#countdown{font-variant-numeric:tabular-nums}
+@media(max-width:600px){header{padding:18px 16px}main{padding:16px 12px}.stat{padding:16px 18px}.stat-val{font-size:28px}.card{padding:18px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Ask Shannon &mdash; Conversations</h1>
+  </div>
+  <div class="sub"><span class="dot"></span> Auto-refresh <span id="countdown">30</span>s</div>
+</header>
+<main>
+  <div class="stats">
+    <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">Total Conversations</div></div>
+    <div class="stat"><div class="stat-val blue">${todayCount}</div><div class="stat-label">Today</div></div>
+    <div class="stat"><div class="stat-val ${parseFloat(errorRate) > 0 ? 'red' : 'green'}">${errorRate}%</div><div class="stat-label">Error Rate</div></div>
+    <div class="stat"><div class="stat-val">${mobileCount}<small style="font-size:14px;font-weight:400;color:#999"> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
+  </div>
+  <div class="cards">${cards}</div>
+</main>
+<script>
+var s=30;setInterval(function(){s--;document.getElementById('countdown').textContent=s;if(s<=0)location.reload()},1000);
+</script>
+</body>
+</html>`;
+}
+
 app.get('/api/conversations', (req, res) => {
   const token = process.env.ADMIN_TOKEN || 'shannon2026';
   if (req.query.token !== token) {
@@ -207,6 +304,13 @@ app.get('/api/conversations', (req, res) => {
 
   const limit = Math.min(parseInt(req.query.limit) || 50, 200);
   const recent = conversations.slice(-limit).reverse();
+
+  /* Serve HTML dashboard for browsers, JSON for programmatic access */
+  const wantsHtml = req.headers.accept && req.headers.accept.includes('text/html');
+
+  if (wantsHtml) {
+    return res.type('html').send(buildDashboard(conversations, recent, token));
+  }
 
   res.json({
     total: conversations.length,
