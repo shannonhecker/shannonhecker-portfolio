@@ -108,6 +108,43 @@ function logConversation(entry) {
   fs.appendFile(LOG_FILE, line, () => {});
 }
 
+/* Load existing conversations from log file on startup */
+(function loadHistory() {
+  try {
+    if (!fs.existsSync(LOG_FILE)) return;
+    const lines = fs.readFileSync(LOG_FILE, 'utf-8').trim().split('\n');
+    let loaded = 0;
+    for (const line of lines) {
+      if (!line) continue;
+      try {
+        const entry = JSON.parse(line);
+        conversations.push(entry);
+        /* Rebuild visitorMap from historical data */
+        if (entry.visitorId) {
+          const existing = visitorMap.get(entry.visitorId);
+          if (existing) {
+            existing.visits++;
+            existing.lastSeen = entry.timestamp;
+          } else {
+            visitorMap.set(entry.visitorId, {
+              firstSeen: entry.timestamp,
+              lastSeen: entry.timestamp,
+              visits: 1,
+              location: entry.location || { city: '—', country: '—' }
+            });
+          }
+        }
+        loaded++;
+      } catch { /* skip malformed lines */ }
+    }
+    /* Keep only last 500 */
+    while (conversations.length > 500) conversations.shift();
+    if (loaded > 0) console.log(`Loaded ${loaded} conversations from log file`);
+  } catch (err) {
+    console.error('Could not load conversation history:', err.message);
+  }
+})();
+
 /* ------------------------------------------------------------------ */
 /*  SYSTEM PROMPT,Shannon's complete professional profile            */
 /* ------------------------------------------------------------------ */
@@ -278,8 +315,28 @@ app.get('/api/health', (req, res) => {
 /* ------------------------------------------------------------------ */
 function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+function fmtDate(iso) {
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
 function fmtTime(iso) {
-  return new Date(iso).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtFull(iso) {
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return days + 'd ago';
+  return fmtDate(iso);
 }
 
 function buildDashboard(allConvos, recent, token) {
@@ -326,7 +383,8 @@ function buildDashboard(allConvos, recent, token) {
         return `<div class="card">
           <div class="card-top">
             <div class="card-top-left">
-              <span class="time">${fmtTime(c.timestamp)}</span>
+              <span class="date">${fmtDate(c.timestamp)}</span>
+              <span class="time">${fmtTime(c.timestamp)} &middot; ${timeAgo(c.timestamp)}</span>
               ${loc ? '<span class="location">' + escHtml(loc) + '</span>' : ''}
             </div>
             <div class="card-badges">
@@ -360,6 +418,7 @@ function buildDashboard(allConvos, recent, token) {
         return `<div class="vis-row">
           <span class="vis-id">${id}</span>
           <span class="vis-loc">${escHtml(loc)}</span>
+          <span class="vis-date">${fmtDate(v.firstSeen)}</span>
           <span class="vis-count">${v.visits} visit${v.visits !== 1 ? 's' : ''}</span>
         </div>`;
       }).join('');
@@ -467,6 +526,7 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
   font-size: 11px; color: var(--c-light); flex-shrink: 0;
 }
 .vis-loc { font-size: 12px; color: var(--c-mid); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vis-date { font-size: 11px; color: var(--c-light); flex-shrink: 0; }
 .vis-count {
   font-weight: 600; font-size: 12px; color: var(--c-accent);
   background: rgba(74,144,217,0.08); padding: 2px 10px;
@@ -491,7 +551,8 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
 .card-top-left { display: flex; flex-direction: column; gap: 2px; }
 .card-badges { display: flex; gap: 6px; flex-shrink: 0; }
-.time { font-size: 12px; color: var(--c-light); font-weight: 400; }
+.date { font-size: 13px; color: var(--c-ink); font-weight: 500; letter-spacing: -0.01em; }
+.time { font-size: 11px; color: var(--c-light); font-weight: 400; }
 .location { font-size: 11px; color: var(--c-mid); font-weight: 400; }
 .badge {
   font-size: 10px; font-weight: 600; padding: 3px 10px;
