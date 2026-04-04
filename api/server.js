@@ -19,8 +19,30 @@ const Anthropic = require('@anthropic-ai/sdk');
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: true }));
-app.use(express.json());
+const ALLOWED_ORIGINS = [
+  'https://shannonhecker.com',
+  'https://www.shannonhecker.com',
+  'http://localhost:3000',
+  'http://localhost:8000',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:8000',
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
+  }
+}));
+app.use(express.json({ limit: '16kb' }));
+
+const rateLimit = require('express-rate-limit');
+app.use('/api/chat', rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests. Please wait a moment.' },
+}));
 
 /* ------------------------------------------------------------------ */
 /*  CONVERSATION LOG — stores visitor questions in memory + log file  */
@@ -297,9 +319,9 @@ var s=30;setInterval(function(){s--;document.getElementById('countdown').textCon
 }
 
 app.get('/api/conversations', (req, res) => {
-  const token = process.env.ADMIN_TOKEN || 'shannon2026';
-  if (req.query.token !== token) {
-    return res.status(401).json({ error: 'Unauthorized. Add ?token=YOUR_TOKEN' });
+  const token = process.env.ADMIN_TOKEN;
+  if (!token || req.query.token !== token) {
+    return res.status(401).json({ error: 'Unauthorized. Set ADMIN_TOKEN env var and pass ?token=YOUR_TOKEN' });
   }
 
   const limit = Math.min(parseInt(req.query.limit) || 50, 200);

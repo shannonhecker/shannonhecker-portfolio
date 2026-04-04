@@ -15,6 +15,15 @@
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>About me · Shannon Hecker · Senior Product Designer</title>
   <meta name="description" content="Senior Product Designer in London. 10+ years in fintech: trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shannonhecker.com/about.html" />
+  <meta property="og:title" content="About me · Shannon Hecker · Senior Product Designer" />
+  <meta property="og:description" content="Senior Product Designer in London. 10+ years in fintech: trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan." />
+  <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -38,7 +47,7 @@
       --c-panel:    #F5F5F5;
       --c-ink:      #0A0A0A;
       --c-mid:      #555555;
-      --c-light:    #999999;
+      --c-light:    #6F6F6F;
       --c-ghost:    #CCCCCC;
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
@@ -1590,15 +1599,21 @@
       let dpr = window.devicePixelRatio || 1;
       let t0 = null;
       let waveVisible = true;
+      let animId = null;
 
       const waveObs = new IntersectionObserver(([entry]) => {
         waveVisible = entry.isIntersecting;
-        if (waveVisible) requestAnimationFrame(draw);
+        if (waveVisible) {
+          if (!animId) animId = requestAnimationFrame(draw);
+        } else if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
       }, { threshold: 0 });
       waveObs.observe(canvas);
 
       function draw(ts) {
-        if (!waveVisible) return;
+        if (!waveVisible) { animId = null; return; }
         if (!t0) t0 = ts;
         const el = ts - t0;
         const W = canvas.width / dpr;
@@ -1631,9 +1646,9 @@
         }
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         if (!isDark) edgeFade(W, H);
-        requestAnimationFrame(draw);
+        animId = requestAnimationFrame(draw);
       }
-      requestAnimationFrame(draw);
+      animId = requestAnimationFrame(draw);
     })();
 
     /* ── Hero text parallax on scroll (same behaviour as index) ── */
