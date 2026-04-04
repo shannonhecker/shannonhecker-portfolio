@@ -84,7 +84,7 @@ html[data-theme="dark"] {
   /* Text (M2: 87% / 60% / 38% white) */
   --c-ink:      rgba(255,255,255,0.87);     /* High emphasis */
   --c-mid:      rgba(255,255,255,0.60);     /* Medium emphasis */
-  --c-light:    rgba(255,255,255,0.38);     /* Disabled / hint */
+  --c-light:    rgba(255,255,255,0.53);     /* Hint — meets 4.5:1 on #121212 */
   --c-ghost:    rgba(255,255,255,0.12);     /* Ghost / divider */
   --c-ink-pure: #FFFFFF;
 
@@ -309,14 +309,14 @@ html[data-theme="dark"] .experience {
 html[data-theme="dark"] .f-input {
   background: var(--c-surface) !important;
   color: rgba(255,255,255,0.87) !important;
-  border-color: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.30) !important; /* 3:1+ against surface */
 }
 html[data-theme="dark"] .f-input:focus {
   background: var(--c-panel) !important;
   border-color: rgba(255,255,255,0.60) !important;
 }
 html[data-theme="dark"] .f-input::placeholder {
-  color: rgba(255,255,255,0.38);
+  color: rgba(255,255,255,0.53);
 }
 html[data-theme="dark"] .f-submit,
 html[data-theme="dark"] .f-btn {
@@ -500,7 +500,7 @@ html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
     --c-panel:    #211F26;
     --c-ink:      rgba(255,255,255,0.87);
     --c-mid:      rgba(255,255,255,0.60);
-    --c-light:    rgba(255,255,255,0.38);
+    --c-light:    rgba(255,255,255,0.53);
     --c-ghost:    rgba(255,255,255,0.12);
     --c-rule:     rgba(255,255,255,0.12);
     --c-rule-dk:  rgba(255,255,255,0.20);

@@ -47,6 +47,7 @@
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
 .skip-link:focus{top:16px;}
 :focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
     /* ============================================================
        DESIGN TOKENS
        ============================================================ */
@@ -57,7 +58,7 @@
       --c-panel:    #F5F5F5;
       --c-ink:      #0A0A0A;
       --c-mid:      #555555;
-      --c-light:    #999999;
+      --c-light:    #6F6F6F;
       --c-ghost:    #CCCCCC;
       --c-rule:     #E8E8E8;
       --c-rule-dk:  #C8C8C8;
@@ -606,14 +607,14 @@
     .hero-scroll-label {
       font-size:10px; font-weight:500;
       letter-spacing:.18em; text-transform:uppercase;
-      color:var(--c-ghost);
+      color:var(--c-light);
     }
     .hero-scroll-chevron {
       display: flex; flex-direction: column; align-items: center; gap: 3px;
     }
     .hero-scroll-chevron span {
       display: block; width: 10px; height: 1px;
-      background: var(--c-ghost); border-radius: 1px;
+      background: var(--c-light); border-radius: 1px;
     }
     .hero-scroll-chevron span:first-child  { transform: rotate(40deg) translateX(3px); }
     .hero-scroll-chevron span:last-child   { transform: rotate(-40deg) translateX(-3px); }
@@ -663,7 +664,7 @@
       outline: 2px solid var(--c-ink);
       outline-offset: 3px;
     }
-    .pcard-article { display: contents; }
+    .pcard-article { display: block; }
     .pcard {
       display: block;
       position: relative;
@@ -752,7 +753,8 @@
         rgba(0,0,0,0.55) 100%);
       border-radius: inherit;
     }
-    .pcard:hover .pcard-body { opacity: 1; }
+    .pcard:hover .pcard-body,
+    .pcard:focus-within .pcard-body { opacity: 1; }
     .pcard-title {
       position: relative;
       font-family: var(--font-display);
@@ -885,7 +887,7 @@
       color: var(--c-light);
       margin-bottom: 16px;
     }
-    .skills-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .skills-list { display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
     .skill {
       font-size: 13px;
       font-weight: 300;
@@ -962,7 +964,7 @@
       font-weight: 300;
       color: var(--c-ink);
       background: var(--c-panel);
-      border: 1px solid var(--c-rule);
+      border: 1px solid #898989;
       border-radius: var(--r-input);
       padding: 14px 18px;
       outline: none;
@@ -972,7 +974,7 @@
                   background var(--tb) var(--ease);
     }
     .f-input:focus { border-color:var(--c-ink); background:var(--c-bg, #fff); }
-    .f-input::placeholder { color:var(--c-ghost); font-weight:300; }
+    .f-input::placeholder { color:var(--c-light); font-weight:300; }
     .f-textarea { resize:vertical; min-height:120px; }
     .f-btn {
       align-self: flex-start;
@@ -1215,6 +1217,9 @@
     .hero-scroll {
       opacity: 0;
       transition: opacity 0.6s ease 1.2s;
+      background: none;
+      border: none;
+      font-family: var(--font);
     }
     body.loaded .hero-scroll { opacity: 1; }
 
@@ -1603,7 +1608,7 @@
 
       <div class="nav-right">
         <a href="assets/CV_ShannonH.pdf"
-         class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+         class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗<span class="sr-only"> (opens in new tab)</span></a>
         <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -1617,13 +1622,13 @@
   </nav>
 
   <!-- Mobile drawer -->
-  <div class="nav-drawer" id="drawer" aria-hidden="true">
+  <div class="nav-drawer" id="drawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
     <a href="about.html">About</a>
     <a href="work.html">Work</a>
     <a href="#contact" onclick="closeDrawer()">Contact</a>
     <a href="assets/CV_ShannonH.pdf"
-       target="_blank" rel="noopener noreferrer">Resume ↗</a>
-  
+       target="_blank" rel="noopener noreferrer">Resume ↗<span class="sr-only"> (opens in new tab)</span></a>
+
     <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">
       <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -1723,16 +1728,16 @@
 
     </div>
 
-    <div class="hero-scroll" aria-hidden="true" onclick="window.scrollTo({top:window.innerHeight,behavior:'smooth'})">
-      <span class="hero-scroll-label">Scroll</span>
-      <span class="hero-scroll-chevron"><span></span><span></span></span>
-    </div>
+    <button type="button" class="hero-scroll" aria-label="Scroll down to content" onclick="window.scrollTo({top:window.innerHeight,behavior:'smooth'})">
+      <span class="hero-scroll-label" aria-hidden="true">Scroll</span>
+      <span class="hero-scroll-chevron" aria-hidden="true"><span></span><span></span></span>
+    </button>
   </section>
 
   <!-- ============================================================
        FEATURED WORK
        ============================================================ -->
-  <section class="work" id="work">
+  <section class="work" id="work" aria-labelledby="work-heading">
     <div class="wrap">
 
       <div class="sh rv">
@@ -1743,7 +1748,7 @@
               <source srcset="assets/photo-avatar.webp" type="image/webp">
               <img src="assets/photo-avatar.png" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" fetchpriority="high" />
             </picture>
-            <span class="sh-text">featured work<span class="sh-period">.</span></span>
+            <h2 id="work-heading" class="sh-text">featured work<span class="sh-period">.</span></h2>
           </div>
         </div>
       </div>
@@ -1802,7 +1807,7 @@
         <div class="bc-4 rv" data-d="3">
           <article class="pcard-article"><a href="project-analytics.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/Analytics%201.webp"
+              <img src="assets/analytics-1.webp"
                    alt="Fusion Analytics Dashboard" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1826,7 +1831,7 @@
         <div class="bc-4 rv" data-d="4">
           <article class="pcard-article"><a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/System%201.webp"
+              <img src="assets/system-1.webp"
                    alt="Fusion Design System" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1850,7 +1855,7 @@
         <div class="bc-4 rv" data-d="1">
           <article class="pcard-article"><a href="project-data-solution.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/Data%20Managment%201.webp"
+              <img src="assets/data-managment-1.webp"
                    alt="Fusion Data Solution" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1871,7 +1876,7 @@
         <div class="bc-4 rv" data-d="2">
           <article class="pcard-article"><a href="project-ui-toolkit.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/UI%20Toolkit%201.webp"
+              <img src="assets/ui-toolkit-1.webp"
                    alt="UI Toolkit component library" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1892,7 +1897,7 @@
         <div class="bc-4 rv" data-d="3">
           <article class="pcard-article"><a href="project-corporate-action.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/Corporate%20Action%20Manager%201.webp"
+              <img src="assets/corporate-action-manager-1.webp"
                    alt="Corporate Action Manager" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1913,7 +1918,7 @@
         <div class="bc-4 rv" data-d="4">
           <article class="pcard-article"><a href="project-research.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/Research%201.webp"
+              <img src="assets/research-1.webp"
                    alt="JPMM Research" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1934,7 +1939,7 @@
         <div class="bc-4 rv" data-d="1">
           <article class="pcard-article"><a href="project-deal-model.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/DealModel%201.webp"
+              <img src="assets/dealmodel-1.webp"
                    alt="Global Custody Deal Model" loading="lazy" decoding="async"
                    width="800" height="450"
                    onerror="this.src=this.src.replace('.webp','.png');this.onerror=null;" />
@@ -1970,13 +1975,13 @@
   <!-- ============================================================
        ABOUT
        ============================================================ -->
-  <section class="about" id="about">
+  <section class="about" id="about" aria-labelledby="about-heading">
     <div class="wrap">
 
       <div class="sh rv">
         <span class="sh-eyebrow">Who I Am</span>
         <div class="sh-row">
-          <span class="sh-text">about me<span class="sh-period">.</span></span>
+          <h2 id="about-heading" class="sh-text">about me<span class="sh-period">.</span></h2>
         </div>
       </div>
 
@@ -1988,9 +1993,9 @@
           <p class="about-body">At <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-intensive dashboards</strong> and complex financial tools used by thousands, with <strong>WCAG accessibility</strong> and scalability built into every decision.</p>
           <p class="about-body">Now I'm bringing <strong>AI and LLM tooling</strong> into the design process, building faster, smarter interfaces for high-stakes trading environments.</p>
           <div class="about-links">
-            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in new tab)</span></a>
             <a href="/cdn-cgi/l/email-protection#f2819a939c9c9d9c9a9791999780919a979cb2959f939b9edc919d9f" class="about-link">Email ↗</a>
-            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Resume ↗<span class="sr-only"> (opens in new tab)</span></a>
           </div>
         </div>
 
@@ -2003,24 +2008,24 @@
           </div>
           <div class="about-skills-panel rv" data-d="2">
             <div class="skills-label">Tools & Methods</div>
-            <div class="skills-list">
-              <span class="skill">Design Systems</span>
-              <span class="skill">Trading Platform UI/UX</span>
-              <span class="skill">AI Design & LLM Workflows</span>
-              <span class="skill">Figma</span>
-              <span class="skill">WCAG 2.1 AA</span>
-              <span class="skill">Data Visualisation</span>
-              <span class="skill">Design QA & Dev Handoff</span>
-              <span class="skill">Stakeholder Communication</span>
-              <span class="skill">Agile & DesignOps</span>
-              <span class="skill">Claude</span>
-              <span class="skill">Google AI Studio</span>
-              <span class="skill">Google Stitch AI</span>
-              <span class="skill">Cursor</span>
-              <span class="skill">Data Solutions</span>
-              <span class="skill">Framer</span>
-              <span class="skill">Prototype</span>
-            </div>
+            <ul class="skills-list" role="list">
+              <li class="skill">Design Systems</li>
+              <li class="skill">Trading Platform UI/UX</li>
+              <li class="skill">AI Design & LLM Workflows</li>
+              <li class="skill">Figma</li>
+              <li class="skill">WCAG 2.1 AA</li>
+              <li class="skill">Data Visualisation</li>
+              <li class="skill">Design QA & Dev Handoff</li>
+              <li class="skill">Stakeholder Communication</li>
+              <li class="skill">Agile & DesignOps</li>
+              <li class="skill">Claude</li>
+              <li class="skill">Google AI Studio</li>
+              <li class="skill">Google Stitch AI</li>
+              <li class="skill">Cursor</li>
+              <li class="skill">Data Solutions</li>
+              <li class="skill">Framer</li>
+              <li class="skill">Prototype</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -2033,13 +2038,13 @@
   <!-- ============================================================
        CONTACT
        ============================================================ -->
-  <section class="contact" id="contact">
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
     <div class="wrap">
 
       <div class="ask-bento">
         <!-- Left: heading -->
         <div class="ask-left rv">
-          <h2 class="contact-heading">Let's<br class="ask-br"/>Talk.</h2>
+          <h2 id="contact-heading" class="contact-heading">Let's<br class="ask-br"/>Talk.</h2>
         </div>
 
         <!-- Right: chat box with glow -->
@@ -2047,8 +2052,9 @@
           <div class="ask-glow-wrap">
             <div class="ask-panel">
               <div class="ask-chat">
-                <div class="ask-messages" id="ask-messages"></div>
+                <div class="ask-messages" id="ask-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
                 <form class="ask-form" id="ask-form" autocomplete="off">
+                  <label for="ask-input" class="sr-only">Ask Shannon a question</label>
                   <textarea class="ask-input" id="ask-input" rows="2" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to."></textarea>
                 </form>
                 <div class="ask-bottom-bar">
@@ -2101,9 +2107,10 @@
         <span class="footer-role">Senior Product Designer</span>
         <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener noreferrer">
           Linkedin
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
             <path d="M1.5 8.5L8.5 1.5M8.5 1.5H4.5M8.5 1.5V5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
+          <span class="sr-only"> (opens in new tab)</span>
         </a>
       </div>
     </div>
@@ -2204,7 +2211,34 @@
       document.body.style.width='';
       document.body.style.overflow='';
       window.scrollTo(0,parseInt(scrollY||'0'));
+      burgerBtn.focus();
     }
+
+    /* Escape key closes drawer */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) { closeDrawer(); }
+    });
+
+    /* Focus trap inside open drawer */
+    drawerEl.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !isOpen) return;
+      const focusable = drawerEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+
+    /* Move focus into drawer when opened */
+    burgerBtn.addEventListener('click', () => {
+      if (isOpen) {
+        const firstLink = drawerEl.querySelector('a[href], button');
+        if (firstLink) setTimeout(() => firstLink.focus(), 100);
+      }
+    });
 
     /* ── 5. Smooth anchor scroll ─────────────────────────── */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
