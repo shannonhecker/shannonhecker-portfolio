@@ -254,11 +254,14 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
   }
 
-  /* Skip logging for local dev / owner testing */
+  /* Skip logging for local dev / owner testing / blocked IPs */
+  const BLOCKED_IPS = ['82.17.133.31', '192.168.0.100'];
   const origin = req.headers.origin || '';
   const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
   const isOwner = req.headers['x-no-track'] === process.env.ADMIN_TOKEN;
-  const shouldLog = !isLocal && !isOwner;
+  const rawIpCheck = cleanIp(req);
+  const isBlocked = BLOCKED_IPS.includes(rawIpCheck);
+  const shouldLog = !isLocal && !isOwner && !isBlocked;
 
   /* Log the visitor's question */
   const userMsg = messages.filter(m => m.role === 'user').pop();
