@@ -475,29 +475,31 @@ header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
 .theme-btn:hover { background: rgba(255,255,255,0.1); }
 main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); }
 
-/* Stats grid */
-.stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px; margin-bottom: 24px;
-}
-.stat {
+/* Summary card */
+.summary {
   background: var(--c-surface); border: 1px solid var(--c-rule);
-  border-radius: var(--r-card); padding: 20px 22px; box-shadow: var(--sh-panel);
-  transition: box-shadow 0.2s var(--ease);
+  border-radius: var(--r-card); padding: 22px 28px;
+  box-shadow: var(--sh-panel); margin-bottom: 24px;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0;
 }
-.stat:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.summary-item {
+  flex: 1 1 0; min-width: 100px; padding: 6px 16px;
+  border-right: 1px solid var(--c-rule); text-align: center;
+}
+.summary-item:last-child { border-right: none; }
 .stat-val {
-  font-size: 32px; font-weight: 700; letter-spacing: -0.03em;
+  font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
   line-height: 1.1; font-variant-numeric: tabular-nums;
 }
 .stat-label {
-  font-size: 10px; font-weight: 600; color: var(--c-light);
-  text-transform: uppercase; letter-spacing: 0.18em; margin-top: 6px;
+  font-size: 9px; font-weight: 600; color: var(--c-light);
+  text-transform: uppercase; letter-spacing: 0.18em; margin-top: 4px;
 }
 .stat-val.green { color: var(--c-success); }
 .stat-val.red { color: var(--c-error); }
 .stat-val.blue { color: var(--c-accent); }
-.stat-val small { font-size: 14px; font-weight: 400; color: var(--c-light); }
+.stat-val small { font-size: 13px; font-weight: 400; color: var(--c-light); }
 
 /* Side panels row */
 .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
@@ -611,8 +613,9 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
 @media (max-width: 700px) {
   header { padding: 16px; }
   main { padding: 16px 12px; }
-  .stat { padding: 16px 18px; }
-  .stat-val { font-size: 26px; }
+  .summary { padding: 16px; gap: 0; }
+  .summary-item { min-width: 70px; padding: 6px 8px; }
+  .stat-val { font-size: 22px; }
   .card { padding: 16px 18px; }
   .panels { grid-template-columns: 1fr; }
   .card-top { flex-direction: column; gap: 8px; }
@@ -634,14 +637,14 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   </div>
 </header>
 <main>
-  <div class="stats">
-    <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">Conversations</div></div>
-    <div class="stat"><div class="stat-val blue">${todayCount}</div><div class="stat-label">Today</div></div>
-    <div class="stat"><div class="stat-val blue">${uniqueVisitors}</div><div class="stat-label">Unique Visitors</div></div>
-    <div class="stat"><div class="stat-val green">${newCount}</div><div class="stat-label">New Visitors</div></div>
-    <div class="stat"><div class="stat-val" style="color:#a855f7">${returningCount}</div><div class="stat-label">Returning</div></div>
-    <div class="stat"><div class="stat-val ${parseFloat(errorRate) > 0 ? 'red' : 'green'}">${errorRate}%</div><div class="stat-label">Error Rate</div></div>
-    <div class="stat"><div class="stat-val">${mobileCount}<small> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
+  <div class="summary">
+    <div class="summary-item"><div class="stat-val">${total}</div><div class="stat-label">Conversations</div></div>
+    <div class="summary-item"><div class="stat-val blue">${todayCount}</div><div class="stat-label">Today</div></div>
+    <div class="summary-item"><div class="stat-val blue">${uniqueVisitors}</div><div class="stat-label">Unique</div></div>
+    <div class="summary-item"><div class="stat-val green">${newCount}</div><div class="stat-label">New</div></div>
+    <div class="summary-item"><div class="stat-val" style="color:#a855f7">${returningCount}</div><div class="stat-label">Returning</div></div>
+    <div class="summary-item"><div class="stat-val ${parseFloat(errorRate) > 0 ? 'red' : 'green'}">${errorRate}%</div><div class="stat-label">Error Rate</div></div>
+    <div class="summary-item"><div class="stat-val">${mobileCount}<small> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
   </div>
 
   <div class="panels">
