@@ -137,6 +137,12 @@ html[data-theme="dark"] .nav-links a:hover {
   color: #121212 !important;
 }
 
+/* Active tab + hover: same as other nav links (light bar behind scrolled .nav.s overrode :hover color) */
+html[data-theme="dark"] .nav.s .nav-links a[aria-current="page"]:hover {
+  background: rgba(255,255,255,0.87);
+  color: #121212 !important;
+}
+
 html[data-theme="dark"] .nav-cta:hover,
 html[data-theme="dark"] .nav.s .nav-cta:hover {
   background: rgba(255,255,255,0.87);

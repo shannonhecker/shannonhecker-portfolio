@@ -213,6 +213,11 @@
     .nav.s .nav-links a { color:var(--c-nav); }
     .nav.s .nav-links a:hover { background: var(--c-hover); color: #fff; }
     .nav.s .nav-links a[aria-current="page"] { color: var(--c-ink); }
+    /* Beat specificity above so active tab keeps white label on dark hover bg (same as other links) */
+    .nav.s .nav-links a[aria-current="page"]:hover {
+      background: var(--c-hover);
+      color: #fff;
+    }
 
     .nav-cta {
       font-size: 13px;
