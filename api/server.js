@@ -578,34 +578,36 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
 .empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
 #countdown { font-variant-numeric: tabular-nums; }
 
-/* Filter toolbar */
+/* Filter toolbar — sticky below header */
 .toolbar {
+  position: sticky; top: 0; z-index: 100;
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-  margin-bottom: 16px; padding: 14px 18px;
-  background: var(--c-surface); border: 1px solid var(--c-rule);
-  border-radius: var(--r-card); box-shadow: var(--sh-panel);
+  padding: 10px 32px;
+  background: var(--c-bg); border-bottom: 1px solid var(--c-rule);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
+html[data-theme="dark"] .toolbar { background: rgba(18,18,18,0.92); }
 .toolbar label {
   font-size: 10px; font-weight: 600; color: var(--c-light);
   text-transform: uppercase; letter-spacing: 0.14em;
 }
 .toolbar select, .toolbar input[type="date"] {
-  font-family: var(--font); font-size: 13px; font-weight: 400;
+  font-family: var(--font); font-size: 12px; font-weight: 400;
   color: var(--c-ink); background: var(--c-panel); border: 1px solid var(--c-rule);
-  border-radius: 8px; padding: 7px 12px; outline: none;
+  border-radius: 6px; padding: 6px 10px; outline: none;
   transition: border-color 0.2s var(--ease);
   -webkit-appearance: none; appearance: none;
 }
-.toolbar select { padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236F6F6F'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+.toolbar select { padding-right: 26px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236F6F6F'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
 html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.53)'/%3E%3C/svg%3E"); }
 .toolbar select:focus, .toolbar input[type="date"]:focus { border-color: var(--c-accent); }
-.filter-group { display: flex; align-items: center; gap: 6px; }
-.filter-sep { width: 1px; height: 24px; background: var(--c-rule); flex-shrink: 0; }
-.result-count { font-size: 12px; color: var(--c-light); margin-left: auto; font-variant-numeric: tabular-nums; }
+.filter-group { display: flex; align-items: center; gap: 5px; }
+.filter-sep { width: 1px; height: 20px; background: var(--c-rule); flex-shrink: 0; }
+.result-count { font-size: 11px; color: var(--c-light); margin-left: auto; font-variant-numeric: tabular-nums; }
 .btn-reset {
   font-family: var(--font); font-size: 11px; font-weight: 500;
   color: var(--c-accent); background: none; border: 1px solid var(--c-rule);
-  border-radius: var(--r-pill); padding: 5px 14px; cursor: pointer;
+  border-radius: var(--r-pill); padding: 4px 12px; cursor: pointer;
   transition: background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 .btn-reset:hover { background: var(--c-accent); color: #fff; border-color: var(--c-accent); }
@@ -620,10 +622,11 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   .panels { grid-template-columns: 1fr; }
   .card-top { flex-direction: column; gap: 8px; }
   .card-badges { align-self: flex-start; }
-  .toolbar { padding: 12px 14px; gap: 8px; }
+  .toolbar { padding: 10px 12px; gap: 6px; }
   .filter-sep { display: none; }
   .filter-group { flex: 1 1 auto; min-width: 0; }
-  .toolbar select, .toolbar input[type="date"] { flex: 1; min-width: 0; font-size: 12px; padding: 6px 10px; }
+  .toolbar label { font-size: 9px; }
+  .toolbar select, .toolbar input[type="date"] { flex: 1; min-width: 0; font-size: 11px; padding: 5px 8px; }
   .result-count { width: 100%; text-align: center; }
 }
 </style>
@@ -636,6 +639,56 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
     <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-btn">&#9790;</button>
   </div>
 </header>
+<div class="toolbar">
+  <div class="filter-group">
+    <label for="f-date">Date</label>
+    <select id="f-date">
+      <option value="all">All time</option>
+      <option value="today">Today</option>
+      <option value="7d">Last 7 days</option>
+      <option value="30d">Last 30 days</option>
+      <option value="custom">Custom range</option>
+    </select>
+  </div>
+  <input type="date" id="f-from" style="display:none" title="From date">
+  <input type="date" id="f-to" style="display:none" title="To date">
+  <span class="filter-sep"></span>
+  <div class="filter-group">
+    <label for="f-loc">Location</label>
+    <select id="f-loc">
+      <option value="all">All locations</option>
+      ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
+    </select>
+  </div>
+  <span class="filter-sep"></span>
+  <div class="filter-group">
+    <label for="f-type">Visitor</label>
+    <select id="f-type">
+      <option value="all">All</option>
+      <option value="new">New</option>
+      <option value="returning">Returning</option>
+    </select>
+  </div>
+  <span class="filter-sep"></span>
+  <div class="filter-group">
+    <label for="f-status">Status</label>
+    <select id="f-status">
+      <option value="all">All</option>
+      <option value="ok">Success</option>
+      <option value="error">Errors</option>
+    </select>
+  </div>
+  <span class="filter-sep"></span>
+  <div class="filter-group">
+    <label for="f-sort">Sort</label>
+    <select id="f-sort">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+    </select>
+  </div>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  <span class="result-count" id="result-count"></span>
+</div>
 <main>
   <div class="summary">
     <div class="summary-item"><div class="stat-val">${total}</div><div class="stat-label">Conversations</div></div>
@@ -659,58 +712,6 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   </div>
 
   <div class="section-label">Recent Conversations</div>
-
-  <div class="toolbar">
-    <div class="filter-group">
-      <label for="f-date">Date</label>
-      <select id="f-date">
-        <option value="all">All time</option>
-        <option value="today">Today</option>
-        <option value="7d">Last 7 days</option>
-        <option value="30d">Last 30 days</option>
-        <option value="custom">Custom range</option>
-      </select>
-    </div>
-    <input type="date" id="f-from" style="display:none" title="From date">
-    <input type="date" id="f-to" style="display:none" title="To date">
-    <span class="filter-sep"></span>
-    <div class="filter-group">
-      <label for="f-loc">Location</label>
-      <select id="f-loc">
-        <option value="all">All locations</option>
-        ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
-      </select>
-    </div>
-    <span class="filter-sep"></span>
-    <div class="filter-group">
-      <label for="f-type">Visitor</label>
-      <select id="f-type">
-        <option value="all">All</option>
-        <option value="new">New only</option>
-        <option value="returning">Returning only</option>
-      </select>
-    </div>
-    <span class="filter-sep"></span>
-    <div class="filter-group">
-      <label for="f-status">Status</label>
-      <select id="f-status">
-        <option value="all">All</option>
-        <option value="ok">Success</option>
-        <option value="error">Errors</option>
-      </select>
-    </div>
-    <span class="filter-sep"></span>
-    <div class="filter-group">
-      <label for="f-sort">Sort</label>
-      <select id="f-sort">
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-      </select>
-    </div>
-    <button class="btn-reset" onclick="resetFilters()">Reset</button>
-    <span class="result-count" id="result-count"></span>
-  </div>
-
   <div class="cards" id="cards-container">${cards}</div>
 </main>
 <script>
