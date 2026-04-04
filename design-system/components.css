@@ -115,17 +115,19 @@
 }
 
 .nav-inner {
+  position: relative;
   max-width: var(--mw);
   margin: 0 auto;
   padding: 0 var(--pad);
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 /* Logo mark — SVG monogram, rotates on hover */
 .nav-logo {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   color: var(--c-ink);
@@ -137,12 +139,17 @@
   transform: rotate(45deg);
 }
 
-/* Nav links — horizontal, pill hover */
+/* Nav links — centered in the bar (logo left, actions right) */
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  white-space: nowrap;
 }
 .nav-links a {
   font-size: 13px;
@@ -179,6 +186,9 @@
 
 /* Nav right group (CTA + theme toggle) */
 .nav-right {
+  margin-left: auto;
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -187,6 +197,8 @@
 
 /* Mobile burger — 3-line icon, animates to X */
 .nav-burger {
+  position: relative;
+  z-index: 2;
   display: none;
   flex-direction: column;
   gap: 5px;
