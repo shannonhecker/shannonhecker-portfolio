@@ -47,17 +47,63 @@ app.use('/api/chat', rateLimit({
 /* ------------------------------------------------------------------ */
 /*  CONVERSATION LOG — stores visitor questions in memory + log file  */
 /* ------------------------------------------------------------------ */
-const fs   = require('fs');
-const path = require('path');
+const fs     = require('fs');
+const path   = require('path');
+const crypto = require('crypto');
+const https  = require('https');
 
 const LOG_FILE = path.join(__dirname, 'conversations.log');
-const conversations = []; /* in-memory for the /api/conversations endpoint */
+const conversations = [];
+const visitorMap = new Map(); /* visitorId → { firstSeen, visits, location } */
+
+function hashIp(ip) {
+  return crypto.createHash('sha256').update(ip + (process.env.IP_SALT || 'shannon')).digest('hex').slice(0, 12);
+}
+
+function cleanIp(req) {
+  const raw = req.headers['x-forwarded-for'] || req.ip || '';
+  return raw.split(',')[0].trim().replace('::ffff:', '') || 'unknown';
+}
+
+function geoLookup(ip) {
+  if (!ip || ip === 'unknown' || ip === '127.0.0.1' || ip === '::1') {
+    return Promise.resolve({ city: 'Local', country: 'Dev' });
+  }
+  return new Promise(resolve => {
+    const req = https.get(`https://ipapi.co/${ip}/json/`, { timeout: 3000 }, res => {
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const j = JSON.parse(data);
+          resolve({ city: j.city || '—', country: j.country_name || '—', region: j.region || '' });
+        } catch { resolve({ city: '—', country: '—' }); }
+      });
+    });
+    req.on('error', () => resolve({ city: '—', country: '—' }));
+    req.on('timeout', () => { req.destroy(); resolve({ city: '—', country: '—' }); });
+  });
+}
+
+function trackVisitor(visitorId, geo) {
+  const existing = visitorMap.get(visitorId);
+  if (existing) {
+    existing.visits++;
+    existing.lastSeen = new Date().toISOString();
+    return { isNew: false, visits: existing.visits };
+  }
+  visitorMap.set(visitorId, {
+    firstSeen: new Date().toISOString(),
+    lastSeen: new Date().toISOString(),
+    visits: 1,
+    location: geo
+  });
+  return { isNew: true, visits: 1 };
+}
 
 function logConversation(entry) {
   conversations.push(entry);
-  /* Keep only last 500 in memory */
   if (conversations.length > 500) conversations.shift();
-  /* Append to log file */
   const line = JSON.stringify(entry) + '\n';
   fs.appendFile(LOG_FILE, line, () => {});
 }
@@ -158,11 +204,19 @@ app.post('/api/chat', async (req, res) => {
 
   /* Log the visitor's question */
   const userMsg = messages.filter(m => m.role === 'user').pop();
+  const rawIp = cleanIp(req);
+  const visitorId = hashIp(rawIp);
+  const geo = await geoLookup(rawIp);
+  const visitor = trackVisitor(visitorId, geo);
+
   const logEntry = {
     timestamp: new Date().toISOString(),
     question: userMsg ? userMsg.content : '',
     messageCount: messages.length,
-    ip: req.headers['x-forwarded-for'] || req.ip || 'unknown',
+    visitorId,
+    isNew: visitor.isNew,
+    totalVisits: visitor.visits,
+    location: geo,
     userAgent: req.headers['user-agent'] || ''
   };
 
@@ -234,25 +288,79 @@ function buildDashboard(allConvos, recent, token) {
   const todayCount = allConvos.filter(c => c.timestamp.startsWith(todayStr)).length;
   const errorCount = allConvos.filter(c => c.status === 'error').length;
   const errorRate = total > 0 ? ((errorCount / total) * 100).toFixed(1) : '0.0';
-  const mobileCount = allConvos.filter(c => c.userAgent.includes('Mobile')).length;
+  const mobileCount = allConvos.filter(c => (c.userAgent || '').includes('Mobile')).length;
   const desktopCount = total - mobileCount;
+
+  /* Visitor analytics */
+  const uniqueVisitors = new Set(allConvos.map(c => c.visitorId).filter(Boolean)).size;
+  const newCount = allConvos.filter(c => c.isNew).length;
+  const returningCount = total - newCount;
+
+  /* Top locations */
+  const locationCounts = {};
+  allConvos.forEach(c => {
+    if (c.location && c.location.country && c.location.country !== '—') {
+      const key = c.location.city && c.location.city !== '—'
+        ? c.location.city + ', ' + c.location.country
+        : c.location.country;
+      locationCounts[key] = (locationCounts[key] || 0) + 1;
+    }
+  });
+  const topLocations = Object.entries(locationCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6);
+
+  /* Top returning visitors */
+  const topVisitors = Array.from(visitorMap.entries())
+    .sort((a, b) => b[1].visits - a[1].visits)
+    .slice(0, 8);
 
   const cards = recent.length === 0
     ? '<div class="empty">No conversations yet. Questions from visitors will appear here.</div>'
     : recent.map(c => {
-        const device = c.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
+        const device = (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop';
         const resp = c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : '';
+        const loc = c.location && c.location.city !== '—' ? c.location.city + ', ' + c.location.country : '';
+        const visitorLabel = c.isNew ? 'New' : 'Returning';
+        const visitorClass = c.isNew ? 'badge-new' : 'badge-ret';
         return `<div class="card">
           <div class="card-top">
-            <span class="time">${fmtTime(c.timestamp)}</span>
-            <span class="badge ${c.status === 'ok' ? 'ok' : 'err'}">${c.status === 'ok' ? 'Success' : 'Error'}</span>
+            <div class="card-top-left">
+              <span class="time">${fmtTime(c.timestamp)}</span>
+              ${loc ? '<span class="location">' + escHtml(loc) + '</span>' : ''}
+            </div>
+            <div class="card-badges">
+              ${c.visitorId ? '<span class="badge ' + visitorClass + '">' + visitorLabel + '</span>' : ''}
+              <span class="badge ${c.status === 'ok' ? 'badge-ok' : 'badge-err'}">${c.status === 'ok' ? 'Success' : 'Error'}</span>
+            </div>
           </div>
           <div class="question">${escHtml(c.question)}</div>
-          ${c.status === 'error' ? `<div class="error-msg">${escHtml(c.error)}</div>` : `<div class="response">${escHtml(resp)}</div>`}
+          ${c.status === 'error' ? '<div class="error-msg">' + escHtml(c.error) + '</div>' : '<div class="response">' + escHtml(resp) + '</div>'}
           <div class="meta">
-            <span class="device">${device === 'Mobile' ? '&#128241;' : '&#128187;'} ${device}</span>
-            <span class="msgs">${c.messageCount} msg${c.messageCount !== 1 ? 's' : ''} in thread</span>
+            <span>${device === 'Mobile' ? '&#128241;' : '&#128187;'} ${device}</span>
+            <span>${c.messageCount} msg${c.messageCount !== 1 ? 's' : ''}</span>
+            ${c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : ''}
+            ${c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : ''}
           </div>
+        </div>`;
+      }).join('');
+
+  /* Location list */
+  const locHtml = topLocations.length === 0
+    ? '<span class="empty-sm">No location data yet</span>'
+    : topLocations.map(([loc, count]) =>
+        `<div class="loc-row"><span class="loc-name">${escHtml(loc)}</span><span class="loc-count">${count}</span></div>`
+      ).join('');
+
+  /* Visitors list */
+  const visitorsHtml = topVisitors.length === 0
+    ? '<span class="empty-sm">No visitors yet</span>'
+    : topVisitors.map(([id, v]) => {
+        const loc = v.location && v.location.city !== '—' ? v.location.city + ', ' + v.location.country : '—';
+        return `<div class="vis-row">
+          <span class="vis-id">${id}</span>
+          <span class="vis-loc">${escHtml(loc)}</span>
+          <span class="vis-count">${v.visits} visit${v.visits !== 1 ? 's' : ''}</span>
         </div>`;
       }).join('');
 
@@ -261,59 +369,220 @@ function buildDashboard(allConvos, recent, token) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ask Shannon - Conversations</title>
+<title>Ask Shannon &mdash; Conversations</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F5F5;color:#0A0A0A;-webkit-font-smoothing:antialiased}
-header{background:#0A0A0A;color:#fff;padding:24px 32px;display:flex;align-items:center;justify-content:space-between}
-header h1{font-size:20px;font-weight:600;letter-spacing:-.02em}
-header .sub{font-size:12px;color:#999;display:flex;align-items:center;gap:8px}
-header .dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-main{max-width:960px;margin:0 auto;padding:24px 16px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
-.stat{background:#fff;border-radius:16px;padding:22px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.stat-val{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
-.stat-label{font-size:11px;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.14em;margin-top:6px}
-.stat-val.green{color:#2E7D32}
-.stat-val.red{color:#D32F2F}
-.stat-val.blue{color:#4A90D9}
-.cards{display:flex;flex-direction:column;gap:12px}
-.card{background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:box-shadow .2s}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
-.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.time{font-size:12px;color:#999;font-weight:400}
-.badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.02em}
-.badge.ok{background:rgba(46,125,50,.1);color:#2E7D32}
-.badge.err{background:rgba(211,47,47,.1);color:#D32F2F}
-.question{font-size:15px;font-weight:600;line-height:1.5;margin-bottom:8px;color:#0A0A0A}
-.response{font-size:13px;font-weight:300;line-height:1.7;color:#555;border-left:2px solid #E8E8E8;padding-left:12px}
-.error-msg{font-size:13px;color:#D32F2F;background:rgba(211,47,47,.06);padding:8px 12px;border-radius:8px}
-.meta{display:flex;gap:16px;margin-top:12px;font-size:11px;color:#999}
-.empty{text-align:center;padding:60px 20px;color:#999;font-size:15px;font-weight:300}
-#countdown{font-variant-numeric:tabular-nums}
-@media(max-width:600px){header{padding:18px 16px}main{padding:16px 12px}.stat{padding:16px 18px}.stat-val{font-size:28px}.card{padding:18px 20px}}
+:root {
+  --c-bg: #FFFFFF; --c-surface: #FFFFFF; --c-panel: #F5F5F5;
+  --c-ink: #0A0A0A; --c-mid: #555555; --c-light: #6F6F6F; --c-ghost: #CCCCCC;
+  --c-rule: #E8E8E8; --c-border: #C0C0C0;
+  --c-accent: #4A90D9; --c-success: #2E7D32; --c-error: #D32F2F;
+  --c-available: #22c55e;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --r-card: 16px; --r-pill: 999px;
+  --sh-panel: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-theme="dark"] {
+  --c-bg: #121212; --c-surface: #1D1B20; --c-panel: #211F26;
+  --c-ink: rgba(255,255,255,0.87); --c-mid: rgba(255,255,255,0.60);
+  --c-light: rgba(255,255,255,0.53); --c-ghost: rgba(255,255,255,0.12);
+  --c-rule: rgba(255,255,255,0.12); --c-border: rgba(255,255,255,0.16);
+  --c-accent: #7AB3E8; --c-success: #66BB6A; --c-error: #EF5350;
+  --sh-panel: none;
+  color-scheme: dark;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font); background: var(--c-panel); color: var(--c-ink);
+  -webkit-font-smoothing: antialiased; line-height: 1.5;
+}
+header {
+  background: var(--c-ink); color: var(--c-bg); padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--c-rule);
+}
+header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.header-sub { font-size: 11px; color: var(--c-ghost); display: flex; align-items: center; gap: 6px; letter-spacing: 0.01em; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-available); animation: pulse 2s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.theme-btn {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--c-ghost);
+  background: none; color: var(--c-bg); cursor: pointer; display: flex;
+  align-items: center; justify-content: center; font-size: 14px;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.theme-btn:hover { background: rgba(255,255,255,0.1); }
+main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); }
+
+/* Stats grid */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px; margin-bottom: 24px;
+}
+.stat {
+  background: var(--c-surface); border: 1px solid var(--c-rule);
+  border-radius: var(--r-card); padding: 20px 22px; box-shadow: var(--sh-panel);
+  transition: box-shadow 0.2s var(--ease);
+}
+.stat:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.stat-val {
+  font-size: 32px; font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1.1; font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: 10px; font-weight: 600; color: var(--c-light);
+  text-transform: uppercase; letter-spacing: 0.18em; margin-top: 6px;
+}
+.stat-val.green { color: var(--c-success); }
+.stat-val.red { color: var(--c-error); }
+.stat-val.blue { color: var(--c-accent); }
+.stat-val small { font-size: 14px; font-weight: 400; color: var(--c-light); }
+
+/* Side panels row */
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.panel {
+  background: var(--c-surface); border: 1px solid var(--c-rule);
+  border-radius: var(--r-card); padding: 20px 22px; box-shadow: var(--sh-panel);
+}
+.panel-title {
+  font-size: 10px; font-weight: 600; color: var(--c-light);
+  text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px;
+}
+.loc-row, .vis-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid var(--c-rule); font-size: 13px;
+}
+.loc-row:last-child, .vis-row:last-child { border-bottom: none; }
+.loc-name { font-weight: 400; color: var(--c-ink); }
+.loc-count {
+  font-weight: 600; font-size: 12px; color: var(--c-accent);
+  background: rgba(74,144,217,0.08); padding: 2px 10px;
+  border-radius: var(--r-pill); font-variant-numeric: tabular-nums;
+}
+.vis-row { gap: 12px; }
+.vis-id {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 11px; color: var(--c-light); flex-shrink: 0;
+}
+.vis-loc { font-size: 12px; color: var(--c-mid); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vis-count {
+  font-weight: 600; font-size: 12px; color: var(--c-accent);
+  background: rgba(74,144,217,0.08); padding: 2px 10px;
+  border-radius: var(--r-pill); flex-shrink: 0; font-variant-numeric: tabular-nums;
+}
+.empty-sm { font-size: 13px; color: var(--c-light); font-weight: 300; }
+
+/* Section title */
+.section-label {
+  font-size: 10px; font-weight: 600; color: var(--c-light);
+  text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px;
+}
+
+/* Conversation cards */
+.cards { display: flex; flex-direction: column; gap: 10px; }
+.card {
+  background: var(--c-surface); border: 1px solid var(--c-rule);
+  border-radius: var(--r-card); padding: 20px 24px;
+  box-shadow: var(--sh-panel); transition: box-shadow 0.2s var(--ease);
+}
+.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
+.card-top-left { display: flex; flex-direction: column; gap: 2px; }
+.card-badges { display: flex; gap: 6px; flex-shrink: 0; }
+.time { font-size: 12px; color: var(--c-light); font-weight: 400; }
+.location { font-size: 11px; color: var(--c-mid); font-weight: 400; }
+.badge {
+  font-size: 10px; font-weight: 600; padding: 3px 10px;
+  border-radius: var(--r-pill); letter-spacing: 0.02em; white-space: nowrap;
+}
+.badge-ok { background: rgba(46,125,50,0.1); color: var(--c-success); }
+.badge-err { background: rgba(211,47,47,0.1); color: var(--c-error); }
+.badge-new { background: rgba(74,144,217,0.1); color: var(--c-accent); }
+.badge-ret { background: rgba(168,85,247,0.1); color: #a855f7; }
+.question { font-size: 14px; font-weight: 600; line-height: 1.5; margin-bottom: 6px; color: var(--c-ink); letter-spacing: -0.01em; }
+.response {
+  font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--c-mid);
+  border-left: 2px solid var(--c-rule); padding-left: 12px;
+}
+.error-msg {
+  font-size: 13px; color: var(--c-error);
+  background: rgba(211,47,47,0.06); padding: 8px 12px; border-radius: 8px;
+}
+.meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: 11px; color: var(--c-light); }
+.vid { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; }
+.empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
+#countdown { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 700px) {
+  header { padding: 16px; }
+  main { padding: 16px 12px; }
+  .stat { padding: 16px 18px; }
+  .stat-val { font-size: 26px; }
+  .card { padding: 16px 18px; }
+  .panels { grid-template-columns: 1fr; }
+  .card-top { flex-direction: column; gap: 8px; }
+  .card-badges { align-self: flex-start; }
+}
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <h1>Ask Shannon &mdash; Conversations</h1>
+  <h1>Ask Shannon</h1>
+  <div class="header-right">
+    <div class="header-sub"><span class="dot"></span> Refresh in <span id="countdown">30</span>s</div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-btn">&#9790;</button>
   </div>
-  <div class="sub"><span class="dot"></span> Auto-refresh <span id="countdown">30</span>s</div>
 </header>
 <main>
   <div class="stats">
-    <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">Total Conversations</div></div>
+    <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">Conversations</div></div>
     <div class="stat"><div class="stat-val blue">${todayCount}</div><div class="stat-label">Today</div></div>
+    <div class="stat"><div class="stat-val blue">${uniqueVisitors}</div><div class="stat-label">Unique Visitors</div></div>
+    <div class="stat"><div class="stat-val green">${newCount}</div><div class="stat-label">New Visitors</div></div>
+    <div class="stat"><div class="stat-val" style="color:#a855f7">${returningCount}</div><div class="stat-label">Returning</div></div>
     <div class="stat"><div class="stat-val ${parseFloat(errorRate) > 0 ? 'red' : 'green'}">${errorRate}%</div><div class="stat-label">Error Rate</div></div>
-    <div class="stat"><div class="stat-val">${mobileCount}<small style="font-size:14px;font-weight:400;color:#999"> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
+    <div class="stat"><div class="stat-val">${mobileCount}<small> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
   </div>
+
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-title">Top Locations</div>
+      ${locHtml}
+    </div>
+    <div class="panel">
+      <div class="panel-title">Visitors</div>
+      ${visitorsHtml}
+    </div>
+  </div>
+
+  <div class="section-label">Recent Conversations</div>
   <div class="cards">${cards}</div>
 </main>
 <script>
-var s=30;setInterval(function(){s--;document.getElementById('countdown').textContent=s;if(s<=0)location.reload()},1000);
+var s = 30;
+setInterval(function () {
+  s--;
+  document.getElementById('countdown').textContent = s;
+  if (s <= 0) location.reload();
+}, 1000);
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('dash-theme', next);
+  document.getElementById('theme-btn').innerHTML = next === 'dark' ? '&#9788;' : '&#9790;';
+}
+(function () {
+  var saved = localStorage.getItem('dash-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').innerHTML = '&#9788;';
+  }
+})();
 </script>
 </body>
 </html>`;
@@ -337,6 +606,7 @@ app.get('/api/conversations', (req, res) => {
 
   res.json({
     total: conversations.length,
+    uniqueVisitors: new Set(conversations.map(c => c.visitorId).filter(Boolean)).size,
     showing: recent.length,
     conversations: recent.map(c => ({
       time: c.timestamp,
@@ -344,7 +614,10 @@ app.get('/api/conversations', (req, res) => {
       response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : null,
       status: c.status,
       error: c.error || null,
-      device: c.userAgent.includes('Mobile') ? 'mobile' : 'desktop'
+      visitorId: c.visitorId || null,
+      isNew: c.isNew || false,
+      location: c.location || null,
+      device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop'
     }))
   });
 });
