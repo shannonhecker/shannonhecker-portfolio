@@ -576,6 +576,38 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
 .empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
 #countdown { font-variant-numeric: tabular-nums; }
 
+/* Filter toolbar */
+.toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-bottom: 16px; padding: 14px 18px;
+  background: var(--c-surface); border: 1px solid var(--c-rule);
+  border-radius: var(--r-card); box-shadow: var(--sh-panel);
+}
+.toolbar label {
+  font-size: 10px; font-weight: 600; color: var(--c-light);
+  text-transform: uppercase; letter-spacing: 0.14em;
+}
+.toolbar select, .toolbar input[type="date"] {
+  font-family: var(--font); font-size: 13px; font-weight: 400;
+  color: var(--c-ink); background: var(--c-panel); border: 1px solid var(--c-rule);
+  border-radius: 8px; padding: 7px 12px; outline: none;
+  transition: border-color 0.2s var(--ease);
+  -webkit-appearance: none; appearance: none;
+}
+.toolbar select { padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236F6F6F'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.53)'/%3E%3C/svg%3E"); }
+.toolbar select:focus, .toolbar input[type="date"]:focus { border-color: var(--c-accent); }
+.filter-group { display: flex; align-items: center; gap: 6px; }
+.filter-sep { width: 1px; height: 24px; background: var(--c-rule); flex-shrink: 0; }
+.result-count { font-size: 12px; color: var(--c-light); margin-left: auto; font-variant-numeric: tabular-nums; }
+.btn-reset {
+  font-family: var(--font); font-size: 11px; font-weight: 500;
+  color: var(--c-accent); background: none; border: 1px solid var(--c-rule);
+  border-radius: var(--r-pill); padding: 5px 14px; cursor: pointer;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+.btn-reset:hover { background: var(--c-accent); color: #fff; border-color: var(--c-accent); }
+
 @media (max-width: 700px) {
   header { padding: 16px; }
   main { padding: 16px 12px; }
@@ -585,6 +617,11 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
   .panels { grid-template-columns: 1fr; }
   .card-top { flex-direction: column; gap: 8px; }
   .card-badges { align-self: flex-start; }
+  .toolbar { padding: 12px 14px; gap: 8px; }
+  .filter-sep { display: none; }
+  .filter-group { flex: 1 1 auto; min-width: 0; }
+  .toolbar select, .toolbar input[type="date"] { flex: 1; min-width: 0; font-size: 12px; padding: 6px 10px; }
+  .result-count { width: 100%; text-align: center; }
 }
 </style>
 </head>
@@ -619,9 +656,175 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
   </div>
 
   <div class="section-label">Recent Conversations</div>
-  <div class="cards">${cards}</div>
+
+  <div class="toolbar">
+    <div class="filter-group">
+      <label for="f-date">Date</label>
+      <select id="f-date">
+        <option value="all">All time</option>
+        <option value="today">Today</option>
+        <option value="7d">Last 7 days</option>
+        <option value="30d">Last 30 days</option>
+        <option value="custom">Custom range</option>
+      </select>
+    </div>
+    <input type="date" id="f-from" style="display:none" title="From date">
+    <input type="date" id="f-to" style="display:none" title="To date">
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-loc">Location</label>
+      <select id="f-loc">
+        <option value="all">All locations</option>
+        ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-type">Visitor</label>
+      <select id="f-type">
+        <option value="all">All</option>
+        <option value="new">New only</option>
+        <option value="returning">Returning only</option>
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-status">Status</label>
+      <select id="f-status">
+        <option value="all">All</option>
+        <option value="ok">Success</option>
+        <option value="error">Errors</option>
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-sort">Sort</label>
+      <select id="f-sort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+    <span class="result-count" id="result-count"></span>
+  </div>
+
+  <div class="cards" id="cards-container">${cards}</div>
 </main>
 <script>
+var ALL_CONVOS = ${JSON.stringify(recent.map(c => ({
+  ts: c.timestamp,
+  question: c.question || '',
+  response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : '',
+  status: c.status || 'ok',
+  error: c.error || '',
+  isNew: !!c.isNew,
+  visitorId: c.visitorId || '',
+  totalVisits: c.totalVisits || 0,
+  loc: (c.location && c.location.city !== '—') ? c.location.city + ', ' + c.location.country : '',
+  device: (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop'
+})))};
+
+function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function fmtD(iso) { return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+function fmtT(iso) { return new Date(iso).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }); }
+function ago(iso) {
+  var d = Date.now() - new Date(iso).getTime(), m = Math.floor(d/60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return m + 'm ago';
+  var h = Math.floor(m/60);
+  if (h < 24) return h + 'h ago';
+  var dy = Math.floor(h/24);
+  return dy < 7 ? dy + 'd ago' : fmtD(iso);
+}
+
+function renderCard(c) {
+  var vLabel = c.isNew ? 'New' : 'Returning';
+  var vClass = c.isNew ? 'badge-new' : 'badge-ret';
+  return '<div class="card">'
+    + '<div class="card-top"><div class="card-top-left">'
+    + '<span class="date">' + fmtD(c.ts) + '</span>'
+    + '<span class="time">' + fmtT(c.ts) + ' &middot; ' + ago(c.ts) + '</span>'
+    + (c.loc ? '<span class="location">' + escH(c.loc) + '</span>' : '')
+    + '</div><div class="card-badges">'
+    + (c.visitorId ? '<span class="badge ' + vClass + '">' + vLabel + '</span>' : '')
+    + '<span class="badge ' + (c.status === 'ok' ? 'badge-ok' : 'badge-err') + '">' + (c.status === 'ok' ? 'Success' : 'Error') + '</span>'
+    + '</div></div>'
+    + '<div class="question">' + escH(c.question) + '</div>'
+    + (c.status === 'error'
+      ? '<div class="error-msg">' + escH(c.error) + '</div>'
+      : '<div class="response">' + escH(c.response) + '</div>')
+    + '<div class="meta">'
+    + '<span>' + (c.device === 'Mobile' ? '&#128241;' : '&#128187;') + ' ' + c.device + '</span>'
+    + (c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : '')
+    + (c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : '')
+    + '</div></div>';
+}
+
+function applyFilters() {
+  var dateVal = document.getElementById('f-date').value;
+  var locVal = document.getElementById('f-loc').value;
+  var typeVal = document.getElementById('f-type').value;
+  var statusVal = document.getElementById('f-status').value;
+  var sortVal = document.getElementById('f-sort').value;
+  var fromVal = document.getElementById('f-from').value;
+  var toVal = document.getElementById('f-to').value;
+
+  var now = Date.now();
+  var filtered = ALL_CONVOS.filter(function (c) {
+    var t = new Date(c.ts).getTime();
+    if (dateVal === 'today') {
+      var todayStart = new Date(); todayStart.setHours(0,0,0,0);
+      if (t < todayStart.getTime()) return false;
+    } else if (dateVal === '7d') { if (now - t > 7*86400000) return false;
+    } else if (dateVal === '30d') { if (now - t > 30*86400000) return false;
+    } else if (dateVal === 'custom') {
+      if (fromVal && t < new Date(fromVal).getTime()) return false;
+      if (toVal) { var end = new Date(toVal); end.setHours(23,59,59,999); if (t > end.getTime()) return false; }
+    }
+    if (locVal !== 'all' && c.loc !== locVal) return false;
+    if (typeVal === 'new' && !c.isNew) return false;
+    if (typeVal === 'returning' && c.isNew) return false;
+    if (statusVal === 'ok' && c.status !== 'ok') return false;
+    if (statusVal === 'error' && c.status === 'ok') return false;
+    return true;
+  });
+
+  if (sortVal === 'oldest') filtered.reverse();
+
+  var container = document.getElementById('cards-container');
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty">No conversations match these filters.</div>';
+  } else {
+    container.innerHTML = filtered.map(renderCard).join('');
+  }
+  document.getElementById('result-count').textContent = filtered.length + ' of ' + ALL_CONVOS.length;
+}
+
+function resetFilters() {
+  document.getElementById('f-date').value = 'all';
+  document.getElementById('f-loc').value = 'all';
+  document.getElementById('f-type').value = 'all';
+  document.getElementById('f-status').value = 'all';
+  document.getElementById('f-sort').value = 'newest';
+  document.getElementById('f-from').style.display = 'none';
+  document.getElementById('f-to').style.display = 'none';
+  applyFilters();
+}
+
+document.getElementById('f-date').addEventListener('change', function () {
+  var show = this.value === 'custom';
+  document.getElementById('f-from').style.display = show ? '' : 'none';
+  document.getElementById('f-to').style.display = show ? '' : 'none';
+  applyFilters();
+});
+['f-loc','f-type','f-status','f-sort','f-from','f-to'].forEach(function (id) {
+  document.getElementById(id).addEventListener('change', applyFilters);
+});
+
+applyFilters();
+
+/* Auto-refresh */
 var s = 30;
 setInterval(function () {
   s--;
@@ -629,6 +832,7 @@ setInterval(function () {
   if (s <= 0) location.reload();
 }, 1000);
 
+/* Theme toggle */
 function toggleTheme() {
   var html = document.documentElement;
   var current = html.getAttribute('data-theme');
