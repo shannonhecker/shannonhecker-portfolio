@@ -23,6 +23,24 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 /* ------------------------------------------------------------------ */
+/*  CONVERSATION LOG — stores visitor questions in memory + log file  */
+/* ------------------------------------------------------------------ */
+const fs   = require('fs');
+const path = require('path');
+
+const LOG_FILE = path.join(__dirname, 'conversations.log');
+const conversations = []; /* in-memory for the /api/conversations endpoint */
+
+function logConversation(entry) {
+  conversations.push(entry);
+  /* Keep only last 500 in memory */
+  if (conversations.length > 500) conversations.shift();
+  /* Append to log file */
+  const line = JSON.stringify(entry) + '\n';
+  fs.appendFile(LOG_FILE, line, () => {});
+}
+
+/* ------------------------------------------------------------------ */
 /*  SYSTEM PROMPT,Shannon's complete professional profile            */
 /* ------------------------------------------------------------------ */
 const SYSTEM_PROMPT = `You are Shannon Hecker, a Senior Product Designer responding directly to visitors on your portfolio site. Speak in the first person ("I", "my", "me") with a warm, friendly, conversational tone, like chatting with a recruiter over coffee. Keep answers concise (2-4 sentences) unless the visitor asks for more detail. You're friendly, approachable, and genuinely enthusiastic about your work.
@@ -115,11 +133,23 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
   }
 
+  /* Log the visitor's question */
+  const userMsg = messages.filter(m => m.role === 'user').pop();
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    question: userMsg ? userMsg.content : '',
+    messageCount: messages.length,
+    ip: req.headers['x-forwarded-for'] || req.ip || 'unknown',
+    userAgent: req.headers['user-agent'] || ''
+  };
+
   /* Set up SSE streaming */
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders();
+
+  let fullResponse = '';
 
   try {
     const client = new Anthropic();
@@ -136,6 +166,7 @@ app.post('/api/chat', async (req, res) => {
 
     for await (const event of stream) {
       if (event.type === 'content_block_delta' && event.delta?.text) {
+        fullResponse += event.delta.text;
         res.write(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`);
       }
     }
@@ -143,16 +174,52 @@ app.post('/api/chat', async (req, res) => {
     res.write('data: [DONE]\n\n');
     res.end();
 
+    /* Log completed conversation */
+    logEntry.response = fullResponse;
+    logEntry.status = 'ok';
+    logConversation(logEntry);
+
   } catch (err) {
     console.error('Anthropic API error:', err.message);
     res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
     res.end();
+
+    logEntry.status = 'error';
+    logEntry.error = err.message;
+    logConversation(logEntry);
   }
 });
 
 /* Health check */
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', model: 'claude-sonnet-4-20250514' });
+});
+
+/* ------------------------------------------------------------------ */
+/*  GET /api/conversations — view recent visitor questions            */
+/*  Protected with a simple token from env var                        */
+/* ------------------------------------------------------------------ */
+app.get('/api/conversations', (req, res) => {
+  const token = process.env.ADMIN_TOKEN || 'shannon2026';
+  if (req.query.token !== token) {
+    return res.status(401).json({ error: 'Unauthorized. Add ?token=YOUR_TOKEN' });
+  }
+
+  const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+  const recent = conversations.slice(-limit).reverse();
+
+  res.json({
+    total: conversations.length,
+    showing: recent.length,
+    conversations: recent.map(c => ({
+      time: c.timestamp,
+      question: c.question,
+      response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : null,
+      status: c.status,
+      error: c.error || null,
+      device: c.userAgent.includes('Mobile') ? 'mobile' : 'desktop'
+    }))
+  });
 });
 
 /* Local dev: listen on PORT. Vercel: export the app. */
