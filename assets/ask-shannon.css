@@ -183,6 +183,10 @@
 }
 .ask-msg a:hover { text-decoration-color: currentColor; }
 
+.ask-msg a.ask-project-link {
+  font-weight: 600;
+}
+
 .ask-msg--ai {
   align-self: flex-start;
   background: var(--c-panel, #F5F5F5);

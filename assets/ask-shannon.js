@@ -292,13 +292,58 @@
     });
   }
 
+  /* ── Portfolio case study titles → project-*.html (matches KEY PROJECTS in api/server.js) ── */
+  var PORTFOLIO_PROJECTS = [
+    { name: 'Complex Assets Derivatives Valuation', href: 'project-complex-assets.html' },
+    { name: 'Global Custody Deal Model', href: 'project-deal-model.html' },
+    { name: 'Corporate Action Manager', href: 'project-corporate-action.html' },
+    { name: 'Fusion Analytics Dashboard', href: 'project-analytics.html' },
+    { name: 'Fusion Design System', href: 'project-design-system.html' },
+    { name: 'Fusion Data Solution', href: 'project-data-solution.html' },
+    { name: 'Barclays Data Visualisation', href: 'project-barclays-data-viz.html' },
+    { name: 'JPMM Research Platform', href: 'project-research.html' },
+    { name: 'Execute Algo Center', href: 'project-algo-center.html' },
+    { name: 'UI Toolkit', href: 'project-ui-toolkit.html' },
+    { name: 'TripUp', href: 'project-tripup.html' },
+    { name: 'Digital & Platform Services Brand Identity', href: 'project-dps-brand.html' }
+  ];
+
+  function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  /* Turn known project titles in plain text segments into same-origin links (longest titles first). */
+  function injectPortfolioProjectAnchors(plain) {
+    var sorted = PORTFOLIO_PROJECTS.slice().sort(function (a, b) {
+      return b.name.length - a.name.length;
+    });
+    var out = plain;
+    for (var i = 0; i < sorted.length; i++) {
+      var p = sorted[i];
+      var re = new RegExp('\\b' + escapeRegExp(p.name) + '\\b', 'gi');
+      out = out.replace(re, function (match) {
+        return '<a href="' + p.href + '" class="ask-project-link">' + match + '</a>';
+      });
+    }
+    return out;
+  }
+
+  function linkPortfolioProjectsInHtml(html) {
+    var parts = html.split(/(<[^>]+>)/g);
+    for (var j = 0; j < parts.length; j++) {
+      if (parts[j].charAt(0) === '<') continue;
+      parts[j] = injectPortfolioProjectAnchors(parts[j]);
+    }
+    return parts.join('');
+  }
+
   /* ── Minimal markdown → HTML (bold, links, line breaks, auto-link) ── */
   function isSafeUrl(url) {
     return /^https?:\/\//i.test(url) || /^mailto:/i.test(url);
   }
 
   function formatMarkdown(text) {
-    return escapeHtml(text)
+    var html = escapeHtml(text)
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\[(.*?)\]\((.*?)\)/g, function (match, label, url) {
         if (!isSafeUrl(url)) return label;
@@ -312,6 +357,7 @@
         return '<a href="' + href + '" target="_blank" rel="noopener">' + url + '</a>';
       })
       .replace(/\n/g, '<br>');
+    return linkPortfolioProjectsInHtml(html);
   }
 
   /* ── Escape HTML ── */
