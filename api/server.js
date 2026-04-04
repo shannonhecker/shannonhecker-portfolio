@@ -261,9 +261,15 @@ app.post('/api/chat', async (req, res) => {
   const geo = await geoLookup(rawIp);
   const visitor = trackVisitor(visitorId, geo);
 
+  /* Session = same visitor within a 30-min window */
+  const sessionBucket = Math.floor(Date.now() / (30 * 60 * 1000));
+  const sessionId = visitorId + '-' + sessionBucket;
+
   const logEntry = {
     timestamp: new Date().toISOString(),
     question: userMsg ? userMsg.content : '',
+    messages: messages,
+    sessionId,
     messageCount: messages.length,
     visitorId,
     isNew: visitor.isNew,
@@ -387,14 +393,38 @@ function buildDashboard(allConvos, recent, token) {
     .sort((a, b) => b[1].visits - a[1].visits)
     .slice(0, 8);
 
-  const cards = recent.length === 0
+  /* Deduplicate: keep only the latest entry per session (it has the full thread) */
+  const sessionMap = new Map();
+  recent.forEach(c => {
+    const sid = c.sessionId || c.visitorId + '-' + c.timestamp;
+    const existing = sessionMap.get(sid);
+    if (!existing || c.messageCount > existing.messageCount) {
+      sessionMap.set(sid, c);
+    }
+  });
+  const deduped = Array.from(sessionMap.values())
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  const cards = deduped.length === 0
     ? '<div class="empty">No conversations yet. Questions from visitors will appear here.</div>'
-    : recent.map(c => {
+    : deduped.map((c, idx) => {
         const device = (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop';
-        const resp = c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : '';
         const loc = c.location && c.location.city !== '—' ? c.location.city + ', ' + c.location.country : '';
         const visitorLabel = c.isNew ? 'New' : 'Returning';
         const visitorClass = c.isNew ? 'badge-new' : 'badge-ret';
+
+        /* Build full conversation thread from stored messages + final response */
+        let threadHtml = '';
+        const msgs = c.messages || [];
+        const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
+        allMsgs.forEach(m => {
+          const cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
+          const label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
+          threadHtml += '<div class="thread-msg ' + cls + '"><span class="thread-role">' + label + '</span><span class="thread-text">' + escHtml(m.content) + '</span></div>';
+        });
+
+        const preview = c.question ? escHtml(c.question) : '(no question)';
+
         return `<div class="card">
           <div class="card-top">
             <div class="card-top-left">
@@ -405,13 +435,16 @@ function buildDashboard(allConvos, recent, token) {
             <div class="card-badges">
               ${c.visitorId ? '<span class="badge ' + visitorClass + '">' + visitorLabel + '</span>' : ''}
               <span class="badge ${c.status === 'ok' ? 'badge-ok' : 'badge-err'}">${c.status === 'ok' ? 'Success' : 'Error'}</span>
+              <span class="badge badge-msg">${Math.ceil(allMsgs.length / 2)} exchange${Math.ceil(allMsgs.length / 2) !== 1 ? 's' : ''}</span>
             </div>
           </div>
-          <div class="question">${escHtml(c.question)}</div>
-          ${c.status === 'error' ? '<div class="error-msg">' + escHtml(c.error) + '</div>' : '<div class="response">' + escHtml(resp) + '</div>'}
+          <div class="question">${preview}</div>
+          ${c.status === 'error' ? '<div class="error-msg">' + escHtml(c.error) + '</div>' : ''}
+          <div class="thread" id="thread-${idx}">${threadHtml}</div>
+          <button class="thread-toggle" onclick="toggleThread(${idx})" aria-expanded="false">Show full conversation</button>
           <div class="meta">
             <span>${device === 'Mobile' ? '&#128241;' : '&#128187;'} ${device}</span>
-            <span>${c.messageCount} msg${c.messageCount !== 1 ? 's' : ''}</span>
+            <span>${allMsgs.length} msg${allMsgs.length !== 1 ? 's' : ''}</span>
             ${c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : ''}
             ${c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : ''}
           </div>
@@ -591,6 +624,21 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
 .meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: 11px; color: var(--c-light); }
 .vid { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; }
 .empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
+
+/* Conversation thread */
+.thread { display: none; margin: 10px 0; border-radius: 10px; background: var(--c-panel); padding: 14px 16px; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
+.thread.open { display: flex; }
+.thread-msg { display: flex; flex-direction: column; gap: 2px; }
+.thread-role { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-light); }
+.thread-user .thread-text { font-size: 13px; font-weight: 500; color: var(--c-ink); }
+.thread-ai .thread-text { font-size: 13px; font-weight: 300; color: var(--c-mid); line-height: 1.6; white-space: pre-wrap; }
+.thread-toggle {
+  font-family: var(--font); font-size: 11px; font-weight: 500; color: var(--c-accent);
+  background: none; border: none; cursor: pointer; padding: 4px 0; text-align: left;
+  transition: color 0.15s var(--ease);
+}
+.thread-toggle:hover { color: var(--c-ink); }
+.badge-msg { background: rgba(168,85,247,0.1); color: #a855f7; }
 #countdown { font-variant-numeric: tabular-nums; }
 
 /* Filter toolbar — sticky below header, filters centered */
@@ -740,18 +788,22 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   <div class="cards" id="cards-container">${cards}</div>
 </main>
 <script>
-var ALL_CONVOS = ${JSON.stringify(recent.map(c => ({
-  ts: c.timestamp,
-  question: c.question || '',
-  response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : '',
-  status: c.status || 'ok',
-  error: c.error || '',
-  isNew: !!c.isNew,
-  visitorId: c.visitorId || '',
-  totalVisits: c.totalVisits || 0,
-  loc: (c.location && c.location.city !== '—') ? c.location.city + ', ' + c.location.country : '',
-  device: (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop'
-})))};
+var ALL_CONVOS = ${JSON.stringify(deduped.map(c => {
+  const msgs = c.messages || [];
+  const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
+  return {
+    ts: c.timestamp,
+    question: c.question || '',
+    messages: allMsgs.map(m => ({ role: m.role, content: m.content })),
+    status: c.status || 'ok',
+    error: c.error || '',
+    isNew: !!c.isNew,
+    visitorId: c.visitorId || '',
+    totalVisits: c.totalVisits || 0,
+    loc: (c.location && c.location.city !== '—') ? c.location.city + ', ' + c.location.country : '',
+    device: (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop'
+  };
+}))};
 
 function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
@@ -767,9 +819,21 @@ function ago(iso) {
   return dy < 7 ? dy + 'd ago' : fmtD(iso);
 }
 
+var _cardIdx = 0;
 function renderCard(c) {
+  var idx = _cardIdx++;
   var vLabel = c.isNew ? 'New' : 'Returning';
   var vClass = c.isNew ? 'badge-new' : 'badge-ret';
+  var msgs = c.messages || [];
+  var exchanges = Math.ceil(msgs.length / 2);
+
+  var threadHtml = '';
+  msgs.forEach(function (m) {
+    var cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
+    var label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
+    threadHtml += '<div class="thread-msg ' + cls + '"><span class="thread-role">' + label + '</span><span class="thread-text">' + escH(m.content) + '</span></div>';
+  });
+
   return '<div class="card">'
     + '<div class="card-top"><div class="card-top-left">'
     + '<span class="date">' + fmtD(c.ts) + '</span>'
@@ -778,13 +842,15 @@ function renderCard(c) {
     + '</div><div class="card-badges">'
     + (c.visitorId ? '<span class="badge ' + vClass + '">' + vLabel + '</span>' : '')
     + '<span class="badge ' + (c.status === 'ok' ? 'badge-ok' : 'badge-err') + '">' + (c.status === 'ok' ? 'Success' : 'Error') + '</span>'
+    + '<span class="badge badge-msg">' + exchanges + ' exchange' + (exchanges !== 1 ? 's' : '') + '</span>'
     + '</div></div>'
     + '<div class="question">' + escH(c.question) + '</div>'
-    + (c.status === 'error'
-      ? '<div class="error-msg">' + escH(c.error) + '</div>'
-      : '<div class="response">' + escH(c.response) + '</div>')
+    + (c.status === 'error' ? '<div class="error-msg">' + escH(c.error) + '</div>' : '')
+    + '<div class="thread" id="thread-' + idx + '">' + threadHtml + '</div>'
+    + '<button class="thread-toggle" onclick="toggleThread(' + idx + ')" aria-expanded="false">Show full conversation</button>'
     + '<div class="meta">'
     + '<span>' + (c.device === 'Mobile' ? '&#128241;' : '&#128187;') + ' ' + c.device + '</span>'
+    + '<span>' + msgs.length + ' msg' + (msgs.length !== 1 ? 's' : '') + '</span>'
     + (c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : '')
     + (c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : '')
     + '</div></div>';
@@ -822,6 +888,7 @@ function applyFilters() {
   if (sortVal === 'oldest') filtered.reverse();
 
   var container = document.getElementById('cards-container');
+  _cardIdx = 0;
   if (filtered.length === 0) {
     container.innerHTML = '<div class="empty">No conversations match these filters.</div>';
   } else {
@@ -861,6 +928,15 @@ setInterval(function () {
   if (s <= 0) location.reload();
 }, 1000);
 
+/* Toggle conversation thread */
+function toggleThread(idx) {
+  var thread = document.getElementById('thread-' + idx);
+  var btn = thread.nextElementSibling;
+  var open = thread.classList.toggle('open');
+  btn.textContent = open ? 'Hide conversation' : 'Show full conversation';
+  btn.setAttribute('aria-expanded', open);
+}
+
 /* Theme toggle */
 function toggleTheme() {
   var html = document.documentElement;
@@ -888,7 +964,7 @@ app.get('/api/conversations', (req, res) => {
     return res.status(401).json({ error: 'Unauthorized. Set ADMIN_TOKEN env var and pass ?token=YOUR_TOKEN' });
   }
 
-  const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+  const limit = Math.min(parseInt(req.query.limit) || 200, 500);
   const recent = conversations.slice(-limit).reverse();
 
   /* Serve HTML dashboard for browsers, JSON for programmatic access */
@@ -898,21 +974,37 @@ app.get('/api/conversations', (req, res) => {
     return res.type('html').send(buildDashboard(conversations, recent, token));
   }
 
+  /* Deduplicate sessions for JSON too */
+  const jsonSessionMap = new Map();
+  recent.forEach(c => {
+    const sid = c.sessionId || c.visitorId + '-' + c.timestamp;
+    const existing = jsonSessionMap.get(sid);
+    if (!existing || c.messageCount > existing.messageCount) {
+      jsonSessionMap.set(sid, c);
+    }
+  });
+  const jsonDeduped = Array.from(jsonSessionMap.values())
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
   res.json({
     total: conversations.length,
     uniqueVisitors: new Set(conversations.map(c => c.visitorId).filter(Boolean)).size,
-    showing: recent.length,
-    conversations: recent.map(c => ({
-      time: c.timestamp,
-      question: c.question,
-      response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : null,
-      status: c.status,
-      error: c.error || null,
-      visitorId: c.visitorId || null,
-      isNew: c.isNew || false,
-      location: c.location || null,
-      device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop'
-    }))
+    showing: jsonDeduped.length,
+    conversations: jsonDeduped.map(c => {
+      const msgs = c.messages || [];
+      const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
+      return {
+        time: c.timestamp,
+        question: c.question,
+        messages: allMsgs.map(m => ({ role: m.role, content: m.content })),
+        status: c.status,
+        error: c.error || null,
+        visitorId: c.visitorId || null,
+        isNew: c.isNew || false,
+        location: c.location || null,
+        device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop'
+      };
+    })
   });
 });
 
