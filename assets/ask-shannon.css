@@ -281,6 +281,10 @@
   padding: 8px 0;
   outline: none;
   letter-spacing: -0.01em;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.5;
+  min-height: 0;
 }
 
 .ask-input:focus {
@@ -291,6 +295,7 @@
 .ask-input::placeholder {
   color: var(--c-mid, #777);
   font-weight: 300;
+  white-space: pre-wrap;
 }
 
 /* Send button */

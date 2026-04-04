@@ -2049,7 +2049,7 @@
               <div class="ask-chat">
                 <div class="ask-messages" id="ask-messages"></div>
                 <form class="ask-form" id="ask-form" autocomplete="off">
-                  <input class="ask-input" id="ask-input" type="text" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to." />
+                  <textarea class="ask-input" id="ask-input" rows="2" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to."></textarea>
                 </form>
                 <div class="ask-bottom-bar">
                   <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text">
@@ -2431,11 +2431,27 @@
       const hero     = document.getElementById('hero');
       if (!heroName || !hero) return;
 
-      let scrollY = 0;
-      let ticking = false;
-
       const waveCanvas = document.getElementById('wave-canvas');
       const waveBg     = document.getElementById('wave-bg');
+
+      /* Cache hero height — only recalc on resize (avoids layout thrash) */
+      let heroH = hero.offsetHeight;
+      let scrollY = 0;
+      let ticking = false;
+      let ready = false; /* true once intro animations finish */
+
+      window.addEventListener('resize', () => { heroH = hero.offsetHeight; }, { passive: true });
+
+      /* After intro animations complete (~1.8s), kill CSS transitions
+         on parallax targets so scroll-driven transforms apply instantly
+         instead of fighting a 0.8s CSS ease on every frame. */
+      setTimeout(() => {
+        [heroName, roleLine, heroSub].forEach(el => {
+          el.style.transition = 'none';
+          el.style.willChange = 'transform';
+        });
+        ready = true;
+      }, 1800);
 
       window.addEventListener('scroll', () => {
         scrollY = window.scrollY;
@@ -2444,18 +2460,19 @@
 
       function update() {
         ticking = false;
-        const heroH = hero.offsetHeight;
+        if (!ready) return; /* don't fight intro animations */
+
         const inHero = scrollY < (heroH - 40);
 
-        /* Gentle parallax — small multipliers prevent overlap */
-        if (heroName) heroName.style.transform = `translateY(${scrollY * -0.08}px)`;
-        if (roleLine) roleLine.style.transform = `translateY(${scrollY * -0.06}px)`;
-        if (heroSub)  heroSub.style.transform  = `translateY(${scrollY * -0.04}px)`;
+        /* GPU-composited transforms (translate3d) — small multipliers prevent overlap */
+        heroName.style.transform = 'translate3d(0,' + (scrollY * -0.08) + 'px,0)';
+        roleLine.style.transform = 'translate3d(0,' + (scrollY * -0.06) + 'px,0)';
+        heroSub.style.transform  = 'translate3d(0,' + (scrollY * -0.04) + 'px,0)';
 
         /* Background pinning */
         if (inHero) {
-          if (waveCanvas) waveCanvas.style.transform = `translateY(${scrollY}px)`;
-          if (waveBg)     waveBg.style.transform     = `translateY(${scrollY}px)`;
+          if (waveCanvas) waveCanvas.style.transform = 'translate3d(0,' + scrollY + 'px,0)';
+          if (waveBg)     waveBg.style.transform     = 'translate3d(0,' + scrollY + 'px,0)';
         } else {
           if (waveCanvas) waveCanvas.style.transform = '';
           if (waveBg)     waveBg.style.transform     = '';
@@ -2594,8 +2611,10 @@
 
   <!-- Ask Shannon chatbot -->
   <script>
-    // Configure API endpoint — change this to your deployed URL in production
-    window.ASK_API_URL = 'http://localhost:3001/api/chat';
+    // API endpoint — set your deployed Render URL here, falls back to localhost for dev
+    window.ASK_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3001/api/chat'
+      : 'https://ask-shannon-api.onrender.com/api/chat';
   </script>
   <script src="assets/ask-shannon.js"></script>
 </body>

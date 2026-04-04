@@ -155,6 +155,11 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', model: 'claude-sonnet-4-20250514' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Ask Shannon API running on http://localhost:${PORT}`);
-});
+/* Local dev: listen on PORT. Vercel: export the app. */
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`Ask Shannon API running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
