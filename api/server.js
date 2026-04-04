@@ -17,6 +17,7 @@ const cors    = require('cors');
 const Anthropic = require('@anthropic-ai/sdk');
 
 const app  = express();
+app.set('trust proxy', 1); /* correct client IP behind Render / other proxies */
 const PORT = process.env.PORT || 3001;
 
 const ALLOWED_ORIGINS = [
@@ -52,7 +53,19 @@ const path   = require('path');
 const crypto = require('crypto');
 const https  = require('https');
 
-const LOG_FILE = path.join(__dirname, 'conversations.log');
+const LOG_FILE = process.env.CONVERSATIONS_LOG_PATH
+  ? path.resolve(process.env.CONVERSATIONS_LOG_PATH)
+  : path.join(__dirname, 'conversations.log');
+
+(function ensureLogPath() {
+  try {
+    const dir = path.dirname(LOG_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } catch (e) {
+    console.error('Could not create conversations log directory:', e.message);
+  }
+})();
+
 const conversations = [];
 const visitorMap = new Map(); /* visitorId → { firstSeen, visits, location } */
 
@@ -105,7 +118,9 @@ function logConversation(entry) {
   conversations.push(entry);
   if (conversations.length > 500) conversations.shift();
   const line = JSON.stringify(entry) + '\n';
-  fs.appendFile(LOG_FILE, line, () => {});
+  fs.appendFile(LOG_FILE, line, err => {
+    if (err) console.error('Failed to append conversations log:', err.message);
+  });
 }
 
 /* Load existing conversations from log file on startup */
@@ -578,13 +593,17 @@ main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); 
 .empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
 #countdown { font-variant-numeric: tabular-nums; }
 
-/* Filter toolbar — sticky below header */
+/* Filter toolbar — sticky below header, filters centered */
 .toolbar {
   position: sticky; top: 0; z-index: 100;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: center;
   padding: 10px 32px;
   background: var(--c-bg); border-bottom: 1px solid var(--c-rule);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.toolbar-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 10px; width: 100%;
 }
 html[data-theme="dark"] .toolbar { background: rgba(18,18,18,0.92); }
 .toolbar label {
@@ -603,7 +622,10 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
 .toolbar select:focus, .toolbar input[type="date"]:focus { border-color: var(--c-accent); }
 .filter-group { display: flex; align-items: center; gap: 5px; }
 .filter-sep { width: 1px; height: 20px; background: var(--c-rule); flex-shrink: 0; }
-.result-count { font-size: 11px; color: var(--c-light); margin-left: auto; font-variant-numeric: tabular-nums; }
+.result-count {
+  font-size: 11px; color: var(--c-light); font-variant-numeric: tabular-nums;
+  width: 100%; text-align: center; margin-top: 6px;
+}
 .btn-reset {
   font-family: var(--font); font-size: 11px; font-weight: 500;
   color: var(--c-accent); background: none; border: 1px solid var(--c-rule);
@@ -622,12 +644,13 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   .panels { grid-template-columns: 1fr; }
   .card-top { flex-direction: column; gap: 8px; }
   .card-badges { align-self: flex-start; }
-  .toolbar { padding: 10px 12px; gap: 6px; }
+  .toolbar { padding: 10px 12px; }
+  .toolbar-inner { gap: 6px; }
   .filter-sep { display: none; }
-  .filter-group { flex: 1 1 auto; min-width: 0; }
+  .filter-group { flex: 1 1 auto; min-width: 0; max-width: 100%; }
   .toolbar label { font-size: 9px; }
   .toolbar select, .toolbar input[type="date"] { flex: 1; min-width: 0; font-size: 11px; padding: 5px 8px; }
-  .result-count { width: 100%; text-align: center; }
+  .result-count { margin-top: 4px; }
 }
 </style>
 </head>
@@ -640,53 +663,55 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
   </div>
 </header>
 <div class="toolbar">
-  <div class="filter-group">
-    <label for="f-date">Date</label>
-    <select id="f-date">
-      <option value="all">All time</option>
-      <option value="today">Today</option>
-      <option value="7d">Last 7 days</option>
-      <option value="30d">Last 30 days</option>
-      <option value="custom">Custom range</option>
-    </select>
+  <div class="toolbar-inner">
+    <div class="filter-group">
+      <label for="f-date">Date</label>
+      <select id="f-date">
+        <option value="all">All time</option>
+        <option value="today">Today</option>
+        <option value="7d">Last 7 days</option>
+        <option value="30d">Last 30 days</option>
+        <option value="custom">Custom range</option>
+      </select>
+    </div>
+    <input type="date" id="f-from" style="display:none" title="From date">
+    <input type="date" id="f-to" style="display:none" title="To date">
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-loc">Location</label>
+      <select id="f-loc">
+        <option value="all">All locations</option>
+        ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-type">Visitor</label>
+      <select id="f-type">
+        <option value="all">All</option>
+        <option value="new">New</option>
+        <option value="returning">Returning</option>
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-status">Status</label>
+      <select id="f-status">
+        <option value="all">All</option>
+        <option value="ok">Success</option>
+        <option value="error">Errors</option>
+      </select>
+    </div>
+    <span class="filter-sep"></span>
+    <div class="filter-group">
+      <label for="f-sort">Sort</label>
+      <select id="f-sort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()">Reset</button>
   </div>
-  <input type="date" id="f-from" style="display:none" title="From date">
-  <input type="date" id="f-to" style="display:none" title="To date">
-  <span class="filter-sep"></span>
-  <div class="filter-group">
-    <label for="f-loc">Location</label>
-    <select id="f-loc">
-      <option value="all">All locations</option>
-      ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
-    </select>
-  </div>
-  <span class="filter-sep"></span>
-  <div class="filter-group">
-    <label for="f-type">Visitor</label>
-    <select id="f-type">
-      <option value="all">All</option>
-      <option value="new">New</option>
-      <option value="returning">Returning</option>
-    </select>
-  </div>
-  <span class="filter-sep"></span>
-  <div class="filter-group">
-    <label for="f-status">Status</label>
-    <select id="f-status">
-      <option value="all">All</option>
-      <option value="ok">Success</option>
-      <option value="error">Errors</option>
-    </select>
-  </div>
-  <span class="filter-sep"></span>
-  <div class="filter-group">
-    <label for="f-sort">Sort</label>
-    <select id="f-sort">
-      <option value="newest">Newest first</option>
-      <option value="oldest">Oldest first</option>
-    </select>
-  </div>
-  <button class="btn-reset" onclick="resetFilters()">Reset</button>
   <span class="result-count" id="result-count"></span>
 </div>
 <main>
@@ -863,14 +888,17 @@ app.get('/api/conversations', (req, res) => {
     return res.status(401).json({ error: 'Unauthorized. Set ADMIN_TOKEN env var and pass ?token=YOUR_TOKEN' });
   }
 
-  const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+  const limitRaw = req.query.limit;
+  const limit = limitRaw === 'all' || limitRaw === '0'
+    ? conversations.length
+    : Math.min(Math.max(parseInt(limitRaw, 10) || 1000, 1), 10000);
   const recent = conversations.slice(-limit).reverse();
 
   /* Serve HTML dashboard for browsers, JSON for programmatic access */
   const wantsHtml = req.headers.accept && req.headers.accept.includes('text/html');
 
   if (wantsHtml) {
-    return res.type('html').send(buildDashboard(conversations, recent, token));
+    return res.type('html').send(buildDashboard(conversations, token));
   }
 
   res.json({
@@ -879,6 +907,7 @@ app.get('/api/conversations', (req, res) => {
     showing: recent.length,
     conversations: recent.map(c => ({
       time: c.timestamp,
+      date: c.timestamp,
       question: c.question,
       response: c.response ? c.response.substring(0, 200) + (c.response.length > 200 ? '...' : '') : null,
       status: c.status,
@@ -886,7 +915,8 @@ app.get('/api/conversations', (req, res) => {
       visitorId: c.visitorId || null,
       isNew: c.isNew || false,
       location: c.location || null,
-      device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop'
+      device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop',
+      messageCount: c.messageCount || 1
     }))
   });
 });

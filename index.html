@@ -1123,8 +1123,17 @@
        RESPONSIVE
        ============================================================ */
     @media (max-width:900px) {
-      .nav-links, .nav-cta { display:none; }
-      .nav-burger { display:flex; }
+      .nav-inner {
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-links, .nav-cta { display:none !important; }
+      .nav-burger {
+        display:flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
       .hero { padding-bottom: 80px; }
       .hero-sub { max-width:100%; }
       #wave-canvas { width:90%; }

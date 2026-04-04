@@ -65,6 +65,18 @@
 
 @media (max-width: 900px) {
   .nav-right { display: none; }
+  /* Logo left, hamburger right — only logo + burger participate in flex when links/CTA are hidden */
+  .nav-inner {
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    flex-shrink: 0;
+  }
+  .nav-burger {
+    flex-shrink: 0;
+  }
 }
 @media (min-width: 901px) {
   .theme-toggle--drawer { display: none; }
@@ -133,6 +145,12 @@ html[data-theme="dark"] .nav-drawer {
 
 /* Hover: invert for dark (text becomes dark on light bg) */
 html[data-theme="dark"] .nav-links a:hover {
+  background: rgba(255,255,255,0.87);
+  color: #121212 !important;
+}
+
+/* Active tab + hover: same as other nav links (light bar behind scrolled .nav.s overrode :hover color) */
+html[data-theme="dark"] .nav.s .nav-links a[aria-current="page"]:hover {
   background: rgba(255,255,255,0.87);
   color: #121212 !important;
 }

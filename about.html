@@ -213,6 +213,11 @@
     .nav.s .nav-links a { color:var(--c-nav); }
     .nav.s .nav-links a:hover { background: var(--c-hover); color: #fff; }
     .nav.s .nav-links a[aria-current="page"] { color: var(--c-ink); }
+    /* Beat specificity above so active tab keeps white label on dark hover bg (same as other links) */
+    .nav.s .nav-links a[aria-current="page"]:hover {
+      background: var(--c-hover);
+      color: #fff;
+    }
 
     .nav-cta {
       font-size: 13px;
@@ -1041,8 +1046,17 @@
       .approach-body { max-width: 100%; }
     }
     @media (max-width:900px) {
-      .nav-links, .nav-cta { display:none; }
-      .nav-burger { display:flex; }
+      .nav-inner {
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-links, .nav-cta { display:none !important; }
+      .nav-burger {
+        display:flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
       .hero-sub { max-width:100%; }
       #wave-canvas { width: 90%; }
       .bento { grid-template-columns:repeat(2, 1fr); }
