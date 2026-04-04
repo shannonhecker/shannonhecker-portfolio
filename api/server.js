@@ -214,7 +214,7 @@ I anchor design in outcomes: usable today, scalable tomorrow, accessible always.
 3. Fusion Analytics Dashboard (Product Designer, UI Lead). B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
 4. Fusion Design System (Product Designer). Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
 5. Fusion Data Solution (Product Designer). Enterprise data management: complex technical workflows turned into guided, shippable journeys. 40+ screens, 5 reusable frameworks.
-6. UI Toolkit (UI/UX Designer). Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
+6. UI Toolkit (UI Designer). Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
 7. Corporate Action Manager (UI Designer). Redesigned a 15-year-old legacy tool, delivering 40% faster task completion and 60% fewer navigation steps for operations teams.
 8. Complex Assets Derivatives Valuation (Product Designer). Unified valuation workspace for derivatives trading: 3x faster scenario modelling, 95% trader satisfaction.
 9. JPMM Research Platform (UI Designer). Research discovery for analysts: IA-first navigation, 4x search relevance, 35% engagement increase.
