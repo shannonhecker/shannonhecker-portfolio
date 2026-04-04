@@ -41,6 +41,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+  <link rel="stylesheet" href="assets/ask-shannon.css" />
 
   <style>
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
@@ -926,6 +927,7 @@
       letter-spacing: -.03em;
       line-height: .95;
       margin-bottom: 24px;
+      color: var(--c-ink);
     }
 
     .contact-sub {
@@ -1187,6 +1189,7 @@
       transform: translateY(22px);
       transition: opacity 0.8s cubic-bezier(.22,1,.36,1) 0.85s,
                   transform 0.8s cubic-bezier(.22,1,.36,1) 0.85s;
+      will-change: transform;
     }
     body.loaded .hero-sub {
       opacity: 1;
@@ -1354,17 +1357,16 @@
         opacity 0.6s var(--ease) 1.1s,
         transform 0.6s var(--ease) 1.1s;
     }
-    /* Hover: gradient appears, glow blooms */
+    /* Hover: dark fill, white icon — matches Resume button */
     .hero-cta:hover {
-      box-shadow:
-        0 0 20px rgba(168, 85, 247, .4),
-        0 0 50px rgba(236, 72, 153, .2),
-        0 0 80px rgba(168, 85, 247, .1);
+      background: var(--c-hover, var(--c-ink));
+      box-shadow: none;
+    }
+    .hero-cta:hover::after {
+      background: transparent;
     }
     .hero-cta:hover::before {
-      opacity: 1;
-      inset: -3px;
-      filter: blur(3px);
+      opacity: 0;
     }
 
     @keyframes cta-spin {
@@ -1383,10 +1385,63 @@
       z-index: 2;
       transition: transform 0.3s var(--spring), color 0.5s ease;
     }
-    .hero-cta:hover svg { color: #a855f7; }
+    .hero-cta:hover svg { color: #fff; }
     @keyframes cta-float {
       0%, 100% { transform: translateY(-2px); }
       50% { transform: translateY(3px); }
+    }
+
+    /* Ask Shannon CTA button — gradient outline glow */
+    @property --ask-cta-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .ask-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-ink);
+      background: conic-gradient(
+        from var(--ask-cta-angle),
+        rgba(168,85,247,0.5), rgba(236,72,153,0.4),
+        rgba(245,158,11,0.3), rgba(34,211,238,0.4),
+        rgba(129,140,248,0.45), rgba(168,85,247,0.5)
+      );
+      border: none;
+      border-radius: var(--r-pill, 999px);
+      padding: 1.5px;
+      margin-top: 20px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      animation: askCtaSpin 4s linear infinite;
+      transition:
+        transform 0.3s cubic-bezier(.22,1,.36,1),
+        box-shadow 0.3s ease;
+    }
+    .ask-cta span.ask-cta-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--c-bg, #fff);
+      border-radius: var(--r-pill, 999px);
+      padding: 10px 20px;
+    }
+    @keyframes askCtaSpin {
+      to { --ask-cta-angle: 360deg; }
+    }
+    .ask-cta:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 4px 14px rgba(168, 85, 247, 0.12),
+        0 0 24px rgba(236, 72, 153, 0.08);
+    }
+    .ask-cta svg {
+      color: #a855f7;
     }
     .hero-cta svg { animation: cta-float 2s ease-in-out infinite; }
     .hero-cta:hover svg { animation: cta-float 1s ease-in-out infinite; }
@@ -1654,6 +1709,14 @@
               </svg>
             </a>
           </div>
+
+          <!-- Ask Shannon CTA -->
+          <a href="#contact" class="ask-cta" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){document.getElementById('ask-input').focus()},600);">
+            <span class="ask-cta-inner">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Ask Shannon
+            </span>
+          </a>
 
         </div>
       </div>
@@ -1951,9 +2014,12 @@
               <span class="skill">Stakeholder Communication</span>
               <span class="skill">Agile & DesignOps</span>
               <span class="skill">Claude</span>
+              <span class="skill">Google AI Studio</span>
+              <span class="skill">Google Stitch AI</span>
+              <span class="skill">Cursor</span>
               <span class="skill">Data Solutions</span>
               <span class="skill">Framer</span>
-              <span class="skill">Protopie</span>
+              <span class="skill">Prototype</span>
             </div>
           </div>
         </div>
@@ -1970,37 +2036,44 @@
   <section class="contact" id="contact">
     <div class="wrap">
 
-      <div class="sh rv">
-        <span class="sh-eyebrow">Get In Touch</span>
-        <div class="sh-row">
-          <span class="sh-text">let's connect<span class="sh-period">.</span></span>
+      <div class="ask-bento">
+        <!-- Left: heading -->
+        <div class="ask-left rv">
+          <h2 class="contact-heading">Let's<br class="ask-br"/>Talk.</h2>
         </div>
-      </div>
 
-      <div class="contact-bento">
-        <div class="contact-left rv">
-          <div>
-            <h2 class="contact-heading">Let's<br/>Talk.</h2>
-            <p class="contact-sub">Open to lead and senior product design roles in fintech and enterprise SaaS. I help teams ship accessible, measurable product experiences from discovery through delivery.</p>
+        <!-- Right: chat box with glow -->
+        <div class="ask-right rv" data-d="1">
+          <div class="ask-glow-wrap">
+            <div class="ask-panel">
+              <div class="ask-chat">
+                <div class="ask-messages" id="ask-messages"></div>
+                <form class="ask-form" id="ask-form" autocomplete="off">
+                  <input class="ask-input" id="ask-input" type="text" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to." />
+                </form>
+                <div class="ask-bottom-bar">
+                  <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                  </button>
+                  <div class="ask-bottom-actions">
+                    <a href="mailto:shannonheckerchen@gmail.com" class="ask-email-btn">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      Email me directly
+                    </a>
+                    <button class="ask-send" id="ask-send" type="submit" form="ask-form" aria-label="Send message">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2L7 9"/>
+                        <path d="M14 2L9.5 14L7 9L2 6.5L14 2Z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="contact-form-panel rv" data-d="1">
-          <form class="contact-form" onsubmit="handleForm(event)">
-            <div class="f-group">
-              <label class="f-label" for="fname">Name</label>
-              <input class="f-input" id="fname" type="text" placeholder="Your name" required />
-            </div>
-            <div class="f-group">
-              <label class="f-label" for="femail">Email</label>
-              <input class="f-input" id="femail" type="email" placeholder="your@email.com" required />
-            </div>
-            <div class="f-group">
-              <label class="f-label" for="fmsg">Message</label>
-              <textarea class="f-input f-textarea" id="fmsg" placeholder="Tell me about your project…" required></textarea>
-            </div>
-            <button class="f-btn" type="submit">Send Message</button>
-          </form>
+          <!-- Suggestion chips below the box -->
+          <div class="ask-suggestions" id="ask-suggestions"></div>
         </div>
       </div>
 
@@ -2143,24 +2216,7 @@
       });
     });
 
-    /* ── 6. Contact form ─────────────────────────────────── */
-    function handleForm(e) {
-      e.preventDefault();
-      const btn     = e.target.querySelector('.f-btn');
-      const name    = document.getElementById('fname').value.trim();
-      const email   = document.getElementById('femail').value.trim();
-      const message = document.getElementById('fmsg').value.trim();
-      const subject = encodeURIComponent('Portfolio enquiry from ' + name);
-      const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
-      window.location.href = 'mailto:shannonheckerchen@gmail.com?subject=' + subject + '&body=' + body;
-      btn.textContent = 'Opening email\u2026'; btn.style.background = '#555'; btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Send Message';
-        btn.style.background = '';
-        btn.disabled = false;
-        e.target.reset();
-      }, 3000);
-    }
+    /* ── 6. Contact — now handled by ask-shannon.js ── */
 
     /* ── 7. Guilloché wave canvas ──────────────────────────
        Layered on top of the blob aurora. The two effects
@@ -2369,39 +2425,34 @@
        Uses rAF + lerp for smoothness, no jank.
        ────────────────────────────────────────────────────────────── */
     (function heroParallax() {
-      const heroName    = document.querySelector('.hero-name');
-      const roleLine    = document.querySelector('.hero-role-line');
-      const heroSub     = document.querySelector('.hero-sub');
-      /* waveCanvas and waveBg stay fixed - no parallax */
-      const hero        = document.getElementById('hero');
+      const heroName = document.querySelector('.hero-name');
+      const roleLine = document.querySelector('.hero-role-line');
+      const heroSub  = document.querySelector('.hero-sub');
+      const hero     = document.getElementById('hero');
       if (!heroName || !hero) return;
 
-      let scrollY  = 0;
-      let currentY = 0;
-      let ticking  = false;
-
-      window.addEventListener('scroll', () => {
-        scrollY = window.scrollY;
-        if (!ticking) {
-          requestAnimationFrame(update);
-          ticking = true;
-        }
-      }, { passive: true });
+      let scrollY = 0;
+      let ticking = false;
 
       const waveCanvas = document.getElementById('wave-canvas');
       const waveBg     = document.getElementById('wave-bg');
+
+      window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
 
       function update() {
         ticking = false;
         const heroH = hero.offsetHeight;
         const inHero = scrollY < (heroH - 40);
 
-        /* Text - parallax upward */
-        if (heroName) heroName.style.transform = `translateY(${scrollY * -0.28}px)`;
-        if (roleLine) roleLine.style.transform = `translateY(${scrollY * -0.22}px)`;
-        if (heroSub)  heroSub.style.transform  = `translateY(${scrollY * -0.16}px)`;
+        /* Gentle parallax — small multipliers prevent overlap */
+        if (heroName) heroName.style.transform = `translateY(${scrollY * -0.08}px)`;
+        if (roleLine) roleLine.style.transform = `translateY(${scrollY * -0.06}px)`;
+        if (heroSub)  heroSub.style.transform  = `translateY(${scrollY * -0.04}px)`;
 
-        /* Background - counteract scroll to stay pinned in place */
+        /* Background pinning */
         if (inHero) {
           if (waveCanvas) waveCanvas.style.transform = `translateY(${scrollY}px)`;
           if (waveBg)     waveBg.style.transform     = `translateY(${scrollY}px)`;
@@ -2540,5 +2591,12 @@
       parent.insertBefore(shield, img.nextSibling);
     });
   </script>
+
+  <!-- Ask Shannon chatbot -->
+  <script>
+    // Configure API endpoint — change this to your deployed URL in production
+    window.ASK_API_URL = 'http://localhost:3001/api/chat';
+  </script>
+  <script src="assets/ask-shannon.js"></script>
 </body>
 </html>

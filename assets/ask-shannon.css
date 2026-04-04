@@ -1,0 +1,587 @@
+/* ================================================================
+   ASK SHANNON — Premium AI Chat UI
+   AI-Studio-style conic-gradient border with rotating glow.
+   Two-column layout: heading left, chat right.
+   ================================================================ */
+
+
+/* ── Animatable custom property for gradient rotation ── */
+@property --ask-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+
+/* ================================================================
+   1. TWO-COLUMN BENTO LAYOUT
+   ================================================================ */
+.ask-bento {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.ask-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 clamp(16px, 2vw, 32px);
+}
+
+.ask-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+/* ================================================================
+   2. GLOW WRAPPER — AI Studio conic-gradient border
+   Thin gradient border via padding + inner solid bg.
+   ================================================================ */
+.ask-glow-wrap {
+  position: relative;
+  border-radius: 24px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--ask-angle),
+    rgba(168, 85, 247, 0.6) 0deg,
+    rgba(236, 72, 153, 0.5) 60deg,
+    rgba(245, 158, 11, 0.35) 120deg,
+    rgba(34, 211, 238, 0.5) 180deg,
+    rgba(129, 140, 248, 0.55) 240deg,
+    rgba(236, 72, 153, 0.5) 300deg,
+    rgba(168, 85, 247, 0.6) 360deg
+  );
+  box-shadow:
+    0 0 15px rgba(168, 85, 247, 0.12),
+    0 0 30px rgba(236, 72, 153, 0.08),
+    0 0 60px rgba(34, 211, 238, 0.06);
+  animation: askGlowRotate 4s linear infinite;
+  transition: box-shadow 0.6s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes askGlowRotate {
+  to { --ask-angle: 360deg; }
+}
+
+/* Intensify on hover */
+.ask-glow-wrap:hover {
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.2),
+    0 0 40px rgba(236, 72, 153, 0.12),
+    0 0 70px rgba(34, 211, 238, 0.08);
+}
+
+/* Pulse while AI is thinking */
+.ask-glow-wrap.thinking {
+  padding: 2.5px;
+  animation:
+    askGlowRotate 2.5s linear infinite,
+    askGlowPulse 2s ease-in-out infinite;
+}
+
+@keyframes askGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(168, 85, 247, 0.2),
+      0 0 40px rgba(236, 72, 153, 0.14),
+      0 0 70px rgba(34, 211, 238, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(236, 72, 153, 0.25),
+      0 0 50px rgba(168, 85, 247, 0.18),
+      0 0 80px rgba(34, 211, 238, 0.12);
+  }
+}
+
+
+/* ================================================================
+   3. PANEL — solid white inner, covers gradient except border
+   ================================================================ */
+.ask-panel {
+  background: var(--c-surface, #FFFFFF);
+  border-radius: 22px;
+  padding: 28px 32px;
+}
+
+.ask-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+/* ================================================================
+   4. DESCRIPTION TEXT — shown before first message
+   ================================================================ */
+.ask-desc {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--c-mid, #777);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+
+.ask-desc.hidden { display: none; }
+
+
+/* ================================================================
+   5. MESSAGE AREA
+   ================================================================ */
+.ask-messages {
+  overflow-y: auto;
+  overscroll-behavior: contain;   /* prevent scroll chaining to page */
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-ghost) transparent;
+}
+.ask-messages:empty { display: none; }
+
+.ask-messages::-webkit-scrollbar { width: 3px; }
+.ask-messages::-webkit-scrollbar-track { background: transparent; }
+.ask-messages::-webkit-scrollbar-thumb { background: var(--c-ghost); border-radius: 99px; }
+
+
+/* ================================================================
+   6. MESSAGE BUBBLES
+   ================================================================ */
+.ask-msg {
+  max-width: 88%;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  border-radius: 16px;
+  padding: 12px 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: askFadeIn 0.4s var(--ease, cubic-bezier(.22,1,.36,1)) forwards;
+}
+
+.ask-msg p { margin: 0; }
+.ask-msg p + p { margin-top: 8px; }
+.ask-msg strong { font-weight: 600; }
+.ask-msg a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--c-ghost);
+  transition: text-decoration-color 0.2s ease;
+}
+.ask-msg a:hover { text-decoration-color: currentColor; }
+
+.ask-msg--ai {
+  align-self: flex-start;
+  background: var(--c-panel, #F5F5F5);
+  color: var(--c-ink, #0A0A0A);
+  border-bottom-left-radius: 4px;
+}
+
+.ask-msg--user {
+  align-self: flex-end;
+  background: var(--c-ink, #0A0A0A);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+  font-weight: 400;
+}
+
+
+/* ================================================================
+   7. STREAMING CURSOR
+   ================================================================ */
+.ask-msg--ai.streaming::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  border-radius: 2px;
+  background: #a855f7;
+  box-shadow:
+    0 0 6px rgba(168, 85, 247, 0.6),
+    0 0 14px rgba(168, 85, 247, 0.3);
+  animation: askCursorBlink 0.8s ease-in-out infinite;
+}
+
+@keyframes askCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes askFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ================================================================
+   8. TYPING INDICATOR
+   ================================================================ */
+.ask-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  align-self: flex-start;
+}
+
+.ask-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-ghost, #CCC);
+  animation: askDotPulse 1.4s ease-in-out infinite;
+}
+.ask-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.ask-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes askDotPulse {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+}
+
+
+/* ================================================================
+   9. INPUT BAR
+   ================================================================ */
+.ask-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.ask-messages:not(:empty) ~ .ask-form {
+  padding-top: 12px;
+  border-top: 1px solid var(--c-rule, #E8E8E8);
+  margin-top: 8px;
+}
+
+.ask-input {
+  flex: 1;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--c-ink, #0A0A0A);
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  outline: none;
+  letter-spacing: -0.01em;
+}
+
+.ask-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.ask-input::placeholder {
+  color: var(--c-mid, #777);
+  font-weight: 300;
+}
+
+/* Send button */
+.ask-send {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    transform 0.22s var(--ease, ease),
+    box-shadow 0.3s ease,
+    opacity 0.22s ease;
+}
+
+.ask-send:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 8px rgba(168, 85, 247, 0.4),
+    0 0 20px rgba(236, 72, 153, 0.2);
+}
+
+.ask-send:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.ask-send svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* ================================================================
+   10. BOTTOM BAR — powered badge left, email button right
+   ================================================================ */
+.ask-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+}
+
+
+/* Mic button */
+.ask-mic {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--c-rule, #E8E8E8);
+  border-radius: 50%;
+  color: var(--c-nav, #595959);
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ask-mic:hover {
+  background: var(--c-panel, #F5F5F5);
+  color: var(--c-ink, #0A0A0A);
+}
+
+.ask-mic.listening {
+  background: rgba(211, 47, 47, 0.08);
+  border-color: rgba(211, 47, 47, 0.3);
+  color: #D32F2F;
+  animation: askMicPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes askMicPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.15); }
+  50% { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); }
+}
+
+.ask-bottom-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* "Email me directly" button — Gemini "I'm feeling lucky" style */
+.ask-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-nav, #595959);
+  background: transparent;
+  border: 1px solid var(--c-rule, #E8E8E8);
+  border-radius: var(--r-pill, 999px);
+  padding: 8px 16px;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background 0.22s var(--ease, ease),
+    color 0.22s var(--ease, ease),
+    border-color 0.22s var(--ease, ease),
+    transform 0.22s var(--ease, ease),
+    box-shadow 0.22s var(--ease, ease);
+}
+
+.ask-email-btn:hover {
+  background: var(--c-ink, #0A0A0A);
+  color: #fff;
+  border-color: var(--c-ink, #0A0A0A);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.ask-email-btn svg {
+  opacity: 0.6;
+  transition: opacity 0.22s ease;
+}
+.ask-email-btn:hover svg {
+  opacity: 1;
+  stroke: #fff;
+}
+
+
+/* ================================================================
+   11. SUGGESTION CHIPS — below the box
+   ================================================================ */
+.ask-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.ask-chip {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--c-nav, #595959);
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--c-rule, #E8E8E8);
+  border-radius: var(--r-pill, 999px);
+  padding: 7px 14px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition:
+    background 0.22s var(--ease, ease),
+    color 0.22s var(--ease, ease),
+    border-color 0.22s var(--ease, ease),
+    transform 0.22s var(--ease, ease),
+    box-shadow 0.22s var(--ease, ease);
+}
+
+.ask-chip:hover {
+  background: var(--c-ink, #0A0A0A);
+  color: #fff;
+  border-color: var(--c-ink, #0A0A0A);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.ask-suggestions.hidden { display: none; }
+
+
+/* ================================================================
+   12. ERROR STATE
+   ================================================================ */
+.ask-error {
+  font-size: 13px;
+  color: var(--c-error, #D32F2F);
+  background: rgba(211, 47, 47, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  align-self: flex-start;
+  max-width: 88%;
+  animation: askFadeIn 0.35s ease forwards;
+}
+
+.ask-error a {
+  color: var(--c-ink, #0A0A0A);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
+/* ================================================================
+   13. RESPONSIVE
+   ================================================================ */
+@media (max-width: 900px) {
+  .ask-bento { grid-template-columns: 1fr; gap: 16px; }
+  .ask-left { padding: 0; justify-content: center; text-align: center; }
+  .ask-br { display: none; }
+  .ask-panel { padding: 22px 24px; }
+}
+
+@media (max-width: 600px) {
+  .ask-chip { font-size: 11px; padding: 6px 12px; }
+  .ask-msg { max-width: 92%; font-size: 13px; }
+  .ask-panel { padding: 20px; }
+  .ask-email-btn { font-size: 11px; padding: 7px 12px; }
+  .ask-bottom-bar { flex-wrap: wrap; gap: 8px; }
+}
+
+
+/* ================================================================
+   14. DARK MODE
+   ================================================================ */
+html[data-theme="dark"] .ask-glow-wrap {
+  background: conic-gradient(
+    from var(--ask-angle),
+    rgba(168, 85, 247, 0.8) 0deg,
+    rgba(236, 72, 153, 0.7) 60deg,
+    rgba(245, 158, 11, 0.5) 120deg,
+    rgba(34, 211, 238, 0.65) 180deg,
+    rgba(129, 140, 248, 0.7) 240deg,
+    rgba(236, 72, 153, 0.7) 300deg,
+    rgba(168, 85, 247, 0.8) 360deg
+  );
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.25),
+    0 0 45px rgba(236, 72, 153, 0.15),
+    0 0 70px rgba(34, 211, 238, 0.1);
+}
+
+html[data-theme="dark"] .ask-panel {
+  background: #232323;
+}
+
+html[data-theme="dark"] .ask-chip {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .ask-msg--user {
+  background: rgba(255, 255, 255, 0.87);
+  color: #121212;
+}
+
+html[data-theme="dark"] .ask-msg--ai {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="dark"] .ask-chip:hover,
+html[data-theme="dark"] .ask-email-btn:hover {
+  background: rgba(255, 255, 255, 0.87);
+  color: #121212;
+  border-color: rgba(255, 255, 255, 0.87);
+}
+
+html[data-theme="dark"] .ask-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .ask-send {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
+html[data-theme="dark"] .ask-send:hover {
+  box-shadow:
+    0 0 14px rgba(168, 85, 247, 0.5),
+    0 0 30px rgba(236, 72, 153, 0.25);
+}
+
+html[data-theme="dark"] .ask-msg--ai.streaming::after {
+  box-shadow:
+    0 0 8px rgba(168, 85, 247, 0.8),
+    0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+
+/* ================================================================
+   15. REDUCED MOTION
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ask-glow-wrap { animation: none; }
+  .ask-glow-wrap.thinking { animation: none; }
+  .ask-msg--ai.streaming::after { animation: none; opacity: 0.7; }
+  .ask-msg { animation: none; opacity: 1; transform: none; }
+}
