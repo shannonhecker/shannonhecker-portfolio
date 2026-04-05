@@ -529,7 +529,7 @@
 }
 
 @media (max-width: 600px) {
-  .ask-chip { font-size: 11px; padding: 6px 12px; }
+  .ask-chip { font-size: 11px; padding: 8px 16px; }
   .ask-disclaimer { font-size: 11px; }
   .ask-msg { max-width: 92%; font-size: 13px; }
   .ask-panel { padding: 20px; }
@@ -540,7 +540,7 @@
 @media (max-width: 480px) {
   .ask-panel { padding: 16px; }
   .ask-msg { max-width: 95%; font-size: 13px; padding: 10px 14px; border-radius: 14px; }
-  .ask-chip { font-size: 11px; padding: 5px 10px; }
+  .ask-chip { font-size: 11px; padding: 8px 14px; }
   .ask-suggestions { gap: 6px; }
   .ask-send { width: 36px; height: 36px; }
   .ask-send svg { width: 14px; height: 14px; }
