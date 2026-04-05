@@ -10,23 +10,39 @@
   'use strict';
 
   /* ── Config ── */
-  const ASK_API_URL = window.ASK_API_URL || 'http://localhost:3001/api/chat';
-  const FETCH_TIMEOUT_MS = 30000;
+  var ASK_API_URL = window.ASK_API_URL || 'http://localhost:3001/api/chat';
+  var FETCH_TIMEOUT_MS = 30000;
+  var CHUNK_TIMEOUT_MS = 15000; /* max wait between chunks */
 
   /* ── DOM refs ── */
-  const messagesEl     = document.getElementById('ask-messages');
-  const formEl         = document.getElementById('ask-form');
-  const inputEl        = document.getElementById('ask-input');
-  const suggestionsEl  = document.getElementById('ask-suggestions');
-  const sendBtn        = document.getElementById('ask-send');
-  const glowWrap       = document.querySelector('.ask-glow-wrap');
-  const micBtn         = document.getElementById('ask-mic');
+  var messagesEl     = document.getElementById('ask-messages');
+  var formEl         = document.getElementById('ask-form');
+  var inputEl        = document.getElementById('ask-input');
+  var suggestionsEl  = document.getElementById('ask-suggestions');
+  var sendBtn        = document.getElementById('ask-send');
+  var glowWrap       = document.querySelector('.ask-glow-wrap');
+  var micBtn         = document.getElementById('ask-mic');
 
   if (!messagesEl || !formEl) return;
 
+  /* ── Feature detection ── */
+  var hasAbortController = typeof AbortController !== 'undefined';
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   /* ── State ── */
-  let history  = [];   // { role, content }[]
-  let isTyping = false;
+  var history  = [];   // { role, content }[]
+  var isTyping = false;
+  var scrollRaf = 0;
+
+  /* ── Escape HTML via string replacement (no DOM churn) ── */
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   /* ── Speech to text ── */
   var recognition = null;
@@ -56,7 +72,8 @@
 
     recognition.onend = function () {
       micBtn.classList.remove('listening');
-      inputEl.focus();
+      /* Only focus on desktop — avoids iOS keyboard jump */
+      if (!isMobile) inputEl.focus();
     };
 
     recognition.onerror = function () {
@@ -67,7 +84,7 @@
   }
 
   /* ── Suggested questions (grouped into sets that rotate on click) ── */
-  const SUGGESTION_SETS = [
+  var SUGGESTION_SETS = [
     [
       "What's your experience?",
       "Tell me about your design systems work",
@@ -104,11 +121,34 @@
     var atTop    = el.scrollTop <= 0;
     var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
 
-    /* Only block if scrolling would escape the container */
     if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
       e.preventDefault();
     }
   }, { passive: false });
+
+  /* Touch scroll trapping for mobile */
+  var touchStartY = 0;
+  messagesEl.addEventListener('touchstart', function (e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  messagesEl.addEventListener('touchmove', function (e) {
+    var el = messagesEl;
+    var touchY = e.touches[0].clientY;
+    var delta = touchStartY - touchY;
+    var atTop = el.scrollTop <= 0;
+    var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+
+    if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  /* ── Auto-grow textarea ── */
+  inputEl.addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
 
   /* ── Event listeners ── */
   formEl.addEventListener('submit', function (e) {
@@ -139,7 +179,6 @@
       btn.addEventListener('click', function () {
         if (isTyping) return;
         sendMessage(q);
-        /* Advance to next set of suggestions */
         currentSetIndex++;
         renderSuggestions();
       });
@@ -149,28 +188,27 @@
 
   /* ── Send a message ── */
   function sendMessage(text) {
-    /* Keep suggestions visible — don't hide them */
-
-    /* Render user bubble */
     addUserMessage(text);
     inputEl.value = '';
+    inputEl.style.height = 'auto';
 
-    /* Add to history */
     history.push({ role: 'user', content: text });
 
-    /* Stream AI response */
+    /* Trim history to prevent unbounded growth */
+    if (history.length > 20) {
+      history = history.slice(-20);
+    }
+
     streamResponse();
   }
 
   /* ── Stream from API ── */
-  async function streamResponse() {
+  function streamResponse() {
     isTyping = true;
     sendBtn.disabled = true;
 
-    /* Activate glow "thinking" state */
     if (glowWrap) glowWrap.classList.add('thinking');
 
-    /* Create AI bubble (empty, will fill via streaming) */
     var bubble = document.createElement('div');
     bubble.className = 'ask-msg ask-msg--ai streaming';
     var textNode = document.createElement('p');
@@ -179,80 +217,126 @@
     scrollToBottom();
 
     var fullText = '';
+    var controller = hasAbortController ? new AbortController() : null;
+    var signal = controller ? controller.signal : undefined;
+    var timeoutId = null;
 
-    var controller = new AbortController();
-    var timeout = setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS);
+    function resetTimeout(ms) {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (!controller) return;
+      timeoutId = setTimeout(function () { controller.abort(); }, ms);
+    }
 
-    try {
-      /* Send only the last 10 messages to avoid exceeding context limits */
-      var recentHistory = history.slice(-10);
-      var res = await fetch(ASK_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: recentHistory }),
-        signal: controller.signal
-      });
+    resetTimeout(FETCH_TIMEOUT_MS);
 
+    var recentHistory = history.slice(-10);
+
+    fetch(ASK_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: recentHistory }),
+      signal: signal
+    }).then(function (res) {
       if (!res.ok) {
         throw new Error('API returned ' + res.status);
+      }
+
+      /* Guard against null body (some polyfills / opaque responses) */
+      if (!res.body || typeof res.body.getReader !== 'function') {
+        return res.text().then(function (text) {
+          /* Fallback: try to parse as non-streaming response */
+          try {
+            var lines = text.split('\n');
+            for (var i = 0; i < lines.length; i++) {
+              var line = lines[i];
+              if (!line.startsWith('data: ') || line.indexOf('[DONE]') !== -1) continue;
+              var data = JSON.parse(line.slice(6).trim());
+              if (data.text) fullText += data.text;
+            }
+          } catch (e) {
+            fullText = text;
+          }
+          textNode.innerHTML = formatMarkdown(fullText);
+          bubble.classList.remove('streaming');
+          history.push({ role: 'assistant', content: fullText });
+          scrollToBottom();
+        });
       }
 
       var reader = res.body.getReader();
       var decoder = new TextDecoder();
       var buffer = '';
 
-      while (true) {
-        var chunk = await reader.read();
-        if (chunk.done) break;
-        clearTimeout(timeout);
+      function read() {
+        return reader.read().then(function (result) {
+          if (result.done) return;
 
-        buffer += decoder.decode(chunk.value, { stream: true });
+          /* Reset per-chunk timeout */
+          resetTimeout(CHUNK_TIMEOUT_MS);
 
-        /* Parse SSE lines */
-        var lines = buffer.split('\n');
-        buffer = lines.pop() || '';
+          buffer += decoder.decode(result.value, { stream: true });
 
-        for (var i = 0; i < lines.length; i++) {
-          var line = lines[i];
-          if (!line.startsWith('data: ')) continue;
-          var payload = line.slice(6).trim();
+          var lines = buffer.split('\n');
+          buffer = lines.pop() || '';
 
-          if (payload === '[DONE]') continue;
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (!line.startsWith('data: ')) continue;
+            var payload = line.slice(6).trim();
 
-          try {
-            var data = JSON.parse(payload);
-            if (data.error) throw new Error(data.error);
-            if (data.text) {
-              fullText += data.text;
-              textNode.innerHTML = formatMarkdown(fullText);
-              scrollToBottom();
+            if (payload === '[DONE]') continue;
+
+            try {
+              var data = JSON.parse(payload);
+              if (data.error) throw new Error(data.error);
+              if (data.text) {
+                fullText += data.text;
+                textNode.innerHTML = formatMarkdown(fullText);
+                debouncedScroll();
+              }
+            } catch (parseErr) {
+              /* Only throw if it's a real API error, not a partial JSON chunk */
+              if (parseErr.message && parseErr.message.indexOf('Unexpected') === -1) {
+                throw parseErr;
+              }
+              /* Partial chunk — will be completed in next read */
             }
-          } catch (parseErr) {
-            if (parseErr.message && parseErr.message !== 'Unexpected token') throw parseErr;
           }
-        }
+
+          return read();
+        });
       }
 
-      /* Finalize */
-      bubble.classList.remove('streaming');
-      history.push({ role: 'assistant', content: fullText });
-
-    } catch (err) {
+      return read().then(function () {
+        bubble.classList.remove('streaming');
+        history.push({ role: 'assistant', content: fullText });
+      });
+    }).catch(function (err) {
       bubble.remove();
-      var msg = err.name === 'AbortError'
-        ? 'The request timed out — the AI took too long to respond.'
-        : err.message;
+      var msg;
+      if (err.name === 'AbortError') {
+        msg = 'The request timed out. The AI server may be waking up, please try again in a moment.';
+      } else if (err.message === 'Failed to fetch' || err.message === 'Load failed') {
+        msg = 'Could not connect to the AI. Please check your internet connection and try again.';
+      } else {
+        msg = err.message || 'Something went wrong. Please try again.';
+      }
       showError(msg);
-    } finally {
-      clearTimeout(timeout);
-    }
 
-    /* Deactivate glow "thinking" state */
-    if (glowWrap) glowWrap.classList.remove('thinking');
-
-    isTyping = false;
-    sendBtn.disabled = false;
-    inputEl.focus();
+      /* Remove the unanswered user message from history so retry works cleanly */
+      if (history.length > 0 && history[history.length - 1].role === 'user') {
+        history.pop();
+      }
+    }).then(function () {
+      /* finally — runs after success or catch */
+      if (timeoutId) clearTimeout(timeoutId);
+      if (glowWrap) glowWrap.classList.remove('thinking');
+      isTyping = false;
+      sendBtn.disabled = false;
+      /* Only auto-focus on desktop to avoid iOS keyboard jump */
+      if (!isMobile) inputEl.focus();
+      scrollToBottom();
+    });
   }
 
   /* ── Add a user message bubble ── */
@@ -264,31 +348,27 @@
     scrollToBottom();
   }
 
-  /* ── Add an AI message bubble (instant, e.g. welcome) ── */
-  function addAIMessage(text) {
-    var bubble = document.createElement('div');
-    bubble.className = 'ask-msg ask-msg--ai';
-    bubble.innerHTML = '<p>' + formatMarkdown(text) + '</p>';
-    messagesEl.appendChild(bubble);
-    scrollToBottom();
-  }
-
-  /* ── Show error with email fallback ── */
+  /* ── Show error with specific message and email fallback ── */
   function showError(msg) {
     var el = document.createElement('div');
     el.className = 'ask-error';
     el.innerHTML =
-      'Couldn\'t reach the AI right now. ' +
+      escapeHtml(msg) + ' ' +
       '<a href="mailto:shannonheckerchen@gmail.com?subject=Portfolio%20enquiry">Email Shannon directly</a> instead.';
     messagesEl.appendChild(el);
     scrollToBottom();
   }
 
-  /* ── Scroll chat to bottom ── */
+  /* ── Scroll chat to bottom (debounced for streaming perf) ── */
   function scrollToBottom() {
-    messagesEl.scrollTo({
-      top: messagesEl.scrollHeight,
-      behavior: 'smooth'
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function debouncedScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(function () {
+      scrollToBottom();
+      scrollRaf = 0;
     });
   }
 
@@ -312,13 +392,6 @@
         return '<a href="' + href + '" target="_blank" rel="noopener">' + url + '</a>';
       })
       .replace(/\n/g, '<br>');
-  }
-
-  /* ── Escape HTML ── */
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
   }
 
 })();

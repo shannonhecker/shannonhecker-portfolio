@@ -106,6 +106,7 @@
   background: var(--c-surface, #FFFFFF);
   border-radius: 22px;
   padding: 28px 32px;
+  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
 }
 
 .ask-chat {
@@ -141,8 +142,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 360px;
-  scroll-behavior: smooth;
+  max-height: min(360px, 50dvh);  /* adapt to small viewports + landscape */
   scrollbar-width: thin;
   scrollbar-color: var(--c-ghost) transparent;
 }
@@ -202,11 +202,11 @@
 /* ================================================================
    7. STREAMING CURSOR
    ================================================================ */
-.ask-msg--ai.streaming::after {
+.ask-msg--ai.streaming p:last-child::after {
   content: '';
   display: inline-block;
   width: 2px;
-  height: 16px;
+  height: 14px;
   margin-left: 3px;
   vertical-align: text-bottom;
   border-radius: 2px;
@@ -273,7 +273,7 @@
 .ask-input {
   flex: 1;
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 16px;       /* 16px prevents iOS auto-zoom on focus */
   font-weight: 300;
   color: var(--c-ink, #0A0A0A);
   background: transparent;
@@ -282,9 +282,10 @@
   outline: none;
   letter-spacing: -0.01em;
   resize: none;
-  overflow: hidden;
+  overflow: auto;        /* allow scroll for multiline, was hidden */
   line-height: 1.5;
   min-height: 0;
+  max-height: 100px;
 }
 
 .ask-input:focus {
@@ -454,6 +455,8 @@
   padding: 7px 14px;
   cursor: pointer;
   letter-spacing: 0.01em;
+  touch-action: manipulation;  /* kill 300ms tap delay on mobile */
+  -webkit-tap-highlight-color: transparent;
   transition:
     background 0.22s var(--ease, ease),
     color 0.22s var(--ease, ease),
@@ -462,12 +465,19 @@
     box-shadow 0.22s var(--ease, ease);
 }
 
-.ask-chip:hover {
+@media (hover: hover) {
+  .ask-chip:hover {
+    background: var(--c-ink, #0A0A0A);
+    color: #fff;
+    border-color: var(--c-ink, #0A0A0A);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+}
+.ask-chip:active {
   background: var(--c-ink, #0A0A0A);
   color: #fff;
   border-color: var(--c-ink, #0A0A0A);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .ask-suggestions.hidden { display: none; }
@@ -521,7 +531,7 @@
   .ask-send { width: 36px; height: 36px; }
   .ask-send svg { width: 14px; height: 14px; }
   .ask-mic { width: 32px; height: 32px; }
-  .ask-input { font-size: 14px; }
+  .ask-input { font-size: 16px; } /* 16px prevents iOS auto-zoom */
   .ask-glow-wrap { border-radius: 20px; }
   .ask-panel { border-radius: 18px; }
 }
@@ -565,8 +575,16 @@ html[data-theme="dark"] .ask-msg--ai {
   background: rgba(255, 255, 255, 0.06);
 }
 
-html[data-theme="dark"] .ask-chip:hover,
-html[data-theme="dark"] .ask-email-btn:hover {
+@media (hover: hover) {
+  html[data-theme="dark"] .ask-chip:hover,
+  html[data-theme="dark"] .ask-email-btn:hover {
+    background: rgba(255, 255, 255, 0.87);
+    color: #121212;
+    border-color: rgba(255, 255, 255, 0.87);
+  }
+}
+html[data-theme="dark"] .ask-chip:active,
+html[data-theme="dark"] .ask-email-btn:active {
   background: rgba(255, 255, 255, 0.87);
   color: #121212;
   border-color: rgba(255, 255, 255, 0.87);
@@ -587,7 +605,7 @@ html[data-theme="dark"] .ask-send:hover {
     0 0 30px rgba(236, 72, 153, 0.25);
 }
 
-html[data-theme="dark"] .ask-msg--ai.streaming::after {
+html[data-theme="dark"] .ask-msg--ai.streaming p:last-child::after {
   box-shadow:
     0 0 8px rgba(168, 85, 247, 0.8),
     0 0 20px rgba(168, 85, 247, 0.4);
@@ -600,6 +618,6 @@ html[data-theme="dark"] .ask-msg--ai.streaming::after {
 @media (prefers-reduced-motion: reduce) {
   .ask-glow-wrap { animation: none; }
   .ask-glow-wrap.thinking { animation: none; }
-  .ask-msg--ai.streaming::after { animation: none; opacity: 0.7; }
+  .ask-msg--ai.streaming p:last-child::after { animation: none; opacity: 0.7; }
   .ask-msg { animation: none; opacity: 1; transform: none; }
 }
