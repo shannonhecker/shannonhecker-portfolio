@@ -485,9 +485,9 @@
 /* ── Disclaimer ── */
 .ask-disclaimer {
   font-family: var(--font);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
-  color: var(--c-nav, #595959);
+  color: #aaa;
   text-align: center;
   width: 100%;
   margin: 6px 0 0;
