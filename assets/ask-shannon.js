@@ -32,6 +32,7 @@
   /* ── State ── */
   var history  = [];   // { role, content }[]
   var isTyping = false;
+  var scrollRaf = 0;
 
   /* ── Escape HTML via string replacement (no DOM churn) ── */
   function escapeHtml(str) {
@@ -213,6 +214,7 @@
     var textNode = document.createElement('p');
     bubble.appendChild(textNode);
     messagesEl.appendChild(bubble);
+    scrollToBottom();
 
     var fullText = '';
     var controller = hasAbortController ? new AbortController() : null;
@@ -257,6 +259,7 @@
           textNode.innerHTML = formatMarkdown(fullText);
           bubble.classList.remove('streaming');
           history.push({ role: 'assistant', content: fullText });
+          scrollToBottom();
         });
       }
 
@@ -289,6 +292,7 @@
               if (data.text) {
                 fullText += data.text;
                 textNode.innerHTML = formatMarkdown(fullText);
+                debouncedScroll();
               }
             } catch (parseErr) {
               /* Only throw if it's a real API error, not a partial JSON chunk */
@@ -331,6 +335,7 @@
       sendBtn.disabled = false;
       /* Only auto-focus on desktop to avoid iOS keyboard jump */
       if (!isMobile) inputEl.focus();
+      scrollToBottom();
     });
   }
 
@@ -354,9 +359,17 @@
     scrollToBottom();
   }
 
-  /* ── Scroll chat to bottom — only used for user-initiated actions ── */
+  /* ── Scroll chat to bottom (debounced for streaming perf) ── */
   function scrollToBottom() {
     messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function debouncedScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(function () {
+      scrollToBottom();
+      scrollRaf = 0;
+    });
   }
 
   /* ── Minimal markdown → HTML (bold, links, line breaks, auto-link) ── */
