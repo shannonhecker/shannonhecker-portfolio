@@ -484,12 +484,13 @@
 
 /* ── Disclaimer ── */
 .ask-disclaimer {
-  font-size: 11px;
-  color: var(--c-ghost, #999);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--c-nav, #595959);
   text-align: center;
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   line-height: 1.4;
-  opacity: 0.7;
 }
 
 
