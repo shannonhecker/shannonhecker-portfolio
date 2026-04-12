@@ -208,19 +208,20 @@ I anchor design in outcomes: usable today, scalable tomorrow, accessible always.
 6. Reeborn Information, Ltd. Website Designer (2008 to 2010)
    Designed corporate visual identity and web platform interfaces, with digital content and product photography for e-commerce.
 
-## KEY PROJECTS (12 case studies on the portfolio)
-1. Barclays Data Visualisation (Product Designer). Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts. Built a modular card system with 6+ visualisation patterns across desktop and iPad.
-2. TripUp (Product Designer). Design challenge for Bending Spoons: group travel with polls, shared expenses, and real-time coordination in one mobile flow.
-3. Fusion Analytics Dashboard (Product Designer, UI Lead). B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
-4. Fusion Design System (Product Designer). Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
-5. Fusion Data Solution (Product Designer). Enterprise data management: complex technical workflows turned into guided, shippable journeys. 40+ screens, 5 reusable frameworks.
-6. UI Toolkit (UI Designer). Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
-7. Corporate Action Manager (UI Designer, UI Lead). Redesigned a 15-year-old legacy tool, delivering 40% faster task completion and 60% fewer navigation steps for operations teams.
-8. Complex Assets Derivatives Valuation (Product Designer). Unified valuation workspace for derivatives trading: 3x faster scenario modelling, 95% trader satisfaction.
-9. JPMM Research Platform (UI Designer). Research discovery for analysts: IA-first navigation, 4x search relevance, 35% engagement increase.
-10. Global Custody Deal Model (UI Designer). Bespoke deal modelling: multi-step wizard that cut deal creation from 2 hours to 20 minutes with full audit trail.
-11. Execute Algo Center (UI Designer). Algorithmic execution centre: single-screen command centre with 2-click-max interactions, 60% faster intervention.
-12. D&PS Brand Identity (Visual Designer). Internal brand identity for J.P. Morgan's Digital & Platform Services division.
+## KEY PROJECTS (13 case studies on the portfolio)
+1. ausōs.ai (Founder, Product Designer). AI-powered visual web builder that bridges conversational AI and drag-and-drop design. Supports 3 design systems (Salt DS, Material 3, Fluent 2). Currently in development — Shannon's own product.
+2. Barclays Data Visualisation (Product Designer). Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts. Built a modular card system with 6+ visualisation patterns across desktop and iPad.
+3. TripUp (Product Designer). Design challenge for Bending Spoons: group travel with polls, shared expenses, and real-time coordination in one mobile flow.
+4. Fusion Analytics Dashboard (Product Designer, UI Lead). B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
+5. Fusion Design System (Product Designer). Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
+6. Fusion Data Solution (Product Designer). Enterprise data management: complex technical workflows turned into guided, shippable journeys. 40+ screens, 5 reusable frameworks.
+7. UI Toolkit (UI Designer). Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
+8. Corporate Action Manager (UI Designer, UI Lead). Redesigned a 15-year-old legacy tool, delivering 40% faster task completion and 60% fewer navigation steps for operations teams.
+9. Complex Assets Derivatives Valuation (Product Designer). Unified valuation workspace for derivatives trading: 3x faster scenario modelling, 95% trader satisfaction.
+10. JPMM Research Platform (UI Designer). Research discovery for analysts: IA-first navigation, 4x search relevance, 35% engagement increase.
+11. Global Custody Deal Model (UI Designer). Bespoke deal modelling: multi-step wizard that cut deal creation from 2 hours to 20 minutes with full audit trail.
+12. Execute Algo Center (UI Designer). Algorithmic execution centre: single-screen command centre with 2-click-max interactions, 60% faster intervention.
+13. D&PS Brand Identity (Visual Designer). Internal brand identity for J.P. Morgan's Digital & Platform Services division.
 
 ## EXPERTISE
 - AI Design & LLM Workflows

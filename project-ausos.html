@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-795LXWTYWM');
+  </script>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assets/dark-mode.js"></script>
+  <link rel="stylesheet" href="assets/dark-mode.css" />
+  <title>ausōs.ai · AI Visual Design Platform · Shannon Hecker</title>
+  <meta name="description" content="ausōs.ai: an AI-powered visual web builder that bridges conversational AI and drag-and-drop design. Founded and designed by Shannon Hecker." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+
+  <style>
+.skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
+.skip-link:focus{top:16px;}
+:focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
+    :root {
+      --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
+      --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#6F6F6F;
+      --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
+      --c-ink-pure:#000000; --c-nav:#595959; --c-hover:#111111; --c-border:#c0c0c0;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --t-sm:clamp(13px,1.4vw,14px); --t-base:clamp(15px,1.6vw,17px);
+      --t-md:clamp(17px,1.8vw,20px); --t-lg:clamp(22px,2.4vw,28px);
+      --t-xl:clamp(30px,3.8vw,44px); --t-2xl:clamp(42px,5.5vw,60px);
+      --r-pill:999px; --r-card:16px; --r-panel:16px; --r-chip:8px; --r-input:10px;
+      --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.56,.64,1);
+      --tf:140ms; --tb:220ms; --ts:420ms; --tr:650ms;
+      --sh-xs:0 1px 3px rgba(0,0,0,.04); --sh-sm:0 2px 10px rgba(0,0,0,.06);
+      --sh-md:0 6px 24px rgba(0,0,0,.08); --sh-lg:0 12px 48px rgba(0,0,0,.10);
+      --mw:1340px; --pad:clamp(28px,6vw,88px); --nav:72px;
+      --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{font-family:var(--font);background:var(--c-bg);color:var(--c-ink);
+      line-height:1.75;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    ::-webkit-scrollbar{width:3px;}
+    ::-webkit-scrollbar-track{background:var(--c-bg);}
+    ::-webkit-scrollbar-thumb{background:var(--c-ghost);border-radius:99px;}
+    a{color:inherit;text-decoration:none;}
+    img{display:block;max-width:100%;}
+    button{font-family:var(--font);}
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);}
+    /* Scroll reveal */
+    .rv{opacity:0;transform:translateY(32px);transition:opacity var(--tr) var(--ease),transform var(--tr) var(--ease);}
+    .rv.on{opacity:1;transform:translateY(0);}
+    .rv[data-d="1"]{transition-delay:.1s;} .rv[data-d="2"]{transition-delay:.2s;}
+    .rv[data-d="3"]{transition-delay:.3s;} .rv[data-d="4"]{transition-delay:.4s;}
+    .rv[data-d="5"]{transition-delay:.5s;} .rv[data-d="6"]{transition-delay:.6s;}
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);
+      display:flex;align-items:center;transition:background var(--ts) var(--ease),border-color var(--ts) var(--ease),backdrop-filter var(--ts) var(--ease);border-bottom:1px solid transparent;}
+    .nav.s{background:rgba(255,255,255,.9);border-color:var(--c-rule);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+    .nav-inner{position:relative;max-width:var(--mw);margin:0 auto;padding:0 var(--pad);width:100%;display:flex;align-items:center;}
+    .nav-logo{position:relative;z-index:2;display:flex;align-items:center;color:var(--c-ink);transition:opacity var(--tb) var(--ease),transform 0.4s var(--ease);}
+    .nav-logo:hover{opacity:.6;transform:rotate(45deg);}
+    .nav-links{list-style:none;display:flex;align-items:center;gap:4px;position:absolute;left:50%;transform:translateX(-50%);z-index:1;white-space:nowrap;}.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative;z-index:2;}
+    .nav-links a{font-size:13px;font-weight:400;color:var(--c-nav);letter-spacing:.01em;border-radius:var(--r-pill);padding:8px 16px;transition:background var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-links a:hover{background:var(--c-hover);color:#fff;}
+    .nav.s .nav-links a{color:var(--c-nav);}
+    .nav.s .nav-links a:hover{background:var(--c-hover);color:#fff;}
+    .nav-cta{font-size:13px;font-weight:400;color:var(--c-nav);border:1px solid var(--c-border);border-radius:var(--r-pill);padding:8px 20px;transition:background var(--tb) var(--ease),border-color var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-cta:hover{background:var(--c-hover);border-color:var(--c-hover);color:#fff;}
+    .nav.s .nav-cta{color:var(--c-nav);}
+    .nav.s .nav-cta:hover{background:var(--c-hover);border-color:var(--c-hover);color:#fff;}
+    .nav-burger{position:relative;z-index:2;display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;}
+    .nav-burger span{display:block;width:22px;height:1.5px;background:var(--c-ink);border-radius:99px;transition:transform var(--tb) var(--ease),opacity var(--tb) var(--ease);}
+    .nav-burger.o span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .nav-burger.o span:nth-child(2){opacity:0;}
+    .nav-burger.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .nav-drawer {
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:var(--c-bg, #fff);
+      padding:100px var(--pad) 40px; z-index:199;
+      display:flex; flex-direction:column; gap:4px;
+      transform:translateY(-110%); opacity:0; pointer-events:none;
+      transition:transform var(--ts) var(--ease), opacity var(--ts) var(--ease);
+    }
+    .nav-drawer.o{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .nav-drawer a{font-size:20px;font-weight:600;color:var(--c-ink);padding:12px 0;border-bottom:1px solid var(--c-rule);transition:opacity var(--tb) var(--ease);}
+    .nav-drawer a:hover{opacity:.5;}
+    /* Section heading */
+    .sh{display:flex;flex-direction:column;gap:12px;margin-bottom:56px;}
+    .sh-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);}
+    .sh-row{display:flex;align-items:baseline;justify-content:space-between;width:100%;gap:24px;}
+    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1;}
+    .sh-period{color:var(--c-ghost);}
+    .sh-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--c-light);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:color var(--tb) var(--ease);}
+    .sh-link:hover{color:var(--c-ink);}
+    /* Footer */
+    .footer{border-top:1px solid var(--c-rule);padding: clamp(32px, 5vw, 56px) 0;}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .footer-copy{font-size:13px;font-weight:300;color:var(--c-light);}
+    .footer-li{font-size:13px;font-weight:500;color:var(--c-mid);display:inline-flex;align-items:center;gap:5px;transition:color var(--tb) var(--ease);}
+    .footer-li:hover{color:var(--c-ink);}
+    /* Chip tags */
+    .chip{display:inline-flex;align-items:center;font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--r-pill);padding:4px 12px;}
+    .chip-default{background:var(--c-panel);border:1px solid var(--c-rule);color:var(--c-light);}
+    /* Responsive */
+    .proj-next { padding:52px 0 28px;border-top:1px solid var(--c-rule); }
+    /* Prev/Next project nav */
+    .proj-nav { display:flex;align-items:center;justify-content:space-between;gap:24px; }
+    .proj-nav-item { display:flex;flex-direction:column;gap:4px; }
+    .proj-nav-item--next { align-items:flex-end;margin-left:auto; }
+    .proj-nav-hint { font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--c-light); }
+    .proj-nav-link { display:inline-flex;align-items:center;gap:10px;font-size:clamp(18px,2.2vw,28px);font-weight:400;letter-spacing:-.02em;color:var(--c-ink);transition:gap var(--tb) var(--spring),color var(--tb) var(--ease); }
+    .proj-nav-link:hover { gap:16px;color:var(--c-mid); }
+    .proj-nav-link svg { flex-shrink:0;width:20px;height:20px;transition:transform var(--tb) var(--spring); }
+    .proj-nav-item--prev .proj-nav-link:hover svg { transform:translateX(-3px); }
+    .proj-nav-item--next .proj-nav-link:hover svg { transform:translateX(3px); }
+    @media(max-width:600px){ .proj-nav-link{font-size:16px;} }
+    @media(max-width:900px){.nav-links,.nav-cta,.nav-right{display:none;}.nav-burger{display:flex;margin-left:auto;}}
+
+  </style>
+  <style>
+    .proj-page { padding-top: var(--nav); position: relative; z-index: 2; }
+    /* Hero */
+    .proj-hero {
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--c-bg);
+    }
+    .proj-title-post {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 400;
+      letter-spacing: -.03em;
+      line-height: 1.08;
+      margin: 44px 0 18px;
+    }
+    .proj-lead {
+      font-size: clamp(17px, 1.8vw, 20px);
+      font-weight: 300;
+      color: var(--c-mid);
+      line-height: 1.65;
+      max-width: 640px;
+      margin-bottom: 52px;
+    }
+    .proj-about-layout {
+      display: grid;
+      grid-template-columns: minmax(108px, min(24vw, 220px)) minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 80px);
+      align-items: start;
+    }
+    .proj-about-main { min-width: 0; }
+    .proj-about-main .proj-body { max-width: 680px; }
+    .proj-about-label {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.8vw, 32px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin-bottom: 0;
+      text-transform: lowercase;
+      line-height: 1.12;
+      position: sticky;
+      top: calc(var(--nav) + 24px);
+    }
+    .proj-about-dot { color: var(--c-ghost); }
+    .proj-about-block { margin-bottom: 44px; }
+    .proj-about-h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+      margin-bottom: 14px;
+    }
+    .proj-nda {
+      margin: 52px 0 0;
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+      background: #fff;
+      box-shadow: none;
+    }
+    .proj-nda-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 38% 45%, rgba(130, 224, 255, 0.42) 0%, transparent 58%),
+        radial-gradient(ellipse 50% 48% at 44% 52%, rgba(175, 240, 255, 0.35) 0%, transparent 52%);
+    }
+    .proj-nda-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(48px, 9vw, 96px) clamp(24px, 5vw, 48px);
+      min-height: clamp(260px, 36vw, 340px);
+    }
+    .proj-nda-rule {
+      width: min(220px, 55vw);
+      height: 1px;
+      margin: 0;
+      border: none;
+      background: linear-gradient(90deg, transparent, rgba(10, 10, 10, 0.12), transparent);
+    }
+    .proj-nda-rule--spaced { margin: 22px 0; }
+    .proj-nda-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4.2vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: var(--c-ink);
+      margin: 0;
+    }
+    .proj-nda-lead {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3.4vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--c-ink);
+      margin: 6px 0 0;
+    }
+    .proj-nda-body {
+      font-family: var(--font);
+      font-size: clamp(14px, 1.45vw, 16px);
+      font-weight: 300;
+      color: #555;
+      line-height: 1.65;
+      max-width: 36em;
+      margin: 0;
+    }
+
+    .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
+    .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
+    .proj-breadcrumb a:hover { color:var(--c-ink); }
+    .proj-breadcrumb-sep { color:var(--c-rule-dk); }
+    .proj-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
+    .proj-title { font-size:clamp(36px,5.5vw,72px);font-weight:700;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:32px; }
+    .proj-subtitle { font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--c-mid);max-width:640px;line-height:1.65;margin-bottom:48px; }
+    .proj-meta-row { display:flex;gap:40px;flex-wrap:wrap;padding:0 0 28px;border-top:none;border-bottom:1px solid var(--c-rule);margin-bottom:32px; }
+    .proj-meta-item { display:flex;flex-direction:column;gap:4px; }
+    .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
+    .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
+    /* Cover image */
+    .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block;background:#fff; }
+    .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
+    /* Content sections */
+    .proj-content { padding-bottom:40px; }
+    .proj-section { margin-bottom:72px; }
+    .proj-section-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:16px;display:block; }
+    .proj-section-title { font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:20px; }
+    .proj-body { font-size:clamp(15px,1.5vw,17px);font-weight:300;color:var(--c-mid);line-height:1.85;max-width:720px; }
+    .proj-body strong { font-weight:600;color:var(--c-ink); }
+    .proj-body p + p { margin-top:16px; }
+    /* Image grid */
+    .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0; }
+    .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3;background:#fff; }
+    .proj-img-full { width:100%;border-radius:0;margin:40px 0;display:block;background:#fff; }
+    .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
+    .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:40px 0; }
+    /* Outcome pills */
+    .proj-outcomes { display:flex;gap:0;margin:32px 0; }
+    .proj-outcome { display:flex;flex-direction:column;gap:6px;padding:0 32px;border-left:1px solid var(--c-rule); }
+    .proj-outcome:first-child { padding-left:0;border-left:none; }
+    .proj-outcome-num { font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink);line-height:1; }
+    .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light);letter-spacing:.01em; }
+    /* Tags */
+    .proj-tags { margin-top:32px; }
+    .proj-tags-label { font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px; }
+    .proj-tags-list { font-size:13px;font-weight:400;color:var(--c-mid);line-height:1.7; }
+    /* Next project nav */
+    @media(max-width:900px){
+      .proj-img-grid{grid-template-columns:1fr;}
+      .proj-meta-row{gap:24px;}
+      .proj-outcomes{flex-direction:column;gap:20px;} .proj-outcomes .proj-outcome{border-left:none;padding:0;border-bottom:1px solid var(--c-rule);padding-bottom:16px;} .proj-outcomes .proj-outcome:first-child{padding-left:0;}
+      .proj-about-layout{grid-template-columns:1fr;gap:20px;}
+      .proj-about-label{position:static;margin-bottom:8px;}
+      .proj-next{padding-bottom:20px;}
+    }
+    /* Difference-blend circle cursor */
+    #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
+    #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
+    .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
+      /* Block image copy/drag */
+    img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none; }
+    img { -webkit-touch-callout:none; }
+    .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
+    .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
+
+    /* ausōs cover image */
+  </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w42m2jben0");
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
+        <svg width="36" height="33" viewBox="0 0 80 73" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Intro</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="index.html#contact">Let's Talk</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+        <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+      </div>
+
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-drawer" id="drawer" aria-hidden="true">
+    <a href="index.html">Intro</a>
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="index.html#contact">Let's Talk</a>
+    <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+
+    <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+
+  <main id="main-content" class="proj-page">
+    <div class="wrap">
+
+      <!-- Hero -->
+      <div class="proj-hero">
+        <div class="proj-breadcrumb rv">
+          <a href="work.html">Work</a>
+          <span class="proj-breadcrumb-sep">›</span>
+          <span>ausōs.ai</span>
+        </div>
+        <div class="proj-meta-row rv" data-d="1">
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">ausōs.ai</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">AI Product Design</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2025 – Present</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Founder, Product Designer</span></div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <div class="proj-cover rv" style="aspect-ratio:16/7;overflow:hidden;background:#0B1120;">
+        <img src="assets/ausos-banner.webp" alt="ausōs.ai product screens showing conversational AI builder across design systems" style="width:100%;height:100%;object-fit:cover;" loading="eager" />
+        <div class="img-shield"></div>
+      </div>
+
+      <h1 class="proj-title-post rv" data-d="2">ausōs.ai</h1>
+      <p class="proj-lead rv" data-d="3">Designing the future of AI-assisted visual development. An AI-powered platform where anyone can build production-quality interfaces through conversation and direct manipulation.</p>
+
+      <!-- Content -->
+      <div class="proj-content">
+        <div class="proj-about-layout">
+        <h2 class="proj-about-label rv">about<span class="proj-about-dot">.</span></h2>
+        <div class="proj-about-main">
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p>Most AI website builders generate massive, brittle blocks of code that non-developers can't edit. Users are locked out the moment they want to make a simple change. I founded ausōs to solve this: an AI design platform that gives users the speed of generative AI with the precision and creative control of a professional visual editor.</p><p>The name "ausōs" is rooted in the ancient concept of dawn, representing a new era where AI amplifies human creativity rather than replacing it. The logo's abstract "ao" mark embodies this duality: one circle for the user, one for the AI, together forming a seamless collaboration.</p></div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">My Role</h3>
+          <div class="proj-body"><p>As Founder and Product Designer, I own every layer of this product, from brand identity and design system architecture to interaction design and front-end prototyping. I defined the product vision, designed the complete brand identity (logo, colour palette, typography, visual language), mapped the user experience through a full Design Thinking process, and built functional prototypes to validate the concept.</p></div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Design Thinking Process</h3>
+          <div class="proj-body"><p><strong>Phase 1: Empathise.</strong> I studied how designers, founders, and non-technical creators use existing AI builders. The insight: users love the speed of AI generation but quickly become frustrated when they can't make granular edits without writing another prompt and hoping the AI doesn't break everything.</p><p><strong>Phase 2: Define.</strong> How might we bridge the gap between conversational AI generation and manual UI design, allowing users to rapidly generate layouts while retaining absolute, code-free visual control?</p><p><strong>Phase 3: Ideate.</strong> I explored multiple architectural approaches before landing on the winning concept: a visual CMS where the AI communicates through structured data rather than raw code. The interface behaves like a professional design tool when the AI isn't active.</p><p><strong>Phase 4: Prototype.</strong> I designed and built a functional prototype featuring a conversational AI panel, a full-screen interactive canvas with drag-and-drop, a contextual properties inspector, and simulated components from three major design systems.</p><p><strong>Phase 5: Test.</strong> User testing revealed critical refinements. The AI was constrained to a strict component vocabulary to prevent hallucination, and a manual component library was added so users could bypass AI entirely when they preferred direct manipulation.</p></div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Brand Identity</h3>
+          <div class="proj-body"><p>The ausōs brand is built "dark mode first" with deep, infinite backgrounds and vibrant aurora accents. The visual language centres on three pillars: grain and texture for tactile depth, glassmorphism for layered UI panels, and restraint to let the content breathe against the expressive backdrop.</p></div>
+          <div style="display:flex;gap:12px;margin:24px 0 0;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#E5A999;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
+          </div>
+          <img class="proj-img-full rv" src="assets/ausos-brand.webp" alt="ausōs dark and light mode interfaces" loading="lazy" style="margin-top:32px;border-radius:12px;background:#000;" />
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Design System Integration</h3>
+          <div class="proj-body"><p>ausōs supports three major design systems — Salt DS, Material 3, and Fluent 2 — each rendered with its own authentic tokens, density scales, and component behaviours. Users select a system and the AI generates layouts that conform to its rules, delivering production-ready results without manual theming.</p></div>
+          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub showing Salt DS component library and data visualisation" loading="lazy" style="margin-top:32px;border-radius:12px;background:#000;" />
+        </div>
+
+        <div class="proj-nda rv">
+          <div class="proj-nda-glow"></div>
+          <div class="proj-nda-inner">
+            <hr class="proj-nda-rule" />
+            <p class="proj-nda-title">Product Preview</p>
+            <p class="proj-nda-lead">Coming Soon</p>
+            <hr class="proj-nda-rule proj-nda-rule--spaced" />
+            <p class="proj-nda-body">ausōs.ai is actively in development. Full case study and interactive demos will be shared once the product launches. For a walkthrough, let's connect directly.</p>
+          </div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Outcomes</h3>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Design systems simulated (Material 3, Fluent 2, Salt DS)</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design Thinking phases completed</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Brand identity designed from scratch</span></div></div>
+        </div>
+
+        <div class="proj-tags rv"><span class="proj-tags-list">AI Product Design · Founder · Brand Identity · Design Thinking · Visual Web Builder · Interaction Design · Prototyping · Design Systems</span></div>
+
+        </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Project navigation -->
+    <div class="proj-next">
+      <div class="wrap">
+        <div class="proj-nav rv">
+          <div class="proj-nav-item proj-nav-item--prev">
+            <span class="proj-nav-hint">Previous</span>
+            <a href="project-dps-brand.html" class="proj-nav-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              D&PS Brand Identity
+            </a>
+          </div>
+          <div class="proj-nav-item proj-nav-item--next">
+            <span class="proj-nav-hint">Next</span>
+            <a href="project-barclays-data-viz.html" class="proj-nav-link">
+              Barclays Data Viz
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div style="display:flex;align-items:center;gap:20px;">
+          <a href="index.html" class="nav-logo" style="color:var(--c-light);">
+            <svg width="24" height="22" viewBox="0 0 80 73" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener noreferrer">Linkedin ↗</a>
+        </div>
+        <span class="footer-copy">©2026 Shannon Hecker &bull; Senior Product Designer</span>
+      </div>
+    </div>
+  </footer>
+  <div id="img-cursor" aria-hidden="true"></div>
+  <script>
+    function bootHero() { document.body.classList.add('loaded'); }
+    if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
+    else { setTimeout(bootHero, 400); }
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
+    const burgerBtn = document.getElementById('burger');
+    const drawerEl  = document.getElementById('drawer');
+    let isOpen = false;
+    burgerBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      burgerBtn.classList.toggle('o', isOpen);
+      drawerEl.classList.toggle('o', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen);
+      drawerEl.setAttribute('aria-hidden', !isOpen);
+      if(isOpen){
+        document.body.dataset.scrollY=window.scrollY;
+        document.body.style.position='fixed';
+        document.body.style.top=`-${window.scrollY}px`;
+        document.body.style.width='100%';
+        document.body.style.overflow='hidden';
+      }else{
+        const scrollY=document.body.dataset.scrollY;
+        document.body.style.position='';
+        document.body.style.top='';
+        document.body.style.width='';
+        document.body.style.overflow='';
+        window.scrollTo(0,parseInt(scrollY||'0'));
+      }
+    });
+    function closeDrawer() { isOpen=false; burgerBtn.classList.remove('o'); drawerEl.classList.remove('o'); }
+    /* Instantly show elements already in viewport on page load */
+    document.querySelectorAll('.rv').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 40 && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('on');
+        el.offsetHeight; /* force reflow */
+        el.style.transition = '';
+      }
+    });
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+    }, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+    document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (!t) return; e.preventDefault();
+        window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior:'smooth' });
+      });
+    });
+    /* Difference-blend circle cursor */
+    (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
+      /* Block right-click on images */
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.classList.contains('img-shield')) e.preventDefault();
+    });
+    document.querySelectorAll('img').forEach(function(img) {
+      if (img.closest('.nav-logo') || img.width < 40) return;
+      var parent = img.parentElement;
+      if (parent.style.position !== 'relative' && parent.style.position !== 'absolute') {
+        parent.style.position = 'relative';
+      }
+      var shield = document.createElement('div');
+      shield.className = 'img-shield';
+      parent.insertBefore(shield, img.nextSibling);
+    });
+  </script>
+</body>
+</html>
