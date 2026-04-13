@@ -183,30 +183,28 @@ I help teams ship accessible, measurable product experiences from discovery thro
 - I've designed for some of the most complex, high-stakes environments in finance: real-time trading, algorithmic execution, derivatives pricing, and multi-billion-dollar custody deals.
 - I don't just push pixels. I sit with traders, shadow operations teams, and dig into the data before I design anything.
 - I build the systems, not just the screens. My design systems have been adopted by 5+ product teams and 200+ components.
-- I bring AI into the design workflow. At Barclays, I'm designing AI-first interfaces with Claude AI and building tools that make trading faster and smarter.
+- I bring AI into the design workflow. At Barclays, I spearheaded an AI-assisted design system with automated component generation, token management, and accessibility checks.
+- I mentor and raise the craft bar. I coach designers through critique to consistently produce thorough, high quality work.
 - Accessibility isn't a checkbox for me. Every project I ship is WCAG 2.1 AA compliant because good design works for everyone.
 
 ## APPROACH
 I anchor design in outcomes: usable today, scalable tomorrow, accessible always. Every project starts with real constraints. User needs, business goals, technical realities. I validate direction early through prototyping, research, and tight feedback loops with product and engineering. Decisions are grounded before pixels are final. Design systems and AI tooling accelerate delivery without compromising clarity.
 
 ## EXPERIENCE
-1. Barclays, London. Senior Product Designer (2025 to present)
-   Own product design for FX and MarketsOne, Barclays' core trading platform. Architecting the MarketsOne Design System, designing AI-first workflows with Claude AI, and reshaping trading tools into a refined, data-dense UI built for speed and accessibility.
+1. ausōs.ai. Founder & Product Designer (2026 to present)
+   Conceived and designed an AI-powered visual web builder from 0 to 1. Led product strategy, Design Thinking user research, complex interaction design, and end-to-end brand identity creation. Details shared in private conversations only.
 
-2. J.P. Morgan, London. VP Product Design (2016 to 2025)
-   Shaped complex financial interfaces across trading, data management, and analytics. Built and scaled a Figma design system adopted by 5+ product teams, translated dense data workflows into clear experiences, and embedded WCAG-compliant accessibility standards across the platform.
+2. Barclays, London. Senior Product Designer (2025 to present)
+   Set design vision across multiple squads on the FX and MarketsOne platform, navigating complex tradeoffs and shipping polished experiences across web and native surfaces. Raised the craft bar through critique and mentoring. Spearheaded an AI-assisted design system integrating automated component generation, token management, and accessibility checks.
 
-3. Pegasus Global Travel, London. Graphic Designer (2015)
-   Designed the company website end-to-end, produced promotional assets and video content, unifying the brand across all channels.
+3. J.P. Morgan, London. Vice President, Product Design (2019 to 2025)
+   Fusion Platform Suite: Led end-to-end design across multiple financial product areas. Built a tokenised component library (Fusion Universal Design System) adopted across Markets UX teams. Navigated ambiguous multi-stakeholder problems on Fusion Data Solution.
 
-4. Genuine C&C Inc, Taiwan. Visual Designer & Web Developer (2011 to 2015)
-   Designed and maintained the B2B platform, built the corporate website front-end, and led UI/UX direction for a client-facing network platform.
+4. J.P. Morgan, London. Security Service Products (2019 to 2023)
+   Redesigned trading workflows for ETF Instruct, streamlined valuation tools for Complex Assets and CAM, and simplified compliance-sensitive workflows for Corporate Action Manager.
 
-5. Eastern Shine Production Co., Ltd. Website Designer, Graphic Designer (2011)
-   Designed web platforms focused on usability and art directed a government video project from concept to delivery.
-
-6. Reeborn Information, Ltd. Website Designer (2008 to 2010)
-   Designed corporate visual identity and web platform interfaces, with digital content and product photography for e-commerce.
+5. J.P. Morgan, London. JPMM Execute Trading Platform (2016 to 2019)
+   Modernised legacy trading tools for JPMM FX, Raid, and Algo Center. Established shared UI foundations (Bento Design Library) enabling consistent, scalable cross-asset development.
 
 ## KEY PROJECTS (13 case studies on the portfolio)
 1. ausōs.ai (Founder, Product Designer). AI-powered visual web builder currently in development. Shannon's own product. Details are shared in private conversations only.
