@@ -2,14 +2,16 @@
  * Motion upgrades for the featured-work layer.
  *
  * 1. 3D tilt on every .pcard-article (cursor-tracking, 4.5deg, spring-back).
- * 2. CSS-keyframes marquee on .bento--scroll. At init, this script:
- *      - Wraps existing cards in a .bento-track flex container
- *      - Clones the full set for a seamless infinite loop
- *    The track animation is defined in CSS (pure keyframes, GPU-composited).
- *    Pauses on hover via CSS :hover. Reduced-motion respected in CSS.
+ * 2. Marquee on .bento--scroll:
+ *      - Wraps existing cards in a .bento-track
+ *      - Clones the full set once for seamless infinite loop
+ *      - Starts PAUSED; an IntersectionObserver watches the section and
+ *        adds .drift-active (animation-play-state: running) after the
+ *        row is 30% visible for 2 seconds
+ *      - Fires once, observer disconnects after triggering
  *
- * Uses Motion One (window.Motion) for tilt tweens when available, with a
- * CSS transition fallback. No external state, no rAF drift.
+ * CSS defines the actual keyframes animation. JS only toggles the class.
+ * prefers-reduced-motion handled entirely in CSS.
  */
 
 (function () {
@@ -20,8 +22,9 @@
 
   /* ── Set up the marquee track (wrap + clone) ───────────────────── */
   var bento = document.querySelector('.bento--scroll');
+  var track = null;
   if (bento && !bento.querySelector('.bento-track')) {
-    var track = document.createElement('div');
+    track = document.createElement('div');
     track.className = 'bento-track';
 
     /* Move all existing cards into the track */
@@ -29,7 +32,7 @@
       track.appendChild(bento.firstChild);
     }
 
-    /* Clone the set once for the seamless loop second half */
+    /* Clone the full set once for the seamless-loop second half */
     var originals = Array.prototype.slice.call(track.children);
     originals.forEach(function (el) {
       var dup = el.cloneNode(true);
@@ -42,9 +45,11 @@
     });
 
     bento.appendChild(track);
+  } else if (bento) {
+    track = bento.querySelector('.bento-track');
   }
 
-  /* ── 3D tilt on work cards (both originals and duplicates) ─────── */
+  /* ── 3D tilt on every work card (originals and duplicates) ─────── */
   if (!REDUCED) {
     var MAX_TILT = 4.5;
     document.querySelectorAll('.pcard-article').forEach(function (article) {
@@ -82,4 +87,41 @@
       }, { passive: true });
     });
   }
+
+  /* ── Scroll-triggered drift start (2s delay after 30% visible) ── */
+  if (REDUCED || !bento || !track) return;
+
+  /* IntersectionObserver not universally supported on very old
+     browsers. If missing, just start the drift immediately. */
+  if (typeof IntersectionObserver === 'undefined') {
+    setTimeout(function () { track.classList.add('drift-active'); }, 2000);
+    return;
+  }
+
+  var TRIGGER_THRESHOLD = 0.3;
+  var DELAY_MS = 2000;
+  var fired = false;
+  var pendingTimer = null;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (fired) return;
+      if (entry.isIntersecting && entry.intersectionRatio >= TRIGGER_THRESHOLD) {
+        if (pendingTimer) return; // already waiting
+        pendingTimer = setTimeout(function () {
+          fired = true;
+          track.classList.add('drift-active');
+          io.disconnect();
+        }, DELAY_MS);
+      } else {
+        /* User scrolled back up before the timer fired → cancel */
+        if (pendingTimer) {
+          clearTimeout(pendingTimer);
+          pendingTimer = null;
+        }
+      }
+    });
+  }, { threshold: [0, TRIGGER_THRESHOLD, 1] });
+
+  io.observe(bento);
 })();
