@@ -1780,28 +1780,38 @@
        Scoped to .bento--scroll so work.html grid is unaffected.
        ============================================================ */
     .bento--scroll {
-      display: flex !important;
-      gap: 20px;
-      overflow-x: auto;
-      overflow-y: visible;
+      display: block !important;
+      overflow: hidden;
       padding: 12px 0 20px;
       margin: 0 calc(var(--pad) * -1);
-      padding-left: var(--pad);
-      padding-right: var(--pad);
-      /* Hide scrollbar but keep scroll functional */
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      -webkit-overflow-scrolling: touch;
       /* Soft edge fade, signals "more beyond" */
-      -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
     }
-    .bento--scroll::-webkit-scrollbar { display: none; }
     .bento--scroll:focus { outline: none; }
     .bento--scroll:focus-visible {
       outline: 2px solid var(--c-ink);
       outline-offset: 6px;
       border-radius: 8px;
+    }
+
+    /* The animated marquee track that holds the cards (injected by JS) */
+    .bento-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+      animation: bento-drift 60s linear infinite;
+      will-change: transform;
+    }
+    .bento--scroll:hover .bento-track,
+    .bento--scroll:focus-within .bento-track {
+      animation-play-state: paused;
+    }
+    @keyframes bento-drift {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
     }
 
     /* Card sizing in the scroll row */
@@ -1810,9 +1820,11 @@
     }
     @media (max-width: 900px) {
       .bento--scroll .bc-4 { flex: 0 0 280px; }
+      .bento-track { animation-duration: 50s; }
     }
     @media (max-width: 600px) {
       .bento--scroll .bc-4 { flex: 0 0 230px; }
+      .bento-track { animation-duration: 40s; }
     }
 
     /* Duplicates that exist for the seamless infinite loop */
@@ -1858,7 +1870,7 @@
 
     /* Respect reduced motion: no auto-drift, no shine, no breathe */
     @media (prefers-reduced-motion: reduce) {
-      .bento--scroll                             { scroll-behavior: auto; }
+      .bento-track                               { animation: none; }
       .bento--scroll .pcard-article::after       { display: none; }
       .bento--scroll .pcard:hover .pcard-img img,
       .bento--scroll .pcard:hover .pcard-img .ph { animation: none; transform: translateZ(0) scale(1.02); }

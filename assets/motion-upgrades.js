@@ -1,27 +1,52 @@
 /**
  * Motion upgrades for the featured-work layer.
  *
- * 1. 3D tilt on .pcard-article (cursor-tracking, 4.5deg max, spring-back).
- * 2. Auto-drift marquee on .bento--scroll (right-to-left, ~60s loop).
- *    Pauses on hover/focus, resumes 600ms after mouse leaves.
- *    Manual scroll (wheel, arrows, touch) pauses for 2s.
- * 3. Seamless infinite loop via runtime-cloned cards + scrollLeft wrap.
+ * 1. 3D tilt on every .pcard-article (cursor-tracking, 4.5deg, spring-back).
+ * 2. CSS-keyframes marquee on .bento--scroll. At init, this script:
+ *      - Wraps existing cards in a .bento-track flex container
+ *      - Clones the full set for a seamless infinite loop
+ *    The track animation is defined in CSS (pure keyframes, GPU-composited).
+ *    Pauses on hover via CSS :hover. Reduced-motion respected in CSS.
  *
- * Uses Motion One (window.Motion) for tilt tweens when available, with
- * a CSS transition fallback. Respects prefers-reduced-motion.
+ * Uses Motion One (window.Motion) for tilt tweens when available, with a
+ * CSS transition fallback. No external state, no rAF drift.
  */
 
 (function () {
   'use strict';
 
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Motion One optional */
   var animate = (window.Motion && window.Motion.animate) ? window.Motion.animate : null;
 
-  /* ── 3D tilt on every work card (homepage + work.html) ─────────── */
+  /* ── Set up the marquee track (wrap + clone) ───────────────────── */
+  var bento = document.querySelector('.bento--scroll');
+  if (bento && !bento.querySelector('.bento-track')) {
+    var track = document.createElement('div');
+    track.className = 'bento-track';
+
+    /* Move all existing cards into the track */
+    while (bento.firstChild) {
+      track.appendChild(bento.firstChild);
+    }
+
+    /* Clone the set once for the seamless loop second half */
+    var originals = Array.prototype.slice.call(track.children);
+    originals.forEach(function (el) {
+      var dup = el.cloneNode(true);
+      dup.setAttribute('aria-hidden', 'true');
+      dup.classList.add('bc-4--dup');
+      dup.querySelectorAll('a, button').forEach(function (node) {
+        node.setAttribute('tabindex', '-1');
+      });
+      track.appendChild(dup);
+    });
+
+    bento.appendChild(track);
+  }
+
+  /* ── 3D tilt on work cards (both originals and duplicates) ─────── */
   if (!REDUCED) {
-    var MAX_TILT = 4.5; // degrees
+    var MAX_TILT = 4.5;
     document.querySelectorAll('.pcard-article').forEach(function (article) {
       var pcard = article.querySelector('.pcard');
       if (!pcard) return;
@@ -57,101 +82,4 @@
       }, { passive: true });
     });
   }
-
-  /* ── Auto-drift horizontal marquee (homepage featured work) ───── */
-  var bento = document.querySelector('.bento--scroll');
-  if (!bento) return;
-
-  /* Clone originals once to form the seamless-loop second half.
-     Duplicates are aria-hidden so screen readers only see the real set. */
-  var originals = Array.prototype.slice.call(bento.querySelectorAll('.bc-4'));
-  originals.forEach(function (el) {
-    var dup = el.cloneNode(true);
-    dup.setAttribute('aria-hidden', 'true');
-    dup.classList.add('bc-4--dup');
-    /* Also remove any focusable children from the a11y tree within duplicates */
-    dup.querySelectorAll('a, button').forEach(function (node) {
-      node.setAttribute('tabindex', '-1');
-    });
-    bento.appendChild(dup);
-  });
-
-  /* Reduced motion: set up manual scroll only, no drift */
-  if (REDUCED) return;
-
-  var DURATION_MS = 60000;     // ~60s for full loop
-  var IDLE_AFTER_MANUAL_MS = 2000;  // resume 2s after manual scroll
-  var RESUME_AFTER_HOVER_MS = 600;  // resume 600ms after mouseleave
-
-  var halfWidth = 0;
-  function measure() {
-    halfWidth = bento.scrollWidth / 2;
-  }
-  measure();
-  window.addEventListener('resize', measure, { passive: true });
-
-  var pxPerMs = halfWidth / DURATION_MS;
-  function recalcSpeed() { pxPerMs = halfWidth / DURATION_MS; }
-  window.addEventListener('resize', recalcSpeed, { passive: true });
-
-  var paused = false;
-  var resumeTimer = null;
-  var manualTimer = null;
-  var lastTs = 0;
-  var rafId = null;
-
-  function tick(now) {
-    if (lastTs === 0) lastTs = now;
-    var dt = now - lastTs;
-    lastTs = now;
-
-    if (!paused && dt < 200 /* ignore big gaps e.g. tab resume */) {
-      bento.scrollLeft += pxPerMs * dt;
-      if (bento.scrollLeft >= halfWidth) {
-        bento.scrollLeft -= halfWidth;
-      }
-    }
-    rafId = requestAnimationFrame(tick);
-  }
-  rafId = requestAnimationFrame(tick);
-
-  function pauseNow() {
-    paused = true;
-    if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
-  }
-  function resumeAfter(ms) {
-    if (resumeTimer) clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(function () { paused = false; lastTs = 0; }, ms);
-  }
-
-  /* Hover: pause immediately, resume after brief idle */
-  bento.addEventListener('mouseenter', pauseNow);
-  bento.addEventListener('mouseleave', function () { resumeAfter(RESUME_AFTER_HOVER_MS); });
-
-  /* Keyboard focus inside row: pause while focused */
-  bento.addEventListener('focusin',  pauseNow);
-  bento.addEventListener('focusout', function () { resumeAfter(RESUME_AFTER_HOVER_MS); });
-
-  /* Touch: pause on interaction, longer idle before resume */
-  bento.addEventListener('touchstart', pauseNow, { passive: true });
-  bento.addEventListener('touchend',   function () { resumeAfter(IDLE_AFTER_MANUAL_MS); });
-
-  /* Manual scroll (wheel, drag, programmatic): pause for a beat */
-  bento.addEventListener('wheel', function (e) {
-    if (e.deltaY === 0) return;
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-    e.preventDefault();
-    bento.scrollLeft += e.deltaY;
-    pauseNow();
-    if (manualTimer) clearTimeout(manualTimer);
-    manualTimer = setTimeout(function () { paused = false; lastTs = 0; }, IDLE_AFTER_MANUAL_MS);
-  }, { passive: false });
-
-  /* Keyboard arrows */
-  bento.addEventListener('keydown', function (e) {
-    var step = (bento.querySelector('.bc-4') || {}).offsetWidth || 300;
-    step += 20; // gap
-    if (e.key === 'ArrowRight') { e.preventDefault(); bento.scrollLeft += step; pauseNow(); resumeAfter(IDLE_AFTER_MANUAL_MS); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); bento.scrollLeft -= step; pauseNow(); resumeAfter(IDLE_AFTER_MANUAL_MS); }
-  });
 })();
