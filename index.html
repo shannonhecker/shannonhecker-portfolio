@@ -1774,80 +1774,105 @@
 
   </section>
 
-  <!-- ============================================================
-       SEEN ON · subtle horizontal marquee of employers
-       ============================================================ -->
-  <section class="seen" aria-label="Companies I have designed for">
-    <div class="seen-marquee" tabindex="0">
-      <div class="seen-marquee-track">
-        <!-- Set 1 -->
-        <span class="seen-item">Barclays</span>
-        <span class="seen-dot">·</span>
-        <span class="seen-item">J.P. Morgan</span>
-        <span class="seen-dot">·</span>
-        <span class="seen-item">ausōs.ai</span>
-        <span class="seen-dot">·</span>
-        <span class="seen-item">Bending Spoons</span>
-        <span class="seen-dot">·</span>
-        <!-- Set 2 (seamless loop duplicate) -->
-        <span class="seen-item" aria-hidden="true">Barclays</span>
-        <span class="seen-dot" aria-hidden="true">·</span>
-        <span class="seen-item" aria-hidden="true">J.P. Morgan</span>
-        <span class="seen-dot" aria-hidden="true">·</span>
-        <span class="seen-item" aria-hidden="true">ausōs.ai</span>
-        <span class="seen-dot" aria-hidden="true">·</span>
-        <span class="seen-item" aria-hidden="true">Bending Spoons</span>
-        <span class="seen-dot" aria-hidden="true">·</span>
-      </div>
-    </div>
-  </section>
-
   <style>
-    .seen {
-      padding: 56px 0;
-      border-top: 1px solid var(--c-rule);
-      border-bottom: 1px solid var(--c-rule);
-      overflow: hidden;
+    /* ============================================================
+       FEATURED-WORK · horizontal scroll row (homepage only)
+       Scoped to .bento--scroll so work.html grid is unaffected.
+       ============================================================ */
+    .bento--scroll {
+      display: flex !important;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 12px 0 28px;
+      margin: 0 calc(var(--pad) * -1);
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+      scroll-padding-left: var(--pad);
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-ghost) transparent;
+      -webkit-overflow-scrolling: touch;
     }
-    .seen-marquee {
-      position: relative;
-      width: 100%;
-      mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
+    .bento--scroll:focus { outline: none; }
+    .bento--scroll:focus-visible {
+      outline: 2px solid var(--c-ink);
+      outline-offset: 6px;
+      border-radius: 8px;
     }
-    .seen-marquee:focus { outline: none; }
-    .seen-marquee-track {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      width: max-content;
-      animation: seen-scroll 42s linear infinite;
+    .bento--scroll::-webkit-scrollbar { height: 4px; }
+    .bento--scroll::-webkit-scrollbar-track { background: transparent; }
+    .bento--scroll::-webkit-scrollbar-thumb {
+      background: var(--c-ghost);
+      border-radius: 99px;
+      transition: background var(--tb) var(--ease);
     }
-    .seen-marquee:hover .seen-marquee-track { animation-play-state: paused; }
-    .seen-item {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 2.4vw, 32px);
-      font-weight: 400;
-      color: var(--c-mid);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      transition: color var(--tb) var(--ease);
+    .bento--scroll::-webkit-scrollbar-thumb:hover { background: var(--c-mid); }
+
+    /* Card sizing in the scroll row */
+    .bento--scroll .bc-4 {
+      flex: 0 0 clamp(260px, 28vw, 380px);
+      scroll-snap-align: start;
     }
-    .seen-marquee:hover .seen-item { color: var(--c-ink); }
-    .seen-dot {
-      font-size: clamp(18px, 2vw, 26px);
-      color: var(--c-ghost);
-    }
-    @keyframes seen-scroll {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(-50%, 0, 0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .seen-marquee-track { animation: none; }
+    @media (max-width: 900px) {
+      .bento--scroll .bc-4 { flex: 0 0 280px; }
     }
     @media (max-width: 600px) {
-      .seen { padding: 40px 0; }
-      .seen-marquee-track { gap: 28px; animation-duration: 32s; }
+      .bento--scroll .bc-4 { flex: 0 0 230px; }
+    }
+
+    /* Parallax Y offset driven by scroll-progress (set via JS) */
+    .bento--scroll .pcard-article {
+      transform: translateY(var(--parallax-y, 0));
+      transition: transform 180ms linear;
+    }
+
+    /* Shine sweep on hover (diagonal gloss) */
+    .bento--scroll .pcard-article {
+      position: relative;
+      border-radius: 8px;
+    }
+    .bento--scroll .pcard-article::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(105deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.38) 50%,
+        transparent 60%);
+      transform: translateX(-120%);
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+    }
+    .bento--scroll .pcard-article:hover::after {
+      animation: pcard-shine 900ms cubic-bezier(.22, 1, .36, 1) forwards;
+      opacity: 1;
+    }
+    @keyframes pcard-shine {
+      0%   { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
+    }
+
+    /* Image breathe on hover (replaces static scale in the scroll row) */
+    .bento--scroll .pcard:hover .pcard-img img,
+    .bento--scroll .pcard:hover .pcard-img .ph {
+      animation: pcard-breathe 8s ease-in-out infinite;
+    }
+    @keyframes pcard-breathe {
+      0%, 100% { transform: translateZ(0) scale(1.02); }
+      50%      { transform: translateZ(0) scale(1.055); }
+    }
+
+    /* Respect reduced motion across all four effects */
+    @media (prefers-reduced-motion: reduce) {
+      .bento--scroll                            { scroll-behavior: auto; }
+      .bento--scroll .pcard-article             { transform: none; transition: none; }
+      .bento--scroll .pcard-article::after      { display: none; }
+      .bento--scroll .pcard:hover .pcard-img img,
+      .bento--scroll .pcard:hover .pcard-img .ph { animation: none; transform: translateZ(0) scale(1.02); }
     }
   </style>
 
@@ -1870,7 +1895,7 @@
         </div>
       </div>
 
-      <div class="bento">
+      <div class="bento bento--scroll" tabindex="0" aria-label="Featured work. Use arrow keys or swipe to browse.">
 
         <!-- 3+1 grid (ten featured cards): newest first -->
         <div class="bc-4 rv" data-d="1">
