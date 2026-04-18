@@ -1784,36 +1784,29 @@
       gap: 20px;
       overflow-x: auto;
       overflow-y: visible;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 12px 0 28px;
+      padding: 12px 0 20px;
       margin: 0 calc(var(--pad) * -1);
       padding-left: var(--pad);
       padding-right: var(--pad);
-      scroll-padding-left: var(--pad);
-      scrollbar-width: thin;
-      scrollbar-color: var(--c-ghost) transparent;
+      /* Hide scrollbar but keep scroll functional */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch;
+      /* Soft edge fade, signals "more beyond" */
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
     }
+    .bento--scroll::-webkit-scrollbar { display: none; }
     .bento--scroll:focus { outline: none; }
     .bento--scroll:focus-visible {
       outline: 2px solid var(--c-ink);
       outline-offset: 6px;
       border-radius: 8px;
     }
-    .bento--scroll::-webkit-scrollbar { height: 4px; }
-    .bento--scroll::-webkit-scrollbar-track { background: transparent; }
-    .bento--scroll::-webkit-scrollbar-thumb {
-      background: var(--c-ghost);
-      border-radius: 99px;
-      transition: background var(--tb) var(--ease);
-    }
-    .bento--scroll::-webkit-scrollbar-thumb:hover { background: var(--c-mid); }
 
     /* Card sizing in the scroll row */
     .bento--scroll .bc-4 {
       flex: 0 0 clamp(260px, 28vw, 380px);
-      scroll-snap-align: start;
     }
     @media (max-width: 900px) {
       .bento--scroll .bc-4 { flex: 0 0 280px; }
@@ -1822,11 +1815,8 @@
       .bento--scroll .bc-4 { flex: 0 0 230px; }
     }
 
-    /* Parallax Y offset driven by scroll-progress (set via JS) */
-    .bento--scroll .pcard-article {
-      transform: translateY(var(--parallax-y, 0));
-      transition: transform 180ms linear;
-    }
+    /* Duplicates that exist for the seamless infinite loop */
+    .bento--scroll .bc-4--dup { pointer-events: auto; }
 
     /* Shine sweep on hover (diagonal gloss) */
     .bento--scroll .pcard-article {
@@ -1866,11 +1856,10 @@
       50%      { transform: translateZ(0) scale(1.055); }
     }
 
-    /* Respect reduced motion across all four effects */
+    /* Respect reduced motion: no auto-drift, no shine, no breathe */
     @media (prefers-reduced-motion: reduce) {
-      .bento--scroll                            { scroll-behavior: auto; }
-      .bento--scroll .pcard-article             { transform: none; transition: none; }
-      .bento--scroll .pcard-article::after      { display: none; }
+      .bento--scroll                             { scroll-behavior: auto; }
+      .bento--scroll .pcard-article::after       { display: none; }
       .bento--scroll .pcard:hover .pcard-img img,
       .bento--scroll .pcard:hover .pcard-img .ph { animation: none; transform: translateZ(0) scale(1.02); }
     }
