@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-795LXWTYWM');
+  </script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w42m2jben0");
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="assets/dark-mode.js"></script>
+  <link rel="stylesheet" href="assets/dark-mode.css" />
+  <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
+  <title>Trust surfaces in AI for expert users · Shannon Hecker</title>
+  <meta name="description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
+  <link rel="canonical" href="https://shannonhecker.com/writing-trust-surfaces-in-ai.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://shannonhecker.com/writing-trust-surfaces-in-ai.html" />
+  <meta property="og:title" content="Trust surfaces in AI for expert users · Shannon Hecker" />
+  <meta property="og:description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
+  <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Trust surfaces in AI for expert users",
+    "description": "What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface.",
+    "url": "https://shannonhecker.com/writing-trust-surfaces-in-ai.html",
+    "image": "https://shannonhecker.com/assets/og-preview.png",
+    "datePublished": "2026-04-18",
+    "dateModified": "2026-04-18",
+    "author": {
+      "@type": "Person",
+      "name": "Shannon Hecker",
+      "url": "https://shannonhecker.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shannon Hecker",
+      "url": "https://shannonhecker.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://shannonhecker.com/writing-trust-surfaces-in-ai.html"
+    },
+    "wordCount": 1400,
+    "inLanguage": "en-GB",
+    "keywords": "AI design, trust, expert users, fintech, enterprise UX, design leadership"
+  }
+  </script>
+
+  <style>
+    :root {
+      --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
+      --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#6F6F6F;
+      --c-ghost:#CCCCCC; --c-rule:#E8E8E8;
+      --c-nav:#595959; --c-hover:#111111; --c-border:#c0c0c0;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
+      --ease:cubic-bezier(.22,1,.36,1);
+      --tb:220ms;
+      --mw:1340px;
+      --pad:clamp(28px,6vw,88px);
+      --nav:72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{
+      font-family:var(--font);
+      background:var(--c-bg);
+      color:var(--c-ink);
+      line-height:1.75;
+      font-weight:300;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    /* Nav: minimal, same visual language */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      height:var(--nav); display:flex; align-items:center;
+      transition:background .42s var(--ease), border-color .42s var(--ease), backdrop-filter .42s var(--ease);
+      border-bottom:1px solid transparent;
+    }
+    .nav.s {
+      background:rgba(255,255,255,.9);
+      border-color:var(--c-rule);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+    }
+    .nav-inner {
+      max-width:var(--mw);
+      margin:0 auto;
+      padding:0 var(--pad);
+      width:100%;
+      display:flex; align-items:center;
+    }
+    .nav-logo {
+      display:flex; align-items:center;
+      color:var(--c-ink);
+      transition:opacity var(--tb) var(--ease), transform .4s var(--ease);
+    }
+    .nav-logo:hover{opacity:.6;transform:rotate(45deg);}
+    .nav-links{
+      list-style:none; display:flex; align-items:center; gap:4px;
+      margin-left:auto;
+    }
+    .nav-links a{
+      font-size:13px; font-weight:400;
+      color:var(--c-nav); letter-spacing:.01em;
+      border-radius:999px; padding:8px 16px;
+      transition:background var(--tb) var(--ease), color var(--tb) var(--ease);
+    }
+    .nav-links a:hover{background:var(--c-hover);color:#fff;}
+    .nav-links a[aria-current="page"]{color:var(--c-ink);font-weight:500;}
+
+    /* Article layout */
+    .wrap{max-width:780px;margin:0 auto;padding:0 var(--pad);}
+    main.essay{padding-top:calc(var(--nav) + 80px);padding-bottom:120px;}
+
+    .essay-eyebrow{
+      display:inline-block;
+      font-size:11px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--c-light);
+      margin-bottom:28px;
+    }
+    .essay-title{
+      font-family:var(--font-display);
+      font-size:clamp(36px,5.5vw,64px);
+      font-weight:400;
+      line-height:1.08;
+      letter-spacing:-0.02em;
+      color:var(--c-ink);
+      margin-bottom:24px;
+      text-wrap:balance;
+    }
+    .essay-dek{
+      font-family:var(--font);
+      font-size:clamp(18px,1.8vw,22px);
+      font-weight:300;
+      line-height:1.5;
+      color:var(--c-mid);
+      margin-bottom:28px;
+      text-wrap:balance;
+    }
+    .essay-meta{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      margin-bottom:72px;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--c-rule);
+      font-size:13px;
+      color:var(--c-light);
+    }
+    .essay-meta .by{color:var(--c-ink);font-weight:500;}
+
+    .essay-body p{
+      font-size:clamp(17px,1.6vw,19px);
+      line-height:1.75;
+      color:var(--c-ink);
+      margin-bottom:24px;
+    }
+    .essay-body h2{
+      font-family:var(--font-display);
+      font-size:clamp(24px,2.6vw,30px);
+      font-weight:500;
+      line-height:1.2;
+      letter-spacing:-0.01em;
+      margin:56px 0 20px;
+      color:var(--c-ink);
+    }
+    .essay-body h2 .n{
+      font-family:var(--font);
+      font-weight:400;
+      font-size:0.7em;
+      color:var(--c-light);
+      margin-right:14px;
+      letter-spacing:0;
+    }
+    .essay-body em{font-style:italic;color:var(--c-ink);}
+    .essay-body strong{font-weight:600;color:var(--c-ink);}
+    .essay-body hr{
+      border:none;
+      border-top:1px solid var(--c-rule);
+      margin:56px 0;
+    }
+    .essay-body blockquote{
+      border-left:3px solid var(--c-ink);
+      padding:4px 0 4px 24px;
+      margin:28px 0;
+      font-family:var(--font-display);
+      font-size:clamp(20px,2vw,24px);
+      font-weight:400;
+      font-style:italic;
+      line-height:1.4;
+      color:var(--c-mid);
+    }
+    .essay-body .callout{
+      background:var(--c-panel);
+      border-left:3px solid var(--c-ink);
+      padding:20px 24px;
+      margin:28px 0;
+      border-radius:0 8px 8px 0;
+    }
+    .essay-body .callout p{margin-bottom:8px;font-size:16px;}
+    .essay-body .callout p:last-child{margin-bottom:0;}
+    .essay-body .callout .label{
+      display:inline-block;
+      font-size:11px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:var(--c-light);
+      margin-bottom:8px;
+    }
+
+    .essay-bio{
+      margin-top:72px;
+      padding-top:32px;
+      border-top:1px solid var(--c-rule);
+      font-size:15px;
+      color:var(--c-mid);
+      line-height:1.6;
+    }
+    .essay-bio a{text-decoration:underline;text-underline-offset:3px;}
+
+    /* Footer */
+    .footer{border-top:1px solid var(--c-rule);padding:clamp(32px,5vw,56px) 0;}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:var(--c-light);}
+    .footer-inner a{color:var(--c-light);}
+    .footer-inner a:hover{color:var(--c-ink);}
+
+    @media (max-width: 700px) {
+      .essay-meta{flex-direction:column;align-items:flex-start;gap:4px;}
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
+        <svg width="24" height="22" viewBox="0 0 80 73" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/></svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="#" aria-current="page">Writing</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="essay">
+    <div class="wrap">
+
+      <div class="essay-eyebrow">Writing · 2026-04-18 · 7 minute read</div>
+
+      <h1 class="essay-title">Trust surfaces in AI for expert users.</h1>
+
+      <p class="essay-dek">What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface.</p>
+
+      <div class="essay-meta">
+        <span class="by">Shannon Hecker</span>
+        <span>·</span>
+        <span>1,400 words</span>
+      </div>
+
+      <article class="essay-body">
+
+        <p>Every bank I have worked at has tried to roll out AI. Some shipped it. Most quietly turned it off within six weeks.</p>
+
+        <p>The difference, in every case I have seen, was not the model. The models are fine. The difference was <strong>trust</strong>.</p>
+
+        <p>A trader does not need the AI to be right 95% of the time. A trader needs to know, at a glance, <em>which 5% it is wrong about, and why</em>. That "at a glance, and why" is design. It is not a research problem or an infrastructure problem. It is a surface problem.</p>
+
+        <p>I call the things we build for this purpose <strong>trust surfaces</strong>. They are the small interface elements through which a human expert negotiates with an AI system: confidence indicators, source citations, failure states, reversal controls. When they are designed well, the feature ships. When they are missing, or generic, or lifted from a consumer product, the feature gets turned off by the desk head on a Tuesday afternoon.</p>
+
+        <p>This is an essay about how to build them, from someone who has shipped AI into environments where being wrong costs real money.</p>
+
+        <hr />
+
+        <h2><span class="n">01</span>The honest confidence signal</h2>
+
+        <p>The most common trust-surface mistake I see is showing a probability without showing what it is a probability of.</p>
+
+        <p>"87% confident" does not mean anything to a trader. 87% confident that the price will rise? That a buyback is happening? That the model is returning a valid number at all? Each of these is a different question, and the answer shapes what the trader does with the information.</p>
+
+        <p>The discipline: never display a confidence figure without the proposition it measures, and never display the proposition without an anchor to its counterfactual.</p>
+
+        <div class="callout">
+          <span class="label">Weak</span>
+          <p>"87% confident this trade is aligned with the mandate."</p>
+          <span class="label" style="margin-top:12px;">Strong</span>
+          <p>"87% confident this trade is aligned. 13% misaligned across six policy clauses. Top risk: clause 3.2 (concentration cap)."</p>
+        </div>
+
+        <p>The counterfactual is the thing that lets the expert do their own judgement call, which is the thing they are being paid to do.</p>
+
+        <hr />
+
+        <h2><span class="n">02</span>Source attribution as primary, not footnote</h2>
+
+        <p>Consumer AI products tend to treat source citations as polish. A little [1] at the end. You can click it if you want. Most people do not.</p>
+
+        <p>For expert users, the citation is the primary information. The prose is secondary. A portfolio manager reading an AI summary of an earnings call does not trust the summary until they can see which sentences came from the CFO, which from the CEO, which are the model's own synthesis. The design move is to make sources <em>inline and colour-coded</em>, not tucked in a footer.</p>
+
+        <p>This changes the information hierarchy of the entire surface. The summary becomes a scaffolding for citations, not a substitute for them. The expert's eye moves through it one claim at a time.</p>
+
+        <hr />
+
+        <h2><span class="n">03</span>Failure states that do not lie</h2>
+
+        <p>When an AI system has low confidence, or missing data, or is rate-limited, or is returning the hallucinated median instead of a real answer, consumer apps tend to paper over it. They say "Generating…" and then produce something. They say "Based on recent data" when the data is three weeks stale. They serve a polite fiction.</p>
+
+        <p>An expert-user product cannot do this. The fictional answer will be acted on, and the consequences will be real.</p>
+
+        <p>Three failure states I always build:</p>
+
+        <div class="callout">
+          <span class="label">Unknown</span>
+          <p>The system does not have enough context to answer. Surface reads: "I do not have the data to answer this. Here is what I would need."</p>
+        </div>
+
+        <div class="callout">
+          <span class="label">Stale</span>
+          <p>The system has an answer but from older data than the user probably assumes. Surface reads: "My last data point is 2026-04-03. Would you like me to try a refresh?"</p>
+        </div>
+
+        <div class="callout">
+          <span class="label">Low confidence</span>
+          <p>The system has an answer but would not bet on it. Surface reads: "My best guess is X, but I am below my usual threshold. Here is what is weak about it."</p>
+        </div>
+
+        <p>Each of these is a design decision, not a model decision. The model always has this information in some form. The question is whether the interface lets it through, or hides it.</p>
+
+        <hr />
+
+        <h2><span class="n">04</span>Reversal is a first-class action</h2>
+
+        <p>An AI system that cannot be undone is an AI system that cannot be trusted. Everyone agrees with this at the whiteboard and then ships without it.</p>
+
+        <p>A trust-surface pattern I lean on: every AI-generated artifact that can be acted on should have a one-click revert to pre-AI state, visible in the same screen where the artifact lives. Not buried in a menu. Not gated behind a confirmation modal. Present, permanent, honest.</p>
+
+        <p>This is as much a psychological surface as a functional one. The presence of the revert is what lets the expert engage with the AI output without feeling watched, rushed, or committed. They know they can walk out. So they lean in.</p>
+
+        <hr />
+
+        <h2><span class="n">05</span>The quiet one: explain the absence</h2>
+
+        <p>The trust surfaces that work hardest are the ones that explain what the AI is <em>not</em> doing.</p>
+
+        <blockquote>"I am not using your private portfolio data to answer this. This is a general-knowledge answer, not a company-specific one. I cannot see trades older than 30 days."</blockquote>
+
+        <p>In consumer AI, these are disclosures, bolted on for legal. In expert-user AI, they are reassurances, and they change behaviour. They tell the domain professional exactly where the seams are, so they can form a mental model of the AI's reach and stop treating it as a magic box.</p>
+
+        <p>The expert who knows the edges of the system will use it six times more often than the expert who does not. Every expert-user AI product I have shipped has confirmed this.</p>
+
+        <hr />
+
+        <h2><span class="n">06</span>Where this goes next</h2>
+
+        <p>AI products for experts are not the same category as AI products for consumers. The shape of the trust surface is the single biggest difference. Consumer AI hides the seams. Expert AI exposes them.</p>
+
+        <p>If you are designing for this category now, the question to keep asking is: <em>what is the most honest version of this interaction?</em> It will almost always be more granular, more confession-heavy, and less confident-sounding than the consumer AI playbook. That is the feature, not the bug. The expert reads it as integrity.</p>
+
+        <p>And the feature that was going to get turned off on a Tuesday afternoon stays on.</p>
+
+        <div class="essay-bio">
+          <strong>Shannon Hecker</strong> is a design leader in London. She has designed trading and markets tools at <a href="https://www.barclays.com">Barclays</a> and <a href="https://www.jpmorgan.com">J.P. Morgan</a>, and is founding <a href="project-ausos.html">ausōs.ai</a>, an AI-native visual web builder. Get in touch via <a href="mailto:shannonheckerchen@gmail.com">email</a> or <a href="https://www.linkedin.com/in/shannonhecker">LinkedIn</a>.
+        </div>
+
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <span>©2026 Shannon Hecker</span>
+        <span><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="work.html">Work</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('s', window.scrollY > 40);
+    }, { passive: true });
+  </script>
+</body>
+</html>
