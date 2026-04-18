@@ -402,6 +402,26 @@
         </div>
 
         <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Decisions</h3>
+          <div class="proj-body">
+            <p><strong>Decision 1. Split-panel layout, inputs left, output right.</strong></p>
+            <p><em>Options considered:</em> tabbed interface, modal forms, single-pane with scrolling, split-panel side-by-side.</p>
+            <p><em>What I chose:</em> split-panel with inputs on the left and live valuation output on the right.</p>
+            <p><em>Why:</em> Scenario modelling only works when a trader can see the effect of a parameter change while still looking at the parameter. Tabs hide the cause-effect relationship. A modal breaks the mental model. Only side-by-side preserves the loop that the 3x speed improvement depends on.</p>
+
+            <p><strong>Decision 2. Real-time interactive charts, not periodic refresh.</strong></p>
+            <p><em>Options considered:</em> spreadsheet-like tables, static charts with refresh on submit, PDF export, live interactive charts.</p>
+            <p><em>What I chose:</em> live charts that update as parameters change.</p>
+            <p><em>Why:</em> Traders think in what-ifs, and the attention cost of answering a what-if is what kills spreadsheet tools. Interactive redraws move that cost close to zero, so the trader stays in flow. Static output forces them to mentally replay their change, which is both slower and error-prone.</p>
+
+            <p><strong>Decision 3. Contextual tooltips, not a separate help panel.</strong></p>
+            <p><em>Options considered:</em> inline labels only, dedicated help sidebar, modal tour on first launch, contextual tooltips on demand.</p>
+            <p><em>What I chose:</em> tooltips that appear on hover for less experienced users and stay out of the way for experts.</p>
+            <p><em>Why:</em> Trading desks have mixed seniority. A permanent help panel eats real estate that experts resent. A first-launch tour is forgotten by day three. Tooltips on demand let novices discover information at the moment they need it, while experts never see them.</p>
+          </div>
+        </div>
+
+        <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
           <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3x</span><span class="proj-outcome-label">Faster scenario modelling</span></div><div class="proj-outcome"><span class="proj-outcome-num">Single</span><span class="proj-outcome-label">Unified workspace</span></div><div class="proj-outcome"><span class="proj-outcome-num">95%</span><span class="proj-outcome-label">Trader satisfaction</span></div></div>
         </div>

@@ -411,6 +411,26 @@
         </figure>
 
         <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Decisions</h3>
+          <div class="proj-body">
+            <p><strong>Decision 1. Extend Salt, not greenfield.</strong></p>
+            <p><em>Options considered:</em> extend Salt (JPM's internal foundation), fork Salt and diverge, build a parallel custom foundation.</p>
+            <p><em>What I chose:</em> build Fusion as an extension of Salt, inheriting tokens and primitives while layering Fusion-specific enterprise data patterns on top.</p>
+            <p><em>Why:</em> Salt already had governance, accessibility tooling, and developer adoption inside JPM. Rebuilding foundations would have meant fighting for adoption twice. Inheriting meant the Fusion team could spend its time on domain-specific data patterns, not re-solving button states.</p>
+
+            <p><strong>Decision 2. Both atoms and compounds, governed.</strong></p>
+            <p><em>Options considered:</em> atomic only (small, composable), compound only (large opinionated blocks), both layers.</p>
+            <p><em>What I chose:</em> both tiers with clear naming conventions separating them.</p>
+            <p><em>Why:</em> A pure atomic system asks every product to compose its own complex surfaces, which inevitably drifts. A pure compound library is rigid and unloved. Both tiers, with clear naming conventions, let the system govern the shared surfaces while staying out of the way on novel ones.</p>
+
+            <p><strong>Decision 3. Figma-first spec, code as implementation truth.</strong></p>
+            <p><em>Options considered:</em> Figma-first with code as output, code-first with Figma mirrored, dual source with tooling to sync.</p>
+            <p><em>What I chose:</em> Figma-first for visual and interaction spec; code repo as the source of truth for implementation; a spec column in each component page showing both.</p>
+            <p><em>Why:</em> Figma is where design review happens, so Figma-first kept design and review in one tool. Code is where runtime behaviour actually lives, so code-as-source for implementation avoided designer-engineer drift. Publishing both in the same component page meant a designer or engineer could start on either side and find the answer they needed.</p>
+          </div>
+        </div>
+
+        <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
           <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">AA</span><span class="proj-outcome-label">WCAG 2.1 audit pass</span></div><div class="proj-outcome"><span class="proj-outcome-num">100%</span><span class="proj-outcome-label">Components meeting AA contrast</span></div><div class="proj-outcome"><span class="proj-outcome-num">0</span><span class="proj-outcome-label">Blocker accessibility issues at release</span></div></div>
         </div>
