@@ -103,6 +103,11 @@
   <noscript><link rel="stylesheet" href="assets/ask-shannon.css" /></noscript>
 
   <style>
+
+    /* View Transitions API: cross-fade on same-origin navigation. Chromium + Safari 18+. */
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 420ms; animation-timing-function: cubic-bezier(.22,1,.36,1); }
 .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
 .skip-link:focus{top:16px;}
 :focus-visible{outline:2px solid var(--c-accent, #4A90D9);outline-offset:3px;border-radius:4px;}
@@ -640,13 +645,14 @@
     /* Lead + supporting copy (paired with about .approach-headline / .approach-body) */
     .hero-tagline {
       font-family: var(--font);
-      font-size: clamp(24px, 2.8vw, 36px);
+      font-size: clamp(20px, 2.8vw, 36px);
       font-weight: 400;
       color: var(--c-ink);
       line-height: 1.28;
       letter-spacing: -.022em;
-      max-width: 1200px;
+      max-width: 720px;
       text-align: left;
+      text-wrap: balance;
     }
     .hero-tagline strong {
       font-weight: 600;
@@ -1723,7 +1729,7 @@
       <div class="hero-sub">
         <div class="hero-sub-content">
           <p class="hero-tagline">
-            <strong>Markets UX</strong>, <strong>design systems</strong>, <strong>AI workflows</strong>.<br/>Inside the banks most designers never see.
+            <strong>Markets UX</strong>, <strong>design systems</strong>, <strong>AI workflows</strong>. Inside the banks most never see.
           </p>
           <p class="hero-descriptor">
             Fifteen years designing the tools behind trading, risk, and data workflows most people never see. Now leading design at Barclays and founding ausōs.ai, an AI-native builder in private alpha.
@@ -1767,6 +1773,83 @@
     </div>
 
   </section>
+
+  <!-- ============================================================
+       SEEN ON · subtle horizontal marquee of employers
+       ============================================================ -->
+  <section class="seen" aria-label="Companies I have designed for">
+    <div class="seen-marquee" tabindex="0">
+      <div class="seen-marquee-track">
+        <!-- Set 1 -->
+        <span class="seen-item">Barclays</span>
+        <span class="seen-dot">·</span>
+        <span class="seen-item">J.P. Morgan</span>
+        <span class="seen-dot">·</span>
+        <span class="seen-item">ausōs.ai</span>
+        <span class="seen-dot">·</span>
+        <span class="seen-item">Bending Spoons</span>
+        <span class="seen-dot">·</span>
+        <!-- Set 2 (seamless loop duplicate) -->
+        <span class="seen-item" aria-hidden="true">Barclays</span>
+        <span class="seen-dot" aria-hidden="true">·</span>
+        <span class="seen-item" aria-hidden="true">J.P. Morgan</span>
+        <span class="seen-dot" aria-hidden="true">·</span>
+        <span class="seen-item" aria-hidden="true">ausōs.ai</span>
+        <span class="seen-dot" aria-hidden="true">·</span>
+        <span class="seen-item" aria-hidden="true">Bending Spoons</span>
+        <span class="seen-dot" aria-hidden="true">·</span>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .seen {
+      padding: 56px 0;
+      border-top: 1px solid var(--c-rule);
+      border-bottom: 1px solid var(--c-rule);
+      overflow: hidden;
+    }
+    .seen-marquee {
+      position: relative;
+      width: 100%;
+      mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
+    }
+    .seen-marquee:focus { outline: none; }
+    .seen-marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      width: max-content;
+      animation: seen-scroll 42s linear infinite;
+    }
+    .seen-marquee:hover .seen-marquee-track { animation-play-state: paused; }
+    .seen-item {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 400;
+      color: var(--c-mid);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: color var(--tb) var(--ease);
+    }
+    .seen-marquee:hover .seen-item { color: var(--c-ink); }
+    .seen-dot {
+      font-size: clamp(18px, 2vw, 26px);
+      color: var(--c-ghost);
+    }
+    @keyframes seen-scroll {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .seen-marquee-track { animation: none; }
+    }
+    @media (max-width: 600px) {
+      .seen { padding: 40px 0; }
+      .seen-marquee-track { gap: 28px; animation-duration: 32s; }
+    }
+  </style>
 
   <!-- ============================================================
        FEATURED WORK
@@ -2685,5 +2768,9 @@
       : 'https://ask-shannon-api.onrender.com/api/chat';
   </script>
   <script src="assets/ask-shannon.js"></script>
+
+  <!-- Motion upgrades: 3D tilt on cards + marquee control. Motion One library (~3.5KB gz). -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@11/dist/motion.min.js" defer></script>
+  <script src="assets/motion-upgrades.js" defer></script>
 </body>
 </html>
