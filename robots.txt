@@ -10,3 +10,5 @@ Disallow: /
 
 User-agent: Bingbot
 Disallow: /assets/
+
+Sitemap: https://shannonhecker.com/sitemap.xml

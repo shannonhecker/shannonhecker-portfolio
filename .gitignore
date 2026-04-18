@@ -2,3 +2,6 @@
 .claude/
 api/node_modules/
 api/.env
+
+# Large source images (>100MB) that GitHub won't accept
+assets/ausos-banner.png
