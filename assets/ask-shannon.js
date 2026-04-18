@@ -86,33 +86,44 @@
   /* ── Suggested questions (grouped into sets that rotate on click) ── */
   var SUGGESTION_SETS = [
     [
-      "What's your experience?",
-      "Tell me about your design systems work",
-      "What tools do you use?",
-      "Are you open to new roles?",
+      "What are you working on right now?",
+      "Tell me about ausōs.ai",
+      "What's your current role at Barclays?",
+      "What's your take on AI in design?",
     ],
     [
-      "What projects have you worked on?",
-      "How do you approach accessibility?",
-      "What's your design process like?",
-      "Have you worked with AI tools?",
+      "What's your leadership style?",
+      "Tell me about a hard design call you made",
+      "How do you hire and mentor designers?",
+      "How do you measure design impact?",
     ],
     [
-      "Tell me about your work at Barclays",
-      "What was your role at J.P. Morgan?",
-      "Do you have leadership experience?",
-      "Tell me a fun fact about you!",
+      "Tell me about a favourite project",
+      "How did you build the Fusion Design System?",
+      "What was hardest about the Algo Center?",
+      "How do you approach data-dense UI?",
     ],
     [
-      "What's your coffee order?",
-      "Do you have any pets?",
-      "What's your favourite colour?",
-      "How can I get in touch with you?",
+      "Where are you based?",
+      "What languages do you speak?",
+      "Tell me a fun fact about you",
+      "How can I get in touch?",
     ],
   ];
   var currentSetIndex = 0;
 
+  /* ── Initial greeting (renders before user interaction, not sent to API) ── */
+  function addGreetingMessage() {
+    var bubble = document.createElement('div');
+    bubble.className = 'ask-msg ask-msg--ai';
+    var textNode = document.createElement('p');
+    textNode.textContent = "Hi, I'm Shannon's assistant. Ask me about her design leadership work, ausōs.ai, or the roles she's looking for next.";
+    bubble.appendChild(textNode);
+    messagesEl.appendChild(bubble);
+  }
+
   /* ── Init ── */
+  addGreetingMessage();
   renderSuggestions();
 
   /* ── Trap scroll inside chat messages — prevent page scroll leak ── */
