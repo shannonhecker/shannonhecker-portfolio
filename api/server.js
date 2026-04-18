@@ -14,11 +14,20 @@
 require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const express = require('express');
 const cors    = require('cors');
+const helmet  = require('helmet');
 const Anthropic = require('@anthropic-ai/sdk');
 
 const app  = express();
 app.set('trust proxy', 1); /* correct client IP behind Render / other proxies */
 const PORT = process.env.PORT || 3001;
+
+/* Security headers. contentSecurityPolicy is disabled here because the
+   admin dashboard (GET /api/conversations) serves inline styles + scripts.
+   Everything else (HSTS, X-Frame-Options, noSniff, etc.) is on. */
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+}));
 
 const ALLOWED_ORIGINS = [
   'https://shannonhecker.com',
@@ -266,12 +275,30 @@ Figma, Prototype, Framer, Claude AI, Google Stitch AI, Google AI Studio, Cursor,
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body;
 
+  /* Strict input validation: messages must be a non-empty array of
+     { role: 'user' | 'assistant', content: string } objects. Caps each
+     content to 4,000 chars (well over typical chatbot use) and caps
+     the whole history to 50 entries. */
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'messages array is required' });
   }
+  if (messages.length > 50) {
+    return res.status(400).json({ error: 'conversation too long' });
+  }
+  for (const m of messages) {
+    if (!m || typeof m !== 'object') {
+      return res.status(400).json({ error: 'invalid message shape' });
+    }
+    if (m.role !== 'user' && m.role !== 'assistant') {
+      return res.status(400).json({ error: 'invalid role' });
+    }
+    if (typeof m.content !== 'string' || m.content.length === 0 || m.content.length > 4000) {
+      return res.status(400).json({ error: 'invalid content' });
+    }
+  }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
+    return res.status(500).json({ error: 'service unavailable' });
   }
 
   /* Skip logging for local dev / owner testing / blocked IPs */
@@ -346,21 +373,29 @@ app.post('/api/chat', async (req, res) => {
     }
 
   } catch (err) {
-    console.error('Anthropic API error:', err.message);
-    res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
+    /* Log full detail server-side, return generic message to client.
+       Prevents leaking internal error structure (stack traces, upstream
+       API keys in URLs, etc.) to recruiters testing the chatbot. */
+    console.error('Anthropic API error:', err);
+    res.write(`data: ${JSON.stringify({ error: 'The assistant is temporarily unavailable. Please try again in a moment.' })}\n\n`);
     res.end();
 
     if (logEntry) {
       logEntry.status = 'error';
-      logEntry.error = err.message;
+      logEntry.error = err.message; // Full detail stays in server-side logs only
       logConversation(logEntry);
     }
   }
 });
 
-/* Health check */
+/* Health check. /api/health is the primary endpoint; /healthz is an
+   alias that matches Render's default health-check convention and
+   kubernetes-style liveness probes. */
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', model: 'claude-sonnet-4-20250514' });
+});
+app.get('/healthz', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
 /* ------------------------------------------------------------------ */
