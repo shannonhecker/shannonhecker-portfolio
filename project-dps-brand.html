@@ -331,8 +331,10 @@
       </div>
 
       <!-- Cover -->
-      <img src="assets/dbs-banner.webp" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" decoding="async" fetchpriority="high"
-           onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.src.replace('.webp','.png');}else{this.style.display='none';this.nextElementSibling.style.display='block';}" />
+      <picture>
+        <source srcset="assets/dbs-banner.webp" type="image/webp" />
+        <img src="assets/dbs-banner.png" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
+      </picture>
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Digital &amp; Platform Services Brand Identity</h1>
