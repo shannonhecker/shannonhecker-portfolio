@@ -409,6 +409,28 @@
           <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">16+</span><span class="proj-outcome-label">Named components shipped</span></div><div class="proj-outcome"><span class="proj-outcome-num">AA</span><span class="proj-outcome-label">WCAG 2.1 audit pass</span></div><div class="proj-outcome"><span class="proj-outcome-num">100%</span><span class="proj-outcome-label">Components meeting AA contrast</span></div><div class="proj-outcome"><span class="proj-outcome-num">0</span><span class="proj-outcome-label">Blocker accessibility issues at release</span></div></div>
         </div>
 
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Accessibility in practice</h3>
+          <div class="proj-body">
+            <p>WCAG 2.1 AA compliance is a claim that hiring managers rightly push on. Three checks ran against every component before it merged into the library.</p>
+          </div>
+          <ol class="proj-a11y-list" role="list" style="list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+            <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:20px 22px;border-radius:0 8px 8px 0;">
+              <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px;font-weight:600;">01 &middot; Automated</span>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Colour contrast analysed against 4.5:1 and 3:1 thresholds with Colour Contrast Analyser. DOM structure validated with axe DevTools for landmarks, headings, ARIA roles, and focus-trap integrity.</p>
+            </li>
+            <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:20px 22px;border-radius:0 8px 8px 0;">
+              <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px;font-weight:600;">02 &middot; Keyboard only</span>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Every interactive surface tested end-to-end without a mouse. Documented tab order, 2px focus outline token, reversible Escape and Cancel paths. Modal dialogs trap focus on open and return it to the trigger on close.</p>
+            </li>
+            <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:20px 22px;border-radius:0 8px 8px 0;">
+              <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px;font-weight:600;">03 &middot; Screen reader</span>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Components with non-trivial state (Progress Tracker, Data Grid sort and filter, Year/Week Picker) reviewed with VoiceOver and NVDA. Announcements written for clarity: "Column 3, sorted ascending, 47 results" instead of raw ARIA attributes.</p>
+            </li>
+          </ol>
+          <p style="margin-top:18px;font-size:13px;color:var(--c-light);">Each check produced a per-component record. Happy to walk through the evidence on a call or over email.</p>
+        </div>
+
         <div class="proj-tags rv"><span class="proj-tags-list">Design System · Figma · Salt Design System · Design Tokens · Component Library · Accessibility (ADA/WCAG) · Enterprise UX · Cross-team Collaboration</span></div>
 
         </div>
