@@ -2072,6 +2072,269 @@
   </style>
 
   <!-- ============================================================
+       AUSŌS STRIP · "now building" spotlight (static interim)
+       Sits between Hero and Featured Work so the founder signal
+       lands before the work-sample grid. Swap the image for a
+       silent demo video when ready.
+       ============================================================ -->
+  <style>
+    .ausos-strip {
+      padding: clamp(64px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
+      position: relative;
+      overflow: hidden;
+    }
+    .ausos-strip-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: clamp(32px, 5vw, 72px);
+      align-items: center;
+    }
+    .ausos-strip-copy { display: flex; flex-direction: column; gap: 20px; }
+    .ausos-strip-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--c-light);
+      padding: 6px 12px 6px 10px;
+      border: 1px solid var(--c-rule);
+      border-radius: var(--r-pill);
+      background: var(--c-surface);
+    }
+    .ausos-strip-eyebrow .ausos-strip-eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--c-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, .18);
+      animation: ausos-strip-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes ausos-strip-pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(20, 184, 166, .18); }
+      50%      { box-shadow: 0 0 0 5px rgba(20, 184, 166, .06); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ausos-strip-eyebrow .ausos-strip-eyebrow-dot { animation: none; }
+    }
+
+    .ausos-strip-head {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.6vw, 58px);
+      font-weight: 400;
+      letter-spacing: -.025em;
+      line-height: 1.05;
+      color: var(--c-ink);
+      margin: 0;
+      text-wrap: balance;
+    }
+    .ausos-strip-brand {
+      display: block;
+      font-weight: 500;
+    }
+    .ausos-strip-sub {
+      display: block;
+      font-size: .66em;
+      color: var(--c-mid);
+      font-weight: 400;
+      line-height: 1.18;
+      margin-top: 6px;
+      letter-spacing: -.018em;
+    }
+    .ausos-strip-body {
+      font-size: clamp(14px, 1.5vw, 16px);
+      font-weight: 300;
+      color: var(--c-mid);
+      line-height: 1.7;
+      letter-spacing: -.008em;
+      max-width: 520px;
+      margin: 0;
+    }
+
+    .ausos-strip-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+    .ausos-strip-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -.005em;
+      padding: 11px 22px;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      transition: all var(--tb) var(--ease);
+      border: 1px solid transparent;
+    }
+    .ausos-strip-cta.primary {
+      background: var(--c-ink);
+      color: #fff;
+      border-color: var(--c-ink);
+    }
+    .ausos-strip-cta.primary:hover {
+      background: var(--c-accent);
+      border-color: var(--c-accent);
+    }
+    .ausos-strip-cta.ghost {
+      color: var(--c-ink);
+      border-color: var(--c-rule-dk);
+    }
+    .ausos-strip-cta.ghost:hover {
+      border-color: var(--c-accent);
+      color: var(--c-accent);
+    }
+
+    .ausos-strip-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--c-rule);
+    }
+    .ausos-strip-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .ausos-strip-meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+    }
+    .ausos-strip-meta-val {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--c-ink);
+      letter-spacing: -.005em;
+      line-height: 1.4;
+    }
+
+    /* Browser-chrome mock around the product image */
+    .ausos-strip-visual { position: relative; }
+    .ausos-strip-browser {
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,.03),
+        0 8px 24px rgba(0,0,0,.06),
+        0 24px 64px rgba(0,0,0,.08);
+      transform: translateZ(0);
+      transition: transform var(--tb) var(--ease), box-shadow var(--tb) var(--ease);
+    }
+    .ausos-strip-browser:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 1px 2px rgba(0,0,0,.04),
+        0 12px 32px rgba(0,0,0,.08),
+        0 32px 80px rgba(20, 184, 166, .12);
+    }
+    .ausos-strip-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 14px;
+      background: var(--c-panel);
+      border-bottom: 1px solid var(--c-rule);
+    }
+    .ausos-strip-tl-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--c-ghost);
+    }
+    .ausos-strip-tl-dot--red    { background: #ff5f57; }
+    .ausos-strip-tl-dot--yellow { background: #febc2e; }
+    .ausos-strip-tl-dot--green  { background: #28c840; }
+    .ausos-strip-url {
+      margin-left: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--c-light);
+      font-family: 'SF Mono', Menlo, monospace;
+      letter-spacing: .01em;
+    }
+    .ausos-strip-browser picture,
+    .ausos-strip-browser img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1200 / 720;
+      object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+      .ausos-strip-grid { grid-template-columns: 1fr; gap: 32px; }
+      .ausos-strip-meta { grid-template-columns: 1fr; gap: 12px; padding-top: 20px; margin-top: 20px; }
+      .ausos-strip-body { max-width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .ausos-strip { padding: 48px 0 32px; }
+      .ausos-strip-url { display: none; }
+    }
+  </style>
+
+  <section class="ausos-strip" id="now-building" aria-labelledby="ausos-strip-heading">
+    <div class="wrap">
+      <div class="ausos-strip-grid">
+
+        <!-- Left: copy -->
+        <div class="ausos-strip-copy">
+          <span class="ausos-strip-eyebrow rv" data-d="1">
+            <span class="ausos-strip-eyebrow-dot" aria-hidden="true"></span>
+            Now building · private alpha
+          </span>
+
+          <h2 id="ausos-strip-heading" class="ausos-strip-head rv" data-d="2">
+            <span class="ausos-strip-brand">ausōs.ai</span>
+            <span class="ausos-strip-sub">A visual web builder for designers who think in systems.</span>
+          </h2>
+
+          <p class="ausos-strip-body rv" data-d="3">
+            An AI-native product I'm founding on the side. Currently in private alpha with a handful of early testers across design teams and independent builders.
+          </p>
+
+          <div class="ausos-strip-actions rv" data-d="4">
+            <a href="project-ausos.html" class="ausos-strip-cta primary">See the case study →</a>
+            <a href="#contact" class="ausos-strip-cta ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){var el=document.getElementById('ask-input');if(el){el.focus();el.value='Tell me more about ausōs.ai';}},600);">Ask about it ↗</a>
+          </div>
+
+          <div class="ausos-strip-meta rv" data-d="5">
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Role</span>
+              <span class="ausos-strip-meta-val">Founder · Design · Product</span>
+            </div>
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Stage</span>
+              <span class="ausos-strip-meta-val">Private alpha · 2026</span>
+            </div>
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Stack</span>
+              <span class="ausos-strip-meta-val">Claude · Next.js · edge-rendered</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: product visual in a browser mock -->
+        <div class="ausos-strip-visual rv" data-d="3">
+          <div class="ausos-strip-browser">
+            <div class="ausos-strip-browser-bar" aria-hidden="true">
+              <span class="ausos-strip-tl-dot ausos-strip-tl-dot--red"></span>
+              <span class="ausos-strip-tl-dot ausos-strip-tl-dot--yellow"></span>
+              <span class="ausos-strip-tl-dot ausos-strip-tl-dot--green"></span>
+              <span class="ausos-strip-url">ausos.ai · private alpha</span>
+            </div>
+            <picture>
+              <source srcset="assets/ausos-card.webp" type="image/webp">
+              <img src="assets/ausos-card.png" alt="ausōs.ai product interface preview" loading="lazy" decoding="async" width="1200" height="720" />
+            </picture>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FEATURED WORK
        ============================================================ -->
   <section class="work" id="work" aria-labelledby="work-heading">

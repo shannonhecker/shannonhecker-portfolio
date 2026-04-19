@@ -515,6 +515,32 @@ html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
   filter: brightness(1);
 }
 
+/* ================================================================
+   AUSŌS STRIP · dark-mode overrides for the primary CTA and chrome
+   ================================================================ */
+html[data-theme="dark"] .ausos-strip-cta.primary {
+  background: var(--c-ink-pure);
+  color: #0a0a0a;
+  border-color: var(--c-ink-pure);
+}
+html[data-theme="dark"] .ausos-strip-cta.primary:hover {
+  background: var(--c-accent);
+  color: #0a0a0a;
+  border-color: var(--c-accent);
+}
+html[data-theme="dark"] .ausos-strip-browser {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.4),
+    0 8px 24px rgba(0,0,0,.35),
+    0 24px 64px rgba(0,0,0,.5);
+}
+html[data-theme="dark"] .ausos-strip-browser:hover {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.4),
+    0 12px 32px rgba(0,0,0,.4),
+    0 32px 80px rgba(20, 184, 166, .18);
+}
+
 
 /* ================================================================
    SYSTEM PREFERENCE – first-time visitors (no localStorage set)
