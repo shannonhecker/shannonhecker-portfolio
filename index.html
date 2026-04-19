@@ -870,55 +870,110 @@
     }
 
     /* ============================================================
-       ABOUT - two rounded panels
+       ABOUT - editorial layout with proof metrics + Now + Outside
        ============================================================ */
     .about { padding:clamp(72px, 10vw, 120px) 0; }
 
-    .about-bento { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-
-    .about-panel {
-      background:var(--c-surface);
-      border:1px solid var(--c-rule);
-      border-radius:var(--r-card);
-      padding: clamp(44px, 5.5vw, 72px);
-      box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
-    }
-
-    .about-eyebrow {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--c-light);
-      background: var(--c-panel);
-      border-radius: var(--r-pill);
-      display: inline-block;
-      padding: 5px 12px;
-      margin-bottom: 28px;
-    }
-
-    /* Bio intro - editorial serif display */
-    .about-intro {
+    /* Hero thesis line — sits under the section heading */
+    .about-hero-line {
       font-family: var(--font-display);
-      font-size: clamp(26px, 3.5vw, 40px);
+      font-size: clamp(28px, 3.8vw, 44px);
       font-weight: 400;
       letter-spacing: -.02em;
-      line-height: 1.15;
-      margin-bottom: 28px;
+      line-height: 1.12;
       color: var(--c-ink);
+      max-width: 900px;
+      margin: 0 0 56px;
+      text-wrap: balance;
     }
 
+    /* Main two-column block: portrait left, bio + metrics + links right */
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.85fr) 1.2fr;
+      gap: clamp(28px, 4vw, 56px);
+      align-items: start;
+      margin-bottom: clamp(56px, 7vw, 96px);
+    }
+
+    .about-portrait-panel {
+      background:var(--c-panel); border:1px solid var(--c-rule);
+      border-radius:var(--r-card); overflow:hidden;
+      height: clamp(360px, 42vw, 520px);
+      position:relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+    }
+    .about-portrait-panel picture,
+    .about-portrait-panel img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 52% 38%;
+      border-radius: inherit;
+    }
+
+    .about-main { display: flex; flex-direction: column; gap: 28px; }
+
     .about-body {
-      font-size: var(--t-base);
-      font-weight: 300;
-      color: var(--c-mid);
-      line-height: 1.85;
-      margin-bottom: 18px;
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 400;
+      color: var(--c-ink);
+      line-height: 1.35;
       letter-spacing: -.01em;
+      margin: 0;
     }
     .about-body strong { font-weight: 600; color: var(--c-ink); }
 
-    .about-links { display:flex; gap:12px; flex-wrap:wrap; margin-top:36px; }
+    /* Three proof-metric cards */
+    .about-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 20px 22px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: var(--r-card);
+      transition: border-color var(--tb) var(--ease), box-shadow var(--tb) var(--ease);
+    }
+    .metric:hover {
+      border-color: var(--c-rule-dk);
+      box-shadow: 0 4px 14px rgba(0,0,0,.05);
+    }
+    .metric-head {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .metric-num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.2vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.02em;
+      line-height: 1;
+      color: var(--c-ink);
+    }
+    .metric-unit {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--c-light);
+    }
+    .metric-label {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--c-mid);
+    }
+
+    .about-links { display:flex; gap:12px; flex-wrap:wrap; margin-top: 8px; }
     .about-link {
       font-size: 13px;
       font-weight: 500;
@@ -931,55 +986,55 @@
     }
     .about-link:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
 
-    .about-right { display:flex; flex-direction:column; gap:20px; }
-
-    .about-portrait-panel {
-      background:var(--c-panel); border:1px solid var(--c-rule);
-      border-radius:var(--r-card); overflow:hidden;
-      flex:0 0 auto; height:clamp(326px, 32vw, 446px); position:relative;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+    /* Now block — current activity */
+    .about-now,
+    .about-outside {
+      padding-top: clamp(32px, 4vw, 48px);
+      border-top: 1px solid var(--c-rule);
+      margin-bottom: clamp(24px, 3vw, 40px);
     }
-    .about-portrait-panel img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 52% 38%;
-      border-radius: inherit;
-    }
-    .about-portrait-ph {
-      width:100%; height:100%; min-height:240px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:11px; letter-spacing:.08em; color:var(--c-ghost);
-    }
-
-    .about-skills-panel {
-      background:var(--c-surface); border:1px solid var(--c-rule);
-      border-radius:var(--r-card); padding:32px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
-    }
-    .skills-label {
+    .about-eyebrow-small {
+      display: block;
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: .18em;
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--c-light);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
-    .skills-list { display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
-    .skill {
-      font-size: 13px;
+    .about-now-list,
+    .about-outside-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 820px;
+      margin: 0;
+      padding: 0;
+    }
+    .about-now-list li,
+    .about-outside-list li {
+      font-size: clamp(15px, 1.5vw, 17px);
       font-weight: 300;
+      line-height: 1.6;
       color: var(--c-mid);
-      background: var(--c-panel);
-      border: 1px solid var(--c-rule);
-      border-radius: var(--r-pill);
-      padding: 7px 16px;
-      cursor: default;
-      transition: background var(--tb) var(--ease),
-                  color var(--tb) var(--ease),
-                  border-color var(--tb) var(--ease);
+      letter-spacing: -.01em;
     }
-    .skill:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
+    .about-now-list li strong {
+      color: var(--c-ink);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+    .about-now-list li a {
+      color: var(--c-ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: text-decoration-color var(--tb) var(--ease);
+    }
+    .about-now-list li a:hover {
+      text-decoration-thickness: 2px;
+    }
 
     /* ============================================================
        CONTACT - two rounded panels
@@ -1228,7 +1283,10 @@
       .hero-sub { max-width:100%; }
       #wave-canvas { width:90%; }
       .work .bento, .bento { grid-template-columns: repeat(2, 1fr); }
-      .about-bento,.contact-bento { grid-template-columns:1fr; gap:12px; }
+      .about-layout { grid-template-columns: 1fr; gap: 28px; }
+      .about-portrait-panel { height: clamp(320px, 80vw, 420px); }
+      .about-metrics { grid-template-columns: 1fr; gap: 8px; }
+      .contact-bento { grid-template-columns:1fr; gap:12px; }
       .footer-inner { flex-direction:column; align-items:flex-start; gap:6px; }
       .footer-visual { margin-top: -200px; }
       .footer-visual .fv-blobs { left: 0; right: 0; }
@@ -2192,49 +2250,64 @@
         </div>
       </div>
 
-      <div class="about-bento">
-        <div class="about-panel rv">
-          <div class="about-eyebrow">London-based Senior Product Designer</div>
-          <p class="about-intro">10+ years turning<br/>complexity into clarity.</p>
-          <p class="about-body">I'm a Senior Product Designer at <strong>Barclays</strong>, shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise <strong>design systems</strong> across global fintech for over a decade.</p>
-          <p class="about-body">At <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-intensive dashboards</strong> and complex financial tools used by thousands, with <strong>WCAG accessibility</strong> and scalability built into every decision.</p>
-          <p class="about-body">Now I'm bringing <strong>AI and LLM tooling</strong> into the design process and building <strong>ausōs.ai</strong>, an AI-powered visual web builder I founded, designed, and prototyped from zero to one.</p>
-          <div class="about-links">
-            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in new tab)</span></a>
-            <a href="/cdn-cgi/l/email-protection#f2819a939c9c9d9c9a9791999780919a979cb2959f939b9edc919d9f" class="about-link">Email ↗</a>
-            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Resume ↗<span class="sr-only"> (opens in new tab)</span></a>
-          </div>
+      <p class="about-hero-line rv" data-d="1">
+        Design leader for the tools experts stare at for hours.
+      </p>
+
+      <div class="about-layout">
+        <div class="about-portrait-panel rv" data-d="2">
+          <picture>
+            <source srcset="assets/photo.webp" type="image/webp">
+            <img src="assets/photo.png" alt="Shannon Hecker in a gallery" loading="lazy" decoding="async" />
+          </picture>
         </div>
 
-        <div class="about-right">
-          <div class="about-portrait-panel rv" data-d="1">
-            <picture>
-              <source srcset="assets/photo.webp" type="image/webp">
-              <img src="assets/photo.png" alt="Shannon Hecker in a gallery" class="about-portrait-img" loading="lazy" decoding="async" />
-            </picture>
+        <div class="about-main">
+          <p class="about-body rv" data-d="3">
+            Design leader at <strong>Barclays</strong>, shaping trading platforms, AI-enhanced workflows, and enterprise design systems. Nine years at <strong>J.P. Morgan</strong> as VP Product Design before that. Now also founding <strong>ausōs.ai</strong>, an AI-native visual web builder.
+          </p>
+
+          <div class="about-metrics rv" data-d="4" role="list">
+            <div class="metric" role="listitem">
+              <div class="metric-head"><span class="metric-num">15</span><span class="metric-unit">yrs</span></div>
+              <span class="metric-label">In design, from brand to enterprise fintech</span>
+            </div>
+            <div class="metric" role="listitem">
+              <div class="metric-head"><span class="metric-num">9</span><span class="metric-unit">yrs</span></div>
+              <span class="metric-label">VP Product Design at J.P. Morgan</span>
+            </div>
+            <div class="metric" role="listitem">
+              <div class="metric-head"><span class="metric-num">AA</span><span class="metric-unit">WCAG</span></div>
+              <span class="metric-label">Across every product shipped</span>
+            </div>
           </div>
-          <div class="about-skills-panel rv" data-d="2">
-            <div class="skills-label">Tools & Methods</div>
-            <ul class="skills-list" role="list">
-              <li class="skill">AI-First Product Design</li>
-              <li class="skill">Product Design Strategy</li>
-              <li class="skill">Design Systems</li>
-              <li class="skill">Trading Platform UI/UX</li>
-              <li class="skill">Design Craft & Visual Excellence</li>
-              <li class="skill">User Research & Synthesis</li>
-              <li class="skill">Design Mentoring & Leadership</li>
-              <li class="skill">Figma (Advanced)</li>
-              <li class="skill">WCAG 2.1 AA</li>
-              <li class="skill">Data Visualisation</li>
-              <li class="skill">Cross-functional Stakeholder Mgmt</li>
-              <li class="skill">Design QA & Dev Handoff</li>
-              <li class="skill">Claude</li>
-              <li class="skill">Cursor</li>
-              <li class="skill">Framer</li>
-              <li class="skill">Prototype</li>
-            </ul>
+
+          <div class="about-links rv" data-d="5">
+            <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in new tab)</span></a>
+            <a href="mailto:shannonheckerchen@gmail.com" class="about-link">Email ↗</a>
+            <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Résumé ↗<span class="sr-only"> (opens in new tab)</span></a>
           </div>
         </div>
+      </div>
+
+      <div class="about-now rv" data-d="1">
+        <span class="about-eyebrow-small">Now · this month</span>
+        <ul class="about-now-list" role="list">
+          <li><strong>Shipping.</strong> AI-assisted design system at Barclays across FX and MarketsOne.</li>
+          <li><strong>Reading.</strong> <em>Designing Machine Learning Systems</em> by Chip Huyen.</li>
+          <li><strong>Writing.</strong> <a href="writing-trust-surfaces-in-ai.html">Trust surfaces in AI for expert users</a>.</li>
+          <li><strong>Experimenting.</strong> ausōs.ai in private alpha with a handful of early testers.</li>
+        </ul>
+      </div>
+
+      <div class="about-outside rv" data-d="2">
+        <span class="about-eyebrow-small">Outside work</span>
+        <ul class="about-outside-list" role="list">
+          <li>Based in St Albans, a 40-minute ride from King's Cross.</li>
+          <li>Taiwan-born. English and Mandarin.</li>
+          <li>Married with two kids, plus one fluffy cat called Quorra.</li>
+          <li>Soya latte, extra shot. Strong leaf tea on design days.</li>
+        </ul>
       </div>
 
     </div>
