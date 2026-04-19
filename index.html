@@ -699,61 +699,6 @@
       font-weight: 500;
     }
 
-    /* ── "Now building" pill · Ausōs signal (sits above the role line) ── */
-    .hero-now-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--c-ink);
-      background: var(--c-surface);
-      border: 1px solid var(--c-rule);
-      border-radius: var(--r-pill);
-      padding: 7px 14px 7px 11px;
-      margin-bottom: 16px;
-      letter-spacing: -.005em;
-      text-decoration: none;
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity .6s ease .05s, transform .6s ease .05s, border-color var(--tb) var(--ease), background var(--tb) var(--ease);
-    }
-    body.loaded .hero-now-pill { opacity: 1; transform: translateY(0); }
-    .hero-now-pill:hover {
-      border-color: var(--c-accent);
-      background: var(--c-panel);
-    }
-    .hero-now-dot {
-      width: 7px; height: 7px;
-      background: var(--c-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px rgba(20, 184, 166, .18);
-      animation: hero-now-pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes hero-now-pulse {
-      0%, 100% { box-shadow: 0 0 0 3px rgba(20, 184, 166, .18); }
-      50%      { box-shadow: 0 0 0 5px rgba(20, 184, 166, .06); }
-    }
-    .hero-now-label {
-      font-weight: 600;
-      color: var(--c-mid);
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      font-size: 10.5px;
-      margin-right: 2px;
-    }
-    .hero-now-name {
-      font-weight: 600;
-      color: var(--c-ink);
-    }
-    .hero-now-stage {
-      color: var(--c-light);
-      font-weight: 400;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-now-dot { animation: none; }
-    }
-
     /* ── "Recently" essay link · sits below the descriptor ── */
     .hero-reading {
       display: inline-flex;
@@ -1378,8 +1323,6 @@
       .nav-burger { display:flex; margin-left:auto; }
       .hero { padding-bottom: 80px; }
       .hero-sub { max-width:100%; }
-      .hero-now-pill { padding: 6px 12px 6px 10px; font-size: 11.5px; margin-bottom: 12px; gap: 7px; }
-      .hero-now-label { font-size: 9.5px; }
       .hero-reading { flex-direction: column; align-items: flex-start; gap: 4px; }
       #wave-canvas { width:90%; }
       .work .bento, .bento { grid-template-columns: repeat(2, 1fr); }
@@ -2229,9 +2172,15 @@
       .ausos-strip-grid { grid-template-columns: 1fr; gap: 32px; }
       .ausos-strip-meta { grid-template-columns: 1fr; gap: 12px; padding-top: 20px; margin-top: 20px; }
       .ausos-strip-body { max-width: 100%; }
+      /* Tap-target hygiene: bump CTA vertical padding so touch area >=44px on mobile. */
+      .ausos-strip-cta { padding: 13px 22px; }
+      .ausos-strip-actions { gap: 10px; }
     }
     @media (max-width: 600px) {
       .ausos-strip { padding: 48px 0 32px; }
+      /* Stack CTAs full-width so they're unmissable taps on narrow phones. */
+      .ausos-strip-actions { flex-direction: column; align-items: stretch; }
+      .ausos-strip-cta { justify-content: center; padding: 14px 20px; }
     }
   </style>
 
