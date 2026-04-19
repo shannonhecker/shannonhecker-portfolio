@@ -21,14 +21,14 @@
   <script src="assets/dark-mode.js"></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
-  <title>Trust surfaces in AI for expert users · Shannon Hecker</title>
-  <meta name="description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
-  <link rel="canonical" href="https://shannonhecker.com/writing-trust-surfaces-in-ai.html" />
+  <title>The design system is the contract · Shannon Hecker</title>
+  <meta name="description" content="What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful." />
+  <link rel="canonical" href="https://shannonhecker.com/writing-the-design-system-is-the-contract.html" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://shannonhecker.com/writing-trust-surfaces-in-ai.html" />
-  <meta property="og:title" content="Trust surfaces in AI for expert users · Shannon Hecker" />
-  <meta property="og:description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
+  <meta property="og:url" content="https://shannonhecker.com/writing-the-design-system-is-the-contract.html" />
+  <meta property="og:title" content="The design system is the contract · Shannon Hecker" />
+  <meta property="og:description" content="What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -49,12 +49,12 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Trust surfaces in AI for expert users",
-    "description": "What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface.",
-    "url": "https://shannonhecker.com/writing-trust-surfaces-in-ai.html",
+    "headline": "The design system is the contract",
+    "description": "What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful.",
+    "url": "https://shannonhecker.com/writing-the-design-system-is-the-contract.html",
     "image": "https://shannonhecker.com/assets/og-preview.png",
-    "datePublished": "2026-04-18",
-    "dateModified": "2026-04-18",
+    "datePublished": "2026-04-20",
+    "dateModified": "2026-04-20",
     "author": {
       "@type": "Person",
       "name": "Shannon Hecker",
@@ -67,11 +67,11 @@
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://shannonhecker.com/writing-trust-surfaces-in-ai.html"
+      "@id": "https://shannonhecker.com/writing-the-design-system-is-the-contract.html"
     },
-    "wordCount": 1400,
+    "wordCount": 1200,
     "inLanguage": "en-GB",
-    "keywords": "AI design, trust, expert users, fintech, enterprise UX, design leadership"
+    "keywords": "Claude Design, design systems, Figma MCP, design leadership, AI design workflow, design-to-code"
   }
   </script>
 
@@ -236,6 +236,13 @@
       border-top:1px solid var(--c-rule);
       margin:56px 0;
     }
+    .essay-body code{
+      font-family:'SF Mono', Menlo, Consolas, monospace;
+      font-size:.92em;
+      background:var(--c-panel);
+      padding:2px 6px;
+      border-radius:4px;
+    }
     .essay-body blockquote{
       border-left:3px solid var(--c-ink);
       padding:4px 0 4px 24px;
@@ -265,8 +272,33 @@
       margin-bottom:8px;
     }
 
+    .essay-prev{
+      margin-top:48px;
+      padding-top:28px;
+      border-top:1px solid var(--c-rule);
+      font-size:14px;
+      color:var(--c-mid);
+    }
+    .essay-prev a{
+      color:var(--c-ink);
+      text-decoration:underline;
+      text-underline-offset:3px;
+      text-decoration-color:var(--c-accent, #14b8a6);
+      text-decoration-thickness:1px;
+      transition:text-decoration-thickness var(--tb) var(--ease);
+    }
+    .essay-prev a:hover{text-decoration-thickness:2px;}
+    .essay-prev-label{
+      display:block;
+      font-size:10.5px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:var(--c-light);
+      margin-bottom:6px;
+    }
+
     .essay-bio{
-      margin-top:72px;
+      margin-top:48px;
       padding-top:32px;
       border-top:1px solid var(--c-rule);
       font-size:15px;
@@ -315,121 +347,116 @@
   <main id="main" class="essay">
     <div class="wrap">
 
-      <div class="essay-eyebrow">Writing · 2026-04-18 · 7 minute read</div>
+      <div class="essay-eyebrow">Writing · 2026-04-20 · 8 minute read</div>
 
-      <h1 class="essay-title">Trust surfaces in AI for expert users.</h1>
+      <h1 class="essay-title">The design system is the contract.</h1>
 
-      <p class="essay-dek">What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface.</p>
+      <p class="essay-dek">What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful.</p>
 
       <div class="essay-meta">
         <span class="by">Shannon Hecker</span>
         <span>·</span>
-        <span>1,400 words</span>
+        <span>1,200 words</span>
       </div>
 
       <article class="essay-body">
 
-        <p>Every bank I have worked at has tried to roll out AI. Some shipped it. Most quietly turned it off within six weeks.</p>
+        <p>April 2026. Anthropic shipped <strong>Claude Design</strong>. You describe a layout, it generates the slides, the prototype, the marketing page. You upload your codebase and your token library. It respects them. It exports back to code, to Canva, to PDF. Within an hour, Figma's stock had dropped.</p>
 
-        <p>The difference, in every case I have seen, was not the model. The models are fine. The difference was <strong>trust</strong>.</p>
+        <p>A week earlier, the <strong>Figma MCP server</strong> became stable enough for production teams. Cursor can now read Figma files the way an engineer reads a spec, seeing the auto-layout math, the token names, the component instances, instead of squinting at a screenshot.</p>
 
-        <p>A trader does not need the AI to be right 95% of the time. A trader needs to know, at a glance, <em>which 5% it is wrong about, and why</em>. That "at a glance, and why" is design. It is not a research problem or an infrastructure problem. It is a surface problem.</p>
-
-        <p>I call the things we build for this purpose <strong>trust surfaces</strong>. They are the small interface elements through which a human expert negotiates with an AI system: confidence indicators, source citations, failure states, reversal controls. When they are designed well, the feature ships. When they are missing, or generic, or lifted from a consumer product, the feature gets turned off by the desk head on a Tuesday afternoon.</p>
-
-        <p>This is an essay about how to build them, from someone who has shipped AI into environments where being wrong costs real money.</p>
+        <p>These two changes arrive in the same month. A lot of designers are spending this week asking whether they are about to be automated. The answer is more interesting than yes or no.</p>
 
         <hr />
 
-        <h2><span class="n">01</span>The honest confidence signal</h2>
+        <h2><span class="n">01</span>What's actually collapsing</h2>
 
-        <p>The most common trust-surface mistake I see is showing a probability without showing what it is a probability of.</p>
+        <p>Three pieces of the old workflow are now machine-handled.</p>
 
-        <p>"87% confident" does not mean anything to a trader. 87% confident that the price will rise? That a buyback is happening? That the model is returning a valid number at all? Each of these is a different question, and the answer shapes what the trader does with the information.</p>
+        <p><strong>Generating the first variant.</strong> Describe the problem, Claude Design produces a dashboard, a modal, a landing page. It is usually 70% of the way to usable.</p>
 
-        <p>The discipline: never display a confidence figure without the proposition it measures, and never display the proposition without an anchor to its counterfactual.</p>
+        <p><strong>Translating Figma to production code.</strong> MCP plus Cursor reads your design tokens and produces a component that matches your library's style and structure.</p>
+
+        <p><strong>Specifying the handoff.</strong> The machine <em>is</em> the handoff. A designer annotating a spec doc is a designer with spare time.</p>
+
+        <p>This is not speculative. Teams adopting MCP and Claude Design in the last quarter report that a sprint that used to need a designer-engineer pair can ship with one designer and a model in the loop.</p>
+
+        <p>What is not collapsing: the decisions behind which of the 70%-done variants you actually ship. The AI produces three plausible information hierarchies. One of them is right for a portfolio manager between trades. Two of them will get a trader fired.</p>
+
+        <hr />
+
+        <h2><span class="n">02</span>The inversion</h2>
+
+        <p>The work has inverted. Before, a designer spent 80% of their time producing, 20% deciding. Those numbers flip. The machine produces. The designer decides.</p>
+
+        <p>This sounds neat. In practice, most design teams are not ready for it, because "deciding" is only as good as the thing you are deciding <em>against</em>, and what you are deciding against is your design system.</p>
+
+        <p>A weakly-governed design system produces weak AI output. Not because the model is bad. Because the model is doing exactly what you asked: conforming to the rules you wrote. If those rules are "use the blue button somewhere", you get a page full of blue buttons in the wrong places. If the rules are "the primary action uses the <code>--color-action-primary</code> token, sits at the bottom-right on forms, and the secondary follows typography rule X", you get a page you can actually ship.</p>
+
+        <p>This is why the design system is becoming the moat, not the pixel-craft.</p>
+
+        <hr />
+
+        <h2><span class="n">03</span>What Claude Design needs from you</h2>
+
+        <p>When I uploaded our design tokens and component library to Claude Design, the outputs divided into three groups.</p>
 
         <div class="callout">
-          <span class="label">Weak</span>
-          <p>"87% confident this trade is aligned with the mandate."</p>
-          <span class="label" style="margin-top:12px;">Strong</span>
-          <p>"87% confident this trade is aligned. 13% misaligned across six policy clauses. Top risk: clause 3.2 (concentration cap)."</p>
-        </div>
-
-        <p>The counterfactual is the thing that lets the expert do their own judgement call, which is the thing they are being paid to do.</p>
-
-        <hr />
-
-        <h2><span class="n">02</span>Source attribution as primary, not footnote</h2>
-
-        <p>Consumer AI products tend to treat source citations as polish. A little [1] at the end. You can click it if you want. Most people do not.</p>
-
-        <p>For expert users, the citation is the primary information. The prose is secondary. A portfolio manager reading an AI summary of an earnings call does not trust the summary until they can see which sentences came from the CFO, which from the CEO, which are the model's own synthesis. The design move is to make sources <em>inline and colour-coded</em>, not tucked in a footer.</p>
-
-        <p>This changes the information hierarchy of the entire surface. The summary becomes a scaffolding for citations, not a substitute for them. The expert's eye moves through it one claim at a time.</p>
-
-        <hr />
-
-        <h2><span class="n">03</span>Failure states that do not lie</h2>
-
-        <p>When an AI system has low confidence, or missing data, or is rate-limited, or is returning the hallucinated median instead of a real answer, consumer apps tend to paper over it. They say "Generating…" and then produce something. They say "Based on recent data" when the data is three weeks stale. They serve a polite fiction.</p>
-
-        <p>An expert-user product cannot do this. The fictional answer will be acted on, and the consequences will be real.</p>
-
-        <p>Three failure states I always build:</p>
-
-        <div class="callout">
-          <span class="label">Unknown</span>
-          <p>The system does not have enough context to answer. Surface reads: "I do not have the data to answer this. Here is what I would need."</p>
+          <span class="label">Group one</span>
+          <p>Interfaces where our system had opinions (buttons, forms, modal patterns). These came out nearly right. Claude Design picked the correct token, used the correct component, matched our visual rhythm.</p>
         </div>
 
         <div class="callout">
-          <span class="label">Stale</span>
-          <p>The system has an answer but from older data than the user probably assumes. Surface reads: "My last data point is 2026-04-03. Would you like me to try a refresh?"</p>
+          <span class="label">Group two</span>
+          <p>Interfaces where our system had aesthetic guidance but no governance (dashboards, complex tables, data-dense layouts). These came out plausible but wrong. Claude Design made reasonable-looking choices a senior trader would have rejected in five seconds. The system did not tell the model what a senior trader reads first.</p>
         </div>
 
         <div class="callout">
-          <span class="label">Low confidence</span>
-          <p>The system has an answer but would not bet on it. Surface reads: "My best guess is X, but I am below my usual threshold. Here is what is weak about it."</p>
+          <span class="label">Group three</span>
+          <p>Interfaces our system had not touched (first-run onboarding, empty states, error surfaces). These came out generic. Claude Design substituted the average of its training data. Some of it was charming. None of it was us.</p>
         </div>
 
-        <p>Each of these is a design decision, not a model decision. The model always has this information in some form. The question is whether the interface lets it through, or hides it.</p>
+        <p>The pattern is obvious once you see it. The AI is exactly as opinionated as your system is.</p>
 
         <hr />
 
-        <h2><span class="n">04</span>Reversal is a first-class action</h2>
+        <h2><span class="n">04</span>The new designer roles</h2>
 
-        <p>An AI system that cannot be undone is an AI system that cannot be trusted. Everyone agrees with this at the whiteboard and then ships without it.</p>
+        <p>Three roles compound in value once Claude Design is table stakes. I have watched teams re-shape around these even before they had a name for them.</p>
 
-        <p>A trust-surface pattern I lean on: every AI-generated artifact that can be acted on should have a one-click revert to pre-AI state, visible in the same screen where the artifact lives. Not buried in a menu. Not gated behind a confirmation modal. Present, permanent, honest.</p>
+        <p><strong>Design system author.</strong> Not a component librarian. A systems thinker who owns tokens, governance, the accessibility contract, and the decision log. Tokens are commodity. The decision log is not.</p>
 
-        <p>This is as much a psychological surface as a functional one. The presence of the revert is what lets the expert engage with the AI output without feeling watched, rushed, or committed. They know they can walk out. So they lean in.</p>
+        <p><strong>Taste calibrator.</strong> The designer who can look at twenty Claude-generated variants and tell you why three are wrong. And more importantly, <em>why</em>. This role is hard to hire for and impossible to fake. It is taste tied to a specific domain and user.</p>
 
-        <hr />
+        <p><strong>Expert-user translator.</strong> Traders, radiologists, analysts, legal reviewers. Claude does not know what they do between the visible steps. The designer who can articulate those hidden constraints, in writing, to the model, is the one whose work actually ships.</p>
 
-        <h2><span class="n">05</span>The quiet one: explain the absence</h2>
-
-        <p>The trust surfaces that work hardest are the ones that explain what the AI is <em>not</em> doing.</p>
-
-        <blockquote>"I am not using your private portfolio data to answer this. This is a general-knowledge answer, not a company-specific one. I cannot see trades older than 30 days."</blockquote>
-
-        <p>In consumer AI, these are disclosures, bolted on for legal. In expert-user AI, they are reassurances, and they change behaviour. They tell the domain professional exactly where the seams are, so they can form a mental model of the AI's reach and stop treating it as a magic box.</p>
-
-        <p>The expert who knows the edges of the system will use it six times more often than the expert who does not. Every expert-user AI product I have shipped has confirmed this.</p>
+        <p>"AI-native designer" will not be a separate role for long. It will be designers who use the AI, or designers who do not ship anymore. Same as with Figma in 2016.</p>
 
         <hr />
 
-        <h2><span class="n">06</span>Where this goes next</h2>
+        <h2><span class="n">05</span>What I would do this month</h2>
 
-        <p>AI products for experts are not the same category as AI products for consumers. The shape of the trust surface is the single biggest difference. Consumer AI hides the seams. Expert AI exposes them.</p>
+        <p>Three bets.</p>
 
-        <p>If you are designing for this category now, the question to keep asking is: <em>what is the most honest version of this interaction?</em> It will almost always be more granular, more confession-heavy, and less confident-sounding than the consumer AI playbook. That is the feature, not the bug. The expert reads it as integrity.</p>
+        <p><strong>Machine-readability.</strong> Make your Figma files MCP-ready. Token-only styles, no loose hex values. Every component published. Every variant named. This is the work that used to look like housekeeping. It is now infrastructure.</p>
 
-        <p>And the feature that was going to get turned off on a Tuesday afternoon stays on.</p>
+        <p><strong>Written opinions.</strong> For every pattern your system contains, write down the reason. Not the visual. The reason. "We use sheets for flows the user can reverse, and modals for flows they cannot." That one sentence is worth more to the AI than a hundred annotated Figma screens.</p>
 
-        <div class="essay-prev" style="margin-top:48px;padding-top:28px;border-top:1px solid var(--c-rule);font-size:14px;color:var(--c-mid);">
-          <span class="essay-prev-label" style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:6px;">Next post</span>
-          <a href="writing-the-design-system-is-the-contract.html" style="color:var(--c-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:#14b8a6;text-decoration-thickness:1px;">The design system is the contract →</a>
+        <p><strong>Expert proximity.</strong> Spend more time with your hardest users, not less. The parts of their work that look obvious are the parts Claude Design does not know. A twenty-minute observation of a trader's pre-market routine is something no model is going to ingest without you.</p>
+
+        <hr />
+
+        <h2><span class="n">06</span>The honest close</h2>
+
+        <p>The designers who grow into director-track roles over the next two years will be the ones who take the AI seriously enough to let it do the boring work, and take their users seriously enough that the AI still needs them. The moat is not the craft. The moat is the system you build underneath the craft.</p>
+
+        <p>Claude Design is a beginning, not an end. The question it asks every design team is not <em>"will this replace me"</em> but <em>"am I building the system that makes me 10× more useful, or am I hand-producing deliverables that an AI can now do overnight."</em></p>
+
+        <p>Answer that question on purpose. The rest follows.</p>
+
+        <div class="essay-prev">
+          <span class="essay-prev-label">Previously</span>
+          <a href="writing-trust-surfaces-in-ai.html">Trust surfaces in AI for expert users →</a>
         </div>
 
         <div class="essay-bio">
