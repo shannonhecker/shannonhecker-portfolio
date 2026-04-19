@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-795LXWTYWM');
+  </script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w42m2jben0");
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="assets/dark-mode.js"></script>
+  <link rel="stylesheet" href="assets/dark-mode.css" />
+  <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
+  <title>Writing · Shannon Hecker</title>
+  <meta name="description" content="Essays on design leadership, AI for expert users, and the shifting shape of the product designer's job. By Shannon Hecker, Product Design Lead." />
+  <link rel="canonical" href="https://shannonhecker.com/writing.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shannonhecker.com/writing.html" />
+  <meta property="og:title" content="Writing · Shannon Hecker" />
+  <meta property="og:description" content="Essays on design leadership, AI for expert users, and the shifting shape of the product designer's job." />
+  <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+
+  <style>
+    :root {
+      --c-bg:#FFFFFF; --c-surface:#FFFFFF; --c-panel:#F5F5F5;
+      --c-ink:#0A0A0A; --c-mid:#555555; --c-light:#6F6F6F;
+      --c-ghost:#CCCCCC; --c-rule:#E8E8E8; --c-rule-dk:#C8C8C8;
+      --c-ink-pure:#000000; --c-nav:#595959; --c-hover:#111111;
+      --c-border:#c0c0c0; --c-accent:#14b8a6;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
+      --ease:cubic-bezier(.22,1,.36,1);
+      --tb:220ms;
+      --mw:1340px;
+      --pad:clamp(28px,6vw,88px);
+      --nav:72px;
+      --r-pill:999px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{font-family:var(--font);background:var(--c-bg);color:var(--c-ink);line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none;}
+
+    .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;transition:top .2s;}
+    .skip-link:focus{top:16px;}
+    :focus-visible{outline:2px solid var(--c-accent);outline-offset:3px;border-radius:4px;}
+
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);display:flex;align-items:center;transition:background .42s var(--ease),border-color .42s var(--ease),backdrop-filter .42s var(--ease);border-bottom:1px solid transparent;}
+    .nav.s{background:rgba(255,255,255,.9);border-color:var(--c-rule);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+    .nav-inner{position:relative;max-width:var(--mw);margin:0 auto;padding:0 var(--pad);width:100%;display:flex;align-items:center;}
+    .nav-logo{display:flex;align-items:center;color:var(--c-ink);transition:opacity var(--tb) var(--ease),transform .4s var(--ease);}
+    .nav-logo:hover{opacity:.6;transform:rotate(45deg);}
+    .nav-links{list-style:none;display:flex;align-items:center;gap:4px;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-links a{font-size:13px;font-weight:400;color:var(--c-nav);letter-spacing:.01em;border-radius:var(--r-pill);padding:8px 16px;transition:background var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-links a:hover{background:var(--c-hover);color:#fff;}
+    .nav-links a[aria-current="page"]{color:var(--c-ink);font-weight:500;}
+    .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+    .nav-cta{font-size:13px;font-weight:400;color:var(--c-nav);border:1px solid var(--c-border);border-radius:var(--r-pill);padding:8px 20px;transition:background var(--tb) var(--ease),border-color var(--tb) var(--ease),color var(--tb) var(--ease);}
+    .nav-cta:hover{background:var(--c-hover);border-color:var(--c-hover);color:#fff;}
+
+    /* Hero */
+    main{padding-top:calc(var(--nav) + 80px);padding-bottom:120px;}
+    .wrap{max-width:840px;margin:0 auto;padding:0 var(--pad);}
+    .wr-eyebrow{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light);margin-bottom:28px;}
+    .wr-title{font-family:var(--font-display);font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.05;letter-spacing:-.022em;color:var(--c-ink);margin-bottom:20px;text-wrap:balance;}
+    .wr-dek{font-family:var(--font);font-size:clamp(17px,1.7vw,20px);font-weight:300;line-height:1.55;color:var(--c-mid);max-width:640px;margin-bottom:72px;text-wrap:pretty;}
+
+    /* Essay list */
+    .wr-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--c-rule);}
+    .wr-item{display:block;padding:36px 0;border-bottom:1px solid var(--c-rule);transition:background var(--tb) var(--ease);}
+    .wr-item:hover{background:var(--c-panel);margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px;border-radius:8px;border-bottom-color:transparent;}
+    .wr-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
+    .wr-item-title{font-family:var(--font-display);font-size:clamp(22px,2.6vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.015em;color:var(--c-ink);}
+    .wr-item-meta{font-size:12px;color:var(--c-light);letter-spacing:.02em;white-space:nowrap;display:flex;gap:10px;align-items:center;}
+    .wr-item-meta .sep{color:var(--c-ghost);}
+    .wr-item-dek{font-size:15px;line-height:1.65;color:var(--c-mid);max-width:680px;margin-bottom:10px;}
+    .wr-item-read{font-size:12px;font-weight:500;color:var(--c-ink);letter-spacing:-.005em;display:inline-flex;align-items:center;gap:4px;transition:color var(--tb) var(--ease);}
+    .wr-item:hover .wr-item-read{color:var(--c-accent);}
+    .wr-item-read-arrow{transition:transform var(--tb) var(--ease);}
+    .wr-item:hover .wr-item-read-arrow{transform:translateX(2px);}
+
+    /* Footer */
+    .footer{border-top:1px solid var(--c-rule);padding:clamp(32px,5vw,56px) 0;}
+    .footer-inner{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:var(--c-light);}
+    .footer-inner a{color:var(--c-light);}
+    .footer-inner a:hover{color:var(--c-ink);}
+
+    @media (max-width:700px){
+      .wr-item-head{flex-direction:column;gap:4px;}
+      .wr-item:hover{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Shannon Hecker">
+        <svg width="24" height="22" viewBox="0 0 80 73" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/></svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Intro</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="#" aria-current="page">Writing</a></li>
+        <li><a href="index.html#contact">Let's Talk</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="wrap">
+
+      <div class="wr-eyebrow">Writing</div>
+      <h1 class="wr-title">Essays on design, trust, and AI.</h1>
+      <p class="wr-dek">Notes from the seam between enterprise product design and AI. Written for designers and design leaders who are trying to figure out what the job is becoming.</p>
+
+      <div class="wr-list">
+
+        <a href="writing-the-design-system-is-the-contract.html" class="wr-item">
+          <div class="wr-item-head">
+            <h2 class="wr-item-title">The design system is the contract.</h2>
+            <div class="wr-item-meta">
+              <span>2026-04-20</span>
+              <span class="sep">·</span>
+              <span>8 min</span>
+            </div>
+          </div>
+          <p class="wr-item-dek">What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful.</p>
+          <span class="wr-item-read">Read essay <svg class="wr-item-read-arrow" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="writing-trust-surfaces-in-ai.html" class="wr-item">
+          <div class="wr-item-head">
+            <h2 class="wr-item-title">Trust surfaces in AI for expert users.</h2>
+            <div class="wr-item-meta">
+              <span>2026-04-18</span>
+              <span class="sep">·</span>
+              <span>7 min</span>
+            </div>
+          </div>
+          <p class="wr-item-dek">What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface.</p>
+          <span class="wr-item-read">Read essay <svg class="wr-item-read-arrow" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+        </a>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>©2026 Shannon Hecker &bull; Product Design Lead</span>
+      <span><a href="index.html">Home</a> &bull; <a href="about.html">About</a> &bull; <a href="work.html">Work</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('s', window.scrollY > 40);
+    }, { passive: true });
+  </script>
+</body>
+</html>
