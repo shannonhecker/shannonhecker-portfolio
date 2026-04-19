@@ -1104,13 +1104,18 @@
       pointer-events: none;
       z-index: 4;
     }
-    /* Aurora + lines: bottom-left band (mirror of hero top-right) */
+    /* Aurora + lines: bottom-left band (mirror of hero top-right).
+       Spans full width now so there's no hard geometric right edge.
+       Mask-image fades the orb layer to transparent on the right so
+       the aurora dissolves into the background without a sharp cut. */
     .footer-visual .fv-blobs {
       position: absolute;
       top: 0; left: 0; bottom: 0;
-      right: 36%;
+      right: 0;
       pointer-events: none;
       overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, black 0%, black 45%, transparent 92%);
+      mask-image: linear-gradient(to right, black 0%, black 45%, transparent 92%);
     }
     .fv-orb {
       position: absolute;
