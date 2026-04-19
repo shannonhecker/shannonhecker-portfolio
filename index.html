@@ -1171,6 +1171,11 @@
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
       contain: layout style paint;
+      /* Soft fade on the right edge so the wave blends into the
+         background instead of hitting a hard vertical cut. Paired
+         with the canvas stroke gradient for a double-softened edge. */
+      -webkit-mask-image: linear-gradient(to right, black 0%, black 40%, transparent 95%);
+      mask-image: linear-gradient(to right, black 0%, black 40%, transparent 95%);
     }
 
     /* ============================================================
@@ -2732,18 +2737,24 @@
         }
         footerGrad = x.createLinearGradient(0, 0, W, 0);
         if (isDark) {
-          /* Stroke gradient matches footer orb colours: pink → amber → coral */
+          /* Stroke gradient matches footer orb colours: pink → amber → coral.
+             Full opacity through the first half, then a long slow fade from
+             55% to 100% so the wave dissolves into the background instead
+             of cutting off sharply. Paired with the CSS mask-image on the
+             canvas element for a double-softened edge. */
           footerGrad.addColorStop(0, 'rgba(255,145,185, 0)');
           footerGrad.addColorStop(0.06, 'rgba(255,145,185, 0.30)');
-          footerGrad.addColorStop(0.35, 'rgba(255,198,95, 0.30)');
-          footerGrad.addColorStop(0.65, 'rgba(255,175,135, 0.30)');
-          footerGrad.addColorStop(0.94, 'rgba(255,205,110, 0.30)');
+          footerGrad.addColorStop(0.25, 'rgba(255,198,95, 0.30)');
+          footerGrad.addColorStop(0.45, 'rgba(255,175,135, 0.30)');
+          footerGrad.addColorStop(0.60, 'rgba(255,205,110, 0.22)');
+          footerGrad.addColorStop(0.80, 'rgba(255,205,110, 0.08)');
           footerGrad.addColorStop(1, 'rgba(255,205,110, 0)');
         } else {
           footerGrad.addColorStop(0, 'rgba(255,255,255,0)');
           footerGrad.addColorStop(0.06, 'rgba(255,255,255,0.70)');
-          footerGrad.addColorStop(0.50, 'rgba(255,255,255,0.75)');
-          footerGrad.addColorStop(0.94, 'rgba(255,255,255,0.65)');
+          footerGrad.addColorStop(0.45, 'rgba(255,255,255,0.70)');
+          footerGrad.addColorStop(0.65, 'rgba(255,255,255,0.55)');
+          footerGrad.addColorStop(0.85, 'rgba(255,255,255,0.20)');
           footerGrad.addColorStop(1, 'rgba(255,255,255,0)');
         }
       }

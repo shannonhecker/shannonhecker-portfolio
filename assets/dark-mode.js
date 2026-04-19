@@ -4,8 +4,12 @@
   var theme;
   if (stored === 'dark' || stored === 'light') {
     theme = stored;
-  } else {
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    /* User's OS explicitly prefers light → respect that */
     theme = 'light';
+  } else {
+    /* OS prefers dark, OS has no preference, or no matchMedia → default dark */
+    theme = 'dark';
   }
   document.documentElement.setAttribute('data-theme', theme);
   var meta = document.querySelector('meta[name="theme-color"]');
