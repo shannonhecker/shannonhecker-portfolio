@@ -424,7 +424,15 @@ html[data-theme="dark"] .work-hero-visual::before {
   background: linear-gradient(to bottom, #121212 0%, transparent 100%) !important;
 }
 html[data-theme="dark"] .work-hero-visual::after {
-  background: linear-gradient(to bottom, transparent 0%, #121212 100%) !important;
+  /* Taller bottom fade for a softer blend into the work grid below.
+     Previously 160px with a single linear stop; now 280px with
+     multi-stop gradient so the transition doesn't read as a seam. */
+  height: 280px !important;
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(18,18,18,0.30) 35%,
+      rgba(18,18,18,0.70) 65%,
+      #121212 100%) !important;
 }
 
 /* Dark mode: orbs full-width, canvas on top so strokes are visible */
@@ -438,10 +446,23 @@ html[data-theme="dark"] #work-hero-canvas {
   left: 0 !important;
   width: 100% !important;
   background: transparent !important;
+  /* Smoother mask: was `transparent 0%, black 45%` which has a hard
+     shoulder at 45%. Multi-stop gradient gives a gradual ramp so the
+     wave fades in across the whole left half. */
   -webkit-mask-image: linear-gradient(to right,
-      transparent 0%, black 45%, black 100%) !important;
+      transparent 0%,
+      rgba(0,0,0,0.25) 20%,
+      rgba(0,0,0,0.60) 40%,
+      rgba(0,0,0,0.90) 60%,
+      black 75%,
+      black 100%) !important;
   mask-image: linear-gradient(to right,
-      transparent 0%, black 45%, black 100%) !important;
+      transparent 0%,
+      rgba(0,0,0,0.25) 20%,
+      rgba(0,0,0,0.60) 40%,
+      rgba(0,0,0,0.90) 60%,
+      black 75%,
+      black 100%) !important;
 }
 html[data-theme="dark"] .work-hero-inner {
   background: transparent !important;
