@@ -523,10 +523,14 @@ html[data-theme="dark"] .ausos-strip-cta.primary {
   color: #0a0a0a;
   border-color: var(--c-ink-pure);
 }
+/* Minimal hover on dark: keep white, just lift + shadow. No accent. */
 html[data-theme="dark"] .ausos-strip-cta.primary:hover {
-  background: var(--c-accent);
-  color: #0a0a0a;
-  border-color: var(--c-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
+}
+html[data-theme="dark"] .ausos-strip-cta.ghost:hover {
+  background: rgba(255, 255, 255, .04);
+  border-color: var(--c-ink);
 }
 html[data-theme="dark"] .ausos-strip-frame {
   box-shadow:

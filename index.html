@@ -2095,25 +2095,31 @@
       padding: 11px 22px;
       border-radius: var(--r-pill);
       text-decoration: none;
-      transition: all var(--tb) var(--ease);
       border: 1px solid transparent;
+      transition:
+        transform var(--tb) var(--ease),
+        box-shadow var(--tb) var(--ease),
+        background var(--tb) var(--ease),
+        border-color var(--tb) var(--ease);
     }
+    /* Minimal hover: subtle lift + shadow on primary,
+       panel fill + darker border on ghost. No accent colour. */
     .ausos-strip-cta.primary {
       background: var(--c-ink);
       color: #fff;
       border-color: var(--c-ink);
     }
     .ausos-strip-cta.primary:hover {
-      background: var(--c-accent);
-      border-color: var(--c-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
     }
     .ausos-strip-cta.ghost {
       color: var(--c-ink);
       border-color: var(--c-rule-dk);
     }
     .ausos-strip-cta.ghost:hover {
-      border-color: var(--c-accent);
-      color: var(--c-accent);
+      background: var(--c-panel);
+      border-color: var(--c-ink);
     }
 
     .ausos-strip-meta {
