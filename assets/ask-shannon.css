@@ -113,6 +113,51 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  position: relative;   /* anchor for .ask-follow-btn */
+}
+
+/* ================================================================
+   SCROLL-FOLLOW: "New messages" pill shown when user scrolls up
+   during a streaming response. Clicking re-engages auto-scroll
+   and snaps to bottom. Floats above the input area.
+   ================================================================ */
+.ask-follow-btn {
+  position: absolute;
+  left: 50%;
+  /* Sit just above the input row; .ask-form has its own spacing */
+  bottom: calc(100% - 100% + 52px);
+  bottom: 52px;
+  transform: translate(-50%, 8px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-surface, #FFFFFF);
+  background: var(--c-ink, #0A0A0A);
+  border: 1px solid var(--c-ink, #0A0A0A);
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms cubic-bezier(.22,1,.36,1),
+              transform 180ms cubic-bezier(.22,1,.36,1);
+}
+.ask-follow-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.ask-follow-btn:hover {
+  background: var(--c-hover, #111);
+}
+.ask-follow-btn svg { flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ask-follow-btn { transition: none; }
 }
 
 
@@ -139,6 +184,10 @@
   overflow-y: auto;
   overscroll-behavior: contain;   /* prevent scroll chaining to page */
   -webkit-overflow-scrolling: touch;
+  /* Keep the user's relative scroll position stable when content is
+     inserted above the viewport (scroll anchoring). Default in most
+     browsers; explicit here to guard against a global reset. */
+  overflow-anchor: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;

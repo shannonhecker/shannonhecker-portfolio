@@ -34,6 +34,16 @@
   var isTyping = false;
   var scrollRaf = 0;
 
+  /* ── Sticky-to-bottom scroll state ──────────────────────────────
+     isFollowing is true when the user is (approximately) at the
+     bottom of the messages pane. Only then do streaming chunks
+     auto-scroll. If the user scrolls up to read earlier text, we
+     stop yanking them down. When they scroll back within 40px of
+     bottom, auto-scroll re-engages. */
+  var AT_BOTTOM_THRESHOLD = 40;
+  var isFollowing = true;
+  var followBtn = null; // created lazily, shown when isFollowing is false during streaming
+
   /* ── Escape HTML via string replacement (no DOM churn) ── */
   function escapeHtml(str) {
     return str
@@ -120,6 +130,51 @@
     textNode.textContent = "Hi, I'm Shannon's assistant. Ask me about her design leadership work, ausōs.ai, or the roles she's looking for next.";
     bubble.appendChild(textNode);
     messagesEl.appendChild(bubble);
+  }
+
+  /* ── Follow-stick scroll listener ───────────────────────────────
+     Every time the user (or code) scrolls the messages pane, decide
+     whether they're still at the bottom. This is the only signal
+     that drives streaming auto-scroll. */
+  messagesEl.addEventListener('scroll', function () {
+    var distanceFromBottom =
+      messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight;
+    isFollowing = distanceFromBottom <= AT_BOTTOM_THRESHOLD;
+    updateFollowButton();
+  }, { passive: true });
+
+  /* ── "New messages" follow button ────────────────────────────────
+     Created lazily the first time we need to show it. Positioned by
+     CSS (.ask-follow-btn) at the bottom of the chat area, visible
+     only when the user has scrolled up during streaming. */
+  function getFollowButton() {
+    if (followBtn) return followBtn;
+    followBtn = document.createElement('button');
+    followBtn.type = 'button';
+    followBtn.className = 'ask-follow-btn';
+    followBtn.setAttribute('aria-label', 'Scroll to latest message');
+    followBtn.innerHTML =
+      '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">' +
+        '<path d="M6 2v7m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>' +
+      '<span>New messages</span>';
+    followBtn.addEventListener('click', function () {
+      scrollToBottomForced();
+    });
+    /* Insert right after messagesEl so it can be absolute-positioned
+       relative to the same flow parent. */
+    messagesEl.parentNode.insertBefore(followBtn, messagesEl.nextSibling);
+    return followBtn;
+  }
+
+  function updateFollowButton() {
+    /* Show only when the stream is running AND user scrolled up. Hide
+       otherwise (including when the stream completes and user is at
+       the bottom). */
+    var shouldShow = isTyping && !isFollowing;
+    var btn = (followBtn || shouldShow) ? getFollowButton() : null;
+    if (!btn) return;
+    btn.classList.toggle('visible', shouldShow);
   }
 
   /* ── Init ── */
@@ -217,6 +272,10 @@
   function streamResponse() {
     isTyping = true;
     sendBtn.disabled = true;
+    /* Sync the follow button's visibility to the new typing state.
+       If user is already scrolled up when the stream starts, the
+       button will appear. */
+    updateFollowButton();
 
     if (glowWrap) glowWrap.classList.add('thinking');
 
@@ -270,7 +329,7 @@
           textNode.innerHTML = formatMarkdown(fullText);
           bubble.classList.remove('streaming');
           history.push({ role: 'assistant', content: fullText });
-          scrollToBottom();
+          scrollToBottomIfFollowing();
         });
       }
 
@@ -346,7 +405,11 @@
       sendBtn.disabled = false;
       /* Only auto-focus on desktop to avoid iOS keyboard jump */
       if (!isMobile) inputEl.focus();
-      scrollToBottom();
+      /* Respect follow state: if the user scrolled up to read, don't
+         yank them down when the stream finishes. */
+      scrollToBottomIfFollowing();
+      /* Hide the follow button; the stream is done. */
+      updateFollowButton();
     });
   }
 
@@ -370,15 +433,35 @@
     scrollToBottom();
   }
 
-  /* ── Scroll chat to bottom (debounced for streaming perf) ── */
-  function scrollToBottom() {
+  /* ── Scroll-follow helpers ─────────────────────────────────────
+     scrollToBottomForced: user-initiated moments (sending a message,
+       receiving an error). Always snaps to bottom and re-engages the
+       follow-stick.
+     scrollToBottomIfFollowing: streaming chunks and idle updates.
+       Only scrolls when the user is at the bottom; if they scrolled
+       up to read, this is a no-op so they stay put. */
+  function scrollToBottomForced() {
     messagesEl.scrollTop = messagesEl.scrollHeight;
+    isFollowing = true;
+    updateFollowButton();
+  }
+
+  function scrollToBottomIfFollowing() {
+    if (isFollowing) {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+  }
+
+  /* Backwards-compat alias used by older call sites that always
+     want to scroll (user actions). Forwards to the forced variant. */
+  function scrollToBottom() {
+    scrollToBottomForced();
   }
 
   function debouncedScroll() {
     if (scrollRaf) return;
     scrollRaf = requestAnimationFrame(function () {
-      scrollToBottom();
+      scrollToBottomIfFollowing();
       scrollRaf = 0;
     });
   }
