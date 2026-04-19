@@ -1795,71 +1795,52 @@
 
   <style>
     /* ============================================================
-       FEATURED-WORK · horizontal scroll row (homepage only)
-       Scoped to .bento--scroll so work.html grid is unaffected.
+       FEATURED-WORK · bento grid with Ausōs hero (homepage only)
+       Hybrid layout: founder flagship spans 2×2, rest in static grid.
+       Hover-reveal titles. Mixed rhythm via span variations.
        ============================================================ */
-    .bento--scroll {
-      display: block !important;
-      overflow: hidden;
-      padding: 12px 0 20px;
-      margin: 0 calc(var(--pad) * -1);
-      /* Soft edge fade, signals "more beyond" */
-      -webkit-mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
-    }
-    .bento--scroll:focus { outline: none; }
-    .bento--scroll:focus-visible {
-      outline: 2px solid var(--c-ink);
-      outline-offset: 6px;
-      border-radius: 8px;
+    .featured-bento {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: clamp(180px, 20vw, 260px);
+      gap: clamp(12px, 1.5vw, 18px);
     }
 
-    /* The animated marquee track that holds the cards (injected by JS).
-       Paused by default. A .drift-active class set by JS (after scroll
-       into view + 2s delay) kicks off the continuous motion. */
-    .bento-track {
-      display: flex;
-      width: max-content;
-      animation: bento-drift 86s linear infinite;
-      animation-play-state: paused;
-      will-change: transform;
-    }
-    .bento-track.drift-active { animation-play-state: running; }
-    .bento--scroll:hover .bento-track.drift-active,
-    .bento--scroll:focus-within .bento-track.drift-active {
-      animation-play-state: paused;
-    }
-    @keyframes bento-drift {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(-50%, 0, 0); }
+    /* Hero card: founder flagship. Spans 2 cols × 2 rows.
+       Visually dominant, reads as "lead project" at first glance. */
+    .featured-bento .hero-card {
+      grid-column: span 2;
+      grid-row: span 2;
     }
 
-    /* Card sizing + right-gutter (margin-right on cards gives pixel-exact
-       seamless loop at translate3d(-50%) since every card including the
-       last contributes the same gutter width). */
-    .bento--scroll .bc-4 {
-      flex: 0 0 clamp(260px, 28vw, 380px);
-      margin-right: 20px;
-    }
-    .bento--scroll .bc-4:first-child { margin-left: var(--pad); }
-    @media (max-width: 900px) {
-      .bento--scroll .bc-4 { flex: 0 0 280px; }
-      .bento-track { animation-duration: 72s; }
-    }
-    @media (max-width: 600px) {
-      .bento--scroll .bc-4 { flex: 0 0 230px; }
-      .bento-track { animation-duration: 58s; }
+    /* Occasional wide cards for rhythm (break up the grid). */
+    .featured-bento .wide-card {
+      grid-column: span 2;
     }
 
-    /* Duplicates that exist for the seamless infinite loop */
-    .bento--scroll .bc-4--dup { pointer-events: auto; }
+    /* Pictures fill their .pcard-img container */
+    .featured-bento .pcard-img picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    /* The .pcard-img itself fills the whole card, overriding the
+       aspect-ratio rule inherited from portfolio.css (cards are now
+       sized by the grid, not by intrinsic image ratio). */
+    .featured-bento .pcard-img {
+      aspect-ratio: auto !important;
+      height: 100%;
+    }
+    .featured-bento .pcard { height: 100%; }
+    .featured-bento .pcard-article { display: block; height: 100%; }
 
     /* Shine sweep on hover (diagonal gloss) */
-    .bento--scroll .pcard-article {
+    .featured-bento .pcard-article {
       position: relative;
       border-radius: 8px;
+      overflow: hidden;
     }
-    .bento--scroll .pcard-article::after {
+    .featured-bento .pcard-article::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -1873,7 +1854,7 @@
       z-index: 3;
       opacity: 0;
     }
-    .bento--scroll .pcard-article:hover::after {
+    .featured-bento .pcard-article:hover::after {
       animation: pcard-shine 900ms cubic-bezier(.22, 1, .36, 1) forwards;
       opacity: 1;
     }
@@ -1882,22 +1863,29 @@
       100% { transform: translateX(120%); }
     }
 
-    /* Image breathe on hover (replaces static scale in the scroll row) */
-    .bento--scroll .pcard:hover .pcard-img img,
-    .bento--scroll .pcard:hover .pcard-img .ph {
-      animation: pcard-breathe 8s ease-in-out infinite;
+    /* Responsive collapse */
+    @media (max-width: 900px) {
+      .featured-bento {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: clamp(180px, 30vw, 240px);
+      }
+      .featured-bento .hero-card {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .featured-bento .wide-card { grid-column: span 2; }
     }
-    @keyframes pcard-breathe {
-      0%, 100% { transform: translateZ(0) scale(1.02); }
-      50%      { transform: translateZ(0) scale(1.055); }
+    @media (max-width: 520px) {
+      .featured-bento {
+        grid-template-columns: 1fr;
+        grid-auto-rows: clamp(200px, 65vw, 300px);
+      }
+      .featured-bento .hero-card { grid-row: span 2; }
+      .featured-bento .wide-card { grid-column: span 1; }
     }
 
-    /* Respect reduced motion: no auto-drift, no shine, no breathe */
     @media (prefers-reduced-motion: reduce) {
-      .bento-track                               { animation: none; }
-      .bento--scroll .pcard-article::after       { display: none; }
-      .bento--scroll .pcard:hover .pcard-img img,
-      .bento--scroll .pcard:hover .pcard-img .ph { animation: none; transform: translateZ(0) scale(1.02); }
+      .featured-bento .pcard-article::after { display: none; }
     }
   </style>
 
@@ -1920,10 +1908,10 @@
         </div>
       </div>
 
-      <div class="bento bento--scroll" aria-label="Featured work, thirteen projects">
+      <div class="featured-bento" aria-label="Featured work, thirteen projects">
 
-        <!-- 13 featured cards, curated order. JS clones them for seamless loop. -->
-        <div class="bc-4 rv" data-d="1">
+        <!-- 13 featured cards in bento grid. Ausōs is the hero (2×2). -->
+        <div class="bc-4 hero-card rv" data-d="1">
           <article class="pcard-article"><a href="project-ausos.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/ausos-card.webp" alt="ausōs.ai AI visual web builder" loading="lazy" decoding="async" width="1200" height="720" />
