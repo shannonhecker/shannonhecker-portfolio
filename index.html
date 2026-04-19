@@ -154,7 +154,7 @@
       --c-nav:      #595959;
       --c-hover:    #111111;
       --c-border:   #c0c0c0;
-      --c-accent:   #4A90D9;
+      --c-accent:   #14b8a6;   /* Signal Teal · signature accent */
 
       /* Fonts - Inter (UI) + Noto Serif Display (editorial headings), matching shannonhecker.com */
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -696,6 +696,103 @@
     }
     .hero-descriptor strong {
       color: #0a0a0a;
+      font-weight: 500;
+    }
+
+    /* ── "Now building" pill · Ausōs signal (sits above the role line) ── */
+    .hero-now-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-ink);
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: var(--r-pill);
+      padding: 7px 14px 7px 11px;
+      margin-bottom: 16px;
+      letter-spacing: -.005em;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .6s ease .05s, transform .6s ease .05s, border-color var(--tb) var(--ease), background var(--tb) var(--ease);
+    }
+    body.loaded .hero-now-pill { opacity: 1; transform: translateY(0); }
+    .hero-now-pill:hover {
+      border-color: var(--c-accent);
+      background: var(--c-panel);
+    }
+    .hero-now-dot {
+      width: 7px; height: 7px;
+      background: var(--c-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, .18);
+      animation: hero-now-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes hero-now-pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(20, 184, 166, .18); }
+      50%      { box-shadow: 0 0 0 5px rgba(20, 184, 166, .06); }
+    }
+    .hero-now-label {
+      font-weight: 600;
+      color: var(--c-mid);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      margin-right: 2px;
+    }
+    .hero-now-name {
+      font-weight: 600;
+      color: var(--c-ink);
+    }
+    .hero-now-stage {
+      color: var(--c-light);
+      font-weight: 400;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-now-dot { animation: none; }
+    }
+
+    /* ── "Recently" essay link · sits below the descriptor ── */
+    .hero-reading {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--c-mid);
+      letter-spacing: -.005em;
+      margin-top: 2px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .6s ease 1.2s, transform .6s ease 1.2s;
+    }
+    body.loaded .hero-reading { opacity: 1; transform: translateY(0); }
+    .hero-reading-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+    }
+    .hero-reading a {
+      color: var(--c-ink);
+      text-decoration: none;
+      background-image: linear-gradient(to right, var(--c-accent), var(--c-accent));
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: 0 calc(100% - 1px);
+      padding-bottom: 1px;
+      transition: background-size var(--tb) var(--ease), color var(--tb) var(--ease);
+    }
+    .hero-reading a:hover {
+      color: var(--c-accent);
+      background-size: 100% 2px;
+    }
+    .hero-reading a::after {
+      content: " →";
+      color: var(--c-accent);
       font-weight: 500;
     }
 
@@ -1281,6 +1378,9 @@
       .nav-burger { display:flex; margin-left:auto; }
       .hero { padding-bottom: 80px; }
       .hero-sub { max-width:100%; }
+      .hero-now-pill { padding: 6px 12px 6px 10px; font-size: 11.5px; margin-bottom: 12px; gap: 7px; }
+      .hero-now-label { font-size: 9.5px; }
+      .hero-reading { flex-direction: column; align-items: flex-start; gap: 4px; }
       #wave-canvas { width:90%; }
       .work .bento, .bento { grid-template-columns: repeat(2, 1fr); }
       .about-layout { grid-template-columns: 1fr; gap: 28px; }
@@ -1791,9 +1891,17 @@
     <!-- Layer 3: Text content -->
     <div class="wrap">
 
+      <!-- Now building · Ausōs pill (above the role line) -->
+      <a class="hero-now-pill" href="project-ausos.html" aria-label="Now building ausōs.ai, private alpha">
+        <span class="hero-now-dot" aria-hidden="true"></span>
+        <span class="hero-now-label">Now building</span>
+        <span class="hero-now-name">ausōs.ai</span>
+        <span class="hero-now-stage">· private alpha</span>
+      </a>
+
       <!-- Role / status line -->
       <div class="hero-role-line">
-<span class="hero-role-text">Senior Product Designer</span>
+<span class="hero-role-text">Product Design Lead</span>
         <span class="hero-role-sep"></span>
         <span class="hero-role-text">London</span>
         <span class="hero-role-sep"></span>
@@ -1820,6 +1928,12 @@
           </p>
           <p class="hero-descriptor">
             Fifteen years designing the tools behind trading, risk, and data workflows most people never see. Now leading design at Barclays and founding ausōs.ai, an AI-native builder in private alpha.
+          </p>
+
+          <!-- Recently · linked essay -->
+          <p class="hero-reading">
+            <span class="hero-reading-label">Recently</span>
+            <a href="writing-trust-surfaces-in-ai.html">Trust surfaces in AI for expert users</a>
           </p>
 
           <!-- Stats row with CTA -->

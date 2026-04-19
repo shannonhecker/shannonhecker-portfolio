@@ -94,18 +94,20 @@
   }
 
   /* ── Suggested questions (grouped into sets that rotate on click) ── */
+  /* Set 0 is hiring-conversation oriented: AI fluency, builder signal,
+     enterprise depth, leadership. Sharpened from the user-testing readout. */
   var SUGGESTION_SETS = [
     [
-      "What are you working on right now?",
+      "How do you approach AI product design?",
       "Tell me about ausōs.ai",
-      "What's your current role at Barclays?",
-      "What's your take on AI in design?",
+      "Show me your trading platform work",
+      "What's your leadership style?",
     ],
     [
-      "What's your leadership style?",
       "Tell me about a hard design call you made",
       "How do you hire and mentor designers?",
       "How do you measure design impact?",
+      "What's your take on AI in design?",
     ],
     [
       "Tell me about a favourite project",
