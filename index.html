@@ -2167,12 +2167,233 @@
         0 32px 80px rgba(20, 184, 166, .12);
     }
     .ausos-strip-frame picture,
-    .ausos-strip-frame img {
+    .ausos-strip-frame img,
+    .ausos-strip-video {
       display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 1200 / 720;
       object-fit: cover;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       AUSŌS STRIP · CSS-only motion placeholder
+       10-second loop. Reads as "ausōs types a prompt, a dashboard
+       generates". Swap for a real <video> element when demo footage
+       is ready (see HTML comment inside .ausos-strip-frame).
+       ══════════════════════════════════════════════════════════════ */
+    .ausos-strip-placeholder {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1200 / 720;
+      background:
+        radial-gradient(ellipse 80% 60% at 30% 30%, rgba(20, 184, 166, .08) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 60% at 75% 70%, rgba(20, 184, 166, .05) 0%, transparent 60%),
+        linear-gradient(180deg, var(--c-panel) 0%, var(--c-surface) 100%);
+      overflow: hidden;
+      font-family: var(--font);
+      color: var(--c-ink);
+    }
+
+    /* Prompt bar at the top */
+    .asp-prompt {
+      position: absolute;
+      top: 10%;
+      left: 8%;
+      right: 8%;
+      height: 42px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: 10px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(10px, 1.05vw, 13px);
+      color: var(--c-mid);
+      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .asp-prompt-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, .18);
+      flex-shrink: 0;
+    }
+    .asp-prompt-text {
+      flex: 0 1 auto;
+      overflow: hidden;
+      white-space: nowrap;
+      letter-spacing: -.005em;
+    }
+    .asp-prompt-text::before {
+      content: "Build a dashboard for my ESG data portfolio.";
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: bottom;
+      width: 0;
+      animation: asp-type 10s infinite;
+    }
+    .asp-prompt-caret {
+      width: 2px;
+      height: 14px;
+      background: var(--c-accent);
+      animation: asp-blink 10s infinite;
+    }
+
+    @keyframes asp-type {
+      0%               { width: 0; }
+      28%              { width: 100%; }
+      82%              { width: 100%; }
+      90%              { width: 0; }
+      100%             { width: 0; }
+    }
+    @keyframes asp-blink {
+      0%, 82%          { opacity: 1; }
+      83%, 100%        { opacity: 0; }
+    }
+
+    /* Canvas: staggered grid of blocks that animate in */
+    .asp-canvas {
+      position: absolute;
+      top: 32%;
+      left: 8%;
+      right: 8%;
+      bottom: 12%;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 28% 32% 1fr 12%;
+      gap: clamp(4px, 0.7vw, 8px);
+    }
+    .asp-block {
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: 6px;
+      padding: clamp(6px, 0.9vw, 12px);
+      opacity: 0;
+      transform: translateY(12px) scale(.98);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: asp-block-in 10s infinite;
+    }
+    .asp-block--header {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      animation-delay: -6.3s;
+      background:
+        linear-gradient(90deg, var(--c-ink) 0 18%, transparent 18%);
+    }
+    .asp-block--header .asp-block-lines {
+      display: block;
+      width: 38%;
+      height: 8px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--c-ghost) 0%, var(--c-ghost) 60%, transparent 60%);
+      margin-top: 10px;
+    }
+    .asp-block--card {
+      grid-row: 2;
+      animation-delay: -5.9s;
+    }
+    .asp-block--card-a { grid-column: 1 / 4; }
+    .asp-block--card-b { grid-column: 4 / 7; animation-delay: -5.6s; }
+    .asp-block-label {
+      font-size: clamp(8px, 0.85vw, 10px);
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-light);
+    }
+    .asp-block-metric {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.6vw, 32px);
+      font-weight: 500;
+      color: var(--c-ink);
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .asp-block--chart {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      animation-delay: -5.2s;
+      padding: 0;
+      color: var(--c-accent);
+    }
+    .asp-block--chart svg {
+      width: 100%;
+      height: 100%;
+      padding: clamp(8px, 1.2vw, 14px);
+      display: block;
+    }
+    .asp-chart-line {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: asp-draw 10s infinite;
+    }
+    .asp-block--footer {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      animation-delay: -4.9s;
+      background:
+        linear-gradient(90deg, var(--c-ghost) 0 30%, transparent 30% 60%, var(--c-ghost) 60% 80%, transparent 80%);
+      border: none;
+      background-size: 100% 4px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* Animation: each block fades-in at a staggered offset, then out.
+       Negative animation-delay positions each block in the shared 10s
+       cycle so they come in 54%-72% in and fade back out at 92%. */
+    @keyframes asp-block-in {
+      0%, 53%          { opacity: 0; transform: translateY(12px) scale(.98); }
+      57%              { opacity: 1; transform: translateY(0) scale(1); }
+      85%              { opacity: 1; transform: translateY(0) scale(1); }
+      92%              { opacity: 0; transform: translateY(-4px) scale(1); }
+      100%             { opacity: 0; transform: translateY(12px) scale(.98); }
+    }
+    @keyframes asp-draw {
+      0%, 62%          { stroke-dashoffset: 300; }
+      78%              { stroke-dashoffset: 0; }
+      90%              { stroke-dashoffset: 0; }
+      100%             { stroke-dashoffset: 300; }
+    }
+
+    /* Caption in bottom-right */
+    .asp-caption {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-light);
+      padding: 5px 10px 5px 8px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-rule);
+      border-radius: var(--r-pill);
+    }
+    .asp-caption-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      animation: ausos-strip-pulse 2.4s ease-in-out infinite;
+    }
+
+    /* Accessibility: reduced motion disables animation, shows stable
+       end-state so the placeholder still communicates its content. */
+    @media (prefers-reduced-motion: reduce) {
+      .asp-prompt-text::before { width: 100%; animation: none; }
+      .asp-prompt-caret { opacity: 0; }
+      .asp-block { opacity: 1; transform: none; animation: none; }
+      .asp-chart-line { stroke-dashoffset: 0; animation: none; }
+      .asp-caption-dot { animation: none; }
     }
 
     @media (max-width: 900px) {
@@ -2232,13 +2453,63 @@
           </div>
         </div>
 
-        <!-- Right: clean product image, no browser chrome -->
+        <!-- Right: looping motion placeholder, ready to swap for a real video.
+
+             To swap in a silent demo video:
+             1. Drop assets/ausos-demo.webm (and optionally assets/ausos-demo.mp4).
+             2. Delete the .ausos-strip-placeholder block below.
+             3. Uncomment the <video> element between the MARKERs.
+             4. Delete the ausos-strip-placeholder CSS block (see styles above). -->
         <div class="ausos-strip-visual rv" data-d="3">
           <div class="ausos-strip-frame">
-            <picture>
-              <source srcset="assets/ausos-card.webp" type="image/webp">
-              <img src="assets/ausos-card.png" alt="ausōs.ai product interface preview" loading="lazy" decoding="async" width="1200" height="720" />
-            </picture>
+
+            <!-- MARKER · video slot (uncomment when files are in assets/)
+            <video class="ausos-strip-video" autoplay muted loop playsinline preload="metadata"
+                   poster="assets/ausos-card.webp"
+                   width="1200" height="720"
+                   aria-label="ausōs.ai product interface walkthrough">
+              <source src="assets/ausos-demo.webm" type="video/webm" />
+              <source src="assets/ausos-demo.mp4" type="video/mp4" />
+              <picture>
+                <source srcset="assets/ausos-card.webp" type="image/webp">
+                <img src="assets/ausos-card.png" alt="ausōs.ai product interface preview" loading="lazy" decoding="async" width="1200" height="720" />
+              </picture>
+            </video>
+            -->
+
+            <!-- Placeholder: CSS-only generation animation. 10-second loop.
+                 Reads as "ausōs types a prompt and generates a dashboard". -->
+            <div class="ausos-strip-placeholder" aria-label="ausōs.ai generating a dashboard from a text prompt" role="img">
+              <div class="asp-prompt">
+                <span class="asp-prompt-dot" aria-hidden="true"></span>
+                <span class="asp-prompt-text"></span>
+                <span class="asp-prompt-caret" aria-hidden="true"></span>
+              </div>
+              <div class="asp-canvas" aria-hidden="true">
+                <div class="asp-block asp-block--header">
+                  <span class="asp-block-lines"></span>
+                </div>
+                <div class="asp-block asp-block--card asp-block--card-a">
+                  <span class="asp-block-label">ESG Score</span>
+                  <span class="asp-block-metric">A+</span>
+                </div>
+                <div class="asp-block asp-block--card asp-block--card-b">
+                  <span class="asp-block-label">Carbon</span>
+                  <span class="asp-block-metric">-12%</span>
+                </div>
+                <div class="asp-block asp-block--chart">
+                  <svg viewBox="0 0 160 60" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="asp-chart-line" d="M0,50 L20,44 L40,48 L60,36 L80,40 L100,26 L120,30 L140,18 L160,22" fill="none" stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="asp-block asp-block--footer"></div>
+              </div>
+              <span class="asp-caption" aria-hidden="true">
+                <span class="asp-caption-dot"></span>
+                Live preview · ausōs.ai
+              </span>
+            </div>
+
           </div>
         </div>
 
