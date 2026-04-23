@@ -88,14 +88,17 @@ html[data-theme="dark"] {
   --c-ghost:    rgba(255,255,255,0.12);     /* Ghost / divider */
   --c-ink-pure: #FFFFFF;
 
-  /* Borders (M3 outline-variant) */
-  --c-rule:     rgba(255,255,255,0.12);     /* M2 divider standard */
-  --c-rule-dk:  rgba(255,255,255,0.20);
-  --c-border:   rgba(255,255,255,0.16);
+  /* Borders (M3 outline-variant) — raised to meet WCAG 1.4.11 non-text 3:1 */
+  --c-rule:     rgba(255,255,255,0.12);     /* M2 divider standard (decorative only) */
+  --c-rule-dk:  rgba(255,255,255,0.36);     /* 3.04:1 on #121212 — raised from .20 */
+  --c-border:   rgba(255,255,255,0.36);     /* 3.04:1 on #121212 — raised from .16 */
 
   /* Interactive */
   --c-nav:      rgba(255,255,255,0.60);
   --c-hover:    rgba(255,255,255,0.87);
+  --c-accent:   #7FB0E8;                    /* 5.24:1 on #121212, 3.03:1 on #232323 */
+  --c-input-border: rgba(255,255,255,0.48); /* 3.48:1 on --c-surface */
+  --c-positive:     #4ade80;                /* 7.3:1 on #121212 */
 
   /* Shadows (invisible on dark — elevation via surface lightening) */
   --sh-xs: none;
@@ -221,7 +224,7 @@ html[data-theme="dark"] .ph-3, html[data-theme="dark"] .ph-4,
 html[data-theme="dark"] .ph-5, html[data-theme="dark"] .ph-6,
 html[data-theme="dark"] .ph-7, html[data-theme="dark"] .ph-8 {
   background: var(--c-panel) !important;
-  color: rgba(255,255,255,0.08) !important;
+  color: rgba(255,255,255,0.60) !important;  /* 6.68:1 fallback when image 404s */
 }
 
 
@@ -233,7 +236,7 @@ html[data-theme="dark"] .ph-7, html[data-theme="dark"] .ph-8 {
 html[data-theme="dark"] .expertise-tag {
   color: rgba(255,255,255,0.87) !important;
   background: rgba(255,255,255,0.10) !important;
-  border-color: rgba(255,255,255,0.25) !important;
+  border-color: rgba(255,255,255,0.36) !important;  /* 3.04:1 on #121212 — was .25 */
   font-weight: 400 !important;
 }
 
@@ -315,11 +318,11 @@ html[data-theme="dark"] .experience {
 html[data-theme="dark"] .f-input {
   background: var(--c-surface) !important;
   color: rgba(255,255,255,0.87) !important;
-  border-color: rgba(255,255,255,0.30) !important; /* 3:1+ against surface */
+  border-color: rgba(255,255,255,0.48) !important;  /* 3.48:1 on --c-surface */
 }
 html[data-theme="dark"] .f-input:focus {
   background: var(--c-panel) !important;
-  border-color: rgba(255,255,255,0.60) !important;
+  border-color: rgba(255,255,255,0.80) !important;  /* high-contrast focus state */
 }
 html[data-theme="dark"] .f-input::placeholder {
   color: rgba(255,255,255,0.53);
@@ -509,11 +512,38 @@ html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
     --c-light:    rgba(255,255,255,0.53);
     --c-ghost:    rgba(255,255,255,0.12);
     --c-rule:     rgba(255,255,255,0.12);
-    --c-rule-dk:  rgba(255,255,255,0.20);
+    --c-rule-dk:  rgba(255,255,255,0.36);
     --c-ink-pure: #FFFFFF;
     --c-nav:      rgba(255,255,255,0.60);
     --c-hover:    rgba(255,255,255,0.87);
-    --c-border:   rgba(255,255,255,0.16);
+    --c-border:   rgba(255,255,255,0.36);
+    --c-accent:   #7FB0E8;
+    --c-input-border: rgba(255,255,255,0.48);
+    --c-positive: #4ade80;
     color-scheme: dark;
   }
+}
+
+/* ================================================================
+   HERO CTA — dark mode fill + visible edge (WCAG 1.4.11)
+   The 52×52 "View Work" button's ghost-ring border disappeared in
+   dark mode (1.21:1). Fill with --c-panel and raise the inset
+   ring to rgba(255,255,255,.36) for a 3:1+ visible boundary.
+   ================================================================ */
+html[data-theme="dark"] .hero-cta {
+  background: var(--c-panel) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.36) !important;
+}
+html[data-theme="dark"] .hero-cta::after {
+  background: var(--c-panel) !important;
+}
+html[data-theme="dark"] .hero-cta:hover {
+  background: rgba(255,255,255,0.87) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .hero-cta:hover::after {
+  background: transparent !important;
+}
+html[data-theme="dark"] .hero-cta:hover svg {
+  color: #121212 !important;
 }

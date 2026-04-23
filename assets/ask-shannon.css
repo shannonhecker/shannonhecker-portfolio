@@ -357,7 +357,7 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid var(--c-rule, #E8E8E8);
+  border: 1px solid var(--c-border, #c0c0c0);
   border-radius: 50%;
   color: var(--c-nav, #595959);
   cursor: pointer;
@@ -401,7 +401,7 @@
   font-weight: 500;
   color: var(--c-nav, #595959);
   background: transparent;
-  border: 1px solid var(--c-rule, #E8E8E8);
+  border: 1px solid var(--c-border, #c0c0c0);
   border-radius: var(--r-pill, 999px);
   padding: 8px 16px;
   text-decoration: none;
@@ -450,7 +450,7 @@
   font-weight: 400;
   color: var(--c-nav, #595959);
   background: rgba(255, 255, 255, 0.3);
-  border: 1px solid var(--c-rule, #E8E8E8);
+  border: 1px solid var(--c-border, #c0c0c0);
   border-radius: var(--r-pill, 999px);
   padding: 7px 14px;
   cursor: pointer;
@@ -487,7 +487,7 @@
   font-family: var(--font);
   font-size: 10px;
   font-weight: 400;
-  color: #aaa;
+  color: var(--c-light);  /* 4.83:1 on #fff — was #aaa (2.32:1) */
   text-align: center;
   width: 100%;
   margin: 6px 0 0;
@@ -572,12 +572,12 @@ html[data-theme="dark"] .ask-glow-wrap {
 }
 
 html[data-theme="dark"] .ask-panel {
-  background: #232323;
+  background: var(--c-panel);  /* was #232323 literal — align with dark token system */
 }
 
 html[data-theme="dark"] .ask-chip {
   background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--c-border);  /* 3.04:1 on --c-panel — was 0.1 (1.19:1) */
 }
 
 html[data-theme="dark"] .ask-msg--user {
