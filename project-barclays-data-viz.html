@@ -46,7 +46,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{font-size:16px;scroll-behavior:smooth;}
     body{font-family:var(--font);background:var(--c-bg);color:var(--c-ink);
-      line-height:1.75;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+      line-height:1.75;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"kern" 1,"liga" 1;text-rendering:optimizeLegibility;}
     ::-webkit-scrollbar{width:3px;}
     ::-webkit-scrollbar-track{background:var(--c-bg);}
     ::-webkit-scrollbar-thumb{background:var(--c-ghost);border-radius:99px;}
@@ -357,7 +357,7 @@
         <li><a href="index.html">Intro</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="work.html">Work</a></li>
-        <li><a href="index.html#contact">Let's Talk</a></li>
+        <li><a href="index.html#contact">Let’s Talk</a></li>
       </ul>
       <div class="nav-right">
         <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -376,7 +376,7 @@
     <a href="index.html">Intro</a>
     <a href="about.html">About</a>
     <a href="work.html">Work</a>
-    <a href="index.html#contact">Let's Talk</a>
+    <a href="index.html#contact">Let’s Talk</a>
     <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer">Resume ↗</a>
   
     <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">

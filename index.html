@@ -18,7 +18,7 @@
 
   <!--
     FONT : Inter - clean geometric sans-serif matching shannonhecker.com
-    STYLE: Shannon's own site aesthetic (clean, minimal, white, sans-serif)
+    STYLE: Shannon’s own site aesthetic (clean, minimal, white, sans-serif)
            + cofolios.com corner radius language
     HERO : Morphing blob aurora (Vivid Motion® style) + guilloché wave
            lines layered on top - both animations together
@@ -55,7 +55,7 @@
        DESIGN TOKENS
        ============================================================ */
     :root {
-      /* Colours - pure white, like Shannon's site */
+      /* Colours - pure white, like Shannon’s site */
       --c-bg:       #FFFFFF;
       --c-surface:  #FFFFFF;
       --c-panel:    #F5F5F5;
@@ -135,6 +135,9 @@
       font-weight: 300;          /* light as base weight - FusionFlow feel */
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "kern" 1, "liga" 1;
+      text-rendering: optimizeLegibility;
     }
     ::-webkit-scrollbar { width:3px; }
     ::-webkit-scrollbar-track { background:var(--c-bg); }
@@ -196,7 +199,7 @@
     .wrap { max-width:var(--mw); margin:0 auto; padding:0 var(--pad); }
 
     /* ============================================================
-       NAVIGATION - matches Shannon's site: simple horizontal links
+       NAVIGATION - matches Shannon’s site: simple horizontal links
        ============================================================ */
     .nav {
       position: fixed;
@@ -598,7 +601,7 @@
     /* Hero text above both layers */
     .hero .wrap  { position:relative; z-index:2; }
 
-    /* ── Hero text - Inter style matching Shannon's site ── */
+    /* ── Hero text - Inter style matching Shannon’s site ── */
 
     /* Availability badge */
     .hero-avail {
@@ -1207,7 +1210,7 @@
     }
 
     /* ============================================================
-       FOOTER - matches Shannon's: © · role · LinkedIn
+       FOOTER - matches Shannon’s: © · role · LinkedIn
        ============================================================ */
     .footer {
       border-top: none;
@@ -1689,7 +1692,7 @@
   <div id="img-cursor" aria-hidden="true"></div>
 
   <!-- ============================================================
-       NAV - Shannon's style: clean horizontal links
+       NAV - Shannon’s style: clean horizontal links
        ============================================================ -->
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
@@ -1708,7 +1711,7 @@
         <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Intro</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="work.html">Work</a></li>
-        <li><a href="#contact">Let's Talk</a></li>
+        <li><a href="#contact">Let’s Talk</a></li>
       </ul>
 
       <div class="nav-right">
@@ -1730,7 +1733,7 @@
   <div class="nav-drawer" id="drawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
     <a href="about.html">About</a>
     <a href="work.html">Work</a>
-    <a href="#contact" onclick="closeDrawer()">Let's Talk</a>
+    <a href="#contact" onclick="closeDrawer()">Let’s Talk</a>
     <a href="assets/CV_ShannonH.pdf"
        target="_blank" rel="noopener noreferrer">Resume ↗<span class="sr-only"> (opens in new tab)</span></a>
 
@@ -2091,9 +2094,9 @@
         <div class="about-panel rv">
           <div class="about-eyebrow">London-based Senior Product Designer</div>
           <p class="about-intro">10+ years turning<br/>complexity into clarity.</p>
-          <p class="about-body">I'm a Senior Product Designer at <strong>Barclays</strong>, shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise <strong>design systems</strong> across global fintech for over a decade.</p>
+          <p class="about-body">I’m a Senior Product Designer at <strong>Barclays</strong>, shaping <strong>trading platforms, AI-enhanced workflows</strong>, and enterprise <strong>design systems</strong> across global fintech for over a decade.</p>
           <p class="about-body">At <strong>J.P. Morgan</strong> (VP Product Design), I led design for <strong>data-intensive dashboards</strong> and complex financial tools used by thousands, with <strong>WCAG accessibility</strong> and scalability built into every decision.</p>
-          <p class="about-body">Now I'm bringing <strong>AI and LLM tooling</strong> into the design process and building <strong>ausōs.ai</strong>, an AI-powered visual web builder I founded, designed, and prototyped from zero to one.</p>
+          <p class="about-body">Now I’m bringing <strong>AI and LLM tooling</strong> into the design process and building <strong>ausōs.ai</strong>, an AI-powered visual web builder I founded, designed, and prototyped from zero to one.</p>
           <div class="about-links">
             <a href="https://www.linkedin.com/in/shannonhecker" class="about-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in new tab)</span></a>
             <a href="/cdn-cgi/l/email-protection#f2819a939c9c9d9c9a9791999780919a979cb2959f939b9edc919d9f" class="about-link">Email ↗</a>
@@ -2146,7 +2149,7 @@
       <div class="ask-bento">
         <!-- Left: heading -->
         <div class="ask-left rv">
-          <h2 id="contact-heading" class="contact-heading">Let's<br class="ask-br"/>Talk.</h2>
+          <h2 id="contact-heading" class="contact-heading">Let’s<br class="ask-br"/>Talk.</h2>
         </div>
 
         <!-- Right: chat box with glow -->
@@ -2157,7 +2160,7 @@
                 <div class="ask-messages" id="ask-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
                 <form class="ask-form" id="ask-form" autocomplete="off">
                   <label for="ask-input" class="sr-only">Ask Shannon a question</label>
-                  <textarea class="ask-input" id="ask-input" rows="2" maxlength="1000" placeholder="Curious about my work? Ask me anything, I'd love to share what I've been up to."></textarea>
+                  <textarea class="ask-input" id="ask-input" rows="2" maxlength="1000" placeholder="Curious about my work? Ask me anything, I’d love to share what I’ve been up to."></textarea>
                 </form>
                 <div class="ask-bottom-bar">
                   <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text">
@@ -2201,7 +2204,7 @@
   </main>
 
   <!-- ============================================================
-       FOOTER - Shannon's style: © · role · LinkedIn
+       FOOTER - Shannon’s style: © · role · LinkedIn
        ============================================================ -->
   <footer class="footer">
     <div class="wrap">
