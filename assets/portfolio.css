@@ -118,3 +118,10 @@
     .proj-nav-item--next .proj-nav-link:hover svg { transform:translateX(3px); }
     @media(max-width:600px){ .proj-nav-link{font-size:16px;} }
     @media(max-width:900px){.nav-links,.nav-cta,.nav-right{display:none;}.nav-burger{display:flex;margin-left:auto;}}
+
+/* Global typography rendering — kerning + ligatures + optimized legibility */
+body {
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
