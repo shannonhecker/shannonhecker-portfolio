@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="assets/dark-mode.js"></script>
+  <script src="assets/view-transitions.js" defer></script>
+  <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
   <title>The design system is the contract · Shannon Hecker</title>
@@ -479,9 +481,6 @@
 
   <script>
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('s', window.scrollY > 40);
-    }, { passive: true });
   </script>
 </body>
 </html>

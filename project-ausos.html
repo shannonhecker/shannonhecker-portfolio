@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>ausōs.ai · AI Visual Design Platform · Shannon Hecker</title>
   <meta name="description" content="ausōs.ai: an AI-powered visual web builder that bridges conversational AI and drag-and-drop design. Founded and designed by Shannon Hecker." />
@@ -346,7 +348,7 @@
 
       <!-- Cover -->
       <div class="proj-cover rv" style="aspect-ratio:16/7;overflow:hidden;background:#0B1120;">
-        <img src="assets/ausos-banner.webp" alt="ausōs.ai product screens showing conversational AI builder across design systems" style="width:100%;height:100%;object-fit:cover;" loading="eager" />
+        <img src="assets/ausos-banner.webp" alt="ausōs.ai product screens showing conversational AI builder across design systems" width="1600" height="571" style="width:100%;height:100%;object-fit:cover;" loading="eager" decoding="async" />
         <div class="img-shield"></div>
       </div>
 
@@ -384,15 +386,15 @@
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
           </div>
           <div class="proj-img-grid rv" style="margin-top:32px;">
-            <img src="assets/ausos.webp" alt="ausōs logo on aurora gradient" loading="lazy" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;" />
-            <img src="assets/ausos-brand.webp" alt="ausōs dark and light mode interfaces" loading="lazy" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;" />
+            <img src="assets/ausos.webp" alt="ausōs logo on aurora gradient" width="1000" height="1000" loading="lazy" decoding="async" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;" />
+            <img src="assets/ausos-brand.webp" alt="ausōs dark and light mode interfaces" width="1200" height="720" loading="lazy" decoding="async" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;" />
           </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design System Integration</h3>
           <div class="proj-body"><p>ausōs supports multiple industry design systems, each rendered with authentic tokens and component behaviours. More details available in a private conversation.</p></div>
-          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" loading="lazy" style="margin-top:32px;border-radius:12px;background:#000;" />
+          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:32px;border-radius:12px;background:#000;" />
         </div>
 
         <div class="proj-nda rv">
@@ -485,7 +487,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

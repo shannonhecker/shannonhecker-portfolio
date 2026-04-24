@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Digital &amp; Platform Services Brand Identity · Shannon Hecker</title>
   <meta name="description" content="Internal brand identity for J.P. Morgan’s Digital & Platform Services division: visual system, typography, iconography, and guidelines across digital channels." />
@@ -336,7 +338,7 @@
       <!-- Cover -->
       <picture>
         <source srcset="assets/dbs-banner.webp" type="image/webp" />
-        <img src="assets/dbs-banner.png" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
+        <img src="assets/dbs-banner.png" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" width="2800" height="1000" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
       </picture>
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
@@ -426,7 +428,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Global Custody Deal Model · Shannon Hecker</title>
   <meta name="description" content="A bespoke deal modelling tool for custodian teams, featuring multi-step flows with progressive disclosure and clear visual hierarchy for complex financial modelling." />
@@ -346,7 +348,7 @@
       <!-- Cover -->
       <picture>
         <source srcset="assets/deal-banner.webp" type="image/webp" />
-        <img src="assets/deal-banner.png" alt="Global Custody Deal Model" class="proj-cover rv" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
+        <img src="assets/deal-banner.png" alt="Global Custody Deal Model" class="proj-cover rv" width="1600" height="525" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
       </picture>
       <div class="proj-cover-ph ph-2" style="display:none;"></div>
 
@@ -459,7 +461,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

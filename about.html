@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
   <title>About me · Shannon Hecker · Product Design Lead</title>
@@ -48,9 +50,7 @@
     @view-transition { navigation: auto; }
     ::view-transition-old(root),
     ::view-transition-new(root) { animation-duration: 420ms; animation-timing-function: cubic-bezier(.22,1,.36,1); }
-.skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:top .2s;}
-.skip-link:focus{top:16px;}
-:focus-visible{outline:2px solid var(--c-focus);outline-offset:3px;border-radius:4px;}
+/* .skip-link, :focus-visible — see assets/portfolio.css */
     /* ============================================================
        DESIGN TOKENS
        ============================================================ */
@@ -124,9 +124,7 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    ::-webkit-scrollbar { width:3px; }
-    ::-webkit-scrollbar-track { background:var(--c-bg); }
-    ::-webkit-scrollbar-thumb { background:var(--c-ghost); border-radius:99px; }
+    /* ::-webkit-scrollbar* — see assets/portfolio.css */
     a { color:inherit; text-decoration:none; }
     img { display:block; max-width:100%; }
     button { font-family:var(--font); }
@@ -134,23 +132,13 @@
     /* ============================================================
        SCROLL REVEAL
        ============================================================ */
-    .rv {
-      opacity:0;
-      transform:translateY(32px);
-      transition:opacity var(--tr) var(--ease), transform var(--tr) var(--ease);
-    }
-    .rv.on { opacity:1; transform:translateY(0); }
-    .rv[data-d="1"]{ transition-delay:.1s; }
-    .rv[data-d="2"]{ transition-delay:.2s; }
-    .rv[data-d="3"]{ transition-delay:.3s; }
-    .rv[data-d="4"]{ transition-delay:.4s; }
-    .rv[data-d="5"]{ transition-delay:.5s; }
-    .rv[data-d="6"]{ transition-delay:.6s; }
+    /* .rv base / .rv.on / .rv[data-d=…] — see assets/portfolio.css
+       (page-specific override for 24px/faster timing appears later below) */
 
     /* ============================================================
        LAYOUT
        ============================================================ */
-    .wrap { max-width:var(--mw); margin:0 auto; padding:0 var(--pad); }
+    /* .wrap — see assets/portfolio.css */
 
     /* ============================================================
        NAVIGATION - matches Shannon’s site: simple horizontal links
@@ -1489,9 +1477,6 @@
 
     /* Nav scroll glass */
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('s', window.scrollY > 40);
-    }, { passive: true });
 
     /* Mobile nav */
     const burgerBtn = document.getElementById('burger');

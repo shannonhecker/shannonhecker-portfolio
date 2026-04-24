@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="assets/dark-mode.js"></script>
+  <script src="assets/view-transitions.js" defer></script>
+  <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
   <title>Writing · Shannon Hecker</title>
@@ -65,8 +67,7 @@
     body{font-family:var(--font);background:var(--c-bg);color:var(--c-ink);line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased;}
     a{color:inherit;text-decoration:none;}
 
-    .skip-link{position:absolute;top:-100%;left:16px;z-index:9999;padding:12px 24px;background:var(--c-ink);color:#fff;border-radius:8px;font-size:14px;font-weight:500;transition:top .2s;}
-    .skip-link:focus{top:16px;}
+    /* .skip-link — see assets/portfolio.css */
     :focus-visible{outline:2px solid var(--c-accent);outline-offset:3px;border-radius:4px;}
 
     /* Nav */
@@ -191,9 +192,6 @@
 
   <script>
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('s', window.scrollY > 40);
-    }, { passive: true });
   </script>
 </body>
 </html>
