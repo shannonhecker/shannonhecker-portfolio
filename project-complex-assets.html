@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Complex Assets Derivatives Valuation · Shannon Hecker</title>
   <meta name="description" content="Intuitive valuation interface for complex derivatives, simplifying multi-variable financial inputs for trading desks without sacrificing analytical depth." />
@@ -459,7 +461,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

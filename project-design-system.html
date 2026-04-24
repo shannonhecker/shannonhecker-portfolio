@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Fusion Design System · Enterprise Component Library · Shannon Hecker</title>
   <meta name="description" content="A scalable, token-based design system powering enterprise finance products with reusable Figma components, accessibility compliance, and cross-team collaboration." />
@@ -482,7 +484,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>UI Toolkit · Shannon Hecker</title>
   <meta name="description" content="A comprehensive, reusable UI component library built in Figma, accelerating product teams across multiple squads with consistent, accessible building blocks." />
@@ -431,7 +433,6 @@
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => { navEl.classList.toggle('s', window.scrollY > 40); }, { passive:true });
     const burgerBtn = document.getElementById('burger');
     const drawerEl  = document.getElementById('drawer');
     let isOpen = false;

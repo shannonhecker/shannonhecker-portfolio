@@ -19,6 +19,8 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/dark-mode.js"></script>
+    <script src="assets/view-transitions.js" defer></script>
+    <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
   <title>Shannon Hecker · Design Leader & Founder of ausōs.ai · London</title>
@@ -2523,9 +2525,6 @@
 
     /* ── 2. Nav scroll glass ─────────────────────────────── */
     const navEl = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('s', window.scrollY > 40);
-    }, { passive:true });
 
     /* ── 3. Scroll reveal ────────────────────────────────── */
     /* Instantly show elements already in viewport on page load */
@@ -2615,16 +2614,17 @@
       if (e.key === 'Escape' && isOpen) { closeDrawer(); }
     });
 
-    /* Focus trap inside open drawer */
+    /* Focus trap inside open drawer — cache the NodeList once (drawer
+     * content is static, so re-querying on every Tab press was wasted work) */
+    const drawerFocusable = drawerEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+    const firstFocusable = drawerFocusable[0];
+    const lastFocusable  = drawerFocusable[drawerFocusable.length - 1];
     drawerEl.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab' || !isOpen) return;
-      const focusable = drawerEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      const first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus();
+      if (e.key !== 'Tab' || !isOpen || !drawerFocusable.length) return;
+      if (e.shiftKey && document.activeElement === firstFocusable) {
+        e.preventDefault(); lastFocusable.focus();
+      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+        e.preventDefault(); firstFocusable.focus();
       }
     });
 
