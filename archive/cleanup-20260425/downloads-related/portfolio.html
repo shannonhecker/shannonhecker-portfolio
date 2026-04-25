@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Mercer — Product Designer</title>
+  <meta name="description" content="Product Designer crafting intuitive, human-centred digital experiences." />
+
+  <!-- ========================================================
+       FONTS  — Syne (display), IBM Plex Mono (labels), DM Sans (body)
+       ======================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS / CSS VARIABLES
+       ============================================================ */
+    :root {
+      --bg:          #060810;
+      --bg-card:     #0c0f1a;
+      --bg-glass:    rgba(255, 255, 255, 0.035);
+
+      --accent:      #3b82f6;        /* electric blue */
+      --accent-2:    #06b6d4;        /* cyan           */
+      --accent-warm: #a78bfa;        /* soft violet    */
+      --accent-glow: rgba(59, 130, 246, 0.25);
+
+      --text:        #f1f5f9;
+      --text-muted:  #475569;
+      --text-dim:    #334155;
+
+      --border:      rgba(255, 255, 255, 0.07);
+      --border-accent: rgba(59, 130, 246, 0.25);
+
+      --radius-sm:   6px;
+      --radius:      14px;
+      --radius-lg:   24px;
+
+      --ease-expo:   cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-back:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none; /* we use a custom cursor */
+    }
+
+    /* hide scrollbar on webkit while keeping scroll */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 99px; }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       GRAIN / NOISE TEXTURE OVERLAY
+       ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ============================================================
+       CUSTOM CURSOR
+       ============================================================ */
+    #cursor-dot,
+    #cursor-ring {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+    }
+
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      top: 0; left: 0;
+    }
+
+    #cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(59, 130, 246, 0.5);
+      top: 0; left: 0;
+      transition: width 0.25s var(--ease-back),
+                  height 0.25s var(--ease-back),
+                  border-color 0.2s ease,
+                  opacity 0.3s ease;
+    }
+
+    /* ring expands when hovering interactive elements */
+    body.cursor-hover #cursor-ring {
+      width: 56px;
+      height: 56px;
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    /* ============================================================
+       PRELOADER
+       ============================================================ */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #preloader .loader-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    #preloader .loader-bar-track {
+      width: min(320px, 80vw);
+      height: 1px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    #preloader .loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.05s linear;
+    }
+
+    #preloader .loader-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       GRID BACKGROUND (animated dot-grid)
+       ============================================================ */
+    #grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease,
+                  border-color 0.4s ease, padding 0.4s ease;
+    }
+
+    /* scrolled state adds glassmorphism */
+    nav.scrolled {
+      background: rgba(6, 8, 16, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 48px;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo-dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-expo);
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border: 1px solid var(--border-accent);
+      border-radius: 99px;
+      color: var(--accent);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Hamburger for mobile */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text);
+      border-radius: 99px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* ============================================================
+       LAYOUT UTILITIES
+       ============================================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Scroll-reveal base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* stagger delays */
+    .reveal[data-delay="1"] { transition-delay: 0.1s; }
+    .reveal[data-delay="2"] { transition-delay: 0.2s; }
+    .reveal[data-delay="3"] { transition-delay: 0.3s; }
+    .reveal[data-delay="4"] { transition-delay: 0.4s; }
+    .reveal[data-delay="5"] { transition-delay: 0.5s; }
+    .reveal[data-delay="6"] { transition-delay: 0.6s; }
+
+    /* section label chip */
+    .section-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid var(--border-accent);
+      border-radius: 99px;
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-chip::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      padding: 0 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* floating ambient orbs behind hero */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .hero-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+
+    .hero-orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+      bottom: 100px; left: -80px;
+    }
+
+    .hero-orb-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%);
+      top: 40%; left: 40%;
+    }
+
+    /* availability badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeUp 0.8s var(--ease-expo) 0.5s forwards;
+    }
+
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: #22c55e; /* green = available */
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Giant headline */
+    .hero-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(56px, 10vw, 130px);
+      line-height: 0.92;
+      letter-spacing: -3px;
+      overflow: hidden;
+      margin-bottom: 36px;
+    }
+
+    /* each line slides in from bottom */
+    .hero-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-line-inner {
+      display: block;
+      transform: translateY(110%);
+      animation: lineReveal 1s var(--ease-expo) forwards;
+    }
+
+    .hero-line:nth-child(1) .hero-line-inner { animation-delay: 0.6s; }
+    .hero-line:nth-child(2) .hero-line-inner { animation-delay: 0.75s; }
+    .hero-line:nth-child(3) .hero-line-inner { animation-delay: 0.9s; }
+
+    @keyframes lineReveal {
+      to { transform: translateY(0); }
+    }
+
+    /* gradient text for accent word */
+    .hero-headline .grad {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-warm) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* dashed underline decoration */
+    .hero-headline .underlined {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-headline .underlined::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 99px;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: lineGrow 0.8s var(--ease-expo) 1.6s forwards;
+    }
+
+    @keyframes lineGrow { to { transform: scaleX(1); } }
+
+    /* hero sub row: role + description */
+    .hero-sub {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroFadeUp 0.9s var(--ease-expo) 1.1s forwards;
+    }
+
+    .hero-role-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .hero-role-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* Typewriter rotating roles */
+    #hero-role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      color: var(--accent-2);
+      letter-spacing: 0.05em;
+      min-width: 200px;
+    }
+
+    .hero-desc {
+      max-width: 380px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s ease 1.8s forwards;
+    }
+
+    .hero-scroll span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollBounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50%       { transform: scaleY(0.5); opacity: 0.4; }
+    }
+
+    /* ============================================================
+       MARQUEE STRIP (between hero & about)
+       ============================================================ */
+    .marquee-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      overflow: hidden;
+      background: var(--bg-glass);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 48px;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .marquee-item .dot {
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+       ============================================================ */
+    #about {
+      padding: 140px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-left {}
+
+    .about-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 28px;
+    }
+
+    .about-headline em {
+      font-style: normal;
+      color: var(--text-muted);
+    }
+
+    .about-body {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .about-body strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* social links row */
+    .about-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 9px 18px;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .about-link:hover {
+      color: var(--text);
+      border-color: var(--border-accent);
+      background: rgba(59,130,246,0.06);
+    }
+
+    /* stats grid */
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-accent);
+      background: rgba(59,130,246,0.04);
+    }
+
+    .stat-card:nth-child(1) { border-radius: var(--radius) 0 0 0; }
+    .stat-card:nth-child(2) { border-radius: 0 var(--radius) 0 0; }
+    .stat-card:nth-child(3) { border-radius: 0 0 0 var(--radius); }
+    .stat-card:nth-child(4) { border-radius: 0 0 var(--radius) 0; }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 42px;
+      letter-spacing: -1px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--text), var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* tools list */
+    .tools-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .tools-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 18px;
+    }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .tool-tag:hover {
+      color: var(--accent-2);
+      border-color: rgba(6,182,212,0.3);
+      background: rgba(6,182,212,0.05);
+    }
+
+    /* ============================================================
+       WORK / PROJECTS SECTION
+       ============================================================ */
+    #work {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .work-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      gap: 24px;
+    }
+
+    .work-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+
+    .view-all-link:hover { color: var(--accent); }
+
+    .view-all-link svg {
+      transition: transform 0.3s var(--ease-back);
+    }
+
+    .view-all-link:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    /* Card sizes */
+    .project-card { grid-column: span 6; }
+    .project-card.wide { grid-column: span 8; }
+    .project-card.narrow { grid-column: span 4; }
+
+    /* The card itself */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.4s ease, transform 0.4s var(--ease-expo);
+      cursor: none;
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+    }
+
+    /* image wrapper */
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }
+
+    .card.tall .card-img-wrap {
+      aspect-ratio: 4 / 5;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease-expo);
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    /* Gradient placeholder for images */
+    .card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* overlay that appears on hover */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 8, 16, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover .card-overlay { opacity: 1; }
+
+    .card-overlay-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 99px;
+      padding: 12px 24px;
+      transition: background 0.2s ease, transform 0.3s var(--ease-back);
+      transform: translateY(10px);
+    }
+
+    .card:hover .card-overlay-btn {
+      transform: translateY(0);
+    }
+
+    /* card body */
+    .card-body {
+      padding: 24px 28px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .card-arrow {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.3s var(--ease-back);
+    }
+
+    .card:hover .card-arrow {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    /* ============================================================
+       PROCESS SECTION
+       ============================================================ */
+    #process {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 64px;
+    }
+
+    .process-step {
+      background: var(--bg-card);
+      padding: 40px 32px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .process-step:hover {
+      background: rgba(59,130,246,0.05);
+    }
+
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: var(--border);
+    }
+
+    .process-step:last-child::after { display: none; }
+
+    .step-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .step-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       TESTIMONIAL / QUOTE SECTION
+       ============================================================ */
+    #quote {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .quote-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: clamp(22px, 3.5vw, 42px);
+      letter-spacing: -1px;
+      line-height: 1.35;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      color: var(--text);
+    }
+
+    .quote-text .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .quote-attr {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .quote-attr::before,
+    .quote-attr::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================================================
+       CONTACT SECTION
+       ============================================================ */
+    #contact {
+      padding: 120px 0 160px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .contact-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 7vw, 96px);
+      letter-spacing: -3px;
+      line-height: 0.95;
+      margin-bottom: 40px;
+    }
+
+    .contact-headline .stroke {
+      -webkit-text-stroke: 1px var(--text-muted);
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 56px;
+      line-height: 1.7;
+    }
+
+    /* Magnetic CTA button */
+    .magnetic-wrap {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 64px;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      padding: 20px 44px;
+      border-radius: 99px;
+      border: none;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 0 rgba(59,130,246,0);
+    }
+
+    .btn-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .btn-cta:hover {
+      background: #2563eb;
+      box-shadow: 0 20px 60px rgba(59,130,246,0.4);
+    }
+
+    .btn-cta .btn-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s var(--ease-back);
+    }
+
+    .btn-cta:hover .btn-icon {
+      transform: rotate(45deg);
+    }
+
+    /* secondary links row */
+    .contact-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .contact-link:hover { color: var(--text); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s ease;
+    }
+
+    .footer-nav a:hover { color: var(--text); }
+
+    /* ============================================================
+       GRADIENT PROJECT PLACEHOLDER STYLES
+       ============================================================ */
+    .p-blue {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    }
+    .p-purple {
+      background: linear-gradient(135deg, #0f0a1f 0%, #3b1d6b 50%, #7c3aed 100%);
+    }
+    .p-cyan {
+      background: linear-gradient(135deg, #031215 0%, #0a3040 50%, #0891b2 100%);
+    }
+    .p-green {
+      background: linear-gradient(135deg, #051207 0%, #134e24 50%, #16a34a 100%);
+    }
+    .p-warm {
+      background: linear-gradient(135deg, #1a0f0a 0%, #5c2a0e 50%, #ea580c 100%);
+    }
+
+    /* mock UI inside placeholders */
+    .mock-ui {
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .mock-bar {
+      height: 6px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .mock-bar.short { width: 40%; }
+    .mock-bar.medium { width: 65%; }
+    .mock-bar.long { width: 85%; }
+
+    .mock-boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .mock-box {
+      height: 60px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .container { padding: 0 24px; }
+      .hero-inner { padding: 0 24px; }
+
+      .hero-sub {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .work-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card,
+      .project-card.wide,
+      .project-card.narrow {
+        grid-column: span 1;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-step::after {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact-headline { letter-spacing: -2px; }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .process-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       CUSTOM CURSOR (injected via JS)
+       ============================================================ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ============================================================
+       ANIMATED GRID BACKGROUND
+       ============================================================ -->
+  <div id="grid-bg"></div>
+
+  <!-- ============================================================
+       PRELOADER
+       ============================================================ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="loader-number" id="loader-num">0</div>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill" id="loader-bar"></div>
+    </div>
+    <div class="loader-label">Loading portfolio…</div>
+  </div>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      Alex Mercer
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="mailto:hello@alexmercer.design" class="nav-cta">
+      Let's talk
+    </a>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" aria-label="Toggle menu" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section id="hero">
+    <!-- Ambient orbs -->
+    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <!-- Availability badge -->
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Available for freelance — 2025
+      </div>
+
+      <!-- Giant headline -->
+      <h1 class="hero-headline" aria-label="Designing digital experiences that feel inevitable">
+        <span class="hero-line"><span class="hero-line-inner">Designing digital</span></span>
+        <span class="hero-line"><span class="hero-line-inner grad">experiences</span></span>
+        <span class="hero-line"><span class="hero-line-inner">that feel <span class="underlined">inevitable</span>.</span></span>
+      </h1>
+
+      <!-- Sub row: role ticker + description -->
+      <div class="hero-sub">
+        <div class="hero-role-wrap">
+          <span class="hero-role-label">//</span>
+          <span id="hero-role">Product Designer</span>
+        </div>
+
+        <p class="hero-desc">
+          I'm <strong>Alex Mercer</strong>, a London-based product designer
+          crafting intuitive, human-centred interfaces for complex products —
+          with accessibility and systems thinking built in.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll nudge -->
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE STRIP — skills/tools ticker
+       ============================================================ -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track" id="marquee-track">
+      <!-- Items duplicated in JS for seamless loop -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT SECTION
+       ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Left: bio copy -->
+        <div class="about-left">
+          <div class="section-chip reveal">About me</div>
+
+          <h2 class="about-headline reveal" data-delay="1">
+            10+ years turning <em>complexity</em> into clarity.
+          </h2>
+
+          <p class="about-body reveal" data-delay="2">
+            I specialise in <strong>product design, UX strategy,</strong> and
+            <strong>design systems</strong> for B2B SaaS, fintech, and data-heavy
+            platforms. My work sits at the intersection of visual precision and
+            deep user empathy — because great design is invisible.
+          </p>
+
+          <p class="about-body reveal" data-delay="3">
+            Previously at <strong>JPMorgan</strong>, <strong>Goldman Sachs</strong>,
+            and two high-growth startups. Currently exploring how
+            <strong>AI-assisted design</strong> can compress the gap between
+            ideation and shipping.
+          </p>
+
+          <div class="about-links reveal" data-delay="4">
+            <a href="https://linkedin.com" class="about-link" target="_blank" rel="noopener">
+              ↗ LinkedIn
+            </a>
+            <a href="https://dribbble.com" class="about-link" target="_blank" rel="noopener">
+              ↗ Dribbble
+            </a>
+            <a href="#" class="about-link">
+              ↗ Resume PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: stats + tools -->
+        <div class="about-right">
+
+          <!-- Stats counter cards -->
+          <div class="stats-grid reveal" data-delay="2">
+            <div class="stat-card">
+              <div class="stat-number" data-count="10">0</div>
+              <div class="stat-label">Years experience</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="60">0</div>
+              <div class="stat-label">Projects shipped</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="8">0</div>
+              <div class="stat-label">Industries served</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="24">0</div>
+              <div class="stat-label">Design awards</div>
+            </div>
+          </div>
+
+          <!-- Tool tags -->
+          <div class="tools-wrap reveal" data-delay="3">
+            <div class="tools-title">Tools & methods</div>
+            <div class="tools-list">
+              <span class="tool-tag">Figma</span>
+              <span class="tool-tag">Framer</span>
+              <span class="tool-tag">Protopie</span>
+              <span class="tool-tag">Notion</span>
+              <span class="tool-tag">Lottie</span>
+              <span class="tool-tag">Zeroheight</span>
+              <span class="tool-tag">Maze</span>
+              <span class="tool-tag">Hotjar</span>
+              <span class="tool-tag">Linear</span>
+              <span class="tool-tag">Spline</span>
+              <span class="tool-tag">User Testing</span>
+              <span class="tool-tag">Atomic Design</span>
+              <span class="tool-tag">WCAG 2.2</span>
+              <span class="tool-tag">Design Tokens</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURED WORK SECTION
+       ============================================================ -->
+  <section id="work">
+    <div class="container">
+
+      <!-- Section header -->
+      <div class="work-header">
+        <div>
+          <div class="section-chip reveal">Featured work</div>
+          <h2 class="work-headline reveal" data-delay="1">
+            Selected<br/>projects.
+          </h2>
+        </div>
+        <a href="#" class="view-all-link reveal" data-delay="2">
+          View all work
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Projects grid -->
+      <div class="projects-grid">
+
+        <!-- Card 1: Wide (8 cols) — Analytics Dashboard -->
+        <div class="project-card wide reveal" data-delay="1">
+          <div class="card">
+            <div class="card-img-wrap">
+              <!-- Gradient placeholder simulating a dashboard UI -->
+              <div class="card-placeholder p-blue">
+                <div class="mock-ui">
+                  <div class="mock-bar long" style="background:rgba(14,165,233,0.5);"></div>
+                  <div class="mock-bar medium"></div>
+                  <div class="mock-bar short"></div>
+                  <div class="mock-boxes">
+                    <div class="mock-box" style="background:rgba(14,165,233,0.2);"></div>
+                    <div class="mock-box"></div>
+                    <div class="mock-box" style="background:rgba(14,165,233,0.15);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-overlay">
+                <span class="card-overlay-btn">
+                  View case study
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M2 7H12M12 7L8 3M12 7L8 11" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-title">Fusion Analytics Dashboard</div>
+                <div class="card-tags">
+                  <span class="card-tag">Product Design</span>
+                  <span class="card-tag">Data Viz</span>
+                  <span class="card-tag">Fintech</span>
+                </div>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Narrow (4 cols) — Design System -->
+        <div class="project-card narrow reveal" data-delay="2">
+          <div class="card tall">
+            <div class="card-img-wrap">
+              <div class="card-placeholder p-purple">
+                <div class="mock-ui">
+                  <div class="mock-bar short" style="background:rgba(124,58,237,0.6);"></div>
+                  <div class="mock-bar long"></div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px;">
+                    <div class="mock-box" style="background:rgba(167,139,250,0.3);border-radius:50%;height:60px;"></div>
+                    <div class="mock-box" style="background:rgba(167,139,250,0.15);"></div>
+                    <div class="mock-box" style="background:rgba(167,139,250,0.15);"></div>
+                    <div class="mock-box" style="background:rgba(167,139,250,0.3);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-overlay">
+                <span class="card-overlay-btn">View case study</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-title">Fusion Design System</div>
+                <div class="card-tags">
+                  <span class="card-tag">Design System</span>
+                  <span class="card-tag">Tokens</span>
+                </div>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Narrow (4 cols) — Data Solution -->
+        <div class="project-card narrow reveal" data-delay="3">
+          <div class="card">
+            <div class="card-img-wrap">
+              <div class="card-placeholder p-cyan">
+                <div class="mock-ui">
+                  <div class="mock-bar medium" style="background:rgba(8,145,178,0.6);"></div>
+                  <div class="mock-bar short"></div>
+                  <div class="mock-boxes">
+                    <div class="mock-box" style="background:rgba(8,145,178,0.25);height:40px;"></div>
+                    <div class="mock-box" style="height:40px;"></div>
+                    <div class="mock-box" style="background:rgba(8,145,178,0.15);height:40px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-overlay">
+                <span class="card-overlay-btn">View case study</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-title">Fusion Data Solution</div>
+                <div class="card-tags">
+                  <span class="card-tag">UX Research</span>
+                  <span class="card-tag">B2B</span>
+                </div>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Wide (8 cols) — Corporate Action Manager -->
+        <div class="project-card wide reveal" data-delay="4">
+          <div class="card">
+            <div class="card-img-wrap">
+              <div class="card-placeholder p-green">
+                <div class="mock-ui">
+                  <div class="mock-bar long" style="background:rgba(22,163,74,0.5);"></div>
+                  <div class="mock-bar medium"></div>
+                  <div class="mock-boxes">
+                    <div class="mock-box" style="background:rgba(22,163,74,0.2);"></div>
+                    <div class="mock-box" style="background:rgba(22,163,74,0.3);"></div>
+                    <div class="mock-box"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-overlay">
+                <span class="card-overlay-btn">View case study</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-title">Corporate Action Manager</div>
+                <div class="card-tags">
+                  <span class="card-tag">Complex Systems</span>
+                  <span class="card-tag">Accessibility</span>
+                  <span class="card-tag">Enterprise</span>
+                </div>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Full width (12 cols) — JPMM Research -->
+        <div class="project-card reveal" data-delay="5" style="grid-column:span 12;">
+          <div class="card">
+            <div class="card-img-wrap" style="aspect-ratio:21/6;">
+              <div class="card-placeholder p-warm">
+                <div class="mock-ui" style="display:grid;grid-template-columns:1fr 2fr;gap:16px;">
+                  <div>
+                    <div class="mock-bar short" style="background:rgba(234,88,12,0.6);margin-bottom:12px;"></div>
+                    <div class="mock-bar long"></div>
+                    <div class="mock-bar medium"></div>
+                  </div>
+                  <div class="mock-boxes">
+                    <div class="mock-box" style="background:rgba(234,88,12,0.2);"></div>
+                    <div class="mock-box"></div>
+                    <div class="mock-box" style="background:rgba(234,88,12,0.15);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-overlay">
+                <span class="card-overlay-btn">View case study</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-title">JPMM Research Platform</div>
+                <div class="card-tags">
+                  <span class="card-tag">Research Platform</span>
+                  <span class="card-tag">Information Architecture</span>
+                  <span class="card-tag">UX Strategy</span>
+                </div>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /projects-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ============================================================
+       PROCESS SECTION
+       ============================================================ -->
+  <section id="process">
+    <div class="container">
+
+      <div class="section-chip reveal">My process</div>
+      <h2 class="reveal" data-delay="1" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,4vw,52px);letter-spacing:-1.5px;margin-bottom:0;">
+        How I work.
+      </h2>
+
+      <div class="process-grid reveal" data-delay="2">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <div class="step-icon">🔍</div>
+          <div class="step-title">Discover</div>
+          <p class="step-desc">Deep research into users, business goals, and technical constraints. I map pain points before touching a frame.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <div class="step-icon">💡</div>
+          <div class="step-title">Define</div>
+          <p class="step-desc">Synthesise insights into clear problem statements, user flows, and information architecture that everyone aligns on.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <div class="step-icon">✏️</div>
+          <div class="step-title">Design</div>
+          <p class="step-desc">High-fidelity prototypes built with atomic precision — responsive, accessible (WCAG 2.2 AA), and systematically scalable.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">04</div>
+          <div class="step-icon">🚀</div>
+          <div class="step-title">Deliver</div>
+          <p class="step-desc">Dev-ready handoffs, design tokens, component libraries, and ongoing collaboration to ensure the vision ships intact.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       QUOTE SECTION
+       ============================================================ -->
+  <section id="quote">
+    <div class="container">
+      <p class="quote-text reveal">
+        "The best design is the one users never notice — they just
+        <span class="highlight">feel the clarity</span> and wonder why everything
+        else feels harder."
+      </p>
+      <div class="quote-attr reveal" data-delay="1">
+        Alex Mercer, Product Designer
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+       ============================================================ -->
+  <section id="contact">
+    <div class="container">
+
+      <div class="contact-eyebrow reveal">Let's create something</div>
+
+      <h2 class="contact-headline reveal" data-delay="1">
+        Got a project<br/><span class="stroke">in mind?</span>
+      </h2>
+
+      <p class="contact-sub reveal" data-delay="2">
+        Whether you need a complete product redesign, a fresh design system,
+        or a hand to untangle a complex UX problem — I'm here for it.
+      </p>
+
+      <!-- Magnetic CTA -->
+      <div class="magnetic-wrap reveal" data-delay="3" id="magnetic">
+        <a href="mailto:hello@alexmercer.design" class="btn-cta">
+          Start a conversation
+          <span class="btn-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 11L11 3M11 3H5M11 3V9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Secondary links -->
+      <div class="contact-links reveal" data-delay="4">
+        <a href="mailto:hello@alexmercer.design" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="2.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M1 4L7 8.5L13 4" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          hello@alexmercer.design
+        </a>
+        <a href="https://linkedin.com" class="contact-link" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 6V10M4 4.5V4.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 10V7.5C7 6.7 7.7 6 8.5 6C9.3 6 10 6.7 10 7.5V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="https://dribbble.com" class="contact-link" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M1.5 7c1.5 0 4-1 5-3s2.5-3 5.5-3" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M2.5 10c2-1 4-1 6 0s3 0 3.5-1" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          Dribbble
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2025 Alex Mercer — Product Designer, London</span>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Resume</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       1. CUSTOM CURSOR
+       ============================================================ */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX  = 0, ringY  = 0;
+
+    // Update dot position immediately
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top  = mouseY + 'px';
+    });
+
+    // Smoothly lag the ring position
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top  = ringY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover state on interactive elements
+    const hoverEls = document.querySelectorAll(
+      'a, button, .card, .tool-tag, .stat-card, .process-step, .btn-cta'
+    );
+    hoverEls.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    /* ============================================================
+       2. PRELOADER
+       ============================================================ */
+    const loaderNum = document.getElementById('loader-num');
+    const loaderBar = document.getElementById('loader-bar');
+    const preloader = document.getElementById('preloader');
+
+    let progress = 0;
+
+    // Animate 0 → 100 over ~1.8s
+    const loaderInterval = setInterval(() => {
+      progress += Math.random() * 8 + 2;  // random increments feel natural
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(loaderInterval);
+
+        // Brief pause at 100, then hide
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+          // Remove from flow after transition
+          setTimeout(() => preloader.remove(), 700);
+        }, 350);
+      }
+      loaderNum.textContent = Math.floor(progress);
+      loaderBar.style.width = progress + '%';
+    }, 60);
+
+    /* ============================================================
+       3. NAVIGATION — scrolled state
+       ============================================================ */
+    const nav = document.getElementById('nav');
+
+    const handleScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    /* ============================================================
+       4. SCROLL-REVEAL with Intersection Observer
+       ============================================================ */
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // animate only once
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ============================================================
+       5. STATS COUNTER — animates when section enters view
+       ============================================================ */
+    const statNums = document.querySelectorAll('[data-count]');
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el     = entry.target;
+        const target = parseInt(el.getAttribute('data-count'));
+        const suffix = el.closest('.stat-card').querySelector('.stat-label')
+                         .textContent.includes('award') ? '' : '+';
+        let current  = 0;
+        const step   = target / 50; // 50 frames
+        const inc    = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            el.textContent = target + suffix;
+            clearInterval(inc);
+          } else {
+            el.textContent = Math.floor(current) + suffix;
+          }
+        }, 30); // ~1.5s total
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    statNums.forEach(el => counterObserver.observe(el));
+
+    /* ============================================================
+       6. HERO ROLE TYPEWRITER — cycles through role strings
+       ============================================================ */
+    const roles     = [
+      'Product Designer',
+      'UX Strategist',
+      'Systems Thinker',
+      'Interaction Designer',
+      'Design Lead'
+    ];
+    const roleEl    = document.getElementById('hero-role');
+    let roleIndex   = 0;
+    let charIndex   = 0;
+    let isDeleting  = false;
+
+    function typeRole() {
+      const current = roles[roleIndex];
+
+      if (isDeleting) {
+        roleEl.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+      } else {
+        roleEl.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let delay = isDeleting ? 50 : 80;
+
+      if (!isDeleting && charIndex === current.length) {
+        // Pause at full word
+        delay = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex  = (roleIndex + 1) % roles.length;
+        delay      = 400;
+      }
+
+      setTimeout(typeRole, delay);
+    }
+
+    // Start typewriter after hero animations settle
+    setTimeout(typeRole, 2200);
+
+    /* ============================================================
+       7. MARQUEE — populate items & duplicate for seamless loop
+       ============================================================ */
+    const marqueeItems = [
+      'Figma', 'Framer', 'Protopie', 'Design Systems', 'UX Research',
+      'Interaction Design', 'Accessibility', 'Design Tokens', 'IA',
+      'User Testing', 'Wireframing', 'Component Libraries', 'Spline',
+      'Motion Design', 'B2B SaaS', 'Fintech', 'Product Strategy'
+    ];
+
+    const marqueeTrack = document.getElementById('marquee-track');
+
+    // Build items × 2 for infinite scroll illusion
+    [...marqueeItems, ...marqueeItems].forEach((item, i) => {
+      const el = document.createElement('span');
+      el.className = 'marquee-item';
+      el.innerHTML = `<span class="dot"></span>${item}`;
+      marqueeTrack.appendChild(el);
+    });
+
+    /* ============================================================
+       8. MAGNETIC BUTTON — CTA hovers with magnetic pull
+       ============================================================ */
+    const magWrap = document.getElementById('magnetic');
+    const magBtn  = magWrap ? magWrap.querySelector('.btn-cta') : null;
+
+    if (magBtn) {
+      magWrap.addEventListener('mousemove', (e) => {
+        const rect   = magWrap.getBoundingClientRect();
+        const cx     = rect.left + rect.width / 2;
+        const cy     = rect.top  + rect.height / 2;
+        const dx     = (e.clientX - cx) * 0.3;
+        const dy     = (e.clientY - cy) * 0.3;
+        magBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+
+      magWrap.addEventListener('mouseleave', () => {
+        magBtn.style.transform = 'translate(0, 0)';
+        magBtn.style.transition = 'transform 0.5s var(--ease-expo)';
+        setTimeout(() => { magBtn.style.transition = ''; }, 500);
+      });
+    }
+
+    /* ============================================================
+       9. PARALLAX — subtle orb movement on mousemove
+       ============================================================ */
+    const orbs = document.querySelectorAll('.hero-orb');
+
+    document.addEventListener('mousemove', (e) => {
+      const cx = window.innerWidth  / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+
+      orbs.forEach((orb, i) => {
+        const factor = (i + 1) * 12;
+        orb.style.transform = `translate(${dx * factor}px, ${dy * factor}px)`;
+      });
+    });
+
+    /* ============================================================
+       10. MOBILE NAV HAMBURGER (simple toggle)
+       ============================================================ */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.querySelector('.nav-links');
+    const navCta    = document.querySelector('.nav-cta');
+
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = hamburger.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+
+        // Simple toggle: show/hide nav links on mobile
+        if (navLinks) {
+          navLinks.style.display = isOpen ? 'flex' : '';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'fixed';
+          navLinks.style.top = '70px';
+          navLinks.style.left = '0';
+          navLinks.style.right = '0';
+          navLinks.style.padding = '24px';
+          navLinks.style.background = 'rgba(6,8,16,0.97)';
+          navLinks.style.backdropFilter = 'blur(20px)';
+          navLinks.style.zIndex = '99';
+          navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.07)';
+          if (!isOpen) {
+            navLinks.removeAttribute('style');
+          }
+        }
+
+        // Animate hamburger bars to X
+        const bars = hamburger.querySelectorAll('span');
+        if (isOpen) {
+          bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+          bars[1].style.opacity   = '0';
+          bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+        } else {
+          bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "plugins": {
+    "figma": {
+      "enabled": true
+    },
+    "slack": {
+      "enabled": true
+    },
+    "render": {
+      "enabled": true
+    },
+    "elastic": {
+      "enabled": true
+    },
+    "miro": {
+      "enabled": true
+    }
+  }
+}

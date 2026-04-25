@@ -1,0 +1,97 @@
+---
+description: Auto-enforced design system rules. Detects Salt DS / Material 3 / Fluent 2 from imports and enforces correct tokens, spacing, component APIs, contrast, and accessibility.
+globs:
+alwaysApply: true
+---
+
+# Design System Enforcement Rules
+
+## 1. Detect Which System
+
+| Signal | System |
+|---|---|
+| @salt-ds/, SaltProvider, --salt-*, .salt- | **Salt DS** |
+| @mui/, ThemeProvider, --md-sys-*, Material | **Material 3** |
+| @fluentui/, FluentProvider, --color*Brand* | **Fluent 2** |
+
+---
+
+## 2. Universal — Always Enforce
+
+### No Raw Values
+- NEVER use raw hex colors (e.g. #1B7F9E) → use semantic token (e.g. var(--salt-palette-accent))
+- NEVER use arbitrary spacing (e.g. 15px) → use spacing token (e.g. var(--salt-spacing-200))
+- NEVER use arbitrary radius (e.g. 7px) → use curve token (e.g. var(--salt-curve-100))
+- NEVER use arbitrary font-size (e.g. 13px) → use type scale token
+
+### Accessibility (WCAG 2.1 AA)
+- Text contrast: 4.5:1 normal, 3:1 large (18px bold / 24px)
+- Focus ring: visible 2px on all interactive elements
+- Touch target: 44px (Salt Touch), 48dp (M3), 32px (Fluent)
+- Keyboard: all interactive elements reachable via Tab
+
+### Validation States — Required on ALL Inputs
+- error (red/negative) + icon + helper text
+- warning (orange/caution) + icon + helper text
+- success (green/positive) + icon + helper text
+- disabled (reduced opacity, no interaction)
+
+---
+
+## 3. Salt DS Rules
+
+### Button API (from GitHub jpmorganchase/salt-ds)
+- Appearances: solid | bordered | transparent (NOT filled/outlined/text)
+- Sentiments: accented | neutral | positive | caution | negative
+- Usage: <Button sentiment="accented" appearance="solid">
+
+### Input API
+- Variants: primary | secondary | tertiary
+- bordered prop for full-border mode
+- Validation via FormField wrapper: <FormField validationStatus="error">
+
+### Spacing (4px grid, density-responsive)
+- --salt-spacing-100: 4px(H) / 8px(M) / 12px(L) / 16px(T)
+- --salt-spacing-200: 8px(H) / 16px(M) / 24px(L) / 32px(T)
+
+### Corner Radius (density-responsive)
+- --salt-curve-100: 2px(H) / 4px(M) / 6px(L) / 8px(T)
+
+### Component Height
+- --salt-size-base: 20px(H) / 28px(M) / 36px(L) / 44px(T)
+
+### Dark Mode
+- Accent text uses accentText token (teal-400 #4CA1C2, 6.12:1) not teal-500 (#1B7F9E, 3.90:1)
+
+---
+
+## 4. Material 3 Rules
+
+- Spacing: 8dp baseline grid (4, 8, 12, 16, 24, 32, 48, 64dp)
+- Shape: Extra Small 4dp, Small 8dp, Medium 12dp, Large 16dp, Extra Large 28dp
+- Elevation: Tonal surface in light theme (NOT shadows). surfaceContainer hierarchy.
+- State Layers: Hover 8%, Focus 10%, Press 10%, Dragged 16% opacity overlay
+
+---
+
+## 5. Fluent 2 Rules
+
+- Sizes: Small 24px, Medium 32px (default), Large 40px
+- Corner Radius: 4px default, Cards 8px, Dialogs 8px
+- Elevation: Dual shadow (key + ambient), always use both
+- Motion: Entries decelerate, Exits accelerate, Standard easyEase
+
+---
+
+## 6. Common Violations
+
+| Violation | Fix |
+|---|---|
+| Raw hex #1B7F9E | var(--salt-palette-accent) |
+| padding: 15px | var(--salt-spacing-200) |
+| border-radius: 7px | var(--salt-curve-100) |
+| Button appearance="filled" | Salt uses appearance="solid" |
+| Missing validation states | Wrap in FormField validationStatus |
+| No focus ring | :focus-visible outline 2px solid |
+| Shadow in M3 light theme | Use tonal surface not drop shadow |
+| Hardcoded dark colors | Use semantic tokens that auto-switch |
