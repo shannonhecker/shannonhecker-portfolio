@@ -213,6 +213,30 @@
       max-width: 36em;
       margin: 0;
     }
+    .ausos-strip-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -.005em;
+      padding: 11px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 220ms cubic-bezier(.22,1,.36,1), box-shadow 220ms cubic-bezier(.22,1,.36,1), background 220ms cubic-bezier(.22,1,.36,1), border-color 220ms cubic-bezier(.22,1,.36,1);
+    }
+    .ausos-strip-cta.primary {
+      background: var(--c-ink);
+      color: #fff;
+      border-color: var(--c-ink);
+    }
+    .ausos-strip-cta.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .ausos-strip-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
 
     .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -343,6 +367,7 @@
           <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">AI Product Design</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2026</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Founder, Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://ausos.ai/#demo" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">ausos.ai ↗</a></span></div>
         </div>
       </div>
 
@@ -394,7 +419,7 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design System Integration</h3>
           <div class="proj-body"><p>ausōs supports multiple industry design systems, each rendered with authentic tokens and component behaviours. More details available in a private conversation.</p></div>
-          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:32px;border-radius:12px;background:#000;" />
+          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:32px;border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
         </div>
 
         <div class="proj-nda rv">
@@ -402,7 +427,8 @@
           <div class="proj-nda-inner">
             <p class="proj-nda-title">Product preview</p>
             <p class="proj-nda-lead">In private alpha</p>
-            <p class="proj-nda-body">ausōs.ai is in private alpha with a small group of early testers. A silent walkthrough video is coming soon. For a live demo, reach out by email or via the chatbot below.</p>
+            <p class="proj-nda-body">ausōs.ai is in private alpha with a small group of early testers. Try the interactive demo to explore the conversational AI builder, or reach out by email for early access to the full product.</p>
+            <a class="ausos-strip-cta primary" href="https://ausos.ai/#demo" target="_blank" rel="noopener noreferrer">Try the live demo <span aria-hidden="true">↗</span></a>
             <!-- Phase 4 · when the silent walkthrough video is ready, drop it at assets/ausos-walkthrough.mp4 and uncomment the block below.
             <video class="ausos-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/ausos-card.png" style="width:100%;margin-top:24px;border-radius:12px;">
               <source src="assets/ausos-walkthrough.mp4" type="video/mp4" />
