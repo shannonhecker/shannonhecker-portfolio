@@ -3,12 +3,10 @@
   var stored = localStorage.getItem('theme');
   var theme;
   if (stored === 'dark' || stored === 'light') {
+    /* Saved preference always wins */
     theme = stored;
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    /* User's OS explicitly prefers light → respect that */
-    theme = 'light';
   } else {
-    /* OS prefers dark, OS has no preference, or no matchMedia → default dark */
+    /* No saved preference → default to dark for first-time visitors */
     theme = 'dark';
   }
   document.documentElement.setAttribute('data-theme', theme);
@@ -16,7 +14,7 @@
   if (meta) meta.setAttribute('content', theme === 'dark' ? '#121212' : '#ffffff');
 })();
 
-/* Toggle + system-preference listener – after DOM ready */
+/* Toggle – after DOM ready */
 document.addEventListener('DOMContentLoaded', function() {
   var toggles = document.querySelectorAll('.theme-toggle');
   toggles.forEach(function(btn) {
@@ -30,14 +28,5 @@ document.addEventListener('DOMContentLoaded', function() {
       /* Notify canvas code to rebuild gradients */
       window.dispatchEvent(new CustomEvent('theme-changed'));
     });
-  });
-
-  /* Auto-follow system preference if user hasn't manually chosen */
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-    if (!localStorage.getItem('theme')) {
-      var t = e.matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', t);
-      window.dispatchEvent(new CustomEvent('theme-changed'));
-    }
   });
 });
