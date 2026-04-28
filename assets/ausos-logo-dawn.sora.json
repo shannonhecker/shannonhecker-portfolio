@@ -1,0 +1,36 @@
+{
+  "create": {
+    "completed_at": null,
+    "created_at": 1777241084,
+    "edited_from_video_id": null,
+    "error": null,
+    "expires_at": null,
+    "extended_from_video_id": null,
+    "id": "video_69ee8bfbc30881919cf7f1cd03d672af0cc1ccbc0fa7dd9e",
+    "model": "sora-2-pro",
+    "object": "video",
+    "progress": 0,
+    "prompt": "Use case: homepage branding logo animation\nPrimary request: Create a subtle dawn-glow homepage logo animation from the reference image.\nScene/background: same ausos logo card and soft aurora gradient from the input reference\nSubject: the exact white ausos icon and wordmark from the reference\nAction: a very gentle dawn-like glow travels behind the logo from lower left to upper right while the logo remains completely static\nCamera: locked-off, centered composition, no zoom\nLighting/mood: soft dawn glow, calm and polished\nColor palette: white, cyan, mint, lavender, peach\nTiming/beats: 4 seconds, one slow light pass, settles back into the reference look\nConstraints: preserve the existing look and logo exactly; do not redraw or reinterpret any letter, symbol, bar, or spacing\nAvoid: no new text, no misspelled text, no logo movement, no hard flares, no flicker, no perspective warp",
+    "remixed_from_video_id": null,
+    "seconds": "4",
+    "size": "1280x720",
+    "status": "queued"
+  },
+  "final": {
+    "completed_at": 1777241242,
+    "created_at": 1777241084,
+    "edited_from_video_id": null,
+    "error": null,
+    "expires_at": 1777414042,
+    "extended_from_video_id": null,
+    "id": "video_69ee8bfbc30881919cf7f1cd03d672af0cc1ccbc0fa7dd9e",
+    "model": "sora-2-pro",
+    "object": "video",
+    "progress": 100,
+    "prompt": "Use case: homepage branding logo animation\nPrimary request: Create a subtle dawn-glow homepage logo animation from the reference image.\nScene/background: same ausos logo card and soft aurora gradient from the input reference\nSubject: the exact white ausos icon and wordmark from the reference\nAction: a very gentle dawn-like glow travels behind the logo from lower left to upper right while the logo remains completely static\nCamera: locked-off, centered composition, no zoom\nLighting/mood: soft dawn glow, calm and polished\nColor palette: white, cyan, mint, lavender, peach\nTiming/beats: 4 seconds, one slow light pass, settles back into the reference look\nConstraints: preserve the existing look and logo exactly; do not redraw or reinterpret any letter, symbol, bar, or spacing\nAvoid: no new text, no misspelled text, no logo movement, no hard flares, no flicker, no perspective warp",
+    "remixed_from_video_id": null,
+    "seconds": "4",
+    "size": "1280x720",
+    "status": "completed"
+  }
+}

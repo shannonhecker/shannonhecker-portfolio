@@ -1,0 +1,36 @@
+{
+  "create": {
+    "completed_at": null,
+    "created_at": 1777241090,
+    "edited_from_video_id": null,
+    "error": null,
+    "expires_at": null,
+    "extended_from_video_id": null,
+    "id": "video_69ee8c01b86c8190b37cdde98cffa91d000474b81bdd73f2",
+    "model": "sora-2-pro",
+    "object": "video",
+    "progress": 0,
+    "prompt": "Use case: homepage branding logo animation\nPrimary request: Create a restrained premium shimmer homepage logo animation from the reference image.\nScene/background: same ausos gradient card from the input reference\nSubject: the exact white ausos icon and wordmark from the reference\nAction: subtle premium shimmer in the gradient field, like a soft interface hover state; the logo stays sharp, centered, and unchanged\nCamera: locked-off, flat front view\nLighting/mood: diffuse glassy glow, restrained and refined\nColor palette: cyan, mint, lavender, peach, white\nTiming/beats: 4 seconds, slow shimmer that can loop\nConstraints: the logo and brand typography must remain identical to the reference image, with no changes to glyphs, icon, white color, or placement\nAvoid: no new interface elements, no additional text, no icon distortion, no text wobble, no flashing, no fast movement",
+    "remixed_from_video_id": null,
+    "seconds": "4",
+    "size": "1280x720",
+    "status": "queued"
+  },
+  "final": {
+    "completed_at": 1777241237,
+    "created_at": 1777241090,
+    "edited_from_video_id": null,
+    "error": null,
+    "expires_at": 1777414037,
+    "extended_from_video_id": null,
+    "id": "video_69ee8c01b86c8190b37cdde98cffa91d000474b81bdd73f2",
+    "model": "sora-2-pro",
+    "object": "video",
+    "progress": 100,
+    "prompt": "Use case: homepage branding logo animation\nPrimary request: Create a restrained premium shimmer homepage logo animation from the reference image.\nScene/background: same ausos gradient card from the input reference\nSubject: the exact white ausos icon and wordmark from the reference\nAction: subtle premium shimmer in the gradient field, like a soft interface hover state; the logo stays sharp, centered, and unchanged\nCamera: locked-off, flat front view\nLighting/mood: diffuse glassy glow, restrained and refined\nColor palette: cyan, mint, lavender, peach, white\nTiming/beats: 4 seconds, slow shimmer that can loop\nConstraints: the logo and brand typography must remain identical to the reference image, with no changes to glyphs, icon, white color, or placement\nAvoid: no new interface elements, no additional text, no icon distortion, no text wobble, no flashing, no fast movement",
+    "remixed_from_video_id": null,
+    "seconds": "4",
+    "size": "1280x720",
+    "status": "completed"
+  }
+}

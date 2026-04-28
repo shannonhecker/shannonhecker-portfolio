@@ -297,7 +297,35 @@
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
     .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
 
-    /* ausōs cover image */
+    /* ausōs cover — live demo capture, theme-aware Design-Hub backdrop, 36px breathing room.
+       Two <video> elements: light + dark; we show the matching one per theme.
+       Dark gradient matches ausos.ai/Design-Hub `.hero` (hero.css:30 + .hero::before aurora layers).
+       `!important` on background overrides dark-mode.css:370 (`html[data-theme="dark"] .proj-cover { background:#fff !important }`). */
+    .proj-cover--demo {
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(180, 144, 245, 0.10), transparent 60%),
+        radial-gradient(ellipse at 10% 80%, rgba(94, 231, 223, 0.08), transparent 60%),
+        linear-gradient(180deg, #F4F6FA 0%, #DDE2EB 50%, #C4CAD5 100%) !important;
+      padding: 36px;
+      box-sizing: border-box;
+    }
+    .proj-cover--demo > video { border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block; }
+    /* Show only the matching video per theme; the inactive one stays in DOM for swap-without-flicker */
+    .proj-cover--demo > video.demo-dark { display: none; }
+    html[data-theme="dark"] .proj-cover--demo > video.demo-light { display: none; }
+    html[data-theme="dark"] .proj-cover--demo > video.demo-dark { display: block; }
+    html[data-theme="dark"] .proj-cover--demo {
+      background:
+        radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
+        radial-gradient(ellipse at 5% 74%, rgba(220, 235, 226, 0.12), transparent 60%),
+        radial-gradient(ellipse at 51% 28%, rgba(244, 250, 241, 0.05), transparent 70%),
+        radial-gradient(ellipse at 54% 108%, rgba(112, 156, 144, 0.08), transparent 80%),
+        linear-gradient(180deg, #060806 0%, #020302 38%, #020302 100%) !important;
+      filter: none; /* override dark-mode.css brightness(0.88) — demo is already balanced */
+    }
+    @media (max-width: 720px) {
+      .proj-cover--demo { padding: 18px; }
+    }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -371,9 +399,22 @@
         </div>
       </div>
 
-      <!-- Cover -->
-      <div class="proj-cover rv" style="aspect-ratio:16/7;overflow:hidden;background:#0B1120;">
-        <img src="assets/ausos-banner.webp" alt="ausōs.ai product screens showing conversational AI builder across design systems" width="1600" height="571" style="width:100%;height:100%;object-fit:cover;" loading="eager" decoding="async" />
+      <!-- Cover: live demo capture (Salt → M3 → Fluent → Carbon → ausos), separate light + dark mp4 -->
+      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <video
+          class="demo-light"
+          src="assets/ausos-demo-light.mp4"
+          poster="assets/ausos-banner.webp"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="ausōs.ai product demo (light) cycling through Salt, Material 3, Fluent, Carbon, and ausos design systems"
+        ></video>
+        <video
+          class="demo-dark"
+          src="assets/ausos-demo.mp4"
+          poster="assets/ausos-banner.webp"
+          autoplay muted loop playsinline preload="metadata"
+          aria-hidden="true"
+        ></video>
         <div class="img-shield"></div>
       </div>
 
