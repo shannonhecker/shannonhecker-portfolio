@@ -1994,10 +1994,9 @@
   </style>
 
   <!-- ============================================================
-       AUSŌS STRIP · "now building" spotlight (static interim)
+       AUSŌS STRIP · "now building" spotlight with logo reveal
        Sits between Hero and Featured Work so the founder signal
-       lands before the work-sample grid. Swap the image for a
-       silent demo video when ready.
+       lands before the work-sample grid.
        ============================================================ -->
   <style>
     .ausos-strip {
@@ -2136,8 +2135,11 @@
     /* Product visual: just the image, rounded with a soft shadow. */
     .ausos-strip-visual { position: relative; }
     .ausos-strip-frame {
+      position: relative;
+      isolation: isolate;
       border-radius: 14px;
       overflow: hidden;
+      background: #f8fbff;
       box-shadow:
         0 1px 2px rgba(0,0,0,.03),
         0 8px 24px rgba(0,0,0,.06),
@@ -2152,13 +2154,239 @@
         0 12px 32px rgba(0,0,0,.08),
         0 32px 80px rgba(20, 184, 166, .12);
     }
-    .ausos-strip-frame picture,
-    .ausos-strip-frame img {
+    .ausos-strip-motion {
+      --ausos-intro: 4.2s;
+      --ausos-logo-cycle: 6.8s;
+      --ausos-loop: 24s;
+      --ausos-color-cycle: 32s;
+      position: relative;
       display: block;
+      aspect-ratio: 5 / 3;
+      overflow: hidden;
+      background: #f8fbff;
+    }
+    .ausos-strip-bg,
+    .ausos-strip-bg::before,
+    .ausos-strip-bg::after,
+    .ausos-strip-logo-scrub,
+    .ausos-strip-sweep {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+    .ausos-strip-bg {
+      inset: 0;
+      z-index: 0;
+      background-image: url("assets/ausos-card.png");
+      background-position: center;
+      background-size: cover;
+      opacity: 1;
+      transform: scale(1.015);
+      filter: saturate(1.12) contrast(1.04);
+      animation:
+        ausos-bg-wake var(--ausos-intro) cubic-bezier(.22,1,.36,1) forwards,
+        ausos-aurora-base var(--ausos-loop) ease-in-out var(--ausos-intro) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-bg::before,
+    .ausos-strip-bg::after {
+      z-index: 1;
+      will-change: transform, opacity;
+    }
+    .ausos-strip-bg::before {
+      inset: -28%;
+      background:
+        radial-gradient(ellipse at 18% 16%, rgba(250,254,253,.54) 0 15%, transparent 40%),
+        radial-gradient(ellipse at 44% 52%, rgba(47,181,214,.5) 0 20%, transparent 50%),
+        radial-gradient(ellipse at 78% 44%, rgba(146,123,212,.42) 0 20%, transparent 48%),
+        radial-gradient(ellipse at 84% 10%, rgba(193,128,108,.38) 0 18%, transparent 44%),
+        radial-gradient(ellipse at 24% 76%, rgba(165,224,225,.46) 0 22%, transparent 52%);
+      filter: blur(46px) saturate(1.18);
+      mix-blend-mode: soft-light;
+      opacity: .68;
+      animation: ausos-aurora-breathe 18s ease-in-out .45s infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-bg::after {
+      inset: -36%;
+      background:
+        conic-gradient(from 20deg at 56% 46%,
+          rgba(250,254,253,.56) 0deg,
+          rgba(165,224,225,.46) 62deg,
+          rgba(47,181,214,.5) 138deg,
+          rgba(146,123,212,.46) 218deg,
+          rgba(193,128,108,.44) 292deg,
+          rgba(250,254,253,.56) 360deg);
+      filter: blur(66px) saturate(1.16);
+      mix-blend-mode: overlay;
+      opacity: .36;
+      animation: ausos-aurora-orbit var(--ausos-color-cycle) ease-in-out .55s infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-logo-scrub {
+      z-index: 1;
+      top: 39%;
+      right: 24%;
+      bottom: 37%;
+      left: 28%;
+      border-radius: 999px;
+      background:
+        radial-gradient(ellipse at 34% 52%, rgba(47,181,214,.96) 0 28%, rgba(83,203,221,.88) 46%, transparent 78%),
+        radial-gradient(ellipse at 78% 43%, rgba(146,123,212,.66) 0 26%, rgba(146,123,212,.3) 46%, transparent 74%),
+        radial-gradient(ellipse at 18% 78%, rgba(165,224,225,.56) 0 22%, transparent 66%),
+        linear-gradient(90deg, rgba(83,203,221,.9) 0%, rgba(47,181,214,.94) 48%, rgba(146,123,212,.74) 100%);
+      filter: blur(24px) saturate(1.18);
+      transform: scale(1.34);
+      opacity: .98;
+      animation: ausos-logo-scrub var(--ausos-loop) ease-in-out var(--ausos-intro) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-sweep {
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(105deg,
+          transparent 0 35%,
+          rgba(255,255,255,.92) 46%,
+          rgba(255,255,255,.68) 53%,
+          transparent 66% 100%);
+      filter: blur(8px);
+      opacity: 0;
+      transform: translateX(-82%) skewX(-10deg);
+      animation: ausos-light-sweep var(--ausos-logo-cycle) cubic-bezier(.22,1,.36,1) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-logo-stage {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      top: 50%;
+      width: min(38%, 454px);
+      aspect-ratio: 454 / 91;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      filter: drop-shadow(0 1px 10px rgba(255,255,255,.18));
+    }
+    .ausos-strip-logo {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: auto;
-      aspect-ratio: 1200 / 720;
-      object-fit: cover;
+      height: 100%;
+      object-fit: contain;
+      will-change: clip-path, opacity, transform;
+    }
+    .ausos-strip-logo-symbol {
+      clip-path: inset(0 72% 0 0);
+      opacity: 0;
+      transform-origin: 13% 54%;
+      animation: ausos-symbol-pop var(--ausos-logo-cycle) cubic-bezier(.34,1.56,.64,1) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-logo-wordmark {
+      clip-path: inset(0 100% 0 28%);
+      opacity: 0;
+      transform: translate3d(-10px, 0, 0);
+      animation: ausos-wordmark-reveal var(--ausos-logo-cycle) cubic-bezier(.22,1,.36,1) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-logo-final {
+      opacity: 0;
+      transform: scale(.985);
+      animation: ausos-final-lock var(--ausos-logo-cycle) cubic-bezier(.22,1,.36,1) infinite;
+      animation-play-state: paused;
+    }
+    .ausos-strip-visual.on .ausos-strip-bg,
+    .ausos-strip-visual.on .ausos-strip-bg::before,
+    .ausos-strip-visual.on .ausos-strip-bg::after,
+    .ausos-strip-visual.on .ausos-strip-logo-scrub,
+    .ausos-strip-visual.on .ausos-strip-sweep,
+    .ausos-strip-visual.on .ausos-strip-logo {
+      animation-play-state: running;
+    }
+    @keyframes ausos-bg-wake {
+      0% { opacity: 1; filter: blur(14px) saturate(1.02) contrast(1.02); transform: scale(1.06); }
+      42% { filter: blur(3px) saturate(1.14) contrast(1.04); transform: scale(1.025); }
+      100% { opacity: 1; filter: blur(0) saturate(1.16) contrast(1.05); transform: scale(1.015); }
+    }
+    @keyframes ausos-light-sweep {
+      0%, 8% { opacity: 0; transform: translateX(-82%) skewX(-10deg); }
+      15% { opacity: .78; }
+      36% { opacity: .34; transform: translateX(68%) skewX(-10deg); }
+      48%, 100% { opacity: 0; transform: translateX(92%) skewX(-10deg); }
+    }
+    @keyframes ausos-symbol-pop {
+      0%, 10% { opacity: 0; transform: scale(.55, .92) translate3d(-18px, 0, 0); }
+      19% { opacity: 1; transform: scale(1.16, .88) translate3d(0, 0, 0); }
+      28% { opacity: 1; transform: scale(.94, 1.08); }
+      38%, 58% { opacity: 1; transform: scale(1); }
+      66%, 100% { opacity: 0; transform: scale(1); }
+    }
+    @keyframes ausos-wordmark-reveal {
+      0%, 28% { opacity: 0; clip-path: inset(0 100% 0 28%); transform: translate3d(-10px, 0, 0); }
+      37% { opacity: 1; }
+      52%, 62% { opacity: 1; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
+      69%, 100% { opacity: 0; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
+    }
+    @keyframes ausos-final-lock {
+      0%, 58% { opacity: 0; transform: scale(.985); }
+      67%, 88% { opacity: 1; transform: scale(1); }
+      96%, 100% { opacity: 0; transform: scale(.995); }
+    }
+    @keyframes ausos-aurora-base {
+      0%, 100% {
+        background-position: center;
+        filter: blur(0) saturate(1.16) contrast(1.05) hue-rotate(0deg);
+        transform: scale(1.018) translate3d(0, 0, 0);
+      }
+      28% {
+        background-position: 48.7% 50.8%;
+        filter: blur(0) saturate(1.22) contrast(1.06) hue-rotate(-2deg);
+        transform: scale(1.058) translate3d(1.1%, -.8%, 0);
+      }
+      58% {
+        background-position: 51.2% 49.1%;
+        filter: blur(0) saturate(1.19) contrast(1.05) hue-rotate(2deg);
+        transform: scale(1.045) translate3d(-1.1%, .9%, 0);
+      }
+      82% {
+        background-position: 50.4% 50.6%;
+        filter: blur(0) saturate(1.2) contrast(1.06) hue-rotate(-1deg);
+        transform: scale(1.032) translate3d(.45%, .45%, 0);
+      }
+    }
+    @keyframes ausos-aurora-breathe {
+      0%, 100% { transform: translate3d(-5%, -3.5%, 0) scale(1.07) rotate(-1deg); opacity: .5; }
+      28% { transform: translate3d(2.5%, -1%, 0) scale(1.16) rotate(.8deg); opacity: .78; }
+      56% { transform: translate3d(5%, 3.5%, 0) scale(1.18) rotate(1.2deg); opacity: .62; }
+      82% { transform: translate3d(-1.5%, 4.5%, 0) scale(1.1) rotate(-.6deg); opacity: .7; }
+    }
+    @keyframes ausos-aurora-orbit {
+      0%, 100% { transform: translate3d(-4%, -2.5%, 0) rotate(0deg) scale(1.06); opacity: .28; }
+      24% { transform: translate3d(1.4%, -2%, 0) rotate(18deg) scale(1.12); opacity: .44; }
+      52% { transform: translate3d(3.6%, 2.5%, 0) rotate(34deg) scale(1.14); opacity: .38; }
+      78% { transform: translate3d(-1.4%, 3.4%, 0) rotate(14deg) scale(1.1); opacity: .48; }
+    }
+    @keyframes ausos-logo-scrub {
+      0%, 100% { transform: scale(1.34) translate3d(0, 0, 0); filter: blur(24px) saturate(1.18) hue-rotate(0deg); opacity: .98; }
+      38% { transform: scale(1.42) translate3d(1%, -.6%, 0); filter: blur(28px) saturate(1.24) hue-rotate(-2deg); opacity: 1; }
+      72% { transform: scale(1.38) translate3d(-.8%, .7%, 0); filter: blur(26px) saturate(1.2) hue-rotate(2deg); opacity: .96; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ausos-strip-bg,
+      .ausos-strip-bg::before,
+      .ausos-strip-bg::after,
+      .ausos-strip-logo-scrub,
+      .ausos-strip-sweep,
+      .ausos-strip-logo {
+        animation: none;
+      }
+      .ausos-strip-bg { opacity: 1; filter: saturate(1.18) contrast(1.05); transform: scale(1.015); }
+      .ausos-strip-bg::before,
+      .ausos-strip-bg::after,
+      .ausos-strip-sweep,
+      .ausos-strip-logo-symbol,
+      .ausos-strip-logo-wordmark { opacity: 0; }
+      .ausos-strip-logo-final { opacity: 1; transform: none; }
     }
 
     @media (max-width: 900px) {
@@ -2218,13 +2446,19 @@
           </div>
         </div>
 
-        <!-- Right: clean product image, no browser chrome -->
+        <!-- Right: clean product animation, no browser chrome -->
         <div class="ausos-strip-visual rv" data-d="3">
           <div class="ausos-strip-frame">
-            <picture>
-              <source srcset="assets/ausos-card.webp" type="image/webp">
-              <img src="assets/ausos-card.png" alt="ausōs.ai product interface preview" loading="lazy" decoding="async" width="1200" height="720" />
-            </picture>
+            <div class="ausos-strip-motion" role="img" aria-label="ausōs.ai animated logo preview">
+              <div class="ausos-strip-bg" aria-hidden="true"></div>
+              <div class="ausos-strip-logo-scrub" aria-hidden="true"></div>
+              <div class="ausos-strip-sweep" aria-hidden="true"></div>
+              <div class="ausos-strip-logo-stage" aria-hidden="true">
+                <img class="ausos-strip-logo ausos-strip-logo-symbol" src="assets/ausos-logo-lockup.png" alt="" loading="eager" decoding="async" width="454" height="91" />
+                <img class="ausos-strip-logo ausos-strip-logo-wordmark" src="assets/ausos-logo-lockup.png" alt="" loading="eager" decoding="async" width="454" height="91" />
+                <img class="ausos-strip-logo ausos-strip-logo-final" src="assets/ausos-logo-lockup.png" alt="" loading="eager" decoding="async" width="454" height="91" />
+              </div>
+            </div>
           </div>
         </div>
 
