@@ -389,10 +389,13 @@ html[data-theme="dark"] .proj-breadcrumb a {
 html[data-theme="dark"] .proj-nda {
   background: transparent !important;
 }
-html[data-theme="dark"] .proj-nda-glow {
-  background:
-    radial-gradient(ellipse 65% 55% at 38% 45%, rgba(130, 224, 255, 0.12) 0%, transparent 58%),
-    radial-gradient(ellipse 50% 48% at 44% 52%, rgba(175, 240, 255, 0.08) 0%, transparent 52%) !important;
+/* Dark-mode NDA glow — override the colour-stop tokens defined in
+   portfolio.css. The .proj-nda-glow rule itself stays cross-theme; only
+   the alpha values change so dark mode reads as a subtle aurora rather
+   than the brighter light-mode wash. */
+html[data-theme="dark"] {
+  --nda-glow-cyan: rgba(130, 224, 255, 0.12);
+  --nda-glow-pale: rgba(175, 240, 255, 0.08);
 }
 html[data-theme="dark"] .proj-nda-title {
   color: rgba(255,255,255,0.87) !important;
