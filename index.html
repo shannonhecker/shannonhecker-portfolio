@@ -2144,7 +2144,11 @@
         0 1px 2px rgba(0,0,0,.03),
         0 8px 24px rgba(0,0,0,.06),
         0 24px 64px rgba(0,0,0,.08);
-      transform: translateZ(0);
+      /* translate3d (was translateZ) forces a dedicated compositing layer,
+         needed on iOS WebKit so border-radius + overflow:hidden reliably
+         clip transformed grandchildren mid-animation. */
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
       transition: transform var(--tb) var(--ease), box-shadow var(--tb) var(--ease);
     }
     .ausos-strip-frame:hover {
@@ -2157,10 +2161,19 @@
     .ausos-strip-motion {
       --ausos-cycle: 9.6s;
       position: relative;
-      display: block;
+      /* Flex centering (not block + absolute-stage) so the lockup centers
+         reliably even on iOS WebKit, where the prior top:50% + translate
+         pattern misaligned because aspect-ratio height resolves late. The
+         decorative children (bg / blobs / tagline / scrub / sweep) are all
+         position:absolute and don't participate in the flex flow — only
+         .ausos-strip-logo-stage is the flex child, which gets centered. */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       aspect-ratio: 5 / 3;
       overflow: hidden;
       background: #f8fbff;
+      contain: layout paint;
     }
     .ausos-strip-bg,
     .ausos-strip-bg::before,
@@ -2317,13 +2330,15 @@
       opacity: 0;
     }
     .ausos-strip-logo-stage {
-      position: absolute;
+      /* position: relative makes this the only in-flow child of motion,
+         which is now display:flex with align/justify center — that is the
+         centring. No top/left/transform percentages, so iOS WebKit's late
+         aspect-ratio height resolve can't misalign us any more. */
+      position: relative;
       z-index: 5;
-      left: 50%;
-      top: 50%;
+      flex: 0 0 auto;
       width: min(38%, 454px);
       aspect-ratio: 454 / 91;
-      transform: translate(-50%, -50%);
       pointer-events: none;
       filter: drop-shadow(0 1px 10px rgba(255,255,255,.18));
     }
