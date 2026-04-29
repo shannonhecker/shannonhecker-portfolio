@@ -244,16 +244,19 @@
     .proj-img-full { width:100%;border-radius:0;margin:40px 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:40px 0; }
-    .proj-outcomes { display:flex;gap:16px;flex-wrap:wrap;margin:32px 0; }
-    .proj-outcome { background:var(--c-panel);border:none;border-radius:0;padding:20px 28px;display:flex;flex-direction:column;gap:6px;min-width:180px; }
-    .proj-outcome-num { font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink); }
-    .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light); }
+    /* Outcome pills — border-divider rows; canonical pattern shared across the
+       case-study set (algo-center / analytics / barclays / etc.). */
+    .proj-outcomes { display:flex;gap:0;margin:32px 0; }
+    .proj-outcome { display:flex;flex-direction:column;gap:6px;padding:0 32px;border-left:1px solid var(--c-rule); }
+    .proj-outcome:first-child { padding-left:0;border-left:none; }
+    .proj-outcome-num { font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink);line-height:1; }
+    .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light);letter-spacing:.01em; }
     .proj-tags { margin-top:32px; }
     .proj-tags-list { font-size:13px;font-weight:400;color:var(--c-mid);line-height:1.7; }
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:24px;}
-      .proj-outcomes{flex-direction:column;}
+      .proj-outcomes{flex-direction:column;gap:20px;} .proj-outcomes .proj-outcome{border-left:none;padding:0;border-bottom:1px solid var(--c-rule);padding-bottom:16px;} .proj-outcomes .proj-outcome:first-child{padding-left:0;}
       .proj-about-layout{grid-template-columns:1fr;gap:20px;}
       .proj-about-label{position:static;margin-bottom:8px;}
       .proj-next{padding-bottom:20px;}
