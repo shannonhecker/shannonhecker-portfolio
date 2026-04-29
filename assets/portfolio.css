@@ -130,3 +130,23 @@ body {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* NDA placeholder glow — the soft cyan/pale-blue radial wash behind the
+   .proj-nda-title block on case studies that aren't publicly cleared. Was
+   inlined identically across all 13 case studies (with two minor opacity /
+   centre-anchor drift variants); consolidated here so future palette edits
+   are one-line. Token vars exposed so individual pages can override per-
+   case if a different glow is wanted (eg. a featured page). */
+:root {
+  --nda-glow-cyan: rgba(130, 224, 255, 0.36);
+  --nda-glow-pale: rgba(175, 240, 255, 0.28);
+}
+.proj-nda-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 48%, var(--nda-glow-cyan) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 50% 52%, var(--nda-glow-pale) 0%, transparent 52%);
+}
