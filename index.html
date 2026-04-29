@@ -2177,9 +2177,20 @@
     .ausos-strip-bg {
       inset: 0;
       z-index: 0;
-      background-image: url("assets/ausos-card.png");
+      /* Aurora gradient field — was a baked PNG (assets/ausos-card.png)
+         which had the lockup rendered into it; replaced with CSS so the
+         logo reveal isn't undermined by a background that already contains
+         the logo. Five blob stops match the PNG palette: cream upper-left,
+         coral upper-right, lavender right, mint lower-left, aqua centre. */
+      background:
+        radial-gradient(ellipse 55% 50% at 22% 26%, rgba(248,253,250,.92) 0%, rgba(248,253,250,0) 60%),
+        radial-gradient(ellipse 50% 40% at 80% 16%, rgba(206,148,124,.78) 0%, rgba(206,148,124,0) 65%),
+        radial-gradient(ellipse 65% 70% at 94% 54%, rgba(168,140,212,.82) 0%, rgba(168,140,212,0) 60%),
+        radial-gradient(ellipse 60% 55% at 18% 86%, rgba(146,224,210,.82) 0%, rgba(146,224,210,0) 60%),
+        radial-gradient(ellipse 80% 80% at 50% 56%, rgba(76,200,220,.95) 0%, rgba(76,200,220,0) 55%),
+        linear-gradient(135deg, #c8e8e6 0%, #a4d2e2 45%, #b8b4dc 100%);
       background-position: center;
-      background-size: cover;
+      background-size: 110% 110%;
       opacity: 0;
       transform: scale(1.04);
       filter: blur(20px) saturate(1) contrast(1);
