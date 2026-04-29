@@ -2177,12 +2177,24 @@
     .ausos-strip-bg {
       inset: 0;
       z-index: 0;
-      background-image: url("assets/ausos-card.png");
+      /* Aurora gradient field — was a baked PNG (assets/ausos-card.png)
+         which had the lockup rendered into it; replaced with CSS so the
+         logo reveal isn't undermined by a background that already contains
+         the logo. Five blob stops match the PNG palette: cream upper-left,
+         coral upper-right, lavender right, mint lower-left, aqua centre. */
+      background:
+        radial-gradient(ellipse 55% 50% at 22% 26%, rgba(248,253,250,.92) 0%, rgba(248,253,250,0) 60%),
+        radial-gradient(ellipse 50% 40% at 80% 16%, rgba(206,148,124,.78) 0%, rgba(206,148,124,0) 65%),
+        radial-gradient(ellipse 65% 70% at 94% 54%, rgba(168,140,212,.82) 0%, rgba(168,140,212,0) 60%),
+        radial-gradient(ellipse 60% 55% at 18% 86%, rgba(146,224,210,.82) 0%, rgba(146,224,210,0) 60%),
+        radial-gradient(ellipse 80% 80% at 50% 56%, rgba(76,200,220,.95) 0%, rgba(76,200,220,0) 55%),
+        linear-gradient(135deg, #c8e8e6 0%, #a4d2e2 45%, #b8b4dc 100%);
       background-position: center;
-      background-size: cover;
-      opacity: 1;
-      transform: scale(1.015);
-      filter: saturate(1.12) contrast(1.04);
+      background-size: 110% 110%;
+      opacity: 0;
+      transform: scale(1.04);
+      filter: blur(20px) saturate(1) contrast(1);
+      will-change: opacity, filter, transform;
       animation:
         ausos-bg-wake var(--ausos-intro) cubic-bezier(.22,1,.36,1) forwards,
         ausos-aurora-base var(--ausos-loop) ease-in-out var(--ausos-intro) infinite;
@@ -2225,10 +2237,10 @@
     }
     .ausos-strip-logo-scrub {
       z-index: 1;
-      top: 39%;
+      top: 38%;
       right: 24%;
-      bottom: 37%;
-      left: 28%;
+      bottom: 38%;
+      left: 24%;
       border-radius: 999px;
       background:
         radial-gradient(ellipse at 34% 52%, rgba(47,181,214,.96) 0 28%, rgba(83,203,221,.88) 46%, transparent 78%),
@@ -2237,8 +2249,10 @@
         linear-gradient(90deg, rgba(83,203,221,.9) 0%, rgba(47,181,214,.94) 48%, rgba(146,123,212,.74) 100%);
       filter: blur(24px) saturate(1.18);
       transform: scale(1.34);
-      opacity: .98;
-      animation: ausos-logo-scrub var(--ausos-loop) ease-in-out var(--ausos-intro) infinite;
+      opacity: 0;
+      animation:
+        ausos-scrub-wake var(--ausos-intro) cubic-bezier(.22,1,.36,1) forwards,
+        ausos-logo-scrub var(--ausos-loop) ease-in-out var(--ausos-intro) infinite;
       animation-play-state: paused;
     }
     .ausos-strip-sweep {
@@ -2253,7 +2267,7 @@
       filter: blur(8px);
       opacity: 0;
       transform: translateX(-82%) skewX(-10deg);
-      animation: ausos-light-sweep var(--ausos-logo-cycle) cubic-bezier(.22,1,.36,1) infinite;
+      animation: ausos-light-sweep var(--ausos-logo-cycle) cubic-bezier(.22,1,.36,1) var(--ausos-intro) infinite;
       animation-play-state: paused;
     }
     .ausos-strip-logo-stage {
@@ -2304,9 +2318,13 @@
       animation-play-state: running;
     }
     @keyframes ausos-bg-wake {
-      0% { opacity: 1; filter: blur(14px) saturate(1.02) contrast(1.02); transform: scale(1.06); }
-      42% { filter: blur(3px) saturate(1.14) contrast(1.04); transform: scale(1.025); }
+      0%   { opacity: 0; filter: blur(20px) saturate(1) contrast(1); transform: scale(1.04); }
+      55%  { opacity: 1; }
       100% { opacity: 1; filter: blur(0) saturate(1.16) contrast(1.05); transform: scale(1.015); }
+    }
+    @keyframes ausos-scrub-wake {
+      0%   { opacity: 0; transform: scale(1.5); filter: blur(36px) saturate(1); }
+      100% { opacity: .98; transform: scale(1.34); filter: blur(24px) saturate(1.18); }
     }
     @keyframes ausos-light-sweep {
       0%, 8% { opacity: 0; transform: translateX(-82%) skewX(-10deg); }
@@ -2315,22 +2333,22 @@
       48%, 100% { opacity: 0; transform: translateX(92%) skewX(-10deg); }
     }
     @keyframes ausos-symbol-pop {
-      0%, 10% { opacity: 0; transform: scale(.55, .92) translate3d(-18px, 0, 0); }
-      19% { opacity: 1; transform: scale(1.16, .88) translate3d(0, 0, 0); }
-      28% { opacity: 1; transform: scale(.94, 1.08); }
-      38%, 58% { opacity: 1; transform: scale(1); }
-      66%, 100% { opacity: 0; transform: scale(1); }
+      0%, 9%    { opacity: 0; transform: scale(.55, .92) translate3d(-18px, 0, 0); }
+      10%       { opacity: 1; transform: scale(.55, .92) translate3d(-18px, 0, 0); }
+      19%       { opacity: 1; transform: scale(1.16, .88) translate3d(0, 0, 0); }
+      28%       { opacity: 1; transform: scale(.94, 1.08); }
+      38%, 54%  { opacity: 1; transform: scale(1); }
+      55%, 100% { opacity: 0; transform: scale(1); }
     }
     @keyframes ausos-wordmark-reveal {
-      0%, 28% { opacity: 0; clip-path: inset(0 100% 0 28%); transform: translate3d(-10px, 0, 0); }
-      37% { opacity: 1; }
-      52%, 62% { opacity: 1; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
-      69%, 100% { opacity: 0; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
+      0%, 29%   { opacity: 0; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
+      30%, 54%  { opacity: 1; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
+      55%, 100% { opacity: 0; clip-path: inset(0 0 0 28%); transform: translate3d(0, 0, 0); }
     }
     @keyframes ausos-final-lock {
-      0%, 58% { opacity: 0; transform: scale(.985); }
-      67%, 88% { opacity: 1; transform: scale(1); }
-      96%, 100% { opacity: 0; transform: scale(.995); }
+      0%, 54%   { opacity: 0; transform: scale(.985); }
+      55%, 85%  { opacity: 1; transform: scale(1); }
+      86%, 100% { opacity: 0; transform: scale(1); }
     }
     @keyframes ausos-aurora-base {
       0%, 100% {
@@ -2381,6 +2399,7 @@
         animation: none;
       }
       .ausos-strip-bg { opacity: 1; filter: saturate(1.18) contrast(1.05); transform: scale(1.015); }
+      .ausos-strip-logo-scrub { opacity: .98; }
       .ausos-strip-bg::before,
       .ausos-strip-bg::after,
       .ausos-strip-sweep,
@@ -2396,6 +2415,11 @@
       /* Tap-target hygiene: bump CTA vertical padding so touch area >=44px on mobile. */
       .ausos-strip-cta { padding: 13px 22px; }
       .ausos-strip-actions { gap: 10px; }
+      /* Mobile centering fix: scale logo up so it sits visually at true centre of
+         the (now wider) card, and re-anchor the scrub glow to a square inset so
+         the logo lockup doesn't read as drifting above centre on short frames. */
+      .ausos-strip-logo-stage { width: min(46%, 380px); }
+      .ausos-strip-logo-scrub { top: 36%; right: 18%; bottom: 36%; left: 18%; }
     }
     @media (max-width: 600px) {
       .ausos-strip { padding: 48px 0 32px; }
