@@ -12,6 +12,19 @@
   inherits: false;
 }
 
+/* ── Ask-Shannon palette tokens ──
+   The chatbot has its own brand-distinct palette layered over the portfolio's
+   neutral tokens. The conic-gradient + glow stack uses each colour at 6+
+   alphas, so the rgba() multi-stops in §2 stay literal — but solid uses of
+   the same hues, plus the listening-red and surface-white, get tokenised
+   here so future palette tweaks aren't a 686-line search-and-replace. */
+:root {
+  --ai-purple:    #a855f7;   /* primary AI accent (cursor, send, glow) */
+  --ai-pink:      #ec4899;   /* secondary AI accent (gradient pair) */
+  --ai-listening: #D32F2F;   /* mic-active state — material red 700 */
+  --ai-surface:   #ffffff;   /* solid white text on dark CTA */
+}
+
 
 /* ================================================================
    1. TWO-COLUMN BENTO LAYOUT
@@ -242,7 +255,7 @@
 .ask-msg--user {
   align-self: flex-end;
   background: var(--c-ink, #0A0A0A);
-  color: #fff;
+  color: var(--ai-surface);
   border-bottom-right-radius: 4px;
   font-weight: 400;
 }
@@ -259,7 +272,7 @@
   margin-left: 3px;
   vertical-align: text-bottom;
   border-radius: 2px;
-  background: #a855f7;
+  background: var(--ai-purple);
   box-shadow:
     0 0 6px rgba(168, 85, 247, 0.6),
     0 0 14px rgba(168, 85, 247, 0.3);
@@ -356,8 +369,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  color: #fff;
+  background: linear-gradient(135deg, var(--ai-purple), var(--ai-pink));
+  color: var(--ai-surface);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -425,7 +438,7 @@
 .ask-mic.listening {
   background: rgba(211, 47, 47, 0.08);
   border-color: rgba(211, 47, 47, 0.3);
-  color: #D32F2F;
+  color: var(--ai-listening);
   animation: askMicPulse 1.5s ease-in-out infinite;
 }
 
@@ -466,7 +479,7 @@
 
 .ask-email-btn:hover {
   background: var(--c-ink, #0A0A0A);
-  color: #fff;
+  color: var(--ai-surface);
   border-color: var(--c-ink, #0A0A0A);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -478,7 +491,7 @@
 }
 .ask-email-btn:hover svg {
   opacity: 1;
-  stroke: #fff;
+  stroke: var(--ai-surface);
 }
 
 
@@ -517,7 +530,7 @@
 @media (hover: hover) {
   .ask-chip:hover {
     background: var(--c-ink, #0A0A0A);
-    color: #fff;
+    color: var(--ai-surface);
     border-color: var(--c-ink, #0A0A0A);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -525,7 +538,7 @@
 }
 .ask-chip:active {
   background: var(--c-ink, #0A0A0A);
-  color: #fff;
+  color: var(--ai-surface);
   border-color: var(--c-ink, #0A0A0A);
 }
 
