@@ -21,6 +21,19 @@ The voice is **warm and concrete**. Short. Specific. Mildly dry. Verb-forward. R
 
 ## House style — don't
 
+### Punctuation — NO em-dashes or en-dashes
+
+**Never use `—` (em-dash) or `–` (en-dash) in display copy.** Anywhere a visitor reads. Body, headings, project leads, About, hero, footers, meta descriptions, OG tags, JSON-LD. User vetoed em-dashes 2026-05-01.
+
+Replace with:
+- Period for an emphatic pause or a "this is X" beat
+- Colon for a definition or list lead-in
+- Comma pair for a mid-sentence aside
+
+Hyphens in compound words (`AI-native`, `IA-first`, `Two-click-max`, `40-minute`) are fine. Those are hyphens (`-`), not em-dashes.
+
+The Ask Shannon bot already had this rule in its system prompt; this extends the same rule to all static-site copy.
+
 ### AI-cliché block list (zero tolerance)
 
 - leveraging, leverage
