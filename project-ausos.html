@@ -22,12 +22,12 @@
     <script src="assets/view-transitions.js" defer></script>
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <title>ausōs.ai · AI Visual Design Platform · Shannon Hecker</title>
+  <title>ausōs.ai · Component composition for designers · Shannon Hecker</title>
   <meta name="description" content="ausos.ai: a visual web builder for designers who think in systems. AI-native. Conversational + drag-and-drop, with multi-design-system support. Founded by Shannon Hecker." />
     <link rel="canonical" href="https://shannonhecker.com/project-ausos.html" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://shannonhecker.com/project-ausos.html" />
-  <meta property="og:title" content="ausōs.ai · AI Visual Design Platform · Shannon Hecker" />
+  <meta property="og:title" content="ausōs.ai · Component composition for designers · Shannon Hecker" />
   <meta property="og:description" content="ausos.ai: a visual web builder for designers who think in systems. AI-native. Conversational + drag-and-drop, with multi-design-system support. Founded by Shannon Hecker." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:width" content="1200" />
@@ -383,9 +383,9 @@
         </div>
         <div class="proj-meta-row rv" data-d="1">
           <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">ausōs.ai</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">AI Product Design</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Design Engineering · Side Project</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2026</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Founder, Product Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Designer + Builder</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://ausos.ai/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">ausos.ai ↗</a></span></div>
         </div>
       </div>
@@ -410,7 +410,7 @@
       </div>
 
       <h1 class="proj-title-post rv" data-d="2">ausōs.ai</h1>
-      <p class="proj-lead rv" data-d="3">A visual web builder for designers who think in systems. AI-native. Conversational + drag-and-drop, with support for multiple design systems.</p>
+      <p class="proj-lead rv" data-d="3">A multi-design-system component composition tool for designers who think in systems. Build with components from multiple design systems, theme-switch, download production-ready React or Angular code.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -420,17 +420,17 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Project Overview</h3>
-          <div class="proj-body"><p>Most AI website builders generate brittle blocks of code that non-developers can’t edit. Users lose control the moment they want to make a simple change. I founded ausōs to solve this: an AI design platform that gives users the speed of generative AI with the precision and creative control of a professional visual editor.</p><p>The name "ausōs" is rooted in the ancient concept of dawn, representing a new era where AI amplifies human creativity rather than replacing it.</p></div>
+          <div class="proj-body"><p>Most component libraries lock you into one design system. Switching tokens, themes, or moving across React and Angular means rebuilding from scratch. Ausōs is a side project I’ve been building to solve this for myself and a small group of testers: compose UIs from components across multiple design systems, switch themes, export the code.</p><p>The name "ausōs" is rooted in the ancient concept of dawn. A small nod to building tools that amplify human creativity rather than replacing it.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As Founder and Product Designer, I own every layer of this product. From defining the product vision and designing the brand identity, to mapping the user experience and building functional prototypes to validate the concept.</p></div>
+          <div class="proj-body"><p>I’m building ausōs solo as a side project. Designing the interface, building the front-end with AI coding agents (Claude Code, Codex, Cursor) in terminal, and shipping iteratively to a small group of early testers. Brand identity and product direction are mine. The engineering is solo and AI-assisted.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Thinking Process</h3>
-          <div class="proj-body"><p>I followed a structured Design Thinking approach across five phases: Empathise, Define, Ideate, Prototype, and Test. Each phase shaped the product direction, from user research and problem framing through to functional prototyping and iterative validation with real users.</p></div>
+          <div class="proj-body"><p>I’ve worked through five phases (Empathise, Define, Ideate, Prototype, Test) using a small group of designer friends as early testers between phases. The structure helped me close one question before opening the next, which is harder to do as a solo builder.</p></div>
         </div>
 
         <div class="proj-about-block rv">
@@ -472,10 +472,10 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Decisions</h3>
           <div class="proj-body">
-            <p><strong>Decision 1. AI plus direct manipulation, not one or the other.</strong></p>
-            <p><em>Options considered:</em> pure conversational AI builder, pure drag-and-drop visual editor, hybrid.</p>
-            <p><em>What I chose:</em> hybrid. Conversation for structure and speed, direct manipulation for fine-grained control.</p>
-            <p><em>Why:</em> Pure conversational AI gives speed but loses creative control. Pure drag-and-drop is precise but slow. The hybrid lets the AI do the heavy lifting while the user keeps the editor privilege of changing anything, anytime.</p>
+            <p><strong>Decision 1. Component composition with AI assistance, not generation from scratch.</strong></p>
+            <p><em>Options considered:</em> AI generates whole pages from a prompt; user composes from a fixed library; AI assists in component composition and theme decisions.</p>
+            <p><em>What I chose:</em> AI as an assistant inside a component composition tool, not a generator.</p>
+            <p><em>Why:</em> Pure generative AI tools tend to produce code that breaks the moment a designer wants to make a change. I wanted the user to stay in control. Pick components from real design systems, ask AI for help with composition or theming, but never lose the ability to edit any component directly.</p>
 
             <p><strong>Decision 2. Dark-mode first, not an afterthought.</strong></p>
             <p><em>Options considered:</em> light-first with dark toggle, dark-first with light toggle, system-preference only.</p>
@@ -491,10 +491,10 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Design systems integrated</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Days to deliver POC</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design Thinking phases completed</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Brand identity designed from scratch</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design systems integrated</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Days to first working prototype</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design Thinking phases completed</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Brand identity designed from scratch</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">AI Product Design · Founder · Brand Identity · Design Thinking · Visual Web Builder · Interaction Design · Prototyping · Design Systems</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Side Project · Design Systems · Component Library · AI-Assisted Build · Brand Identity · Design Thinking · Prototyping · React · Angular</span></div>
 
         </div>
         </div>
