@@ -23,14 +23,14 @@
   <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
-  <title>The design system is the contract · Shannon Hecker</title>
-  <meta name="description" content="What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful." />
-  <link rel="canonical" href="https://shannonhecker.com/writing-the-design-system-is-the-contract.html" />
+  <title>When everyone can ship · Shannon Hecker</title>
+  <meta name="description" content="Two months of vibe-coding with Claude Code, Codex, and Cursor. The gap between designers and devs is closing in days. A new gap is opening underneath." />
+  <link rel="canonical" href="https://shannonhecker.com/writing-when-everyone-can-ship.html" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://shannonhecker.com/writing-the-design-system-is-the-contract.html" />
-  <meta property="og:title" content="The design system is the contract · Shannon Hecker" />
-  <meta property="og:description" content="What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful." />
+  <meta property="og:url" content="https://shannonhecker.com/writing-when-everyone-can-ship.html" />
+  <meta property="og:title" content="When everyone can ship · Shannon Hecker" />
+  <meta property="og:description" content="Two months of vibe-coding with Claude Code, Codex, and Cursor. The gap between designers and devs is closing in days. A new gap is opening underneath." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -51,12 +51,12 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "The design system is the contract",
-    "description": "What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful.",
-    "url": "https://shannonhecker.com/writing-the-design-system-is-the-contract.html",
+    "headline": "When everyone can ship",
+    "description": "Two months of vibe-coding with Claude Code, Codex, and Cursor. The gap between designers and devs is closing in days. A new gap is opening underneath.",
+    "url": "https://shannonhecker.com/writing-when-everyone-can-ship.html",
     "image": "https://shannonhecker.com/assets/og-preview.png",
-    "datePublished": "2026-04-20",
-    "dateModified": "2026-04-20",
+    "datePublished": "2026-05-02",
+    "dateModified": "2026-05-02",
     "author": {
       "@type": "Person",
       "name": "Shannon Hecker",
@@ -69,11 +69,11 @@
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://shannonhecker.com/writing-the-design-system-is-the-contract.html"
+      "@id": "https://shannonhecker.com/writing-when-everyone-can-ship.html"
     },
-    "wordCount": 1200,
+    "wordCount": 1500,
     "inLanguage": "en-GB",
-    "keywords": "Claude Design, design systems, Figma MCP, design leadership, AI design workflow, design-to-code"
+    "keywords": "AI design tools, Claude Code, Cursor, Codex, design engineer, AI generalist, design leadership, vibe coding, taste, design systems"
   }
   </script>
 
@@ -87,6 +87,7 @@
       --c-stroke:#8F8F8F;         /* 3.14:1 on #FFFFFF */
       --c-focus:#0E8E7F;          /* ≈4:1 on #FFFFFF */
       --c-border:var(--c-stroke); /* alias kept for legacy call sites */
+      --c-accent:#14b8a6;
       --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --font-display:'Noto Serif Display',Georgia,'Times New Roman',serif;
       --ease:cubic-bezier(.22,1,.36,1);
@@ -147,7 +148,6 @@
     .nav-links a:hover{background:var(--c-hover);color:#fff;}
     .nav-links a[aria-current="page"]{color:var(--c-ink);font-weight:500;}
 
-    /* Right-side nav group: theme toggle + Resume button */
     .nav-right {
       margin-left: auto;
       display: flex;
@@ -361,121 +361,128 @@
   <main id="main" class="essay">
     <div class="wrap">
 
-      <div class="essay-eyebrow">Writing · 2026-04-20 · 8 minute read</div>
+      <div class="essay-eyebrow">Writing · 2026-05-02 · 7 minute read</div>
 
-      <h1 class="essay-title">The design system is the contract.</h1>
+      <h1 class="essay-title">When everyone can ship.</h1>
 
-      <p class="essay-dek">What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful.</p>
+      <p class="essay-dek">Two months of writing real code with AI. The gap I was hired to fill no longer maps. The one underneath it is wider than I expected.</p>
 
       <div class="essay-meta">
         <span class="by">Shannon Hecker</span>
         <span>·</span>
-        <span>1,200 words</span>
+        <span>1,500 words</span>
       </div>
 
       <article class="essay-body">
 
-        <p>April 2026. Anthropic shipped <strong>Claude Design</strong>. You describe a layout, it generates the slides, the prototype, the marketing page. You upload your codebase and your token library. It respects them. It exports back to code, to Canva, to PDF. Within an hour, Figma’s stock had dropped.</p>
+        <p>Two months ago I started writing real code with AI. Today the gap I was hired to fill no longer maps.</p>
 
-        <p>A week earlier, the <strong>Figma MCP server</strong> became stable enough for production teams. Cursor can now read Figma files the way an engineer reads a spec, seeing the auto-layout math, the token names, the component instances, instead of squinting at a screenshot.</p>
+        <p>That sentence sits oddly. Designers do not usually write production code. Engineers do not usually produce final UI. The split is what most teams are built around. It is what most CVs are still organised by. But in the last two months I have shipped components I would have specced for a developer eight weeks ago, and watched developers ship interfaces I would have drawn in Figma. None of us learned anything new. We just turned on the tools.</p>
 
-        <p>These two changes arrive in the same month. A lot of designers are spending this week asking whether they are about to be automated. The answer is more interesting than yes or no.</p>
-
-        <hr />
-
-        <h2><span class="n">01</span>What’s actually collapsing</h2>
-
-        <p>Three pieces of the old workflow are now machine-handled.</p>
-
-        <p><strong>Generating the first variant.</strong> Describe the problem, Claude Design produces a dashboard, a modal, a landing page. It is usually 70% of the way to usable.</p>
-
-        <p><strong>Translating Figma to production code.</strong> MCP plus Cursor reads your design tokens and produces a component that matches your library’s style and structure.</p>
-
-        <p><strong>Specifying the handoff.</strong> The machine <em>is</em> the handoff. A designer annotating a spec doc is a designer with spare time.</p>
-
-        <p>This is not speculative. Teams adopting MCP and Claude Design in the last quarter report that a sprint that used to need a designer-engineer pair can ship with one designer and a model in the loop.</p>
-
-        <p>What is not collapsing: the decisions behind which of the 70%-done variants you actually ship. The AI produces three plausible information hierarchies. One of them is right for a portfolio manager between trades. Two of them will get a trader fired.</p>
+        <p>This piece is about what the closing of that visible gap actually means. And about a less visible gap that is opening underneath it. Two months is short. I am still wrong about half of this. The half I am sure of is worth writing down.</p>
 
         <hr />
 
-        <h2><span class="n">02</span>The inversion</h2>
+        <h2><span class="n">01</span>The two-month problem</h2>
 
-        <p>The work has inverted. Before, a designer spent 80% of their time producing, 20% deciding. Those numbers flip. The machine produces. The designer decides.</p>
+        <p>Things are changing in days. Not in quarters. Not in releases. Days.</p>
 
-        <p>This sounds neat. In practice, most design teams are not ready for it, because "deciding" is only as good as the thing you are deciding <em>against</em>, and what you are deciding against is your design system.</p>
+        <p>In April I picked up <strong>Cursor</strong>. I stayed in Figma for layout, tokens, and component diagrams, but if a component already existed in code I started editing it directly. A week later <strong>Codex</strong> got good enough to take a multi-file refactor with one prompt and produce a diff that compiled. A week after that <strong>Claude Code</strong> became my default for sustained agentic work, the kind where I describe an outcome and walk away for ten minutes.</p>
 
-        <p>A weakly-governed design system produces weak AI output. Not because the model is bad. Because the model is doing exactly what you asked: conforming to the rules you wrote. If those rules are "use the blue button somewhere", you get a page full of blue buttons in the wrong places. If the rules are "the primary action uses the <code>--color-action-primary</code> token, sits at the bottom-right on forms, and the secondary follows typography rule X", you get a page you can actually ship.</p>
+        <p>None of these are products I needed time to learn. The interface is a sentence. The job is knowing what sentence to write.</p>
 
-        <p>This is why the design system is becoming the moat, not the pixel-craft.</p>
+        <p>What is uncomfortable is that the gap I was hired to fill, the one between the spec and the working component, has compressed from days to minutes. I have not become better. The tools became better. That distinction matters more than it should.</p>
 
         <hr />
 
-        <h2><span class="n">03</span>What Claude Design needs from you</h2>
+        <h2><span class="n">02</span>What is actually collapsing</h2>
 
-        <p>When I uploaded our design tokens and component library to Claude Design, the outputs divided into three groups.</p>
+        <p>Three handoffs that used to define teams have stopped being expensive.</p>
+
+        <p><strong>Designer to developer.</strong> I now ship UI changes directly. Token swaps, component variants, accessibility fixes. The work that used to live in a Jira ticket lives in a PR. A week ago I rebuilt a small data table from scratch in an afternoon. Three years ago that was a sprint.</p>
+
+        <p><strong>Developer to designer.</strong> Engineers on my team now produce the first pass of a screen from a sentence. The output is plausible. Sometimes wrong, sometimes the version we ship. Either way it is no longer pre-design.</p>
+
+        <p><strong>Researcher to either.</strong> Even synthesis is collapsing. A senior engineer can paste twenty interview transcripts into a model and get a clustering that takes a researcher half a day. The clustering is sometimes worse. It is also sometimes good enough.</p>
+
+        <p>The handoffs were team contracts. The contracts are now optional. That is the part most teams have not absorbed.</p>
+
+        <hr />
+
+        <h2><span class="n">03</span>The Jane Street move</h2>
+
+        <p>A few weeks ago a Jane Street engineer wrote that they design with Claude more than with Figma.</p>
+
+        <p>The headline reads as a stunt. The actual claim is more interesting. They are not saying Claude is a better visual tool. They are saying the medium of design has shifted. The artefact you produce when you describe a screen and let the model render it is not a Figma file. It is a working component in your stack, with your tokens, against your live data.</p>
+
+        <p>If that sounds like an edge case it is worth noting that it is happening at <em>Jane Street</em>. The bar for what a senior engineer takes seriously is high. They were not playing.</p>
+
+        <p>The work I do is not their work. But the move is the same. The medium is collapsing into the system. The thing you used to draw, you now describe to the system, and the system produces it. The output is closer to production than it has ever been.</p>
+
+        <hr />
+
+        <h2><span class="n">04</span>The new gap</h2>
+
+        <p>Here is the part that took me two months to feel.</p>
+
+        <p>The visible gap between specialisms is closing in days. The invisible gap is opening at the same rate.</p>
+
+        <p>The invisible gap is between people who know <em>what</em> to build and people who can only execute. Both used to exist. The execution gap was the bigger one, because execution was hard. A designer who could not draw was a designer with a problem. A developer who could not build was a developer with a problem. Execution sorted the field.</p>
+
+        <blockquote>Execution is no longer the sort. Direction is. And direction is much harder to fake.</blockquote>
+
+        <p>Direction is taste with reasons. It is the call to remove a feature, not add one. It is knowing which of the model’s three plausible variants would get a trader fired. It is a sentence in a brief that closes a hundred wrong implementations.</p>
+
+        <p>A model will produce all three variants in seconds. The model does not care which one ships. Someone has to. The someone who can is now the specialism. Everything else is a button on a tool.</p>
+
+        <p>This is not a new idea. Every design lead I respect has said something like it for a decade. What is new is the speed. Two months ago direction was something you grew into. Now it is the only thing the role is.</p>
+
+        <hr />
+
+        <h2><span class="n">05</span>What this means for hiring</h2>
+
+        <p>Two patterns are showing up in the way teams are hiring around me.</p>
+
+        <p>The first is collapse. A designer who can write code, set the brand system, run a research session, and ship to staging is doing the job that used to take a team. They are not better than they were a year ago. They are amplified. Hiring one of them costs less than hiring three specialists, and the work is more coherent because one head holds it.</p>
+
+        <p>The second is widening. Specialists who cannot direct AI are becoming generalists by attrition. Their depth is still real, but the surface a model produces around them is so broad that the depth no longer commands a premium. The opposite is also happening. Generalists who can direct AI are quietly becoming the only specialists left, because direction is the part that does not commoditise.</p>
+
+        <p>Neither of these patterns is fair. They are both happening anyway.</p>
+
+        <hr />
+
+        <h2><span class="n">06</span>Three things I am watching</h2>
+
+        <p>Two months is short. These are bets, not conclusions.</p>
 
         <div class="callout">
-          <span class="label">Group one</span>
-          <p>Interfaces where our system had opinions (buttons, forms, modal patterns). These came out nearly right. Claude Design picked the correct token, used the correct component, matched our visual rhythm.</p>
+          <span class="label">Bet one</span>
+          <p><strong>Design systems become the contract for AI agents.</strong> I wrote about this in April. The argument has only got stronger. A system that holds taste in tokens, governance, and the decision log is now also a system the model can read. A system that lives in screenshots and Slack threads is not. Teams that invest in the first one will look like they are punching above their weight. Teams that have the second will keep wondering why their model output looks generic.</p>
         </div>
 
         <div class="callout">
-          <span class="label">Group two</span>
-          <p>Interfaces where our system had aesthetic guidance but no governance (dashboards, complex tables, data-dense layouts). These came out plausible but wrong. Claude Design made reasonable-looking choices a senior trader would have rejected in five seconds. The system did not tell the model what a senior trader reads first.</p>
+          <span class="label">Bet two</span>
+          <p><strong>The cost of taste is rising.</strong> Taste was always undervalued because execution looked harder. Once execution is a sentence, taste is the part you cannot bluff. The senior people whose taste is calibrated to a domain are about to become extremely expensive. The junior people who have not had time to calibrate yet have the largest gap to cross of any cohort I have ever watched enter the field.</p>
         </div>
 
         <div class="callout">
-          <span class="label">Group three</span>
-          <p>Interfaces our system had not touched (first-run onboarding, empty states, error surfaces). These came out generic. Claude Design substituted the average of its training data. Some of it was charming. None of it was us.</p>
+          <span class="label">Bet three</span>
+          <p><strong>Junior as a tier may not survive.</strong> This one I am least sure of. A junior used to learn by doing the execution a senior described. The execution is automated. The learning loop has not been replaced. I do not know yet what replaces it. I doubt it will look like what we had.</p>
         </div>
 
-        <p>The pattern is obvious once you see it. The AI is exactly as opinionated as your system is.</p>
-
         <hr />
 
-        <h2><span class="n">04</span>The new designer roles</h2>
+        <h2><span class="n">07</span>When everyone can ship</h2>
 
-        <p>Three roles compound in value once Claude Design is the baseline. I have watched teams re-shape around these even before they had a name for them.</p>
+        <p>When everyone can ship, the question is no longer who can. It is what is worth shipping.</p>
 
-        <p><strong>Design system author.</strong> Not a component librarian. A systems thinker who owns tokens, governance, the accessibility contract, and the decision log. Tokens are commodity. The decision log is not.</p>
+        <p>I do not know the answer. Two months is not long enough. What I know is that the people who will figure it out first are the ones who took the tools seriously enough to feel the gap move under them. The rest will be working from a job description that no longer maps to the work.</p>
 
-        <p><strong>Taste calibrator.</strong> The designer who can look at twenty Claude-generated variants and tell you why three are wrong. And more importantly, <em>why</em>. This role is hard to hire for and impossible to fake. It is taste tied to a specific domain and user.</p>
-
-        <p><strong>Expert-user translator.</strong> Traders, radiologists, analysts, legal reviewers. Claude does not know what they do between the visible steps. The designer who can articulate those hidden constraints, in writing, to the model, is the one whose work actually ships.</p>
-
-        <p>"AI-native designer" will not be a separate role for long. It will be designers who use the AI, or designers who do not ship anymore. Same as with Figma in 2016.</p>
-
-        <hr />
-
-        <h2><span class="n">05</span>What I would do this month</h2>
-
-        <p>Three bets.</p>
-
-        <p><strong>Machine-readability.</strong> Make your Figma files MCP-ready. Token-only styles, no loose hex values. Every component published. Every variant named. This is the work that used to look like housekeeping. It is now infrastructure.</p>
-
-        <p><strong>Written opinions.</strong> For every pattern your system contains, write down the reason. Not the visual. The reason. "We use sheets for flows the user can reverse, and modals for flows they cannot." That one sentence is worth more to the AI than a hundred annotated Figma screens.</p>
-
-        <p><strong>Expert proximity.</strong> Spend more time with your hardest users, not less. The parts of their work that look obvious are the parts Claude Design does not know. A twenty-minute observation of a trader’s pre-market routine is something no model is going to ingest without you.</p>
-
-        <hr />
-
-        <h2><span class="n">06</span>The honest close</h2>
-
-        <p>The designers who grow into director-track roles over the next two years will be the ones who take the AI seriously enough to let it do the boring work, and take their users seriously enough that the AI still needs them. The moat is not the craft. The moat is the system you build underneath the craft.</p>
-
-        <p>Claude Design is a beginning, not an end. The question it asks every design team is not <em>"will this replace me"</em> but <em>"am I building the system that makes me 10× more useful, or am I hand-producing deliverables that an AI can now do overnight."</em></p>
-
-        <p>Answer that question on purpose. The rest follows.</p>
-
-        <div class="essay-prev">
-          <span class="essay-prev-label">Next post</span>
-          <a href="writing-when-everyone-can-ship.html">When everyone can ship →</a>
-        </div>
+        <p>The gap I was hired to fill is gone. The one underneath it is wider than I expected. I am chewing on it.</p>
 
         <div class="essay-prev">
           <span class="essay-prev-label">Previously</span>
-          <a href="writing-trust-surfaces-in-ai.html">Trust surfaces in AI for expert users →</a>
+          <a href="writing-the-design-system-is-the-contract.html">The design system is the contract →</a>
         </div>
 
         <div class="essay-bio">
