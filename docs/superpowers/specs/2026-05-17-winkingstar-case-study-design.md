@@ -79,14 +79,14 @@ Each follows the `project-ausos.html` "Decision N. Title / Options considered / 
 
 Four tiles in a row, same component as `proj-outcomes` on the ausōs page.
 
-| Number | Label |
-|---|---|
-| `3` | Form factors shipped (iPhone, iPad, Web) |
-| `8` | Weeks design + build |
-| `19` | EAS production builds |
-| `10+` | Themes + pet-pal pairs designed |
+| Number | Label | Source |
+|---|---|---|
+| `3` | Form factors shipped (iPhone, iPad, Web) | `app.json: supportsTablet: true` + `winkingstar.com` |
+| `17` | Themes designed | `THEMES` const in `weekly-superstar-shared/src/themes.ts` |
+| `26` | Pet-pal families × 4 evolution stages | `PET_CHAINS` const in same file |
+| `5` | Native iOS tabs (Home, Activity, Treasure, Progress, More) | `app/board/[boardId]/(tabs)/` |
 
-> **Note for review:** numbers are placeholders pulled from memory. User must verify before publish.
+All four verified against the codebase 2026-05-17. Lean into brand-depth and IA scope, not speed/cadence — strongest signal for design-engineering/mobile roles.
 
 ## 8. Tags (chip strip)
 
