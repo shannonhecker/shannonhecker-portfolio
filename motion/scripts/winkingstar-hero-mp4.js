@@ -61,10 +61,7 @@ const T = {
   actHold:    { s: 210, e: 225 },   // 0.5s
   actScroll:  { s: 225, e: 249 },   // 0.8s — pan down 12% to reveal Weekly Goal
   actTap:     { s: 249, e: 279 },   // 1.0s
-  actToTreas: { s: 279, e: 294 },   // 0.5s
-  treasHold:  { s: 294, e: 300 },   // 0.2s (compressed to make room for scroll)
-  treasTap:   { s: 300, e: 330 },   // 1.0s
-  outroHold:  { s: 330, e: 360 },   // 1.0s
+  outroHold:  { s: 279, e: 360 },   // 2.7s — hold scrolled Activity, tap faded
 };
 const ACTIVITY_SCROLL_FRACTION = 0.12; // pan 12% of the activity image height
 const LOOP_START_FRAME = T.loadToHome.s; // 105 — HTML JS seeks here on end
@@ -83,7 +80,14 @@ const TAPS = {
 // ── Helpers ────────────────────────────────────────────────────────────────
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const lerp  = (a, b, t) => a + (b - a) * t;
-const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+const easeOutCubic   = t => 1 - Math.pow(1 - t, 3);
+const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+// Bouncy overshoot for celebratory reveals (pet pal zoom-in).
+const easeOutBack    = t => {
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+};
 
 // Load + pre-resize an image to fit inside a target box, returning the
 // buffer plus its scaled dims (so callers can position centred).
@@ -130,13 +134,14 @@ async function layerScaled(shot, scale, opacity) {
 
 // Same as above but no per-frame resize (uses pre-sized buf as-is). No
 // sub-pixel jitter because pixel data is bit-identical across all frames.
-// `offsetY` (optional) shifts the layer vertically — used for scroll motion.
-async function layerStatic(shot, opacity, offsetY = 0) {
+// `offsetY` / `offsetX` (optional) shift the layer — used for scroll +
+// slide-in/out transitions.
+async function layerStatic(shot, opacity, offsetY = 0, offsetX = 0) {
   if (opacity <= 0) return null;
   const buf = await sharp(shot.buf).ensureAlpha(opacity).png().toBuffer();
   return {
     input: buf,
-    left: Math.round((W - shot.w) / 2),
+    left: Math.round((W - shot.w) / 2) + Math.round(offsetX),
     top:  Math.round((H - shot.h) / 2) + Math.round(offsetY),
   };
 }
@@ -211,11 +216,12 @@ async function renderIconHold(f, A) {
   return compose([layer]);
 }
 
-// 1.5–2.0s : cross-fade icon → loading screen
+// 1.5–2.0s : cross-fade icon → loading screen (eased for smoothness)
 async function renderIconToLoad(f, A) {
   const t = (f - T.iconToLoad.s) / (T.iconToLoad.e - T.iconToLoad.s);
-  const iconL = await layerStatic(A.icon, 1 - t);
-  const loadL = await layerStatic(A.loading, t);
+  const e = easeInOutCubic(t);
+  const iconL = await layerStatic(A.icon, 1 - e);
+  const loadL = await layerStatic(A.loading, e);
   return compose([iconL, loadL].filter(Boolean));
 }
 
@@ -245,11 +251,19 @@ async function renderLoading(f, A) {
   return compose(layers);
 }
 
-// 3.5–4.0s : cross-fade loading → Home product
+// 3.5–4.0s : Home slides UP from below (iOS app-launch feel) + loading fades.
+// The slide reads as "the app is opening into its first screen" rather than
+// a generic dissolve, which gives the intro a stronger ending beat.
 async function renderLoadToHome(f, A) {
   const t = (f - T.loadToHome.s) / (T.loadToHome.e - T.loadToHome.s);
-  const loadL = await layerStatic(A.loading, 1 - t);
-  const homeL = await layerStatic(A.home,    t);
+  const e = easeInOutCubic(t);
+  // Loading fades out across the first 70% of the window so it's gone before
+  // Home fully arrives (avoids two layers on top of each other awkwardly).
+  const loadOpacity = clamp(1 - t / 0.7, 0, 1);
+  const loadL = await layerStatic(A.loading, loadOpacity);
+  // Home slides from y = H (just below the canvas) up to y = 0, full opacity.
+  const homeOffsetY = lerp(H, 0, e);
+  const homeL = await layerStatic(A.home, 1, homeOffsetY);
   return compose([loadL, homeL].filter(Boolean));
 }
 
@@ -276,10 +290,11 @@ async function renderProductShot(shotKey, tapKey, tapLocalT, A, offsetY = 0) {
   return compose(layers);
 }
 
-// Cross-fade between two product shots.
+// Eased cross-fade between two product shots (Home → Activity etc).
 async function renderProductCrossfade(fromKey, toKey, t, A) {
-  const fromL = await layerStatic(A[fromKey], 1 - t);
-  const toL   = await layerStatic(A[toKey],   t);
+  const e = easeInOutCubic(t);
+  const fromL = await layerStatic(A[fromKey], 1 - e);
+  const toL   = await layerStatic(A[toKey],   e);
   return compose([fromL, toL].filter(Boolean));
 }
 
@@ -323,26 +338,13 @@ async function renderFrame(f, A) {
     return renderProductShot('activity', 'activity', t, A, scrollPx);
   }
 
-  // Activity → iPad Treasure cross-fade (activity stays scrolled)
-  if (f < T.actToTreas.e) {
-    const t = (f - T.actToTreas.s) / (T.actToTreas.e - T.actToTreas.s);
+  // Outro hold: scrolled Activity, no tap dot, just settles for the loop
+  // seam. HTML JS will seek back to LOOP_START_FRAME (after the intro) on
+  // 'ended', so this final beat sits naturally before the loop restart.
+  {
     const scrollPx = -A.activity.h * ACTIVITY_SCROLL_FRACTION;
-    const fromL = await layerStatic(A.activity, 1 - t, scrollPx);
-    const toL   = await layerStatic(A.ipadTreasure, t);
-    return compose([fromL, toL].filter(Boolean));
+    return renderProductShot('activity', null, -1, A, scrollPx);
   }
-
-  // Treasure hold
-  if (f < T.treasHold.e)     return renderProductShot('ipadTreasure', null, -1, A);
-
-  // Treasure tap
-  if (f < T.treasTap.e) {
-    const t = (f - T.treasTap.s) / (T.treasTap.e - T.treasTap.s);
-    return renderProductShot('ipadTreasure', 'ipadTreasure', t, A);
-  }
-
-  // Outro hold (freeze the final treasure frame for the loop seam)
-  return renderProductShot('ipadTreasure', null, -1, A);
 }
 
 // ── Asset loading ──────────────────────────────────────────────────────────
@@ -363,6 +365,28 @@ async function loadShotWithRound(src, maxW, maxH) {
   const fit = await loadFit(src, maxW, maxH);
   const rounded = await withRoundedCorners(fit.buf, fit.w, fit.h);
   return { ...fit, buf: rounded };
+}
+
+// Load a pet image, resize to size×size, and clip with a circular alpha
+// mask. Used because the brand pet PNGs ship with a white square backdrop.
+async function loadPetCircular(src, size) {
+  const resized = await sharp(src)
+    .resize({ width: size, height: size, fit: 'inside' })
+    .png()
+    .toBuffer();
+  const meta = await sharp(resized).metadata();
+  const w = meta.width, h = meta.height;
+  const r = Math.min(w, h) / 2;
+  const mask = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
+       <circle cx="${w/2}" cy="${h/2}" r="${r}" fill="#fff"/>
+     </svg>`
+  );
+  const masked = await sharp(resized)
+    .composite([{ input: mask, blend: 'dest-in' }])
+    .png()
+    .toBuffer();
+  return { buf: masked, w, h, ow: w, oh: h };
 }
 
 // ── Encoding ───────────────────────────────────────────────────────────────
@@ -408,7 +432,6 @@ function encodeMp4() {
     loading:      await loadFit(`${IOS_ASSETS}/source/splash-source.png`, loadingBoxW, loadingBoxH),
     home:         await loadShotWithRound(`${ASSETS_DIR}/winkingstar-shot-board.webp`,   innerW, innerH),
     activity:     await loadShotWithRound('/private/tmp/winkingstar-iphone-responsive-activity.png', innerW, innerH),
-    ipadTreasure: await loadShotWithRound(`${ASSETS_DIR}/winkingstar-shot-ipad-treasure.webp`, innerW, innerH),
   };
   for (const k of Object.keys(A)) console.log(`  ${k.padEnd(13)}  ${A[k].w}×${A[k].h}`);
 
