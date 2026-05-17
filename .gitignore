@@ -11,3 +11,11 @@ assets/ausos-banner.png
 
 # local archive of pruned files; never commit
 .cleanup-archive/
+
+# iCloud Drive sync creates "X 2.html" duplicates of every file.
+# These are local-only and must never be committed.
+* 2.html
+* 2.js
+* 2.mp4
+* 2.json
+* 2.png
