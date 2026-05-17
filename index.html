@@ -2471,6 +2471,89 @@
     }
   </style>
 
+  <style>
+    /* Winking Star strip — mirrors ausōs-strip structure but uses a static
+       hero banner image on the visual side (the case study has its own
+       motion piece below the fold, so the strip just establishes presence). */
+    .winkingstar-strip { background: #F8F1E4; }
+    .winkingstar-strip .ausos-strip-eyebrow-dot { background: #5A3A2E; }
+    .winkingstar-strip .ausos-strip-eyebrow { color: #8B6651; }
+    .winkingstar-strip .ausos-strip-brand { color: #5A3A2E; font-family: 'Noto Serif Display', Georgia, serif; }
+    .winkingstar-strip .ausos-strip-sub,
+    .winkingstar-strip .ausos-strip-body { color: #5A3A2E; }
+    .winkingstar-strip .ausos-strip-meta-label { color: #8B6651; }
+    .winkingstar-strip .ausos-strip-meta-val { color: #5A3A2E; }
+    .winkingstar-strip .ausos-strip-cta.primary { background: #5A3A2E; color: #FFFAF0; border-color: #5A3A2E; }
+    .winkingstar-strip .ausos-strip-cta.primary:hover { background: #3F2920; border-color: #3F2920; }
+    .winkingstar-strip .ausos-strip-cta.ghost { color: #5A3A2E; border-color: #B28E45; }
+    .winkingstar-strip .ausos-strip-cta.ghost:hover { color: #FFFAF0; background: #5A3A2E; border-color: #5A3A2E; }
+    .winkingstar-strip-visual {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #F8F1E4;
+      aspect-ratio: 16 / 7;
+    }
+    .winkingstar-strip-visual img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    html[data-theme="dark"] .winkingstar-strip { background: #F7F5EF; }
+    html[data-theme="dark"] .winkingstar-strip .ausos-strip-brand,
+    html[data-theme="dark"] .winkingstar-strip .ausos-strip-sub,
+    html[data-theme="dark"] .winkingstar-strip .ausos-strip-body,
+    html[data-theme="dark"] .winkingstar-strip .ausos-strip-meta-val { color: #2A1E18; }
+  </style>
+
+  <section class="ausos-strip winkingstar-strip" id="also-building" aria-labelledby="winkingstar-strip-heading">
+    <div class="wrap">
+      <div class="ausos-strip-grid">
+
+        <!-- Left: copy -->
+        <div class="ausos-strip-copy">
+          <span class="ausos-strip-eyebrow rv" data-d="1">
+            <span class="ausos-strip-eyebrow-dot" aria-hidden="true"></span>
+            Also building · shipped
+          </span>
+
+          <h2 id="winkingstar-strip-heading" class="ausos-strip-head rv" data-d="2">
+            <span class="ausos-strip-brand">Winking Star</span>
+            <span class="ausos-strip-sub">A native iOS habit tracker for families. iPhone, iPad and web from one Firebase backend.</span>
+          </h2>
+
+          <p class="ausos-strip-body rv" data-d="3">
+            A side project shipped on iPhone, iPad and a companion web app at winkingstar.com. Designed solo: brand, illustration direction, React Native + Expo build, Firebase backend, custom haptics, and a sticker-sheet camera scan. Earthy palette, doodle illustrations, and a pet-pal mechanic that grows over weeks.
+          </p>
+
+          <div class="ausos-strip-actions rv" data-d="4">
+            <a href="project-winkingstar.html" class="ausos-strip-cta primary">See the case study →</a>
+            <a href="https://winkingstar.com/" class="ausos-strip-cta ghost" target="_blank" rel="noopener noreferrer">Visit winkingstar.com ↗</a>
+          </div>
+
+          <div class="ausos-strip-meta rv" data-d="5">
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Role</span>
+              <span class="ausos-strip-meta-val">Designer + Builder · solo</span>
+            </div>
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Stage</span>
+              <span class="ausos-strip-meta-val">Shipped · 2026</span>
+            </div>
+            <div class="ausos-strip-meta-item">
+              <span class="ausos-strip-meta-label">Stack</span>
+              <span class="ausos-strip-meta-val">React Native · Expo · Firebase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: hero banner image (no motion — the case study has its own walkthrough video) -->
+        <div class="winkingstar-strip-visual rv" data-d="3">
+          <img src="assets/winkingstar-hero-banner.webp" alt="Winking Star on iPhone: three screens — Home, Activity, and Pet pals — tilted on a cream backdrop" width="1600" height="700" loading="lazy" decoding="async" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <section class="ausos-strip" id="now-building" aria-labelledby="ausos-strip-heading">
     <div class="wrap">
       <div class="ausos-strip-grid">
@@ -2560,10 +2643,10 @@
         <!-- Curated 4-card bento. Fusion Design System is the hero (2×2),
              signalling design-systems leadership at enterprise scale.
              Algo Center and Barclays Data Viz show trading-desk product
-             depth. D&PS Brand shows visual-system range. Ausōs is
-             intentionally omitted here because the "Now building" strip
-             above already owns the founder signal. Full 13-project
-             archive available on work.html. -->
+             depth. D&PS Brand shows visual-system range. Ausōs and
+             Winking Star are intentionally omitted here because the two
+             "Also building / Now building" strips above own the side-project
+             signal. Full 14-project archive available on work.html. -->
 
         <!-- Hero 2×2: Fusion Design System -->
         <div class="bc-4 hero-card rv" data-d="1">
