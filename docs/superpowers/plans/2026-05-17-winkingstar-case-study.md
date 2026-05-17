@@ -6,7 +6,13 @@
 
 **Architecture:** Clone the `project-ausos.html` shell unchanged (same CSS, same layout grid). Fill it with Winking Star content per the design spec. Build the hero video in a sibling sandbox repo to keep the portfolio repo free of Remotion deps. Lift visual assets from the live `weekly-superstar-ios` repo + fresh `/private/tmp/` simulator captures. Renumber `work.html` cards by + 1.
 
-**Tech Stack:** Static HTML/CSS (no build step for the page itself), Remotion 4.x for video (in sibling sandbox), Squoosh CLI for WebP conversion, ImageMagick for screenshot scrubbing/cropping, git feature branch + PR via `gh`.
+**Tech Stack:** Static HTML/CSS (no build step for the page itself), existing Remotion install at `motion/` for video (NOT a new sandbox — has bin/ with all 8 dylibs from prior ausos-card-motion.mp4 render), `sharp` Node lib for WebP conversion (no system deps), git feature branch + PR via `gh`.
+
+**Plan corrections after pre-flight (2026-05-17):**
+- Drop ImageMagick: sample-board names are fictional (Leo the Brave, Maya the Explorer, etc.), no scrub needed.
+- Drop squoosh-cli: use `sharp` instead.
+- Use existing `motion/` Remotion infra, NOT a new sandbox.
+- Real screenshot lineup: progress-installed (splash) / demo-board (sample UI) / copy-pet-iphone (mechanic) / treasure-ipad (iPad). `final-home.png` was iOS Springboard; `landing-art-after.png` is empty black.
 
 **Spec:** `docs/superpowers/specs/2026-05-17-winkingstar-case-study-design.md`
 
