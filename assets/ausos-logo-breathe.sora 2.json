@@ -1,0 +1,19 @@
+{
+  "final": {
+    "completed_at": 1777241007,
+    "created_at": 1777240870,
+    "edited_from_video_id": null,
+    "error": null,
+    "expires_at": 1777413807,
+    "extended_from_video_id": null,
+    "id": "video_69ee8b260eb88190b820e697413b2d150375856bc7c62e3e",
+    "model": "sora-2-pro",
+    "object": "video",
+    "progress": 100,
+    "prompt": "Use case: homepage branding logo animation\nPrimary request: Create a short homepage brand loop from the reference image.\nScene/background: same ausos aurora gradient card from the input reference\nSubject: the exact white ausos icon and wordmark from the reference\nAction: only the soft cyan, mint, lavender, and peach aurora background slowly breathes; the logo remains locked and unchanged\nCamera: locked-off, no zoom, no pan\nLighting/mood: soft luminous aurora glow, premium calm product-brand feel\nColor palette: cyan, mint, lavender, peach, white\nTiming/beats: 4 seconds, slow seamless loop\nConstraints: keep the logo, wordmark, diacritic bars, spacing, icon shapes, color, placement, and rounded-card feel identical to the input reference\nAvoid: no new text, no misspelled text, no logo morphing, no extra symbols, no camera shake, no flicker, no UI chrome",
+    "remixed_from_video_id": null,
+    "seconds": "4",
+    "size": "1280x720",
+    "status": "completed"
+  }
+}
