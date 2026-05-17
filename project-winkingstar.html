@@ -380,17 +380,15 @@
         </div>
       </div>
 
-      <!-- Cover: app-launch sequence + three tap interactions composited from fresh simulator captures.
-           Light only (product is light-mode). HTML JS seeks back to LOOP_START after the 'ended' event
-           so the icon→loading intro plays once, then the product story loops. -->
+      <!-- Cover: static 3-up phone banner (Home / Activity / Pet pals on cream).
+           Animated walkthrough lives in the "In the app" section below. -->
       <div class="proj-cover proj-cover--winkingstar rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-        <video
-          id="winkingstar-hero"
-          src="assets/winkingstar-hero.mp4"
-          poster="assets/winkingstar-poster.webp"
-          autoplay muted playsinline preload="metadata"
-          aria-label="Winking Star app launch sequence followed by three tap interactions across Home, Activity, and the Pet Growth panel"
-        ></video>
+        <img
+          src="assets/winkingstar-hero-banner.webp"
+          alt="Winking Star on iPhone: three screens — Home (sample family board), Activity (week board with Pet Growth), and Pet pals (recent celebrations)."
+          width="1600" height="700"
+          style="width:100%;height:100%;object-fit:contain;display:block;"
+        />
         <div class="img-shield"></div>
       </div>
 
@@ -455,10 +453,18 @@
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">In the app</h3>
-          <div class="proj-img-grid rv" style="margin-top:24px;grid-template-columns:1fr 1fr;">
-            <img src="assets/winkingstar-shot-splash.webp" alt="Winking Star splash screen: smiling star with doodle decorations" width="1600" height="2400" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
-            <img src="assets/winkingstar-shot-petpals.webp" alt="Pet pals celebrations: recent hatched events and pet pal badges" width="1600" height="2400" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
+          <h3 class="proj-about-h3">Walkthrough</h3>
+          <div class="proj-body"><p>Twelve seconds: app icon zooms in, splash + loading bar, then three tap moments across Home, Activity (with a scroll down to the Weekly Goal), and the Pet Growth panel. Loops the product story after the first play.</p></div>
+          <div class="proj-img-full rv" style="aspect-ratio:16/7;overflow:hidden;border-radius:12px;background:#F8F1E4;margin-top:32px;display:flex;align-items:center;justify-content:center;padding:36px;box-sizing:border-box;">
+            <video
+              id="winkingstar-walkthrough"
+              src="assets/winkingstar-hero.mp4"
+              poster="assets/winkingstar-poster.webp"
+              autoplay muted playsinline preload="metadata"
+              aria-label="Winking Star app launch sequence followed by three tap interactions across Home, Activity, and the Pet Growth panel"
+              style="width:100%;height:100%;object-fit:contain;border-radius:8px;display:block;"
+            ></video>
+            <div class="img-shield"></div>
           </div>
           <div style="margin-top:32px;text-align:center;">
             <a class="ausos-strip-cta primary" href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer">Visit winkingstar.com <span aria-hidden="true">↗</span></a>
@@ -537,12 +543,12 @@
   </footer>
   <div id="img-cursor" aria-hidden="true"></div>
   <script>
-    /* Hero video: play intro once on first view, then loop just the product
-       story (Home → Activity → outro). LOOP_START_SEC corresponds to
-       T.loadToHome.s (105 frames @ 30fps = 3.5s) — after the icon zoom and
-       loading bar but before the first product screen lands. */
+    /* Walkthrough video (in the content section): play intro once on first
+       view, then loop just the product story (Home → Activity → outro).
+       LOOP_START_SEC corresponds to T.loadToHome.s (3.5s) — after the icon
+       zoom and loading bar but before the first product screen lands. */
     (function() {
-      const v = document.getElementById('winkingstar-hero');
+      const v = document.getElementById('winkingstar-walkthrough');
       if (!v) return;
       const LOOP_START_SEC = 3.5;
       v.addEventListener('ended', function() {
