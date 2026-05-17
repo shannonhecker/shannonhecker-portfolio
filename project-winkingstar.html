@@ -22,27 +22,27 @@
     <script src="assets/view-transitions.js" defer></script>
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <title>ausōs.ai · AI design-system builder · Shannon Hecker</title>
-  <meta name="description" content="ausos.ai: an AI design-system builder. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the ausos system. Side project by Shannon Hecker, in private alpha." />
-    <link rel="canonical" href="https://shannonhecker.com/project-ausos.html" />
+  <title>Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker</title>
+  <meta name="description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan." />
+    <link rel="canonical" href="https://shannonhecker.com/project-winkingstar.html" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://shannonhecker.com/project-ausos.html" />
-  <meta property="og:title" content="ausōs.ai · AI design-system builder · Shannon Hecker" />
-  <meta property="og:description" content="ausos.ai: an AI design-system builder. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the ausos system. Side project by Shannon Hecker, in private alpha." />
-  <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:url" content="https://shannonhecker.com/project-winkingstar.html" />
+  <meta property="og:title" content="Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker" />
+  <meta property="og:description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan." />
+  <meta property="og:image" content="https://shannonhecker.com/assets/winkingstar-card.webp" />
   <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:height" content="720" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta name="twitter:image" content="https://shannonhecker.com/assets/winkingstar-card.webp" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "headline": "ausōs.ai",
-  "description": "ausos.ai: an AI design-system builder. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the ausos system. Side project by Shannon Hecker, in private alpha.",
-  "url": "https://shannonhecker.com/project-ausos.html",
-  "image": "https://shannonhecker.com/assets/og-preview.png",
-  "datePublished": "2026-01-01",
+  "headline": "Winking Star",
+  "description": "Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan.",
+  "url": "https://shannonhecker.com/project-winkingstar.html",
+  "image": "https://shannonhecker.com/assets/winkingstar-card.webp",
+  "datePublished": "2026-05-17",
   "author": {
     "@type": "Person",
     "name": "Shannon Hecker",
@@ -79,8 +79,8 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "ausōs.ai",
-      "item": "https://shannonhecker.com/project-ausos.html"
+      "name": "Winking Star",
+      "item": "https://shannonhecker.com/project-winkingstar.html"
     }
   ]
 }
@@ -288,34 +288,24 @@
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
     .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
 
-    /* ausōs cover — live demo capture, theme-aware Design-Hub backdrop, 36px breathing room.
-       Two <video> elements: light + dark; we show the matching one per theme.
-       Dark gradient matches ausos.ai/Design-Hub `.hero` (hero.css:30 + .hero::before aurora layers).
-       `!important` on background overrides dark-mode.css:370 (`html[data-theme="dark"] .proj-cover { background:#fff !important }`). */
-    .proj-cover--demo {
-      background:
-        radial-gradient(ellipse at 80% 10%, rgba(180, 144, 245, 0.10), transparent 60%),
-        radial-gradient(ellipse at 10% 80%, rgba(94, 231, 223, 0.08), transparent 60%),
-        linear-gradient(180deg, #F4F6FA 0%, #DDE2EB 50%, #C4CAD5 100%) !important;
+    /* Winking Star is a light-mode-only product (iOS userInterfaceStyle: light,
+       web has no dark tokens). Keep the cover background warm-cream in both
+       themes so the hero video sits on its native palette regardless of the
+       portfolio's theme toggle. */
+    .proj-cover--winkingstar {
+      background: #F8F1E4 !important; /* earthy.cream */
       padding: 36px;
       box-sizing: border-box;
     }
-    .proj-cover--demo > video { border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block; }
-    /* Show only the matching video per theme; the inactive one stays in DOM for swap-without-flicker */
-    .proj-cover--demo > video.demo-dark { display: none; }
-    html[data-theme="dark"] .proj-cover--demo > video.demo-light { display: none; }
-    html[data-theme="dark"] .proj-cover--demo > video.demo-dark { display: block; }
-    html[data-theme="dark"] .proj-cover--demo {
-      background:
-        radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
-        radial-gradient(ellipse at 5% 74%, rgba(220, 235, 226, 0.12), transparent 60%),
-        radial-gradient(ellipse at 51% 28%, rgba(244, 250, 241, 0.05), transparent 70%),
-        radial-gradient(ellipse at 54% 108%, rgba(112, 156, 144, 0.08), transparent 80%),
-        linear-gradient(180deg, #060806 0%, #020302 38%, #020302 100%) !important;
-      filter: none; /* override dark-mode.css brightness(0.88) — demo is already balanced */
+    .proj-cover--winkingstar > video {
+      border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block;
+    }
+    html[data-theme="dark"] .proj-cover--winkingstar {
+      background: #F7F5EF !important; /* splash bg */
+      filter: none;
     }
     @media (max-width: 720px) {
-      .proj-cover--demo { padding: 18px; }
+      .proj-cover--winkingstar { padding: 18px; }
     }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
@@ -379,38 +369,33 @@
         <div class="proj-breadcrumb rv">
           <a href="work.html">Work</a>
           <span class="proj-breadcrumb-sep">›</span>
-          <span>ausōs.ai</span>
+          <span>Winking Star</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">ausōs.ai</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Design Engineering · Side Project</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">Winking Star</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Family Product · iOS + iPad + Web · Side Project</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2026</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Designer + Builder</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://ausos.ai/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">ausos.ai ↗</a></span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Designer + Builder · solo</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">winkingstar.com ↗</a></span></div>
         </div>
       </div>
 
-      <!-- Cover: live demo capture (Salt → M3 → Fluent → Carbon → ausos), separate light + dark mp4 -->
-      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <!-- Cover: app-launch sequence + three tap interactions composited from fresh simulator captures.
+           Light only (product is light-mode). HTML JS seeks back to LOOP_START after the 'ended' event
+           so the icon→loading intro plays once, then the product story loops. -->
+      <div class="proj-cover proj-cover--winkingstar rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
         <video
-          class="demo-light"
-          src="assets/ausos-demo-light.mp4"
-          poster="assets/ausos-banner.webp"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="ausōs.ai product demo (light) cycling through Salt, Material 3, Fluent, Carbon, and ausos design systems"
-        ></video>
-        <video
-          class="demo-dark"
-          src="assets/ausos-demo.mp4"
-          poster="assets/ausos-banner.webp"
-          autoplay muted loop playsinline preload="metadata"
-          aria-hidden="true"
+          id="winkingstar-hero"
+          src="assets/winkingstar-hero.mp4"
+          poster="assets/winkingstar-poster.webp"
+          autoplay muted playsinline preload="metadata"
+          aria-label="Winking Star — app launch sequence followed by three tap interactions across Home, Activity, and the Pet Growth panel"
         ></video>
         <div class="img-shield"></div>
       </div>
 
-      <h1 class="proj-title-post rv" data-d="2">ausōs.ai</h1>
-      <p class="proj-lead rv" data-d="3">An AI design-system builder. Two surfaces: a UI Kit handling Salt, Material 3, Fluent 2, Carbon, and the ausos system, and a private-preview Builder that turns prompts into UIs across all five, with compare, tune, and code-export to React or Angular.</p>
+      <h1 class="proj-title-post rv" data-d="2">Winking Star</h1>
+      <p class="proj-lead rv" data-d="3">A habit tracker for families. A native iOS app on iPhone and iPad with a companion web app at winkingstar.com. One Firebase backend, one earthy palette, three form factors. Solo design and build.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -420,81 +405,100 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Project Overview</h3>
-          <div class="proj-body"><p>Most component libraries lock you into one design system. Switching tokens, themes, or moving across React and Angular means rebuilding from scratch. Ausōs is an AI design-system builder I’ve been building to solve this for myself and a small group of testers. Two surfaces: a UI Kit handling Salt, Material 3, Fluent 2, Carbon, and the ausos system, and a private-preview Builder that turns prompts into UIs across all five with compare, tune, and code-export.</p><p>The name "ausōs" is rooted in the ancient concept of dawn. A small nod to building tools that amplify human creativity rather than replacing it.</p></div>
+          <div class="proj-body">
+            <p>Winking Star is a habit tracker for families. A grown-up sets weekly activities (read for ten minutes, brush teeth, tidy up) and each superstar in the family earns stars as they complete them. A weekly milestone unlocks a pet pal that grows over the following weeks.</p>
+            <p>It runs as a native iOS app on iPhone and iPad, plus a web app at winkingstar.com. Same Firestore backend, same earthy design language, three form factors. I designed and built both surfaces solo, with AI coding agents as build partners.</p>
+          </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>I’m building ausōs solo as a side project. Designing the interface, building the front-end with AI coding agents (Claude Code, Codex, Cursor) in terminal, and shipping iteratively to a small group of early testers. Brand identity and product direction are mine. The engineering is solo and AI-assisted.</p></div>
+          <div class="proj-body"><p>Solo. Design, brand, copy, illustration direction, React Native + Expo build, Firebase backend, Apple Sign In, App Store Connect submission. Five real families recruited as testers via interview-led research; weekly iteration on their feedback.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design Thinking Process</h3>
-          <div class="proj-body"><p>I’ve worked through five phases (Empathise, Define, Ideate, Prototype, Test) using a small group of designer friends as early testers between phases. The structure helped me close one question before opening the next, which is harder to do as a solo builder.</p></div>
+          <div class="proj-body">
+            <p>I ran the build through five Design Thinking phases (Empathise, Define, Ideate, Prototype, Test) with five real families recruited for short remote interviews. Each phase closed on a validated assumption before the next began.</p>
+            <p>Family interview transcripts shaped two of the biggest decisions: pet pals had to be a surprise, not a choice; and the sticker reward had to exist in both worlds, fridge and phone. The five-phase structure forced me to test before iterating, which is harder to do as a solo builder than it sounds.</p>
+          </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Brand Identity</h3>
-          <div class="proj-body"><p>The ausōs brand is built dark mode first, with deep backgrounds and vibrant aurora accents. The visual language balances expressive colour with restraint, letting content breathe.</p></div>
+          <div class="proj-body">
+            <p>Warm and earthy. The Winking Star brand sits in cream, sage, terracotta, and cocoa, with hand-drawn doodle illustrations replacing flat icons across the headers and tab bar. Light mode only. The product is built to feel like an open picture book, not a dashboard.</p>
+            <p>The terracotta and divider tokens were retuned for WCAG AA in April after an accessibility sweep flagged the original values. Body text now sits at 12.4:1 on cards, section headings at 5.1:1.</p>
+          </div>
           <div style="display:flex;gap:12px;margin:24px 0 0;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#E5A999;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#F8F1E4;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Cream · card surface</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#9DAC85;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Sage · panel tint</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#AE5525;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Terracotta · accent + CTA</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#5A3A2E;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Cocoa · body + CTA label</span></div>
           </div>
           <div class="proj-img-grid rv" style="margin-top:32px;">
-            <img src="assets/ausos.webp" alt="ausōs logo on aurora gradient" width="1000" height="1000" loading="lazy" decoding="async" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
-            <img src="assets/ausos-brand.webp" alt="ausōs dark and light mode interfaces" width="1200" height="720" loading="lazy" decoding="async" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
+            <img src="assets/winkingstar-doodle-map.webp" alt="Winking Star doodle map illustration" width="800" height="800" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-doodle-treasure.webp" alt="Winking Star doodle treasure box illustration" width="800" height="800" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+          </div>
+          <div class="proj-img-grid rv" style="margin-top:16px;grid-template-columns:repeat(3,1fr);">
+            <img src="assets/winkingstar-petpal-bear.webp" alt="Pet pal bear illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-petpal-fox.webp" alt="Pet pal fox illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-petpal-unicorn.webp" alt="Pet pal unicorn illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-petpal-deer.webp" alt="Pet pal deer illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-petpal-elephant.webp" alt="Pet pal elephant illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
+            <img src="assets/winkingstar-petpal-robot.webp" alt="Pet pal robot illustration" width="600" height="600" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;aspect-ratio:1/1;object-fit:contain;display:block;width:100%;height:auto;padding:24px;box-sizing:border-box;" />
           </div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Design System Integration</h3>
-          <div class="proj-body"><p>ausōs supports five design systems out of the box: Salt, Material 3, Fluent 2, Carbon, and the ausos system. Each is rendered with authentic tokens and component behaviours, with theme switching and code export across all of them. More details available in a private conversation.</p></div>
-          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:32px;border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
+          <h3 class="proj-about-h3">Cross-platform: iPhone + iPad + Web</h3>
+          <div class="proj-body">
+            <p>One Firebase project, one token system, three form factors. The web app at winkingstar.com and the iOS app at <code>com.winkingstar.app</code> share the same Firestore data, the same earthy palette, and the same Nunito typography.</p>
+            <p>The iOS app runs natively on iPhone and iPad. The iPad layout is a full pass across the five-tab IA (Home, Activity, Treasure, Progress, More) so it reads as designed-for-iPad, not stretched-iPhone. The iOS app adds custom haptics, push notifications, sticker-sheet scanning, and universal links. The web app stays where a grown-up's laptop and a TV-cast view live.</p>
+          </div>
+          <div class="proj-img-grid rv" style="margin-top:32px;grid-template-columns:1fr 1fr;">
+            <img src="assets/winkingstar-shot-board.webp" alt="Winking Star Home tab on iPhone — sample family board with sibling cards" width="1600" height="1200" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
+            <img src="assets/winkingstar-shot-ipad-treasure.webp" alt="Winking Star Treasure tab on iPad — pet pals collection room" width="1600" height="1200" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
+          </div>
         </div>
 
-        <div class="proj-nda rv">
-          <div class="proj-nda-glow"></div>
-          <div class="proj-nda-inner">
-            <p class="proj-nda-title">Product preview</p>
-            <p class="proj-nda-lead">In private alpha</p>
-            <p class="proj-nda-body">ausōs.ai is in private alpha with a small group of early testers. Try the interactive demo to explore the conversational AI builder, or reach out by email for early access to the full product.</p>
-            <a class="ausos-strip-cta primary" href="https://ausos.ai/" target="_blank" rel="noopener noreferrer">Try the live demo <span aria-hidden="true">↗</span></a>
-            <!-- Phase 4 · when the silent walkthrough video is ready, drop it at assets/ausos-walkthrough.mp4 and uncomment the block below.
-            <video class="ausos-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/ausos-card.png" style="width:100%;margin-top:24px;border-radius:12px;">
-              <source src="assets/ausos-walkthrough.mp4" type="video/mp4" />
-            </video>
-            -->
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">In the app</h3>
+          <div class="proj-img-grid rv" style="margin-top:24px;grid-template-columns:1fr 1fr;">
+            <img src="assets/winkingstar-shot-splash.webp" alt="Winking Star splash screen — smiling star with doodle decorations" width="1600" height="2400" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
+            <img src="assets/winkingstar-shot-petpals.webp" alt="Pet pals celebrations — recent hatched events and pet pal badges" width="1600" height="2400" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
+          </div>
+          <div style="margin-top:32px;text-align:center;">
+            <a class="ausos-strip-cta primary" href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer">Visit winkingstar.com <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Decisions</h3>
           <div class="proj-body">
-            <p><strong>Decision 1. Component composition with AI assistance, not generation from scratch.</strong></p>
-            <p><em>Options considered:</em> AI generates whole pages from a prompt; user composes from a fixed library; AI assists in component composition and theme decisions.</p>
-            <p><em>What I chose:</em> AI as an assistant inside a component composition tool, not a generator.</p>
-            <p><em>Why:</em> Pure generative AI tools tend to produce code that breaks the moment a designer wants to make a change. I wanted the user to stay in control. Pick components from real design systems, ask AI for help with composition or theming, but never lose the ability to edit any component directly.</p>
+            <p><strong>Decision 1. Native iOS, not just responsive web.</strong></p>
+            <p><em>Options considered:</em> PWA only, responsive web wrapped in WebView, native React Native + Expo build.</p>
+            <p><em>What I chose:</em> native RN/Expo.</p>
+            <p><em>Why:</em> haptics, push notifications, universal links to winkingstar.com, App Store distribution, and real mobile gestures all needed a native runtime. A PWA would have shipped the same screens but felt like a web page on iOS.</p>
 
-            <p><strong>Decision 2. Dark-mode first, not an afterthought.</strong></p>
-            <p><em>Options considered:</em> light-first with dark toggle, dark-first with light toggle, system-preference only.</p>
-            <p><em>What I chose:</em> dark-mode-first with deep backgrounds and aurora accents.</p>
-            <p><em>Why:</em> Design tools get used for hours at a time. Dark mode reduces eye strain in long sessions and lets the vibrant brand accents carry real meaning. Light-first would have meant the dark mode felt secondary, which is the opposite of what the user base wants.</p>
+            <p><strong>Decision 2. Pet pals are a random surprise, themes are chosen.</strong></p>
+            <p><em>Options considered:</em> let superstars pick their pet pal, let them pick both, randomise both.</p>
+            <p><em>What I chose:</em> themes are picked by the grown-up per superstar; pet pals appear as a surprise after a weekly milestone.</p>
+            <p><em>Why:</em> two different design jobs. Themes are personalisation. The superstar should see themself in the page chrome every day. Pet pals are dopamine. Surprise drives the moment, and freedom of choice would have killed the reveal.</p>
 
-            <p><strong>Decision 3. Five Design Thinking phases, not lean iteration.</strong></p>
-            <p><em>Options considered:</em> lean UX with continuous iteration, Double Diamond, five-phase Design Thinking, no explicit framework.</p>
-            <p><em>What I chose:</em> five phases (Empathise, Define, Ideate, Prototype, Test) with user validation at each.</p>
-            <p><em>Why:</em> A solo founder can drift into premature commitment without structure. Discrete phases force me to close one question before opening the next, and real-user testing per phase prevents the system from converging on my assumptions.</p>
+            <p><strong>Decision 3. Physical sticker sheet, digital sync.</strong></p>
+            <p><em>Options considered:</em> digital-only stars, printable reward sheet with no sync, printable sheet with camera scan-back.</p>
+            <p><em>What I chose:</em> printable activity sheet with a camera scan that mirrors stars back to the chart.</p>
+            <p><em>Why:</em> families wanted both the physical reward of putting a sticker on the fridge and the digital memory in the app. Scanning closes the loop without making the grown-up double-track.</p>
           </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design systems integrated</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Days to first working prototype</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design Thinking phases completed</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Brand identity designed from scratch</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Form factors shipped — iPhone, iPad, Web</span></div><div class="proj-outcome"><span class="proj-outcome-num">17</span><span class="proj-outcome-label">Themes designed</span></div><div class="proj-outcome"><span class="proj-outcome-num">26</span><span class="proj-outcome-label">Pet-pal families × 4 stages</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Native iOS tabs in the IA</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Side Project · Design Systems · Component Library · AI-Assisted Build · Brand Identity · Design Thinking · Prototyping · React · Angular</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Mobile · iOS · iPad · React Native · Expo · Firebase · Family Product · Side Project · Design Engineering</span></div>
 
         </div>
         </div>
@@ -508,15 +512,15 @@
         <div class="proj-nav rv">
           <div class="proj-nav-item proj-nav-item--prev">
             <span class="proj-nav-hint">Previous</span>
-            <a href="project-dps-brand.html" class="proj-nav-link">
+            <a href="project-ausos.html" class="proj-nav-link">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              D&PS Brand Identity
+              ausōs.ai
             </a>
           </div>
           <div class="proj-nav-item proj-nav-item--next">
             <span class="proj-nav-hint">Next</span>
-            <a href="project-winkingstar.html" class="proj-nav-link">
-              Winking Star
+            <a href="project-barclays-data-viz.html" class="proj-nav-link">
+              Barclays Data Viz
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -541,6 +545,19 @@
   </footer>
   <div id="img-cursor" aria-hidden="true"></div>
   <script>
+    /* Hero video: play intro once on first view, then loop just the product
+       story (Home → Activity → outro). LOOP_START_SEC corresponds to
+       T.loadToHome.s (105 frames @ 30fps = 3.5s) — after the icon zoom and
+       loading bar but before the first product screen lands. */
+    (function() {
+      const v = document.getElementById('winkingstar-hero');
+      if (!v) return;
+      const LOOP_START_SEC = 3.5;
+      v.addEventListener('ended', function() {
+        v.currentTime = LOOP_START_SEC;
+        v.play().catch(function() {});
+      });
+    })();
     function bootHero() { document.body.classList.add('loaded'); }
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
