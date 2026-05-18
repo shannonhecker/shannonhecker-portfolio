@@ -23,12 +23,12 @@
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker</title>
-  <meta name="description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan." />
+  <meta name="description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, star-sheet scan." />
     <link rel="canonical" href="https://shannonhecker.com/project-winkingstar.html" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://shannonhecker.com/project-winkingstar.html" />
   <meta property="og:title" content="Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker" />
-  <meta property="og:description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan." />
+  <meta property="og:description" content="Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, star-sheet scan." />
   <meta property="og:image" content="https://shannonhecker.com/assets/winkingstar-card.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="720" />
@@ -39,7 +39,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "headline": "Winking Star",
-  "description": "Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, sticker-sheet scan.",
+  "description": "Winking Star: a habit tracker for families, shipped on iPhone, iPad and web. Solo design and build. Earthy brand, doodle illustrations, star-sheet scan.",
   "url": "https://shannonhecker.com/project-winkingstar.html",
   "image": "https://shannonhecker.com/assets/winkingstar-card.webp",
   "datePublished": "2026-05-17",
@@ -125,6 +125,7 @@
       font-weight: 300;
       color: var(--c-mid);
       line-height: 1.65;
+      width: 100%;
       max-width: 640px;
       margin-bottom: 52px;
     }
@@ -204,7 +205,7 @@
       max-width: 36em;
       margin: 0;
     }
-    .ausos-strip-cta {
+    .proj-cta {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -218,16 +219,16 @@
       border: 1px solid transparent;
       transition: transform 220ms cubic-bezier(.22,1,.36,1), box-shadow 220ms cubic-bezier(.22,1,.36,1), background 220ms cubic-bezier(.22,1,.36,1), border-color 220ms cubic-bezier(.22,1,.36,1);
     }
-    .ausos-strip-cta.primary {
+    .proj-cta.primary {
       background: var(--c-ink);
-      color: #fff;
+      color: var(--c-bg);
       border-color: var(--c-ink);
     }
-    .ausos-strip-cta.primary:hover {
+    .proj-cta.primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0,0,0,.12);
     }
-    .ausos-strip-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
+    .proj-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
 
     .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -271,10 +272,25 @@
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:24px;}
+      .proj-meta-item{min-width:0;}
+      .proj-meta-value{overflow-wrap:anywhere;line-height:1.45;}
+      .proj-lead{max-width:100%;overflow-wrap:break-word;}
       .proj-outcomes{flex-direction:column;gap:20px;} .proj-outcomes .proj-outcome{border-left:none;padding:0;border-bottom:1px solid var(--c-rule);padding-bottom:16px;} .proj-outcomes .proj-outcome:first-child{padding-left:0;}
       .proj-about-layout{grid-template-columns:1fr;gap:20px;}
       .proj-about-label{position:static;margin-bottom:8px;}
       .proj-next{padding-bottom:20px;}
+    }
+    @media(max-width:720px){
+      .proj-meta-row{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:22px 20px;
+      }
+      .proj-meta-item:nth-child(1){grid-column:1;grid-row:1;}
+      .proj-meta-item:nth-child(3){grid-column:2;grid-row:1;}
+      .proj-meta-item:nth-child(2){grid-column:1 / -1;grid-row:2;}
+      .proj-meta-item:nth-child(4){grid-column:1;grid-row:3;}
+      .proj-meta-item:nth-child(5){grid-column:2;grid-row:3;}
     }
     /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
@@ -289,23 +305,63 @@
     .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
 
     /* Winking Star is a light-mode-only product (iOS userInterfaceStyle: light,
-       web has no dark tokens). Keep the cover background warm-cream in both
-       themes so the hero video sits on its native palette regardless of the
-       portfolio's theme toggle. */
+       web has no dark tokens). Keep product imagery on its native palette
+       regardless of the portfolio's theme toggle. */
     .proj-cover--winkingstar {
-      background: #F8F1E4 !important; /* earthy.cream */
-      padding: 36px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: #F8F1E4 !important;
+      padding: 0;
       box-sizing: border-box;
     }
-    .proj-cover--winkingstar > video {
-      border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block;
+    .proj-cover--winkingstar > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .winkingstar-zoom-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .winkingstar-zoom-panel {
+      position: relative;
+      aspect-ratio: 760 / 620;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #F8F1E4;
+      box-sizing: border-box;
+    }
+    .winkingstar-panel-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
     }
     html[data-theme="dark"] .proj-cover--winkingstar {
-      background: #F7F5EF !important; /* splash bg */
+      background: #F8F1E4 !important;
+      filter: none;
+    }
+    html[data-theme="dark"] .proj-cover--winkingstar > img {
+      filter: none;
+    }
+    html[data-theme="dark"] .winkingstar-zoom-panel {
       filter: none;
     }
     @media (max-width: 720px) {
-      .proj-cover--winkingstar { padding: 18px; }
+      .proj-cover--winkingstar {
+        aspect-ratio: 16 / 7 !important;
+      }
+      .winkingstar-zoom-pair {
+        grid-template-columns: 1fr;
+      }
+      .winkingstar-zoom-panel {
+        min-height: 0;
+      }
     }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
@@ -380,14 +436,13 @@
         </div>
       </div>
 
-      <!-- Cover: static 3-up phone banner (Home / Activity / Pet pals on cream).
-           Animated walkthrough lives in the "In the app" section below. -->
-      <div class="proj-cover proj-cover--winkingstar rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <!-- Cover: Figma-exported mockup asset. -->
+      <div class="proj-cover proj-cover--winkingstar rv" style="aspect-ratio:16/7;">
         <img
-          src="assets/winkingstar-hero-banner.webp"
-          alt="Winking Star on iPhone: three screens — Home (sample family board), Activity (week board with Pet Growth), and Pet pals (recent celebrations)."
+          src="assets/winkingstar-figma-hero.webp"
+          alt="Winking Star iOS app shown across four framed iPhone mockups."
           width="1600" height="700"
-          style="width:100%;height:100%;object-fit:contain;display:block;"
+          decoding="async"
         />
         <div class="img-shield"></div>
       </div>
@@ -418,7 +473,7 @@
           <h3 class="proj-about-h3">Design Thinking Process</h3>
           <div class="proj-body">
             <p>I ran the build through five Design Thinking phases (Empathise, Define, Ideate, Prototype, Test) with five real families recruited for short remote interviews. Each phase closed on a validated assumption before the next began.</p>
-            <p>Family interview transcripts shaped two of the biggest decisions: pet pals had to be a surprise, not a choice; and the sticker reward had to exist in both worlds, fridge and phone. The five-phase structure forced me to test before iterating, which is harder to do as a solo builder than it sounds.</p>
+            <p>Family interview transcripts shaped two of the biggest decisions: pet pals had to be a surprise, not a choice; and the star sheet had to exist in both worlds, fridge and phone. The five-phase structure forced me to test before iterating, which is harder to do as a solo builder than it sounds.</p>
           </div>
         </div>
 
@@ -444,30 +499,18 @@
           <h3 class="proj-about-h3">Cross-platform: iPhone + iPad + Web</h3>
           <div class="proj-body">
             <p>One Firebase project, one token system, three form factors. The web app at winkingstar.com and the iOS app at <code>com.winkingstar.app</code> share the same Firestore data, the same earthy palette, and the same Nunito typography.</p>
-            <p>The iOS app runs natively on iPhone and iPad. The iPad layout is a full pass across the five-tab IA (Home, Activity, Treasure, Progress, More) so it reads as designed-for-iPad, not stretched-iPhone. The iOS app adds custom haptics, push notifications, sticker-sheet scanning, and universal links. The web app stays where a grown-up's laptop and a TV-cast view live.</p>
+            <p>The iOS app runs natively on iPhone and iPad. The iPad layout is a full pass across the five-tab IA (Home, Activity, Treasure, Progress, More) so it reads as designed-for-iPad, not stretched-iPhone. The iOS app adds custom haptics, push notifications, star-sheet scanning, and universal links. The web app stays where a grown-up's laptop and a TV-cast view live.</p>
           </div>
-          <div class="proj-img-grid rv" style="margin-top:32px;grid-template-columns:1fr 1fr;">
-            <img src="assets/winkingstar-shot-board.webp" alt="Winking Star Home tab on iPhone: sample family board with sibling cards" width="1600" height="1200" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
-            <img src="assets/winkingstar-shot-ipad-treasure.webp" alt="Winking Star Treasure tab on iPad: pet pals collection room" width="1600" height="1200" loading="lazy" decoding="async" style="border-radius:12px;background:#F8F1E4;object-fit:contain;display:block;width:100%;height:auto;" />
-          </div>
-        </div>
-
-        <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Walkthrough</h3>
-          <div class="proj-body"><p>Twelve seconds: app icon zooms in, splash + loading bar, then three tap moments across Home, Activity (with a scroll down to the Weekly Goal), and the Pet Growth panel. Loops the product story after the first play.</p></div>
-          <div class="proj-img-full rv" style="aspect-ratio:16/7;overflow:hidden;border-radius:12px;background:#F8F1E4;margin-top:32px;display:flex;align-items:center;justify-content:center;padding:36px;box-sizing:border-box;">
-            <video
-              id="winkingstar-walkthrough"
-              src="assets/winkingstar-hero.mp4"
-              poster="assets/winkingstar-poster.webp"
-              autoplay muted playsinline preload="metadata"
-              aria-label="Winking Star app launch sequence followed by three tap interactions across Home, Activity, and the Pet Growth panel"
-              style="width:100%;height:100%;object-fit:contain;border-radius:8px;display:block;"
-            ></video>
-            <div class="img-shield"></div>
+          <div class="winkingstar-zoom-pair rv">
+            <figure class="winkingstar-zoom-panel winkingstar-zoom-panel--phone">
+              <img class="winkingstar-panel-img" src="assets/winkingstar-figma-iphone-panel.webp" alt="Winking Star overlapping iPhone mockups showing Treasure and today's star spots" width="760" height="620" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="winkingstar-zoom-panel winkingstar-zoom-panel--ipad">
+              <img class="winkingstar-panel-img" src="assets/winkingstar-figma-ipad-panel.webp" alt="Winking Star iPad mockup showing the Activity page and today's star spots" width="760" height="620" loading="lazy" decoding="async" />
+            </figure>
           </div>
           <div style="margin-top:32px;text-align:center;">
-            <a class="ausos-strip-cta primary" href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer">Visit winkingstar.com <span aria-hidden="true">↗</span></a>
+            <a class="proj-cta primary" href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer">Visit winkingstar.com <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
@@ -484,16 +527,16 @@
             <p><em>What I chose:</em> themes are picked by the grown-up per superstar; pet pals appear as a surprise after a weekly milestone.</p>
             <p><em>Why:</em> two different design jobs. Themes are personalisation. The superstar should see themself in the page chrome every day. Pet pals are dopamine. Surprise drives the moment, and freedom of choice would have killed the reveal.</p>
 
-            <p><strong>Decision 3. Physical sticker sheet, digital sync.</strong></p>
-            <p><em>Options considered:</em> digital-only stars, printable reward sheet with no sync, printable sheet with camera scan-back.</p>
+            <p><strong>Decision 3. Physical star sheet, digital sync.</strong></p>
+            <p><em>Options considered:</em> digital-only stars, printable star sheet with no sync, printable sheet with camera scan-back.</p>
             <p><em>What I chose:</em> printable activity sheet with a camera scan that mirrors stars back to the chart.</p>
-            <p><em>Why:</em> families wanted both the physical reward of putting a sticker on the fridge and the digital memory in the app. Scanning closes the loop without making the grown-up double-track.</p>
+            <p><em>Why:</em> families wanted both the physical moment of putting a star on the fridge and the digital memory in the app. Scanning closes the loop without making the grown-up double-track.</p>
           </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Form factors shipped: iPhone, iPad, Web</span></div><div class="proj-outcome"><span class="proj-outcome-num">17</span><span class="proj-outcome-label">Themes designed</span></div><div class="proj-outcome"><span class="proj-outcome-num">26</span><span class="proj-outcome-label">Pet-pal families × 4 stages</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Native iOS tabs in the IA</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Form factors shipped: iPhone, iPad, Web</span></div><div class="proj-outcome"><span class="proj-outcome-num">17</span><span class="proj-outcome-label">Themes designed</span></div><div class="proj-outcome"><span class="proj-outcome-num">26</span><span class="proj-outcome-label">Pet pal families × 4 stages</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Native iOS tabs in the IA</span></div></div>
         </div>
 
         <div class="proj-tags rv"><span class="proj-tags-list">Mobile · iOS · iPad · React Native · Expo · Firebase · Family Product · Side Project · Design Engineering</span></div>
@@ -543,19 +586,6 @@
   </footer>
   <div id="img-cursor" aria-hidden="true"></div>
   <script>
-    /* Walkthrough video (in the content section): play intro once on first
-       view, then loop just the product story (Home → Activity → outro).
-       LOOP_START_SEC corresponds to T.loadToHome.s (3.5s) — after the icon
-       zoom and loading bar but before the first product screen lands. */
-    (function() {
-      const v = document.getElementById('winkingstar-walkthrough');
-      if (!v) return;
-      const LOOP_START_SEC = 3.5;
-      v.addEventListener('ended', function() {
-        v.currentTime = LOOP_START_SEC;
-        v.play().catch(function() {});
-      });
-    })();
     function bootHero() { document.body.classList.add('loaded'); }
     if (document.fonts?.ready) { document.fonts.ready.then(bootHero); }
     else { setTimeout(bootHero, 400); }
