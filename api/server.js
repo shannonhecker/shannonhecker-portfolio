@@ -77,6 +77,14 @@ app.use('/api/chat', rateLimit({
   message: { error: 'Too many requests. Please wait a moment.' },
 }));
 
+app.use('/api/conversations', rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many admin requests. Please wait a moment.' },
+}));
+
 /* ------------------------------------------------------------------ */
 /*  CONVERSATION LOG — stores visitor questions in memory + log file  */
 /* ------------------------------------------------------------------ */
@@ -92,6 +100,8 @@ const MAX_CONVERSATIONS = Math.max(parseInt(process.env.MAX_CONVERSATIONS, 10) |
 const RETENTION_DAYS = Math.max(parseInt(process.env.CONVERSATION_RETENTION_DAYS, 10) || 30, 1);
 const RETENTION_MS = RETENTION_DAYS * 24 * 60 * 60 * 1000;
 const ENABLE_GEO_LOOKUP = process.env.ENABLE_GEO_LOOKUP === 'true';
+const DASHBOARD_TIME_ZONE = process.env.DASHBOARD_TIME_ZONE || 'Europe/London';
+const ADMIN_SESSION_MAX_AGE_SECONDS = Math.max(parseInt(process.env.ADMIN_SESSION_MAX_AGE_SECONDS, 10) || (8 * 60 * 60), 300);
 const IP_SALT = process.env.IP_SALT || (
   process.env.NODE_ENV === 'production'
     ? crypto.randomBytes(32).toString('hex')
@@ -121,6 +131,10 @@ function hashIp(ip) {
 function cleanIp(req) {
   const raw = req.headers['x-forwarded-for'] || req.ip || '';
   return raw.split(',')[0].trim().replace('::ffff:', '') || 'unknown';
+}
+
+function getDeviceFromUserAgent(userAgent) {
+  return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(userAgent || '') ? 'Mobile' : 'Desktop';
 }
 
 function geoLookup(ip) {
@@ -159,6 +173,25 @@ function trackVisitor(visitorId, geo) {
   return { isNew: true, visits: 1 };
 }
 
+function rebuildVisitorMap() {
+  visitorMap.clear();
+  conversations.forEach(entry => {
+    if (!entry.visitorId) return;
+    const existing = visitorMap.get(entry.visitorId);
+    if (existing) {
+      existing.visits++;
+      existing.lastSeen = entry.timestamp;
+    } else {
+      visitorMap.set(entry.visitorId, {
+        firstSeen: entry.timestamp,
+        lastSeen: entry.timestamp,
+        visits: 1,
+        location: entry.location || { city: '—', country: '—' },
+      });
+    }
+  });
+}
+
 function logConversation(entry) {
   conversations.push(entry);
   trimConversationHistory();
@@ -175,6 +208,7 @@ function trimConversationHistory() {
     if (!isWithinRetention(conversations[i])) conversations.splice(i, 1);
   }
   while (conversations.length > MAX_CONVERSATIONS) conversations.shift();
+  rebuildVisitorMap();
 }
 
 function persistConversationLog() {
@@ -370,7 +404,7 @@ app.post('/api/chat', async (req, res) => {
   const BLOCKED_IPS = ['82.17.133.31', '192.168.0.100'];
   const origin = req.headers.origin || '';
   const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
-  const isOwner = req.headers['x-no-track'] === process.env.ADMIN_TOKEN;
+  const isOwner = !!process.env.ADMIN_TOKEN && req.headers['x-no-track'] === process.env.ADMIN_TOKEN;
   const rawIpCheck = cleanIp(req);
   const isBlocked = BLOCKED_IPS.includes(rawIpCheck);
   const shouldLog = !isLocal && !isOwner && !isBlocked;
@@ -398,7 +432,7 @@ app.post('/api/chat', async (req, res) => {
     isNew: visitor.isNew,
     totalVisits: visitor.visits,
     location: geo,
-    userAgent: req.headers['user-agent'] || ''
+    device: getDeviceFromUserAgent(req.headers['user-agent'] || '')
   } : null;
 
   /* Set up SSE streaming */
@@ -469,7 +503,7 @@ app.get('/healthz', (req, res) => {
 /*  GET /api/conversations — dashboard + JSON API                     */
 /*  Protected with ADMIN_TOKEN via bearer header or short admin cookie */
 /* ------------------------------------------------------------------ */
-const ADMIN_COOKIE = 'ask_admin';
+const ADMIN_COOKIE = process.env.NODE_ENV === 'production' ? '__Host-ask_admin' : 'ask_admin';
 
 function safeEqual(a, b) {
   if (!a || !b) return false;
@@ -509,7 +543,12 @@ function hasAdminAccess(req, token) {
 
 function setAdminCookie(res, token) {
   const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
-  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=${encodeURIComponent(adminCookieValue(token))}; HttpOnly${secure}; SameSite=Lax; Path=/api/conversations; Max-Age=86400`);
+  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=${encodeURIComponent(adminCookieValue(token))}; HttpOnly${secure}; SameSite=Strict; Path=/; Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
+}
+
+function clearAdminCookie(res) {
+  const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
+  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=; HttpOnly${secure}; SameSite=Strict; Path=/; Max-Age=0`);
 }
 
 function stripQueryToken(req) {
@@ -518,18 +557,55 @@ function stripQueryToken(req) {
   return url.pathname + (url.search ? url.search : '');
 }
 
-function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeJsonForHtml(value) {
+  return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g, ch => ({
+    '<': '\\u003c',
+    '>': '\\u003e',
+    '&': '\\u0026',
+    '\u2028': '\\u2028',
+    '\u2029': '\\u2029',
+  }[ch]));
+}
+
+function formatInZone(value, options) {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: DASHBOARD_TIME_ZONE,
+    ...options,
+  }).format(new Date(value));
+}
 
 function fmtDate(iso) {
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  return formatInZone(iso, { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 function fmtTime(iso) {
-  return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  return formatInZone(iso, { hour: '2-digit', minute: '2-digit' });
 }
 
 function fmtFull(iso) {
-  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return formatInZone(iso, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function dateKeyInZone(value) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: DASHBOARD_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date(value)).reduce((acc, part) => {
+    if (part.type !== 'literal') acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
 function timeAgo(iso) {
@@ -544,345 +620,481 @@ function timeAgo(iso) {
   return fmtDate(iso);
 }
 
-function buildDashboard(allConvos, recent, token) {
-  const total = allConvos.length;
-  const todayStr = new Date().toISOString().slice(0, 10);
-  const todayCount = allConvos.filter(c => c.timestamp.startsWith(todayStr)).length;
-  const errorCount = allConvos.filter(c => c.status === 'error').length;
-  const errorRate = total > 0 ? ((errorCount / total) * 100).toFixed(1) : '0.0';
-  const mobileCount = allConvos.filter(c => (c.userAgent || '').includes('Mobile')).length;
-  const desktopCount = total - mobileCount;
+function sessionKey(entry) {
+  return entry.sessionId || (entry.visitorId ? `${entry.visitorId}-${entry.timestamp}` : entry.timestamp);
+}
 
-  /* Visitor analytics */
-  const uniqueVisitors = new Set(allConvos.map(c => c.visitorId).filter(Boolean)).size;
-  const newCount = allConvos.filter(c => c.isNew).length;
-  const returningCount = total - newCount;
-
-  /* Top locations */
-  const locationCounts = {};
-  allConvos.forEach(c => {
-    if (c.location && c.location.country && c.location.country !== '—') {
-      const key = c.location.city && c.location.city !== '—'
-        ? c.location.city + ', ' + c.location.country
-        : c.location.country;
-      locationCounts[key] = (locationCounts[key] || 0) + 1;
+function dedupeSessions(entries) {
+  const sessionMap = new Map();
+  entries.forEach(entry => {
+    const sid = sessionKey(entry);
+    const existing = sessionMap.get(sid);
+    const entryCount = entry.messageCount || (Array.isArray(entry.messages) ? entry.messages.length : 0);
+    const existingCount = existing ? (existing.messageCount || (Array.isArray(existing.messages) ? existing.messages.length : 0)) : 0;
+    if (!existing || entryCount > existingCount || (entryCount === existingCount && new Date(entry.timestamp) > new Date(existing.timestamp))) {
+      sessionMap.set(sid, entry);
     }
   });
-  const topLocations = Object.entries(locationCounts)
+  return Array.from(sessionMap.values()).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+}
+
+function conversationMessages(entry) {
+  const stored = Array.isArray(entry.messages) ? entry.messages : [];
+  const messages = stored
+    .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .map(m => ({ role: m.role, content: m.content }));
+  if (entry.response) messages.push({ role: 'assistant', content: entry.response });
+  return messages;
+}
+
+function locationLabel(entry) {
+  const location = entry.location || {};
+  if (location.city && location.city !== '—' && location.country && location.country !== '—') {
+    return `${location.city}, ${location.country}`;
+  }
+  if (location.country && location.country !== '—') return location.country;
+  return '';
+}
+
+function hasPossibleSensitiveInfo(text) {
+  return /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(text)
+    || /(?:\+?\d[\d\s().-]{7,}\d)/.test(text)
+    || /\b(confidential|secret|password|passcode|client data|account number|sort code|ssn|social security|credit card|cvv)\b/i.test(text);
+}
+
+function isLikelyOutOfScope(userText, assistantText) {
+  return /\b(homework|translate|recipe|weather|stock price|sports score|political opinion|write code|debug this|solve this math|essay)\b/i.test(userText)
+    || /\b(general-purpose assistant|I can only|I\u2019m here to talk about Shannon|I'm here to talk about Shannon|ask me about Shannon)\b/i.test(assistantText);
+}
+
+function classifyTopic(userText) {
+  const text = userText.toLowerCase();
+  if (/\b(aus[oō]s|visual web builder|builder|founder|startup)\b/.test(text)) return { slug: 'ausos', label: 'ausos.ai' };
+  if (/\b(ai|llm|agent|automation|model|prompt|machine learning)\b/.test(text)) return { slug: 'ai-product', label: 'AI product' };
+  if (/\b(barclays|trading|trader|markets|fx|etf|finance|financial|algo|complex assets|corporate action)\b/.test(text)) return { slug: 'markets', label: 'Markets work' };
+  if (/\b(design system|tokens?|component|accessibility|figma|ui toolkit)\b/.test(text)) return { slug: 'design-systems', label: 'Design systems' };
+  if (/\b(hire|hiring|role|availability|available|cv|resume|interview|contact|email)\b/.test(text)) return { slug: 'hiring', label: 'Hiring/contact' };
+  if (/\b(leadership|mentor|manage|team|critique|strategy)\b/.test(text)) return { slug: 'leadership', label: 'Leadership' };
+  if (/\b(project|portfolio|case study|work sample|favorite|favourite)\b/.test(text)) return { slug: 'portfolio', label: 'Portfolio/projects' };
+  if (/\b(based|location|language|speak|fun fact|personal)\b/.test(text)) return { slug: 'personal', label: 'Personal/logistics' };
+  return { slug: 'general', label: 'General' };
+}
+
+function buildConversationView(entry) {
+  const messages = conversationMessages(entry);
+  const userText = messages.filter(m => m.role === 'user').map(m => m.content).join('\n') || entry.question || '';
+  const assistantText = messages.filter(m => m.role === 'assistant').map(m => m.content).join('\n');
+  const userMessages = messages.filter(m => m.role === 'user').length;
+  const topic = classifyTopic(userText);
+  const flags = [];
+  const sensitive = hasPossibleSensitiveInfo(userText);
+  const outOfScope = isLikelyOutOfScope(userText, assistantText);
+  const exchanges = Math.max(userMessages, Math.ceil(messages.length / 2), 1);
+
+  if ((entry.status || 'ok') !== 'ok') flags.push('Error');
+  if (sensitive) flags.push('Possible sensitive info');
+  if (outOfScope) flags.push('Out of scope');
+  if (exchanges >= 4) flags.push('Long conversation');
+  if (!entry.isNew && entry.visitorId) flags.push('Returning visitor');
+
+  return {
+    id: sessionKey(entry),
+    ts: entry.timestamp,
+    dateKey: dateKeyInZone(entry.timestamp),
+    question: entry.question || userText || '',
+    messages,
+    status: entry.status || 'ok',
+    error: entry.error || '',
+    isNew: !!entry.isNew,
+    visitorId: entry.visitorId || '',
+    location: entry.location || null,
+    loc: locationLabel(entry),
+    device: entry.device || getDeviceFromUserAgent(entry.userAgent || ''),
+    exchangeCount: exchanges,
+    messageCount: messages.length,
+    topic,
+    flags,
+    needsReview: (entry.status || 'ok') !== 'ok' || sensitive || outOfScope,
+    searchText: `${entry.question || ''}\n${userText}\n${assistantText}\n${topic.label}\n${flags.join(' ')}`.toLowerCase(),
+  };
+}
+
+function buildVisitorSummaries(sessionViews) {
+  const visitors = new Map();
+  sessionViews.forEach(session => {
+    if (!session.visitorId) return;
+    const existing = visitors.get(session.visitorId);
+    if (existing) {
+      existing.sessionCount++;
+      if (new Date(session.ts) < new Date(existing.firstSeen)) existing.firstSeen = session.ts;
+      if (new Date(session.ts) > new Date(existing.lastSeen)) existing.lastSeen = session.ts;
+      if (!existing.loc && session.loc) existing.loc = session.loc;
+    } else {
+      visitors.set(session.visitorId, {
+        id: session.visitorId,
+        firstSeen: session.ts,
+        lastSeen: session.ts,
+        sessionCount: 1,
+        loc: session.loc,
+      });
+    }
+  });
+  return Array.from(visitors.values()).sort((a, b) => b.sessionCount - a.sessionCount || new Date(b.lastSeen) - new Date(a.lastSeen));
+}
+
+function countBy(items, getKey) {
+  return items.reduce((acc, item) => {
+    const key = getKey(item);
+    if (!key) return acc;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function buildTrend(sessionViews, days = 7) {
+  const today = Date.now();
+  const counts = countBy(sessionViews, s => s.dateKey);
+  const errors = countBy(sessionViews.filter(s => s.status !== 'ok'), s => s.dateKey);
+  return Array.from({ length: days }, (_, idx) => {
+    const date = new Date(today - ((days - idx - 1) * 86400000));
+    const key = dateKeyInZone(date);
+    return {
+      key,
+      label: formatInZone(date, { day: 'numeric', month: 'short' }),
+      count: counts[key] || 0,
+      errors: errors[key] || 0,
+    };
+  });
+}
+
+function buildDashboardData(allConvos, recent) {
+  const allSessions = dedupeSessions(allConvos).map(buildConversationView);
+  const recentSessions = dedupeSessions(recent).map(buildConversationView);
+  const visitors = buildVisitorSummaries(allSessions);
+  const visitorById = new Map(visitors.map(v => [v.id, v]));
+  const conversationsForDisplay = recentSessions.map(session => ({
+    ...session,
+    visitorSessionCount: visitorById.get(session.visitorId)?.sessionCount || 0,
+  }));
+
+  const total = allSessions.length;
+  const todayKey = dateKeyInZone(new Date());
+  const errorCount = allSessions.filter(c => c.status !== 'ok').length;
+  const needsReviewCount = allSessions.filter(c => c.needsReview).length;
+  const avgExchanges = total
+    ? (allSessions.reduce((sum, c) => sum + c.exchangeCount, 0) / total).toFixed(1)
+    : '0.0';
+  const topicCounts = Object.entries(countBy(allSessions, c => c.topic.label))
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6);
+  const topLocations = Object.entries(countBy(allSessions, c => c.loc))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6);
+  const trend = buildTrend(allSessions);
 
-  /* Top returning visitors */
-  const topVisitors = Array.from(visitorMap.entries())
-    .sort((a, b) => b[1].visits - a[1].visits)
-    .slice(0, 8);
+  return {
+    generatedAt: new Date().toISOString(),
+    todayKey,
+    retentionDays: RETENTION_DAYS,
+    geoLookupEnabled: ENABLE_GEO_LOOKUP,
+    timeZone: DASHBOARD_TIME_ZONE,
+    summary: {
+      sessions: total,
+      today: allSessions.filter(c => c.dateKey === todayKey).length,
+      uniqueVisitors: visitors.length,
+      returningVisitors: visitors.filter(v => v.sessionCount > 1).length,
+      needsReview: needsReviewCount,
+      errorRate: total > 0 ? ((errorCount / total) * 100).toFixed(1) : '0.0',
+      avgExchanges,
+      mobile: allSessions.filter(c => c.device === 'Mobile').length,
+      desktop: allSessions.filter(c => c.device !== 'Mobile').length,
+      logEntries: allConvos.length,
+    },
+    trend,
+    maxTrendCount: Math.max(1, ...trend.map(d => d.count)),
+    topicCounts,
+    topLocations,
+    visitors: visitors.slice(0, 8),
+    conversations: conversationsForDisplay,
+    topicOptions: Array.from(new Map(allSessions.map(c => [c.topic.slug, c.topic])).values())
+      .sort((a, b) => a.label.localeCompare(b.label)),
+    locationOptions: Object.keys(countBy(allSessions, c => c.loc)).sort(),
+  };
+}
 
-  /* Deduplicate: keep only the latest entry per session (it has the full thread) */
-  const sessionMap = new Map();
-  recent.forEach(c => {
-    const sid = c.sessionId || c.visitorId + '-' + c.timestamp;
-    const existing = sessionMap.get(sid);
-    if (!existing || c.messageCount > existing.messageCount) {
-      sessionMap.set(sid, c);
-    }
-  });
-  const deduped = Array.from(sessionMap.values())
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+function heightClass(count, max) {
+  if (!count) return 'h-0';
+  const bucket = Math.max(10, Math.ceil((count / Math.max(max, 1)) * 10) * 10);
+  return `h-${Math.min(bucket, 100)}`;
+}
 
-  const cards = deduped.length === 0
-    ? '<div class="empty">No conversations yet. Questions from visitors will appear here.</div>'
-    : deduped.map((c, idx) => {
-        const device = (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop';
-        const loc = c.location && c.location.city !== '—' ? c.location.city + ', ' + c.location.country : '';
-        const visitorLabel = c.isNew ? 'New' : 'Returning';
-        const visitorClass = c.isNew ? 'badge-new' : 'badge-ret';
+function renderDashboardRows(rows, emptyText, renderRow) {
+  return rows.length
+    ? rows.map(renderRow).join('')
+    : `<span class="empty-sm">${escHtml(emptyText)}</span>`;
+}
 
-        /* Build full conversation thread from stored messages + final response */
-        let threadHtml = '';
-        const msgs = c.messages || [];
-        const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
-        allMsgs.forEach(m => {
-          const cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
-          const label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
-          threadHtml += '<div class="thread-msg ' + cls + '"><span class="thread-role">' + label + '</span><span class="thread-text">' + escHtml(m.content) + '</span></div>';
-        });
+function renderCustomSelect(id, label, options) {
+  const selected = options[0] || { value: '', label: '' };
+  const menuId = `${id}-menu`;
+  const customOptions = options.map((option, index) =>
+    `<button type="button" class="custom-select-option${index === 0 ? ' is-selected' : ''}" role="option" aria-selected="${index === 0 ? 'true' : 'false'}" data-value="${escHtml(option.value)}">${escHtml(option.label)}</button>`
+  ).join('');
 
-        const preview = c.question ? escHtml(c.question) : '(no question)';
+  return `<input id="${escHtml(id)}" type="hidden" value="${escHtml(selected.value)}">
+    <div class="custom-select" data-select-target="${escHtml(id)}">
+      <button class="custom-select-button" id="${escHtml(id)}-button" type="button" aria-label="${escHtml(label)}" aria-haspopup="listbox" aria-expanded="false" aria-controls="${escHtml(menuId)}">
+        <span class="custom-select-value">${escHtml(selected.label)}</span>
+        <span class="custom-select-icon" aria-hidden="true"></span>
+      </button>
+      <div class="custom-select-menu" id="${escHtml(menuId)}" role="listbox">
+        ${customOptions}
+      </div>
+    </div>`;
+}
 
-        return `<div class="card">
-          <div class="card-top">
-            <div class="card-top-left">
-              <span class="date">${fmtDate(c.timestamp)}</span>
-              <span class="time">${fmtTime(c.timestamp)} &middot; ${timeAgo(c.timestamp)}</span>
-              ${loc ? '<span class="location">' + escHtml(loc) + '</span>' : ''}
-            </div>
-            <div class="card-badges">
-              ${c.visitorId ? '<span class="badge ' + visitorClass + '">' + visitorLabel + '</span>' : ''}
-              <span class="badge ${c.status === 'ok' ? 'badge-ok' : 'badge-err'}">${c.status === 'ok' ? 'Success' : 'Error'}</span>
-              <span class="badge badge-msg">${Math.ceil(allMsgs.length / 2)} exchange${Math.ceil(allMsgs.length / 2) !== 1 ? 's' : ''}</span>
-            </div>
-          </div>
-          <div class="question">${preview}</div>
-          ${c.status === 'error' ? '<div class="error-msg">' + escHtml(c.error) + '</div>' : ''}
-          <div class="thread" id="thread-${idx}">${threadHtml}</div>
-          <button class="thread-toggle" onclick="toggleThread(${idx})" aria-expanded="false">Show full conversation</button>
-          <div class="meta">
-            <span>${device === 'Mobile' ? '&#128241;' : '&#128187;'} ${device}</span>
-            <span>${allMsgs.length} msg${allMsgs.length !== 1 ? 's' : ''}</span>
-            ${c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : ''}
-            ${c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : ''}
-          </div>
-        </div>`;
-      }).join('');
+function renderConversationCard(c) {
+  const statusClass = c.status === 'ok' ? 'badge-ok' : 'badge-err';
+  const statusText = c.status === 'ok' ? 'Success' : 'Error';
+  const visitorText = c.visitorSessionCount > 1 ? 'Returning' : 'New';
+  const visitorClass = c.visitorSessionCount > 1 ? 'badge-ret' : 'badge-new';
+  const flagsHtml = c.flags.length
+    ? c.flags.map(flag => `<span class="flag">${escHtml(flag)}</span>`).join('')
+    : '<span class="flag flag-muted">No flags</span>';
+  const threadHtml = c.messages.map(m => {
+    const cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
+    const label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
+    return `<div class="thread-msg ${cls}"><span class="thread-role">${label}</span><span class="thread-text">${escHtml(m.content)}</span></div>`;
+  }).join('');
 
-  /* Location list */
-  const locHtml = topLocations.length === 0
-    ? '<span class="empty-sm">No location data yet</span>'
-    : topLocations.map(([loc, count]) =>
-        `<div class="loc-row"><span class="loc-name">${escHtml(loc)}</span><span class="loc-count">${count}</span></div>`
-      ).join('');
+  return `<article class="card" data-status="${escHtml(c.status)}">
+    <div class="card-top">
+      <div class="card-top-left">
+        <span class="date">${fmtDate(c.ts)}</span>
+        <span class="time">${fmtTime(c.ts)} - ${timeAgo(c.ts)}</span>
+        <span class="location">${escHtml(c.loc || 'Location not collected')}</span>
+      </div>
+      <div class="card-badges">
+        <span class="badge ${visitorClass}">${visitorText}</span>
+        <span class="badge ${statusClass}">${statusText}</span>
+        <span class="badge badge-topic">${escHtml(c.topic.label)}</span>
+      </div>
+    </div>
+    <h3 class="question">${escHtml(c.question || '(no question)')}</h3>
+    ${c.error ? `<div class="error-msg">${escHtml(c.error)}</div>` : ''}
+    <div class="flag-row" aria-label="Conversation flags">${flagsHtml}</div>
+    <details class="thread-wrap">
+      <summary>Show full conversation</summary>
+      <div class="thread">${threadHtml}</div>
+    </details>
+    <div class="meta">
+      <span>${escHtml(c.device)}</span>
+      <span>${c.exchangeCount} exchange${c.exchangeCount !== 1 ? 's' : ''}</span>
+      <span>${c.messageCount} message${c.messageCount !== 1 ? 's' : ''}</span>
+      ${c.visitorId ? `<span class="vid" title="Pseudonymous visitor ID">ID: ${escHtml(c.visitorId)}</span>` : ''}
+      ${c.visitorSessionCount > 1 ? `<span>${c.visitorSessionCount} sessions</span>` : ''}
+    </div>
+  </article>`;
+}
 
-  /* Visitors list */
-  const visitorsHtml = topVisitors.length === 0
-    ? '<span class="empty-sm">No visitors yet</span>'
-    : topVisitors.map(([id, v]) => {
-        const loc = v.location && v.location.city !== '—' ? v.location.city + ', ' + v.location.country : '—';
-        return `<div class="vis-row">
-          <span class="vis-id">${id}</span>
-          <span class="vis-loc">${escHtml(loc)}</span>
-          <span class="vis-date">${fmtDate(v.firstSeen)}</span>
-          <span class="vis-count">${v.visits} visit${v.visits !== 1 ? 's' : ''}</span>
-        </div>`;
-      }).join('');
+function buildDashboard(allConvos, recent, options = {}) {
+  const nonce = options.nonce || '';
+  const data = buildDashboardData(allConvos, recent);
+  const summary = data.summary;
+  const trendHtml = data.trend.map(day => `
+    <div class="trend-day">
+      <div class="trend-bar" aria-hidden="true"><span class="trend-fill ${heightClass(day.count, data.maxTrendCount)}"></span></div>
+      <span class="trend-count">${day.count}</span>
+      <span class="trend-label">${escHtml(day.label)}</span>
+      ${day.errors ? `<span class="trend-error">${day.errors} err</span>` : ''}
+    </div>
+  `).join('');
+  const topicHtml = renderDashboardRows(data.topicCounts, 'No topic data yet', ([topic, count]) =>
+    `<div class="rank-row"><span>${escHtml(topic)}</span><strong>${count}</strong></div>`);
+  const locHtml = renderDashboardRows(data.topLocations, 'No location data yet', ([loc, count]) =>
+    `<div class="rank-row"><span>${escHtml(loc)}</span><strong>${count}</strong></div>`);
+  const visitorsHtml = renderDashboardRows(data.visitors, 'No visitors yet', visitor =>
+    `<div class="vis-row">
+      <span class="vis-id">${escHtml(visitor.id)}</span>
+      <span class="vis-loc">${escHtml(visitor.loc || 'Location not collected')}</span>
+      <span class="vis-date">${fmtDate(visitor.lastSeen)}</span>
+      <strong>${visitor.sessionCount}</strong>
+    </div>`);
+  const cardsHtml = data.conversations.length
+    ? data.conversations.map(renderConversationCard).join('')
+    : '<div class="empty">No conversations yet. Questions from visitors will appear here.</div>';
+  const dateOptions = [
+    { value: 'all', label: 'All time' },
+    { value: 'today', label: 'Today' },
+    { value: '7d', label: 'Last 7 days' },
+    { value: '30d', label: 'Last 30 days' },
+    { value: 'custom', label: 'Custom range' },
+  ];
+  const topicOptions = [{ value: 'all', label: 'All topics' }].concat(data.topicOptions.map(t => ({ value: t.slug, label: t.label })));
+  const locationOptions = [{ value: 'all', label: 'All locations' }].concat(data.locationOptions.map(l => ({ value: l, label: l })));
+  const statusOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'ok', label: 'Success' },
+    { value: 'error', label: 'Errors' },
+  ];
+  const sortOptions = [
+    { value: 'newest', label: 'Newest' },
+    { value: 'oldest', label: 'Oldest' },
+  ];
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ask Shannon &mdash; Conversations</title>
+<title>Ask Shannon - Conversations</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
+<style nonce="${escHtml(nonce)}">
 :root {
-  --c-bg: #FFFFFF; --c-surface: #FFFFFF; --c-panel: #F5F5F5;
-  --c-ink: #0A0A0A; --c-mid: #555555; --c-light: #6F6F6F; --c-ghost: #CCCCCC;
-  --c-rule: #E8E8E8; --c-border: #C0C0C0;
-  --c-accent: #4A90D9; --c-success: #2E7D32; --c-error: #D32F2F;
-  --c-available: #22c55e;
+  --c-bg: #f6f6f3; --c-surface: #ffffff; --c-panel: #f0efeb;
+  --c-ink: #111111; --c-mid: #585858; --c-light: #737373; --c-ghost: #d9d8d2;
+  --c-rule: #e4e1d9; --c-border: #c9c5ba;
+  --c-accent: #2563eb; --c-success: #1f7a3a; --c-error: #c2410c; --c-warn: #a16207; --c-purple: #7c3aed;
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --r-card: 16px; --r-pill: 999px;
-  --sh-panel: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --r-card: 8px; --r-pill: 999px; --focus: 0 0 0 3px rgba(37,99,235,0.22);
+  --sh-panel: 0 1px 2px rgba(0,0,0,0.04);
 }
 html[data-theme="dark"] {
-  --c-bg: #121212; --c-surface: #1D1B20; --c-panel: #211F26;
-  --c-ink: rgba(255,255,255,0.87); --c-mid: rgba(255,255,255,0.60);
-  --c-light: rgba(255,255,255,0.53); --c-ghost: rgba(255,255,255,0.12);
-  --c-rule: rgba(255,255,255,0.12); --c-border: rgba(255,255,255,0.16);
-  --c-accent: #7AB3E8; --c-success: #66BB6A; --c-error: #EF5350;
-  --sh-panel: none;
-  color-scheme: dark;
+  --c-bg: #141412; --c-surface: #1f1f1c; --c-panel: #191917;
+  --c-ink: rgba(255,255,255,0.9); --c-mid: rgba(255,255,255,0.66); --c-light: rgba(255,255,255,0.54);
+  --c-ghost: rgba(255,255,255,0.14); --c-rule: rgba(255,255,255,0.12); --c-border: rgba(255,255,255,0.18);
+  --c-accent: #8ab4ff; --c-success: #7ddf9c; --c-error: #ff986e; --c-warn: #facc15; --c-purple: #c4a5fd;
+  --sh-panel: none; color-scheme: dark;
 }
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: var(--font); background: var(--c-panel); color: var(--c-ink);
-  -webkit-font-smoothing: antialiased; line-height: 1.5;
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font); background: var(--c-bg); color: var(--c-ink); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+button, input { font: inherit; }
+button, input, summary, a { min-height: 32px; }
+button:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible { outline: none; box-shadow: var(--focus); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+header { background: var(--c-ink); color: var(--c-bg); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+header h1 { margin: 0; font-size: 18px; font-weight: 650; letter-spacing: 0; }
+.header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.header-sub { font-size: 12px; color: var(--c-ghost); display: flex; align-items: center; gap: 7px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+.header-btn, .theme-btn, .btn-reset, .quick-btn {
+  border: 1px solid var(--c-rule); background: var(--c-surface); color: var(--c-ink);
+  border-radius: var(--r-pill); padding: 5px 12px; cursor: pointer; text-decoration: none; font-size: 12px; font-weight: 600;
 }
-header {
-  background: var(--c-ink); color: var(--c-bg); padding: 20px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--c-rule);
+.theme-btn { background: transparent; color: var(--c-bg); border-color: rgba(255,255,255,0.35); }
+.header-btn { background: transparent; color: var(--c-bg); border-color: rgba(255,255,255,0.25); }
+main { max-width: 1180px; margin: 0 auto; padding: 22px clamp(12px, 3vw, 32px) 48px; }
+.toolbar { position: sticky; top: 0; z-index: 10; background: rgba(246,246,243,0.94); border-bottom: 1px solid var(--c-rule); backdrop-filter: blur(12px); }
+html[data-theme="dark"] .toolbar { background: rgba(20,20,18,0.94); }
+.toolbar-inner { max-width: 1180px; margin: 0 auto; padding: 10px clamp(12px, 3vw, 32px); display: grid; grid-template-columns: minmax(180px, 1.4fr) repeat(6, minmax(112px, auto)); gap: 8px; align-items: end; }
+.filter-group { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.filter-group label { font-size: 10px; font-weight: 700; color: var(--c-light); text-transform: uppercase; letter-spacing: 0.12em; }
+.filter-group input {
+  width: 100%; border: 1px solid var(--c-rule); background: var(--c-surface); color: var(--c-ink);
+  border-radius: 6px; padding: 6px 8px; font-size: 12px;
 }
-header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
-.header-right { display: flex; align-items: center; gap: 16px; }
-.header-sub { font-size: 11px; color: var(--c-ghost); display: flex; align-items: center; gap: 6px; letter-spacing: 0.01em; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-available); animation: pulse 2s infinite; flex-shrink: 0; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-.theme-btn {
-  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--c-ghost);
-  background: none; color: var(--c-bg); cursor: pointer; display: flex;
-  align-items: center; justify-content: center; font-size: 14px;
-  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+.custom-select { position: relative; min-width: 0; }
+.custom-select-button {
+  width: 100%; min-height: 32px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  border: 1px solid var(--c-rule); background: var(--c-surface); color: var(--c-ink);
+  border-radius: 6px; padding: 6px 8px 6px 10px; font-size: 12px; cursor: pointer; text-align: left;
 }
-.theme-btn:hover { background: rgba(255,255,255,0.1); }
-main { max-width: 1060px; margin: 0 auto; padding: 24px clamp(12px, 3vw, 32px); }
-
-/* Summary card */
-.summary {
-  background: var(--c-surface); border: 1px solid var(--c-rule);
-  border-radius: var(--r-card); padding: 22px 28px;
-  box-shadow: var(--sh-panel); margin-bottom: 24px;
-  display: flex; flex-wrap: wrap; align-items: center;
-  gap: 0;
+.custom-select-button:hover, .custom-select.is-open .custom-select-button { border-color: var(--c-border); background: var(--c-panel); }
+.custom-select-value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.custom-select-icon {
+  width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px); flex-shrink: 0; opacity: 0.7;
 }
-.summary-item {
-  flex: 1 1 0; min-width: 100px; padding: 6px 16px;
-  border-right: 1px solid var(--c-rule); text-align: center;
+.custom-select.is-open .custom-select-icon { transform: rotate(225deg) translateY(-1px); }
+.custom-select-menu {
+  position: absolute; left: 0; right: 0; top: calc(100% + 5px); z-index: 50; display: none;
+  max-height: 260px; overflow: auto; padding: 4px;
+  border: 1px solid var(--c-border); border-radius: 8px; background: var(--c-surface);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
 }
-.summary-item:last-child { border-right: none; }
-.stat-val {
-  font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
-  line-height: 1.1; font-variant-numeric: tabular-nums;
+.custom-select.is-open .custom-select-menu { display: grid; gap: 2px; }
+.custom-select-option {
+  width: 100%; min-height: 30px; border: 0; border-radius: 5px; background: transparent; color: var(--c-ink);
+  padding: 6px 8px; text-align: left; cursor: pointer; font-size: 12px;
 }
-.stat-label {
-  font-size: 9px; font-weight: 600; color: var(--c-light);
-  text-transform: uppercase; letter-spacing: 0.18em; margin-top: 4px;
-}
-.stat-val.green { color: var(--c-success); }
-.stat-val.red { color: var(--c-error); }
-.stat-val.blue { color: var(--c-accent); }
-.stat-val small { font-size: 13px; font-weight: 400; color: var(--c-light); }
-
-/* Side panels row */
-.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-.panel {
-  background: var(--c-surface); border: 1px solid var(--c-rule);
-  border-radius: var(--r-card); padding: 20px 22px; box-shadow: var(--sh-panel);
-}
-.panel-title {
-  font-size: 10px; font-weight: 600; color: var(--c-light);
-  text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px;
-}
-.loc-row, .vis-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 0; border-bottom: 1px solid var(--c-rule); font-size: 13px;
-}
-.loc-row:last-child, .vis-row:last-child { border-bottom: none; }
-.loc-name { font-weight: 400; color: var(--c-ink); }
-.loc-count {
-  font-weight: 600; font-size: 12px; color: var(--c-accent);
-  background: rgba(74,144,217,0.08); padding: 2px 10px;
-  border-radius: var(--r-pill); font-variant-numeric: tabular-nums;
-}
-.vis-row { gap: 12px; }
-.vis-id {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 11px; color: var(--c-light); flex-shrink: 0;
-}
-.vis-loc { font-size: 12px; color: var(--c-mid); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vis-date { font-size: 11px; color: var(--c-light); flex-shrink: 0; }
-.vis-count {
-  font-weight: 600; font-size: 12px; color: var(--c-accent);
-  background: rgba(74,144,217,0.08); padding: 2px 10px;
-  border-radius: var(--r-pill); flex-shrink: 0; font-variant-numeric: tabular-nums;
-}
-.empty-sm { font-size: 13px; color: var(--c-light); font-weight: 300; }
-
-/* Section title */
-.section-label {
-  font-size: 10px; font-weight: 600; color: var(--c-light);
-  text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px;
-}
-
-/* Conversation cards */
+.custom-select-option:hover, .custom-select-option:focus-visible { background: var(--c-panel); }
+.custom-select-option.is-selected { background: rgba(37,99,235,0.1); color: var(--c-accent); font-weight: 700; }
+.toolbar-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.result-count { display: block; max-width: 1180px; margin: -4px auto 0; padding: 0 clamp(12px, 3vw, 32px) 8px; color: var(--c-light); font-size: 12px; }
+.is-hidden { display: none !important; }
+.summary-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--r-card); padding: 14px; box-shadow: var(--sh-panel); min-width: 0; }
+.stat-val { display: block; font-size: 27px; line-height: 1.05; font-weight: 750; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.stat-label { display: block; margin-top: 6px; color: var(--c-light); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.blue { color: var(--c-accent); } .green { color: var(--c-success); } .red { color: var(--c-error); } .purple { color: var(--c-purple); } .warn { color: var(--c-warn); }
+.trust-strip { display: flex; flex-wrap: wrap; gap: 8px; color: var(--c-mid); font-size: 12px; margin-bottom: 18px; }
+.trust-strip span { background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--r-pill); padding: 4px 10px; }
+.quick-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
+.quick-btn[aria-pressed="true"] { background: var(--c-ink); color: var(--c-bg); border-color: var(--c-ink); }
+.insight-grid { display: grid; grid-template-columns: 1.2fr 0.85fr 0.95fr; gap: 12px; margin-bottom: 22px; }
+.panel { background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--r-card); padding: 16px; box-shadow: var(--sh-panel); min-width: 0; }
+.panel-title { margin: 0 0 12px; color: var(--c-light); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.trend { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; align-items: end; min-height: 154px; }
+.trend-day { min-width: 0; display: grid; grid-template-rows: 96px auto auto auto; align-items: end; gap: 4px; text-align: center; }
+.trend-bar { height: 96px; border-radius: 6px; background: var(--c-panel); display: flex; align-items: end; overflow: hidden; border: 1px solid var(--c-rule); }
+.trend-fill { width: 100%; min-height: 2px; background: linear-gradient(180deg, var(--c-accent), #14b8a6); border-radius: 6px 6px 0 0; }
+.h-0 { height: 2px; } .h-10 { height: 10%; } .h-20 { height: 20%; } .h-30 { height: 30%; } .h-40 { height: 40%; } .h-50 { height: 50%; } .h-60 { height: 60%; } .h-70 { height: 70%; } .h-80 { height: 80%; } .h-90 { height: 90%; } .h-100 { height: 100%; }
+.trend-count { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.trend-label, .trend-error { color: var(--c-light); font-size: 10px; white-space: nowrap; }
+.trend-error { color: var(--c-error); }
+.rank-row, .vis-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--c-rule); padding: 8px 0; font-size: 13px; }
+.rank-row:last-child, .vis-row:last-child { border-bottom: none; }
+.rank-row span, .vis-loc { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-row strong, .vis-row strong { color: var(--c-accent); font-variant-numeric: tabular-nums; }
+.vis-id, .vid { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; color: var(--c-light); }
+.vis-loc { flex: 1; color: var(--c-mid); }
+.vis-date { color: var(--c-light); font-size: 11px; white-space: nowrap; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 0 0 12px; }
+.section-head h2 { margin: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--c-light); }
 .cards { display: flex; flex-direction: column; gap: 10px; }
-.card {
-  background: var(--c-surface); border: 1px solid var(--c-rule);
-  border-radius: var(--r-card); padding: 20px 24px;
-  box-shadow: var(--sh-panel); transition: box-shadow 0.2s var(--ease);
+.card { background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--r-card); padding: 18px 20px; box-shadow: var(--sh-panel); }
+.card-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.card-top-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.date { font-size: 13px; font-weight: 650; } .time, .location { font-size: 11px; color: var(--c-light); }
+.card-badges, .flag-row, .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge, .flag { border-radius: var(--r-pill); padding: 3px 9px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.badge-ok { background: rgba(31,122,58,0.11); color: var(--c-success); }
+.badge-err { background: rgba(194,65,12,0.12); color: var(--c-error); }
+.badge-new { background: rgba(37,99,235,0.1); color: var(--c-accent); }
+.badge-ret, .badge-topic { background: rgba(124,58,237,0.1); color: var(--c-purple); }
+.question { margin: 0 0 10px; font-size: 15px; line-height: 1.45; letter-spacing: 0; }
+.flag-row { margin-bottom: 10px; }
+.flag { background: var(--c-panel); color: var(--c-mid); border: 1px solid var(--c-rule); }
+.flag-muted { color: var(--c-light); }
+.error-msg { color: var(--c-error); background: rgba(194,65,12,0.08); border: 1px solid rgba(194,65,12,0.18); border-radius: 6px; padding: 8px 10px; margin-bottom: 10px; font-size: 13px; }
+.thread-wrap { margin: 8px 0 0; }
+.thread-wrap summary { color: var(--c-accent); cursor: pointer; font-size: 12px; font-weight: 650; width: fit-content; border-radius: 6px; padding: 4px 2px; }
+.thread { margin-top: 10px; background: var(--c-panel); border: 1px solid var(--c-rule); border-radius: 8px; padding: 12px; max-height: 440px; overflow: auto; display: flex; flex-direction: column; gap: 10px; }
+.thread-msg { display: flex; flex-direction: column; gap: 3px; }
+.thread-role { color: var(--c-light); font-size: 10px; font-weight: 750; letter-spacing: 0.1em; text-transform: uppercase; }
+.thread-text { white-space: pre-wrap; font-size: 13px; line-height: 1.55; }
+.thread-user .thread-text { color: var(--c-ink); font-weight: 550; }
+.thread-ai .thread-text { color: var(--c-mid); }
+.meta { margin-top: 10px; color: var(--c-light); font-size: 11px; }
+.empty, .empty-sm { color: var(--c-light); font-size: 13px; }
+.empty { text-align: center; padding: 56px 20px; background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--r-card); }
+@media (max-width: 980px) {
+  .toolbar-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .insight-grid { grid-template-columns: 1fr; }
 }
-.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
-.card-top-left { display: flex; flex-direction: column; gap: 2px; }
-.card-badges { display: flex; gap: 6px; flex-shrink: 0; }
-.date { font-size: 13px; color: var(--c-ink); font-weight: 500; letter-spacing: -0.01em; }
-.time { font-size: 11px; color: var(--c-light); font-weight: 400; }
-.location { font-size: 11px; color: var(--c-mid); font-weight: 400; }
-.badge {
-  font-size: 10px; font-weight: 600; padding: 3px 10px;
-  border-radius: var(--r-pill); letter-spacing: 0.02em; white-space: nowrap;
-}
-.badge-ok { background: rgba(46,125,50,0.1); color: var(--c-success); }
-.badge-err { background: rgba(211,47,47,0.1); color: var(--c-error); }
-.badge-new { background: rgba(74,144,217,0.1); color: var(--c-accent); }
-.badge-ret { background: rgba(168,85,247,0.1); color: #a855f7; }
-.question { font-size: 14px; font-weight: 600; line-height: 1.5; margin-bottom: 6px; color: var(--c-ink); letter-spacing: -0.01em; }
-.response {
-  font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--c-mid);
-  border-left: 2px solid var(--c-rule); padding-left: 12px;
-}
-.error-msg {
-  font-size: 13px; color: var(--c-error);
-  background: rgba(211,47,47,0.06); padding: 8px 12px; border-radius: 8px;
-}
-.meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: 11px; color: var(--c-light); }
-.vid { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; }
-.empty { text-align: center; padding: 60px 20px; color: var(--c-light); font-size: 15px; font-weight: 300; }
-
-/* Conversation thread */
-.thread { display: none; margin: 10px 0; border-radius: 10px; background: var(--c-panel); padding: 14px 16px; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
-.thread.open { display: flex; }
-.thread-msg { display: flex; flex-direction: column; gap: 2px; }
-.thread-role { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-light); }
-.thread-user .thread-text { font-size: 13px; font-weight: 500; color: var(--c-ink); }
-.thread-ai .thread-text { font-size: 13px; font-weight: 300; color: var(--c-mid); line-height: 1.6; white-space: pre-wrap; }
-.thread-toggle {
-  font-family: var(--font); font-size: 11px; font-weight: 500; color: var(--c-accent);
-  background: none; border: none; cursor: pointer; padding: 4px 0; text-align: left;
-  transition: color 0.15s var(--ease);
-}
-.thread-toggle:hover { color: var(--c-ink); }
-.badge-msg { background: rgba(168,85,247,0.1); color: #a855f7; }
-#countdown { font-variant-numeric: tabular-nums; }
-
-/* Filter toolbar — sticky below header, filters centered */
-.toolbar {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; flex-direction: column; align-items: center;
-  padding: 10px 32px;
-  background: var(--c-bg); border-bottom: 1px solid var(--c-rule);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-}
-.toolbar-inner {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: 10px; width: 100%;
-}
-html[data-theme="dark"] .toolbar { background: rgba(18,18,18,0.92); }
-.toolbar label {
-  font-size: 10px; font-weight: 600; color: var(--c-light);
-  text-transform: uppercase; letter-spacing: 0.14em;
-}
-.toolbar select, .toolbar input[type="date"] {
-  font-family: var(--font); font-size: 12px; font-weight: 400;
-  color: var(--c-ink); background: var(--c-panel); border: 1px solid var(--c-rule);
-  border-radius: 6px; padding: 6px 10px; outline: none;
-  transition: border-color 0.2s var(--ease);
-  -webkit-appearance: none; appearance: none;
-}
-.toolbar select { padding-right: 26px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236F6F6F'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
-html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.53)'/%3E%3C/svg%3E"); }
-.toolbar select:focus, .toolbar input[type="date"]:focus { border-color: var(--c-accent); }
-.filter-group { display: flex; align-items: center; gap: 5px; }
-.filter-sep { width: 1px; height: 20px; background: var(--c-rule); flex-shrink: 0; }
-.result-count {
-  font-size: 11px; color: var(--c-light); font-variant-numeric: tabular-nums;
-  width: 100%; text-align: center; margin-top: 6px;
-}
-.btn-reset {
-  font-family: var(--font); font-size: 11px; font-weight: 500;
-  color: var(--c-accent); background: none; border: 1px solid var(--c-rule);
-  border-radius: var(--r-pill); padding: 4px 12px; cursor: pointer;
-  transition: background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
-}
-.btn-reset:hover { background: var(--c-accent); color: #fff; border-color: var(--c-accent); }
-
-@media (max-width: 700px) {
-  header { padding: 16px; }
-  main { padding: 16px 12px; }
-  .summary { padding: 16px; gap: 0; }
-  .summary-item { min-width: 70px; padding: 6px 8px; }
-  .stat-val { font-size: 22px; }
-  .card { padding: 16px 18px; }
-  .panels { grid-template-columns: 1fr; }
-  .card-top { flex-direction: column; gap: 8px; }
-  .card-badges { align-self: flex-start; }
-  .toolbar { padding: 10px 12px; }
-  .toolbar-inner { gap: 6px; }
-  .filter-sep { display: none; }
-  .filter-group { flex: 1 1 auto; min-width: 0; max-width: 100%; }
-  .toolbar label { font-size: 9px; }
-  .toolbar select, .toolbar input[type="date"] { flex: 1; min-width: 0; font-size: 11px; padding: 5px 8px; }
-  .result-count { margin-top: 4px; }
+@media (max-width: 640px) {
+  header { padding: 14px; align-items: flex-start; }
+  .toolbar-inner { grid-template-columns: 1fr 1fr; padding: 10px 12px; }
+  main { padding: 16px 12px 36px; }
+  .summary-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat { padding: 12px; } .stat-val { font-size: 22px; }
+  .card { padding: 16px; }
+  .card-top { flex-direction: column; }
+  .trend { gap: 5px; }
+  .trend-label, .trend-error { font-size: 9px; }
+  .custom-select-menu { max-height: 220px; }
 }
 </style>
 </head>
@@ -890,257 +1102,396 @@ html[data-theme="dark"] .toolbar select { background-image: url("data:image/svg+
 <header>
   <h1>Ask Shannon</h1>
   <div class="header-right">
-    <div class="header-sub"><span class="dot"></span> Refresh in <span id="countdown">30</span>s</div>
-    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-btn">&#9790;</button>
+    <div class="header-sub"><span class="dot"></span><span>Refresh <span id="countdown">in 30s</span></span></div>
+    <a class="header-btn" href="/api/conversations/logout">Log out</a>
+    <button class="theme-btn" type="button" aria-label="Toggle theme" id="theme-btn">Dark</button>
   </div>
 </header>
-<div class="toolbar">
+<div class="toolbar" aria-label="Conversation filters">
   <div class="toolbar-inner">
     <div class="filter-group">
-      <label for="f-date">Date</label>
-      <select id="f-date">
-        <option value="all">All time</option>
-        <option value="today">Today</option>
-        <option value="7d">Last 7 days</option>
-        <option value="30d">Last 30 days</option>
-        <option value="custom">Custom range</option>
-      </select>
+      <label for="f-search">Search</label>
+      <input id="f-search" type="search" placeholder="Question, response, flag">
     </div>
-    <input type="date" id="f-from" style="display:none" title="From date">
-    <input type="date" id="f-to" style="display:none" title="To date">
-    <span class="filter-sep"></span>
     <div class="filter-group">
-      <label for="f-loc">Location</label>
-      <select id="f-loc">
-        <option value="all">All locations</option>
-        ${Object.keys(locationCounts).sort().map(l => '<option value="' + escHtml(l) + '">' + escHtml(l) + '</option>').join('')}
-      </select>
+      <label for="f-date-button">Date</label>
+      ${renderCustomSelect('f-date', 'Date', dateOptions)}
     </div>
-    <span class="filter-sep"></span>
+    <div class="filter-group is-hidden" id="custom-from-wrap">
+      <label for="f-from">From</label>
+      <input type="date" id="f-from">
+    </div>
+    <div class="filter-group is-hidden" id="custom-to-wrap">
+      <label for="f-to">To</label>
+      <input type="date" id="f-to">
+    </div>
     <div class="filter-group">
-      <label for="f-type">Visitor</label>
-      <select id="f-type">
-        <option value="all">All</option>
-        <option value="new">New</option>
-        <option value="returning">Returning</option>
-      </select>
+      <label for="f-topic-button">Topic</label>
+      ${renderCustomSelect('f-topic', 'Topic', topicOptions)}
     </div>
-    <span class="filter-sep"></span>
     <div class="filter-group">
-      <label for="f-status">Status</label>
-      <select id="f-status">
-        <option value="all">All</option>
-        <option value="ok">Success</option>
-        <option value="error">Errors</option>
-      </select>
+      <label for="f-loc-button">Location</label>
+      ${renderCustomSelect('f-loc', 'Location', locationOptions)}
     </div>
-    <span class="filter-sep"></span>
     <div class="filter-group">
-      <label for="f-sort">Sort</label>
-      <select id="f-sort">
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-      </select>
+      <label for="f-status-button">Status</label>
+      ${renderCustomSelect('f-status', 'Status', statusOptions)}
     </div>
-    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+    <div class="filter-group">
+      <label for="f-sort-button">Sort</label>
+      ${renderCustomSelect('f-sort', 'Sort', sortOptions)}
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn-reset" id="reset-btn" type="button">Reset</button>
+      <label class="header-sub"><input id="auto-refresh" type="checkbox" checked> Auto</label>
+    </div>
   </div>
-  <span class="result-count" id="result-count"></span>
+  <span class="result-count" id="result-count" role="status" aria-live="polite"></span>
 </div>
 <main>
-  <div class="summary">
-    <div class="summary-item"><div class="stat-val">${total}</div><div class="stat-label">Conversations</div></div>
-    <div class="summary-item"><div class="stat-val blue">${todayCount}</div><div class="stat-label">Today</div></div>
-    <div class="summary-item"><div class="stat-val blue">${uniqueVisitors}</div><div class="stat-label">Unique</div></div>
-    <div class="summary-item"><div class="stat-val green">${newCount}</div><div class="stat-label">New</div></div>
-    <div class="summary-item"><div class="stat-val" style="color:#a855f7">${returningCount}</div><div class="stat-label">Returning</div></div>
-    <div class="summary-item"><div class="stat-val ${parseFloat(errorRate) > 0 ? 'red' : 'green'}">${errorRate}%</div><div class="stat-label">Error Rate</div></div>
-    <div class="summary-item"><div class="stat-val">${mobileCount}<small> / ${desktopCount}</small></div><div class="stat-label">Mobile / Desktop</div></div>
+  <section class="summary-grid" aria-label="Summary metrics">
+    <div class="stat"><span class="stat-val">${summary.sessions}</span><span class="stat-label">Sessions</span></div>
+    <div class="stat"><span class="stat-val blue">${summary.today}</span><span class="stat-label">Today</span></div>
+    <div class="stat"><span class="stat-val blue">${summary.uniqueVisitors}</span><span class="stat-label">Visitors</span></div>
+    <div class="stat"><span class="stat-val purple">${summary.returningVisitors}</span><span class="stat-label">Returning</span></div>
+    <div class="stat"><span class="stat-val ${summary.needsReview ? 'warn' : 'green'}">${summary.needsReview}</span><span class="stat-label">Needs Review</span></div>
+    <div class="stat"><span class="stat-val ${parseFloat(summary.errorRate) ? 'red' : 'green'}">${summary.errorRate}%</span><span class="stat-label">Error Rate</span></div>
+    <div class="stat"><span class="stat-val">${summary.avgExchanges}</span><span class="stat-label">Avg Exchanges</span></div>
+  </section>
+
+  <div class="trust-strip" aria-label="Dashboard data status">
+    <span>Last refreshed ${escHtml(fmtFull(data.generatedAt))}</span>
+    <span>Retention ${summary.logEntries} log entries / ${data.retentionDays} days</span>
+    <span>Geo lookup ${data.geoLookupEnabled ? 'on' : 'off'}</span>
+    <span>Timezone ${escHtml(data.timeZone)}</span>
+    <span>Device split ${summary.mobile} mobile / ${summary.desktop} desktop</span>
   </div>
 
-  <div class="panels">
+  <div class="quick-row" aria-label="Quick filters">
+    <button class="quick-btn" type="button" data-quick="all" aria-pressed="true">All</button>
+    <button class="quick-btn" type="button" data-quick="needs-review" aria-pressed="false">Needs review</button>
+    <button class="quick-btn" type="button" data-quick="error" aria-pressed="false">Errors</button>
+    <button class="quick-btn" type="button" data-quick="sensitive" aria-pressed="false">Sensitive info</button>
+    <button class="quick-btn" type="button" data-quick="out-of-scope" aria-pressed="false">Out of scope</button>
+    <button class="quick-btn" type="button" data-quick="long" aria-pressed="false">Long chats</button>
+  </div>
+
+  <section class="insight-grid" aria-label="Conversation insights">
     <div class="panel">
-      <div class="panel-title">Top Locations</div>
+      <h2 class="panel-title">7-Day Volume</h2>
+      <div class="trend">${trendHtml}</div>
+    </div>
+    <div class="panel">
+      <h2 class="panel-title">Top Topics</h2>
+      ${topicHtml}
+    </div>
+    <div class="panel">
+      <h2 class="panel-title">Top Locations</h2>
       ${locHtml}
     </div>
-    <div class="panel">
-      <div class="panel-title">Visitors</div>
-      ${visitorsHtml}
-    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="visitors-title">
+    <h2 class="panel-title" id="visitors-title">Visitor Sessions</h2>
+    ${visitorsHtml}
+  </section>
+
+  <div class="section-head">
+    <h2>Recent Conversations</h2>
   </div>
-
-  <div class="section-label">Recent Conversations</div>
-  <div class="cards" id="cards-container">${cards}</div>
+  <section class="cards" id="cards-container" aria-label="Recent conversations">${cardsHtml}</section>
 </main>
-<script>
-var ALL_CONVOS = ${JSON.stringify(deduped.map(c => {
-  const msgs = c.messages || [];
-  const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
-  return {
-    ts: c.timestamp,
-    question: c.question || '',
-    messages: allMsgs.map(m => ({ role: m.role, content: m.content })),
-    status: c.status || 'ok',
-    error: c.error || '',
-    isNew: !!c.isNew,
-    visitorId: c.visitorId || '',
-    totalVisits: c.totalVisits || 0,
-    loc: (c.location && c.location.city !== '—') ? c.location.city + ', ' + c.location.country : '',
-    device: (c.userAgent || '').includes('Mobile') ? 'Mobile' : 'Desktop'
-  };
-}))};
-
-function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
-function fmtD(iso) { return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
-function fmtT(iso) { return new Date(iso).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }); }
-function ago(iso) {
-  var d = Date.now() - new Date(iso).getTime(), m = Math.floor(d/60000);
-  if (m < 1) return 'just now';
-  if (m < 60) return m + 'm ago';
-  var h = Math.floor(m/60);
-  if (h < 24) return h + 'h ago';
-  var dy = Math.floor(h/24);
-  return dy < 7 ? dy + 'd ago' : fmtD(iso);
-}
-
-var _cardIdx = 0;
-function renderCard(c) {
-  var idx = _cardIdx++;
-  var vLabel = c.isNew ? 'New' : 'Returning';
-  var vClass = c.isNew ? 'badge-new' : 'badge-ret';
-  var msgs = c.messages || [];
-  var exchanges = Math.ceil(msgs.length / 2);
-
-  var threadHtml = '';
-  msgs.forEach(function (m) {
-    var cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
-    var label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
-    threadHtml += '<div class="thread-msg ' + cls + '"><span class="thread-role">' + label + '</span><span class="thread-text">' + escH(m.content) + '</span></div>';
-  });
-
-  return '<div class="card">'
-    + '<div class="card-top"><div class="card-top-left">'
-    + '<span class="date">' + fmtD(c.ts) + '</span>'
-    + '<span class="time">' + fmtT(c.ts) + ' &middot; ' + ago(c.ts) + '</span>'
-    + (c.loc ? '<span class="location">' + escH(c.loc) + '</span>' : '')
-    + '</div><div class="card-badges">'
-    + (c.visitorId ? '<span class="badge ' + vClass + '">' + vLabel + '</span>' : '')
-    + '<span class="badge ' + (c.status === 'ok' ? 'badge-ok' : 'badge-err') + '">' + (c.status === 'ok' ? 'Success' : 'Error') + '</span>'
-    + '<span class="badge badge-msg">' + exchanges + ' exchange' + (exchanges !== 1 ? 's' : '') + '</span>'
-    + '</div></div>'
-    + '<div class="question">' + escH(c.question) + '</div>'
-    + (c.status === 'error' ? '<div class="error-msg">' + escH(c.error) + '</div>' : '')
-    + '<div class="thread" id="thread-' + idx + '">' + threadHtml + '</div>'
-    + '<button class="thread-toggle" onclick="toggleThread(' + idx + ')" aria-expanded="false">Show full conversation</button>'
-    + '<div class="meta">'
-    + '<span>' + (c.device === 'Mobile' ? '&#128241;' : '&#128187;') + ' ' + c.device + '</span>'
-    + '<span>' + msgs.length + ' msg' + (msgs.length !== 1 ? 's' : '') + '</span>'
-    + (c.visitorId ? '<span class="vid" title="Visitor ID">ID: ' + c.visitorId + '</span>' : '')
-    + (c.totalVisits > 1 ? '<span>' + c.totalVisits + ' total visits</span>' : '')
-    + '</div></div>';
-}
-
-function applyFilters() {
-  var dateVal = document.getElementById('f-date').value;
-  var locVal = document.getElementById('f-loc').value;
-  var typeVal = document.getElementById('f-type').value;
-  var statusVal = document.getElementById('f-status').value;
-  var sortVal = document.getElementById('f-sort').value;
-  var fromVal = document.getElementById('f-from').value;
-  var toVal = document.getElementById('f-to').value;
-
-  var now = Date.now();
-  var filtered = ALL_CONVOS.filter(function (c) {
-    var t = new Date(c.ts).getTime();
-    if (dateVal === 'today') {
-      var todayStart = new Date(); todayStart.setHours(0,0,0,0);
-      if (t < todayStart.getTime()) return false;
-    } else if (dateVal === '7d') { if (now - t > 7*86400000) return false;
-    } else if (dateVal === '30d') { if (now - t > 30*86400000) return false;
-    } else if (dateVal === 'custom') {
-      if (fromVal && t < new Date(fromVal).getTime()) return false;
-      if (toVal) { var end = new Date(toVal); end.setHours(23,59,59,999); if (t > end.getTime()) return false; }
-    }
-    if (locVal !== 'all' && c.loc !== locVal) return false;
-    if (typeVal === 'new' && !c.isNew) return false;
-    if (typeVal === 'returning' && c.isNew) return false;
-    if (statusVal === 'ok' && c.status !== 'ok') return false;
-    if (statusVal === 'error' && c.status === 'ok') return false;
-    return true;
-  });
-
-  if (sortVal === 'oldest') filtered.reverse();
-
-  var container = document.getElementById('cards-container');
-  _cardIdx = 0;
-  if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty">No conversations match these filters.</div>';
-  } else {
-    container.innerHTML = filtered.map(renderCard).join('');
-  }
-  document.getElementById('result-count').textContent = filtered.length + ' of ' + ALL_CONVOS.length;
-}
-
-function resetFilters() {
-  document.getElementById('f-date').value = 'all';
-  document.getElementById('f-loc').value = 'all';
-  document.getElementById('f-type').value = 'all';
-  document.getElementById('f-status').value = 'all';
-  document.getElementById('f-sort').value = 'newest';
-  document.getElementById('f-from').style.display = 'none';
-  document.getElementById('f-to').style.display = 'none';
-  applyFilters();
-}
-
-document.getElementById('f-date').addEventListener('change', function () {
-  var show = this.value === 'custom';
-  document.getElementById('f-from').style.display = show ? '' : 'none';
-  document.getElementById('f-to').style.display = show ? '' : 'none';
-  applyFilters();
-});
-['f-loc','f-type','f-status','f-sort','f-from','f-to'].forEach(function (id) {
-  document.getElementById(id).addEventListener('change', applyFilters);
-});
-
-applyFilters();
-
-/* Auto-refresh */
-var s = 30;
-setInterval(function () {
-  s--;
-  document.getElementById('countdown').textContent = s;
-  if (s <= 0) location.reload();
-}, 1000);
-
-/* Toggle conversation thread */
-function toggleThread(idx) {
-  var thread = document.getElementById('thread-' + idx);
-  var btn = thread.nextElementSibling;
-  var open = thread.classList.toggle('open');
-  btn.textContent = open ? 'Hide conversation' : 'Show full conversation';
-  btn.setAttribute('aria-expanded', open);
-}
-
-/* Theme toggle */
-function toggleTheme() {
-  var html = document.documentElement;
-  var current = html.getAttribute('data-theme');
-  var next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('dash-theme', next);
-  document.getElementById('theme-btn').innerHTML = next === 'dark' ? '&#9788;' : '&#9790;';
-}
+<script type="application/json" id="dashboard-data" nonce="${escHtml(nonce)}">${safeJsonForHtml(data)}</script>
+<script nonce="${escHtml(nonce)}">
 (function () {
-  var saved = localStorage.getItem('dash-theme');
-  if (saved === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('theme-btn').innerHTML = '&#9788;';
+  'use strict';
+  var DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+  var ALL_CONVOS = DATA.conversations || [];
+  var state = { quick: 'all' };
+  var ids = ['f-search','f-date','f-from','f-to','f-topic','f-loc','f-status','f-sort'];
+  var controls = {};
+  ids.forEach(function (id) { controls[id] = document.getElementById(id); });
+  var resultCount = document.getElementById('result-count');
+  var container = document.getElementById('cards-container');
+  var pauseUntil = 0;
+  var customSelects = [];
+
+  function escH(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
+  function fmtD(iso) { return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+  function fmtT(iso) { return new Date(iso).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' }); }
+  function ago(iso) {
+    var diff = Date.now() - new Date(iso).getTime();
+    var mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    var days = Math.floor(hrs / 24);
+    return days < 7 ? days + 'd ago' : fmtD(iso);
+  }
+  function hasFlag(c, flag) { return (c.flags || []).indexOf(flag) !== -1; }
+  function closeCustomSelects(exceptRoot) {
+    customSelects.forEach(function (item) {
+      if (item.root === exceptRoot) return;
+      item.root.classList.remove('is-open');
+      item.button.setAttribute('aria-expanded', 'false');
+    });
+  }
+  function syncCustomSelect(selectEl) {
+    var item = customSelects.filter(function (entry) { return entry.select === selectEl; })[0];
+    if (!item) return;
+    var selected = item.options.filter(function (option) { return option.getAttribute('data-value') === selectEl.value; })[0] || item.options[0];
+    if (!selected) return;
+    item.valueEl.textContent = selected.textContent;
+    item.options.forEach(function (option) {
+      var isSelected = option === selected;
+      option.classList.toggle('is-selected', isSelected);
+      option.setAttribute('aria-selected', String(isSelected));
+    });
+  }
+  function syncCustomSelects() {
+    customSelects.forEach(function (item) { syncCustomSelect(item.select); });
+  }
+  function openCustomSelect(item) {
+    closeCustomSelects(item.root);
+    item.root.classList.add('is-open');
+    item.button.setAttribute('aria-expanded', 'true');
+    var selected = item.options.filter(function (option) { return option.getAttribute('data-value') === item.select.value; })[0] || item.options[0];
+    if (selected) selected.focus();
+  }
+  function chooseCustomOption(item, option) {
+    item.select.value = option.getAttribute('data-value');
+    syncCustomSelect(item.select);
+    closeCustomSelects();
+    item.button.focus();
+    item.select.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function moveOptionFocus(item, current, direction) {
+    var index = item.options.indexOf(current);
+    var next = item.options[(index + direction + item.options.length) % item.options.length];
+    if (next) next.focus();
+  }
+  function initCustomSelects() {
+    document.querySelectorAll('.custom-select').forEach(function (root) {
+      var select = document.getElementById(root.getAttribute('data-select-target'));
+      var button = root.querySelector('.custom-select-button');
+      var menu = root.querySelector('.custom-select-menu');
+      var valueEl = root.querySelector('.custom-select-value');
+      var options = Array.prototype.slice.call(root.querySelectorAll('.custom-select-option'));
+      if (!select || !button || !menu || !valueEl || !options.length) return;
+      var item = { root: root, select: select, button: button, menu: menu, valueEl: valueEl, options: options };
+      customSelects.push(item);
+
+      button.addEventListener('click', function () {
+        if (root.classList.contains('is-open')) {
+          closeCustomSelects();
+        } else {
+          openCustomSelect(item);
+        }
+      });
+      button.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCustomSelect(item);
+        }
+      });
+      options.forEach(function (option) {
+        option.addEventListener('click', function () { chooseCustomOption(item, option); });
+        option.addEventListener('keydown', function (event) {
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            moveOptionFocus(item, option, 1);
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            moveOptionFocus(item, option, -1);
+          } else if (event.key === 'Home') {
+            event.preventDefault();
+            item.options[0].focus();
+          } else if (event.key === 'End') {
+            event.preventDefault();
+            item.options[item.options.length - 1].focus();
+          } else if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            chooseCustomOption(item, option);
+          } else if (event.key === 'Escape') {
+            event.preventDefault();
+            closeCustomSelects();
+            item.button.focus();
+          }
+        });
+      });
+      select.addEventListener('change', function () { syncCustomSelect(select); });
+      syncCustomSelect(select);
+    });
+
+    document.addEventListener('pointerdown', function (event) {
+      if (!event.target.closest('.custom-select')) closeCustomSelects();
+    }, { passive: true });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeCustomSelects();
+    });
+  }
+  function quickMatch(c) {
+    if (state.quick === 'all') return true;
+    if (state.quick === 'needs-review') return !!c.needsReview;
+    if (state.quick === 'error') return c.status !== 'ok';
+    if (state.quick === 'sensitive') return hasFlag(c, 'Possible sensitive info');
+    if (state.quick === 'out-of-scope') return hasFlag(c, 'Out of scope');
+    if (state.quick === 'long') return hasFlag(c, 'Long conversation');
+    return true;
+  }
+  function renderCard(c) {
+    var statusClass = c.status === 'ok' ? 'badge-ok' : 'badge-err';
+    var statusText = c.status === 'ok' ? 'Success' : 'Error';
+    var visitorText = c.visitorSessionCount > 1 ? 'Returning' : 'New';
+    var visitorClass = c.visitorSessionCount > 1 ? 'badge-ret' : 'badge-new';
+    var flags = c.flags && c.flags.length ? c.flags : ['No flags'];
+    var flagsHtml = flags.map(function (flag) {
+      return '<span class="flag' + (flag === 'No flags' ? ' flag-muted' : '') + '">' + escH(flag) + '</span>';
+    }).join('');
+    var threadHtml = (c.messages || []).map(function (m) {
+      var cls = m.role === 'user' ? 'thread-user' : 'thread-ai';
+      var label = m.role === 'user' ? 'Visitor' : 'Shannon AI';
+      return '<div class="thread-msg ' + cls + '"><span class="thread-role">' + label + '</span><span class="thread-text">' + escH(m.content) + '</span></div>';
+    }).join('');
+    return '<article class="card" data-status="' + escH(c.status) + '">'
+      + '<div class="card-top"><div class="card-top-left">'
+      + '<span class="date">' + fmtD(c.ts) + '</span>'
+      + '<span class="time">' + fmtT(c.ts) + ' - ' + ago(c.ts) + '</span>'
+      + '<span class="location">' + escH(c.loc || 'Location not collected') + '</span>'
+      + '</div><div class="card-badges">'
+      + '<span class="badge ' + visitorClass + '">' + visitorText + '</span>'
+      + '<span class="badge ' + statusClass + '">' + statusText + '</span>'
+      + '<span class="badge badge-topic">' + escH(c.topic.label) + '</span>'
+      + '</div></div>'
+      + '<h3 class="question">' + escH(c.question || '(no question)') + '</h3>'
+      + (c.error ? '<div class="error-msg">' + escH(c.error) + '</div>' : '')
+      + '<div class="flag-row" aria-label="Conversation flags">' + flagsHtml + '</div>'
+      + '<details class="thread-wrap"><summary>Show full conversation</summary><div class="thread">' + threadHtml + '</div></details>'
+      + '<div class="meta"><span>' + escH(c.device) + '</span>'
+      + '<span>' + c.exchangeCount + ' exchange' + (c.exchangeCount !== 1 ? 's' : '') + '</span>'
+      + '<span>' + c.messageCount + ' message' + (c.messageCount !== 1 ? 's' : '') + '</span>'
+      + (c.visitorId ? '<span class="vid" title="Pseudonymous visitor ID">ID: ' + escH(c.visitorId) + '</span>' : '')
+      + (c.visitorSessionCount > 1 ? '<span>' + c.visitorSessionCount + ' sessions</span>' : '')
+      + '</div></article>';
+  }
+  function applyFilters() {
+    var query = controls['f-search'].value.trim().toLowerCase();
+    var dateVal = controls['f-date'].value;
+    var fromVal = controls['f-from'].value;
+    var toVal = controls['f-to'].value;
+    var topicVal = controls['f-topic'].value;
+    var locVal = controls['f-loc'].value;
+    var statusVal = controls['f-status'].value;
+    var sortVal = controls['f-sort'].value;
+    var now = Date.now();
+    var filtered = ALL_CONVOS.filter(function (c) {
+      var t = new Date(c.ts).getTime();
+      if (query && (c.searchText || '').indexOf(query) === -1) return false;
+      if (dateVal === 'today' && c.dateKey !== DATA.todayKey) return false;
+      if (dateVal === '7d' && now - t > 7 * 86400000) return false;
+      if (dateVal === '30d' && now - t > 30 * 86400000) return false;
+      if (dateVal === 'custom') {
+        if (fromVal && t < new Date(fromVal).getTime()) return false;
+        if (toVal) { var end = new Date(toVal); end.setHours(23,59,59,999); if (t > end.getTime()) return false; }
+      }
+      if (topicVal !== 'all' && c.topic.slug !== topicVal) return false;
+      if (locVal !== 'all' && c.loc !== locVal) return false;
+      if (statusVal === 'ok' && c.status !== 'ok') return false;
+      if (statusVal === 'error' && c.status === 'ok') return false;
+      return quickMatch(c);
+    }).sort(function (a, b) {
+      return sortVal === 'oldest' ? new Date(a.ts) - new Date(b.ts) : new Date(b.ts) - new Date(a.ts);
+    });
+    var emptyText = ALL_CONVOS.length ? 'No conversations match these filters.' : 'No conversations yet. Questions from visitors will appear here.';
+    container.innerHTML = filtered.length ? filtered.map(renderCard).join('') : '<div class="empty">' + emptyText + '</div>';
+    resultCount.textContent = filtered.length + ' of ' + ALL_CONVOS.length + ' sessions shown';
+  }
+  function setQuickFilter(value) {
+    state.quick = value;
+    document.querySelectorAll('.quick-btn').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-quick') === value));
+    });
+    applyFilters();
+  }
+  function resetFilters() {
+    controls['f-search'].value = '';
+    controls['f-date'].value = 'all';
+    controls['f-from'].value = '';
+    controls['f-to'].value = '';
+    controls['f-topic'].value = 'all';
+    controls['f-loc'].value = 'all';
+    controls['f-status'].value = 'all';
+    controls['f-sort'].value = 'newest';
+    document.getElementById('custom-from-wrap').classList.add('is-hidden');
+    document.getElementById('custom-to-wrap').classList.add('is-hidden');
+    syncCustomSelects();
+    setQuickFilter('all');
+  }
+  controls['f-date'].addEventListener('change', function () {
+    syncCustomSelect(this);
+    var show = this.value === 'custom';
+    document.getElementById('custom-from-wrap').classList.toggle('is-hidden', !show);
+    document.getElementById('custom-to-wrap').classList.toggle('is-hidden', !show);
+    applyFilters();
+  });
+  ['f-search','f-from','f-to','f-topic','f-loc','f-status','f-sort'].forEach(function (id) {
+    controls[id].addEventListener(id === 'f-search' ? 'input' : 'change', function () {
+      if (this.type === 'hidden') syncCustomSelect(this);
+      applyFilters();
+    });
+  });
+  document.getElementById('reset-btn').addEventListener('click', resetFilters);
+  document.querySelectorAll('.quick-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { setQuickFilter(btn.getAttribute('data-quick')); });
+  });
+  document.addEventListener('keydown', function () { pauseUntil = Date.now() + 12000; }, { passive: true });
+  document.addEventListener('pointerdown', function () { pauseUntil = Date.now() + 12000; }, { passive: true });
+
+  var countdown = 30;
+  var countdownEl = document.getElementById('countdown');
+  var autoRefresh = document.getElementById('auto-refresh');
+  autoRefresh.addEventListener('change', function () {
+    countdownEl.textContent = autoRefresh.checked ? 'in ' + countdown + 's' : 'paused';
+  });
+  setInterval(function () {
+    if (!autoRefresh.checked || document.hidden || Date.now() < pauseUntil) {
+      countdownEl.textContent = 'paused';
+      return;
+    }
+    countdown -= 1;
+    countdownEl.textContent = 'in ' + countdown + 's';
+    if (countdown <= 0) location.reload();
+  }, 1000);
+
+  function setTheme(next) {
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('dash-theme', next);
+    document.getElementById('theme-btn').textContent = next === 'dark' ? 'Light' : 'Dark';
+  }
+  document.getElementById('theme-btn').addEventListener('click', function () {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  if (localStorage.getItem('dash-theme') === 'dark') setTheme('dark');
+  initCustomSelects();
+  applyFilters();
 })();
 </script>
 </body>
 </html>`;
 }
+
+app.get('/api/conversations/logout', (req, res) => {
+  clearAdminCookie(res);
+  res.redirect(303, '/api/conversations');
+});
 
 app.get('/api/conversations', (req, res) => {
   const token = process.env.ADMIN_TOKEN;
@@ -1155,7 +1506,7 @@ app.get('/api/conversations', (req, res) => {
     return res.redirect(303, stripQueryToken(req));
   }
 
-  if (!hasAdminAccess(req, token) && !safeEqual(queryToken, token)) {
+  if (!hasAdminAccess(req, token)) {
     res.setHeader('WWW-Authenticate', 'Bearer realm="Ask Shannon"');
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -1167,41 +1518,39 @@ app.get('/api/conversations', (req, res) => {
 
   /* Serve HTML dashboard for browsers, JSON for programmatic access */
   if (wantsHtml) {
-    res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; base-uri 'none'; frame-ancestors 'none'");
-    return res.type('html').send(buildDashboard(conversations, recent, token));
+    const nonce = crypto.randomBytes(16).toString('base64');
+    res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'`);
+    return res.type('html').send(buildDashboard(conversations, recent, { nonce }));
   }
 
-  /* Deduplicate sessions for JSON too */
-  const jsonSessionMap = new Map();
-  recent.forEach(c => {
-    const sid = c.sessionId || c.visitorId + '-' + c.timestamp;
-    const existing = jsonSessionMap.get(sid);
-    if (!existing || c.messageCount > existing.messageCount) {
-      jsonSessionMap.set(sid, c);
-    }
-  });
-  const jsonDeduped = Array.from(jsonSessionMap.values())
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const dashboardData = buildDashboardData(conversations, recent);
 
   res.json({
-    total: conversations.length,
-    uniqueVisitors: new Set(conversations.map(c => c.visitorId).filter(Boolean)).size,
-    showing: jsonDeduped.length,
-    conversations: jsonDeduped.map(c => {
-      const msgs = c.messages || [];
-      const allMsgs = msgs.concat(c.response ? [{ role: 'assistant', content: c.response }] : []);
-      return {
-        time: c.timestamp,
-        question: c.question,
-        messages: allMsgs.map(m => ({ role: m.role, content: m.content })),
-        status: c.status,
-        error: c.error || null,
-        visitorId: c.visitorId || null,
-        isNew: c.isNew || false,
-        location: c.location || null,
-        device: (c.userAgent || '').includes('Mobile') ? 'mobile' : 'desktop'
-      };
-    })
+    total: dashboardData.summary.sessions,
+    logEntries: dashboardData.summary.logEntries,
+    uniqueVisitors: dashboardData.summary.uniqueVisitors,
+    returningVisitors: dashboardData.summary.returningVisitors,
+    needsReview: dashboardData.summary.needsReview,
+    errorRate: dashboardData.summary.errorRate,
+    showing: dashboardData.conversations.length,
+    generatedAt: dashboardData.generatedAt,
+    retentionDays: dashboardData.retentionDays,
+    conversations: dashboardData.conversations.map(c => ({
+      time: c.ts,
+      question: c.question,
+      messages: c.messages.map(m => ({ role: m.role, content: m.content })),
+      status: c.status,
+      error: c.error || null,
+      visitorId: c.visitorId || null,
+      isNew: c.isNew,
+      location: c.location || null,
+      locationLabel: c.loc || null,
+      device: c.device.toLowerCase(),
+      topic: c.topic,
+      flags: c.flags,
+      needsReview: c.needsReview,
+      exchanges: c.exchangeCount
+    }))
   });
 });
 
