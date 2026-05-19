@@ -8,7 +8,15 @@ services:
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-4-6
       - key: ADMIN_TOKEN
         sync: false
+      - key: IP_SALT
+        sync: false
+      - key: ENABLE_GEO_LOOKUP
+        value: "false"
+      - key: CONVERSATION_RETENTION_DAYS
+        value: "30"
       - key: NODE_ENV
         value: production

@@ -20,10 +20,10 @@ const Anthropic = require('@anthropic-ai/sdk');
 const app  = express();
 app.set('trust proxy', 1); /* correct client IP behind Render / other proxies */
 const PORT = process.env.PORT || 3001;
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
 
-/* Security headers. contentSecurityPolicy is disabled here because the
-   admin dashboard (GET /api/conversations) serves inline styles + scripts.
-   Everything else (HSTS, X-Frame-Options, noSniff, etc.) is on. */
+/* Security headers. The dashboard sets its own route-level CSP because it
+   serves inline styles/scripts; JSON/SSE endpoints get a strict default CSP. */
 app.use(helmet({
   contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false,
@@ -37,12 +37,35 @@ const ALLOWED_ORIGINS = [
   'http://127.0.0.1:3000',
   'http://127.0.0.1:8000',
 ];
-app.use(cors({
+
+function isAllowedOrigin(origin) {
+  return !origin || ALLOWED_ORIGINS.includes(origin);
+}
+
+const chatCors = cors({
   origin: function (origin, callback) {
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
+    callback(null, isAllowedOrigin(origin));
+  },
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  maxAge: 86400,
+});
+
+function requireAllowedOrigin(req, res, next) {
+  if (!isAllowedOrigin(req.headers.origin)) {
+    return res.status(403).json({ error: 'origin not allowed' });
   }
-}));
+  next();
+}
+
+app.use((req, res, next) => {
+  if (req.path !== '/api/conversations') {
+    res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
+  }
+  next();
+});
+
+app.use('/api/chat', requireAllowedOrigin, chatCors);
 app.use(express.json({ limit: '16kb' }));
 
 const rateLimit = require('express-rate-limit');
@@ -65,6 +88,19 @@ const https  = require('https');
 const LOG_FILE = process.env.CONVERSATIONS_LOG_PATH
   ? path.resolve(process.env.CONVERSATIONS_LOG_PATH)
   : path.join(__dirname, 'conversations.log');
+const MAX_CONVERSATIONS = Math.max(parseInt(process.env.MAX_CONVERSATIONS, 10) || 500, 1);
+const RETENTION_DAYS = Math.max(parseInt(process.env.CONVERSATION_RETENTION_DAYS, 10) || 30, 1);
+const RETENTION_MS = RETENTION_DAYS * 24 * 60 * 60 * 1000;
+const ENABLE_GEO_LOOKUP = process.env.ENABLE_GEO_LOOKUP === 'true';
+const IP_SALT = process.env.IP_SALT || (
+  process.env.NODE_ENV === 'production'
+    ? crypto.randomBytes(32).toString('hex')
+    : 'dev-salt'
+);
+
+if (process.env.NODE_ENV === 'production' && !process.env.IP_SALT) {
+  console.warn('IP_SALT is not set. Visitor IDs will rotate when the server restarts.');
+}
 
 (function ensureLogPath() {
   try {
@@ -79,7 +115,7 @@ const conversations = [];
 const visitorMap = new Map(); /* visitorId → { firstSeen, visits, location } */
 
 function hashIp(ip) {
-  return crypto.createHash('sha256').update(ip + (process.env.IP_SALT || 'shannon')).digest('hex').slice(0, 12);
+  return crypto.createHash('sha256').update(ip + IP_SALT).digest('hex').slice(0, 12);
 }
 
 function cleanIp(req) {
@@ -125,10 +161,26 @@ function trackVisitor(visitorId, geo) {
 
 function logConversation(entry) {
   conversations.push(entry);
-  if (conversations.length > 500) conversations.shift();
-  const line = JSON.stringify(entry) + '\n';
-  fs.appendFile(LOG_FILE, line, err => {
-    if (err) console.error('Failed to append conversations log:', err.message);
+  trimConversationHistory();
+  persistConversationLog();
+}
+
+function isWithinRetention(entry) {
+  if (!entry || !entry.timestamp) return false;
+  return Date.now() - new Date(entry.timestamp).getTime() <= RETENTION_MS;
+}
+
+function trimConversationHistory() {
+  for (let i = conversations.length - 1; i >= 0; i--) {
+    if (!isWithinRetention(conversations[i])) conversations.splice(i, 1);
+  }
+  while (conversations.length > MAX_CONVERSATIONS) conversations.shift();
+}
+
+function persistConversationLog() {
+  const body = conversations.map(entry => JSON.stringify(entry)).join('\n');
+  fs.writeFile(LOG_FILE, body ? body + '\n' : '', err => {
+    if (err) console.error('Failed to write conversations log:', err.message);
   });
 }
 
@@ -142,6 +194,7 @@ function logConversation(entry) {
       if (!line) continue;
       try {
         const entry = JSON.parse(line);
+        if (!isWithinRetention(entry)) continue;
         conversations.push(entry);
         /* Rebuild visitorMap from historical data */
         if (entry.visitorId) {
@@ -161,8 +214,8 @@ function logConversation(entry) {
         loaded++;
       } catch { /* skip malformed lines */ }
     }
-    /* Keep only last 500 */
-    while (conversations.length > 500) conversations.shift();
+    trimConversationHistory();
+    persistConversationLog();
     if (loaded > 0) console.log(`Loaded ${loaded} conversations from log file`);
   } catch (err) {
     console.error('Could not load conversation history:', err.message);
@@ -326,7 +379,9 @@ app.post('/api/chat', async (req, res) => {
   const userMsg = messages.filter(m => m.role === 'user').pop();
   const rawIp = cleanIp(req);
   const visitorId = hashIp(rawIp);
-  const geo = shouldLog ? await geoLookup(rawIp) : { city: 'Local', country: 'Dev' };
+  const geo = shouldLog && ENABLE_GEO_LOOKUP
+    ? await geoLookup(rawIp)
+    : { city: '—', country: '—', region: '' };
   const visitor = shouldLog ? trackVisitor(visitorId, geo) : { isNew: false, visits: 0 };
 
   /* Session = same visitor within a 30-min window */
@@ -358,7 +413,7 @@ app.post('/api/chat', async (req, res) => {
     const client = new Anthropic();
 
     const stream = await client.messages.stream({
-      model: 'claude-sonnet-4-20250514',
+      model: ANTHROPIC_MODEL,
       max_tokens: 1024,
       system: SYSTEM_PROMPT,
       messages: messages.map(m => ({
@@ -404,7 +459,7 @@ app.post('/api/chat', async (req, res) => {
    alias that matches Render's default health-check convention and
    kubernetes-style liveness probes. */
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', model: 'claude-sonnet-4-20250514' });
+  res.json({ status: 'ok', model: ANTHROPIC_MODEL });
 });
 app.get('/healthz', (req, res) => {
   res.json({ status: 'ok' });
@@ -412,8 +467,57 @@ app.get('/healthz', (req, res) => {
 
 /* ------------------------------------------------------------------ */
 /*  GET /api/conversations — dashboard + JSON API                     */
-/*  Protected with a simple token from env var                        */
+/*  Protected with ADMIN_TOKEN via bearer header or short admin cookie */
 /* ------------------------------------------------------------------ */
+const ADMIN_COOKIE = 'ask_admin';
+
+function safeEqual(a, b) {
+  if (!a || !b) return false;
+  const aBuf = Buffer.from(String(a));
+  const bBuf = Buffer.from(String(b));
+  return aBuf.length === bBuf.length && crypto.timingSafeEqual(aBuf, bBuf);
+}
+
+function adminCookieValue(token) {
+  return crypto.createHmac('sha256', token).update('ask-shannon-admin').digest('hex');
+}
+
+function parseCookies(header) {
+  return (header || '').split(';').reduce((acc, part) => {
+    const idx = part.indexOf('=');
+    if (idx === -1) return acc;
+    const key = part.slice(0, idx).trim();
+    const val = part.slice(idx + 1).trim();
+    if (key) {
+      try { acc[key] = decodeURIComponent(val); }
+      catch { acc[key] = val; }
+    }
+    return acc;
+  }, {});
+}
+
+function bearerToken(req) {
+  const auth = req.headers.authorization || '';
+  const match = auth.match(/^Bearer\s+(.+)$/i);
+  return match ? match[1] : '';
+}
+
+function hasAdminAccess(req, token) {
+  const cookies = parseCookies(req.headers.cookie);
+  return safeEqual(bearerToken(req), token) || safeEqual(cookies[ADMIN_COOKIE], adminCookieValue(token));
+}
+
+function setAdminCookie(res, token) {
+  const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
+  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=${encodeURIComponent(adminCookieValue(token))}; HttpOnly${secure}; SameSite=Lax; Path=/api/conversations; Max-Age=86400`);
+}
+
+function stripQueryToken(req) {
+  const url = new URL(req.originalUrl, 'https://ask-shannon.local');
+  url.searchParams.delete('token');
+  return url.pathname + (url.search ? url.search : '');
+}
+
 function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function fmtDate(iso) {
@@ -1040,17 +1144,30 @@ function toggleTheme() {
 
 app.get('/api/conversations', (req, res) => {
   const token = process.env.ADMIN_TOKEN;
-  if (!token || req.query.token !== token) {
-    return res.status(401).json({ error: 'Unauthorized. Set ADMIN_TOKEN env var and pass ?token=YOUR_TOKEN' });
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized. Set ADMIN_TOKEN env var.' });
   }
 
+  const wantsHtml = req.headers.accept && req.headers.accept.includes('text/html');
+  const queryToken = typeof req.query.token === 'string' ? req.query.token : '';
+  if (safeEqual(queryToken, token) && wantsHtml) {
+    setAdminCookie(res, token);
+    return res.redirect(303, stripQueryToken(req));
+  }
+
+  if (!hasAdminAccess(req, token) && !safeEqual(queryToken, token)) {
+    res.setHeader('WWW-Authenticate', 'Bearer realm="Ask Shannon"');
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
   const limit = Math.min(parseInt(req.query.limit) || 200, 500);
   const recent = conversations.slice(-limit).reverse();
 
   /* Serve HTML dashboard for browsers, JSON for programmatic access */
-  const wantsHtml = req.headers.accept && req.headers.accept.includes('text/html');
-
   if (wantsHtml) {
+    res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; base-uri 'none'; frame-ancestors 'none'");
     return res.type('html').send(buildDashboard(conversations, recent, token));
   }
 
