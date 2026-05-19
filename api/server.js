@@ -102,6 +102,12 @@ const RETENTION_MS = RETENTION_DAYS * 24 * 60 * 60 * 1000;
 const ENABLE_GEO_LOOKUP = process.env.ENABLE_GEO_LOOKUP === 'true';
 const DASHBOARD_TIME_ZONE = process.env.DASHBOARD_TIME_ZONE || 'Europe/London';
 const ADMIN_SESSION_MAX_AGE_SECONDS = Math.max(parseInt(process.env.ADMIN_SESSION_MAX_AGE_SECONDS, 10) || (8 * 60 * 60), 300);
+const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const RESEND_API_URL = process.env.RESEND_API_URL || 'https://api.resend.com/emails';
+const NOTIFY_EMAIL_ENABLED = process.env.NOTIFY_EMAIL_ENABLED !== 'false';
+const NOTIFY_EMAIL_FROM = process.env.NOTIFY_EMAIL_FROM || '';
+const NOTIFY_EMAIL_TO = process.env.NOTIFY_EMAIL_TO || '';
+const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://ask-shannon-api.onrender.com/api/conversations';
 const IP_SALT = process.env.IP_SALT || (
   process.env.NODE_ENV === 'production'
     ? crypto.randomBytes(32).toString('hex')
@@ -216,6 +222,109 @@ function persistConversationLog() {
   fs.writeFile(LOG_FILE, body ? body + '\n' : '', err => {
     if (err) console.error('Failed to write conversations log:', err.message);
   });
+}
+
+function emailRecipients() {
+  return NOTIFY_EMAIL_TO
+    .split(',')
+    .map(email => email.trim())
+    .filter(Boolean)
+    .slice(0, 50);
+}
+
+function emailNotificationsConfigured() {
+  return NOTIFY_EMAIL_ENABLED && !!RESEND_API_KEY && !!NOTIFY_EMAIL_FROM && emailRecipients().length > 0;
+}
+
+function truncateText(value, max = 700) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  return text.length > max ? `${text.slice(0, max - 3)}...` : text;
+}
+
+function notificationIdempotencyKey(entry) {
+  const seed = `${entry.sessionId || ''}:${entry.timestamp || ''}:${entry.messageCount || ''}:${entry.question || ''}`;
+  return `ask-shannon-${crypto.createHash('sha256').update(seed).digest('hex').slice(0, 32)}`;
+}
+
+function buildNotificationEmail(entry) {
+  const view = buildConversationView(entry);
+  const flags = view.flags.length ? view.flags.join(', ') : 'None';
+  const location = view.loc || 'Location not collected';
+  const status = view.status === 'ok' ? 'Success' : 'Error';
+  const isReturning = entry.totalVisits > 1 || (!entry.isNew && !!entry.visitorId);
+  const subjectPrefix = view.needsReview ? '[Review] ' : '';
+  const subjectLocation = view.loc ? ` from ${view.loc}` : '';
+  const subject = truncateText(`${subjectPrefix}New Ask Shannon question${subjectLocation}`, 120);
+  const question = truncateText(view.question || entry.question || '(no question)', 900);
+  const errorLine = view.error ? `\nError: ${view.error}` : '';
+  const text = [
+    'A new Ask Shannon question was logged.',
+    '',
+    `Question: ${question}`,
+    '',
+    `Status: ${status}`,
+    `Topic: ${view.topic.label}`,
+    `Flags: ${flags}`,
+    `Location: ${location}`,
+    `Device: ${view.device}`,
+    `Visitor: ${isReturning ? 'Returning' : 'New'}`,
+    `Exchanges: ${view.exchangeCount}`,
+    `Time: ${fmtFull(view.ts)}`,
+    errorLine.trim(),
+    '',
+    `Dashboard: ${DASHBOARD_URL}`,
+    '',
+    'Full conversation details stay in the protected dashboard.',
+  ].filter(Boolean).join('\n');
+  const html = `<div style="font-family:Inter,Arial,sans-serif;line-height:1.5;color:#111">
+    <p>A new <strong>Ask Shannon</strong> question was logged.</p>
+    <h2 style="font-size:16px;margin:16px 0 8px">Question</h2>
+    <p>${escHtml(question)}</p>
+    <table style="border-collapse:collapse;margin-top:16px">
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Status</td><td style="padding:4px 0">${escHtml(status)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Topic</td><td style="padding:4px 0">${escHtml(view.topic.label)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Flags</td><td style="padding:4px 0">${escHtml(flags)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Location</td><td style="padding:4px 0">${escHtml(location)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Device</td><td style="padding:4px 0">${escHtml(view.device)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Visitor</td><td style="padding:4px 0">${isReturning ? 'Returning' : 'New'}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Exchanges</td><td style="padding:4px 0">${view.exchangeCount}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666">Time</td><td style="padding:4px 0">${escHtml(fmtFull(view.ts))}</td></tr>
+      ${view.error ? `<tr><td style="padding:4px 12px 4px 0;color:#666">Error</td><td style="padding:4px 0">${escHtml(view.error)}</td></tr>` : ''}
+    </table>
+    <p style="margin-top:18px"><a href="${escHtml(DASHBOARD_URL)}">Open protected dashboard</a></p>
+    <p style="color:#666;font-size:12px">Full conversation details stay in the protected dashboard.</p>
+  </div>`;
+
+  return {
+    from: NOTIFY_EMAIL_FROM,
+    to: emailRecipients(),
+    subject,
+    text,
+    html,
+  };
+}
+
+async function sendQuestionNotification(entry) {
+  if (!entry || !entry.question || !emailNotificationsConfigured()) return;
+
+  try {
+    const response = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': notificationIdempotencyKey(entry),
+      },
+      body: JSON.stringify(buildNotificationEmail(entry)),
+    });
+
+    if (!response.ok) {
+      const body = await response.text();
+      console.error('Ask Shannon notification email failed:', response.status, truncateText(body, 500));
+    }
+  } catch (err) {
+    console.error('Ask Shannon notification email failed:', err.message);
+  }
 }
 
 /* Load existing conversations from log file on startup */
@@ -471,6 +580,7 @@ app.post('/api/chat', async (req, res) => {
       logEntry.response = fullResponse;
       logEntry.status = 'ok';
       logConversation(logEntry);
+      sendQuestionNotification(logEntry);
     }
 
   } catch (err) {
@@ -485,6 +595,7 @@ app.post('/api/chat', async (req, res) => {
       logEntry.status = 'error';
       logEntry.error = err.message; // Full detail stays in server-side logs only
       logConversation(logEntry);
+      sendQuestionNotification(logEntry);
     }
   }
 });
