@@ -12,12 +12,14 @@ services:
         value: claude-sonnet-4-6
       - key: ADMIN_TOKEN
         sync: false
-      - key: RESEND_API_KEY
+      - key: GMAIL_USER
+        value: shannonheckerchen@gmail.com
+      - key: GMAIL_APP_PASSWORD
         sync: false
       - key: NOTIFY_EMAIL_TO
         value: shannonheckerchen@gmail.com
       - key: NOTIFY_EMAIL_FROM
-        sync: false
+        value: Ask Shannon <shannonheckerchen@gmail.com>
       - key: DASHBOARD_URL
         value: https://ask-shannon-api.onrender.com/api/conversations
       - key: IP_SALT

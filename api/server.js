@@ -16,6 +16,7 @@ const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
 const Anthropic = require('@anthropic-ai/sdk');
+const nodemailer = require('nodemailer');
 
 const app  = express();
 app.set('trust proxy', 1); /* correct client IP behind Render / other proxies */
@@ -102,10 +103,10 @@ const RETENTION_MS = RETENTION_DAYS * 24 * 60 * 60 * 1000;
 const ENABLE_GEO_LOOKUP = process.env.ENABLE_GEO_LOOKUP === 'true';
 const DASHBOARD_TIME_ZONE = process.env.DASHBOARD_TIME_ZONE || 'Europe/London';
 const ADMIN_SESSION_MAX_AGE_SECONDS = Math.max(parseInt(process.env.ADMIN_SESSION_MAX_AGE_SECONDS, 10) || (8 * 60 * 60), 300);
-const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
-const RESEND_API_URL = process.env.RESEND_API_URL || 'https://api.resend.com/emails';
 const NOTIFY_EMAIL_ENABLED = process.env.NOTIFY_EMAIL_ENABLED !== 'false';
-const NOTIFY_EMAIL_FROM = process.env.NOTIFY_EMAIL_FROM || '';
+const GMAIL_USER = process.env.GMAIL_USER || '';
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || '';
+const NOTIFY_EMAIL_FROM = process.env.NOTIFY_EMAIL_FROM || (GMAIL_USER ? `Ask Shannon <${GMAIL_USER}>` : '');
 const NOTIFY_EMAIL_TO = process.env.NOTIFY_EMAIL_TO || 'shannonheckerchen@gmail.com';
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://ask-shannon-api.onrender.com/api/conversations';
 const IP_SALT = process.env.IP_SALT || (
@@ -232,8 +233,12 @@ function emailRecipients() {
     .slice(0, 50);
 }
 
+function gmailNotificationsConfigured() {
+  return NOTIFY_EMAIL_ENABLED && !!GMAIL_USER && !!GMAIL_APP_PASSWORD && emailRecipients().length > 0;
+}
+
 function emailNotificationsConfigured() {
-  return NOTIFY_EMAIL_ENABLED && !!RESEND_API_KEY && !!NOTIFY_EMAIL_FROM && emailRecipients().length > 0;
+  return gmailNotificationsConfigured();
 }
 
 function truncateText(value, max = 700) {
@@ -308,23 +313,39 @@ async function sendQuestionNotification(entry) {
   if (!entry || !entry.question || !emailNotificationsConfigured()) return;
 
   try {
-    const response = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Idempotency-Key': notificationIdempotencyKey(entry),
-      },
-      body: JSON.stringify(buildNotificationEmail(entry)),
-    });
-
-    if (!response.ok) {
-      const body = await response.text();
-      console.error('Ask Shannon notification email failed:', response.status, truncateText(body, 500));
-    }
+    const email = buildNotificationEmail(entry);
+    await sendGmailNotification(entry, email);
   } catch (err) {
     console.error('Ask Shannon notification email failed:', err.message);
   }
+}
+
+let gmailTransporter = null;
+
+function getGmailTransporter() {
+  if (!gmailTransporter) {
+    gmailTransporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_APP_PASSWORD,
+      },
+    });
+  }
+  return gmailTransporter;
+}
+
+async function sendGmailNotification(entry, email) {
+  await getGmailTransporter().sendMail({
+    from: email.from || `Ask Shannon <${GMAIL_USER}>`,
+    to: email.to,
+    subject: email.subject,
+    text: email.text,
+    html: email.html,
+    headers: {
+      'X-Ask-Shannon-Notification-Id': notificationIdempotencyKey(entry),
+    },
+  });
 }
 
 /* Load existing conversations from log file on startup */
