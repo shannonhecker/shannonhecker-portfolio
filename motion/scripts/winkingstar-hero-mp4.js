@@ -16,7 +16,6 @@ const ffmpegBin = require('ffmpeg-static');
 // ── Constants ──────────────────────────────────────────────────────────────
 const ROOT       = path.resolve(__dirname, '..');
 const ASSETS_DIR = path.resolve(ROOT, '../assets');
-const IOS_ASSETS = path.resolve(process.env.HOME, 'Documents/Cursor/weekly-superstar-ios/assets');
 const FRAMES_DIR = path.resolve(ROOT, 'out/winkingstar-frames');
 const FINAL_MP4  = path.resolve(ASSETS_DIR, 'winkingstar-hero.mp4');
 const POSTER     = path.resolve(ASSETS_DIR, 'winkingstar-poster.webp');
@@ -68,7 +67,7 @@ const LOOP_START_FRAME = T.loadToHome.s; // 105 — HTML JS seeks here on end
 
 // ── Tap positions (centre of target, expressed as a fraction of the source
 //    image dimensions so they survive any resize). Measured by eye from the
-//    fresh /private/tmp/winkingstar-*.png captures.
+//    tracked Winking Star source images.
 const TAPS = {
   home:         { fx: 0.30, fy: 0.38 },  // "Leo the Brave" card centre on demo-board
   // Activity tap fires AFTER the scroll, so fy is the trophy/Weekly Goal area
@@ -88,6 +87,24 @@ const easeOutBack    = t => {
   const c3 = c1 + 1;
   return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
 };
+
+function asset(name) {
+  return path.join(ASSETS_DIR, name);
+}
+
+const INPUT_ASSETS = {
+  icon: asset('winkingstar-card.png'),
+  loading: asset('winkingstar-shot-splash.webp'),
+  home: asset('winkingstar-shot-board.webp'),
+  activity: asset('winkingstar-shot-petpals.webp'),
+};
+
+function checkInputAssets() {
+  const missing = Object.values(INPUT_ASSETS).filter(src => !fs.existsSync(src));
+  if (missing.length) {
+    throw new Error(`Missing Winking Star source assets:\n${missing.join('\n')}`);
+  }
+}
 
 // Load + pre-resize an image to fit inside a target box, returning the
 // buffer plus its scaled dims (so callers can position centred).
@@ -408,6 +425,12 @@ function encodeMp4() {
 
 // ── Main ───────────────────────────────────────────────────────────────────
 (async () => {
+  checkInputAssets();
+  if (process.argv.includes('--check-assets')) {
+    console.log('Winking Star hero video inputs are present.');
+    return;
+  }
+
   if (!ffmpegBin || !fs.existsSync(ffmpegBin)) {
     console.error('ffmpeg-static binary missing');
     process.exit(1);
@@ -425,13 +448,10 @@ function encodeMp4() {
   // (sizes vary; sharp's `inside` keeps aspect)
 
   const A = {
-    icon:         await loadFit(`${IOS_ASSETS}/icon.png`, iconBox, iconBox),
-    // splash-source.png (May 13) is the latest shipped splash — orange doodle
-    // star matching the app icon. Replaces the older landscape-based
-    // loading.png (May 8).
-    loading:      await loadFit(`${IOS_ASSETS}/source/splash-source.png`, loadingBoxW, loadingBoxH),
-    home:         await loadShotWithRound(`${ASSETS_DIR}/winkingstar-shot-board.webp`,   innerW, innerH),
-    activity:     await loadShotWithRound('/private/tmp/winkingstar-iphone-responsive-activity.png', innerW, innerH),
+    icon:         await loadFit(INPUT_ASSETS.icon, iconBox, iconBox),
+    loading:      await loadFit(INPUT_ASSETS.loading, loadingBoxW, loadingBoxH),
+    home:         await loadShotWithRound(INPUT_ASSETS.home, innerW, innerH),
+    activity:     await loadShotWithRound(INPUT_ASSETS.activity, innerW, innerH),
   };
   for (const k of Object.keys(A)) console.log(`  ${k.padEnd(13)}  ${A[k].w}×${A[k].h}`);
 

@@ -6,6 +6,7 @@
 
 const sharp = require('sharp');
 const path  = require('path');
+const fs    = require('fs');
 
 const ROOT       = path.resolve(__dirname, '..');
 const ASSETS_DIR = path.resolve(ROOT, '../assets');
@@ -18,12 +19,24 @@ const BG = { r: 248, g: 241, b: 228, alpha: 1 }; // earthy.cream #F8F1E4
 const PHONE_H = 680;
 const RADIUS  = 36;
 
+function asset(name) {
+  return path.join(ASSETS_DIR, name);
+}
+
 // Tighter horizontal spread — phones cluster toward canvas centre.
+// Keep sources inside this repo so the render is reproducible from a clean checkout.
 const SHOTS = [
-  { src: `${ASSETS_DIR}/winkingstar-shot-board.webp`,  rotate: -6, cx: 350 },
-  { src: '/private/tmp/winkingstar-iphone-responsive-activity.png', rotate: 0,  cx: 800 },
-  { src: `${ASSETS_DIR}/winkingstar-shot-petpals.webp`, rotate: 6,  cx: 1250 },
+  { src: asset('winkingstar-shot-board.webp'), rotate: -6, cx: 350 },
+  { src: asset('winkingstar-shot-splash.webp'), rotate: 0, cx: 800 },
+  { src: asset('winkingstar-shot-petpals.webp'), rotate: 6, cx: 1250 },
 ];
+
+function checkInputAssets() {
+  const missing = SHOTS.map(s => s.src).filter(src => !fs.existsSync(src));
+  if (missing.length) {
+    throw new Error(`Missing Winking Star source assets:\n${missing.join('\n')}`);
+  }
+}
 
 async function loadPhone(src, rotateDeg) {
   // 1. Resize so height = PHONE_H, preserve aspect
@@ -81,6 +94,12 @@ async function loadPhone(src, rotateDeg) {
 }
 
 (async () => {
+  checkInputAssets();
+  if (process.argv.includes('--check-assets')) {
+    console.log('Winking Star hero banner inputs are present.');
+    return;
+  }
+
   const phones = await Promise.all(SHOTS.map(s => loadPhone(s.src, s.rotate)));
   const layers = phones.map((p, i) => ({
     input: p.buf,

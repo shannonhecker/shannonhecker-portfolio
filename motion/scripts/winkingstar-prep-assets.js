@@ -1,14 +1,22 @@
 // One-shot script: convert Winking Star source assets to portfolio WebPs.
-// Run from motion/: `node scripts/winkingstar-prep-assets.js`
+// Run from motion/ with explicit source roots:
+//   WINKINGSTAR_IOS_ASSETS=/path/to/weekly-superstar-ios/assets \
+//   WINKINGSTAR_SCREENSHOT_DIR=/path/to/screenshot-dir \
+//   node scripts/winkingstar-prep-assets.js
 // Outputs land in ../assets/ in the portfolio root.
 
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
-const IOS_ROOT  = path.resolve(process.env.HOME, 'Documents/Cursor/weekly-superstar-ios/assets');
-const TMP_ROOT  = '/private/tmp';
+const IOS_ROOT = process.env.WINKINGSTAR_IOS_ASSETS;
+const SCREENSHOT_ROOT = process.env.WINKINGSTAR_SCREENSHOT_DIR;
 const OUT_ROOT  = path.resolve(__dirname, '../../assets');
+
+if (!IOS_ROOT || !SCREENSHOT_ROOT) {
+  console.error('Set WINKINGSTAR_IOS_ASSETS and WINKINGSTAR_SCREENSHOT_DIR before running this source-prep script.');
+  process.exit(1);
+}
 
 const jobs = [
   // ── Brand doodle illustrations (1:1, 800px) ──────────────────────────────
@@ -28,16 +36,16 @@ const jobs = [
   })),
 
   // ── Screenshots (max-width 1600, keep portrait/landscape aspect) ────────
-  { src: `${TMP_ROOT}/winkingstar-progress-installed.png`,
+  { src: `${SCREENSHOT_ROOT}/winkingstar-progress-installed.png`,
     out: `${OUT_ROOT}/winkingstar-shot-splash.webp`,
     fit: 'inside', width: 1600, quality: 82 },
-  { src: `${TMP_ROOT}/winkingstar-demo-board.png`,
+  { src: `${SCREENSHOT_ROOT}/winkingstar-demo-board.png`,
     out: `${OUT_ROOT}/winkingstar-shot-board.webp`,
     fit: 'inside', width: 1600, quality: 82 },
-  { src: `${TMP_ROOT}/winkingstar-copy-pet-iphone.png`,
+  { src: `${SCREENSHOT_ROOT}/winkingstar-copy-pet-iphone.png`,
     out: `${OUT_ROOT}/winkingstar-shot-petpals.webp`,
     fit: 'inside', width: 1600, quality: 82 },
-  { src: `${TMP_ROOT}/winkingstar-treasure-ipad.png`,
+  { src: `${SCREENSHOT_ROOT}/winkingstar-treasure-ipad.png`,
     out: `${OUT_ROOT}/winkingstar-shot-ipad-treasure.webp`,
     fit: 'inside', width: 1800, quality: 82 },
 ];
