@@ -1938,6 +1938,65 @@
     .featured-bento .pcard { height: 100%; }
     .featured-bento .pcard-article { display: block; height: 100%; }
 
+    .featured-bento .pcard-img--winkingstar {
+      background: #fcf4e8;
+    }
+    .winkingstar-wink-eye {
+      position: absolute;
+      left: 59.6%;
+      top: 48.8%;
+      z-index: 2;
+      width: 5.5%;
+      height: 8.5%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .winkingstar-wink-eye::before,
+    .winkingstar-wink-eye::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+    .winkingstar-wink-eye::before {
+      inset: -22% -34%;
+      border-radius: 999px;
+      background: radial-gradient(circle at 46% 38%, #f7a422 0%, #f29a18 62%, #ea8d13 100%);
+      opacity: 0;
+      animation: winkingstar-eye-cover 5.8s ease-in-out infinite;
+    }
+    .winkingstar-wink-eye::after {
+      left: 5%;
+      right: 5%;
+      top: 50%;
+      height: 17%;
+      border-radius: 999px;
+      background: #242322;
+      opacity: 0;
+      transform: translateY(-50%) scaleX(0.2);
+      transform-origin: center;
+      animation: winkingstar-eye-line 5.8s ease-in-out infinite;
+    }
+    html[data-theme="dark"] .winkingstar-wink-eye {
+      filter: brightness(0.88);
+    }
+    html[data-theme="dark"] .pcard:hover .winkingstar-wink-eye {
+      filter: brightness(1);
+    }
+    @keyframes winkingstar-eye-cover {
+      0%, 54%, 72%, 100% { opacity: 0; }
+      58%, 67% { opacity: 1; }
+    }
+    @keyframes winkingstar-eye-line {
+      0%, 54%, 72%, 100% {
+        opacity: 0;
+        transform: translateY(-50%) scaleX(0.2);
+      }
+      59%, 67% {
+        opacity: 1;
+        transform: translateY(-50%) scaleX(1);
+      }
+    }
+
     /* Shine sweep on hover (diagonal gloss) */
     .featured-bento .pcard-article {
       position: relative;
@@ -1990,6 +2049,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       .featured-bento .pcard-article::after { display: none; }
+      .winkingstar-wink-eye::before,
+      .winkingstar-wink-eye::after { animation: none; }
     }
   </style>
 
@@ -2629,8 +2690,9 @@
         <!-- 1×1: Winking Star (bottom-left of right column, next to Barclays' column) -->
         <div class="bc-4 rv" data-d="4">
           <article class="pcard-article"><a href="project-winkingstar.html" class="pcard">
-            <div class="pcard-img" style="background:#F8F1E4;">
-              <img src="assets/winkingstar-hero-banner.png" alt="Winking Star: native iOS habit tracker for families" loading="lazy" decoding="async" width="400" height="300" style="object-fit:cover;object-position:center;" />
+            <div class="pcard-img pcard-img--winkingstar">
+              <img src="assets/winkingstar-hero-banner.png" alt="Winking Star: native iOS habit tracker for families" loading="lazy" decoding="async" width="393" height="286" style="object-fit:cover;object-position:center;" />
+              <span class="winkingstar-wink-eye" aria-hidden="true"></span>
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Winking Star</span></div>
             </div>
             <div class="pcard-body">
