@@ -189,6 +189,21 @@
     .pcard-img{aspect-ratio:1/1;overflow:hidden;position:relative;background:#fff;-webkit-backface-visibility:hidden;-webkit-transform:translateZ(0);border-radius:inherit;}
     .pcard-img img, .pcard-img .ph{width:100%;height:100%;object-fit:cover;object-position:center top;background:#fff;transform:translateZ(0) scale(1);backface-visibility:hidden;will-change:transform;transition:transform .5s cubic-bezier(.22,1,.36,1);}
     .pcard:hover .pcard-img img,.pcard:hover .pcard-img .ph{transform:translateZ(0) scale(1.05);}
+    .pcard-img.pcard-img--winkingstar-work,
+    .pcard-img.pcard-img--winkingstar-work img {
+      background:#fcf4e8 !important;
+    }
+    html[data-theme="dark"] .pcard-img.pcard-img--winkingstar-work,
+    html[data-theme="dark"] .pcard-img.pcard-img--winkingstar-work img {
+      background:#fcf4e8 !important;
+    }
+    .pcard-img.pcard-img--winkingstar-work img {
+      object-fit:contain;
+      object-position:center;
+    }
+    .pcard:hover .pcard-img.pcard-img--winkingstar-work img {
+      transform:translateZ(0) scale(1);
+    }
     .pcard-overlay{display:none;}
     .ph{display:flex;align-items:flex-end;padding:18px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;min-height:100%;}
     .ph-1{background:#f5f5f5;color:rgba(0,0,0,.08);}
@@ -421,8 +436,8 @@
         </div>
         <div class="bc-6 rv" data-d="2">
           <article class="pcard-article"><a href="project-winkingstar.html" class="pcard">
-            <div class="pcard-img">
-              <img src="assets/winkingstar-card.webp" alt="Winking Star native iOS habit tracker for families" width="1200" height="720" loading="lazy" decoding="async" />
+            <div class="pcard-img pcard-img--winkingstar-work">
+              <img src="assets/winkingstar-card.png" alt="Winking Star native iOS habit tracker for families" width="400" height="300" loading="lazy" decoding="async" />
               <div class="pcard-overlay"><span class="pcard-overlay-title">Winking Star</span></div>
             </div>
             <div class="pcard-body">
