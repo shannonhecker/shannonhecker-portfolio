@@ -106,7 +106,7 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 const RESEND_API_URL = process.env.RESEND_API_URL || 'https://api.resend.com/emails';
 const NOTIFY_EMAIL_ENABLED = process.env.NOTIFY_EMAIL_ENABLED !== 'false';
 const NOTIFY_EMAIL_FROM = process.env.NOTIFY_EMAIL_FROM || '';
-const NOTIFY_EMAIL_TO = process.env.NOTIFY_EMAIL_TO || '';
+const NOTIFY_EMAIL_TO = process.env.NOTIFY_EMAIL_TO || 'shannonheckerchen@gmail.com';
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://ask-shannon-api.onrender.com/api/conversations';
 const IP_SALT = process.env.IP_SALT || (
   process.env.NODE_ENV === 'production'

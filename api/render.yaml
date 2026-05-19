@@ -15,7 +15,7 @@ services:
       - key: RESEND_API_KEY
         sync: false
       - key: NOTIFY_EMAIL_TO
-        sync: false
+        value: shannonheckerchen@gmail.com
       - key: NOTIFY_EMAIL_FROM
         sync: false
       - key: DASHBOARD_URL
