@@ -2019,13 +2019,32 @@
       }
       .featured-bento .wide-card { grid-column: span 2; }
     }
-    @media (max-width: 520px) {
+    @media (hover: none), (max-width: 700px) {
+      .featured-bento .pcard-body {
+        opacity: 1;
+      }
+      .featured-bento .pcard-body::before {
+        background: linear-gradient(180deg,
+          rgba(0,0,0,0) 38%,
+          rgba(0,0,0,0.66) 100%);
+      }
+      .featured-bento .pcard-title {
+        font-size: clamp(18px, 5vw, 22px);
+      }
+    }
+    @media (max-width: 700px) {
       .featured-bento {
         grid-template-columns: 1fr;
-        grid-auto-rows: clamp(200px, 65vw, 300px);
+        grid-auto-rows: clamp(220px, 68vw, 320px);
       }
-      .featured-bento .hero-card { grid-row: span 2; }
-      .featured-bento .wide-card { grid-column: span 1; }
+      .featured-bento .hero-card,
+      .featured-bento .wide-card {
+        grid-column: 1 / -1;
+        grid-row: span 1;
+      }
+      .featured-bento .hero-card { order: 1; }
+      .featured-bento .featured-card--winkingstar { order: 2; }
+      .featured-bento > :not(.hero-card):not(.featured-card--winkingstar) { order: 3; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2672,7 +2691,7 @@
         </div>
 
         <!-- 1×1: Winking Star (bottom-left of right column, next to Barclays' column) -->
-        <div class="bc-4 rv" data-d="4">
+        <div class="bc-4 rv featured-card--winkingstar" data-d="4">
           <article class="pcard-article"><a href="project-winkingstar.html" class="pcard">
             <div class="pcard-img pcard-img--winkingstar">
               <img class="winkingstar-thumb" src="assets/winkingstar-hero-banner.png" alt="Winking Star: native iOS habit tracker for families" loading="lazy" decoding="async" width="393" height="286" style="object-fit:cover;object-position:center;" />
