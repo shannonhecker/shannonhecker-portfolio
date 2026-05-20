@@ -20,6 +20,9 @@
   --t-section-block: clamp(24px, 3vw, 36px);
   --t-next-project: clamp(24px, 3vw, 40px);
   --t-next-label: clamp(20px, 2.6vw, 28px);
+  --t-writing-title: clamp(40px, 6vw, 72px);
+  --t-essay-title: clamp(36px, 5.5vw, 64px);
+  --t-privacy-title: clamp(40px, 7vw, 72px);
 
   --fw-body: 300;
   --fw-ui: 400;
@@ -47,6 +50,10 @@
 .nav-cta {
   font-size: var(--t-sm);
   font-weight: var(--fw-ui);
+}
+
+.nav-links a[aria-current="page"] {
+  font-weight: var(--fw-medium);
 }
 
 .nav-drawer a {
@@ -106,6 +113,10 @@
 .footer-li {
   font-size: var(--t-sm);
   font-weight: var(--fw-medium);
+}
+
+.footer-inner {
+  font-size: var(--t-sm);
 }
 
 /* ----- Chips & placeholders ----- */
@@ -261,19 +272,46 @@
 }
 
 .proj-outcome-num {
-  font-size: clamp(28px, 3.5vw, 44px);
+  font-size: clamp(28px, 3.4vw, 48px);
   font-weight: var(--fw-bold);
   letter-spacing: -0.04em;
+  line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .proj-outcome-label {
   font-size: var(--t-tiny);
   font-weight: var(--fw-ui);
+  letter-spacing: var(--track-ui);
+  line-height: 1.45;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
+@media (max-width: 520px) {
+  .proj-outcome-num {
+    font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .proj-outcome-label {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
+
+.proj-tags-label {
+  font-size: var(--t-micro);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.proj-tags-list,
 .proj-tag {
   font-size: var(--t-tiny);
   font-weight: var(--fw-ui);
+  line-height: var(--lh-snug);
 }
 
 .proj-next-label {
@@ -287,6 +325,196 @@
   font-size: var(--t-next-project);
   font-weight: var(--fw-ui);
   letter-spacing: -0.03em;
+}
+
+.proj-nav-hint {
+  font-size: var(--t-tiny);
+  font-weight: var(--fw-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.proj-nav-link {
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: var(--fw-ui);
+  letter-spacing: -0.02em;
+}
+
+.proj-cta,
+.ausos-strip-cta {
+  font-size: var(--t-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+}
+
+/* ----- Writing index ----- */
+.wr-eyebrow {
+  font-size: var(--t-tiny);
+  letter-spacing: var(--track-overline-tight);
+  text-transform: uppercase;
+}
+
+.wr-title {
+  font-family: var(--font-display);
+  font-size: var(--t-writing-title);
+  font-weight: var(--fw-ui);
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+}
+
+.wr-dek {
+  font-size: var(--t-md);
+  font-weight: var(--fw-body);
+  line-height: 1.55;
+}
+
+.wr-item-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: var(--fw-medium);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.wr-item-meta {
+  font-size: var(--t-tiny);
+  letter-spacing: 0.02em;
+}
+
+.wr-item-dek {
+  font-size: var(--t-base);
+  line-height: var(--lh-snug);
+}
+
+.wr-item-read {
+  font-size: var(--t-tiny);
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+}
+
+/* ----- Essays ----- */
+.essay-eyebrow {
+  font-size: var(--t-tiny);
+  letter-spacing: var(--track-overline-tight);
+  text-transform: uppercase;
+}
+
+.essay-title {
+  font-family: var(--font-display);
+  font-size: var(--t-essay-title);
+  font-weight: var(--fw-ui);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.essay-dek {
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: var(--fw-body);
+  line-height: 1.5;
+}
+
+.essay-meta {
+  font-size: var(--t-sm);
+}
+
+.essay-meta .by {
+  font-weight: var(--fw-medium);
+}
+
+.essay-body p {
+  font-size: clamp(17px, 1.6vw, 19px);
+  line-height: var(--lh-prose);
+}
+
+.essay-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 30px);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.essay-body h2 .n {
+  font-family: var(--font);
+  font-weight: var(--fw-ui);
+  font-size: 0.7em;
+  letter-spacing: 0;
+}
+
+.essay-body strong {
+  font-weight: var(--fw-semibold);
+}
+
+.essay-body code {
+  font-size: 0.92em;
+}
+
+.essay-body blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: var(--fw-ui);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.essay-body .callout p {
+  font-size: var(--t-base);
+}
+
+.essay-body .callout .label,
+.essay-prev-label {
+  font-size: var(--t-micro);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.essay-prev {
+  font-size: var(--t-sm);
+}
+
+.essay-bio {
+  font-size: var(--t-base);
+  line-height: 1.6;
+}
+
+/* ----- Privacy page ----- */
+.privacy-kicker {
+  font-size: var(--t-tiny);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.privacy-title {
+  font-family: var(--font-display);
+  font-size: var(--t-privacy-title);
+  font-weight: var(--fw-medium);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.privacy-lead {
+  font-size: var(--t-md);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-snug);
+}
+
+.privacy-section h2 {
+  font-size: var(--t-md);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+}
+
+.privacy-section p,
+.privacy-section li {
+  font-size: var(--t-base);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+}
+
+.privacy-back {
+  font-size: var(--t-sm);
+  font-weight: var(--fw-medium);
 }
 
 /* Featured strip meta line (index) */

@@ -94,12 +94,12 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
-  <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
+  <link rel="stylesheet" href="assets/portfolio.css?v=2026-05-20-spacing" />
   <style>
 /* Scroll reveal */
     /* Nav */
     /* Section heading */
-    .sh-text{font-size:clamp(22px,2.8vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1;}
+
     .sh-period{color:var(--c-ghost);}
     /* Footer */
     /* Chip tags */
@@ -109,58 +109,27 @@
     .proj-page { padding-top: var(--nav); position: relative; z-index: 2; }
     /* Hero */
     .proj-hero {
-      padding: 56px 0 0;
+      padding: var(--project-hero-pad) 0 0;
       position: relative;
       overflow: hidden;
       background: var(--c-bg);
     }
-    .proj-title-post {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 400;
-      letter-spacing: -.03em;
-      line-height: 1.08;
-      margin: 44px 0 18px;
-    }
-    .proj-lead {
-      font-size: clamp(17px, 1.8vw, 20px);
-      font-weight: 300;
-      color: var(--c-mid);
-      line-height: 1.65;
-      max-width: 640px;
-      margin-bottom: 52px;
-    }
+    .proj-title-post { margin: var(--space-64) 0 var(--space-24); }
+    .proj-lead { color: var(--c-mid); max-width: 640px; margin-bottom: var(--project-lead-gap); }
     .proj-about-layout {
       display: grid;
       grid-template-columns: minmax(108px, min(24vw, 220px)) minmax(0, 1fr);
-      gap: clamp(32px, 5vw, 80px);
+      gap: clamp(40px, 5.5vw, 96px);
       align-items: start;
     }
     .proj-about-main { min-width: 0; }
     .proj-about-main .proj-body { max-width: 680px; }
-    .proj-about-label {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 2.8vw, 32px);
-      font-weight: 600;
-      letter-spacing: -.02em;
-      margin-bottom: 0;
-      text-transform: lowercase;
-      line-height: 1.12;
-      position: sticky;
-      top: calc(var(--nav) + 24px);
-    }
+    .proj-about-label { margin-bottom: 0; position: sticky; top: calc(var(--nav) + var(--space-32)); }
     .proj-about-dot { color: var(--c-ghost); }
-    .proj-about-block { margin-bottom: 44px; }
-    .proj-about-h3 {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--c-light);
-      margin-bottom: 14px;
-    }
+    .proj-about-block { margin-bottom: var(--content-stack); }
+    .proj-about-h3 { color: var(--c-light); margin-bottom: var(--space-16); }
     .proj-nda {
-      margin: 52px 0 0;
+      margin: var(--space-64) 0 0;
       position: relative;
       border-radius: 0;
       overflow: hidden;
@@ -176,45 +145,18 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: clamp(48px, 9vw, 96px) clamp(24px, 5vw, 48px);
-      min-height: clamp(260px, 36vw, 340px);
+      padding: clamp(64px, 10vw, 112px) clamp(32px, 5.5vw, 64px);
+      min-height: clamp(300px, 38vw, 380px);
     }
-.proj-nda-title {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4.2vw, 42px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.12;
-      color: var(--c-ink);
-      margin: 0;
-    }
-    .proj-nda-lead {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3.4vw, 34px);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-      color: var(--c-ink);
-      margin: 6px 0 0;
-    }
-    .proj-nda-body {
-      font-family: var(--font);
-      font-size: clamp(14px, 1.45vw, 16px);
-      font-weight: 300;
-      color: var(--c-mid);
-      line-height: 1.65;
-      max-width: 36em;
-      margin: 0;
-    }
+.proj-nda-title { color: var(--c-ink); margin: 0; }
+    .proj-nda-lead { color: var(--c-ink); margin: 6px 0 0; }
+    .proj-nda-body { color: var(--c-mid); max-width: 36em; margin: 0; }
     .ausos-strip-cta {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 24px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: -.005em;
-      padding: 11px 22px;
+      gap: var(--space-8);
+      margin-top: var(--space-32);
+      padding: 12px 24px;
       border-radius: 999px;
       text-decoration: none;
       border: 1px solid transparent;
@@ -231,52 +173,53 @@
     }
     .ausos-strip-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
 
-    .proj-breadcrumb { font-size:12px;font-weight:400;color:var(--c-light);margin-bottom:24px;display:flex;align-items:center;gap:8px; }
+    .proj-breadcrumb {color:var(--c-light);margin-bottom:var(--space-32);display:flex;align-items:center;gap:var(--space-12); }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
     .proj-breadcrumb a:hover { color:var(--c-ink); }
     .proj-breadcrumb-sep { color:var(--c-rule-dk); }
-    .proj-eyebrow { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:20px;display:block; }
-    .proj-title { font-size:clamp(36px,5.5vw,72px);font-weight:700;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:32px; }
-    .proj-subtitle { font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--c-mid);max-width:640px;line-height:1.65;margin-bottom:48px; }
-    .proj-meta-row { display:flex;gap:40px;flex-wrap:wrap;padding:0 0 28px;border-top:none;border-bottom:1px solid var(--c-rule);margin-bottom:32px; }
-    .proj-meta-item { display:flex;flex-direction:column;gap:4px; }
-    .proj-meta-label { font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light); }
-    .proj-meta-value { font-size:14px;font-weight:500;color:var(--c-ink); }
+    .proj-eyebrow {color:var(--c-light);margin-bottom:var(--space-24);display:block; }
+    .proj-title {margin-bottom:var(--space-48); }
+    .proj-subtitle {color:var(--c-mid);max-width:640px;margin-bottom:var(--space-64); }
+    .proj-meta-row { display:flex;gap:var(--space-48);flex-wrap:wrap;padding:0 0 var(--space-32);border-top:none;border-bottom:1px solid var(--c-rule);margin-bottom:var(--space-48); }
+    .proj-meta-item { display:flex;flex-direction:column;gap:var(--space-8); }
+    .proj-meta-label {color:var(--c-light); }
+    .proj-meta-value {color:var(--c-ink); }
     /* Cover image */
     .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block;background:#fff; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
     /* Content sections */
-    .proj-content { padding-bottom:40px; }
-    .proj-section { margin-bottom:72px; }
-    .proj-section-label { font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--c-light);margin-bottom:16px;display:block; }
-    .proj-section-title { font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:20px; }
-    .proj-body { font-size:clamp(15px,1.5vw,17px);font-weight:300;color:var(--c-mid);line-height:1.85;max-width:720px; }
-    .proj-body strong { font-weight:600;color:var(--c-ink); }
-    .proj-body p + p { margin-top:16px; }
+    .proj-content { padding-bottom:var(--content-stack); }
+    .proj-section { margin-bottom:var(--project-section-gap); }
+    .proj-section-label {color:var(--c-light);margin-bottom:var(--space-24);display:block; }
+    .proj-section-title {margin-bottom:var(--space-24); }
+    .proj-body {color:var(--c-mid);max-width:720px; }
+    .proj-body strong {color:var(--c-ink); }
+    .proj-body p + p { margin-top:var(--space-24); }
     /* Image grid */
-    .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0; }
+    .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-24);margin:var(--space-48) 0; }
     .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3;background:#fff; }
-    .proj-img-full { width:100%;border-radius:0;margin:40px 0;display:block;background:#fff; }
+    .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
-    .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:40px 0; }
+    .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:var(--space-48) 0; }
     /* Outcome pills */
-    .proj-outcomes { display:flex;gap:0;margin:32px 0; }
-    .proj-outcome { display:flex;flex-direction:column;gap:6px;padding:0 32px;border-left:1px solid var(--c-rule); }
+    .proj-outcomes { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:var(--space-48) 0; }
+    .proj-outcome { display:flex;flex-direction:column;gap:var(--space-8);min-width:0;padding:0 clamp(16px,2.2vw,28px);border-left:1px solid var(--c-rule); }
     .proj-outcome:first-child { padding-left:0;border-left:none; }
-    .proj-outcome-num { font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.04em;color:var(--c-ink);line-height:1; }
-    .proj-outcome-label { font-size:12px;font-weight:400;color:var(--c-light);letter-spacing:.01em; }
+    .proj-outcome:last-child { padding-right:0; }
+    .proj-outcome-num {color:var(--c-ink);font-size:clamp(28px,3.4vw,48px);overflow-wrap:anywhere; }
+    .proj-outcome-label {color:var(--c-light);line-height:1.45;overflow-wrap:break-word;hyphens:auto; }
     /* Tags */
-    .proj-tags { margin-top:32px; }
-    .proj-tags-label { font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--c-light);margin-bottom:8px; }
-    .proj-tags-list { font-size:13px;font-weight:400;color:var(--c-mid);line-height:1.7; }
+    .proj-tags { margin-top:var(--space-48); }
+    .proj-tags-label {color:var(--c-light);margin-bottom:var(--space-12); }
+    .proj-tags-list {color:var(--c-mid); }
     /* Next project nav */
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
-      .proj-meta-row{gap:24px;}
-      .proj-outcomes{flex-direction:column;gap:20px;} .proj-outcomes .proj-outcome{border-left:none;padding:0;border-bottom:1px solid var(--c-rule);padding-bottom:16px;} .proj-outcomes .proj-outcome:first-child{padding-left:0;}
-      .proj-about-layout{grid-template-columns:1fr;gap:20px;}
-      .proj-about-label{position:static;margin-bottom:8px;}
-      .proj-next{padding-bottom:20px;}
+      .proj-meta-row{gap:var(--space-32);}
+      .proj-outcomes{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;} .proj-outcomes .proj-outcome{padding:0 clamp(12px,2vw,24px);border:0;border-left:1px solid var(--c-rule);border-radius:0;background:transparent;} .proj-outcomes .proj-outcome:first-child{padding-left:0;border-left:none;} .proj-outcomes .proj-outcome:last-child{padding-right:0;}
+      .proj-about-layout{grid-template-columns:1fr;gap:var(--space-24);}
+      .proj-about-label{position:static;margin-bottom:var(--space-12);}
+      .proj-next{padding-bottom:var(--space-24);}
     }
     /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
@@ -438,13 +381,13 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Brand Identity</h3>
           <div class="proj-body"><p>The ausōs brand is built dark mode first, with deep backgrounds and vibrant aurora accents. The visual language balances expressive colour with restraint, letting content breathe.</p></div>
-          <div style="display:flex;gap:12px;margin:24px 0 0;flex-wrap:wrap;">
+          <div style="display:flex;gap:16px;margin:32px 0 0;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#E5A999;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
           </div>
-          <div class="proj-img-grid rv" style="margin-top:32px;">
+          <div class="proj-img-grid rv" style="margin-top:var(--space-48);">
             <img src="assets/ausos.webp" alt="ausōs logo on aurora gradient" width="1000" height="1000" loading="lazy" decoding="async" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
             <img src="assets/ausos-brand.webp" alt="ausōs dark and light mode interfaces" width="1200" height="720" loading="lazy" decoding="async" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
           </div>
@@ -453,7 +396,7 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design System Integration</h3>
           <div class="proj-body"><p>ausōs supports five design systems: Salt, Material 3, Fluent 2, Carbon, and the ausōs system. Each uses its own tokens and component behaviours, with theme switching and code export across all of them. More details available in a private conversation.</p></div>
-          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:32px;border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
+          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="ausōs Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:var(--space-48);border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
         </div>
 
         <div class="proj-nda rv">
@@ -464,7 +407,7 @@
             <p class="proj-nda-body">ausōs.ai is in private alpha with a small group of early testers. Try the demo, or email me for early access to the full product.</p>
             <a class="ausos-strip-cta primary" href="https://ausos.ai/" target="_blank" rel="noopener noreferrer">Try the live demo <span aria-hidden="true">↗</span></a>
             <!-- Phase 4 · when the silent walkthrough video is ready, drop it at assets/ausos-walkthrough.mp4 and uncomment the block below.
-            <video class="ausos-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/ausos-card.png" style="width:100%;margin-top:24px;border-radius:12px;">
+            <video class="ausos-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/ausos-card.png" style="width:100%;margin-top:var(--space-32);border-radius:12px;">
               <source src="assets/ausos-walkthrough.mp4" type="video/mp4" />
             </video>
             -->
@@ -531,7 +474,7 @@
   <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
-        <div style="display:flex;align-items:center;gap:20px;">
+        <div style="display:flex;align-items:center;gap:24px;">
           <a href="index.html" class="nav-logo" style="color:var(--c-light);">
             <svg width="24" height="22" viewBox="0 0 80 73" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.4505 71.0009C42.5839 75.1162 51.7054 72.674 55.8238 65.5461L79.7921 24.064C80.22 23.3234 79.9661 22.3765 79.225 21.9489C78.4838 21.5213 77.5362 21.7751 77.1083 22.5156L53.14 63.9978C49.8773 69.6446 42.6512 71.5793 37.0001 68.3191C31.3489 65.059 29.4127 57.8385 32.6754 52.1917L35.7249 46.9139L33.041 45.3655L29.9915 50.6434C25.873 57.7713 28.3171 66.8856 35.4505 71.0009Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.4549 1.99908C37.3215 -2.11621 28.2 0.325984 24.0816 7.45386L0.207858 48.7723C-0.220035 49.5129 0.0338958 50.4598 0.775029 50.8874C1.51616 51.315 2.46384 51.0612 2.89174 50.3207L26.7655 9.0022C30.0281 3.35544 37.2542 1.42072 42.9054 4.68088C48.5565 7.94104 50.4927 15.1615 47.23 20.8083L43.8444 26.6679L46.5283 28.2162L49.9139 22.3566C54.0324 15.2287 51.5883 6.11436 44.4549 1.99908Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M36.8579 14.9389C36.1167 14.5113 35.1691 14.7651 34.7412 15.5056L11.7821 55.2411C11.3542 55.9817 11.6082 56.9286 12.3493 57.3562C13.0904 57.7837 14.0381 57.53 14.466 56.7894L37.425 17.054C37.8529 16.3134 37.599 15.3665 36.8579 14.9389Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.6306 38.7678C42.2027 39.5084 41.255 39.7621 40.5139 39.3346L36.9913 37.3024C36.2502 36.8748 35.9963 35.9279 36.4241 35.1873C36.852 34.4467 37.7997 34.193 38.5409 34.6206L42.0634 36.6528C42.8046 37.0803 43.0585 38.0273 42.6306 38.7678Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.8028 15.5829C67.0616 15.1553 66.1139 15.4091 65.686 16.1496L42.7637 55.8216C42.3358 56.5622 42.5897 57.5091 43.3308 57.9367C44.072 58.3643 45.0196 58.1105 45.4475 57.37L68.3699 17.698C68.7978 16.9574 68.5439 16.0104 67.8028 15.5829Z" fill="currentColor"/></svg>
           </a>

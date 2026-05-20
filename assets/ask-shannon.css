@@ -32,7 +32,7 @@
 .ask-bento {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 12px;
+  gap: 16px;
   align-items: start;
 }
 
@@ -40,13 +40,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 0 clamp(16px, 2vw, 32px);
+  padding: 0 clamp(24px, 2.4vw, 40px);
 }
 
 .ask-right {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 
@@ -118,14 +118,14 @@
 .ask-panel {
   background: var(--c-surface, #FFFFFF);
   border-radius: 22px;
-  padding: 28px 32px;
-  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  padding: 32px 40px;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
 }
 
 .ask-chat {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   position: relative;   /* anchor for .ask-follow-btn */
 }
 
@@ -184,7 +184,7 @@
   color: var(--c-mid, #777);
   line-height: 1.65;
   letter-spacing: -0.01em;
-  margin: 0 0 4px;
+  margin: 0 0 8px;
 }
 
 .ask-desc.hidden { display: none; }
@@ -203,7 +203,7 @@
   overflow-anchor: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   max-height: min(360px, 50dvh);  /* adapt to small viewports + landscape */
   scrollbar-width: thin;
   scrollbar-color: var(--c-ghost) transparent;
@@ -226,14 +226,14 @@
   line-height: 1.7;
   letter-spacing: -0.01em;
   border-radius: 16px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   opacity: 0;
   transform: translateY(8px);
   animation: askFadeIn 0.4s var(--ease, cubic-bezier(.22,1,.36,1)) forwards;
 }
 
 .ask-msg p { margin: 0; }
-.ask-msg p + p { margin-top: 8px; }
+.ask-msg p + p { margin-top: 10px; }
 .ask-msg strong { font-weight: 600; }
 .ask-msg a {
   color: inherit;
@@ -296,7 +296,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   align-self: flex-start;
 }
 
@@ -322,14 +322,14 @@
 .ask-form {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   position: relative;
 }
 
 .ask-messages:not(:empty) ~ .ask-form {
-  padding-top: 12px;
+  padding-top: 16px;
   border-top: 1px solid var(--c-rule, #E8E8E8);
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .ask-input {
@@ -340,7 +340,7 @@
   color: var(--c-ink, #0A0A0A);
   background: transparent;
   border: none;
-  padding: 8px 0;
+  padding: 10px 0;
   outline: none;
   letter-spacing: -0.01em;
   resize: none;
@@ -407,7 +407,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 12px;
+  padding-top: 16px;
 }
 
 
@@ -450,14 +450,14 @@
 .ask-bottom-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* "Email me directly" button — Gemini "I'm feeling lucky" style */
 .ask-email-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font);
   font-size: 12px;
   font-weight: 500;
@@ -465,7 +465,7 @@
   background: transparent;
   border: 1px solid var(--c-rule, #E8E8E8);
   border-radius: var(--r-pill, 999px);
-  padding: 8px 16px;
+  padding: 9px 18px;
   text-decoration: none;
   letter-spacing: 0.01em;
   cursor: pointer;
@@ -502,8 +502,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  padding-top: 8px;
+  gap: 10px;
+  padding-top: 12px;
 }
 
 .ask-chip {
@@ -514,7 +514,7 @@
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid var(--c-rule, #E8E8E8);
   border-radius: var(--r-pill, 999px);
-  padding: 7px 14px;
+  padding: 8px 16px;
   cursor: pointer;
   letter-spacing: 0.01em;
   touch-action: manipulation;  /* kill 300ms tap delay on mobile */
@@ -552,7 +552,7 @@
   color: #aaa;
   text-align: center;
   width: 100%;
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   line-height: 1.4;
   letter-spacing: 0.01em;
 }
@@ -573,7 +573,7 @@
   color: var(--c-error, #D32F2F);
   background: rgba(211, 47, 47, 0.06);
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   align-self: flex-start;
   max-width: 88%;
   animation: askFadeIn 0.35s ease forwards;
@@ -591,26 +591,26 @@
    13. RESPONSIVE
    ================================================================ */
 @media (max-width: 900px) {
-  .ask-bento { grid-template-columns: 1fr; gap: 16px; }
+  .ask-bento { grid-template-columns: 1fr; gap: 20px; }
   .ask-left { padding: 0; justify-content: center; text-align: center; }
   .ask-br { display: none; }
-  .ask-panel { padding: 22px 24px; }
+  .ask-panel { padding: 28px 30px; }
 }
 
 @media (max-width: 600px) {
-  .ask-chip { font-size: 11px; padding: 8px 16px; }
+  .ask-chip { font-size: 11px; padding: 9px 16px; }
   .ask-disclaimer { font-size: 11px; }
   .ask-msg { max-width: 92%; font-size: 13px; }
-  .ask-panel { padding: 20px; }
-  .ask-email-btn { font-size: 11px; padding: 7px 12px; }
-  .ask-bottom-bar { flex-wrap: wrap; gap: 8px; }
+  .ask-panel { padding: 24px; }
+  .ask-email-btn { font-size: 11px; padding: 8px 14px; }
+  .ask-bottom-bar { flex-wrap: wrap; gap: 12px; }
 }
 
 @media (max-width: 480px) {
-  .ask-panel { padding: 16px; }
-  .ask-msg { max-width: 95%; font-size: 13px; padding: 10px 14px; border-radius: 14px; }
+  .ask-panel { padding: 20px; }
+  .ask-msg { max-width: 95%; font-size: 13px; padding: 12px 16px; border-radius: 14px; }
   .ask-chip { font-size: 11px; padding: 8px 14px; }
-  .ask-suggestions { gap: 6px; }
+  .ask-suggestions { gap: 8px; }
   .ask-send { width: 36px; height: 36px; }
   .ask-send svg { width: 14px; height: 14px; }
   .ask-mic { width: 32px; height: 32px; }

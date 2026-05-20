@@ -21,7 +21,7 @@
   <script src="assets/view-transitions.js" defer></script>
   <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
+  <link rel="stylesheet" href="assets/portfolio.css?v=2026-05-20-spacing" />
   <title>Writing · Shannon Hecker</title>
   <meta name="description" content="Essays on enterprise product design, AI for expert users, and the changing shape of the designer’s job. By Shannon Hecker." />
   <script>
@@ -64,7 +64,7 @@
       --ease:cubic-bezier(.22,1,.36,1);
       --tb:220ms;
       --mw:1340px;
-      --pad:clamp(28px,6vw,88px);
+      --pad:var(--page-gutter, clamp(28px,6.4vw,104px));
       --nav:72px;
       --r-pill:999px;
     }
@@ -91,37 +91,38 @@
     .nav-cta:hover{background:var(--c-hover);border-color:var(--c-hover);color:#fff;}
 
     /* Hero */
-    main{padding-top:calc(var(--nav) + 80px);padding-bottom:120px;}
+    main{padding-top:var(--page-top);padding-bottom:var(--page-bottom);}
     .wrap{max-width:840px;margin:0 auto;padding:0 var(--pad);}
-    .wr-eyebrow{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light);margin-bottom:28px;}
-    .wr-title{font-family:var(--font-display);font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.05;letter-spacing:-.022em;color:var(--c-ink);margin-bottom:20px;text-wrap:balance;}
-    .wr-dek{font-family:var(--font);font-size:clamp(17px,1.7vw,20px);font-weight:300;line-height:1.55;color:var(--c-mid);max-width:640px;margin-bottom:72px;text-wrap:pretty;}
+    .wr-eyebrow{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-light);margin-bottom:var(--space-32);}
+    .wr-title{font-family:var(--font-display);font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.05;letter-spacing:-.022em;color:var(--c-ink);margin-bottom:var(--space-24);text-wrap:balance;}
+    .wr-dek{font-family:var(--font);font-size:clamp(17px,1.7vw,20px);font-weight:300;line-height:1.55;color:var(--c-mid);max-width:640px;margin-bottom:var(--space-96);text-wrap:pretty;}
 
     /* Essay list */
     .wr-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--c-rule);}
-    .wr-item{display:block;padding:36px 0;border-bottom:1px solid var(--c-rule);transition:background var(--tb) var(--ease);}
-    .wr-item:hover{background:var(--c-panel);margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px;border-radius:8px;border-bottom-color:transparent;}
-    .wr-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
+    .wr-item{display:block;padding:var(--space-48) 0;border-bottom:1px solid var(--c-rule);transition:background var(--tb) var(--ease);}
+    .wr-item:hover{background:var(--c-panel);margin-left:calc(var(--space-32) * -1);margin-right:calc(var(--space-32) * -1);padding-left:var(--space-32);padding-right:var(--space-32);border-radius:8px;border-bottom-color:transparent;}
+    .wr-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-24);margin-bottom:var(--space-12);flex-wrap:wrap;}
     .wr-item-title{font-family:var(--font-display);font-size:clamp(22px,2.6vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.015em;color:var(--c-ink);}
-    .wr-item-meta{font-size:12px;color:var(--c-light);letter-spacing:.02em;white-space:nowrap;display:flex;gap:10px;align-items:center;}
+    .wr-item-meta{font-size:12px;color:var(--c-light);letter-spacing:.02em;white-space:nowrap;display:flex;gap:var(--space-12);align-items:center;}
     .wr-item-meta .sep{color:var(--c-ghost);}
-    .wr-item-dek{font-size:15px;line-height:1.65;color:var(--c-mid);max-width:680px;margin-bottom:10px;}
+    .wr-item-dek{font-size:15px;line-height:1.65;color:var(--c-mid);max-width:680px;margin-bottom:var(--space-16);}
     .wr-item-read{font-size:12px;font-weight:500;color:var(--c-ink);letter-spacing:-.005em;display:inline-flex;align-items:center;gap:4px;transition:color var(--tb) var(--ease);}
     .wr-item:hover .wr-item-read{color:var(--c-accent);}
     .wr-item-read-arrow{transition:transform var(--tb) var(--ease);}
     .wr-item:hover .wr-item-read-arrow{transform:translateX(2px);}
 
     /* Footer */
-    .footer{border-top:1px solid var(--c-rule);padding:clamp(32px,5vw,56px) 0;}
-    .footer-inner{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:var(--c-light);}
+    .footer{border-top:1px solid var(--c-rule);padding:clamp(40px,6vw,64px) 0;}
+    .footer-inner{max-width:var(--mw);margin:0 auto;padding:0 var(--pad);display:flex;justify-content:space-between;align-items:center;gap:var(--space-24);font-size:13px;color:var(--c-light);}
     .footer-inner a{color:var(--c-light);}
     .footer-inner a:hover{color:var(--c-ink);}
 
     @media (max-width:700px){
-      .wr-item-head{flex-direction:column;gap:4px;}
-      .wr-item:hover{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+      .wr-item-head{flex-direction:column;gap:var(--space-8);}
+      .wr-item:hover{margin-left:calc(var(--space-24) * -1);margin-right:calc(var(--space-24) * -1);padding-left:var(--space-24);padding-right:var(--space-24);}
     }
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 
 <body>

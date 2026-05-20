@@ -21,7 +21,7 @@
   <script src="assets/view-transitions.js" defer></script>
   <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <link rel="stylesheet" href="assets/portfolio.css?v=2026-04-18" />
+  <link rel="stylesheet" href="assets/portfolio.css?v=2026-05-20-spacing" />
   <title>Trust surfaces in AI for expert users · Shannon Hecker</title>
   <meta name="description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
   <script>
@@ -94,7 +94,7 @@
       --ease:cubic-bezier(.22,1,.36,1);
       --tb:220ms;
       --mw:1340px;
-      --pad:clamp(28px,6vw,88px);
+      --pad:var(--page-gutter, clamp(28px,6.4vw,104px));
       --nav:72px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -173,7 +173,7 @@
 
     /* Article layout */
     .wrap{max-width:780px;margin:0 auto;padding:0 var(--pad);}
-    main.essay{padding-top:calc(var(--nav) + 80px);padding-bottom:120px;}
+    main.essay{padding-top:var(--page-top);padding-bottom:var(--page-bottom);}
 
     .essay-eyebrow{
       display:inline-block;
@@ -181,7 +181,7 @@
       letter-spacing:0.18em;
       text-transform:uppercase;
       color:var(--c-light);
-      margin-bottom:28px;
+      margin-bottom:var(--space-32);
     }
     .essay-title{
       font-family:var(--font-display);
@@ -190,7 +190,7 @@
       line-height:1.08;
       letter-spacing:-0.02em;
       color:var(--c-ink);
-      margin-bottom:24px;
+      margin-bottom:var(--space-32);
       text-wrap:balance;
     }
     .essay-dek{
@@ -199,15 +199,15 @@
       font-weight:300;
       line-height:1.5;
       color:var(--c-mid);
-      margin-bottom:28px;
+      margin-bottom:var(--space-32);
       text-wrap:balance;
     }
     .essay-meta{
       display:flex;
-      gap:20px;
+      gap:var(--space-24);
       align-items:center;
-      margin-bottom:72px;
-      padding-bottom:28px;
+      margin-bottom:var(--space-96);
+      padding-bottom:var(--space-32);
       border-bottom:1px solid var(--c-rule);
       font-size:13px;
       color:var(--c-light);
@@ -218,7 +218,7 @@
       font-size:clamp(17px,1.6vw,19px);
       line-height:1.75;
       color:var(--c-ink);
-      margin-bottom:24px;
+      margin-bottom:var(--space-32);
     }
     .essay-body a{
       color:var(--c-ink);
@@ -234,7 +234,7 @@
       font-weight:500;
       line-height:1.2;
       letter-spacing:-0.01em;
-      margin:56px 0 20px;
+      margin:var(--space-64) 0 var(--space-24);
       color:var(--c-ink);
     }
     .essay-body h2 .n{
@@ -250,12 +250,12 @@
     .essay-body hr{
       border:none;
       border-top:1px solid var(--c-rule);
-      margin:56px 0;
+      margin:var(--space-64) 0;
     }
     .essay-body blockquote{
       border-left:3px solid var(--c-ink);
-      padding:4px 0 4px 24px;
-      margin:28px 0;
+      padding:var(--space-8) 0 var(--space-8) var(--space-32);
+      margin:var(--space-48) 0;
       font-family:var(--font-display);
       font-size:clamp(20px,2vw,24px);
       font-weight:400;
@@ -266,11 +266,11 @@
     .essay-body .callout{
       background:var(--c-panel);
       border-left:3px solid var(--c-ink);
-      padding:20px 24px;
-      margin:28px 0;
+      padding:var(--space-24) var(--space-32);
+      margin:var(--space-48) 0;
       border-radius:0 8px 8px 0;
     }
-    .essay-body .callout p{margin-bottom:8px;font-size:16px;}
+    .essay-body .callout p{margin-bottom:var(--space-12);font-size:16px;}
     .essay-body .callout p:last-child{margin-bottom:0;}
     .essay-body .callout .label{
       display:inline-block;
@@ -278,12 +278,12 @@
       letter-spacing:0.14em;
       text-transform:uppercase;
       color:var(--c-light);
-      margin-bottom:8px;
+      margin-bottom:var(--space-12);
     }
 
     .essay-bio{
-      margin-top:72px;
-      padding-top:32px;
+      margin-top:var(--space-96);
+      padding-top:var(--space-48);
       border-top:1px solid var(--c-rule);
       font-size:15px;
       color:var(--c-mid);
@@ -292,15 +292,16 @@
     .essay-bio a{text-decoration:underline;text-underline-offset:3px;}
 
     /* Footer */
-    .footer{border-top:1px solid var(--c-rule);padding:clamp(32px,5vw,56px) 0;}
-    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:var(--c-light);}
+    .footer{border-top:1px solid var(--c-rule);padding:clamp(40px,6vw,64px) 0;}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:var(--space-24);font-size:13px;color:var(--c-light);}
     .footer-inner a{color:var(--c-light);}
     .footer-inner a:hover{color:var(--c-ink);}
 
     @media (max-width: 700px) {
-      .essay-meta{flex-direction:column;align-items:flex-start;gap:4px;}
+      .essay-meta{flex-direction:column;align-items:flex-start;gap:var(--space-8);}
     }
   </style>
+  <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
 
 <body>
@@ -368,7 +369,7 @@
         <div class="callout">
           <span class="label">Weak</span>
           <p>"87% confident this trade is aligned with the mandate."</p>
-          <span class="label" style="margin-top:12px;">Strong</span>
+          <span class="label" style="margin-top:var(--space-16);">Strong</span>
           <p>"87% confident this trade is aligned. 13% misaligned across six policy clauses. Top risk: clause 3.2 (concentration cap)."</p>
         </div>
 
@@ -443,8 +444,8 @@
 
         <p>And the feature that was going to get turned off on a Tuesday afternoon stays on.</p>
 
-        <div class="essay-prev" style="margin-top:48px;padding-top:28px;border-top:1px solid var(--c-rule);font-size:14px;color:var(--c-mid);">
-          <span class="essay-prev-label" style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:6px;">Next post</span>
+        <div class="essay-prev" style="margin-top:var(--space-64);padding-top:var(--space-32);border-top:1px solid var(--c-rule);font-size:14px;color:var(--c-mid);">
+          <span class="essay-prev-label" style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:var(--space-8);">Next post</span>
           <a href="writing-the-design-system-is-the-contract.html" style="color:var(--c-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:#14b8a6;text-decoration-thickness:1px;">The design system is the contract →</a>
         </div>
 
