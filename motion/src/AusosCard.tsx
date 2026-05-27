@@ -59,7 +59,7 @@ const AusosMark: React.FC<{ width: number; fill?: string }> = ({
   </svg>
 );
 
-const LETTERS = ["a", "u", "s", "o", "s"] as const;
+const LETTERS = ["u", "o", "a", "u", "i"] as const;
 
 export const AusosCard: React.FC = () => {
   const frame = useCurrentFrame();
