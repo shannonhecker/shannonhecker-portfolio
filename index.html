@@ -2063,19 +2063,19 @@
        lands before the work-sample grid.
        ============================================================ -->
   <style>
-    .ausos-strip {
+    .uoaui-strip {
       padding: clamp(64px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
       position: relative;
       overflow: hidden;
     }
-    .ausos-strip-grid {
+    .uoaui-strip-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
       gap: clamp(32px, 5vw, 72px);
       align-items: center;
     }
-    .ausos-strip-copy { display: flex; flex-direction: column; gap: 20px; }
-    .ausos-strip-eyebrow {
+    .uoaui-strip-copy { display: flex; flex-direction: column; gap: 20px; }
+    .uoaui-strip-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
@@ -2086,22 +2086,22 @@
       text-transform: uppercase;
       color: var(--c-light);
     }
-    .ausos-strip-eyebrow .ausos-strip-eyebrow-dot {
+    .uoaui-strip-eyebrow .uoaui-strip-eyebrow-dot {
       width: 6px; height: 6px;
       background: var(--c-accent);
       border-radius: 50%;
       box-shadow: 0 0 0 3px rgba(20, 184, 166, .18);
-      animation: ausos-strip-pulse 2.4s ease-in-out infinite;
+      animation: uoaui-strip-pulse 2.4s ease-in-out infinite;
     }
-    @keyframes ausos-strip-pulse {
+    @keyframes uoaui-strip-pulse {
       0%, 100% { box-shadow: 0 0 0 3px rgba(20, 184, 166, .18); }
       50%      { box-shadow: 0 0 0 5px rgba(20, 184, 166, .06); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ausos-strip-eyebrow .ausos-strip-eyebrow-dot { animation: none; }
+      .uoaui-strip-eyebrow .uoaui-strip-eyebrow-dot { animation: none; }
     }
 
-    .ausos-strip-head {
+    .uoaui-strip-head {
       font-family: var(--font-display);
       font-size: clamp(34px, 4.6vw, 58px);
       font-weight: 400;
@@ -2111,11 +2111,11 @@
       margin: 0;
       text-wrap: balance;
     }
-    .ausos-strip-brand {
+    .uoaui-strip-brand {
       display: block;
       font-weight: 500;
     }
-    .ausos-strip-sub {
+    .uoaui-strip-sub {
       display: block;
       font-family: var(--font);
       font-size: .66em;
@@ -2125,7 +2125,7 @@
       margin-top: 6px;
       letter-spacing: -.018em;
     }
-    .ausos-strip-body {
+    .uoaui-strip-body {
       font-size: clamp(14px, 1.5vw, 16px);
       font-weight: 300;
       color: var(--c-mid);
@@ -2135,8 +2135,8 @@
       margin: 0;
     }
 
-    .ausos-strip-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
-    .ausos-strip-cta {
+    .uoaui-strip-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+    .uoaui-strip-cta {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -2155,25 +2155,25 @@
     }
     /* Minimal hover: subtle lift + shadow on primary,
        panel fill + darker border on ghost. No accent colour. */
-    .ausos-strip-cta.primary {
+    .uoaui-strip-cta.primary {
       background: var(--c-ink);
       color: #fff;
       border-color: var(--c-ink);
     }
-    .ausos-strip-cta.primary:hover {
+    .uoaui-strip-cta.primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
     }
-    .ausos-strip-cta.ghost {
+    .uoaui-strip-cta.ghost {
       color: var(--c-ink);
       border-color: var(--c-rule-dk);
     }
-    .ausos-strip-cta.ghost:hover {
+    .uoaui-strip-cta.ghost:hover {
       background: var(--c-panel);
       border-color: var(--c-ink);
     }
 
-    .ausos-strip-meta {
+    .uoaui-strip-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
@@ -2181,15 +2181,15 @@
       padding-top: 24px;
       border-top: 1px solid var(--c-rule);
     }
-    .ausos-strip-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .ausos-strip-meta-label {
+    .uoaui-strip-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .uoaui-strip-meta-label {
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--c-light);
     }
-    .ausos-strip-meta-val {
+    .uoaui-strip-meta-val {
       font-size: 13px;
       font-weight: 400;
       color: var(--c-ink);
@@ -2198,8 +2198,8 @@
     }
 
     /* Product visual: just the image, rounded with a soft shadow. */
-    .ausos-strip-visual { position: relative; }
-    .ausos-strip-frame {
+    .uoaui-strip-visual { position: relative; }
+    .uoaui-strip-frame {
       position: relative;
       isolation: isolate;
       border-radius: 14px;
@@ -2216,22 +2216,22 @@
       will-change: transform;
       transition: transform var(--tb) var(--ease), box-shadow var(--tb) var(--ease);
     }
-    .ausos-strip-frame:hover {
+    .uoaui-strip-frame:hover {
       transform: translateY(-2px);
       box-shadow:
         0 1px 2px rgba(0,0,0,.04),
         0 12px 32px rgba(0,0,0,.08),
         0 32px 80px rgba(20, 184, 166, .12);
     }
-    .ausos-strip-motion {
-      --ausos-cycle: 9.6s;
+    .uoaui-strip-motion {
+      --uoaui-cycle: 9.6s;
       position: relative;
       /* Flex centering (not block + absolute-stage) so the lockup centers
          reliably even on iOS WebKit, where the prior top:50% + translate
          pattern misaligned because aspect-ratio height resolves late. The
          decorative children (bg / blobs / tagline / scrub / sweep) are all
          position:absolute and don't participate in the flex flow — only
-         .ausos-strip-logo-stage is the flex child, which gets centered. */
+         .uoaui-strip-logo-stage is the flex child, which gets centered. */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2240,20 +2240,20 @@
       background: #f8fbff;
       contain: layout paint;
     }
-    .ausos-strip-bg,
-    .ausos-strip-bg::before,
-    .ausos-strip-bg::after,
-    .ausos-strip-blob,
-    .ausos-strip-logo-scrub,
-    .ausos-strip-sweep {
+    .uoaui-strip-bg,
+    .uoaui-strip-bg::before,
+    .uoaui-strip-bg::after,
+    .uoaui-strip-blob,
+    .uoaui-strip-logo-scrub,
+    .uoaui-strip-sweep {
       content: "";
       position: absolute;
       pointer-events: none;
     }
-    .ausos-strip-bg {
+    .uoaui-strip-bg {
       inset: 0;
       z-index: 0;
-      /* Aurora gradient field — was a baked PNG (assets/ausos-card.png)
+      /* Aurora gradient field — was a baked PNG (assets/uoaui-card.png)
          which had the lockup rendered into it; replaced with CSS so the
          logo reveal isn't undermined by a background that already contains
          the logo. Five blob stops match the PNG palette: cream upper-left,
@@ -2270,15 +2270,15 @@
       opacity: 0;
       filter: saturate(.5) blur(8px);
       will-change: opacity, filter;
-      animation: ausos-bg-cycle var(--ausos-cycle) cubic-bezier(.4,0,.2,1) infinite;
+      animation: uoaui-bg-cycle var(--uoaui-cycle) cubic-bezier(.4,0,.2,1) infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-bg::before,
-    .ausos-strip-bg::after {
+    .uoaui-strip-bg::before,
+    .uoaui-strip-bg::after {
       z-index: 1;
       will-change: transform, opacity;
     }
-    .ausos-strip-bg::before {
+    .uoaui-strip-bg::before {
       inset: -28%;
       background:
         radial-gradient(ellipse at 18% 16%, rgba(250,254,253,.54) 0 15%, transparent 40%),
@@ -2289,10 +2289,10 @@
       filter: blur(46px) saturate(1.18);
       mix-blend-mode: soft-light;
       opacity: .68;
-      animation: ausos-aurora-breathe 18s ease-in-out infinite;
+      animation: uoaui-aurora-breathe 18s ease-in-out infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-bg::after {
+    .uoaui-strip-bg::after {
       inset: -36%;
       background:
         conic-gradient(from 20deg at 56% 46%,
@@ -2305,14 +2305,14 @@
       filter: blur(66px) saturate(1.16);
       mix-blend-mode: overlay;
       opacity: .36;
-      animation: ausos-aurora-orbit 32s ease-in-out infinite;
+      animation: uoaui-aurora-orbit 32s ease-in-out infinite;
       animation-play-state: paused;
     }
 
     /* ── New: drifting blobs — the "actors" borrowed from the Ramotion shot.
        Two soft-edged radial circles glide diagonally across the frame, then
        converge to a single disc at the centre during coalescence (50–68%). ── */
-    .ausos-strip-blob {
+    .uoaui-strip-blob {
       inset: 0;
       z-index: 1;
       border-radius: 999px;
@@ -2320,27 +2320,27 @@
       mix-blend-mode: soft-light;
       will-change: opacity, transform;
       opacity: 0;
-      animation-duration: var(--ausos-cycle);
+      animation-duration: var(--uoaui-cycle);
       animation-timing-function: cubic-bezier(.4,0,.2,1);
       animation-iteration-count: infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-blob--a {
+    .uoaui-strip-blob--a {
       width: 90%; height: 130%;
       top: -15%; left: -25%; right: auto;
       background: radial-gradient(circle, rgba(248,253,250,.95) 0%, rgba(248,253,250,0) 65%);
-      animation-name: ausos-blob-a;
+      animation-name: uoaui-blob-a;
     }
-    .ausos-strip-blob--b {
+    .uoaui-strip-blob--b {
       width: 90%; height: 130%;
       top: -15%; right: -25%; left: auto;
       background: radial-gradient(circle, rgba(168,140,212,.85) 0%, rgba(168,140,212,0) 65%);
-      animation-name: ausos-blob-b;
+      animation-name: uoaui-blob-b;
     }
 
     /* ── New: tagline beats — short copy fragments crossfade with motion blur,
        Ramotion-style. Two beats stack at centre via grid-area: 1 / 1. ── */
-    .ausos-strip-tagline {
+    .uoaui-strip-tagline {
       position: absolute;
       inset: 0;
       z-index: 2;
@@ -2356,19 +2356,19 @@
       text-wrap: balance;
       padding: 0 8%;
     }
-    .ausos-strip-tagline-beat {
+    .uoaui-strip-tagline-beat {
       grid-area: 1 / 1;
       will-change: opacity, filter, transform;
       opacity: 0;
-      animation-duration: var(--ausos-cycle);
+      animation-duration: var(--uoaui-cycle);
       animation-timing-function: cubic-bezier(.4,0,.2,1);
       animation-iteration-count: infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-tagline-beat--1 { animation-name: ausos-tagline-beat-1; }
-    .ausos-strip-tagline-beat--2 { animation-name: ausos-tagline-beat-2; }
+    .uoaui-strip-tagline-beat--1 { animation-name: uoaui-tagline-beat-1; }
+    .uoaui-strip-tagline-beat--2 { animation-name: uoaui-tagline-beat-2; }
 
-    .ausos-strip-logo-scrub {
+    .uoaui-strip-logo-scrub {
       z-index: 3;
       top: 38%;
       right: 24%;
@@ -2384,17 +2384,17 @@
       transform: scale(2);
       opacity: 0;
       will-change: opacity, transform, filter;
-      animation: ausos-scrub-coalesce var(--ausos-cycle) cubic-bezier(.4,0,.2,1) infinite;
+      animation: uoaui-scrub-coalesce var(--uoaui-cycle) cubic-bezier(.4,0,.2,1) infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-sweep {
+    .uoaui-strip-sweep {
       /* Retained markup for backward-compat; no longer animated in the new cycle. */
       inset: 0;
       z-index: 4;
       background: transparent;
       opacity: 0;
     }
-    .ausos-strip-logo-stage {
+    .uoaui-strip-logo-stage {
       /* position: relative makes this the only in-flow child of motion,
          which is now display:flex with align/justify center — that is the
          centring. No top/left/transform percentages, so iOS WebKit's late
@@ -2407,7 +2407,7 @@
       pointer-events: none;
       filter: drop-shadow(0 1px 10px rgba(255,255,255,.18));
     }
-    .ausos-strip-logo {
+    .uoaui-strip-logo {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -2415,24 +2415,24 @@
       object-fit: contain;
       will-change: clip-path, opacity, transform, filter;
     }
-    .ausos-strip-logo-final {
+    .uoaui-strip-logo-final {
       opacity: 0;
       transform: scale(.985);
       filter: blur(12px);
       clip-path: inset(0 60% 0 0);
-      animation: ausos-final-lock var(--ausos-cycle) cubic-bezier(.4,0,.2,1) infinite;
+      animation: uoaui-final-lock var(--uoaui-cycle) cubic-bezier(.4,0,.2,1) infinite;
       animation-play-state: paused;
     }
-    .ausos-strip-visual.on .ausos-strip-bg,
-    .ausos-strip-visual.on .ausos-strip-bg::before,
-    .ausos-strip-visual.on .ausos-strip-bg::after,
-    .ausos-strip-visual.on .ausos-strip-blob,
-    .ausos-strip-visual.on .ausos-strip-tagline-beat,
-    .ausos-strip-visual.on .ausos-strip-logo-scrub,
-    .ausos-strip-visual.on .ausos-strip-logo-final {
+    .uoaui-strip-visual.on .uoaui-strip-bg,
+    .uoaui-strip-visual.on .uoaui-strip-bg::before,
+    .uoaui-strip-visual.on .uoaui-strip-bg::after,
+    .uoaui-strip-visual.on .uoaui-strip-blob,
+    .uoaui-strip-visual.on .uoaui-strip-tagline-beat,
+    .uoaui-strip-visual.on .uoaui-strip-logo-scrub,
+    .uoaui-strip-visual.on .uoaui-strip-logo-final {
       animation-play-state: running;
     }
-    @keyframes ausos-bg-cycle {
+    @keyframes uoaui-bg-cycle {
       0%        { opacity: 0; filter: saturate(.5) blur(8px); }
       4%        { opacity: 1; filter: saturate(1) blur(0); }
       50%       { opacity: 1; filter: saturate(1.16) blur(0); }
@@ -2442,39 +2442,39 @@
       96%       { opacity: .35; filter: saturate(.7) blur(4px); }
       100%      { opacity: 0; filter: saturate(.5) blur(8px); }
     }
-    @keyframes ausos-blob-a {
+    @keyframes uoaui-blob-a {
       0%, 12%   { opacity: 0; transform: translate(-46%, -42%) scale(1.4); }
       22%       { opacity: .9; }
       38%, 50%  { opacity: .9; transform: translate(-22%, 0%) scale(1.6); }
       62%       { opacity: .55; transform: translate(-4%, 0%) scale(.9); }
       68%, 100% { opacity: 0; transform: translate(0, 0) scale(.5); }
     }
-    @keyframes ausos-blob-b {
+    @keyframes uoaui-blob-b {
       0%, 18%   { opacity: 0; transform: translate(46%, 42%) scale(1.4); }
       30%       { opacity: .9; }
       44%, 50%  { opacity: .9; transform: translate(20%, 4%) scale(1.55); }
       62%       { opacity: .55; transform: translate(4%, 0%) scale(.9); }
       68%, 100% { opacity: 0; transform: translate(0, 0) scale(.5); }
     }
-    @keyframes ausos-tagline-beat-1 {
+    @keyframes uoaui-tagline-beat-1 {
       0%, 8%    { opacity: 0; filter: blur(8px); transform: translateY(2px); }
       14%, 22%  { opacity: 1; filter: blur(0); transform: translateY(0); }
       26%, 28%  { opacity: 0; filter: blur(8px); transform: translateY(-2px); }
       100%      { opacity: 0; }
     }
-    @keyframes ausos-tagline-beat-2 {
+    @keyframes uoaui-tagline-beat-2 {
       0%, 28%   { opacity: 0; filter: blur(8px); transform: translateY(2px); }
       34%, 44%  { opacity: 1; filter: blur(0); transform: translateY(0); }
       48%, 50%  { opacity: 0; filter: blur(8px); transform: translateY(-2px); }
       100%      { opacity: 0; }
     }
-    @keyframes ausos-scrub-coalesce {
+    @keyframes uoaui-scrub-coalesce {
       0%, 50%   { opacity: 0; transform: scale(2); filter: blur(40px) saturate(1); }
       60%       { opacity: 1; transform: scale(.6); filter: blur(20px) saturate(1.4); }
       70%, 92%  { opacity: .85; transform: scale(1.34); filter: blur(24px) saturate(1.18); }
       96%, 100% { opacity: 0; transform: scale(1.34); filter: blur(24px) saturate(1.18); }
     }
-    @keyframes ausos-final-lock {
+    @keyframes uoaui-final-lock {
       /* Wordmark side reveals via clip-path 64→70% while filter blur unwinds —
          single image, single animation, reads as 'wordmark slides in with motion blur'. */
       0%, 63%   { opacity: 0; transform: scale(.985); filter: blur(12px); clip-path: inset(0 60% 0 0); }
@@ -2483,115 +2483,115 @@
       78%, 92%  { opacity: 1; transform: scale(1); filter: blur(0); clip-path: inset(0 0 0 0); }
       96%, 100% { opacity: 0; transform: scale(.99); filter: blur(6px); clip-path: inset(0 0 0 0); }
     }
-    @keyframes ausos-aurora-breathe {
+    @keyframes uoaui-aurora-breathe {
       0%, 100% { transform: translate3d(-5%, -3.5%, 0) scale(1.07) rotate(-1deg); opacity: .5; }
       28% { transform: translate3d(2.5%, -1%, 0) scale(1.16) rotate(.8deg); opacity: .78; }
       56% { transform: translate3d(5%, 3.5%, 0) scale(1.18) rotate(1.2deg); opacity: .62; }
       82% { transform: translate3d(-1.5%, 4.5%, 0) scale(1.1) rotate(-.6deg); opacity: .7; }
     }
-    @keyframes ausos-aurora-orbit {
+    @keyframes uoaui-aurora-orbit {
       0%, 100% { transform: translate3d(-4%, -2.5%, 0) rotate(0deg) scale(1.06); opacity: .28; }
       24% { transform: translate3d(1.4%, -2%, 0) rotate(18deg) scale(1.12); opacity: .44; }
       52% { transform: translate3d(3.6%, 2.5%, 0) rotate(34deg) scale(1.14); opacity: .38; }
       78% { transform: translate3d(-1.4%, 3.4%, 0) rotate(14deg) scale(1.1); opacity: .48; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ausos-strip-bg,
-      .ausos-strip-bg::before,
-      .ausos-strip-bg::after,
-      .ausos-strip-blob,
-      .ausos-strip-tagline-beat,
-      .ausos-strip-logo-scrub,
-      .ausos-strip-sweep,
-      .ausos-strip-logo-final { animation: none; }
-      .ausos-strip-bg { opacity: 1; filter: saturate(1.16); }
-      .ausos-strip-logo-scrub { opacity: .9; transform: scale(1.34); filter: blur(24px) saturate(1.18); }
-      .ausos-strip-blob,
-      .ausos-strip-tagline-beat,
-      .ausos-strip-sweep { opacity: 0; }
-      .ausos-strip-logo-final { opacity: 1; transform: scale(1); filter: none; clip-path: inset(0 0 0 0); }
+      .uoaui-strip-bg,
+      .uoaui-strip-bg::before,
+      .uoaui-strip-bg::after,
+      .uoaui-strip-blob,
+      .uoaui-strip-tagline-beat,
+      .uoaui-strip-logo-scrub,
+      .uoaui-strip-sweep,
+      .uoaui-strip-logo-final { animation: none; }
+      .uoaui-strip-bg { opacity: 1; filter: saturate(1.16); }
+      .uoaui-strip-logo-scrub { opacity: .9; transform: scale(1.34); filter: blur(24px) saturate(1.18); }
+      .uoaui-strip-blob,
+      .uoaui-strip-tagline-beat,
+      .uoaui-strip-sweep { opacity: 0; }
+      .uoaui-strip-logo-final { opacity: 1; transform: scale(1); filter: none; clip-path: inset(0 0 0 0); }
     }
 
     @media (max-width: 900px) {
-      .ausos-strip-grid { grid-template-columns: 1fr; gap: 32px; }
-      .ausos-strip-meta { grid-template-columns: 1fr; gap: 12px; padding-top: 20px; margin-top: 20px; }
-      .ausos-strip-body { max-width: 100%; }
+      .uoaui-strip-grid { grid-template-columns: 1fr; gap: 32px; }
+      .uoaui-strip-meta { grid-template-columns: 1fr; gap: 12px; padding-top: 20px; margin-top: 20px; }
+      .uoaui-strip-body { max-width: 100%; }
       /* Tap-target hygiene: bump CTA vertical padding so touch area >=44px on mobile. */
-      .ausos-strip-cta { padding: 13px 22px; }
-      .ausos-strip-actions { gap: 10px; }
+      .uoaui-strip-cta { padding: 13px 22px; }
+      .uoaui-strip-actions { gap: 10px; }
       /* Mobile centering fix: scale logo up so it sits visually at true centre of
          the (now wider) card, and re-anchor the scrub glow to a square inset so
          the logo lockup doesn't read as drifting above centre on short frames. */
-      .ausos-strip-logo-stage { width: min(46%, 380px); }
-      .ausos-strip-logo-scrub { top: 36%; right: 18%; bottom: 36%; left: 18%; }
+      .uoaui-strip-logo-stage { width: min(46%, 380px); }
+      .uoaui-strip-logo-scrub { top: 36%; right: 18%; bottom: 36%; left: 18%; }
     }
     @media (max-width: 600px) {
-      .ausos-strip { padding: 48px 0 32px; }
+      .uoaui-strip { padding: 48px 0 32px; }
       /* Stack CTAs full-width so they’re unmissable taps on narrow phones. */
-      .ausos-strip-actions { flex-direction: column; align-items: stretch; }
-      .ausos-strip-cta { justify-content: center; padding: 14px 20px; }
+      .uoaui-strip-actions { flex-direction: column; align-items: stretch; }
+      .uoaui-strip-cta { justify-content: center; padding: 14px 20px; }
       /* Tagline scaling + lighter blur on blobs to keep mobile GPU happy. */
-      .ausos-strip-tagline { font-size: clamp(18px, 5vw, 26px); padding: 0 6%; }
-      .ausos-strip-blob { filter: blur(40px); }
+      .uoaui-strip-tagline { font-size: clamp(18px, 5vw, 26px); padding: 0 6%; }
+      .uoaui-strip-blob { filter: blur(40px); }
     }
   </style>
 
-  <section class="ausos-strip" id="now-building" aria-labelledby="ausos-strip-heading">
+  <section class="uoaui-strip" id="now-building" aria-labelledby="uoaui-strip-heading">
     <div class="wrap">
-      <div class="ausos-strip-grid">
+      <div class="uoaui-strip-grid">
 
         <!-- Left: copy -->
-        <div class="ausos-strip-copy">
-          <span class="ausos-strip-eyebrow rv" data-d="1">
-            <span class="ausos-strip-eyebrow-dot" aria-hidden="true"></span>
+        <div class="uoaui-strip-copy">
+          <span class="uoaui-strip-eyebrow rv" data-d="1">
+            <span class="uoaui-strip-eyebrow-dot" aria-hidden="true"></span>
             Now building · private alpha
           </span>
 
-          <h2 id="ausos-strip-heading" class="ausos-strip-head rv" data-d="2">
-            <span class="ausos-strip-brand">uoaui.ai</span>
-            <span class="ausos-strip-sub">A visual web builder for designers who think in systems.</span>
+          <h2 id="uoaui-strip-heading" class="uoaui-strip-head rv" data-d="2">
+            <span class="uoaui-strip-brand">uoaui.ai</span>
+            <span class="uoaui-strip-sub">A visual web builder for designers who think in systems.</span>
           </h2>
 
-          <p class="ausos-strip-body rv" data-d="3">
+          <p class="uoaui-strip-body rv" data-d="3">
             Side project, private alpha. Two surfaces: a UI Kit across Salt, Material 3, Fluent 2, Carbon, and the uoaui system, plus a Builder that turns prompts into UIs with compare, tune, and code export.
           </p>
 
-          <div class="ausos-strip-actions rv" data-d="4">
-            <a href="project-ausos.html" class="ausos-strip-cta primary">See the case study →</a>
-            <a href="#contact" class="ausos-strip-cta ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){var el=document.getElementById('ask-input');if(el){el.focus();el.value='Tell me more about uoaui.ai';}},600);">Ask about it ↗</a>
+          <div class="uoaui-strip-actions rv" data-d="4">
+            <a href="project-uoaui.html" class="uoaui-strip-cta primary">See the case study →</a>
+            <a href="#contact" class="uoaui-strip-cta ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){var el=document.getElementById('ask-input');if(el){el.focus();el.value='Tell me more about uoaui.ai';}},600);">Ask about it ↗</a>
           </div>
 
-          <div class="ausos-strip-meta rv" data-d="5">
-            <div class="ausos-strip-meta-item">
-              <span class="ausos-strip-meta-label">Role</span>
-              <span class="ausos-strip-meta-val">Designer + Builder</span>
+          <div class="uoaui-strip-meta rv" data-d="5">
+            <div class="uoaui-strip-meta-item">
+              <span class="uoaui-strip-meta-label">Role</span>
+              <span class="uoaui-strip-meta-val">Designer + Builder</span>
             </div>
-            <div class="ausos-strip-meta-item">
-              <span class="ausos-strip-meta-label">Stage</span>
-              <span class="ausos-strip-meta-val">Private alpha · 2026</span>
+            <div class="uoaui-strip-meta-item">
+              <span class="uoaui-strip-meta-label">Stage</span>
+              <span class="uoaui-strip-meta-val">Private alpha · 2026</span>
             </div>
-            <div class="ausos-strip-meta-item">
-              <span class="ausos-strip-meta-label">Stack</span>
-              <span class="ausos-strip-meta-val">Claude · Next.js · edge-rendered</span>
+            <div class="uoaui-strip-meta-item">
+              <span class="uoaui-strip-meta-label">Stack</span>
+              <span class="uoaui-strip-meta-val">Claude · Next.js · edge-rendered</span>
             </div>
           </div>
         </div>
 
         <!-- Right: clean product animation, no browser chrome -->
-        <div class="ausos-strip-visual rv" data-d="3">
-          <div class="ausos-strip-frame">
-            <div class="ausos-strip-motion" role="img" aria-label="uoaui.ai animated logo preview">
-              <div class="ausos-strip-bg" aria-hidden="true"></div>
-              <div class="ausos-strip-blob ausos-strip-blob--a" aria-hidden="true"></div>
-              <div class="ausos-strip-blob ausos-strip-blob--b" aria-hidden="true"></div>
-              <div class="ausos-strip-tagline" aria-hidden="true">
-                <span class="ausos-strip-tagline-beat ausos-strip-tagline-beat--1">for designers</span>
-                <span class="ausos-strip-tagline-beat ausos-strip-tagline-beat--2">who think in systems</span>
+        <div class="uoaui-strip-visual rv" data-d="3">
+          <div class="uoaui-strip-frame">
+            <div class="uoaui-strip-motion" role="img" aria-label="uoaui.ai animated logo preview">
+              <div class="uoaui-strip-bg" aria-hidden="true"></div>
+              <div class="uoaui-strip-blob uoaui-strip-blob--a" aria-hidden="true"></div>
+              <div class="uoaui-strip-blob uoaui-strip-blob--b" aria-hidden="true"></div>
+              <div class="uoaui-strip-tagline" aria-hidden="true">
+                <span class="uoaui-strip-tagline-beat uoaui-strip-tagline-beat--1">for designers</span>
+                <span class="uoaui-strip-tagline-beat uoaui-strip-tagline-beat--2">who think in systems</span>
               </div>
-              <div class="ausos-strip-logo-scrub" aria-hidden="true"></div>
-              <div class="ausos-strip-sweep" aria-hidden="true"></div>
-              <div class="ausos-strip-logo-stage" aria-hidden="true">
-                <img class="ausos-strip-logo ausos-strip-logo-final" src="assets/ausos-logo-lockup.png" alt="" loading="eager" decoding="async" width="454" height="91" />
+              <div class="uoaui-strip-logo-scrub" aria-hidden="true"></div>
+              <div class="uoaui-strip-sweep" aria-hidden="true"></div>
+              <div class="uoaui-strip-logo-stage" aria-hidden="true">
+                <img class="uoaui-strip-logo uoaui-strip-logo-final" src="assets/uoaui-logo-lockup.png" alt="" loading="eager" decoding="async" width="454" height="91" />
               </div>
             </div>
           </div>

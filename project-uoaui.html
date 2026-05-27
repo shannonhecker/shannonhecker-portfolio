@@ -21,16 +21,16 @@
     <script src="assets/view-transitions.js" defer></script>
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
-  <title>Digital &amp; Platform Services Brand Identity · Shannon Hecker</title>
-  <meta name="description" content="Visual identity for J.P. Morgan Digital &amp; Platform Services. One system for internal communications, digital channels, and executive presentations." />
+  <title>uoaui.ai · AI design-system builder · Shannon Hecker</title>
+  <meta name="description" content="uoaui.ai: a visual web builder for designers who think in systems. UI Kit and private-preview Builder across five design systems." />
   <script>
     gtag('config', 'G-795LXWTYWM');
   </script>
-    <link rel="canonical" href="https://shannonhecker.com/project-dps-brand.html" />
+    <link rel="canonical" href="https://shannonhecker.com/project-ausos.html" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://shannonhecker.com/project-dps-brand.html" />
-  <meta property="og:title" content="Digital &amp; Platform Services Brand Identity · Shannon Hecker" />
-  <meta property="og:description" content="Visual identity for J.P. Morgan Digital &amp; Platform Services. One system for internal communications, digital channels, and executive presentations." />
+  <meta property="og:url" content="https://shannonhecker.com/project-ausos.html" />
+  <meta property="og:title" content="uoaui.ai · AI design-system builder · Shannon Hecker" />
+  <meta property="og:description" content="uoaui.ai: a visual web builder for designers who think in systems. UI Kit and private-preview Builder across five design systems." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -40,11 +40,11 @@
 {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "headline": "Digital &amp; Platform Services Brand Identity",
-  "description": "Visual identity for J.P. Morgan’s Digital & Platform Services. One system across digital channels, internal communications, and executive presentations.",
-  "url": "https://shannonhecker.com/project-dps-brand.html",
+  "headline": "uoaui.ai",
+  "description": "uoaui.ai: a visual web builder for designers who think in systems. UI Kit and private-preview Builder across five design systems.",
+  "url": "https://shannonhecker.com/project-ausos.html",
   "image": "https://shannonhecker.com/assets/og-preview.png",
-  "datePublished": "2022-01-01",
+  "datePublished": "2026-01-01",
   "author": {
     "@type": "Person",
     "name": "Shannon Hecker",
@@ -81,18 +81,13 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "Digital &amp; Platform Services Brand Identity",
-      "item": "https://shannonhecker.com/project-dps-brand.html"
+      "name": "uoaui.ai",
+      "item": "https://shannonhecker.com/project-ausos.html"
     }
   ]
 }
   </script>
   
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
-  <link rel="manifest" href="assets/site.webmanifest" />
-  <meta name="theme-color" content="#121212" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -101,18 +96,18 @@
 
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-05-20-spacing" />
   <style>
-.sh-text{color:var(--c-ink);}
-    .sh-period{color:var(--c-ink);}
-  
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      .rv { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
-      .rv, .rv.on { transform: none !important; }
-      canvas { display: none !important; }
-      .hero-name-inner, .hero-role-text, .hero-role-sep { transition: none !important; }
+/* Scroll reveal */
+    /* Nav */
+    /* Section heading */
+
+    .sh-period{color:var(--c-ghost);}
+    /* Footer */
+    /* Chip tags */
+    /* Responsive */
   </style>
   <style>
     .proj-page { padding-top: var(--nav); position: relative; z-index: 2; }
+    /* Hero */
     .proj-hero {
       padding: var(--project-hero-pad) 0 0;
       position: relative;
@@ -153,9 +148,30 @@
       padding: clamp(64px, 10vw, 112px) clamp(32px, 5.5vw, 64px);
       min-height: clamp(300px, 38vw, 380px);
     }
-    .proj-nda-title { color: var(--c-ink); margin: 0; }
+.proj-nda-title { color: var(--c-ink); margin: 0; }
     .proj-nda-lead { color: var(--c-ink); margin: 6px 0 0; }
-    .proj-nda-body { color: var(--c-mid); max-width: 36em; margin: clamp(14px, 2.5vw, 22px) 0 0; }
+    .proj-nda-body { color: var(--c-mid); max-width: 36em; margin: 0; }
+    .ausos-strip-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-8);
+      margin-top: var(--space-32);
+      padding: 12px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 220ms cubic-bezier(.22,1,.36,1), box-shadow 220ms cubic-bezier(.22,1,.36,1), background 220ms cubic-bezier(.22,1,.36,1), border-color 220ms cubic-bezier(.22,1,.36,1);
+    }
+    .ausos-strip-cta.primary {
+      background: var(--c-ink);
+      color: #fff;
+      border-color: var(--c-ink);
+    }
+    .ausos-strip-cta.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .ausos-strip-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
 
     .proj-breadcrumb {color:var(--c-light);margin-bottom:var(--space-32);display:flex;align-items:center;gap:var(--space-12); }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -168,8 +184,10 @@
     .proj-meta-item { display:flex;flex-direction:column;gap:var(--space-8); }
     .proj-meta-label {color:var(--c-light); }
     .proj-meta-value {color:var(--c-ink); }
+    /* Cover image */
     .proj-cover { width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:0;margin-bottom:0;display:block;background:#fff; }
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
+    /* Content sections */
     .proj-content { padding-bottom:var(--content-stack); }
     .proj-section { margin-bottom:var(--project-section-gap); }
     .proj-section-label {color:var(--c-light);margin-bottom:var(--space-24);display:block; }
@@ -177,21 +195,24 @@
     .proj-body {color:var(--c-mid);max-width:720px; }
     .proj-body strong {color:var(--c-ink); }
     .proj-body p + p { margin-top:var(--space-24); }
+    /* Image grid */
     .proj-img-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-24);margin:var(--space-48) 0; }
     .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3;background:#fff; }
     .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:var(--space-48) 0; }
-    /* Outcome pills — border-divider rows; canonical pattern shared across the
-       case-study set (algo-center / analytics / barclays / etc.). */
+    /* Outcome pills */
     .proj-outcomes { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:var(--space-48) 0; }
     .proj-outcome { display:flex;flex-direction:column;gap:var(--space-8);min-width:0;padding:0 clamp(16px,2.2vw,28px);border-left:1px solid var(--c-rule); }
     .proj-outcome:first-child { padding-left:0;border-left:none; }
     .proj-outcome:last-child { padding-right:0; }
     .proj-outcome-num {color:var(--c-ink);font-size:clamp(28px,3.4vw,48px);overflow-wrap:anywhere; }
     .proj-outcome-label {color:var(--c-light);line-height:1.45;overflow-wrap:break-word;hyphens:auto; }
+    /* Tags */
     .proj-tags { margin-top:var(--space-48); }
+    .proj-tags-label {color:var(--c-light);margin-bottom:var(--space-12); }
     .proj-tags-list {color:var(--c-mid); }
+    /* Next project nav */
     @media(max-width:900px){
       .proj-img-grid{grid-template-columns:1fr;}
       .proj-meta-row{gap:var(--space-32);}
@@ -200,16 +221,53 @@
       .proj-about-label{position:static;margin-bottom:var(--space-12);}
       .proj-next{padding-bottom:var(--space-24);}
     }
+    /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
     #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
     .footer{border-top:1px solid var(--c-rule);position:relative;z-index:3;background:#fff;}
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}.rv{opacity:1;transform:none;}}
       /* Block image copy/drag */
     img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none; }
     img { -webkit-touch-callout:none; }
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
     .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
+
+    /* uoaui cover — live demo capture, theme-aware Design-Hub backdrop, 36px breathing room.
+       Two <video> elements: light + dark; we show the matching one per theme.
+       Dark gradient matches uoaui.ai/Design-Hub `.hero` (hero.css:30 + .hero::before aurora layers).
+       `!important` on background overrides dark-mode.css:370 (`html[data-theme="dark"] .proj-cover { background:#fff !important }`). */
+    .proj-cover--demo {
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(180, 144, 245, 0.10), transparent 60%),
+        radial-gradient(ellipse at 10% 80%, rgba(94, 231, 223, 0.08), transparent 60%),
+        linear-gradient(180deg, #F4F6FA 0%, #DDE2EB 50%, #C4CAD5 100%) !important;
+      padding: 36px;
+      box-sizing: border-box;
+    }
+    .proj-cover--demo > video { border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block; }
+    /* Show only the matching video per theme; the inactive one stays in DOM for swap-without-flicker */
+    .proj-cover--demo > video.demo-dark { display: none; }
+    html[data-theme="dark"] .proj-cover--demo > video.demo-light { display: none; }
+    html[data-theme="dark"] .proj-cover--demo > video.demo-dark { display: block; }
+    html[data-theme="dark"] .proj-cover--demo {
+      background:
+        radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
+        radial-gradient(ellipse at 5% 74%, rgba(220, 235, 226, 0.12), transparent 60%),
+        radial-gradient(ellipse at 51% 28%, rgba(244, 250, 241, 0.05), transparent 70%),
+        radial-gradient(ellipse at 54% 108%, rgba(112, 156, 144, 0.08), transparent 80%),
+        linear-gradient(180deg, #060806 0%, #020302 38%, #020302 100%) !important;
+      filter: none; /* override dark-mode.css brightness(0.88) — demo is already balanced */
+    }
+    @media (max-width: 720px) {
+      .proj-cover--demo { padding: 18px; }
+    }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="assets/site.webmanifest" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -251,7 +309,7 @@
     <a href="writing.html" onclick="closeDrawer()">Writing</a>
     <a href="index.html#contact">Let’s Talk</a>
     <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer">Resume ↗</a>
-  
+
     <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">
       <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -266,25 +324,38 @@
         <div class="proj-breadcrumb rv">
           <a href="work.html">Work</a>
           <span class="proj-breadcrumb-sep">›</span>
-          <span>D&amp;PS Brand Identity</span>
+          <span>uoaui.ai</span>
         </div>
         <div class="proj-meta-row rv" data-d="1">
-          <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-value">J.P. Morgan</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Brand Identity</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2020</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Visual Designer</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">uoaui.ai</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Design Engineering · Side Project</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2026</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Designer + Builder</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://uoaui.ai/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">uoaui.ai ↗</a></span></div>
         </div>
       </div>
 
-      <!-- Cover -->
-      <picture>
-        <source srcset="assets/dbs-banner.webp" type="image/webp" />
-        <img src="assets/dbs-banner.png" alt="Digital &amp; Platform Services brand identity system" class="proj-cover rv" width="2800" height="1000" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
-      </picture>
-      <div class="proj-cover-ph ph-1" style="display:none;"></div>
+      <!-- Cover: live demo capture (Salt → M3 → Fluent → Carbon → uoaui), separate light + dark mp4 -->
+      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <video
+          class="demo-light"
+          src="assets/ausos-demo-light.mp4"
+          poster="assets/ausos-banner.webp"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="uoaui.ai product demo (light) cycling through Salt, Material 3, Fluent, Carbon, and uoaui design systems"
+        ></video>
+        <video
+          class="demo-dark"
+          src="assets/ausos-demo.mp4"
+          poster="assets/ausos-banner.webp"
+          autoplay muted loop playsinline preload="metadata"
+          aria-hidden="true"
+        ></video>
+        <div class="img-shield"></div>
+      </div>
 
-      <h1 class="proj-title-post rv" data-d="2">Digital &amp; Platform Services Brand Identity</h1>
-      <p class="proj-lead rv" data-d="3">Visual identity for J.P. Morgan Digital &amp; Platform Services. One system for internal communications, digital channels, and executive presentations.</p>
+      <h1 class="proj-title-post rv" data-d="2">uoaui.ai</h1>
+      <p class="proj-lead rv" data-d="3">A visual web builder for designers who think in systems. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the uoaui system.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -293,32 +364,82 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Digital &amp; Platform Services is part of J.P. Morgan’s operational and technology backbone, supporting investment services, innovation, and client platforms. The team needed a clear internal identity to unify messaging across digital channels, internal communications, and executive presentations.</p></div>
+          <h3 class="proj-about-h3">Project Overview</h3>
+          <div class="proj-body"><p>Most component libraries lock you into one design system. Switching tokens, themes, or moving between React and Angular usually means rebuilding. uoaui is the tool I’m building to solve that for myself and a small group of testers: a UI Kit across five systems, plus a Builder that turns prompts into editable UIs with compare, tune, and code export.</p><p>The name "uoaui" wraps the letters U and I, a small nod to the people the tool is built for. The intent is the same. Tools that amplify human creativity rather than replace it.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As a <strong>Visual Designer</strong>, I worked with the design lead and team to develop the identity. The system needed to feel credible at enterprise scale and still flex across different touchpoints.</p></div>
+          <div class="proj-body"><p>I’m building uoaui solo as a side project: interface, front-end, brand, product direction, and tester feedback loops. I use AI coding agents in terminal, but the product decisions, system model, and visual direction are mine.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Key Contributions</h3>
-          <div class="proj-body"><p>I helped define <strong>typography, colour, iconography, and layout systems</strong>, then created brand guidelines for consistent use across teams. I designed assets and templates for presentations, microsites, and internal campaigns.</p><p>Stakeholder reviews kept the visual direction aligned with business goals, while the template library made the system easier to reuse.</p></div>
+          <h3 class="proj-about-h3">Design Thinking Process</h3>
+          <div class="proj-body"><p>I worked through five phases: Empathise, Define, Ideate, Prototype, Test. A small group of designer friends tested between phases, which helped me close one question before opening the next.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Impact</h3>
-          <div class="proj-body"><p>The identity made Digital &amp; Platform Services easier to recognise across the firm. The visual system streamlined design work and became a reference for future DPS initiatives.</p></div>
+          <h3 class="proj-about-h3">Brand Identity</h3>
+          <div class="proj-body"><p>The uoaui brand is built dark mode first, with deep backgrounds and vibrant aurora accents. The visual language balances expressive colour with restraint, letting content breathe.</p></div>
+          <div style="display:flex;gap:16px;margin:32px 0 0;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#E5A999;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
+          </div>
+          <div class="proj-img-grid rv" style="margin-top:var(--space-48);">
+            <img src="assets/ausos.webp" alt="uoaui logo on aurora gradient" width="1000" height="1000" loading="lazy" decoding="async" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
+            <img src="assets/ausos-brand.webp" alt="uoaui dark and light mode interfaces" width="1200" height="720" loading="lazy" decoding="async" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
+          </div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Design System Integration</h3>
+          <div class="proj-body"><p>uoaui supports five design systems: Salt, Material 3, Fluent 2, Carbon, and the uoaui system. Each uses its own tokens and component behaviours, with theme switching and code export across all of them. More details available in a private conversation.</p></div>
+          <img class="proj-img-full rv" src="assets/ausos03.webp" alt="uoaui Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:var(--space-48);border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
+        </div>
+
+        <div class="proj-nda rv">
+          <div class="proj-nda-glow"></div>
+          <div class="proj-nda-inner">
+            <p class="proj-nda-title">Product preview</p>
+            <p class="proj-nda-lead">In private alpha</p>
+            <p class="proj-nda-body">uoaui.ai is in private alpha with a small group of early testers. Try the demo, or email me for early access to the full product.</p>
+            <a class="ausos-strip-cta primary" href="https://uoaui.ai/" target="_blank" rel="noopener noreferrer">Try the live demo <span aria-hidden="true">↗</span></a>
+            <!-- Phase 4 · when the silent walkthrough video is ready, drop it at assets/ausos-walkthrough.mp4 and uncomment the block below.
+            <video class="ausos-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/ausos-card.png" style="width:100%;margin-top:var(--space-32);border-radius:12px;">
+              <source src="assets/ausos-walkthrough.mp4" type="video/mp4" />
+            </video>
+            -->
+          </div>
+        </div>
+
+        <div class="proj-about-block rv">
+          <h3 class="proj-about-h3">Decisions</h3>
+          <div class="proj-body">
+            <p><strong>Decision 1. Component composition with AI assistance, not generation from scratch.</strong></p>
+            <p><em>Options considered:</em> AI generates whole pages from a prompt; user composes from a fixed library; AI assists in component composition and theme decisions.</p>
+            <p><em>What I chose:</em> AI as an assistant inside a component composition tool, not a generator.</p>
+            <p><em>Why:</em> Pure generative AI tools tend to produce code that breaks the moment a designer wants to make a change. I wanted the user to stay in control. Pick components from real design systems, ask AI for help with composition or theming, but never lose the ability to edit any component directly.</p>
+
+            <p><strong>Decision 2. Dark-mode first, not an afterthought.</strong></p>
+            <p><em>Options considered:</em> light-first with dark toggle, dark-first with light toggle, system-preference only.</p>
+            <p><em>What I chose:</em> dark-mode-first with deep backgrounds and aurora accents.</p>
+            <p><em>Why:</em> Design tools get used for hours at a time. Dark mode reduces eye strain in long sessions and lets the vibrant brand accents carry real meaning. Light-first would have meant the dark mode felt secondary, which is the opposite of what the user base wants.</p>
+
+            <p><strong>Decision 3. Five Design Thinking phases, not lean iteration.</strong></p>
+            <p><em>Options considered:</em> lean UX with continuous iteration, Double Diamond, five-phase Design Thinking, no explicit framework.</p>
+            <p><em>What I chose:</em> five phases (Empathise, Define, Ideate, Prototype, Test) with user validation at each.</p>
+            <p><em>Why:</em> A solo founder can drift into premature commitment without structure. Discrete phases force me to close one question before opening the next, and real-user testing per phase prevents the system from converging on my assumptions.</p>
+          </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">6</span><span class="proj-outcome-label">Channels unified under one system</span></div><div class="proj-outcome"><span class="proj-outcome-num">Figma · Keynote · Word</span><span class="proj-outcome-label">Template library shipped</span></div><div class="proj-outcome"><span class="proj-outcome-num">Division-wide</span><span class="proj-outcome-label">Adopted as DPS’s standard identity</span></div></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design systems integrated</span></div><div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Days to first working prototype</span></div><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design Thinking phases completed</span></div><div class="proj-outcome"><span class="proj-outcome-num">1</span><span class="proj-outcome-label">Brand identity designed from scratch</span></div></div>
         </div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Brand Identity · Visual Design · Typography · Iconography · Guidelines</span></div>
-
+        <div class="proj-tags rv"><span class="proj-tags-list">Side Project · Design Systems · Component Library · AI-Assisted Build · Brand Identity · Design Thinking · Prototyping · React · Angular</span></div>
 
         </div>
         </div>
@@ -332,15 +453,15 @@
         <div class="proj-nav rv">
           <div class="proj-nav-item proj-nav-item--prev">
             <span class="proj-nav-hint">Previous</span>
-            <a href="project-algo-center.html" class="proj-nav-link">
+            <a href="project-dps-brand.html" class="proj-nav-link">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Algo Center
+              D&PS Brand Identity
             </a>
           </div>
           <div class="proj-nav-item proj-nav-item--next">
             <span class="proj-nav-hint">Next</span>
-            <a href="project-uoaui.html" class="proj-nav-link">
-              uoaui.ai
+            <a href="project-winkingstar.html" class="proj-nav-link">
+              Winking Star
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -415,6 +536,7 @@
         window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior:'smooth' });
       });
     });
+    /* Difference-blend circle cursor */
     (function(){const c=document.getElementById('img-cursor');if(!c)return;let tx=0,ty=0,cx=0,cy=0,r=null;const L=0.12;document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});document.querySelectorAll('.proj-img-grid,.proj-img-full,.proj-img-ph,.proj-img-full-ph,.proj-nda').forEach(el=>{el.addEventListener('mouseenter',()=>{c.classList.add('active');if(!r)r=requestAnimationFrame(t);});el.addEventListener('mouseleave',()=>c.classList.remove('active'));});function t(){cx+=(tx-cx)*L;cy+=(ty-cy)*L;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;r=requestAnimationFrame(t);}})();
       /* Block right-click on images */
     document.addEventListener('contextmenu', function(e) {

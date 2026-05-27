@@ -59,7 +59,7 @@ The Ask Shannon bot already had this rule in its system prompt; this extends the
 
 - **`uoaui.ai`** everywhere. Display copy, headlines, prose, URLs, `<title>`, `<meta>`, `mailto:`, `alt`. No diacritic; ASCII throughout.
 - **`uoaui`** (without `.ai`) when used as a bare product/system name in body copy where the domain isn't needed.
-- Previously branded **`ausōs.ai`** (renamed 2026-05-22). Legacy assets, CSS class names, and the `project-ausos.html` slug are intentionally kept to preserve inbound links and avoid an unrelated diff.
+- Previously branded **`ausōs.ai`** (renamed 2026-05-27). The old `project-ausos.html` path is kept as a redirect stub pointing to `project-uoaui.html` to preserve inbound links.
 
 ## AI stance — two lanes
 
@@ -113,7 +113,7 @@ The homepage hero has been reverted twice in past iterations. Treat as high-risk
 2. **Recruiter 30s scan (homepage only).** Open `index.html`, 30 seconds, read what the eye lands on. At the end: title, current company, years, current side project — all four visible? If not, tighten.
 3. **AI-cliché audit.** Grep edited files for the block list above. Zero hits required.
 4. **British English check.** `grep -nE '\b(center|tokenized|visualization|customize|optimize|color)\b'` against edited HTML. Zero hits in body copy.
-5. **Brand spelling.** Grep `aus[oō]s` in display HTML. Should be zero hits in user-visible copy (only allowed inside CSS class names, `ausos-*` asset filenames, and the `project-ausos.html` slug). Grep `uoaui` to confirm the new brand is used consistently.
+5. **Brand spelling.** Grep `aus[oō]s` in display HTML. Should be zero hits except inside the `project-ausos.html` redirect stub and historical/Remotion files (`motion/src/`, `docs/superpowers/`, `.sora.json` records). Grep `uoaui` to confirm the new brand is used consistently.
 6. **Voice spot-check.** Pick three random sentences from three different pages. Same person?
 7. **Live preview.** Vercel/GitHub preview URL. Visual review before merge.
 
