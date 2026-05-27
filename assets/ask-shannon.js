@@ -99,7 +99,7 @@
   var SUGGESTION_SETS = [
     [
       "How do you approach AI product design?",
-      "Tell me about ausōs.ai",
+      "Tell me about uoaui.ai",
       "Show me your trading platform work",
       "What's your leadership style?",
     ],
@@ -129,7 +129,7 @@
     var bubble = document.createElement('div');
     bubble.className = 'ask-msg ask-msg--ai';
     var textNode = document.createElement('p');
-    textNode.textContent = "Hi, I'm Shannon's assistant. Ask me about her design leadership work, ausōs.ai, or the roles she's looking for next.";
+    textNode.textContent = "Hi, I'm Shannon's assistant. Ask me about her design leadership work, uoaui.ai, or the roles she's looking for next.";
     bubble.appendChild(textNode);
     messagesEl.appendChild(bubble);
   }

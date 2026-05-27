@@ -8,7 +8,7 @@ Proposal-only copy for the homepage hero. The live hero is intentionally unchang
 Designing what traders, analysts, and ops teams use every day.
 
 **Descriptor**
-Fifteen years in design, 10+ in fintech. At Barclays now, with nine years at J.P. Morgan before that. Senior, then VP Product Design on Fusion. Building ausōs.ai on the side, in private alpha.
+Fifteen years in design, 10+ in fintech. At Barclays now, with nine years at J.P. Morgan before that. Senior, then VP Product Design on Fusion. Building uoaui.ai on the side, in private alpha.
 
 ## Option 2. Enterprise systems
 
@@ -21,7 +21,7 @@ Barclays now. J.P. Morgan for nine years before that. I work on trading UX, desi
 ## Option 3. Founder signal
 
 **Tagline**
-Design engineer at Barclays. Founding ausōs.ai on the side.
+Design engineer at Barclays. Founding uoaui.ai on the side.
 
 **Descriptor**
 Fifteen years in design, 10+ in fintech. I design for traders, analysts, and ops teams, then build the tools I wish design teams already had.

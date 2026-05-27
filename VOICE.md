@@ -17,7 +17,7 @@ The voice is **warm and concrete**. Short. Specific. Mildly dry. Verb-forward. R
 - **British English.** "centre", "tokenised", "visualisation", "colour", "optimise".
 - **Words for small numbers** (one through nine). Digits at 10+.
 - **Sentence case + period for headings.** "Featured work.", "About me.", "Career experience.", "Let's talk.", "Writing."
-- **One canonical title.** "Design engineer at Barclays. Founding ausōs.ai on the side." That's the lead. Variants for context only.
+- **One canonical title.** "Design engineer at Barclays. Founding uoaui.ai on the side." That's the lead. Variants for context only.
 
 ## House style — don't
 
@@ -51,21 +51,22 @@ The Ask Shannon bot already had this rule in its system prompt; this extends the
 - **No double-stack of insider mystique.** "Most never see" is used **once** on the site (hero only). Never again.
 - **Drop "shaping" and "spearheaded"** in About body copy. Replace with "leading", "running", "ran", "set up", "built", "shipping". One "spearheaded" max in formal CV timeline if essential.
 - **No corporate filler bullets.** Every job description should be plain sentences with specific products and outcomes.
-- **No "AI-native" outside ausōs.ai.** Barclays/about copy uses "AI-assisted", "AI integrated where it adds value", "AI-enhanced" — measured, not marketed.
+- **No "AI-native" outside uoaui.ai.** Barclays/about copy uses "AI-assisted", "AI integrated where it adds value", "AI-enhanced" — measured, not marketed.
 
 ---
 
 ## Brand spelling
 
-- **`ausōs.ai`** with macron in display copy, headlines, prose.
-- **`ausos.ai`** plain ASCII in URLs, `<title>`, `<meta>`, `mailto:`, `alt`, anywhere copyable or indexed.
+- **`uoaui.ai`** everywhere. Display copy, headlines, prose, URLs, `<title>`, `<meta>`, `mailto:`, `alt`. No diacritic; ASCII throughout.
+- **`uoaui`** (without `.ai`) when used as a bare product/system name in body copy where the domain isn't needed.
+- Previously branded **`ausōs.ai`** (renamed 2026-05-27). The old `project-ausos.html` path is kept as a redirect stub pointing to `project-uoaui.html` to preserve inbound links.
 
 ## AI stance — two lanes
 
-- **ausōs.ai strip:** Founder-confident, AI-forward. "AI-native visual web builder", "private alpha", concrete stage detail.
+- **uoaui.ai strip:** Founder-confident, AI-forward. "AI-native visual web builder", "private alpha", concrete stage detail.
 - **Barclays / About / career:** AI integrated where it adds value. "AI-assisted design system", "AI tooling that helps the team ship faster". Measured tone.
 
-Don't cross the lanes. A recruiter at a regulated bank will read "AI-native" on every page as a red flag; a founder reading "where it genuinely adds value" on the ausōs.ai strip will read it as lukewarm.
+Don't cross the lanes. A recruiter at a regulated bank will read "AI-native" on every page as a red flag; a founder reading "where it genuinely adds value" on the uoaui.ai strip will read it as lukewarm.
 
 ---
 
@@ -74,7 +75,7 @@ Don't cross the lanes. A recruiter at a regulated bank will read "AI-native" on 
 | Surface | Voice |
 |---------|-------|
 | Hero | Warm-concrete + one insider line. Three lines max. **Hero is propose-only — see below.** |
-| ausōs.ai strip | Founder-confident, AI-forward, factual stage detail. |
+| uoaui.ai strip | Founder-confident, AI-forward, factual stage detail. |
 | Featured work cards | Plain trade vocab. Scope and outcome in one breath. ~25 words each. |
 | About hero line | Warm-concrete. No "seam between" / philosophical lines. |
 | About body | First-person, conversational. What I do, not what I believe. |
@@ -93,7 +94,7 @@ Don't cross the lanes. A recruiter at a regulated bank will read "AI-native" on 
 
 - Essay titles: "The design system is the contract.", "Trust surfaces in AI for expert users."
 - Project names: Fusion Design System, Execute Algo Center, Barclays Data Visualisation, D&PS Brand Identity, plus the other nine.
-- ausōs.ai brand line: "A visual web builder for designers who think in systems."
+- uoaui.ai brand line: "A visual web builder for designers who think in systems."
 - Personal details: St Albans, Taiwan-born, English and Mandarin, Quorra the cat, soya latte / strong leaf tea.
 
 ## Hero — propose-only
@@ -112,10 +113,10 @@ The homepage hero has been reverted twice in past iterations. Treat as high-risk
 2. **Recruiter 30s scan (homepage only).** Open `index.html`, 30 seconds, read what the eye lands on. At the end: title, current company, years, current side project — all four visible? If not, tighten.
 3. **AI-cliché audit.** Grep edited files for the block list above. Zero hits required.
 4. **British English check.** `grep -nE '\b(center|tokenized|visualization|customize|optimize|color)\b'` against edited HTML. Zero hits in body copy.
-5. **Brand spelling.** Grep `ausos\.ai` in display HTML (should be `ausōs.ai`). Grep `ausōs\.ai` in `<meta>`, `href`, `mailto:` (should be `ausos.ai`).
+5. **Brand spelling.** Grep `aus[oō]s` in display HTML. Should be zero hits except inside the `project-ausos.html` redirect stub and historical/Remotion files (`motion/src/`, `docs/superpowers/`, `.sora.json` records). Grep `uoaui` to confirm the new brand is used consistently.
 6. **Voice spot-check.** Pick three random sentences from three different pages. Same person?
 7. **Live preview.** Vercel/GitHub preview URL. Visual review before merge.
 
 ---
 
-Last updated: 2026-05-01.
+Last updated: 2026-05-27 (rebranded ausōs.ai → uoaui.ai).

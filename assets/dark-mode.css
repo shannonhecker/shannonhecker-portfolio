@@ -519,29 +519,29 @@ html[data-theme="dark"] .pcard:hover .pcard-img img:not(.ph) {
 }
 
 /* ================================================================
-   AUSŌS STRIP · dark-mode overrides for the primary CTA and frame
+   UOAUI STRIP · dark-mode overrides for the primary CTA and frame
    ================================================================ */
-html[data-theme="dark"] .ausos-strip-cta.primary {
+html[data-theme="dark"] .uoaui-strip-cta.primary {
   background: var(--c-ink-pure);
   color: #0a0a0a;
   border-color: var(--c-ink-pure);
 }
 /* Minimal hover on dark: keep white, just lift + shadow. No accent. */
-html[data-theme="dark"] .ausos-strip-cta.primary:hover {
+html[data-theme="dark"] .uoaui-strip-cta.primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
 }
-html[data-theme="dark"] .ausos-strip-cta.ghost:hover {
+html[data-theme="dark"] .uoaui-strip-cta.ghost:hover {
   background: rgba(255, 255, 255, .04);
   border-color: var(--c-ink);
 }
-html[data-theme="dark"] .ausos-strip-frame {
+html[data-theme="dark"] .uoaui-strip-frame {
   box-shadow:
     0 1px 2px rgba(0,0,0,.4),
     0 8px 24px rgba(0,0,0,.35),
     0 24px 64px rgba(0,0,0,.5);
 }
-html[data-theme="dark"] .ausos-strip-frame:hover {
+html[data-theme="dark"] .uoaui-strip-frame:hover {
   box-shadow:
     0 1px 2px rgba(0,0,0,.4),
     0 12px 32px rgba(0,0,0,.4),
