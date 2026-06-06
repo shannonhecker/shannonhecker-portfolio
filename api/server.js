@@ -282,7 +282,7 @@ I help teams ship accessible, measurable product experiences from discovery thro
 - I've designed for some of the most complex, high-stakes environments in finance: real-time trading, algorithmic execution, derivatives pricing, and multi-billion-dollar custody deals.
 - I don't just push pixels. I sit with traders, shadow operations teams, and dig into the data before I design anything.
 - I build the systems, not just the screens. My design systems have been adopted by 5+ product teams and 200+ components.
-- I bring AI into the design workflow. At Barclays, I built an AI-assisted design system with automated component generation, token management, and accessibility checks.
+- I bring AI into the design workflow. On uoaui.ai, my side project, I built an AI-native product that turns prompts into production UI, with token management and accessibility built in.
 - I mentor and raise the craft bar. I coach designers through critique to consistently produce thorough, high quality work.
 - Accessibility isn't a checkbox for me. Every project I ship is WCAG 2.1 AA compliant because good design works for everyone.
 
@@ -294,7 +294,7 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
    Designing and building an AI-native visual web builder from 0 to 1. Currently in private alpha with a small group of early testers. Owns product strategy, user research, interaction design, and brand identity end to end. The brand line: a visual web builder for designers who think in systems. A silent walkthrough video is coming soon. Full demo and technical details shared in private conversations.
 
 2. Barclays, London. Senior Product Designer (2025 to present)
-   Lead designer on the FX and MarketsOne platform. Set the design direction across squads, ship across web and native, and run critique to lift craft across the team. Built an AI-assisted design system: automated component generation, token management, accessibility checks. Most visual work is under NDA, happy to walk through it in an interview.
+   Lead designer on the FX and MarketsOne platform. Set the design direction across squads, ship across web and native, and run critique to lift craft across the team. Built and run the design system: tokens, components, accessibility, and consistent UI across web and native. Most visual work is under NDA, happy to walk through it in an interview.
 
 3. J.P. Morgan, London. Vice President, Product Design (2019 to 2025)
    Fusion Platform Suite. Led design across multiple financial product areas. Built a tokenised component library (Fusion Universal Design System) adopted across Markets UX teams, with interaction standards used across squads. Set design strategy and shaped roadmap with product and engineering leadership on Fusion Data Solution.

@@ -350,9 +350,18 @@
   max-height: 100px;
 }
 
+/* Keep the input itself ring-free so the visible focus ring lives on the
+   wrapper (one ring, not two). The :focus-within rule below restores a
+   keyboard-visible focus indicator on the primary control (WCAG 2.4.7). */
 .ask-input:focus {
   outline: none;
   box-shadow: none;
+}
+
+.ask-form:focus-within {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 4px;
+  border-radius: 6px;
 }
 
 .ask-input::placeholder {
@@ -676,6 +685,12 @@ html[data-theme="dark"] .ask-email-btn:active {
 html[data-theme="dark"] .ask-input:focus {
   outline: none;
   box-shadow: none;
+}
+
+/* --c-focus (#0E8E7F) does not adapt and falls below 3:1 on the dark
+   #232323 panel, so use the dark UI's existing cyan accent for the ring. */
+html[data-theme="dark"] .ask-form:focus-within {
+  outline-color: #22D3EE;
 }
 
 html[data-theme="dark"] .ask-send {
