@@ -91,7 +91,9 @@ html[data-theme="dark"] {
   /* Borders (M3 outline-variant) */
   --c-rule:     rgba(255,255,255,0.12);     /* M2 divider standard */
   --c-rule-dk:  rgba(255,255,255,0.20);
-  --c-border:   rgba(255,255,255,0.16);
+  /* Interactive stroke — separate from divider; 3:1 per WCAG 1.4.11 (mirrors light --c-stroke) */
+  --c-stroke:   rgba(255,255,255,0.34);     /* ~3.0:1 on #121212 / #1D1B20 */
+  --c-border:   var(--c-stroke);
 
   /* Interactive */
   --c-nav:      rgba(255,255,255,0.60);
@@ -567,7 +569,8 @@ html[data-theme="dark"] .uoaui-strip-frame:hover {
     --c-ink-pure: #FFFFFF;
     --c-nav:      rgba(255,255,255,0.60);
     --c-hover:    rgba(255,255,255,0.87);
-    --c-border:   rgba(255,255,255,0.16);
+    --c-stroke:   rgba(255,255,255,0.34);     /* ~3.0:1 interactive stroke, WCAG 1.4.11 */
+    --c-border:   var(--c-stroke);
     color-scheme: dark;
   }
 }

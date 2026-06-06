@@ -521,7 +521,7 @@
   font-weight: 400;
   color: var(--c-nav, #595959);
   background: rgba(255, 255, 255, 0.3);
-  border: 1px solid var(--c-rule, #E8E8E8);
+  border: 1px solid var(--c-stroke, #8F8F8F);
   border-radius: var(--r-pill, 999px);
   padding: 8px 16px;
   cursor: pointer;
@@ -558,7 +558,7 @@
   font-family: var(--font);
   font-size: 10px;
   font-weight: 400;
-  color: #aaa;
+  color: var(--c-light);
   text-align: center;
   width: 100%;
   margin: 8px 0 0;
@@ -655,7 +655,7 @@ html[data-theme="dark"] .ask-panel {
 
 html[data-theme="dark"] .ask-chip {
   background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--c-stroke);
 }
 
 html[data-theme="dark"] .ask-msg--user {
