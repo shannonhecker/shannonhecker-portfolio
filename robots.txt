@@ -1,14 +1,23 @@
 User-agent: *
 Allow: /
+Allow: /assets/og-preview.png
+Allow: /assets/og-preview.webp
+Allow: /assets/winkingstar-card.webp
 Disallow: /assets/*.png
 Disallow: /assets/*.jpg
 Disallow: /assets/*.jpeg
 Disallow: /assets/*.webp
 
 User-agent: Googlebot-Image
+Allow: /assets/og-preview.png
+Allow: /assets/og-preview.webp
+Allow: /assets/winkingstar-card.webp
 Disallow: /
 
 User-agent: Bingbot
+Allow: /assets/og-preview.png
+Allow: /assets/og-preview.webp
+Allow: /assets/winkingstar-card.webp
 Disallow: /assets/
 
 Sitemap: https://shannonhecker.com/sitemap.xml
