@@ -1,11 +1,11 @@
 {
   "name": "Shannon Hecker",
   "short_name": "Shannon Hecker",
-  "description": "Senior Product Designer — London",
+  "description": "Design engineer, London",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0a0a0a",
+  "theme_color": "#121212",
   "icons": [
     {
       "src": "/assets/apple-touch-icon.png",
