@@ -333,6 +333,41 @@
     @media (max-width: 700px) {
       .essay-meta{flex-direction:column;align-items:flex-start;gap:var(--space-8);}
     }
+    /* Mobile burger */
+    .nav-burger {
+      position: relative;
+      z-index: 2;
+      display:none; flex-direction:column; gap:5px;
+      background:none; border:none; padding:4px; cursor:pointer;
+    }
+    .nav-burger span {
+      display:block; width:22px; height:1.5px;
+      background:var(--c-ink); border-radius:99px;
+      transition:transform var(--tb) var(--ease), opacity var(--tb) var(--ease);
+    }
+    .nav-burger.o span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .nav-burger.o span:nth-child(2){ opacity:0; }
+    .nav-burger.o span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+    /* Mobile drawer */
+    .nav-drawer {
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:var(--c-bg, #fff);
+      padding:100px var(--pad) 40px; z-index:199;
+      display:flex; flex-direction:column; gap:4px;
+      transform:translateY(-110%); opacity:0; pointer-events:none;
+      transition:transform var(--ts) var(--ease), opacity var(--ts) var(--ease);
+    }
+    .nav-drawer.o { transform:translateY(0); opacity:1; pointer-events:auto; }
+    .nav-drawer a {
+      font-size:20px; font-weight:600; color:var(--c-ink);
+      padding:12px 0; border-bottom:1px solid var(--c-rule);
+      transition:opacity var(--tb) var(--ease);
+    }
+    .nav-drawer a:hover { opacity:.5; }
+    @media (max-width:900px){
+      .nav-links, .nav-cta, .nav-right { display:none; }
+      .nav-burger { display:flex; margin-left:auto; }
+    }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -359,8 +394,26 @@
         </button>
         <a href="assets/CV_ShannonH.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
       </div>
+
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="drawer" aria-hidden="true">
+    <a href="index.html">Intro</a>
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="writing.html" onclick="closeDrawer()">Writing</a>
+    <a href="index.html#contact">Let’s Talk</a>
+    <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+    <button class="theme-toggle theme-toggle--drawer" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
 
   <main id="main" class="essay">
     <div class="wrap">
@@ -515,6 +568,62 @@
 
   <script>
     const navEl = document.getElementById('nav');
+  </script>
+
+  <script>
+    /* Mobile nav drawer — burger toggle + a11y (Escape close + focus trap) */
+    (function () {
+      const burgerBtn = document.getElementById('burger');
+      const drawerEl  = document.getElementById('drawer');
+      if (!burgerBtn || !drawerEl) return;
+      let isOpen = false;
+      function setBody(lock) {
+        if (lock) {
+          document.body.dataset.scrollY = window.scrollY;
+          document.body.style.position = 'fixed';
+          document.body.style.top = `-${window.scrollY}px`;
+          document.body.style.width = '100%';
+          document.body.style.overflow = 'hidden';
+        } else {
+          const y = document.body.dataset.scrollY;
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.width = '';
+          document.body.style.overflow = '';
+          window.scrollTo(0, parseInt(y || '0'));
+        }
+      }
+      burgerBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        burgerBtn.classList.toggle('o', isOpen);
+        drawerEl.classList.toggle('o', isOpen);
+        burgerBtn.setAttribute('aria-expanded', isOpen);
+        drawerEl.setAttribute('aria-hidden', !isOpen);
+        setBody(isOpen);
+        if (isOpen) {
+          const first = drawerEl.querySelector('a[href], button');
+          if (first) setTimeout(() => first.focus(), 100);
+        }
+      });
+      window.closeDrawer = function closeDrawer() {
+        isOpen = false;
+        burgerBtn.classList.remove('o'); drawerEl.classList.remove('o');
+        burgerBtn.setAttribute('aria-expanded', false);
+        drawerEl.setAttribute('aria-hidden', true);
+        setBody(false);
+        burgerBtn.focus();
+      };
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) window.closeDrawer();
+      });
+      const focusable = drawerEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+      const firstF = focusable[0], lastF = focusable[focusable.length - 1];
+      drawerEl.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab' || !isOpen || !focusable.length) return;
+        if (e.shiftKey && document.activeElement === firstF) { e.preventDefault(); lastF.focus(); }
+        else if (!e.shiftKey && document.activeElement === lastF) { e.preventDefault(); firstF.focus(); }
+      });
+    })();
   </script>
 </body>
 </html>
