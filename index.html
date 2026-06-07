@@ -17,7 +17,8 @@
     })(window, document, "clarity", "script", "w42m2jben0");
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="assets/dark-mode.js"></script>
+    <script>/* theme init: inline, pre-paint, no render-blocking round-trip */(function(){var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light")t="dark";document.documentElement.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#121212":"#ffffff");})();</script>
+    <script src="assets/dark-mode.js" defer></script>
     <script src="assets/view-transitions.js" defer></script>
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
@@ -47,6 +48,7 @@
   <meta property="og:title" content="Shannon Hecker · Design engineer · Building uoaui.ai · London" />
   <meta property="og:description" content="Design engineer in London. Fifteen years in design, 10+ in fintech. At Barclays now after nine years at J.P. Morgan. Building uoaui.ai on the side." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:alt" content="Shannon Hecker · Design engineer · Building uoaui.ai · London" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -2612,10 +2614,7 @@
         <span class="sh-eyebrow">Portfolio</span>
         <div class="sh-row">
           <div class="sh-title-group">
-            <picture>
-              <source srcset="assets/photo-avatar.webp" type="image/webp">
-              <img src="assets/photo-avatar.png" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" fetchpriority="high" />
-            </picture>
+            <img src="assets/photo-avatar.webp" alt="Shannon Hecker" class="sh-work-portrait" width="76" height="76" decoding="async" fetchpriority="high" />
             <h2 id="work-heading" class="sh-text">Featured work<span class="sh-period">.</span></h2>
           </div>
         </div>
@@ -2636,10 +2635,7 @@
         <div class="bc-4 hero-card rv" data-d="1">
           <article class="pcard-article"><a href="project-design-system.html" class="pcard">
             <div class="pcard-img">
-              <picture>
-                <source srcset="assets/system-1.webp" type="image/webp" />
-                <img src="assets/system-1.png" alt="Fusion Design System" loading="lazy" decoding="async" width="1200" height="720" />
-              </picture>
+              <img src="assets/system-1.webp" alt="Fusion Design System" loading="lazy" decoding="async" width="1200" height="720" />
               <div class="ph ph-2" style="display:none;">Design System</div>
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Fusion Design System</span></div>
             </div>
@@ -2656,10 +2652,7 @@
         <div class="bc-4 rv" data-d="2">
           <article class="pcard-article"><a href="project-algo-center.html" class="pcard">
             <div class="pcard-img">
-              <picture>
-                <source srcset="assets/algocenter-1.webp" type="image/webp" />
-                <img src="assets/algocenter-1.png" alt="Execute Algo Center" loading="lazy" decoding="async" width="800" height="450" />
-              </picture>
+              <img src="assets/algocenter-1.webp" alt="Execute Algo Center" loading="lazy" decoding="async" width="800" height="450" />
               <div class="ph ph-3" style="display:none;">Execute Algo Center</div>
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Execute Algo Center</span></div>
             </div>
@@ -2676,10 +2669,7 @@
         <div class="bc-4 rv" data-d="3">
           <article class="pcard-article"><a href="project-barclays-data-viz.html" class="pcard">
             <div class="pcard-img">
-              <picture>
-                <source srcset="assets/barclays-stock-dashboard.webp" type="image/webp" />
-                <img src="assets/barclays-stock-dashboard.png" alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async" width="800" height="450" />
-              </picture>
+              <img src="assets/barclays-stock-dashboard.webp" alt="Barclays stock dashboard data visualisation" loading="lazy" decoding="async" width="800" height="450" />
               <div class="ph ph-7" style="display:none;">Barclays Data Visualisation</div>
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Barclays Data Visualisation</span></div>
             </div>
@@ -2713,10 +2703,7 @@
         <div class="bc-4 rv" data-d="5">
           <article class="pcard-article"><a href="project-dps-brand.html" class="pcard">
             <div class="pcard-img">
-              <picture>
-                <source srcset="assets/dps-brand-identity.webp" type="image/webp" />
-                <img src="assets/dps-brand-identity.png" alt="D&amp;PS Brand Identity" loading="lazy" decoding="async" width="1200" height="720" />
-              </picture>
+              <img src="assets/dps-brand-identity.webp" alt="D&amp;PS Brand Identity" loading="lazy" decoding="async" width="1200" height="720" />
               <div class="ph ph-1" style="display:none;">D&amp;PS Brand Identity</div>
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">D&amp;PS Brand Identity</span></div>
             </div>
@@ -2763,10 +2750,7 @@
 
       <div class="about-layout">
         <div class="about-portrait-panel rv" data-d="2">
-          <picture>
-            <source srcset="assets/photo.webp" type="image/webp">
-            <img src="assets/photo.png" alt="Shannon Hecker in a gallery" width="896" height="928" loading="lazy" decoding="async" />
-          </picture>
+          <img src="assets/photo.webp" alt="Shannon Hecker in a gallery" width="896" height="928" loading="lazy" decoding="async" />
         </div>
 
         <div class="about-main">

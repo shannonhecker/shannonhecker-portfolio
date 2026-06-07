@@ -17,7 +17,8 @@
     })(window, document, "clarity", "script", "w42m2jben0");
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="assets/dark-mode.js"></script>
+    <script>/* theme init: inline, pre-paint, no render-blocking round-trip */(function(){var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light")t="dark";document.documentElement.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#121212":"#ffffff");})();</script>
+    <script src="assets/dark-mode.js" defer></script>
     <script src="assets/view-transitions.js" defer></script>
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
@@ -32,6 +33,7 @@
   <meta property="og:title" content="Fusion Analytics Dashboard · Shannon Hecker" />
   <meta property="og:description" content="Performance analytics dashboard for J.P. Morgan trading and ops teams. Fusion Data Cubes, clear visualisations, reusable patterns, WCAG AA." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:alt" content="Fusion Analytics Dashboard · Shannon Hecker" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -311,10 +313,7 @@
       </div>
 
       <!-- Cover -->
-      <picture>
-        <source srcset="assets/fusion-analytics-dashboard-banner.webp" type="image/webp" />
-        <img src="assets/fusion-analytics-dashboard-banner.png" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" width="1600" height="525" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
-      </picture>
+      <img src="assets/fusion-analytics-dashboard-banner.webp" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" width="1600" height="525" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Fusion Analytics Dashboard</h1>
@@ -333,10 +332,7 @@
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
-              <picture>
-                <source srcset="assets/analytics-widgets-grid.webp" type="image/webp">
-                <img src="assets/analytics-widgets-grid.png" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
-              </picture>
+              <img src="assets/analytics-widgets-grid.webp" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Dashboard modules</span>
@@ -357,10 +353,7 @@
         <div class="proj-media-split rv">
           <figure class="proj-media">
             <div class="proj-media-frame">
-              <picture>
-                <source srcset="assets/analytics-configuration.webp" type="image/webp">
-                <img src="assets/analytics-configuration.png" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
-              </picture>
+              <img src="assets/analytics-configuration.webp" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
             </div>
             <figcaption class="proj-media-cap">
               <span class="proj-media-cap-label">Configuration panel</span>
@@ -369,10 +362,7 @@
           </figure>
           <figure class="proj-media">
             <div class="proj-media-frame">
-              <picture>
-                <source srcset="assets/analytics-combination-chart.webp" type="image/webp">
-                <img src="assets/analytics-combination-chart.png" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
-              </picture>
+              <img src="assets/analytics-combination-chart.webp" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
             </div>
             <figcaption class="proj-media-cap">
               <span class="proj-media-cap-label">Combination charts</span>
@@ -383,10 +373,7 @@
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
-              <picture>
-                <source srcset="assets/fusion-analytics-dashboard-02.webp" type="image/webp">
-                <img src="assets/fusion-analytics-dashboard-02.png" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
-              </picture>
+              <img src="assets/fusion-analytics-dashboard-02.webp" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Sustainable investment reporting</span>
