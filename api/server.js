@@ -400,8 +400,12 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'service unavailable' });
   }
 
-  /* Skip logging for local dev / owner testing / blocked IPs */
-  const BLOCKED_IPS = ['82.17.133.31', '192.168.0.100'];
+  /* Skip logging for local dev / owner testing / blocked IPs.
+     IPs come from the NO_TRACK_IPS env var (comma-separated) so no
+     personal IP is committed to source; empty if unset. The
+     x-no-track / ADMIN_TOKEN header below is the primary owner opt-out. */
+  const BLOCKED_IPS = (process.env.NO_TRACK_IPS || '')
+    .split(',').map((s) => s.trim()).filter(Boolean);
   const origin = req.headers.origin || '';
   const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
   const isOwner = !!process.env.ADMIN_TOKEN && req.headers['x-no-track'] === process.env.ADMIN_TOKEN;
