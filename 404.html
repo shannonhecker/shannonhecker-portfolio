@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="/assets/dark-mode.js"></script>
+  <script>/* theme init: inline, pre-paint, no render-blocking round-trip */(function(){var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light")t="dark";document.documentElement.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#121212":"#ffffff");})();</script>
+  <script src="/assets/dark-mode.js" defer></script>
   <link rel="stylesheet" href="/assets/dark-mode.css" />
   <link rel="stylesheet" href="/assets/portfolio.css?v=2026-05-20-spacing" />
   <title>Page not found · Shannon Hecker</title>

@@ -17,7 +17,8 @@
     })(window, document, "clarity", "script", "w42m2jben0");
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="assets/dark-mode.js"></script>
+  <script>/* theme init: inline, pre-paint, no render-blocking round-trip */(function(){var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light")t="dark";document.documentElement.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#121212":"#ffffff");})();</script>
+  <script src="assets/dark-mode.js" defer></script>
   <script src="assets/view-transitions.js" defer></script>
   <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
@@ -34,6 +35,7 @@
   <meta property="og:title" content="Trust surfaces in AI for expert users · Shannon Hecker" />
   <meta property="og:description" content="What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
+  <meta property="og:image:alt" content="Trust surfaces in AI for expert users · Shannon Hecker" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
