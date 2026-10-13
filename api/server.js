@@ -273,7 +273,7 @@ IMPORTANT STYLE RULES:
 
 ## PROFILE
 Shannon Hecker. Design engineer based in London.
-At Barclays now, after nine years as VP Product Design at J.P. Morgan. Fifteen years in design overall, ten of those in fintech.
+At Barclays now, after nine years at J.P. Morgan, ending as Digital Product Designer VP. Fifteen years in design overall, ten of those in fintech.
 Founding uoaui.ai on the side: a visual web builder for designers who think in systems. Currently in private alpha.
 Open to Design Manager and Director roles, especially at AI-native companies, Big Tech, fintech, and enterprise SaaS.
 I help teams ship accessible, measurable product experiences from discovery through delivery. I care about outcomes, not just outputs.
@@ -291,7 +291,7 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
 
 ## EXPERIENCE
 1. uoaui.ai. Founder & Product Designer (2026 to present)
-   Designing and building an AI-native visual web builder from 0 to 1. Currently in private alpha with a small group of early testers. Owns product strategy, user research, interaction design, and brand identity end to end. The brand line: a visual web builder for designers who think in systems. A silent walkthrough video is coming soon. Full demo and technical details shared in private conversations.
+   Designing and building an AI-native visual web builder from 0 to 1. Currently in private alpha. Owns product strategy, user research, interaction design, and brand identity end to end. The brand line: a visual web builder for designers who think in systems. A silent walkthrough video is coming soon. Full demo and technical details shared in private conversations.
 
 2. Barclays, London. Senior Product Designer (2025 to present)
    Lead designer on the FX and MarketsOne platform. Set the design direction across squads, ship across web and native, and run critique to lift craft across the team. Built and run the design system: tokens, components, accessibility, and consistent UI across web and native. Most visual work is under NDA, happy to walk through it in an interview.
