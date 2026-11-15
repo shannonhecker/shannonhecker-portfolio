@@ -1,0 +1,19 @@
+---
+// A system as stacked layers, top (what people use) to bottom (what it runs
+// on). An optional side note per layer says what crosses it.
+interface Layer { t: string; d: string; mine?: boolean; side?: string }
+interface Props { layers: Layer[]; caption?: string; label: string; legend?: string }
+const { layers, caption, label, legend } = Astro.props;
+---
+<figure class="dg dg-stack" aria-label={label}>
+  <ol>
+    {layers.map((l) => (
+      <li class={l.mine ? 'mine' : undefined}>
+        <b>{l.t}</b><span class="dg-d">{l.d}</span>
+        {l.side && <span class="dg-side">{l.side}</span>}
+      </li>
+    ))}
+  </ol>
+  {legend && <p class="dg-legend"><i></i>{legend}</p>}
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

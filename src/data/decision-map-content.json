@@ -1,0 +1,1308 @@
+{
+  "fusion": {
+    "title": "Fusion",
+    "subtitle": "One analytics surface, from internal teams to external clients.",
+    "height": 1120,
+    "nodes": [
+      [
+        "start",
+        435,
+        144,
+        "Open analytics",
+        "Internal team or external client",
+        "terminal"
+      ],
+      [
+        "access",
+        435,
+        280,
+        "Which view is available?",
+        "Entitlements shape the same product",
+        "decision"
+      ],
+      [
+        "internal",
+        70,
+        280,
+        "Internal team",
+        "Work with permitted data cubes",
+        "action"
+      ],
+      [
+        "external",
+        800,
+        280,
+        "External client",
+        "Familiar patterns without a separate product",
+        "action"
+      ],
+      [
+        "cube",
+        435,
+        430,
+        "Select a data cube",
+        "Reuse the modular widget structure",
+        "action"
+      ],
+      [
+        "filter",
+        435,
+        570,
+        "Filter and slice",
+        "The unnecessary middle tier was removed",
+        "action"
+      ],
+      [
+        "review",
+        435,
+        710,
+        "Does the view answer the question?",
+        "Returns, attribution and risk",
+        "decision"
+      ],
+      [
+        "refine",
+        70,
+        710,
+        "Refine the view",
+        "Adjust filters and widget configuration",
+        "action"
+      ],
+      [
+        "report",
+        435,
+        900,
+        "Report in the same surface",
+        "Keep analysis and reporting together",
+        "terminal"
+      ]
+    ],
+    "edges": [
+      [
+        "start",
+        "access",
+        "bottom",
+        "top"
+      ],
+      [
+        "access",
+        "internal",
+        "left",
+        "right",
+        [],
+        "Internal"
+      ],
+      [
+        "access",
+        "external",
+        "right",
+        "left",
+        [],
+        "Client"
+      ],
+      [
+        "internal",
+        "cube",
+        "bottom",
+        "left",
+        [
+          [
+            195,
+            474
+          ]
+        ]
+      ],
+      [
+        "external",
+        "cube",
+        "bottom",
+        "right",
+        [
+          [
+            925,
+            474
+          ]
+        ]
+      ],
+      [
+        "cube",
+        "filter",
+        "bottom",
+        "top"
+      ],
+      [
+        "filter",
+        "review",
+        "bottom",
+        "top"
+      ],
+      [
+        "review",
+        "refine",
+        "left",
+        "right",
+        [],
+        "Refine"
+      ],
+      [
+        "refine",
+        "filter",
+        "top",
+        "left",
+        [
+          [
+            195,
+            614
+          ]
+        ],
+        "Try again",
+        true
+      ],
+      [
+        "review",
+        "report",
+        "bottom",
+        "top",
+        [],
+        "Ready"
+      ]
+    ]
+  },
+  "ai": {
+    "title": "uoaui.ai",
+    "subtitle": "The model drafts. The designer decides what to inspect and hand over.",
+    "height": 1160,
+    "nodes": [
+      [
+        "start",
+        435,
+        144,
+        "Describe the screen",
+        "A brief becomes structured canvas blocks",
+        "terminal"
+      ],
+      [
+        "draft",
+        435,
+        280,
+        "Generate a draft",
+        "Keep structure separate from system styling",
+        "action"
+      ],
+      [
+        "mapped",
+        435,
+        420,
+        "Is the block supported?",
+        "Check the selected design-system mapping",
+        "decision"
+      ],
+      [
+        "native",
+        70,
+        420,
+        "Use the native component",
+        "Render and export the supported mapping",
+        "action"
+      ],
+      [
+        "fallback",
+        800,
+        420,
+        "Use an explicit fallback",
+        "Do not fabricate a package API",
+        "warning"
+      ],
+      [
+        "inspect",
+        435,
+        580,
+        "Inspect the screen",
+        "The designer chooses the next action",
+        "decision"
+      ],
+      [
+        "compare",
+        70,
+        750,
+        "Compare systems",
+        "Five systems, one model underneath",
+        "action"
+      ],
+      [
+        "tune",
+        435,
+        750,
+        "Tune the draft",
+        "Density, theme and charts",
+        "action"
+      ],
+      [
+        "export",
+        800,
+        750,
+        "Export React",
+        "Available directly; review is optional",
+        "terminal"
+      ],
+      [
+        "again",
+        435,
+        950,
+        "Review the changes",
+        "Keep or refine the designer’s choices",
+        "action"
+      ]
+    ],
+    "edges": [
+      [
+        "start",
+        "draft",
+        "bottom",
+        "top"
+      ],
+      [
+        "draft",
+        "mapped",
+        "bottom",
+        "top"
+      ],
+      [
+        "mapped",
+        "native",
+        "left",
+        "right",
+        [],
+        "Yes"
+      ],
+      [
+        "mapped",
+        "fallback",
+        "right",
+        "left",
+        [],
+        "No"
+      ],
+      [
+        "native",
+        "inspect",
+        "bottom",
+        "left",
+        [
+          [
+            195,
+            624
+          ]
+        ]
+      ],
+      [
+        "fallback",
+        "inspect",
+        "bottom",
+        "top",
+        [
+          [
+            925,
+            556
+          ],
+          [
+            560,
+            556
+          ]
+        ]
+      ],
+      [
+        "inspect",
+        "compare",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            700
+          ],
+          [
+            195,
+            700
+          ]
+        ],
+        "Compare"
+      ],
+      [
+        "inspect",
+        "tune",
+        "bottom",
+        "top"
+      ],
+      [
+        "inspect",
+        "export",
+        "right",
+        "top",
+        [
+          [
+            925,
+            624
+          ]
+        ],
+        "Export now"
+      ],
+      [
+        "compare",
+        "again",
+        "bottom",
+        "left",
+        [
+          [
+            195,
+            994
+          ]
+        ]
+      ],
+      [
+        "tune",
+        "again",
+        "bottom",
+        "top"
+      ],
+      [
+        "again",
+        "inspect",
+        "right",
+        "top",
+        [
+          [
+            1070,
+            1006
+          ],
+          [
+            1070,
+            556
+          ],
+          [
+            560,
+            556
+          ]
+        ],
+        "Review again",
+        true
+      ]
+    ]
+  },
+  "winking": {
+    "title": "Winking Star",
+    "subtitle": "A first useful moment, a child’s daily action and a reason to return next week.",
+    "height": 1510,
+    "nodes": [
+      [
+        "start",
+        435,
+        144,
+        "Open the app",
+        "Free to start; no ads or third-party tracking",
+        "terminal"
+      ],
+      [
+        "first",
+        435,
+        280,
+        "How will you begin?",
+        "The Sample Family is optional",
+        "decision"
+      ],
+      [
+        "sample",
+        70,
+        430,
+        "Try the Sample Family",
+        "See the routine loop before personal setup",
+        "action"
+      ],
+      [
+        "own",
+        435,
+        430,
+        "Create your family",
+        "Set up the shared board",
+        "action"
+      ],
+      [
+        "invite",
+        800,
+        430,
+        "Join by invitation",
+        "A second adult uses the same family board",
+        "action"
+      ],
+      [
+        "child",
+        435,
+        600,
+        "Pick your child",
+        "Recognise their name, avatar and own theme",
+        "action"
+      ],
+      [
+        "routine",
+        435,
+        750,
+        "Tap a completed routine",
+        "A star lands with immediate feedback",
+        "action"
+      ],
+      [
+        "adult",
+        800,
+        600,
+        "Adult action?",
+        "Leaving the app, photos or account deletion",
+        "decision"
+      ],
+      [
+        "gate",
+        800,
+        750,
+        "Pass the parental gate",
+        "Kid Mode keeps editing with the adult",
+        "warning"
+      ],
+      [
+        "pet",
+        435,
+        910,
+        "The weekly pet grows",
+        "Four stages; a missed day does not deduct stars",
+        "action"
+      ],
+      [
+        "next",
+        435,
+        1070,
+        "Has the week ended?",
+        "Keep the daily routine loop simple",
+        "decision"
+      ],
+      [
+        "daily",
+        70,
+        1070,
+        "Return tomorrow",
+        "Keep this week’s progress",
+        "action"
+      ],
+      [
+        "weekly",
+        435,
+        1250,
+        "Weekly summary",
+        "A new pet starts on Monday",
+        "terminal"
+      ],
+      [
+        "pay",
+        800,
+        1070,
+        "Want everything?",
+        "One lifetime unlock, rather than a subscription",
+        "action"
+      ]
+    ],
+    "edges": [
+      [
+        "start",
+        "first",
+        "bottom",
+        "top"
+      ],
+      [
+        "first",
+        "sample",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            411
+          ],
+          [
+            195,
+            411
+          ]
+        ],
+        "Try it"
+      ],
+      [
+        "first",
+        "own",
+        "bottom",
+        "top",
+        [],
+        "Set up"
+      ],
+      [
+        "first",
+        "invite",
+        "right",
+        "top",
+        [
+          [
+            925,
+            324
+          ]
+        ],
+        "Invited"
+      ],
+      [
+        "sample",
+        "child",
+        "bottom",
+        "left",
+        [
+          [
+            195,
+            644
+          ]
+        ]
+      ],
+      [
+        "own",
+        "child",
+        "bottom",
+        "top"
+      ],
+      [
+        "invite",
+        "child",
+        "bottom",
+        "top",
+        [
+          [
+            925,
+            570
+          ],
+          [
+            560,
+            570
+          ]
+        ]
+      ],
+      [
+        "child",
+        "routine",
+        "bottom",
+        "top"
+      ],
+      [
+        "child",
+        "adult",
+        "right",
+        "left"
+      ],
+      [
+        "adult",
+        "gate",
+        "bottom",
+        "top",
+        [],
+        "Adult only"
+      ],
+      [
+        "routine",
+        "pet",
+        "bottom",
+        "top"
+      ],
+      [
+        "pet",
+        "next",
+        "bottom",
+        "top"
+      ],
+      [
+        "next",
+        "daily",
+        "left",
+        "right",
+        [],
+        "Not yet"
+      ],
+      [
+        "daily",
+        "routine",
+        "top",
+        "left",
+        [
+          [
+            195,
+            794
+          ]
+        ],
+        "Daily loop",
+        true
+      ],
+      [
+        "next",
+        "weekly",
+        "bottom",
+        "top",
+        [],
+        "Week ends"
+      ],
+      [
+        "weekly",
+        "child",
+        "left",
+        "left",
+        [
+          [
+            36,
+            1294
+          ],
+          [
+            36,
+            644
+          ]
+        ],
+        "Next week",
+        true
+      ],
+      [
+        "start",
+        "pay",
+        "right",
+        "right",
+        [
+          [
+            1080,
+            200
+          ],
+          [
+            1080,
+            1126
+          ]
+        ],
+        "Optional unlock",
+        true
+      ]
+    ]
+  },
+  "deal": {
+    "title": "Deal Model",
+    "subtitle": "One shared record, with pricing checks and an accountable approval.",
+    "height": 1390,
+    "nodes": [
+      [
+        "start",
+        435,
+        144,
+        "A request comes in",
+        "Create one deal object with four role-based views",
+        "terminal"
+      ],
+      [
+        "source",
+        435,
+        280,
+        "Where does the portfolio start?",
+        "Bring existing work into the shared model",
+        "decision"
+      ],
+      [
+        "upload",
+        70,
+        430,
+        "Upload the template",
+        "Map the spreadsheet into the data model",
+        "action"
+      ],
+      [
+        "load",
+        435,
+        430,
+        "Load a portfolio",
+        "Use the existing portfolio",
+        "action"
+      ],
+      [
+        "default",
+        800,
+        430,
+        "Start from a default",
+        "Build a new proposal",
+        "action"
+      ],
+      [
+        "price",
+        435,
+        600,
+        "Price and iterate",
+        "Keep checks close to the inputs",
+        "action"
+      ],
+      [
+        "check",
+        435,
+        750,
+        "Are the inputs within tolerance?",
+        "Review the TXN rate against the SK rate",
+        "decision"
+      ],
+      [
+        "fix",
+        800,
+        750,
+        "Fix at the field",
+        "Resolve the rate difference during pricing",
+        "warning"
+      ],
+      [
+        "compare",
+        435,
+        910,
+        "Compare and tier",
+        "Choose columns; retain the pricing iterations",
+        "action"
+      ],
+      [
+        "reason",
+        435,
+        1060,
+        "Publish with a reason",
+        "The owner explains the selected iteration",
+        "action"
+      ],
+      [
+        "approval",
+        435,
+        1220,
+        "Review and approve",
+        "The approver sees comparison and comments",
+        "terminal"
+      ],
+      [
+        "smart",
+        70,
+        750,
+        "Smart pricing · explored",
+        "Model suggests; the owner edits or discards. Not built in my time.",
+        "explored"
+      ]
+    ],
+    "edges": [
+      [
+        "start",
+        "source",
+        "bottom",
+        "top"
+      ],
+      [
+        "source",
+        "upload",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            392
+          ],
+          [
+            195,
+            392
+          ]
+        ],
+        "Spreadsheet"
+      ],
+      [
+        "source",
+        "load",
+        "bottom",
+        "top"
+      ],
+      [
+        "source",
+        "default",
+        "right",
+        "top",
+        [
+          [
+            925,
+            324
+          ]
+        ],
+        "New proposal"
+      ],
+      [
+        "upload",
+        "price",
+        "bottom",
+        "left",
+        [
+          [
+            195,
+            644
+          ]
+        ]
+      ],
+      [
+        "load",
+        "price",
+        "bottom",
+        "top"
+      ],
+      [
+        "default",
+        "price",
+        "bottom",
+        "right",
+        [
+          [
+            925,
+            644
+          ]
+        ]
+      ],
+      [
+        "price",
+        "check",
+        "bottom",
+        "top"
+      ],
+      [
+        "check",
+        "fix",
+        "right",
+        "left",
+        [],
+        "No"
+      ],
+      [
+        "fix",
+        "price",
+        "top",
+        "right",
+        [
+          [
+            925,
+            644
+          ]
+        ],
+        "Correct",
+        true
+      ],
+      [
+        "check",
+        "compare",
+        "bottom",
+        "top",
+        [],
+        "Yes"
+      ],
+      [
+        "compare",
+        "reason",
+        "bottom",
+        "top"
+      ],
+      [
+        "reason",
+        "approval",
+        "bottom",
+        "top"
+      ],
+      [
+        "smart",
+        "price",
+        "top",
+        "left",
+        [
+          [
+            195,
+            644
+          ]
+        ],
+        "Explored",
+        true
+      ]
+    ]
+  },
+  "fx": {
+    "title": "FX execution analytics",
+    "subtitle": "The original watch, wait and intervene loop. Specified for the Barclays beta.",
+    "height": 1320,
+    "nodes": [
+      [
+        "start",
+        435,
+        144,
+        "Working order live",
+        "Watch the order in its market context",
+        "terminal"
+      ],
+      [
+        "watch",
+        435,
+        280,
+        "Watch the canvas",
+        "Percent done vs schedule; fills vs market",
+        "action"
+      ],
+      [
+        "schedule",
+        435,
+        430,
+        "Is percent done on schedule?",
+        "Keep progress and price on one canvas",
+        "decision"
+      ],
+      [
+        "band",
+        70,
+        430,
+        "Hatched band on",
+        "Delayed, suspended or outside the limit",
+        "warning"
+      ],
+      [
+        "wait",
+        70,
+        600,
+        "Reprice or accept the wait",
+        "Keep watching while the order works",
+        "action"
+      ],
+      [
+        "benchmark",
+        435,
+        600,
+        "Average fill inside benchmarks?",
+        "Arrival price and TWAP",
+        "decision"
+      ],
+      [
+        "passive",
+        800,
+        600,
+        "Stay passive",
+        "Let resting limits work",
+        "action"
+      ],
+      [
+        "intervene",
+        435,
+        770,
+        "How should I intervene?",
+        "Keep the decision beside the action",
+        "decision"
+      ],
+      [
+        "reprice",
+        70,
+        950,
+        "Reprice",
+        "Drag the limit line; confirm in the ticket",
+        "action"
+      ],
+      [
+        "stage",
+        345,
+        950,
+        "Stage an order",
+        "Drag the BID pill",
+        "action"
+      ],
+      [
+        "fill",
+        620,
+        950,
+        "Fill now",
+        "Take liquidity",
+        "action"
+      ],
+      [
+        "venues",
+        895,
+        950,
+        "Cross-filter venues",
+        "Exclude poor fills",
+        "action"
+      ],
+      [
+        "done",
+        435,
+        1160,
+        "Filled · post-trade review",
+        "Studies use bid, ask and mid market prices",
+        "terminal"
+      ],
+      [
+        "cutoff",
+        70,
+        1160,
+        "Session ends",
+        "Cut off, fill now or carry the risk",
+        "warning"
+      ]
+    ],
+    "edges": [
+      [
+        "start",
+        "watch",
+        "bottom",
+        "top"
+      ],
+      [
+        "watch",
+        "schedule",
+        "bottom",
+        "top"
+      ],
+      [
+        "watch",
+        "band",
+        "left",
+        "top",
+        [
+          [
+            365,
+            336
+          ],
+          [
+            365,
+            406
+          ],
+          [
+            195,
+            406
+          ]
+        ],
+        "Band on"
+      ],
+      [
+        "band",
+        "wait",
+        "bottom",
+        "top"
+      ],
+      [
+        "wait",
+        "watch",
+        "left",
+        "left",
+        [
+          [
+            34,
+            644
+          ],
+          [
+            34,
+            324
+          ]
+        ],
+        "Keep watching",
+        true
+      ],
+      [
+        "schedule",
+        "watch",
+        "right",
+        "right",
+        [
+          [
+            1070,
+            474
+          ],
+          [
+            1070,
+            324
+          ]
+        ],
+        "On schedule",
+        true
+      ],
+      [
+        "schedule",
+        "benchmark",
+        "bottom",
+        "top",
+        [],
+        "Behind"
+      ],
+      [
+        "benchmark",
+        "passive",
+        "right",
+        "left",
+        [],
+        "Acceptable"
+      ],
+      [
+        "passive",
+        "watch",
+        "top",
+        "right",
+        [
+          [
+            925,
+            324
+          ]
+        ],
+        "Keep working",
+        true
+      ],
+      [
+        "benchmark",
+        "intervene",
+        "bottom",
+        "top",
+        [],
+        "Adverse"
+      ],
+      [
+        "intervene",
+        "reprice",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            905
+          ],
+          [
+            170,
+            905
+          ]
+        ]
+      ],
+      [
+        "intervene",
+        "stage",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            905
+          ],
+          [
+            445,
+            905
+          ]
+        ]
+      ],
+      [
+        "intervene",
+        "fill",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            905
+          ],
+          [
+            720,
+            905
+          ]
+        ]
+      ],
+      [
+        "intervene",
+        "venues",
+        "bottom",
+        "top",
+        [
+          [
+            560,
+            905
+          ],
+          [
+            995,
+            905
+          ]
+        ]
+      ],
+      [
+        "reprice",
+        "done",
+        "bottom",
+        "top",
+        [
+          [
+            170,
+            1110
+          ],
+          [
+            560,
+            1110
+          ]
+        ]
+      ],
+      [
+        "stage",
+        "done",
+        "bottom",
+        "top",
+        [
+          [
+            445,
+            1110
+          ],
+          [
+            560,
+            1110
+          ]
+        ]
+      ],
+      [
+        "fill",
+        "done",
+        "bottom",
+        "top",
+        [
+          [
+            720,
+            1110
+          ],
+          [
+            560,
+            1110
+          ]
+        ]
+      ],
+      [
+        "venues",
+        "done",
+        "bottom",
+        "top",
+        [
+          [
+            995,
+            1110
+          ],
+          [
+            560,
+            1110
+          ]
+        ]
+      ],
+      [
+        "wait",
+        "cutoff",
+        "left",
+        "left",
+        [
+          [
+            16,
+            656
+          ],
+          [
+            16,
+            1216
+          ]
+        ],
+        "Session ends",
+        true
+      ]
+    ]
+  }
+}

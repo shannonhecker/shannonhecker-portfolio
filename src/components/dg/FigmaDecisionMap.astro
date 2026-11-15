@@ -1,0 +1,17 @@
+---
+import content from '../../data/decision-map-content.json';
+import MapViewport from './MapViewport.astro';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;
+const graph=content[project];
+---
+<figure class="figma-decision-map">
+ <div class="map-tools"><p class="map-hint">On smaller screens, enlarge the map to read and explore the branches.</p></div>
+ <MapViewport id={`${project}-decision-map-viewport`} regionClass="map-scroll" title={`${graph.title}. Enlarge the map to explore details, or open the full-size image.`}>
+  {(['light','dark'] as const).map(theme=><a class={`map-image map-${theme}`} href={`/art/decision-maps/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} decision map`}><img src={`/art/decision-maps/${project}-${theme}.svg`} width="1120" height={graph.height} loading="lazy" decoding="async" alt={`${graph.title} decision map. ${graph.subtitle}`}/></a>)}
+ </MapViewport>
+
+</figure>
+<style>
+.figma-decision-map{margin:36px 0 56px;min-width:0}.map-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:13px;line-height:1.5}.map-hint{margin:0;color:var(--fg-2)}.map-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.map-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}.map-image{display:block;width:100%}.map-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.map-dark{display:none}:global(html[data-theme="dark"]) .map-light{display:none}:global(html[data-theme="dark"]) .map-dark{display:block}@media(max-width:760px){.map-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-decision-map{margin-block:28px 40px}}
+</style>

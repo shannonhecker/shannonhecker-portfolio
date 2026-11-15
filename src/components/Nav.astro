@@ -1,0 +1,112 @@
+---
+import Logo from './Logo.astro';
+import ThemePicker from './ThemePicker.astro';
+---
+<nav class="nav" aria-label="Sections">
+  <a class="brand" href="/panel" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>
+  <button type="button" class="site-menu-toggle" aria-expanded="false" aria-controls="site-menu-panel" aria-label="Menu"><span class="menu-label">Menu</span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path class="menu-lines" d="M3 6h18M3 12h18M3 18h18"/><path class="close-lines" d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <div class="site-menu-panel" id="site-menu-panel">
+  <div class="menu-intro"><span>Menu</span><p>Explore my work</p></div>
+  <ul id="site-navigation">
+    <li><a class="l" href="/panel#work">Work</a></li>
+    <li><a class="l" href="/fx">FX</a></li>
+    <li><a class="l" href="/fusion">Fusion</a></li>
+    <li><a class="l" href="/deal-model">Deal Model</a></li>
+    <li><a class="l" href="/winking-star">Winking Star</a></li>
+    <li><a class="l" href="/uoaui">uoaui.ai</a></li>
+    <li><a class="l" href="/panel#how">How I work</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="menu-appearance"><span>Appearance</span><ThemePicker /></div>
+    <a class="cta" href="#links">Contact</a>
+  </div>
+  </div>
+</nav>
+
+<style>
+.site-menu-panel{display:contents}
+.menu-intro,.menu-appearance>span{display:none}
+.menu-appearance{display:contents}
+.nav a.l[aria-current]{color:var(--fg);background:var(--bg-2);font-weight:500}
+.site-menu-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;color:var(--fg);background:transparent;border:0;border-radius:var(--radius);cursor:pointer}
+.close-lines,.menu-label{display:none}
+.site-menu-toggle:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+@media(max-width:760px){
+ :global(html.has-js) .nav{grid-template-columns:1fr auto}
+ :global(html.has-js) .site-menu-toggle{display:flex;justify-self:end}
+ :global(html.has-js) .site-menu-panel{display:none}
+ :global(html.has-js) .nav[data-menu-open]{z-index:130;height:calc(100dvh - env(safe-area-inset-top,0px));grid-template-rows:44px minmax(0,1fr);align-content:start;gap:0 16px;padding-bottom:0;pointer-events:auto;transform:none;transition:none;background:var(--bg)!important;backdrop-filter:none;-webkit-backdrop-filter:none}
+ :global(html.has-js) .nav[data-menu-open] .site-menu-panel{display:flex;grid-column:1/-1;align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;flex-direction:column;padding:24px 0 max(24px,env(safe-area-inset-bottom))}
+ .nav[data-menu-open] .menu-lines{display:none}
+ .nav[data-menu-open] .close-lines{display:block}
+ .menu-intro{display:block;margin-bottom:16px}
+ .menu-intro>span{font-size:28px;font-weight:600;letter-spacing:-.03em;color:var(--fg)}
+ .menu-intro p{font-size:14px;color:var(--fg-2);margin:6px 0 0}
+ .nav .site-menu-panel>ul{display:flex;flex-direction:column;flex-shrink:0;gap:2px;margin:0 0 24px;padding:0;max-width:none;width:100%;overflow:visible;mask-image:none;-webkit-mask-image:none}
+ .nav .site-menu-panel a.l{display:flex;align-items:center;min-height:48px;padding:10px 12px;font-size:20px;line-height:1.4;white-space:normal}
+ .nav .site-menu-panel a.l:hover{background:var(--bg-2)}
+ .nav .nav-actions{display:flex;flex-direction:column;align-items:stretch;gap:20px;margin-top:auto;padding-top:20px;border-top:1px solid var(--hair)}
+ .menu-appearance{display:flex;align-items:center;justify-content:space-between;gap:16px}
+ .menu-appearance>span{display:block;font-size:16px;color:var(--fg-2)}
+ .nav .site-menu-panel .cta{align-self:stretch;text-align:center;min-height:48px;padding:12px 18px}
+ :global(html:not(.has-js)) .nav{position:relative;grid-template-columns:1fr}
+ :global(html:not(.has-js)) .site-menu-panel{display:block}
+}
+@media(min-width:761px) and (max-width:1100px){
+ :global(html.has-js) .nav{grid-template-columns:auto 1fr auto}
+ :global(html.has-js) .site-menu-toggle{display:flex;justify-self:end;width:auto;padding:10px 14px;font:500 14px var(--body);background:var(--bg-2);border:1px solid var(--hair)}
+ .site-menu-toggle svg{display:none}.menu-label{display:inline}
+ :global(html.has-js) .nav ul{display:none}
+ :global(html.has-js) .nav[data-menu-open]{z-index:130}
+ :global(html.has-js) .nav[data-menu-open] ul{display:flex;position:absolute;top:100%;left:0;right:0;max-width:none;justify-self:stretch;margin:0;padding:8px var(--gutter) 16px;max-height:calc(100dvh - 100% - env(safe-area-inset-top,0px));overflow:auto;overscroll-behavior:contain;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--hair);mask-image:none;-webkit-mask-image:none}
+ .nav ul>li{flex-shrink:0;border-bottom:1px solid var(--hair)}
+ .nav ul>li:last-child{border-bottom:0}
+ .nav ul a.l{display:block;min-height:52px;padding:14px 12px;font-size:16px;white-space:normal}
+}
+:global(html.site-menu-open){overflow:hidden}
+</style>
+<script>
+ const navigation=document.querySelector<HTMLElement>('.nav');
+ const menuButton=navigation?.querySelector<HTMLButtonElement>('.site-menu-toggle');
+ if(navigation&&menuButton){
+  const mobile=matchMedia('(max-width:760px)');
+  const collapsed=matchMedia('(max-width:1100px)');
+  const hiddenSiblings:HTMLElement[]=[];
+  const closeMenu=(restoreFocus=false)=>{
+   navigation.removeAttribute('data-menu-open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Menu');
+   document.documentElement.classList.remove('site-menu-open');
+   hiddenSiblings.splice(0).forEach(el=>el.inert=false);
+   if(restoreFocus)menuButton.focus({preventScroll:true});
+  };
+  menuButton.addEventListener('click',()=>{
+   if(navigation.hasAttribute('data-menu-open')){closeMenu(true);return;}
+   navigation.setAttribute('data-menu-open','');menuButton.setAttribute('aria-expanded','true');menuButton.setAttribute('aria-label','Close menu');
+   if(!mobile.matches)return;
+   document.documentElement.classList.add('site-menu-open');
+   // Keep the obscured page out of keyboard and screen-reader navigation.
+   let branch:HTMLElement=navigation;
+   while(branch.parentElement&&branch!==document.body){
+    for(const sibling of branch.parentElement.children){
+     if(sibling!==branch&&sibling instanceof HTMLElement&&!sibling.inert&&!['SCRIPT','STYLE'].includes(sibling.tagName)){sibling.inert=true;hiddenSiblings.push(sibling);}
+    }
+    branch=branch.parentElement;
+   }
+  });
+  navigation.addEventListener('click',event=>{if((event.target as Element).closest('a'))closeMenu();});
+  document.addEventListener('keydown',event=>{
+   if(!navigation.hasAttribute('data-menu-open'))return;
+   if(event.key==='Escape'){event.preventDefault();closeMenu(true);}
+   if(event.key==='Tab'&&mobile.matches){
+    const items=Array.from(navigation.querySelectorAll<HTMLElement>('a[href],button')).filter(el=>el.getClientRects().length);
+    const first=items[0],last=items[items.length-1];
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+   }
+  });
+  mobile.addEventListener('change',()=>closeMenu());
+  collapsed.addEventListener('change',()=>closeMenu());
+  document.addEventListener('click',event=>{if(!mobile.matches&&!navigation.contains(event.target as Node))closeMenu();});
+  navigation.addEventListener('focusout',event=>{if(!mobile.matches&&!navigation.contains(event.relatedTarget as Node|null))closeMenu();});
+  window.addEventListener('pagehide',()=>closeMenu());
+ }
+</script>

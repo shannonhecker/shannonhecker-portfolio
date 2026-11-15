@@ -1,0 +1,21 @@
+<svg width="336" height="504" viewBox="0 0 336 504" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="503" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="503" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">CONNECTION LOST &#x2192; QUEUED &#x2192; SYNCED</tspan></text>
+<path d="M302 51H36C33.2386 51 31 53.2386 31 56V104C31 106.761 33.2386 109 36 109H302C304.761 109 307 106.761 307 104V56C307 53.2386 304.761 51 302 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="73.5909">Offline banner is visible</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="94.8636">Explain why updates are not yet synced</tspan></text>
+<path d="M169 109V130M173 124L169 130L165 124" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 130H36C33.2386 130 31 132.239 31 135V183C31 185.761 33.2386 188 36 188H302C304.761 188 307 185.761 307 183V135C307 132.239 304.761 130 302 130Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="152.591">Adult ticks a routine offline</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="173.864">Keep the tick queued on the phone</tspan></text>
+<path d="M169 188V209M173 203L169 209L165 203" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 209H36C33.2386 209 31 211.239 31 214V262C31 264.761 33.2386 267 36 267H302C304.761 267 307 264.761 307 262V214C307 211.239 304.761 209 302 209Z" fill="white" stroke="#4F7352" stroke-width="1.5"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="231.591">Connection returns</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="252.864">Sync the queued ticks to the family</tspan></text>
+<path d="M17 287H321" stroke="#D6DCE1" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Two adults can use the same child&#x2019;s board.</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Conflict-resolution rules are not specified.</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">Offline, then reconnected</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">An offline banner explains the state. </tspan><tspan x="13" y="434.618">Ticks queue and sync on reconnect. Two </tspan><tspan x="13" y="457.818">adults can tick the same child from two </tspan><tspan x="13" y="481.018">phones.</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+---
+import FlatArrow from "./FlatArrow.astro";
+import { GAME_TIMELINE } from '../lib/game-timeline';
+---
+<dialog id="game-timeline" class="game-timeline" aria-labelledby="game-timeline-title">
+ <header><div><p class="timeline-kicker">Working Order · My story</p><h2 id="game-timeline-title">Life along the way</h2></div><button type="button" data-timeline-close aria-label="Close timeline">×</button></header>
+ <p class="timeline-intro">My career, my family and a few moments from the world around us.</p>
+ <ol>{GAME_TIMELINE.map(moment=><li data-kind={moment.kind}><span class="timeline-year">{moment.year}</span><div><span class="timeline-kind">{moment.kind}</span><h3>{moment.title}</h3><p>{moment.detail}</p>{moment.source&&<a href={moment.source} target="_blank" rel="noopener">Source<span class="vh"> for {moment.title}, opens in a new tab</span> <FlatArrow /></a>}</div></li>)}</ol>
+</dialog>
+<style>
+ .game-timeline{width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:clamp(20px,4vw,40px);margin:auto;border:2px solid #90dce8;border-radius:var(--radius);background:#172b3b;color:#f4f7ea;box-shadow:6px 6px 0 #081823;overflow:auto;overscroll-behavior:contain}
+ .game-timeline::backdrop{background:#081823b8}.game-timeline header{display:flex;align-items:start;justify-content:space-between;gap:16px}.timeline-kicker{font:14px/1.4 var(--pixel);color:#90dce8;margin-bottom:8px}.game-timeline h2{font:clamp(28px,4vw,40px)/1.1 var(--pixel)}
+ .game-timeline button{flex:none;width:44px;height:44px;border:1px solid #90dce8;background:#213e50;color:white;font:28px/1 var(--body);border-radius:var(--radius);cursor:pointer}.timeline-intro{font:15px/1.6 var(--body);color:#c2d0d8;margin:20px 0 32px;max-width:48ch}
+ .game-timeline ol{list-style:none;padding:0;margin:0}.game-timeline li{--moment:#90dce8;display:grid;grid-template-columns:110px minmax(0,1fr);gap:20px;padding:0 0 32px;position:relative}.game-timeline li[data-kind=Life]{--moment:#f6b9c9}.game-timeline li[data-kind="World news"]{--moment:#bac4cd}.timeline-year{font:20px/1.3 var(--pixel);color:var(--moment)}.game-timeline li>div{border-left:2px solid var(--moment);padding-left:24px;position:relative}.game-timeline li>div::before{content:'';position:absolute;left:-5px;top:3px;width:8px;height:8px;background:var(--moment)}
+ .timeline-kind{font:12px/1.3 var(--body);color:var(--moment)}.game-timeline h3{font:24px/1.3 var(--pixel);margin:6px 0 8px}.game-timeline li p{font:14px/1.6 var(--body);color:#c2d0d8}.game-timeline a{display:inline-block;font:13px/1.5 var(--body);color:#90dce8;text-decoration:underline;text-underline-offset:4px;margin-top:10px;padding-block:5px}.game-timeline :is(a,button):focus-visible{outline:2px solid #fff;outline-offset:4px}
+ @media(max-width:480px){.game-timeline li{grid-template-columns:82px minmax(0,1fr);gap:12px}.game-timeline li>div{padding-left:16px}.timeline-year{font-size:18px}.game-timeline h3{font-size:22px}}
+ @media(prefers-reduced-motion:no-preference){.game-timeline[open]{animation:timeline-in .22s ease-out}@keyframes timeline-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}}
+</style>

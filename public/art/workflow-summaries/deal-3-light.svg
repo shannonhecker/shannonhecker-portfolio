@@ -1,0 +1,16 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 05</tspan></text>
+<path d="M297 60H41C38.7909 60 37 61.7909 37 64V175C37 177.209 38.7909 179 41 179H297C299.209 179 301 177.209 301 175V64C301 61.7909 299.209 60 297 60Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="53" y="78.6364">COMPARE PROPOSALS</tspan></text>
+<path d="M119 91H58C55.7909 91 54 92.7909 54 95V160C54 162.209 55.7909 164 58 164H119C121.209 164 123 162.209 123 160V95C123 92.7909 121.209 91 119 91Z" fill="white" stroke="#D6DCE1"/>
+<path d="M67 108H109M67 125H99M67 145H107" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M198 91H137C134.791 91 133 92.7909 133 95V160C133 162.209 134.791 164 137 164H198C200.209 164 202 162.209 202 160V95C202 92.7909 200.209 91 198 91Z" fill="white" stroke="#8B5168"/>
+<path d="M146 108H188M146 125H178M146 145H186" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M277 91H216C213.791 91 212 92.7909 212 95V160C212 162.209 213.791 164 216 164H277C279.209 164 281 162.209 281 160V95C281 92.7909 279.209 91 277 91Z" fill="white" stroke="#D6DCE1"/>
+<path d="M225 108H267M225 125H257M225 145H265" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Compare and tier</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Compare grid, column chooser, tiering</tspan></text>
+</svg>
+

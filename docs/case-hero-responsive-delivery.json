@@ -1,0 +1,443 @@
+{
+  "date": "2026-10-12",
+  "method": "Exact vector wrapper retained. Embedded screenshot sizes follow screen footprint with sampling margin. AI kit uses lossless encoding; other display-only rasters use WebP quality95. Original SVGs and full-size links unchanged.",
+  "records": [
+    {
+      "source": "public/art/winking-hero-composition.svg",
+      "sourceSha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "output": "public/art/case-responsive/winking-hero-composition-400.svg",
+      "displayWidth": 400,
+      "rasterFootprintRatio": 0.33,
+      "sourceBytes": 388496,
+      "bytes": 44968,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 132,
+          "height": 286,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 132,
+          "height": 286,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 132,
+          "height": 286,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 30203
+    },
+    {
+      "source": "public/art/winking-hero-composition.svg",
+      "sourceSha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "output": "public/art/case-responsive/winking-hero-composition-800.svg",
+      "displayWidth": 800,
+      "rasterFootprintRatio": 0.33,
+      "sourceBytes": 388496,
+      "bytes": 105908,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 264,
+          "height": 572,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 264,
+          "height": 572,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 264,
+          "height": 572,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 76509
+    },
+    {
+      "source": "public/art/winking-hero-composition.svg",
+      "sourceSha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "output": "public/art/case-responsive/winking-hero-composition-1600.svg",
+      "displayWidth": 1600,
+      "rasterFootprintRatio": 0.33,
+      "sourceBytes": 388496,
+      "bytes": 388496,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 290602
+    },
+    {
+      "source": "public/art/winking-hero-composition.svg",
+      "sourceSha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "output": "public/art/case-responsive/winking-hero-composition-2400.svg",
+      "displayWidth": 2400,
+      "rasterFootprintRatio": 0.33,
+      "sourceBytes": 388496,
+      "bytes": 388496,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        },
+        {
+          "originalWidth": 480,
+          "originalHeight": 1040,
+          "width": 480,
+          "height": 1040,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 290602
+    },
+    {
+      "source": "public/art/deal-hero-composition.svg",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
+      "output": "public/art/case-responsive/deal-hero-composition-400.svg",
+      "displayWidth": 400,
+      "rasterFootprintRatio": 0.75,
+      "sourceBytes": 1380962,
+      "bytes": 41828,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 2896,
+          "originalHeight": 3552,
+          "width": 300,
+          "height": 368,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 3374,
+          "originalHeight": 2008,
+          "width": 300,
+          "height": 179,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 31115,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
+    },
+    {
+      "source": "public/art/deal-hero-composition.svg",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
+      "output": "public/art/case-responsive/deal-hero-composition-800.svg",
+      "displayWidth": 800,
+      "rasterFootprintRatio": 0.75,
+      "sourceBytes": 1380962,
+      "bytes": 122208,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 2896,
+          "originalHeight": 3552,
+          "width": 600,
+          "height": 736,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 3374,
+          "originalHeight": 2008,
+          "width": 600,
+          "height": 357,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 92000,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
+    },
+    {
+      "source": "public/art/deal-hero-composition.svg",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
+      "output": "public/art/case-responsive/deal-hero-composition-1600.svg",
+      "displayWidth": 1600,
+      "rasterFootprintRatio": 0.75,
+      "sourceBytes": 1380962,
+      "bytes": 347532,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 2896,
+          "originalHeight": 3552,
+          "width": 1200,
+          "height": 1472,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 3374,
+          "originalHeight": 2008,
+          "width": 1200,
+          "height": 714,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 261196,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
+    },
+    {
+      "source": "public/art/deal-hero-composition.svg",
+      "sourceSha256": "d4170f9450cd65f1b166769f3c0cafe75b950bd742b5f5b612b83369c38a2e4b",
+      "output": "public/art/case-responsive/deal-hero-composition-2400.svg",
+      "displayWidth": 2400,
+      "rasterFootprintRatio": 0.75,
+      "sourceBytes": 1380962,
+      "bytes": 601716,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 2896,
+          "originalHeight": 3552,
+          "width": 1800,
+          "height": 2208,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        },
+        {
+          "originalWidth": 3374,
+          "originalHeight": 2008,
+          "width": 1800,
+          "height": 1071,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 449422,
+      "shadow": "Neutral black, 14% opacity, 6px downward offset, 7px blur; replaces two purple upward shadows."
+    },
+    {
+      "source": "public/art/ai-hero-builder-composition.svg",
+      "sourceSha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "output": "public/art/case-responsive/ai-hero-builder-composition-400.svg",
+      "displayWidth": 400,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 171725,
+      "bytes": 29777,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 420,
+          "height": 262,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 21604
+    },
+    {
+      "source": "public/art/ai-hero-builder-composition.svg",
+      "sourceSha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "output": "public/art/case-responsive/ai-hero-builder-composition-800.svg",
+      "displayWidth": 800,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 171725,
+      "bytes": 75061,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 840,
+          "height": 525,
+          "losslessResizedPixelMatch": false,
+          "encoding": "WebP quality95 display derivative"
+        }
+      ],
+      "gzipBytes": 55895
+    },
+    {
+      "source": "public/art/ai-hero-builder-composition.svg",
+      "sourceSha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "output": "public/art/case-responsive/ai-hero-builder-composition-1600.svg",
+      "displayWidth": 1600,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 171725,
+      "bytes": 171725,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 1200,
+          "height": 750,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 129099
+    },
+    {
+      "source": "public/art/ai-hero-builder-composition.svg",
+      "sourceSha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "output": "public/art/case-responsive/ai-hero-builder-composition-2400.svg",
+      "displayWidth": 2400,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 171725,
+      "bytes": 171725,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 1200,
+          "height": 750,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 129099
+    },
+    {
+      "source": "public/art/ai-hero-kit-composition.svg",
+      "sourceSha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "output": "public/art/case-responsive/ai-hero-kit-composition-400.svg",
+      "displayWidth": 400,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 83841,
+      "bytes": 31181,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 420,
+          "height": 262,
+          "losslessResizedPixelMatch": true,
+          "encoding": "webp lossless"
+        }
+      ],
+      "gzipBytes": 23040
+    },
+    {
+      "source": "public/art/ai-hero-kit-composition.svg",
+      "sourceSha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "output": "public/art/case-responsive/ai-hero-kit-composition-800.svg",
+      "displayWidth": 800,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 83841,
+      "bytes": 100597,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 840,
+          "height": 525,
+          "losslessResizedPixelMatch": true,
+          "encoding": "webp lossless"
+        }
+      ],
+      "gzipBytes": 75602
+    },
+    {
+      "source": "public/art/ai-hero-kit-composition.svg",
+      "sourceSha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "output": "public/art/case-responsive/ai-hero-kit-composition-1600.svg",
+      "displayWidth": 1600,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 83841,
+      "bytes": 83841,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 1200,
+          "height": 750,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 62915
+    },
+    {
+      "source": "public/art/ai-hero-kit-composition.svg",
+      "sourceSha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "output": "public/art/case-responsive/ai-hero-kit-composition-2400.svg",
+      "displayWidth": 2400,
+      "rasterFootprintRatio": 1.05,
+      "sourceBytes": 83841,
+      "bytes": 83841,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1200,
+          "originalHeight": 750,
+          "width": 1200,
+          "height": 750,
+          "losslessResizedPixelMatch": true,
+          "encoding": "Original embedded bytes retained"
+        }
+      ],
+      "gzipBytes": 62915
+    }
+  ],
+  "samplingRationale": "Winking uses a raster width of 0.33 \u00d7 display width against an actual phone footprint of approximately 0.2896. Deal uses 0.75 against a maximum front-screen footprint of approximately 0.68. This retains about 14% and 10% sampling margins. AI remains at 1.05."
+}

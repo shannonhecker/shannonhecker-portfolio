@@ -1,0 +1,22 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#705D8D" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">02 / 04</tspan></text>
+<path d="M117 62H44C41.7909 62 40 63.7909 40 66V80C40 82.2091 41.7909 84 44 84H117C119.209 84 121 82.2091 121 80V66C121 63.7909 119.209 62 117 62Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="49" y="76.6364">Period</tspan></text>
+<path d="M208 62H135C132.791 62 131 63.7909 131 66V80C131 82.2091 132.791 84 135 84H208C210.209 84 212 82.2091 212 80V66C212 63.7909 210.209 62 208 62Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="140" y="76.6364">Assets</tspan></text>
+<path d="M299 62H226C223.791 62 222 63.7909 222 66V80C222 82.2091 223.791 84 226 84H299C301.209 84 303 82.2091 303 80V66C303 63.7909 301.209 62 299 62Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="231" y="76.6364">Compare</tspan></text>
+<path d="M295 89H43C41.8954 89 41 89.8954 41 91V102C41 103.105 41.8954 104 43 104H295C296.105 104 297 103.105 297 102V91C297 89.8954 296.105 89 295 89Z" fill="white" stroke="#D6DCE1"/>
+<path d="M57 97H105M138 97H168M208 97H273" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 108H43C41.8954 108 41 108.895 41 110V121C41 122.105 41.8954 123 43 123H295C296.105 123 297 122.105 297 121V110C297 108.895 296.105 108 295 108Z" fill="white" stroke="#D6DCE1"/>
+<path d="M57 116H105M138 116H168M208 116H273" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 127H43C41.8954 127 41 127.895 41 129V140C41 141.105 41.8954 142 43 142H295C296.105 142 297 141.105 297 140V129C297 127.895 296.105 127 295 127Z" fill="#705D8D" stroke="#D6DCE1"/>
+<path d="M57 135H105M138 135H168M208 135H273" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 146H43C41.8954 146 41 146.895 41 148V159C41 160.105 41.8954 161 43 161H295C296.105 161 297 160.105 297 159V148C297 146.895 296.105 146 295 146Z" fill="white" stroke="#D6DCE1"/>
+<path d="M57 154H105M138 154H168M208 154H273" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Filter and slice</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Advanced filtering, toggles, deep slicing</tspan></text>
+</svg>
+

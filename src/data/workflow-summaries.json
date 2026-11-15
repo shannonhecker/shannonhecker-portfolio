@@ -1,0 +1,137 @@
+{
+  "fusion": {
+    "name": "Fusion",
+    "label": "The analyst's workflow, four steps",
+    "caption": "Every widget had to earn its place in one of these four steps.",
+    "steps": [
+      {
+        "t": "Select a data cube",
+        "d": "FactSet feeding it"
+      },
+      {
+        "t": "Filter and slice",
+        "d": "Advanced filtering, toggles, deep slicing"
+      },
+      {
+        "t": "Analyse",
+        "d": "Returns, attribution and risk, across asset classes"
+      },
+      {
+        "t": "Report",
+        "d": "Board-ready, without leaving the surface"
+      }
+    ]
+  },
+  "fx": {
+    "name": "FX",
+    "label": "Original specified monitoring-to-action flow",
+    "caption": "The original specified flow keeps confirmation and audit on the chart. The current public rebuild demonstrates only part of this sequence.",
+    "steps": [
+      {
+        "t": "Hover a fill",
+        "d": "See the detail for that clip"
+      },
+      {
+        "t": "Right-click",
+        "d": "Act on the exact time and price under the cursor"
+      },
+      {
+        "t": "Drag the limit line",
+        "d": "Reprice where the decision was made"
+      },
+      {
+        "t": "Pre-filled ticket",
+        "d": "What changes, before anything does",
+        "branch": {
+          "t": "Cancel",
+          "d": "Nothing changes"
+        }
+      },
+      {
+        "t": "Confirm",
+        "d": "The compliance step, still on the chart"
+      },
+      {
+        "t": "Audit trail",
+        "d": "Every change to the order is recorded"
+      }
+    ]
+  },
+  "ai": {
+    "name": "uoaui.ai",
+    "label": "My review workflow, prompt to export",
+    "caption": "The model drafts. I compare and tune before handover, but the builder also lets me export directly.",
+    "steps": [
+      {
+        "t": "Prompt",
+        "d": "Describe the screen in words"
+      },
+      {
+        "t": "Generate",
+        "d": "Mapped to native components, with fallbacks where needed"
+      },
+      {
+        "t": "Compare systems",
+        "d": "The same screen in Salt, Material, Fluent and Carbon"
+      },
+      {
+        "t": "Tune",
+        "d": "Density, theme and charts. The person decides here"
+      },
+      {
+        "t": "Export React",
+        "d": "Code a developer recognises"
+      }
+    ]
+  },
+  "deal": {
+    "name": "Deal Model",
+    "label": "From a spreadsheet to a signed-off deal",
+    "caption": "One deal object, with a view for each role.",
+    "steps": [
+      {
+        "t": "Create the deal",
+        "d": "Name, region, segment, deal lead"
+      },
+      {
+        "t": "Load the portfolio",
+        "d": "Load data, or upload the template"
+      },
+      {
+        "t": "Price and iterate",
+        "d": "Rate cards, iterations, checks as you go"
+      },
+      {
+        "t": "Compare and tier",
+        "d": "Compare grid, column chooser, tiering"
+      },
+      {
+        "t": "Approve and sign off",
+        "d": "Proposal comparison, description and comments"
+      }
+    ]
+  },
+  "winking": {
+    "name": "Winking Star",
+    "label": "The current Winking Star family workflow",
+    "caption": "",
+    "steps": [
+      {
+        "t": "Choose a superstar",
+        "d": "Their name, avatar and theme make the board recognisable."
+      },
+      {
+        "t": "Mark the routine",
+        "d": "Tap the activity for the right day. A sticker shows it is done."
+      },
+      {
+        "t": "See the week grow",
+        "d": "Stars connect the small daily action to a pet and a family reward."
+      },
+      {
+        "t": "Share the board",
+        "d": "A second adult joins the same family, with the same routines."
+      }
+    ]
+  }
+}

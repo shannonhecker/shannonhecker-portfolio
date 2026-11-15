@@ -1,0 +1,24 @@
+---
+import { journeys, type Project } from '../../lib/process';
+import Schematic from './Schematic.astro';
+interface Props { project: Project }
+const { project } = Astro.props;
+const items = journeys[project] ?? [];
+const pictures = { fx:['chart','dual','ticket','compare'],fusion:['cube','filter','widgets','report'],ai:['prompt','systems','tune','code'],winking:[] };
+---
+<section class="process-journey" aria-labelledby={`${project}-journey-title`} id={`${project}-journey`}>
+  <header class="process-heading"><h3 id={`${project}-journey-title`}>User journey</h3><p>{project === 'ai' ? 'The journey through the alpha, with the person deciding before anything exports.' : 'The task, where it broke, and what the design does about it.'}</p></header>
+  <ol class="journey-route">{items.map((s, i) => <li>
+    <div class="route-station"><span class="route-number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><Schematic kind={pictures[project][i]} /><h4>{s.stage}</h4><p class="route-action">{s.action}</p></div>
+    <div class="route-resolution">
+      <div class="route-obstacle"><span class="route-label"><span aria-hidden="true">◇</span> Friction</span><p>{s.friction}</p></div>
+      <svg class="route-bend" viewBox="0 0 200 32" aria-hidden="true"><path d="M1 1V16H188m-7-6 7 6-7 6"/></svg>
+      <div class="route-answer"><span class="route-label"><span aria-hidden="true">✓</span> Design response</span><p>{s.response}</p></div>
+    </div>
+  </li>)}</ol>
+</section>
+<style>
+.process-journey .journey-route{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin:48px 0 0;padding:0}.process-journey .journey-route>li{position:relative;display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:36px;min-width:0;border:0;padding:0}.route-station{position:relative;text-align:center;padding:0 10px}.route-station:before{content:'';position:absolute;top:17px;left:calc(50% + 22px);width:calc(50% - 22px);height:1px;background:var(--project-ink)}li:last-child .route-station:before{display:none}.route-station:after{content:'';position:absolute;top:13px;right:3px;width:7px;height:7px;border-top:1px solid var(--project-ink);border-right:1px solid var(--project-ink);transform:rotate(45deg)}li:last-child .route-station:after{display:none}.route-number{display:grid;place-items:center;width:36px;height:36px;margin:0 auto 24px;border:1px solid var(--project-ink);border-radius:50%;font:500 14px var(--sans);color:var(--project-ink)}.route-station h4{font-size:24px;font-weight:600;margin:24px 0 12px}.route-action{font-size:16px;line-height:1.65;margin:0;color:var(--fg)}.route-resolution{position:relative;padding-top:26px;border-top:1px solid var(--hair)}.route-resolution:before{content:'';position:absolute;top:-36px;left:50%;height:36px;border-left:1px dashed var(--project-ink)}.route-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--fg-2)}.route-resolution p{font-size:15px;line-height:1.7;margin:12px 0 0}.route-obstacle{padding:0 0 0 16px;border-left:2px solid #bc875c}.route-bend{height:32px;width:65%;margin:10px 0 6px 16px;stroke:var(--project-ink);fill:none;stroke-width:1.5}.route-answer{padding:18px;background:var(--project-wash);border-radius:var(--radius);border-left:2px solid var(--project-ink)}
+@media(max-width:1050px){.process-journey .journey-route{grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 32px}.journey-route>li:nth-child(2) .route-station:before,.journey-route>li:nth-child(2) .route-station:after{display:none}}
+@media(max-width:600px){.process-journey .journey-route{display:block;margin-top:32px}.process-journey .journey-route>li{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding:0 0 40px 26px;margin-bottom:32px;border-left:1px solid var(--project-ink)}.route-station{padding:0;text-align:left;display:grid;grid-template-columns:1fr;gap:0}.route-station :global(.concept-sketch){max-width:240px;margin:auto}.route-number{position:absolute;left:-45px;top:0;background:var(--bg)}.route-station:before,.route-station:after,.route-resolution:before{display:none}.route-resolution{padding-top:20px}.route-station h4{font-size:24px}.journey-route>li:last-child{padding-bottom:0;margin-bottom:0;border-left-color:transparent}}
+</style>

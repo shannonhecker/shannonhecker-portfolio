@@ -1,0 +1,16 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">01 / 05</tspan></text>
+<path d="M292 59H46C43.7909 59 42 60.7909 42 63V175C42 177.209 43.7909 179 46 179H292C294.209 179 296 177.209 296 175V63C296 60.7909 294.209 59 292 59Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="58" y="80.6364">NEW DEAL</tspan></text>
+<path d="M277 93H61C58.7909 93 57 94.7909 57 97V106C57 108.209 58.7909 110 61 110H277C279.209 110 281 108.209 281 106V97C281 94.7909 279.209 93 277 93Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="67" y="104.636">Name</tspan></text>
+<path d="M277 116H61C58.7909 116 57 117.791 57 120V129C57 131.209 58.7909 133 61 133H277C279.209 133 281 131.209 281 129V120C281 117.791 279.209 116 277 116Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="67" y="127.636">Region &#xb7; Segment</tspan></text>
+<path d="M277 139H61C58.7909 139 57 140.791 57 143V152C57 154.209 58.7909 156 61 156H277C279.209 156 281 154.209 281 152V143C281 140.791 279.209 139 277 139Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="67" y="150.636">Deal lead</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Create the deal</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Name, region, segment, deal lead</tspan></text>
+</svg>
+

@@ -1,0 +1,13 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#496A83" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">05 / 06</tspan></text>
+<path d="M281 65H57C54.7909 65 53 66.7909 53 69V167C53 169.209 54.7909 171 57 171H281C283.209 171 285 169.209 285 167V69C285 66.7909 283.209 65 281 65Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="72" y="87.5909">Confirm the change</tspan></text>
+<path d="M72 107H257" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M263 123H75C72.7909 123 71 124.791 71 127V148C71 150.209 72.7909 152 75 152H263C265.209 152 267 150.209 267 148V127C267 124.791 265.209 123 263 123Z" fill="#496A83" stroke="#496A83"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="128" y="141.864">Confirm</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Confirm</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">The compliance step, still on the chart</tspan></text>
+</svg>
+

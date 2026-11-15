@@ -1,0 +1,18 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 05</tspan></text>
+<path d="M297 65H41C38.7909 65 37 66.7909 37 69V172C37 174.209 38.7909 176 41 176H297C299.209 176 301 174.209 301 172V69C301 66.7909 299.209 65 297 65Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="55" y="90.5">Density</tspan></text>
+<path d="M138 87H278" stroke="#46515F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M168 92C170.761 92 173 89.7614 173 87C173 84.2386 170.761 82 168 82C165.239 82 163 84.2386 163 87C163 89.7614 165.239 92 168 92Z" fill="#E3B3C6"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="55" y="120.5">Theme</tspan></text>
+<path d="M138 117H278" stroke="#46515F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M204 122C206.761 122 209 119.761 209 117C209 114.239 206.761 112 204 112C201.239 112 199 114.239 199 117C199 119.761 201.239 122 204 122Z" fill="#E3B3C6"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="55" y="150.5">Charts</tspan></text>
+<path d="M138 147H278" stroke="#46515F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 152C242.761 152 245 149.761 245 147C245 144.239 242.761 142 240 142C237.239 142 235 144.239 235 147C235 149.761 237.239 152 240 152Z" fill="#E3B3C6"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Tune</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Density, theme and charts. The person </tspan><tspan x="13" y="281.418">decides here</tspan></text>
+</svg>
+

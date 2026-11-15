@@ -1,0 +1,12 @@
+---
+interface Props { name: string; width: number; height: number; alt: string }
+const {name,width,height,alt}=Astro.props;
+---
+<span class="theme-artwork">
+ {(['light','dark'] as const).map(theme=><img data-artwork-theme={theme} src={`/art/themes/${theme}/${name}.svg`} width={width} height={height} alt={alt} loading="lazy" decoding="async"/>)}
+</span>
+<style>
+.theme-artwork{display:contents}
+:global(html[data-theme=dark]) [data-artwork-theme=light],
+:global(html:not([data-theme=dark])) [data-artwork-theme=dark]{display:none!important}
+</style>

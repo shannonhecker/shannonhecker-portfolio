@@ -1,0 +1,12 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#705D8D" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 04</tspan></text>
+<path d="M298 60H40C37.7909 60 36 61.7909 36 64V174C36 176.209 37.7909 178 40 178H298C300.209 178 302 176.209 302 174V64C302 61.7909 300.209 60 298 60Z" fill="white" stroke="#D6DCE1"/>
+<path d="M299 159H39V87" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M43 147L77 137L112 143L150 110L189 122L233 95L297 81" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="52" y="77.5">Performance</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Analyse</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Returns, attribution and risk, across </tspan><tspan x="13" y="281.418">asset classes</tspan></text>
+</svg>
+

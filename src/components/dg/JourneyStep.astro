@@ -1,0 +1,13 @@
+---
+interface Props { step: {title:string;description:string;recommendations:string[];backstage?:string}; number?:number; system?:boolean }
+const {step,number,system=true}=Astro.props;
+---
+<article class="journey-detail">
+ <h5>{number && <span class="journey-number">{String(number).padStart(2,'0')}</span>}{step.title}</h5>
+ <p>{step.description}</p>
+ <h6>Design response</h6><ul>{step.recommendations.map(r=><li>{r}</li>)}</ul>
+ {system && step.backstage && <div class="system-response"><h6>What the system does</h6><p>{step.backstage}</p></div>}
+</article>
+<style>
+.journey-detail{min-width:0}.journey-detail h5{font-size:20px;line-height:1.35;margin:0 0 14px;font-weight:600}.journey-number{font-size:13px;font-weight:500;color:var(--fg-2);display:block;margin-bottom:12px}.journey-detail p,.journey-detail ul{font-size:16px;line-height:1.65;color:var(--fg-2);margin:0;max-width:65ch;white-space:pre-line}.journey-detail h6{font-size:14px;line-height:1.5;margin:22px 0 8px;font-weight:600}.journey-detail ul{padding-left:20px;list-style:disc}.journey-detail li+li{margin-top:5px}.system-response{border-top:1px dashed var(--divider);margin-top:24px;padding-top:2px}
+</style>

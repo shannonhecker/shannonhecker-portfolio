@@ -1,0 +1,139 @@
+{
+  "fusion": {
+    "name": "Fusion",
+    "title": "One foundation, a reusable Fusion layer",
+    "caption": "I kept Fusion on Salt so it could follow the firm's updates, and contributed missing patterns back. The diagram describes the original product; the public rebuild is not connected to FactSet or entitlement services.",
+    "cards": [
+      {
+        "title": "Salt → Fusion → widgets",
+        "art": "layers",
+        "body": "I built tokens, components, patterns and accessibility layers on Salt: data tables, chart frames, filter bars and widget shells. Gaps went back upstream. Other Fusion teams reused the same components and patterns.",
+        "diagramDescription": "DEPENDENCY · BUILT ON, NOT A PROCESS. Widgets people configure. Tables · charts · filters. Fusion layer I built. Tokens · patterns · widget shells. Salt foundation. Shared components · firm updates. Arrows mean “uses the layer below”.. Gaps in Salt: contribute patterns upstream."
+      },
+      {
+        "title": "Many cubes, familiar views",
+        "art": "cubes",
+        "body": "FactSet supplies performance, attribution and risk data. The same widgets serve different cubes and permission levels. People configure their own dashboard pages; entitlements control what they see. Import and export run through FactSet.",
+        "diagramDescription": "DATA → CONFIGURATION → ACCESS. FactSet data cubes. Performance · attribution · risk. Reusable widgets in a page. People configure their dashboard. Entitlement-based view. Only the permitted data and controls. Import / export also runs through FactSet.. Original product; services absent in rebuild."
+      }
+    ]
+  },
+  "ai": {
+    "name": "uoaui.ai",
+    "title": "The model drafts. The person decides.",
+    "caption": "Switch system, density or theme and the screen rebuilds: the layers below the model are mapped, not generated. This is my review workflow; the builder also allows direct export.",
+    "cards": [
+      {
+        "title": "Draft → compare → tune",
+        "art": "human",
+        "body": "I write the prompt. Claude drafts a screen, never the final answer. I compare and tune before exporting React a developer can inspect.",
+        "diagramDescription": "MY REVIEW WORKFLOW. I frame the prompt. Claude produces a first draft. I compare and tune. Check layout, hierarchy and system fit. Export React for inspection. A developer can review the output. Repeat the draft / review loop as needed.. The builder also allows direct export."
+      },
+      {
+        "title": "One structure, five systems",
+        "art": "systems",
+        "body": "I designed the token, density and theme mapping. It resolves system-specific props across Salt, Material, Fluent, Carbon and my own system. Published React components are used where available; missing equivalents use explicit markup fallbacks, alongside a class-based in-house system.",
+        "diagramDescription": "MAPPED LAYERS · NOT GENERATED TOKENS. Screen structure from the model. System · density · theme selected. Mapping I designed. Tokens and system-specific props. Component exists. Published React. No equivalent. Explicit fallback. Salt · Material · Fluent · Carbon. Own system: class-based implementation."
+      }
+    ]
+  },
+  "fx": {
+    "name": "FX",
+    "title": "The constraints behind the canvas",
+    "caption": "FX is in beta. Confirmation and audit describe the original Barclays specification; my public rebuild does not implement the audit backend. The illustrations use schematic, non-client data.",
+    "cards": [
+      {
+        "title": "Two audiences, one platform",
+        "art": "roles",
+        "body": "Internal traders and external clients use the same system with different entitlements. I had to support both on old technology without a second codebase.",
+        "diagramDescription": "ACCESS MODEL · ORIGINAL PLATFORM. Internal trader. Role and access. External client. Role and access. One shared platform. Different entitlements. Permitted view and controls. Same codebase · legacy technology. Separate access, not a second product.. Conceptual model; no client data shown."
+      },
+      {
+        "title": "A fixed engine",
+        "art": "engine",
+        "body": "The charting vendor's capabilities shaped the options. Some ideas were possible, some were not, and some were possible but wrong. I treated those limits as design inputs.",
+        "diagramDescription": "DESIGN WITHIN A PARTNER DEPENDENCY. Explore a chart interaction. Start from the analytical task. Check the vendor capabilities. Possible? Useful? Appropriate?. Choose within the constraints. Capabilities become design inputs. Feasible does not automatically mean useful.. No unsupported chart controls are implied."
+      },
+      {
+        "title": "Confirm, then record",
+        "art": "fxaudit",
+        "body": "In the original order-changing flow, I kept confirmation and an audit trail beside the action. Compliance stayed inside the workflow.",
+        "diagramDescription": "ORIGINAL DESIGN REQUIREMENT. Propose an order change. Review the intended action. Confirm the change. Keep confirmation inside the flow. Retain the audit trail. Record the change alongside the work. This is the original specification.. The public rebuild has no audit backend."
+      },
+      {
+        "title": "Ship, then repair the foundation",
+        "art": "repair",
+        "body": "A light-theme tidy-up exposed hardcoded colours in the code, tokens and naming. I costed two options with product and engineering. We shipped features first, then phased the fix in the background, starting with the simple, single-themed blotter.",
+        "diagramDescription": "DELIVERY SEQUENCE. Read code, tokens and naming. Find hardcoded colours beneath the UI. Cost two options with the team. Product owner + engineering. Ship features; phase in repair. Start with the single-theme blotter. Foundation work happens in the background.. This is phased delivery, not a big rewrite."
+      }
+    ]
+  },
+  "deal": {
+    "name": "Deal Model",
+    "title": "One deal, four views, a bridge from Excel",
+    "caption": "I asked what each team needed to see and change, rather than asking them to agree on one design.",
+    "cards": [
+      {
+        "title": "A shared object, role-specific views",
+        "art": "dealroles",
+        "body": "Sales, legal, custody operations and product had different definitions of a deal. Each needed its own view of the same object.",
+        "diagramDescription": "SHARED OBJECT · NOT A TEAM HANDOFF. Sales. Own view. Legal. Own view. One shared deal. Same underlying record. Custody ops. Own view. Product. Own view. Lines mean “views the same deal”.. Each team sees and changes what it needs."
+      },
+      {
+        "title": "Keep the familiar starting point",
+        "art": "bridge",
+        "body": "People kept Excel because they did not yet trust the platform or recognise its layout. Download the template, fill it in as usual, then upload it. The system maps it into the deal.",
+        "diagramDescription": "USER-SUGGESTED BRIDGE FROM EXCEL. Download the platform template. Keep a recognisable starting layout. Fill in the template in Excel. Work in a familiar tool. Upload → map into the deal. Bring the information into the platform. Idea from a user session; worked with the BA.. No unsupported validation rules are assumed."
+      },
+      {
+        "title": "A record built as people work",
+        "art": "audit",
+        "body": "Every price needs a source, every change a person, and every deal a sign-off trail. Checks run as people work; the record comes from the tool.",
+        "diagramDescription": "RECORD BUILT WHILE PEOPLE WORK. Price → source. Make the origin of each price traceable. Change → person. Associate each change with its author. Deal → sign-off trail. Retain the approval record. Checks run as work happens.. Three linked records, not sequential steps."
+      }
+    ]
+  },
+  "winking": {
+    "name": "Winking Star",
+    "title": "Small moments beyond the happy path",
+    "caption": "Illustrated iPhone states, with the different web entry point called out. These are explanations of behaviour, not additional product screenshots.",
+    "cards": [
+      {
+        "title": "First run",
+        "art": "entry",
+        "body": "iPhone offers Try the Sample Family beside family creation. Web starts with a theme and a grown-up check, then child details. The two entry points are shown separately.",
+        "diagramDescription": "TWO DIFFERENT ENTRY POINTS. iPhone. Choose a start. Web. Choose a theme. Sample Family. Or create family. Grown-up check. Before child details. Child details. Continue setup. Sample is optional.. Not a forced tour.. iPhone offers sample and creation together.. Web has its own entry sequence."
+      },
+      {
+        "title": "A missed day",
+        "art": "missed",
+        "body": "Fewer stars, never negative stars or red warnings. The pet keeps the growth earned from routines already completed.",
+        "diagramDescription": "MISSED ROUTINE → PROGRESS RETAINED. A routine is not completed. The child earns fewer stars. Keep the progress already earned. No negative stars or red warnings. Continue across the week. The pet keeps its existing growth. A quiet day does not erase earlier effort.. No reset or punishment is implied."
+      },
+      {
+        "title": "Local midnight",
+        "art": "midnight",
+        "body": "The day rolls over at local midnight, even while the app is open, so a late tick lands on the right day. Shipped as a fix in iOS 1.0.4.",
+        "diagramDescription": "LOCAL DEVICE TIME · iOS 1.0.4 FIX. Before local midnight. App is open on the current day. The local date changes. Refresh the day without reopening. A late tick uses the right day. Avoid leaving the board on yesterday. Midnight here means local, not UTC.. Illustrates the shipped rollover fix."
+      },
+      {
+        "title": "Offline, then reconnected",
+        "art": "offline",
+        "body": "An offline banner explains the state. Ticks queue and sync on reconnect. Two adults can tick the same child from two phones.",
+        "diagramDescription": "CONNECTION LOST → QUEUED → SYNCED. Offline banner is visible. Explain why updates are not yet synced. Adult ticks a routine offline. Keep the tick queued on the phone. Connection returns. Sync the queued ticks to the family. Two adults can use the same child’s board.. Conflict-resolution rules are not specified."
+      },
+      {
+        "title": "Two homes and birthday week",
+        "art": "homes",
+        "body": "A custody label, “at Mum's this week”, gives the board context in either house. A birthday banner lasts for the whole birthday week.",
+        "diagramDescription": "BOARD CONTEXT · TWO INDEPENDENT CUES. One family board. Usable in either house. Custody label. “At Mum’s this week”. Birthday banner. Visible for the whole birthday week. Labels add context to the shared board.. They do not create separate family records."
+      },
+      {
+        "title": "Accessible and calm",
+        "art": "access",
+        "body": "VoiceOver reads tab labels and selected state. Dynamic Type supports text up to 1.6×. Reduce Motion or Calm Mode keeps confetti off.",
+        "diagramDescription": "ACCESSIBILITY · THREE DISTINCT SETTINGS. VoiceOver. Tab labels + selected state. Dynamic Type. Text supported up to 1.6×. Reduce Motion OR Calm Mode. Either setting keeps confetti off. These are scoped implementation details.. No product-wide certification is claimed."
+      }
+    ]
+  }
+}

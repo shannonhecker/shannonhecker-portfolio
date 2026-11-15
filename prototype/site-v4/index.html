@@ -1,0 +1,951 @@
+<title>Shannon Hecker Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=Nunito:wght@700;900&display=swap">
+<style>
+/* One idea: a white page, one heavy grotesk, and air. Small text sits top-left,
+   the big line sits bottom-left, the picture sits right. Every chapter repeats
+   that composition, and scroll does the rest. */
+:root{
+  --bg:#ffffff; --bg-2:#f5f5f4; --fg:#161616; --fg-2:#6b6b6b; --fg-3:#767676;
+  --hair:#e6e6e4; --accent:#161616;
+  --ws-canvas:#f7f5ef; --ws-card:#fffdf8; --ws-forest:#12351f; --ws-sage:#a9d5b2; --ws-mist:#eef3dd; --ws-peach:#ffe0d2; --ws-blush:#fff1ea; --ws-star:#f3a414; --ws-border:#ded6c8; --ws-muted:#63705f;
+  --display:"Inter Tight","Inter",system-ui,-apple-system,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ws-display:"Nunito","Inter Tight",system-ui,sans-serif;
+  --max:1520px; --gutter:clamp(20px,5vw,80px);
+  --ease:cubic-bezier(.22,1,.36,1); --fast:160ms; --base:360ms;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.04em;line-height:1;margin:0;text-wrap:balance}
+em.s{font-style:normal;color:var(--fg-2)}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px)}
+.band{position:relative;overflow:clip;padding-block:clamp(110px,16vw,260px)}
+.ink,.bone,.white,.ai{background:var(--bg);color:var(--fg)}
+.muted{color:var(--fg-2)}
+.mono,.eyebrow{font-family:var(--body);font-size:13px;font-weight:500;color:var(--fg-2);letter-spacing:0;text-transform:none}
+.h-giant{font-size:clamp(52px,7.8vw,132px);font-weight:700;letter-spacing:-.05em;line-height:.92}
+.h-chapter{font-size:clamp(48px,8.6vw,150px);font-weight:700;letter-spacing:-.05em;line-height:.92}
+.h-section{font-size:clamp(36px,5vw,84px);font-weight:700;letter-spacing:-.045em;line-height:.98}
+.h-sub{font-size:clamp(28px,3vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1.04}
+.lead{font-size:clamp(18px,1.4vw,22px);line-height:1.5;max-width:44ch}
+.measure{max-width:58ch}
+.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:#fff;padding:10px 16px;border-radius:999px;z-index:100}
+.skip:focus{left:16px}
+:focus-visible{outline:3px solid var(--fg);outline-offset:4px;border-radius:4px}
+
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;width:100%;background:var(--fg);transform:scaleX(0);transform-origin:left;z-index:70;pointer-events:none}
+.cur{display:none}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:60;padding:22px var(--gutter);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;pointer-events:none;transition:background var(--base),backdrop-filter var(--base)}
+.nav.solid{background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav>*{pointer-events:auto}
+.nav .brand{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.04em;text-decoration:none;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.nav .brand i{display:none}
+.nav .brand .full{display:none}.nav .brand .short{display:inline}
+.nav ul{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none;justify-self:center}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a.l{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap;color:var(--fg-2);transition:color var(--fast)}
+.nav a.l:hover,.nav a.l[aria-current="true"]{color:var(--fg)}
+.nav .cta{justify-self:end;font-size:14px;font-weight:500;text-decoration:none;padding:10px 18px;border:1px solid var(--fg);border-radius:999px;transition:background var(--fast),color var(--fast)}
+.nav .cta:hover{background:var(--fg);color:#fff}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto;padding-block:clamp(110px,14vw,160px) 0;overflow:clip}
+.hero .wrap{display:grid;grid-template-rows:auto 1fr;min-height:calc(100svh - clamp(110px,14vw,160px) - 90px)}
+.hero-top{max-width:30ch;font-size:clamp(16px,1.2vw,19px);line-height:1.45;color:var(--fg)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(24px,4vw,64px);align-items:end;padding-top:clamp(40px,8vw,120px);padding-bottom:clamp(40px,6vw,80px)}
+.hero h1{margin-left:-.05em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.hero h1 .ln span{display:block}
+.js .hero h1.anim .ln span{transform:translateY(110%);animation:lineup 1.1s var(--ease) forwards;animation-delay:calc(var(--i) * 110ms + 200ms)}
+@keyframes lineup{to{transform:none}}
+.hero-art{position:relative;min-width:0;overflow:hidden;border-radius:4px}
+.hero-art img{width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:72% center;transform:scale(1.1)}
+.js .hero-art.anim{clip-path:inset(100% 0 0 0);animation:unveil 1.3s var(--ease) .5s forwards}
+@keyframes unveil{to{clip-path:inset(0 0 0 0)}}
+.hero-foot{display:none}
+.chart{display:none}
+.scroll{display:none}
+.ticker{border-top:1px solid var(--hair);overflow:hidden;white-space:nowrap;background:var(--bg)}
+.ticker-track{display:inline-flex;gap:12px;padding:20px 0;animation:tick 46s linear infinite}
+.ticker-track span{display:inline-block;padding:12px 22px;border-radius:999px;background:var(--bg-2);font-size:14px;font-weight:500;color:var(--fg)}
+@keyframes tick{to{transform:translateX(-50%)}}
+.status-row{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:14px;color:var(--fg-2);margin-top:28px}
+.status-row span{display:inline-flex;gap:10px;align-items:center}
+.status-row i{width:8px;height:8px;border-radius:50%;background:#2fbf71;flex:none}
+.status-row i.amber{background:var(--ws-star)}
+
+/* index */
+.index{display:grid;border-top:1px solid var(--hair)}
+.row{display:grid;grid-template-columns:72px minmax(0,1.5fr) minmax(0,1fr) auto;gap:24px;align-items:baseline;padding:clamp(26px,3vw,48px) 0;border-bottom:1px solid var(--hair);text-decoration:none;position:relative;transition:padding-left var(--base) var(--ease)}
+.row:hover{padding-left:12px}
+.row .n{font-size:14px;color:var(--fg-3)}
+.row h3{font-size:clamp(30px,4.6vw,76px);font-weight:700;letter-spacing:-.045em}
+.row .meta{font-size:15px;color:var(--fg-2);max-width:40ch}
+.row .arrow{font-size:14px;color:var(--fg-2);transition:transform var(--base) var(--ease)}
+.row:hover .arrow{transform:translateX(6px)}
+.row img{display:none}
+.peek{position:fixed;left:0;top:0;width:min(30vw,420px);aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;transform:translate(-50%,-50%) scale(.92);transition:opacity var(--base),transform var(--base) var(--ease);background:var(--bg-2)}
+.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.peek img{width:100%;height:100%;object-fit:cover}
+@media (hover:none){.peek{display:none}.row img{display:block;grid-column:1/-1;border-radius:6px;aspect-ratio:16/10;object-fit:cover}}
+
+/* chapters */
+.chapter-head{display:grid;gap:clamp(28px,4vw,56px);margin-bottom:clamp(72px,10vw,160px)}
+.chapter-head .num{display:none}
+.chapter-head .meta{display:flex;flex-wrap:wrap;gap:10px 32px;font-size:14px;color:var(--fg-2)}
+.chapter-head .meta b{font-weight:500;color:var(--fg)}
+.chapter-head .lead{max-width:40ch}
+.beat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:28px;padding-block:clamp(56px,8vw,128px);border-top:1px solid var(--hair);scroll-margin-top:96px}
+.beat .label{grid-column:1/4;display:grid;gap:12px;align-content:start;position:sticky;top:110px;align-self:start}
+.beat .label .k{font-size:14px;color:var(--fg-2)}
+.beat .label .k b{color:var(--fg);font-weight:600;margin-right:6px}
+.beat .body{grid-column:4/13;display:grid;gap:clamp(32px,3.5vw,56px);min-width:0}
+.beat .body>.h-sub{max-width:20ch}
+.beat .body .lead{max-width:52ch}
+.beat.wide .body{grid-column:1/13}
+.rows{display:grid;border-top:1px solid var(--hair)}
+.rows>li{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:12px 32px;padding:26px 0;border-bottom:1px solid var(--hair)}
+.rows b{font-family:var(--display);font-weight:600;font-size:clamp(18px,1.4vw,22px);letter-spacing:-.025em;line-height:1.2}
+.rows p{color:var(--fg-2);font-size:16px}
+.rows.two{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;border-top:0}
+.rows.two>li{grid-template-columns:1fr;border-top:1px solid var(--hair);border-bottom:0}
+.dec{display:grid}
+.dec>li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px 24px;padding:clamp(28px,3.5vw,48px) 0;border-top:1px solid var(--hair)}
+.dec .n{font-size:14px;color:var(--fg-3);padding-top:10px}
+.dec h4{font-size:clamp(24px,2.4vw,40px);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:14px}
+.dec p{color:var(--fg-2);max-width:62ch}
+.dec .verdict{margin-top:14px;font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-size:clamp(18px,1.5vw,24px);line-height:1.3;color:var(--fg);max-width:48ch}
+.shot{border-radius:6px;overflow:hidden;background:var(--bg-2);position:relative}
+.shot img{width:100%;aspect-ratio:16/9;object-fit:cover;will-change:transform;transform:scale(1.08)}
+.cap{font-size:13px;color:var(--fg-2);margin-top:12px}
+.note{display:inline-flex;gap:12px;align-items:flex-start;padding:16px 18px;background:var(--bg-2);border-radius:8px;font-size:15px;max-width:64ch;color:var(--fg-2)}
+.note i{width:8px;height:8px;border-radius:50%;background:var(--ws-star);flex:none;margin-top:7px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--hair)}
+.metric{padding:32px 24px 32px 0;border-bottom:1px solid var(--hair);display:grid;gap:12px;align-content:start}
+.metric .big{font-family:var(--display);font-size:clamp(56px,7vw,120px);font-weight:700;letter-spacing:-.05em;line-height:.9;font-variant-numeric:tabular-nums}
+.metric .big.w{font-size:clamp(34px,3.4vw,56px);line-height:1;padding-top:.3em}
+.metric span:last-child{font-size:15px;color:var(--fg-2);max-width:26ch}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--hair)}
+.step{padding:24px 24px 24px 0;border-bottom:1px solid var(--hair);display:grid;gap:10px;align-content:start}
+.step .k{font-size:13px;color:var(--fg-2)}
+.step h4{font-size:clamp(20px,1.7vw,26px);font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.step p{font-size:15px;color:var(--fg-2)}
+
+/* Winking Star keeps its own palette inside the white page */
+.ws{background:var(--bg);color:var(--fg)}
+.ws .chapter-head h2,.ws .h-sub,.ws h4,.ws .rows b,.ws .metric .big{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+.ws .dec .verdict{color:var(--ws-forest)}
+.ws-hero{position:relative;border-radius:16px;overflow:hidden;background:var(--ws-blush);border:1px solid var(--ws-border);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;min-height:480px}
+.ws-hero .art{position:absolute;inset:0;left:38%;background:url(img/ws-hero-art.jpg) center right/cover no-repeat}
+.ws-hero .art::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ws-blush) 0%,rgba(255,241,234,0) 45%)}
+.ws-hero .copy{position:relative;z-index:1;padding:clamp(28px,4vw,64px);display:grid;gap:18px}
+.ws-hero .copy h3{font-family:var(--ws-display);font-weight:900;font-size:clamp(34px,4vw,68px);line-height:.98;color:var(--ws-forest)}
+.ws-hero .copy p{max-width:36ch;color:var(--ws-forest)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--ws-border);background:var(--ws-card);font-size:14px;font-weight:600;color:var(--ws-forest)}
+.strip-wrap{overflow:hidden;margin-inline:calc(-1 * var(--gutter));scrollbar-width:none}
+.strip-wrap::-webkit-scrollbar{display:none}
+.strip{display:flex;gap:clamp(16px,2vw,32px);padding-inline:var(--gutter);width:max-content;align-items:flex-start}
+.phone{width:clamp(220px,22vw,300px);flex:none;display:grid;gap:14px}
+.phone .frame{border-radius:36px;border:6px solid var(--ws-forest);background:var(--ws-forest);overflow:hidden;box-shadow:0 30px 60px rgba(18,53,31,.14)}
+.phone .frame img{width:100%;aspect-ratio:1290/2796;object-fit:cover}
+.phone .t{font-family:var(--ws-display);font-weight:900;font-size:18px;color:var(--ws-forest)}
+.phone .d{font-size:14px;color:var(--fg-2)}
+.themes{overflow:hidden;border-radius:12px;border:1px solid var(--ws-border);background:var(--ws-card)}
+.themes-track{display:flex;width:max-content;animation:tick 36s linear infinite}
+.themes-track img{height:120px;width:auto;display:block}
+.personas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.persona{background:var(--ws-card);border:1px solid var(--ws-border);border-radius:20px;padding:22px;display:grid;gap:8px;align-content:start}
+.persona .band{height:8px;border-radius:999px;padding:0}
+.persona .who{font-family:var(--ws-display);font-weight:900;font-size:22px;margin-top:6px;color:var(--ws-forest)}
+.persona .k{font-size:12px;font-weight:600;color:var(--ws-forest);margin-top:8px}
+.persona p{font-size:15px;color:var(--fg-2)}
+.journey{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.stage{scroll-snap-align:start;background:var(--ws-card);border:1px solid var(--ws-border);border-radius:16px;padding:20px;display:grid;gap:6px;align-content:start}
+.stage h4{font-size:19px}
+.stage .k{font-size:12px;font-weight:600;color:var(--ws-forest);margin-top:8px}
+.stage p{font-size:15px;color:var(--fg-2)}
+.loop{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.loop span{padding:10px 14px;border-radius:999px;background:var(--ws-card);border:1px solid var(--ws-border);font-weight:600;font-size:14px}
+.loop span.end{background:var(--ws-forest);color:#fff;border-color:var(--ws-forest)}
+.loop i{color:var(--fg-2);font-style:normal}
+.loop-label{font-size:13px;font-weight:600;color:var(--ws-forest);margin-bottom:10px}
+.demo{display:grid;gap:18px;padding:22px;border-radius:20px;background:var(--ws-card);border:1px solid var(--ws-border);position:relative;overflow:clip}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.demo-name{font-family:var(--ws-display);font-weight:900;font-size:22px;display:flex;align-items:center;gap:12px;color:var(--ws-forest)}
+.demo-name img{width:40px;height:40px;border-radius:12px}
+.demo-stars{font-weight:800;font-variant-numeric:tabular-nums;padding:8px 14px;border-radius:999px;background:var(--ws-mist);color:var(--ws-forest)}
+.demo-routines{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.rt{appearance:none;font:inherit;display:grid;gap:8px;justify-items:center;padding:16px 8px;border-radius:16px;border:2px solid var(--ws-border);background:var(--ws-canvas);color:var(--ws-forest);font-weight:700;font-size:14px;cursor:pointer;transition:transform var(--fast) var(--ease),background var(--fast),border-color var(--fast);position:relative;min-height:44px}
+.rt .em{font-size:32px;line-height:1}
+.rt:hover{transform:translateY(-2px);border-color:var(--ws-sage)}
+.rt[aria-pressed="true"]{background:var(--ws-mist);border-color:var(--ws-forest)}
+.rt[aria-pressed="true"]::after{content:"★";position:absolute;right:8px;top:6px;color:var(--ws-star);font-size:16px;animation:pop 500ms var(--ease)}
+@keyframes pop{0%{transform:scale(0) rotate(-30deg)}70%{transform:scale(1.4)}100%{transform:scale(1)}}
+.demo-pet{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.egg{width:84px;height:84px;border-radius:24px;background:var(--ws-mist);border:1px solid var(--ws-border);display:grid;place-items:center;font-size:44px;position:relative;overflow:hidden}
+.egg .fill{position:absolute;left:0;right:0;bottom:0;height:0;background:var(--ws-sage);transition:height 500ms var(--ease)}
+.egg .pet{position:relative}
+.egg.grow .pet{animation:pop 600ms var(--ease)}
+.spark{position:absolute;width:10px;height:10px;border-radius:50%;pointer-events:none;animation:spark 800ms var(--ease) forwards}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+.stages{display:flex;gap:6px;font-size:11px;font-weight:600;color:var(--fg-2)}
+.stages span{padding:4px 8px;border-radius:999px;border:1px solid var(--ws-border)}
+.stages span.on{background:var(--ws-forest);color:#fff;border-color:var(--ws-forest)}
+
+.screens{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.screen{aspect-ratio:9/12;border-radius:8px;border:1px dashed var(--fg-3);display:grid;place-items:end start;padding:12px;font-size:13px;color:var(--fg-2);min-width:0}
+.todo{background:var(--bg-2);color:var(--fg);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600}
+
+.principles{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-top:1px solid var(--hair)}
+.principle{grid-column:span 4;padding:36px 32px 36px 0;border-bottom:1px solid var(--hair);display:grid;gap:12px;align-content:start}
+.principle .n{font-size:14px;color:var(--fg-3)}
+.principle h3{font-size:clamp(22px,2vw,32px);font-weight:600;letter-spacing:-.035em;line-height:1.1}
+.principle p{font-size:16px;color:var(--fg-2)}
+
+footer.band{background:var(--bg-2)}
+.foot{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:end}
+.foot .big{grid-column:1/8}
+.foot .big h2{font-size:clamp(48px,8vw,140px);font-weight:700;letter-spacing:-.05em;line-height:.9}
+.links{grid-column:8/13;display:grid;border-top:1px solid var(--hair)}
+.links a{display:flex;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--hair);text-decoration:none;font-size:17px;font-weight:500;transition:padding-left var(--base) var(--ease)}
+.links a:hover{padding-left:10px}
+.links a span:last-child{font-size:14px;color:var(--fg-2);font-weight:400}
+.copyright{margin-top:clamp(48px,8vw,120px);font-size:13px;color:var(--fg-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* reveal */
+.rv{opacity:1}
+.js .rv.pre{opacity:0;transform:translateY(32px)}
+.rv.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .split .wd{display:inline-block;opacity:0;transform:translateY(.4em);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i) * 40ms)}
+.js .split.in .wd{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .js .hero h1.anim .ln span{animation:none;transform:none}
+  .js .hero-art.anim{animation:none;clip-path:none}
+  .ticker-track,.themes-track{animation:none}
+  .shot img,.hero-art img{transform:none!important}
+  .spark{display:none}
+  .rt[aria-pressed="true"]::after,.egg.grow .pet{animation:none}
+  .js .rv.pre{opacity:1;transform:none}
+  .js .split .wd{opacity:1;transform:none;transition:none}
+  .peek{transition:none}
+}
+@media (max-width:1100px){
+  .beat .label{grid-column:1/13;position:static}
+  .beat .body{grid-column:1/13}
+  .principle{grid-column:span 6}
+  .foot .big{grid-column:1/13}.links{grid-column:1/13}
+  .demo-routines{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .personas{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-art{max-width:420px}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .nav{grid-template-columns:auto 1fr auto}
+  .nav ul{max-width:50vw}
+  .row{grid-template-columns:40px minmax(0,1fr);row-gap:8px}
+  .row .meta{grid-column:2}.row .arrow{display:none}
+  .rows>li{grid-template-columns:minmax(0,1fr)}
+  .rows.two{grid-template-columns:minmax(0,1fr)}
+  .dec>li{grid-template-columns:minmax(0,1fr)}
+  .metrics{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .principle{grid-column:span 12;padding-right:0}
+  .screens{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .demo-routines{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ws-hero{grid-template-columns:minmax(0,1fr);min-height:0}
+  .ws-hero .art{left:0;opacity:.25}
+  .g>*{grid-column:1/-1!important}
+  .hero-art{max-width:none}
+  .hero-art img{aspect-ratio:16/10}
+}
+</style>
+
+<div class="progress" aria-hidden="true"></div>
+<div class="peek" aria-hidden="true"><img src="img/fx-cover.jpg" alt=""></div>
+<a class="skip" href="#work">Skip to work</a>
+
+<nav class="nav" aria-label="Sections">
+  <a class="brand" href="#top" aria-label="Shannon Hecker, back to top"><span class="full">Shannon Hecker</span><span class="short" aria-hidden="true">SH</span></a>
+  <ul>
+    <li><a class="l" href="#work">Work</a></li>
+    <li><a class="l" href="#fx">FX</a></li>
+    <li><a class="l" href="#fusion">Fusion</a></li>
+    <li><a class="l" href="#winking">Winking Star</a></li>
+    <li><a class="l" href="#ai">uoaui.ai</a></li>
+    <li><a class="l" href="#how">How I work</a></li>
+  </ul>
+  <a class="cta" href="#links">Contact</a>
+</nav>
+
+<main id="main">
+<header id="top" data-tone="light" class="hero">
+  <div class="wrap">
+    <p class="hero-top">Hi, I'm Shannon Hecker, a product designer in London. Lead design for FX and MarketsOne at Barclays, VP of Product Design at J.P. Morgan before that. I build what I design.</p>
+    <div class="hero-grid">
+      <div>
+        <h1 class="h-giant"><span class="ln" style="--i:0"><span>I design tools</span></span><span class="ln" style="--i:1"><span>where mistakes</span></span><span class="ln" style="--i:2"><span>cost money.</span></span></h1>
+        <div class="status-row" aria-label="Status">
+          <span><i></i>Winking Star · live on the App Store</span>
+          <span><i class="amber"></i>FX analytics · beta at Barclays</span>
+          <span><i class="amber"></i>uoaui.ai · private alpha</span>
+        </div>
+      </div>
+      <div class="hero-art"><img src="img/fx-cover.jpg" alt="FX execution analytics: a trading chart with progress and price on one canvas" fetchpriority="high"></div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
+      <span>Problem</span><span>Constraints</span><span>Explorations</span><span>Decisions and trade-offs</span><span>Full flows</span><span>Edge states</span><span>Outcomes</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ INDEX ============ -->
+<section id="work" data-tone="light" class="band">
+  <div class="wrap">
+    <div class="g" style="row-gap:40px;margin-bottom:clamp(48px,6vw,96px)">
+      <p class="eyebrow" style="grid-column:1/4">Three cases, one method</p>
+      <h2 class="h-section split" style="grid-column:4/12">Every case runs the same six beats. Problem, constraints, decisions and their trade-offs, the full flow, the edge states, the outcome.</h2>
+    </div>
+    <div class="index">
+      <a class="row" href="#fx" data-peek="img/fx-cover.jpg" data-cursor="big">
+        <span class="n">01</span>
+        <h3>FX execution analytics</h3>
+        <span class="meta">Barclays · 2025 to now · in beta. Five spreadsheets and a static chart became one chart a trader can act from.</span>
+        <span class="arrow">Read →</span>
+        <img src="img/fx-cover.jpg" alt="" loading="lazy">
+      </a>
+      <a class="row" href="#fusion" data-peek="img/fusion-cover.jpg" data-cursor="big">
+        <span class="n">02</span>
+        <h3>Fusion analytics dashboard</h3>
+        <span class="meta">J.P. Morgan · 2023 to 2025 · shipped. Board-ready analytics on Salt, zero accessibility violations, opened to clients in phase two.</span>
+        <span class="arrow">Read →</span>
+        <img src="img/fusion-cover.jpg" alt="" loading="lazy">
+      </a>
+      <a class="row" href="#winking" data-peek="img/ws-marketing.jpg" data-cursor="big">
+        <span class="n">03</span>
+        <h3>Winking Star</h3>
+        <span class="meta">Solo · live on the App Store · v1.0.4. A warm, ad-free routine app for families. Designed, built and shipped by me.</span>
+        <span class="arrow">Read →</span>
+        <img src="img/ws-marketing.jpg" alt="" loading="lazy">
+      </a>
+      <a class="row" href="#ai" data-peek="img/fx-action.jpg" data-cursor="big">
+        <span class="n">04</span>
+        <h3>uoaui.ai and how I use AI</h3>
+        <span class="meta">Private alpha. A design platform on Claude that builds screens from real design systems, and where a designer still matters.</span>
+        <span class="arrow">Read →</span>
+        <img src="img/fx-action.jpg" alt="" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FX ============ -->
+<section id="fx" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case one · Barclays · 2025 to now</p>
+          <h2 class="h-chapter">FX execution analytics</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span></div>
+      </div>
+    </header>
+
+    <div class="beat rv" id="fx-problem">
+      <div class="label"><span class="k"><b>01</b> Problem</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Keep the trader in one place, and cut the time from seeing a price move to acting on it.</h3>
+        <ul class="rows">
+          <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
+          <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
+        </ul>
+        <div class="shot para"><img src="img/fx-before.jpg" alt="The starting point: a static execution-over-time chart, a limit price log, arrival and risk transfer prices in spreadsheets" loading="lazy"></div>
+        <p class="note"><i></i>In beta with internal users at Barclays. Under NDA, so every screen here is my public rebuild with sample data, built from the production spec.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-users">
+      <div class="label"><span class="k"><b>02</b> Users and research</span></div>
+      <div class="body">
+        <h3 class="h-sub split">A trader who acts, a desk head who defends, and a quant who tunes.</h3>
+        <div class="shot para"><img src="img/fx-users.jpg" alt="Three user profiles: Dana Chen, senior execution trader; Marcus Webb, head of trading; Priya Nair, execution quant. Goals, frictions and what the app gives each" loading="lazy"></div>
+        <div class="shot para"><img src="img/fx-journey.jpg" alt="Dana's order lifecycle journey map from pre-trade to post-trade review, with thoughts, emotional experience, effort, tool switching and a product answer at each pain point" loading="lazy"></div>
+        <ul class="rows">
+          <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
+          <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
+          <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
+          <li><b>Watching people decide</b><p>I sat with a few clients to watch how they decide to trade now or wait. The question is always the same. Am I ahead of the market or behind it. That's the first thing the screen answers.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-constraints">
+      <div class="label"><span class="k"><b>03</b> Constraints</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Four things shaped every decision. None of them were mine to remove.</h3>
+        <ul class="rows">
+          <li><b>One platform, two audiences, old technology</b><p>Internal traders and external clients on the same system with different entitlements. One design had to serve both without a second codebase.</p></li>
+          <li><b>A charting vendor's engine</b><p>Some ideas were possible, some weren't, and some were possible but wrong. The vendor's limits became inputs, not blockers.</p></li>
+          <li><b>Compliance in the flow</b><p>Every action that changes an order needs a confirmation step and an audit trail. Safety could not mean leaving the chart.</p></li>
+          <li><b>The foundation was broken, so I fixed it first</b><p>The brief was to tidy the light theme. I read the code, the tokens and the naming and found hardcoded colours throughout, so one fix would break the next. I gave the product owner and engineering two options with costs. We shipped the feature work first, then phased the fix in the background, starting with the blotter because it was simple and single-themed.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-explore">
+      <div class="label"><span class="k"><b>04</b> Explorations</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Watch, assess, step in. Every branch lands on a screen.</h3>
+        <div class="shot para"><img src="img/fx-loop.jpg" alt="The decision loop flowchart: working order live, watch the canvas, percent done on schedule, average fill inside benchmarks, how to intervene, reprice, stage an order, fill now, cross-filter venues" loading="lazy"></div>
+        <div class="shot para"><img src="img/fx-problem.jpg" alt="The core design problem: two questions on one screen, how far along is my order and am I getting a good price, shown on the dual-axis chart with a pinned tooltip" loading="lazy"></div>
+        <p class="lead muted">Two questions, one screen. How far along is my order, and am I getting a good price. Show them apart and the trader flicks between charts under pressure. Mash them together and it's noise. The working principle: readable in two seconds, actionable in one click.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-decisions">
+      <div class="label"><span class="k"><b>05</b> Decisions and trade-offs</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Three calls that defined the product. Each one had a real alternative.</h3>
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Progress and price on one canvas, not two panels</h4><p>We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.</p><p class="verdict">One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.</p></div></li>
+          <li><span class="n">02</span><div><h4>Reprice on the chart, not in a settings menu</h4><p>The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.</p><p class="verdict">Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.</p></div></li>
+          <li><span class="n">03</span><div><h4>Studies on market prices only. A decision I reversed</h4><p>My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.</p><p class="verdict">I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-flow">
+      <div class="label"><span class="k"><b>06</b> The full flow</span></div>
+      <div class="body">
+        <h3 class="h-sub split">From monitoring to action, without leaving the chart.</h3>
+        <div class="shot para"><img src="img/fx-flow.jpg" alt="Twenty screens of the full flow: default view, legend, filters, date picker, order ticket, compare orders, hover tooltips, venue analysis, light and dark" loading="lazy"></div>
+        <div class="shot para"><img src="img/fx-action.jpg" alt="Hover a fill, right-click to act, drag the limit line and a pre-filled order ticket opens on the chart" loading="lazy"></div>
+        <p class="lead muted">Hover a fill to see the detail. Right-click to act. Drag a price line to reprice, and it opens a filled-in order ticket. Each step commits you a little more, so you can't reprice by accident. We turned a chart you watch into a chart you can trade from.</p>
+        <ul class="rows">
+          <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
+          <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
+          <li><b>Two version-one debts I paid in the rebuild</b><p>Patterned state regions tiled the canvas, so the exceptional read as normal. States now sit in a lane under the time axis. And volume-sized fill dots were honest at twenty clips and a smear at three hundred. Fills now group into counted clusters that expand on zoom.</p></li>
+          <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-edge">
+      <div class="label"><span class="k"><b>07</b> Edge and validation states</span></div>
+      <div class="body">
+        <h3 class="h-sub split">The states a trader hits when things are not normal.</h3>
+        <ul class="rows two">
+          <li><b>Order can't trade</b><p>Suspended, delayed start and outside limit each get their own lane under the time axis, so the price field stays quiet and the state is readable at a glance.</p></li>
+          <li><b>Colour never carries meaning alone</b><p>Every series has its own shape and dash as well as a colour. Favourable and adverse values say so in words, not just in green and red.</p></li>
+          <li><b>Repricing by accident</b><p>Drag opens a pre-filled ticket. Nothing changes until it's confirmed.</p></li>
+          <li><b>No data yet, light or dark, hundreds of fills</b><p>Empty and loading states for a new order. Both themes, because traders run dark rooms and sales run bright ones. Clusters at scale.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-outcome">
+      <div class="label"><span class="k"><b>08</b> Outcome</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Where it is today, and how it will be measured.</h3>
+        <div class="metrics">
+          <div class="metric"><span class="big" data-count="6">6</span><span>build phases. The spec was accepted by business and vendor as the contract</span></div>
+          <div class="metric"><span class="big w">Beta</span><span>in use with internal users at Barclays today</span></div>
+          <div class="metric"><span class="big" data-count="3">3</span><span>measures agreed for rollout. Price move to action, tool switches per order, usage per feature</span></div>
+        </div>
+        <div class="shot para"><img src="img/fx-outcomes.jpg" alt="Outcomes: spec accepted as the build contract, in beta with internal users, measures agreed for rollout, rebuilt in code to test the decisions" loading="lazy"></div>
+        <p class="muted measure">No adoption numbers are claimed before rollout. I hold my designs to the same standard as the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUSION ============ -->
+<section id="fusion" data-tone="light" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case two · J.P. Morgan · 2023 to 2025 · shipped</p>
+          <h2 class="h-chapter">Fusion analytics dashboard</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · VP, Product Design. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span></div>
+      </div>
+    </header>
+
+    <div class="beat rv" id="fu-problem">
+      <div class="label"><span class="k"><b>01</b> Problem</span></div>
+      <div class="body">
+        <div class="shot para"><img src="img/fusion-cover.jpg" alt="Fusion analytics dashboard screens laid out at an angle: performance tables, returns charts, allocation and risk views" loading="lazy"></div>
+        <ul class="rows">
+          <li><b>Salt, the firm's design system</b><p>Every component had to come from Salt or go back into it. I built the Fusion layer on top and contributed back. My craft shows in layout, hierarchy and data density, not in new components.</p></li>
+          <li><b>FactSet's engine behind the data</b><p>The analytics came from a partner engine, so the shape of the data was fixed. Design had to fit what the engine could return, fast.</p></li>
+          <li><b>Accessibility as a gate, not a finish</b><p>An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.</p></li>
+          <li><b>Two constraints that pulled against each other</b><p>Dense data and decision speed. I named them both, then built the conflict into the design. Type, hierarchy and colour were set for the worst-case viewing moment, someone presenting live under pressure.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-workflow">
+      <div class="label"><span class="k"><b>02</b> Research and workflow</span></div>
+      <div class="body">
+        <h3 class="h-sub split">One analyst, from a raw data cube to a board-ready page.</h3>
+        <div class="steps">
+          <div class="step"><span class="k">01 SELECT</span><h4>A data cube</h4><p>FactSet feeding it.</p></div>
+          <div class="step"><span class="k">02 FILTER</span><h4>Slice it</h4><p>Advanced filtering, toggles, deep slicing.</p></div>
+          <div class="step"><span class="k">03 ANALYSE</span><h4>Returns, attribution, risk</h4><p>Across asset classes.</p></div>
+          <div class="step"><span class="k">04 REPORT</span><h4>Board-ready</h4><p>Without leaving the surface.</p></div>
+        </div>
+        <ul class="rows">
+          <li><b>Sketch, wireframe, high fidelity</b><p>Each flow went through paper, then wireframes, then built screens on Salt. The sketches set the information hierarchy before any visual decision.</p></li>
+          <li><b>The review cycle</b><p>Requirements with the product owner, iteration with UX, review with product, engineering and the accessibility specialist, then pixel-level work with developers in daily stand-ups.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-decisions">
+      <div class="label"><span class="k"><b>03</b> Decisions and trade-offs</span></div>
+      <div class="body">
+        <h3 class="h-sub split">What I tried, what I dropped, and why.</h3>
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Modular widgets over fixed page templates</h4><p>Fixed layouts were faster to ship, but every new data cube would have needed a new page.</p><p class="verdict">The grid won because one widget serves many cubes and permission levels.</p></div></li>
+          <li><span class="n">02</span><div><h4>Cut a customisation tier</h4><p>Early versions had three levels of configuration. Testing showed the middle tier added cognitive load without changing what people built.</p><p class="verdict">I removed it. The test I use for what not to design: is this serving a real workflow contradiction, or one team's preference?</p></div></li>
+          <li><span class="n">03</span><div><h4>Same screens for internal and external users</h4><p>Phase two brought in clients who'd had no training.</p><p class="verdict">One product with entitlement-based views over a simplified client version, so patterns stayed consistent and the team kept one codebase.</p></div></li>
+          <li><span class="n">04</span><div><h4>What I'd do differently</h4><p>Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules.</p><p class="verdict">And bring the accessibility specialist in from week one, not mid-flow.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-design">
+      <div class="label"><span class="k"><b>04</b> Design and system</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Configurable pages built from modular widgets, on a layer I made on top of Salt.</h3>
+        <div class="shot para"><img src="img/fusion-design.jpg" alt="Fusion performance results table with a configuration panel, and a sustainable investment portfolio report with a clustered column chart and a date range picker" loading="lazy"></div>
+        <ul class="rows">
+          <li><b>One widget, many cubes</b><p>The same widget works across different data cubes and permission levels. One design serves a portfolio manager and a client who can only see part of the book. Users build their own views and import and export through FactSet.</p></li>
+          <li><b>What I built</b><p>Tokens, components and patterns for Fusion on top of Salt. Data tables, chart frames, filter bars, widget shells, the accessibility layers. Where Salt had a gap, I built it and contributed it back upstream.</p></li>
+          <li><b>Why a layer, not a fork</b><p>A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.</p></li>
+          <li><b>How it was adopted</b><p>Other Fusion product teams built their journeys on the same components, which is how the analytics patterns spread across modules without me in every room.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-outcome">
+      <div class="label"><span class="k"><b>05</b> Outcome</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Shipped, adopted, and opened to clients.</h3>
+        <div class="metrics">
+          <div class="metric"><span class="big" data-count="0">0</span><span>accessibility violations. Shipped to WCAG AA with a specialist in reviews from the start</span></div>
+          <div class="metric"><span class="big w">Adopted</span><span>widget and filtering patterns reused across other Fusion modules</span></div>
+          <div class="metric"><span class="big w">Phase 2</span><span>opened the product to external clients, and several signed after that launch</span></div>
+        </div>
+        <div class="shot para"><img src="img/fusion-outcome.jpg" alt="Outcome screens: the ID exceptions studio table with summary cards, a configuration panel, and the component picker that other teams build on" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WINKING STAR ============ -->
+<section id="winking" data-tone="light" class="ws band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case three · Solo · live on the App Store</p>
+          <h2 class="h-chapter">Winking Star</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A warm, ad-free routine app for families. Every check earns a star, and every week those stars grow a Mystery Pet. I designed and built it on my own, so the visual decisions, the copy and the code are all mine.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Stack</b> · React Native, Expo, Firebase</span><span><b>Status</b> · Live, v1.0.4, iPhone and iPad</span><span><b>Languages</b> · EN, FR, ES, DE, 繁體中文</span></div>
+      </div>
+    </header>
+
+    <div class="beat wide rv" id="ws-hero">
+      <div class="body">
+        <div class="ws-hero">
+          <div class="art" aria-hidden="true"></div>
+          <div class="copy">
+            <h3>Tiny routines, happy families</h3>
+            <p>Kids check off their day. Stars hatch a pet that grows through four stages as the week fills up. On Monday a new pet arrives, so there is always something to look forward to.</p>
+            <div class="chips"><span class="chip">No ads, ever</span><span class="chip">No tracking</span><span class="chip">Up to 6 kids</span><span class="chip">Co-parents on one board</span></div>
+          </div>
+          <div aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-problem">
+      <div class="label"><span class="k"><b>01</b> Problem and research</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Bedtime in our house was a nag loop. Every chore chart we tried was built for adults.</h3>
+        <ul class="rows">
+          <li><b>Problem</b><p>Teeth, bath, reading, Mandarin practice, out of the door for a walk. Two children, two adults, and no shared view of what was done. The kids stopped looking at every chart within a week.</p></li>
+          <li><b>Research</b><p>Built for my own two kids first and watched them use it every evening. I read what works for five to seven year olds: big icons, sticker mechanics, bright colour and celebration moments beat any checklist. Naming research too. Sparkle and Twinkle were taken, so it became Winking Star.</p></li>
+          <li><b>Goal and success measure</b><p>A child who asks to tick their own stars, and a parent who opens it the next evening without being reminded. Routines completed per week, weeks retained, and whether a second adult joins the board.</p></li>
+          <li><b>Constraints</b><p>Solo, evenings and weekends. Free to start with a one-off lifetime unlock, no ads and no subscription, because it's for children. Kids Category rules on the App Store shaped the parental gate and the privacy manifest.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-personas">
+      <div class="label"><span class="k"><b>02</b> Personas</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Three users, one star. Nobody has the same job.</h3>
+        <div class="personas">
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,var(--ws-sage),var(--ws-forest))"></div>
+            <div class="who">The child · Leo, 6</div>
+            <p>Can't read much yet. Knows his own name, his colour and his football.</p>
+            <span class="k">Wants</span><p>To tick it himself, see the star land, and find out what the pet turns into.</p>
+            <span class="k">Breaks when</span><p>A word he can't read is in the way. A tap target is small. A missed day makes the week feel lost.</p>
+            <span class="k">Design answer</span><p>A big illustrated banner per theme, celebration on every tick, and a weekly pet so one bad day doesn't end the game.</p>
+          </div>
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,#b9cee3,#494fdf)"></div>
+            <div class="who">The parent · sets it up</div>
+            <p>Downloads it after another bedtime argument. Decides in two minutes if it stays.</p>
+            <span class="k">Wants</span><p>Routines done without nagging. One place both adults can see. Nothing that sells to her kids.</p>
+            <span class="k">Breaks when</span><p>Setup takes more than a minute. An ad appears. The app hands the phone to the child with no guard rails.</p>
+            <span class="k">Design answer</span><p>A sample family on first open, so value shows before any setup. Kid Mode and a parental gate. Custom activities, so Mandarin sits next to teeth.</p>
+          </div>
+          <div class="persona">
+            <div class="band" style="background:linear-gradient(90deg,var(--ws-star),var(--ws-peach))"></div>
+            <div class="who">The second adult · never opted in</div>
+            <p>Partner, grandparent, childminder. Got an invite on WhatsApp. Has thirty seconds.</p>
+            <span class="k">Wants</span><p>To tick a star and get back to bedtime.</p>
+            <span class="k">Breaks when</span><p>Any learning. A board that looks different from the one the kids know.</p>
+            <span class="k">Design answer</span><p>Invite to the same board, same screen, same stars, from their own phone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat wide rv" id="ws-flow">
+      <div class="body">
+        <div class="g" style="row-gap:24px">
+          <span class="k mono" style="grid-column:1/4;color:var(--ws-forest)"><b>03</b> The full flow</span>
+          <h3 class="h-sub split" style="grid-column:4/11">Four tabs, one week. Home, Activity, Treasure, Progress.</h3>
+        </div>
+        <div class="strip-wrap" tabindex="0" aria-label="App screens, scrollable"><div class="strip" id="strip">
+          <div class="phone"><div class="frame"><img src="img/ws-home.jpg" alt="Home tab: The Sample Family, today 23 of 30 done, recent celebrations such as Leo the Brave hatched a cat named Shaul" loading="lazy"></div><span class="t">Home</span><span class="d">Today's count for the whole family, and a feed of what each kid hatched or earned.</span></div>
+          <div class="phone"><div class="frame"><img src="img/ws-activity.jpg" alt="Activity tab: Leo the Brave's star week, 36 of 70 stars, pet growth card showing Shaul is growing, weekly goal park picnic" loading="lazy"></div><span class="t">Activity</span><span class="d">Pick a kid, tap today's big star spots. The pet card shows how many stars to the next stage.</span></div>
+          <div class="phone"><div class="frame"><img src="img/ws-treasure.jpg" alt="Treasure tab: treasure room with 3 surprises found, next mystery spot after 10 activities, pet pal cat family" loading="lazy"></div><span class="t">Treasure</span><span class="d">Surprises drop as activities complete. A shelf for finds, and the pet pals collected so far.</span></div>
+          <div class="phone"><div class="frame"><img src="img/ws-progress.jpg" alt="Progress tab: Leo the Brave's map, 8 of 10 stops complete today, week 18 of 70, streak and badges" loading="lazy"></div><span class="t">Progress</span><span class="d">Today's route as a map, with streaks and badges. Each stop fills as the day's activities finish.</span></div>
+          <div class="phone"><div class="frame"><img src="img/ws-welcome.jpg" alt="Onboarding welcome screen with the Winking Star mascot on cream with botanical doodles" loading="lazy"></div><span class="t">First open</span><span class="d">The sample family is already there. A parent sees the whole loop before adding anyone.</span></div>
+        </div></div>
+        <p class="cap">Captures from the live app, v1.0.4, on iPhone 15 Pro Max. Sample family data.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-journey">
+      <div class="label"><span class="k"><b>04</b> Journey</span></div>
+      <div class="body">
+        <h3 class="h-sub split">From a bad bedtime to week two.</h3>
+        <p class="muted measure">The parent's journey, with the child's feeling underneath, the moment it breaks, and what the design does about it. Scroll sideways on a phone.</p>
+        <div class="journey" tabindex="0" aria-label="Journey stages, scrollable">
+          <div class="stage"><h4>1 · Another bad bedtime</h4><span class="k">Parent does</span><p>Searches for a chore chart app. Most are checklists, subscriptions or ads.</p><span class="k">Child feels</span><p>Fed up.</p><span class="k">Where it breaks</span><p>Nothing is made for a six-year-old.</p><span class="k">Design answer</span><p>Ad-free, kid-first on the store page.</p></div>
+          <div class="stage"><h4>2 · First open</h4><span class="k">Parent does</span><p>Opens the app and finds the Sample Family already set up.</p><span class="k">Child feels</span><p>Curious.</p><span class="k">Where it breaks</span><p>Asked to set up before seeing value.</p><span class="k">Design answer</span><p>A working sample board first. Add your own family when you like it.</p></div>
+          <div class="stage"><h4>3 · First tick</h4><span class="k">Parent does</span><p>Hands the phone over. The child taps teeth. A star lands and confetti fires.</p><span class="k">Child feels</span><p>Delighted.</p><span class="k">Where it breaks</span><p>The child can't read the label, or taps Settings.</p><span class="k">Design answer</span><p>Icon per activity, big targets, Kid Mode locks editing.</p></div>
+          <div class="stage"><h4>4 · End of day</h4><span class="k">Parent does</span><p>Checks Home. The pet grew a stage. A treasure dropped.</p><span class="k">Child feels</span><p>Proud, or a bit flat.</p><span class="k">Where it breaks</span><p>A missed routine feels like failure.</p><span class="k">Design answer</span><p>Stars count up. The pet grows on what was done, not what was missed.</p></div>
+          <div class="stage"><h4>5 · End of week</h4><span class="k">Parent does</span><p>Prints the weekly summary for the fridge. Monday, a new pet arrives.</p><span class="k">Child feels</span><p>Excited.</p><span class="k">Where it breaks</span><p>If Monday is dull, week two never happens.</p><span class="k">Design answer</span><p>A new egg every Monday, and the old pet joins the Pet Pals collection.</p></div>
+          <div class="stage"><h4>6 · Second adult joins</h4><span class="k">Parent does</span><p>Invites grandma to the board. She opens it and ticks a bath.</p><span class="k">Child feels</span><p>Relieved, and a bit smug.</p><span class="k">Where it breaks</span><p>A second board, a second set of rules.</p><span class="k">Design answer</span><p>One shared board. Same screen on every phone.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-loops">
+      <div class="label"><span class="k"><b>05</b> Loops and decisions</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Two loops and six decisions.</h3>
+        <div>
+          <div class="loop-label">Daily · ten seconds</div>
+          <div class="loop"><span>Open</span><i>→</i><span>Pick your child</span><i>→</i><span>Tap a star spot</span><i>→</i><span>Star lands</span><i>→</i><span>Celebration</span><i>→</i><span class="end">Pet grows a little</span></div>
+        </div>
+        <div>
+          <div class="loop-label">Weekly · the reason to come back</div>
+          <div class="loop"><span>Seven days of stars</span><i>→</i><span>Four pet stages</span><i>→</i><span>Treasures and badges</span><i>→</i><span>Fridge summary</span><i>→</i><span class="end">Monday, a new pet</span></div>
+        </div>
+        <div class="demo" id="demo">
+          <div class="demo-head"><span class="demo-name"><img src="img/ws-icon.png" alt="">Try it · Leo, Tuesday</span><span class="demo-stars" id="demo-stars" aria-live="polite">0 of 6 stars</span></div>
+          <div class="demo-routines" role="group" aria-label="Tick a routine">
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🦷</span>Teeth</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🛁</span>Bath</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">📖</span>Reading</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🀄</span>Mandarin</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🚶</span>Walk</button>
+            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">😴</span>Sleep</button>
+          </div>
+          <div class="demo-pet">
+            <div class="egg" id="egg" aria-hidden="true"><div class="fill" id="egg-fill"></div><span class="pet" id="egg-pet">🥚</span></div>
+            <div style="display:grid;gap:10px">
+              <div class="stages" id="stages" aria-hidden="true"><span class="on">Egg</span><span>Hatching</span><span>Growing</span><span>Grown</span></div>
+              <p class="muted" id="demo-msg">The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.</p>
+            </div>
+          </div>
+        </div>
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Stars and a pet, not a checklist</h4><p>Explored a plain tick list. Research on five to seven year olds said big icons, stickers and celebration win. The checklist lost in our own house within a week.</p></div></li>
+          <li><span class="n">02</span><div><h4>A weekly pet with four stages, not a daily score</h4><p>Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.</p></div></li>
+          <li><span class="n">03</span><div><h4>A sample family before any setup</h4><p>Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.</p></div></li>
+          <li><span class="n">04</span><div><h4>A theme per child, drawn not templated</h4><p>Explored one look for all. Kids find their own card by colour and picture before they can read. Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.</p></div></li>
+          <li><span class="n">05</span><div><h4>A parental gate, not a locked app</h4><p>Explored a PIN. Parents forget PINs and kids watch them type. A quick maths question gates anything that leaves the app, uploads a photo or deletes an account, and Kid Mode locks editing so the phone can be handed over mid-routine.</p></div></li>
+          <li><span class="n">06</span><div><h4>Lifetime unlock, not a subscription</h4><p>Explored a small subscription. Dropped it. It's for children, and trust is the product. Free to start, one payment if you want everything, no ads, no third-party tracking.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat wide rv" id="ws-themes">
+      <div class="body">
+        <div class="themes" aria-label="Theme banners from the app, scrolling"><div class="themes-track">
+          <img src="img/ws-theme-football.jpg" alt="Football theme banner" loading="lazy"><img src="img/ws-theme-dino.jpg" alt="Dinosaur theme banner" loading="lazy"><img src="img/ws-theme-ocean.jpg" alt="Ocean theme banner" loading="lazy"><img src="img/ws-theme-unicorn.jpg" alt="Unicorn theme banner" loading="lazy">
+          <img src="img/ws-theme-football.jpg" alt="" loading="lazy"><img src="img/ws-theme-dino.jpg" alt="" loading="lazy"><img src="img/ws-theme-ocean.jpg" alt="" loading="lazy"><img src="img/ws-theme-unicorn.jpg" alt="" loading="lazy">
+        </div></div>
+        <p class="cap">Four of the fourteen theme banners. Each kid's card, activity row and pet carry their theme.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-edge">
+      <div class="label"><span class="k"><b>06</b> Edge cases and states</span></div>
+      <div class="body">
+        <h3 class="h-sub split">The states most people never see.</h3>
+        <ul class="rows two">
+          <li><b>First run, no family yet</b><p>The Sample Family is the empty state. Add your own kids when the loop makes sense, and the sample goes away.</p></li>
+          <li><b>A missed routine, or a missed day</b><p>Stars never go negative and nothing turns red. The day just has fewer stars. The pet still grows on what was done.</p></li>
+          <li><b>Midnight</b><p>The day rolls over at local midnight even with the app open, so a late tick lands on the right day. That one shipped as a fix in 1.0.4.</p></li>
+          <li><b>Offline in the bathroom</b><p>An offline banner, ticks queued, synced on reconnect. Two adults can tick the same kid from two phones.</p></li>
+          <li><b>Split homes and birthdays</b><p>A custody label, "at Mum's this week", so the board reads right in both houses. A birthday banner for the whole birthday week.</p></li>
+          <li><b>Accessibility</b><p>VoiceOver on every tab, Dynamic Type with a scaling cap so nothing clips, Reduce Motion respected, and Calm Mode turns confetti off for families who want quieter feedback. Colour never marks state alone.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ws-outcome">
+      <div class="label"><span class="k"><b>07</b> Outcome</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Live, in five languages, and in daily use in my own house first.</h3>
+        <div class="metrics">
+          <div class="metric"><span class="big w">1.0.4</span><span>live on the App Store, iPhone and iPad, free with no ads</span></div>
+          <div class="metric"><span class="big" data-count="5">5</span><span>languages. English, French, Spanish, German and Traditional Chinese</span></div>
+          <div class="metric"><span class="big"><span class="todo">__</span></span><span>downloads and rating, from App Store Connect</span></div>
+        </div>
+        <ul class="rows">
+          <li><b>What shipped after launch</b><p>Four releases so far. Privacy and safety work for the Kids Category, smoother weekly stars and treasures, the midnight rollover fix, VoiceOver improvements, faster startup, and rating from Settings.</p></li>
+          <li><b>What I'd change next</b><p>The pet card still truncates its helper text at the smallest sizes, and the pet family labels aren't translated yet. Both are on the list, found in my own usability pass.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI ============ -->
+<section id="ai" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Private alpha · practice, not a shipped product</p>
+          <h2 class="h-chapter">uoaui.ai</h2>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, with their official React components. Switch system, density or theme and the screen rebuilds.</p>
+      </div>
+    </header>
+
+    <div class="beat rv" id="ai-what">
+      <div class="label"><span class="k"><b>01</b> The problem underneath</span></div>
+      <div class="body">
+        <ul class="rows">
+          <li><b>Designing for output you can't predict</b><p>Where the system acts and where it asks. How a person stays in control without making the AI useless. The compare and tune steps are my answer so far. The model drafts, I decide.</p></li>
+          <li><b>Who it's for, and the trap</b><p>Designers like me, which is dangerous, because designing for yourself hides your blind spots. The alpha exists partly to break my own assumptions.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-flow">
+      <div class="label"><span class="k"><b>02</b> The flow</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Prompt to production screen.</h3>
+        <div class="screens">
+          <div class="screen">1 · Prompt</div><div class="screen">2 · Generate</div><div class="screen">3 · Compare systems</div><div class="screen">4 · Tune a chart</div><div class="screen">5 · Export React</div>
+        </div>
+        <p class="muted"><span class="todo">Screens to add</span> One run through the builder, captured from the alpha.</p>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-decisions">
+      <div class="label"><span class="k"><b>03</b> Decisions and trade-offs</span></div>
+      <div class="body">
+        <ol class="dec">
+          <li><span class="n">01</span><div><h4>Official components only, never overridden</h4><p>We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable.</p><p class="verdict">Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.</p></div></li>
+          <li><span class="n">02</span><div><h4>Five systems, one model underneath</h4><p>I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand.</p><p class="verdict">Where the systems disagree, I chose the strictest definition each time.</p></div></li>
+          <li><span class="n">03</span><div><h4>Compare and tune before export</h4><p>The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports.</p><p class="verdict">That's where the person decides, and where I correct the model most often.</p></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-judgement">
+      <div class="label"><span class="k"><b>04</b> AI at work</span></div>
+      <div class="body">
+        <h3 class="h-sub split">Where Figma still matters, and where a designer still does.</h3>
+        <ul class="rows">
+          <li><b>Figma for foundations</b><p>The better the design file, the better the AI output. At Barclays I'm matching Figma naming to the code so there's no gap in either direction. When the model can't get the spacing right, I point it at the file. Everything after that, I'd rather iterate in code.</p></li>
+          <li><b>Built from the terminal</b><p>Both public rebuilds in this portfolio were made with Claude Code and Codex, in days, to test decisions with real-shaped data. Winking Star shipped the same way.</p></li>
+          <li><b>Where a designer still matters</b><p>A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our system, showed both, and we could ship in two weeks instead of months. A generated screen still needs someone who watched how people work.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW I WORK ============ -->
+<section id="how" data-tone="light" class="band">
+  <div class="wrap">
+    <div class="g" style="row-gap:40px;margin-bottom:clamp(40px,5vw,72px)">
+      <p class="eyebrow" style="grid-column:1/4">How I work</p>
+      <h2 class="h-section split" style="grid-column:4/12">The habits behind the three cases.</h2>
+    </div>
+    <div class="principles">
+      <div class="principle rv"><span class="n">01</span><h3>Start from the job, not the screen</h3><p>Every brief arrives as a screen request. I go back one step to the job it sits in. When a brief feels small but the problem feels structural, the job is to widen the conversation.</p></div>
+      <div class="principle rv"><span class="n">02</span><h3>Get to users, whatever is in the way</h3><p>Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Clients watched deciding. My own kids at bedtime.</p></div>
+      <div class="principle rv"><span class="n">03</span><h3>Three options, then narrow</h3><p>I bring three or four directions, mapped fast. People rarely know what they want until it's in front of them, and every no tells me where to go.</p></div>
+      <div class="principle rv"><span class="n">04</span><h3>Decide what not to design</h3><p>Is this serving a real workflow contradiction, or one team's preference? If we're adding because we have a hypothesis, fine. If we're adding to feel productive, cut it.</p></div>
+      <div class="principle rv"><span class="n">05</span><h3>Build it to test it</h3><p>If I can't prove a decision in Figma, I build it. The reversed decision in the FX case came from code, not a picture.</p></div>
+      <div class="principle rv"><span class="n">06</span><h3>Accessibility is a gate</h3><p>Zero violations on Fusion. VoiceOver, Dynamic Type and Calm Mode in Winking Star. Shape and dash beside colour on every FX series.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="links" class="band">
+  <div class="wrap">
+    <div class="foot">
+      <div class="big">
+        <p class="eyebrow" style="margin-bottom:24px">Live links</p>
+        <h2>Everything here is real and checkable.</h2>
+        <p class="muted measure" style="margin-top:24px">Shipped work is live. In-flight work says so. Rebuilds are labelled as mine.</p>
+      </div>
+      <div class="links">
+        <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star</span><span>App Store →</span></a>
+        <a href="https://winkingstar.com" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star site</span><span>winkingstar.com →</span></a>
+        <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener" data-cursor="big"><span>FX execution analytics, rebuild</span><span>GitHub Pages →</span></a>
+        <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener" data-cursor="big"><span>Fusion analytics, rebuild</span><span>Vercel →</span></a>
+        <a href="https://shannonhecker.com" target="_blank" rel="noopener" data-cursor="big"><span>Full portfolio</span><span>shannonhecker.com →</span></a>
+        <a href="https://www.linkedin.com/in/shannonhecker/" target="_blank" rel="noopener" data-cursor="big"><span>LinkedIn</span><span>in/shannonhecker →</span></a>
+      </div>
+    </div>
+    <p class="copyright"><span>Shannon Hecker · Product Designer · London</span><span>uoaui.ai on request</span></p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  document.documentElement.lang='en';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var hasGsap = !reduce && window.gsap && window.ScrollTrigger;
+  if(hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  // hero lines
+  var h1=document.querySelector('.hero h1'); if(h1 && !reduce) h1.classList.add('anim');
+  var ha=document.querySelector('.hero-art'); if(ha && !reduce) ha.classList.add('anim');
+  if(!reduce){ document.querySelectorAll('.split').forEach(function(h){ var i=0; h.innerHTML=h.innerHTML.split(/(\s+)/).map(function(t){ if(!t.trim()) return t; if(t.indexOf('<')>-1) return t; return '<span class="wd" style="--i:'+(i++)+'">'+t+'</span>'; }).join(''); }); }
+
+  // reveal (CSS fallback keeps content visible if JS fails)
+  var rvs=[].slice.call(document.querySelectorAll('.rv, .split'));
+  if(!reduce){
+    var vh=innerHeight;
+    rvs.forEach(function(el){ if(el.getBoundingClientRect().top>vh*.9) el.classList.add('pre'); });
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('pre'); e.target.classList.add('in'); io.unobserve(e.target);} }); },{rootMargin:'0px 0px 10% 0px'});
+      rvs.forEach(function(el){ io.observe(el); });
+    } else { rvs.forEach(function(el){ el.classList.remove('pre'); }); }
+  }
+  function sweep(){ var lim=scrollY+innerHeight*1.2; document.querySelectorAll('.rv.pre').forEach(function(el){ if(el.getBoundingClientRect().top+scrollY<lim){ el.classList.remove('pre'); el.classList.add('in'); } }); }
+
+  // scroll-driven: parallax images, horizontal strip, count-ups
+  if(hasGsap){
+    var hi=document.querySelector('.hero-art img'); if(hi) gsap.to(hi,{yPercent:12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    document.querySelectorAll('.shot.para img').forEach(function(img){
+      gsap.fromTo(img,{yPercent:-4},{yPercent:4,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}});
+    });
+    var strip=document.getElementById('strip');
+    if(strip && innerWidth>900){
+      var dist=function(){ return Math.max(0, strip.scrollWidth - innerWidth + 80); };
+      gsap.to(strip,{x:function(){return -dist();},ease:'none',scrollTrigger:{trigger:strip.parentElement,start:'center 60%',end:function(){return '+='+(dist()*0.9);},scrub:.6,invalidateOnRefresh:true}});
+    }
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var to=parseInt(el.getAttribute('data-count'),10); var o={v:0};
+      ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:function(){ gsap.to(o,{v:to,duration:1.2,ease:'power2.out',onUpdate:function(){ el.textContent=Math.round(o.v); }}); }});
+    });
+    document.querySelectorAll('.chapter-head .num').forEach(function(n){
+      gsap.fromTo(n,{xPercent:-6},{xPercent:6,ease:'none',scrollTrigger:{trigger:n,start:'top bottom',end:'bottom top',scrub:true}});
+    });
+  } else if(!reduce){
+    var strip2=document.getElementById('strip'); if(strip2){ strip2.parentElement.style.overflowX='auto'; }
+  } else {
+    var strip3=document.getElementById('strip'); if(strip3){ strip3.parentElement.style.overflowX='auto'; }
+  }
+  // on phones the strip scrolls natively
+  if(innerWidth<=900){ var s=document.getElementById('strip'); if(s) s.parentElement.style.overflowX='auto'; }
+
+  // hover peek on the work index
+  var peek=document.querySelector('.peek'), peekImg=peek&&peek.querySelector('img');
+  if(fine && !reduce && peek){
+    var cx=0,cy=0,px=0,py=0;
+    addEventListener('mousemove',function(e){ cx=e.clientX; cy=e.clientY; },{passive:true});
+    (function loop(){ px+=(cx-px)*.18; py+=(cy-py)*.18; if(peek.classList.contains('on')){ peek.style.left=(px+40)+'px'; peek.style.top=py+'px'; } requestAnimationFrame(loop); })();
+    document.querySelectorAll('[data-peek]').forEach(function(el){
+      el.addEventListener('mouseenter',function(){ peekImg.src=el.getAttribute('data-peek'); px=cx; py=cy; peek.classList.add('on'); });
+      el.addEventListener('mouseleave',function(){ peek.classList.remove('on'); });
+    });
+  }
+
+  // progress + nav current
+  var prog=document.querySelector('.progress');
+  var navLinks=[].slice.call(document.querySelectorAll('.nav a.l')); var nav=document.querySelector('.nav'); var tones=[].slice.call(document.querySelectorAll('[data-tone]'));
+  var sections=navLinks.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  function upd(){
+    var h=document.documentElement.scrollHeight-innerHeight; if(prog) prog.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';
+    var y=scrollY+innerHeight*.35, cur=null; sections.forEach(function(s){ if(s.offsetTop<=y) cur=s; });
+    navLinks.forEach(function(a){ var on=cur && a.getAttribute('href')==='#'+cur.id; if(on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    nav.classList.toggle('solid', scrollY>40);
+    sweep();
+  }
+  var t; addEventListener('scroll',function(){ if(t) return; t=requestAnimationFrame(function(){ upd(); t=null; }); },{passive:true});
+  addEventListener('resize',upd); upd();
+
+  // winking star demo
+  var demo=document.getElementById('demo');
+  if(demo){
+    var btns=[].slice.call(demo.querySelectorAll('.rt')), stars=document.getElementById('demo-stars'), egg=document.getElementById('egg'), fill=document.getElementById('egg-fill'), pet=document.getElementById('egg-pet'), msg=document.getElementById('demo-msg'), stg=[].slice.call(document.querySelectorAll('#stages span'));
+    var colors=['#f3a414','#a9d5b2','#ffe0d2','#12351f','#b9cee3'];
+    var faces=['🥚','🐣','🐱','😺'];
+    function burst(btn){ if(reduce) return; var r=btn.getBoundingClientRect(), d=demo.getBoundingClientRect(); for(var i=0;i<10;i++){ var sp=document.createElement('i'); sp.className='spark'; var a=Math.PI*2*i/10; sp.style.left=(r.left-d.left+r.width/2)+'px'; sp.style.top=(r.top-d.top+r.height/2)+'px'; sp.style.background=colors[i%colors.length]; sp.style.setProperty('--dx',Math.cos(a)*70+'px'); sp.style.setProperty('--dy',Math.sin(a)*70+'px'); demo.appendChild(sp); setTimeout(function(x){x.remove()},850,sp);} }
+    var lastStage=0;
+    function update(){ var n=btns.filter(function(b){return b.getAttribute('aria-pressed')==='true'}).length; stars.textContent=n+' of 6 stars'; fill.style.height=(n/6*100)+'%'; var stage=n===0?0:n<3?1:n<6?2:3; pet.textContent=faces[stage]; stg.forEach(function(s,i){ s.classList.toggle('on',i===stage); }); if(stage!==lastStage){ egg.classList.remove('grow'); void egg.offsetWidth; egg.classList.add('grow'); lastStage=stage; }
+      msg.textContent = stage===3 ? 'Grown. In the app this is the end of the week, the pet joins Pet Pals, and Monday brings a new egg.' : stage===0 ? 'The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.' : (6-n)+' more to fully grow. Stars count up and never down, so an untick here is only for the demo.'; }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ var on=b.getAttribute('aria-pressed')==='true'; b.setAttribute('aria-pressed',on?'false':'true'); if(!on) burst(b); update(); }); });
+  }
+})();
+</script>

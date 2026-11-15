@@ -1,0 +1,20 @@
+<div class="appearance theme-picker">
+  <button class="theme-toggle" type="button" role="switch" aria-label="Dark mode" aria-checked="true" title="Switch light and dark theme">
+    <span class="theme-thumb" aria-hidden="true"></span>
+    <svg class="theme-sun" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+    <svg class="theme-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A9 9 0 0 1 9.8 3.5 9 9 0 1 0 20.5 14.2Z"/></svg>
+  </button>
+</div>
+<style>
+  .theme-picker { flex:none; }
+  .theme-toggle { position:relative;display:flex;align-items:center;justify-content:space-around;width:80px;height:44px;padding:3px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg-2);cursor:pointer; }
+  .theme-thumb { position:absolute;left:3px;top:3px;width:36px;height:36px;border-radius:var(--radius);background:var(--fg);transition:transform .2s ease; }
+  .theme-toggle svg { position:relative;z-index:1; }
+  .theme-sun { color:var(--bg); }
+  :global(html[data-theme=dark]) .theme-thumb { transform:translateX(36px); }
+  :global(html[data-theme=dark]) .theme-sun { color:var(--fg-2); }
+  :global(html[data-theme=dark]) .theme-moon { color:var(--bg); }
+  .theme-toggle:hover { border-color:var(--fg-2); }
+  .theme-toggle:focus-visible { outline:2px solid var(--project-ink,var(--fg));outline-offset:4px; }
+  @media(prefers-reduced-motion:reduce) { .theme-thumb { transition:none; } }
+</style>

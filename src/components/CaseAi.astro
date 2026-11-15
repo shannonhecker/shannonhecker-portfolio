@@ -1,0 +1,106 @@
+---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
+import BrandMark from './BrandMark.astro';
+import BrandSystem from './BrandSystem.astro';
+import ResponsiveEvidence from './ResponsiveEvidence.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+import Journey from './dg/AuthoredJourney.astro';
+
+import ProductCapture from './ProductCapture.astro';
+import Demo from './Demo.astro';
+import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
+---
+<section id="ai" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case five · Solo · Private alpha</p>
+          <BrandMark project="ai" />
+          <HT class="h-chapter" style="view-transition-name:t-ai">uoaui.ai</HT>
+        </div>
+        <div class="avatar-practice" style="grid-column:1/13"><p class="lead muted">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, using native components where the mapping supports them, with explicit fallbacks for missing equivalents. Switch system, density or theme and the screen rebuilds.</p></div>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha. Landing, comparison and UI Kit are public; the builder needs an invited sign-in.</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> →</a></span></div>
+      </div>
+      <div class="project-hero">
+<ProductCapture name="/art/ai-hero-builder-composition.svg" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />
+<ProductCapture name="/art/ai-hero-kit-composition.svg" alt="The current uoaui Salt UI Kit, with foundations and component controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Private alpha" />
+      </div>
+    </header>
+    <CaseEvidenceSummary project="ai" />
+    <CaseContents project="ai" />
+
+    <div class="beat rv" id="ai-what">
+      <div class="label"><HL class="k"><b>01</b> The problem underneath</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Designing for output you can't fully predict." />
+        <ProductCapture name="live-uoaui.png" alt="The live uoaui.ai comparison page showing the same finance screen in Salt and uoaui" href="https://uoaui.ai/" label="uoaui.ai · Private alpha" />
+        <ul class="rows">
+          <li><b>Designing for output you can't predict</b><p>Where the system acts and where it asks. How a person stays in control without making the AI useless. The compare and tune steps are my answer so far. The model drafts, I decide.</p></li>
+          <li><b>Who it's for, and the trap</b><p>Designers like me, which is dangerous, because designing for yourself hides your blind spots. The alpha exists partly to break my own assumptions.</p></li>
+          <li><b>What it isn't</b><p>It doesn't ship the final product and I don't claim it does. It closes the gap between a Figma file and the thing a developer can inspect.</p></li>
+        </ul>
+        <Personas project="ai" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-flow">
+      <div class="label"><HL class="k"><b>02</b> The flow</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="From a prompt to a screen a developer can inspect." />
+        <FigmaUserFlow project="ai" />
+        <Demo src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." description="Silent recording. It picks a template, edits one card, then presents the same screen across the five design systems." />
+        <ProductCapture name="live-uoaui-kit.png" alt="The current uoaui Salt UI Kit with foundations, components, patterns and system controls" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · Salt UI Kit · Component library" />
+        <ProductCapture name="live-uoaui-charts.png" alt="The current uoaui UI Kit charts and data visualisation specimens in Salt" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · UI Kit · Charts and data visualisation" />
+        <ProductCapture name="live-uoaui-forms.png" alt="The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions" href="https://uoaui.ai/ui-kit?ds=salt" label="uoaui.ai · UI Kit · Composed form pattern" />
+        <Journey project="ai" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="ai-decisions">
+      <div class="label"><HL class="k"><b>03</b> Decisions and trade-offs</HL></div>
+      <div class="body">
+        <DecisionMap project="ai" />
+
+        <VisualExplanation project="ai" />
+      </div>
+    </div>
+
+    <div class="beat wide rv"><div class="body"><BrandSystem project="ai" /></div></div>
+
+    <div class="beat rv" id="ai-judgement">
+      <div class="label"><HL class="k"><b>04</b> AI at work</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Where Figma still matters, and where a designer still does." />
+        <ul class="rows">
+          <li><b>Figma for foundations</b><p>The better the design file, the better the AI output. At Barclays I'm matching Figma naming to the code so there's no gap in either direction. When the model can't get the spacing right, I point it at the file. Everything after that, I'd rather iterate in code.</p></li>
+          <li><b>Built from the terminal</b><p>Both public rebuilds in this portfolio were made with Claude Code and Codex, in days, to test decisions with real-shaped data. Winking Star shipped the same way.</p></li>
+          <li><b>Where a designer still matters</b><p>A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our own components and showed both. The existing components made it faster to build and kept it consistent with the platform. A generated screen still needs someone who watched how people work.</p></li>
+        </ul>
+      </div>
+    </div>
+    <div class="beat rv" id="ai-outcome">
+      <div class="label"><HL class="k"><b>05</b> Outcome and validation</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="A working private alpha, with the person still making the decisions." />
+        <ul class="rows">
+          <li><b>What I can show today</b><p>I have built a working builder, a comparison across five design systems and a component library. The current screens and walkthrough above show that work. This is private alpha, not a production adoption result.</p></li>
+          <li><b>What changed through exploration</b><p>I explored free-form generated UI and official React components. I chose a structured canvas mapped to system components, with explicit fallbacks, because a developer needs to inspect and recognise the output. My comparison and tuning practice keeps the model's first answer a draft.</p></li>
+          <li><b>The next validation question</b><p>Can another designer reach a useful, inspectable screen without me guiding them? That is the question for the alpha. No adoption rate, no time saving, no external test yet. When another designer gets there without me, I'll say so here.</p></li>
+        </ul>
+      </div>
+    </div>
+    <ResponsiveEvidence project="ai" />
+  </div>
+</section>

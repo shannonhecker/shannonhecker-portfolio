@@ -1,0 +1,250 @@
+{
+  "intro": "Four teams with four ideas of what a deal is. Custody ops, sales, legal and product priced global custody deals from one large spreadsheet and email chains. Slow, easy to get wrong, and no audit trail. I was embedded with the four teams for a year. One web platform, one deal object, four views.",
+  "status": "Original design-file screens alongside schematic comparisons. Deal Model is internal to J.P. Morgan; these are design artefacts.",
+  "meta": [
+    "Case three · J.P. Morgan · Securities Services · 2022 to 2023 · internal product",
+    "Role · UI lead",
+    "Team · Two UX designers, a junior designer, a BA, a researcher, a data analyst, engineers",
+    "Status · In use internally. Six design phases",
+    "Platform · Web, desktop",
+    "My involvement · Before Fusion; I moved to Fusion in 2023"
+  ],
+  "problem": {
+    "label": "01 Problem",
+    "title": "Four teams, four spreadsheets, one deal.",
+    "rows": [
+      {
+        "label": "Users",
+        "text": "Custody ops, sales, legal and product. Each team priced and approved global custody deals from its own copy of one large spreadsheet, with email as the audit trail."
+      },
+      {
+        "label": "The job",
+        "text": "Price a deal, compare iterations, get it approved and signed off, with a record that survives an audit."
+      },
+      {
+        "label": "Where it started",
+        "text": "About sixty product owners on one Excel app. Creating a deal took around two hours across tools. Slow, easy to get wrong, and no audit trail. The two-hour figure is my estimate from sitting with the teams, not a measured study."
+      },
+      {
+        "label": "Business goal",
+        "text": "Move deal pricing onto one web platform so the four teams work from one object, and the sign-off trail comes out of the tool instead of someone's inbox."
+      }
+    ]
+  },
+  "research": {
+    "label": "02 Users and research",
+    "title": "Four teams, one deal, four views.",
+    "rows": [
+      {
+        "label": "How I got in the room",
+        "text": "In a bank there is usually a BA between the designer and the user. I was embedded with the four teams for a year. Weekly with each one, and a shared review every fortnight where all four saw the same screen. Short sessions on their own deals, not a demo. Watching someone price a real deal tells you more in twenty minutes than a workshop does in a day."
+      },
+      {
+        "label": "Three versions, every review",
+        "text": "I never showed one proposal. The one I thought they'd want, and two that did it differently. People are much better at saying what's wrong than what they want, and the answer was usually a merge. Sales got the comparison table out of that. Legal got the iteration list. Nobody got the whole thing their way, which is why all four used it."
+      },
+      {
+        "label": "Who I worked with",
+        "text": "Two UX designers on flows and research, a junior designer on screens with me, a business analyst, a researcher, a data analyst, and the engineers in every review."
+      }
+    ]
+  },
+  "constraints": {
+    "label": "03 Constraints and role",
+    "title": "One object, four views, and a spreadsheet that would not die.",
+    "rows": [
+      {
+        "label": "Four definitions of a deal",
+        "text": "Sales, legal, custody ops and product each had a different idea of what a deal was. I did not ask them to agree on a design. I asked what each needed to see and what each needed to change. One object, four views."
+      },
+      {
+        "label": "The spreadsheet",
+        "text": "Some people kept the spreadsheet. Not because they were stubborn. They didn't trust the platform yet, and they couldn't find things because it didn't look like Excel. So we built a template. Download it, fill it in the way you always have, upload it, and the system maps it into the deal. The idea came out of a session with a user, not from me."
+      },
+      {
+        "label": "Compliance",
+        "text": "Every price needs a source, every change needs a person, and every deal needs a sign-off trail. Checks run as you go, and the record comes out of the tool."
+      },
+      {
+        "label": "Accessibility",
+        "text": "ADA specs sat inside the design file: landmarks, tabbing order, content hierarchy and alt text for every screen, reviewed with the ADA specialist before engineering picked it up."
+      },
+      {
+        "label": "What was mine",
+        "text": "I led UI: the compare grid, the column chooser, the iteration list, the validation states and the three-versions review format. The five-step flow was shared with the two UX designers. The upload-template idea came from a user session. I worked it through with the BA."
+      },
+      {
+        "label": "Six phases",
+        "text": "Phases one to six, before I moved to Fusion in 2023. Deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow."
+      }
+    ]
+  },
+  "flow": {
+    "title": "From a spreadsheet to a signed-off deal in five steps.",
+    "intro": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. The owner publishes a proposal with a description; the approver reviews the comparison and comments."
+  },
+  "edge": {
+    "title": "The states a deal hits when things are not normal.",
+    "rows": [
+      [
+        "Custody and transaction rates differ",
+        "The new-iteration form shows a warning beside the pricing choices when the selected transaction rate differs from the custody rate.",
+        "Check the mismatch while the pricing inputs are still visible."
+      ],
+      [
+        "Iteration creation succeeds",
+        "A success notification confirms how many iterations were added.",
+        "The owner knows the action completed."
+      ],
+      [
+        "Iteration creation fails",
+        "An error notification explains that the iteration could not be created and asks the owner to try again.",
+        "Keep failure explicit rather than implying the new proposal exists."
+      ],
+      [
+        "No iterations yet",
+        "The empty pricing view points to the New Iterations action, with options for a new iteration or one from benchmarks.",
+        "Make the next action clear before there are proposals to compare."
+      ],
+      [
+        "Publishing and approval",
+        "The owner publishes the proposal with a written winning-bid reason. The approver reviews the comparison and comments.",
+        "Keep the reasoning beside the proposal being reviewed."
+      ],
+      [
+        "Keyboard and screen reader",
+        "Landmarks, tab order, hierarchy and alternative text are documented in the ADA specification.",
+        "Accessibility is part of the design review."
+      ],
+      [
+        "A wide pricing grid",
+        "The pricing area includes a column chooser, comparison grid and separate tiering view.",
+        "Give each pricing task the controls and context it needs."
+      ]
+    ]
+  },
+  "outcome": {
+    "label": "07 Outcome and impact",
+    "title": "In use internally. The numbers are mine, not measured.",
+    "rows": [
+      {
+        "label": "Design scope",
+        "text": "Before I moved to Fusion in 2023, I worked across six design phases covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase."
+      },
+      {
+        "label": "Live",
+        "text": "In use internally in Securities Services. It is an internal product, so there is no public link and no production screen on this page."
+      },
+      {
+        "label": "Adoption",
+        "text": "Four teams moved onto one platform. The upload template was the bridge. It kept the habit while people learned the platform, and when template uploads dropped to nothing we knew they'd moved. That is the signal I have. No adoption number was measured in my time, so none is claimed."
+      },
+      {
+        "label": "My estimate",
+        "text": "Creating a deal went from about two hours across tools to about twenty minutes in one flow, and the audit trail now comes out of the tool. That is my estimate from a year with the teams, not a measured study."
+      },
+      {
+        "label": "What I would measure",
+        "text": "Time to create a deal, iterations per deal, approvals returned for correction, and how many deals still start in the spreadsheet."
+      },
+      {
+        "label": "What I would do differently",
+        "text": "Measure before and after. I had the teams for a year and never timed the old flow properly. And bring the data analyst in from phase one, so smart pricing had its data ready when we designed it."
+      }
+    ]
+  },
+  "validation": [
+    {
+      "name": "Empty",
+      "label": "Pricing iterations",
+      "value": "No iterations",
+      "message": "Start a new iteration or use a benchmark."
+    },
+    {
+      "name": "Warning",
+      "label": "Pricing sources",
+      "value": "Different custody and transaction rates",
+      "message": "Check the selected rate cards before adding the iteration."
+    },
+    {
+      "name": "Success",
+      "label": "Create iterations",
+      "value": "2 iterations added",
+      "message": "Confirmation appears after the action completes."
+    },
+    {
+      "name": "Error",
+      "label": "Create iteration",
+      "value": "Could not create iteration",
+      "message": "Please try again."
+    }
+  ],
+  "screensIntro": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
+  "screens": [
+    {
+      "image": "source-242-530-trim.png",
+      "title": "01 · Deals landing",
+      "description": "Every deal, its iteration, status and lead in one list. Filters by region, segment and status."
+    },
+    {
+      "image": "source-242-535-trim.png",
+      "title": "02 · Portfolio landing",
+      "description": "The portfolios behind a deal: default, additional, new."
+    },
+    {
+      "image": "source-242-540-trim.png",
+      "title": "03 · Load data",
+      "description": "Bulk search, month end or a date range. Or the upload template."
+    },
+    {
+      "image": "source-242-545-trim.png",
+      "title": "04 · Portfolio summary",
+      "description": "Holdings, primary and secondary transactions, physical securities, collateral."
+    },
+    {
+      "image": "source-242-550-trim.png",
+      "title": "05 · New iteration",
+      "description": "Create an iteration on a benchmark rate card. Checks as you go."
+    },
+    {
+      "image": "source-242-555-trim.png",
+      "title": "06 · Validation states",
+      "description": "One field, every state the deal owner can hit."
+    },
+    {
+      "image": "source-242-560-trim.png",
+      "title": "07 · Compare grid",
+      "description": "Iterations side by side, one market per row."
+    },
+    {
+      "image": "source-242-565-trim.png",
+      "title": "08 · Column chooser",
+      "description": "The grid is a view, not a rebuild. Saved per user."
+    },
+    {
+      "image": "source-242-570-trim.png",
+      "title": "09 · Tiering",
+      "description": "AUC versus primary transactions, blended bps, tiers only, hide totals."
+    },
+    {
+      "image": "source-242-575-trim.png",
+      "title": "10 · Smart pricing (explored)",
+      "description": "Model scope, pricing influence, a suggested iteration to edit or discard."
+    },
+    {
+      "image": "source-242-580-trim.png",
+      "title": "11 · Deal owner dashboard",
+      "description": "Fees, costs, gross margin and the deal team, per deal."
+    },
+    {
+      "image": "source-242-585-trim.png",
+      "title": "12 · Approver workflow",
+      "description": "Market comparison and approval for the custody ops lead."
+    },
+    {
+      "image": "source-242-590-trim.png",
+      "title": "13 · ADA specs · tabbing order",
+      "description": "Landmarks, tabbing order, content hierarchy and alt text, specified per screen."
+    }
+  ]
+}

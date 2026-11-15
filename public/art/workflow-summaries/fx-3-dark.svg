@@ -1,0 +1,16 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#A4CBE6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 06</tspan></text>
+<path d="M272 56H66C63.7909 56 62 57.7909 62 60V180C62 182.209 63.7909 184 66 184H272C274.209 184 276 182.209 276 180V60C276 57.7909 274.209 56 272 56Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="78" y="75.6364">REVIEW CHANGE</tspan></text>
+<path d="M79 95H255M79 116H255" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M154 131H82C79.7909 131 78 132.791 78 135V151C78 153.209 79.7909 155 82 155H154C156.209 155 158 153.209 158 151V135C158 132.791 156.209 131 154 131Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="92" y="146.5">Cancel</tspan></text>
+<path d="M256 131H174C171.791 131 170 132.791 170 135V151C170 153.209 171.791 155 174 155H256C258.209 155 260 153.209 260 151V135C260 132.791 258.209 131 256 131Z" fill="#A4CBE6" stroke="#A4CBE6"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="182" y="146.5">Continue</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Pre-filled ticket</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">What changes, before anything does</tspan></text>
+<text fill="#A4CBE6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" font-weight="500" letter-spacing="0em"><tspan x="13" y="289.891">Cancel &#x2192; Nothing changes</tspan></text>
+</svg>
+

@@ -1,0 +1,61 @@
+/* Wide, image-led project gallery. Product frames establish each project's
+   character; their native proportions determine the height, without crops. */
+:root { --max:1440px; --gutter:clamp(24px,4vw,64px); }
+#work .index {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:72px 32px; align-items:start;
+}
+#work .row {
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto;
+  gap:20px 16px; padding:0; border:0; align-items:center;
+  align-content:start; min-width:0;
+}
+#work .row > picture,
+#work .row > .project-preview {
+  display:block; grid-column:1/-1; grid-row:1;
+  width:100%; height:auto; margin:0; padding:0; background:none;
+}
+#work .row > picture > img,
+#work .row .appstore-preview img {
+  display:block; width:100%; max-width:none; height:auto; max-height:none;
+  aspect-ratio:auto; object-fit:contain; margin:0; padding:0;
+  border-radius:var(--radius); transform:none; background:none;
+}
+#work .row > .appstore-preview {
+  display:flex; gap:8px; align-items:start; justify-content:center;
+}
+#work .row .appstore-preview picture { display:block; flex:1; min-width:0; }
+#work .row .n {
+  grid-column:1; grid-row:2; min-height:32px; padding:0;
+  display:flex; align-items:center; gap:8px; line-height:1.25; font-size:15px;
+}
+#work .row .n > .pixel-object {
+  width:32px!important; height:32px!important; max-width:32px;
+  flex:0 0 32px; margin:0; padding:0;
+}
+#work .row h3 {
+  grid-column:2; grid-row:2; margin:0; min-width:0;
+  font-size:clamp(20px,1.65vw,26px); line-height:1.3; align-self:center;
+}
+#work .row .arrow {
+  grid-column:3; grid-row:2; display:flex; align-items:center;
+  align-self:center; min-height:32px; padding:0; white-space:nowrap;
+}
+#work .row .meta {
+  grid-column:2/-1; grid-row:3; max-width:60ch; margin:0;
+  font-size:15px; line-height:1.7;
+}
+#work .row .brand-mark { vertical-align:middle; margin-left:8px; }
+#work .row:hover,#work .row:focus-visible { padding-left:0; }
+@media(max-width:760px) {
+  #work .index { grid-template-columns:1fr; gap:56px; }
+  #work .row { gap:16px 10px; }
+  #work .row h3 { font-size:21px; }
+  #work .row .meta { grid-column:1/-1; }
+}
+@media(max-width:380px) {
+  #work .row { column-gap:8px; }
+  #work .row .n { gap:4px; font-size:13px; }
+  #work .row h3 { font-size:18px; }
+  #work .row .arrow { font-size:12px; }
+}

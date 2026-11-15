@@ -1,0 +1,43 @@
+{
+  "fileKey": "l6noy7onfsRiuBgjqSsKbt",
+  "frame": "32:9",
+  "date": "2026-10-11",
+  "screenshots": [
+    {
+      "node": "305:336442",
+      "file": "live-fx-classic.png"
+    },
+    {
+      "node": "305:336445",
+      "file": "live-fx-classic-light.png"
+    },
+    {
+      "node": "305:336470",
+      "file": "live-fx-hover.png"
+    },
+    {
+      "node": "305:336489",
+      "file": "live-fx-table.png"
+    },
+    {
+      "node": "305:336503",
+      "file": "live-fx-ticket.png"
+    },
+    {
+      "node": "305:336513",
+      "file": "live-fx-compare.png"
+    },
+    {
+      "node": "305:336516",
+      "file": "live-fx-filters.png"
+    },
+    {
+      "node": "305:336542",
+      "file": "live-fx-tablet.png"
+    },
+    {
+      "node": "305:336544",
+      "file": "live-fx-mobile.png"
+    }
+  ]
+}

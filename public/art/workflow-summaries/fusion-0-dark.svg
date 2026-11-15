@@ -1,0 +1,16 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#C8B6E2" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">01 / 04</tspan></text>
+<path d="M291 62H47C44.7909 62 43 63.7909 43 66V170C43 172.209 44.7909 174 47 174H291C293.209 174 295 172.209 295 170V66C295 63.7909 293.209 62 291 62Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="59" y="82.6364">DATA CUBES</tspan></text>
+<path d="M279 95H59C57.8954 95 57 95.8954 57 97V110C57 111.105 57.8954 112 59 112H279C280.105 112 281 111.105 281 110V97C281 95.8954 280.105 95 279 95Z" fill="#C8B6E2" stroke="#46515F"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="65" y="107.636">Portfolio</tspan></text>
+<path d="M279 117H59C57.8954 117 57 117.895 57 119V132C57 133.105 57.8954 134 59 134H279C280.105 134 281 133.105 281 132V119C281 117.895 280.105 117 279 117Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="65" y="129.636">Performance</tspan></text>
+<path d="M279 139H59C57.8954 139 57 139.895 57 141V154C57 155.105 57.8954 156 59 156H279C280.105 156 281 155.105 281 154V141C281 139.895 280.105 139 279 139Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="65" y="151.636">Risk</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Select a data cube</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">FactSet feeding it</tspan></text>
+</svg>
+

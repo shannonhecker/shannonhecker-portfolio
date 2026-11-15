@@ -1,0 +1,463 @@
+{
+  "fileKey": "l6noy7onfsRiuBgjqSsKbt",
+  "pageId": "460:9348",
+  "reference": "https://www.nngroup.com/articles/wireflows/",
+  "frames": [
+    {
+      "key": "fusion",
+      "theme": "light",
+      "nodeId": "460:9349",
+      "width": 744,
+      "height": 939
+    },
+    {
+      "key": "fusion",
+      "theme": "dark",
+      "nodeId": "460:9407",
+      "width": 744,
+      "height": 939
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "nodeId": "460:9465",
+      "width": 744,
+      "height": 1349
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "nodeId": "460:9543",
+      "width": 744,
+      "height": 1349
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "nodeId": "460:9621",
+      "width": 744,
+      "height": 1329
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "nodeId": "460:9694",
+      "width": 744,
+      "height": 1329
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "nodeId": "460:9767",
+      "width": 744,
+      "height": 1329
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "nodeId": "460:9838",
+      "width": 744,
+      "height": 1329
+    },
+    {
+      "key": "winking",
+      "theme": "light",
+      "nodeId": "460:9909",
+      "width": 744,
+      "height": 899
+    },
+    {
+      "key": "winking",
+      "theme": "dark",
+      "nodeId": "460:9982",
+      "width": 744,
+      "height": 899
+    }
+  ],
+  "cards": [
+    {
+      "key": "fusion",
+      "theme": "light",
+      "step": 0,
+      "nodeId": "460:9353",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "light",
+      "step": 1,
+      "nodeId": "460:9366",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "light",
+      "step": 2,
+      "nodeId": "460:9386",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "light",
+      "step": 3,
+      "nodeId": "460:9395",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "dark",
+      "step": 0,
+      "nodeId": "460:9411",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "dark",
+      "step": 1,
+      "nodeId": "460:9424",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "dark",
+      "step": 2,
+      "nodeId": "460:9444",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fusion",
+      "theme": "dark",
+      "step": 3,
+      "nodeId": "460:9453",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 0,
+      "nodeId": "460:9469",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 1,
+      "nodeId": "460:9480",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 2,
+      "nodeId": "460:9493",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 3,
+      "nodeId": "460:9504",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 4,
+      "nodeId": "460:9518",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "light",
+      "step": 5,
+      "nodeId": "460:9528",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 0,
+      "nodeId": "460:9547",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 1,
+      "nodeId": "460:9558",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 2,
+      "nodeId": "460:9571",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 3,
+      "nodeId": "460:9582",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 4,
+      "nodeId": "460:9596",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "fx",
+      "theme": "dark",
+      "step": 5,
+      "nodeId": "460:9606",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "step": 0,
+      "nodeId": "460:9625",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "step": 1,
+      "nodeId": "460:9635",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "step": 2,
+      "nodeId": "460:9647",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "step": 3,
+      "nodeId": "460:9668",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "light",
+      "step": 4,
+      "nodeId": "460:9684",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "step": 0,
+      "nodeId": "460:9698",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "step": 1,
+      "nodeId": "460:9708",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "step": 2,
+      "nodeId": "460:9720",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "step": 3,
+      "nodeId": "460:9741",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "ai",
+      "theme": "dark",
+      "step": 4,
+      "nodeId": "460:9757",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "step": 0,
+      "nodeId": "460:9771",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "step": 1,
+      "nodeId": "460:9784",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "step": 2,
+      "nodeId": "460:9800",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "step": 3,
+      "nodeId": "460:9812",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "light",
+      "step": 4,
+      "nodeId": "460:9826",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "step": 0,
+      "nodeId": "460:9842",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "step": 1,
+      "nodeId": "460:9855",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "step": 2,
+      "nodeId": "460:9871",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "step": 3,
+      "nodeId": "460:9883",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "deal",
+      "theme": "dark",
+      "step": 4,
+      "nodeId": "460:9897",
+      "width": 336,
+      "height": 370
+    },
+    {
+      "key": "winking",
+      "theme": "light",
+      "step": 0,
+      "nodeId": "460:9913",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "light",
+      "step": 1,
+      "nodeId": "460:9927",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "light",
+      "step": 2,
+      "nodeId": "460:9954",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "light",
+      "step": 3,
+      "nodeId": "460:9969",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "dark",
+      "step": 0,
+      "nodeId": "460:9986",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "dark",
+      "step": 1,
+      "nodeId": "460:10000",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "dark",
+      "step": 2,
+      "nodeId": "460:10027",
+      "width": 336,
+      "height": 348
+    },
+    {
+      "key": "winking",
+      "theme": "dark",
+      "step": 3,
+      "nodeId": "460:10042",
+      "width": 336,
+      "height": 348
+    }
+  ]
+}

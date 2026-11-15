@@ -1,0 +1,314 @@
+@layer production {
+/* Production-only overrides on top of prototype.css. Each one says why. */
+
+/* <picture> wrappers from astro:assets must not change the prototype's
+   layouts, which all target the <img>. */
+picture{display:contents}
+picture>source{display:none}
+
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* No-JS: the phone strip must still be reachable, so it scrolls natively by
+   default. motion.ts adds .driven when GSAP takes over on desktop. */
+.strip-wrap{overflow-x:auto}
+.strip-wrap.driven{overflow:hidden}
+
+/* Brief: marquees pause on hover. Focus inside too, for keyboard users. */
+.ticker:hover .ticker-track,.themes:hover .themes-track,.themes:focus-within .themes-track{animation-play-state:paused}
+
+/* Lenis owns smooth scroll on desktop; native smooth would fight it. */
+html.lenis{scroll-behavior:auto}
+
+/* Footer build line */
+.copyright.built{margin-top:16px}
+.built a{text-underline-offset:3px}
+
+/* /revolut hero line */
+.hero-for{margin-bottom:14px}
+
+/* The prototype has no doctype, so it was signed off in quirks mode. In
+   standards mode the hero's grid shrinks .wrap to its content; this restores
+   the approved full-width composition. */
+.hero>.wrap{width:100%}
+
+/* Winking Star hero art: a lazy, AVIF-capable <picture> instead of the
+   prototype's CSS background, which loaded eagerly as a full-size JPEG.
+   Same crop (center right, cover), same gradient wash on top. */
+.ws-hero .art{background:none}
+.ws-hero .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right}
+.ws-hero .art::before{z-index:1}
+
+/* Mobile nav: the prototype's link row scrolls but gives no sign of it, so
+   Winking Star, uoaui.ai and How I work were invisible at 390px. The trailing
+   edge fades only while there is more to scroll (motion.ts sets the classes),
+   and the current section's link is kept in view. */
+.nav ul.more-end{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent)}
+.nav ul.more-start{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px);mask-image:linear-gradient(90deg,transparent,#000 32px)}
+.nav ul.more-start.more-end{-webkit-mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent)}
+
+/* Brand mark from shannonhecker.com, replacing the prototype's SH text. */
+.nav .brand .short{display:inline-flex;color:var(--fg)}
+.nav .brand svg{display:block;transition:transform var(--base) var(--ease)}
+.nav .brand:hover svg{transform:rotate(-8deg)}
+.copyright .sig{display:inline-flex;align-items:center;gap:10px}
+@media (prefers-reduced-motion:reduce){.nav .brand:hover svg{transform:none}}
+
+/* Marquee pause control (WCAG 2.2.2). Quiet until the marquee is hovered or
+   focused; always shown on touch, where there is no hover. */
+.marquee{position:relative}
+.mq-toggle{position:absolute;right:12px;top:50%;translate:0 -50%;z-index:2;width:32px;height:32px;display:grid;place-items:center;border-radius:var(--radius);border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer;opacity:0;transition:opacity var(--fast) var(--ease)}
+.mq-toggle svg{fill:currentColor}
+.mq-toggle .i-play{display:none}
+.mq-toggle[aria-pressed="true"] .i-play{display:inline}
+.mq-toggle[aria-pressed="true"] .i-pause{display:none}
+.marquee:hover .mq-toggle,.mq-toggle:focus-visible,.mq-toggle[aria-pressed="true"]{opacity:1}
+@media (hover:none){.mq-toggle{opacity:1}}
+.marquee.paused .ticker-track,.marquee.paused .themes-track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.mq-toggle{display:none}}
+
+/* Keyboard users get the same index-row feedback as hover. */
+.row:focus-visible{padding-left:12px}
+.row:focus-visible .arrow{transform:translateX(6px)}
+
+/* Typesetting: no single-word last lines in running text. */
+.lead,.measure{text-wrap:pretty}
+
+::selection{background:var(--fg);color:var(--bg)}
+
+/* Cross-document transitions between / and /build, no JS. */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
+/* Print / Save as PDF: panel members annotate. Everything visible, nothing
+   fixed or moving, beats kept whole, link targets printed. */
+@media print{
+  .nav,.progress,.peek,.skip,.mq-toggle,.ticker{display:none!important}
+  .band{padding-block:48px}
+  .rv,.split .wd,.hero h1 .ln span{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .hero-art{clip-path:none!important}
+  .hero{min-height:0}
+  .beat .label{position:static}
+  .beat{padding-block:28px}
+  .chapter-head{margin-bottom:32px}
+  .h-chapter{font-size:64px}.h-giant{font-size:56px}.h-section{font-size:36px}.h-sub{font-size:26px}
+  .shot img,.hero-art img{transform:none!important}
+  .shot,.dec>li,.rows>li,.metric,.persona,.stage,.phone,.principle{break-inside:avoid}
+  h2,h3,h4,.label{break-after:avoid}
+  .themes-track,.ticker-track{animation:none!important}
+  .strip-wrap{overflow:visible}.strip{flex-wrap:wrap;width:auto;transform:none!important}
+  .journey{grid-auto-flow:row;overflow:visible}
+  .links a[href^="http"]::after{content:" " attr(href);font-size:12px;color:var(--fg-2)}
+  .row img{display:none}
+}
+
+/* #play: the game sits in a 16:9 frame inside the column. Nothing runs until
+   Play is pressed; with JS off the poster is all there is. */
+.play .game{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);border:1px solid var(--hair)}
+.play canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline-offset:-3px;image-rendering:pixelated;image-rendering:crisp-edges}
+.play .game[data-state="poster"] canvas{visibility:hidden}
+.play .game-poster{position:absolute;inset:0;display:grid;place-items:center}
+.play .game-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.play .game[data-state="playing"] .game-poster{display:none}
+.game-play{position:relative;font:inherit;font-size:17px;font-weight:500;padding:14px 26px;min-height:48px;border-radius:var(--radius);border:1px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;transition:background var(--fast),color var(--fast)}
+.game-play:hover{background:var(--fg);color:var(--bg)}
+html:not(.has-js) .game-play{display:none}
+.skip-game{position:absolute;left:-999px}
+.skip-game:focus{position:static;display:inline-block;margin-bottom:12px}
+.game-end{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;background:rgba(255,255,255,.95);padding:clamp(16px,3vw,40px);text-align:center;overflow:auto}
+.game-kicker{font-size:13px;color:var(--fg-2)}
+.game-case{font-family:var(--display);font-weight:700;font-size:clamp(22px,3vw,40px);letter-spacing:-.04em;line-height:1}
+.game-meta{font-size:15px;color:var(--fg-2);max-width:52ch}
+.game-read{font-weight:500;text-underline-offset:3px}
+.game-end[hidden]{display:none}
+.game-mission{font-size:14px;font-weight:500;color:var(--fg-2)}
+.game-mission[data-done="true"]{color:var(--fg)}
+.game-mission[hidden]{display:none}
+.game-badge{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,56px);letter-spacing:-.04em}
+.game-links{display:grid;gap:8px}
+.game-links a{font-weight:500;text-underline-offset:3px}
+.game-touch{display:none;gap:12px;justify-content:space-between;margin-top:16px}
+.game-touch button{width:64px;height:64px;border-radius:var(--radius);border:1px solid var(--hair);background:var(--bg);font-size:24px;color:var(--fg);touch-action:none;user-select:none;-webkit-user-select:none}
+.game-touch button[data-k="jump"]{margin-left:auto}
+@media (hover:none){.play .game[data-state="playing"] ~ .game-touch{display:flex}}
+@media print{.play{display:none}}
+.game-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 16px;margin-bottom:12px;min-height:36px}
+.game-levels{display:flex;flex-wrap:wrap;gap:8px}
+.game-level{font:inherit;font-size:14px;font-weight:500;color:var(--fg-2);background:none;border:1px solid var(--hair);border-radius:var(--radius);padding:8px 14px;min-height:36px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.game-level .n{font-size:12px;color:var(--fg-3)}
+.game-level[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
+html:not(.has-js) .game-levels{display:none}
+.game-bar .skip-game:focus{margin:0 auto 0 0}
+.game-sound{font:inherit;font-size:14px;font-weight:500;color:var(--fg-2);background:none;border:1px solid var(--hair);border-radius:var(--radius);padding:8px 14px;min-height:36px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.game-sound::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--hair)}
+.game-sound[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
+.game-sound[aria-pressed="true"]::before{background:#2fbf71}
+html:not(.has-js) .game-sound{display:none}
+
+/* Case pages: the chapter opens under the fixed nav; the next-case row closes it. */
+.case-page>section:first-child{padding-top:clamp(140px,14vw,200px)}
+.next-case{padding-block:clamp(48px,6vw,96px)}
+::view-transition-group(*){animation-duration:.6s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+
+/* Beat labels are headings now; keep the prototype's small-label look. */
+.beat .label .k,.k.mono{font-family:var(--body);font-size:14px;font-weight:400;letter-spacing:0;line-height:1.6;color:var(--fg-2)}
+.k.mono{font-size:13px;font-weight:500}
+.ws .chapter-head h1{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+/* Level-aware headings keep the prototype's look at either level. */
+.dec h3{font-size:clamp(24px,2.4vw,40px);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin-bottom:14px}
+.ws .dec h3{font-family:var(--ws-display);font-weight:900;letter-spacing:-.02em;color:var(--ws-forest)}
+.ws-hero .copy h2{font-family:var(--ws-display);font-weight:900;font-size:clamp(34px,4vw,68px);line-height:.98;color:var(--ws-forest)}
+
+/* UI crops (scripts/crop-ui.py) keep their own ratio instead of the
+   prototype's forced 16:9, so no UI is cut off; the hero centres on the UI. */
+.shot img{aspect-ratio:auto}
+.hero-art img{object-position:center}
+
+/* uoaui.ai flow as a numbered chain until real captures exist (no empty boxes). */
+.chain{display:flex;flex-wrap:wrap;gap:10px;align-items:center;counter-reset:c}
+.chain li{counter-increment:c;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:var(--radius);background:var(--bg-2);font-size:15px;font-weight:500}
+.chain li::before{content:counter(c);font-size:13px;color:var(--fg-2);font-variant-numeric:tabular-nums}
+.chain li:not(:last-child)::after{content:"→";margin-left:6px;color:var(--fg-2)}
+.chain li:last-child{background:var(--fg);color:var(--bg)}
+.chain li:last-child::before{color:var(--bg)}
+.play-link{padding-top:clamp(32px,4vw,64px);font-size:17px;font-weight:500}
+.play-link a{text-underline-offset:3px}
+
+/* Game in the hero (a playable "Doodle"): the headline keeps its column; the
+   game takes up to 480px, which is exactly 1× the pixel canvas, so pixels
+   stay crisp on retina screens. */
+.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr) minmax(0,480px);align-items:end}
+.hero-art.hero-game{overflow:visible;border-radius:0}
+.hero-game .game{aspect-ratio:16/9;border-radius:var(--radius)}
+.hero-game .game-poster img{aspect-ratio:auto;transform:none!important;height:100%;object-fit:cover;image-rendering:pixelated}
+.hero-game .game-bar{margin:12px 0 0;justify-content:space-between}
+.hero-game .game-level,.hero-game .game-sound{font-size:13px;padding:6px 12px;min-height:32px}
+.game-caption{font-size:13px;color:var(--fg-2);margin-top:10px}
+.hero-game .game-end{gap:8px}
+.hero-game .game-case{font-size:clamp(20px,2vw,28px)}
+.hero-game .game-meta{font-size:13px}
+.hero-game .game-badge{font-size:clamp(22px,2.4vw,34px)}
+.hero-game .game-links{gap:4px;font-size:14px}
+@media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero-art.hero-game{max-width:640px}}
+@media (max-width:760px){.hero-art.hero-game{max-width:none}}
+
+/* The headline is set in three lines and must stay three lines. Each line is
+   unbreakable, the headline column takes exactly its widest line, and the game
+   takes what is left (up to 480px). Without this, laptops around 1280px wrapped
+   "where / mistakes" onto four lines. */
+.hero h1 .ln>span{white-space:nowrap}
+.hero-grid:has(.hero-game){grid-template-columns:min-content minmax(0,480px);justify-content:space-between}
+@media (max-width:1100px){.hero-grid:has(.hero-game){grid-template-columns:minmax(0,1fr)}.hero h1 .ln>span{white-space:normal}}
+
+/* Career map controls under the hero game */
+.game-world select{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--hair);border-radius:var(--radius);padding:6px 12px;min-height:32px;max-width:100%}
+.game-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.game-map{font:inherit;font-size:15px;font-weight:500;padding:12px 20px;min-height:44px;border-radius:var(--radius);border:1px solid var(--hair);background:var(--bg);color:var(--fg);cursor:pointer}
+html:not(.has-js) .game-world{display:none}
+
+/* Full screen game: real Fullscreen API where the browser allows it, and the
+   same layout as a fixed overlay where it doesn't (iPhone Safari). Escape or
+   the Exit button always returns to the page. */
+.game-tools{display:inline-flex;gap:8px}
+.game-exit{display:none}
+.play.is-full{position:fixed;inset:0;z-index:1000;background:#0b0f1a;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:max(56px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));overflow:hidden}
+.play.is-full .game{width:min(100%,calc((100dvh - 180px) * 16 / 9));border-color:transparent;border-radius:var(--radius)}
+.play.is-full .game-bar{width:min(100%,calc((100dvh - 180px) * 16 / 9));margin:0}
+.play.is-full .game-bar select,.play.is-full .game-sound{color:#fff;border-color:rgba(255,255,255,.35);background:transparent}
+.play.is-full .game-bar select option,.play.is-full .game-bar select optgroup{color:#161616}
+.play.is-full .game-caption{display:none}
+.play.is-full .game-touch{width:min(100%,calc((100dvh - 180px) * 16 / 9));margin:0}
+.play.is-full .game-touch button{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.35)}
+.play.is-full .game-exit{display:inline-flex;position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));gap:8px;align-items:center;font:inherit;font-size:14px;font-weight:600;color:#161616;background:#fff;border:0;border-radius:var(--radius);padding:10px 16px;min-height:44px;cursor:pointer}
+.play.is-full .game-exit:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.play.is-full #game-full{display:none}
+html.game-is-full{overflow:hidden}
+@media (hover:none){.play.is-full .game{width:min(100%,calc((100dvh - 200px) * 16 / 9))}}
+.game-rotate{display:none}
+/* phone held upright: invite a turn */
+@media (hover:none) and (orientation:portrait){.play.is-full .game-rotate{display:block;font-size:14px;color:rgba(255,255,255,.7);margin:0}}
+/* phone sideways: the game takes the full height; the arrows sit in the dark
+   side margins and the picker steps aside, so nothing covers the play */
+@media (hover:none) and (orientation:landscape){
+  .play.is-full{padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left))}
+  .play.is-full .game{width:min(calc(100% - 176px),calc((100dvh - 16px) * 16 / 9))}
+  .play.is-full .game-bar{display:none}
+  .play.is-full .game[data-state] ~ .game-touch{position:absolute;inset:0;width:auto;pointer-events:none;padding:0 max(12px,env(safe-area-inset-right)) 16px max(12px,env(safe-area-inset-left));display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:1fr 64px 64px;gap:12px}
+  .play.is-full .game-touch button{pointer-events:auto}
+  .play.is-full .game-touch [data-k="left"]{grid-column:1;grid-row:2}
+  .play.is-full .game-touch [data-k="right"]{grid-column:1;grid-row:3}
+  .play.is-full .game-touch [data-k="jump"]{grid-column:3;grid-row:3;margin:0}
+  .play.is-full .game-exit{padding:0;width:44px;justify-content:center;top:8px;right:max(8px,env(safe-area-inset-right))}
+  .play.is-full .game-exit-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+
+/* ---------- Diagrams (src/components/dg): the site's own style. White, hairlines,
+   one grey, type does the work. Every diagram is real text, readable by screen
+   readers and sharp at any size; on a phone each one stacks. */
+.dg{margin:8px 0 0;display:grid;gap:16px}
+.dg figcaption,.dg caption{font-size:14px;color:var(--fg-2);text-align:left;caption-side:bottom;padding-top:12px}
+.dg b{font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-size:16px;line-height:1.25;color:var(--fg)}
+.dg .dg-d{display:block;font-size:14px;line-height:1.45;color:var(--fg-2);margin-top:4px}
+.dg-i{display:block;font-size:12px;font-weight:600;color:var(--fg-3);margin-bottom:10px;font-variant-numeric:tabular-nums}
+/* flow */
+.dg-flow ol{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));border-top:2px solid var(--fg)}
+.dg-flow li{position:relative;padding:18px 18px 18px 0}
+.dg-flow li+li{padding-left:18px;border-left:1px solid var(--hair)}
+.dg-flow li:not(:last-child)::after{content:"";position:absolute;top:-6px;right:-6px;width:10px;height:10px;border-top:2px solid var(--fg);border-right:2px solid var(--fg);transform:rotate(45deg);background:var(--bg);z-index:1}
+.dg-branch{display:block;margin-top:14px;padding:10px 12px;border:1px dashed var(--fg-3);border-radius:var(--radius)}
+.dg-branch b{font-size:14px}
+@media (max-width:760px){
+  .dg-flow ol{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--fg)}
+  .dg-flow li,.dg-flow li+li{padding:14px 0 14px 20px;border-left:0;border-top:1px solid var(--hair)}
+  .dg-flow li:first-child{border-top:0}
+  .dg-flow li:not(:last-child)::after{top:auto;bottom:-6px;right:auto;left:-7px;transform:rotate(135deg)}
+}
+/* layers: data to encoding */
+.dg-layers ol{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:12px}
+@media (max-width:1000px){.dg-layers ol{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+.dg-layers li{display:grid;grid-template-rows:auto auto 1fr;border-top:2px solid var(--fg)}
+.dg-from{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0}
+.dg-from span{font-size:12px;font-weight:500;color:var(--fg-2);border:1px solid var(--hair);border-radius:var(--radius);padding:4px 10px}
+.dg-kind{padding:12px 0;border-top:1px solid var(--hair)}
+.dg-enc{padding:12px 14px 14px;background:var(--bg-2);border-radius:var(--radius);color:var(--fg)}
+.dg-enc svg{display:block;width:64px;height:16px;margin-bottom:10px}
+.dg-result{padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);text-align:center}
+/* matrix */
+.dg-matrix{overflow-x:auto}
+.dg-matrix table{width:100%;border-collapse:collapse;font-size:15px}
+.dg-matrix th,.dg-matrix td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-bottom:1px solid var(--hair)}
+.dg-matrix thead th{font-size:13px;font-weight:500;color:var(--fg-2);border-bottom:2px solid var(--fg)}
+.dg-matrix tbody th{font-family:var(--display);font-weight:600;letter-spacing:-.02em;width:24%}
+.dg-matrix td{color:var(--fg-2)}
+@media (max-width:760px){
+  .dg-matrix thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .dg-matrix tr{display:grid;padding:12px 0;border-bottom:1px solid var(--hair)}
+  .dg-matrix th,.dg-matrix td{border:0;padding:4px 0;width:auto}
+  .dg-matrix tbody th{width:auto}
+  .dg-matrix td::before{content:attr(data-col);display:block;font-size:12px;font-weight:500;color:var(--fg-3)}
+}
+/* stack */
+.dg-stack ol{display:grid;gap:6px}
+.dg-stack li{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr) minmax(0,.9fr);gap:4px 24px;align-items:baseline;padding:16px 18px;border:1px solid var(--hair);border-radius:var(--radius);min-width:0}
+.dg-stack li>*{min-width:0;overflow-wrap:anywhere}
+.dg-stack li .dg-d{margin:0}
+.dg-stack li.mine{border:2px solid var(--fg)}
+.dg-side{font-size:13px;color:var(--fg-3);text-align:right}
+.dg-legend{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--fg-2)}
+.dg-legend i{width:18px;height:12px;border:2px solid var(--fg);border-radius:var(--radius)}
+@media (max-width:760px){.dg-stack li{grid-template-columns:1fr}.dg-side{text-align:left}}
+/* before / after */
+.dg-ba{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.dg-ba-panel{display:grid;align-content:start;gap:4px;padding:16px;border:1px solid var(--hair);border-radius:var(--radius)}
+.dg-ba-panel.after{border:2px solid var(--fg)}
+.dg-tag{font-size:12px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
+.dg-pic{margin:8px 0 10px;background:var(--bg-2);border-radius:var(--radius);color:var(--fg)}
+.dg-pic svg{display:block;width:100%;height:auto}
+@media (max-width:760px){.dg-ba{grid-template-columns:1fr}}
+.demo{margin:0}
+.demo video{display:block;width:100%;height:auto;aspect-ratio:1280/770;background:var(--bg-2)}
+.chapter-head .meta a{color:var(--fg);font-weight:500;text-underline-offset:3px}
+
+}
+
+.game-touch [data-k="cast"]{font:600 15px "Pixelify Sans",monospace;color:#f6d58d}
+@media (hover:none) and (orientation:landscape){.play.is-full .game-touch [data-k="cast"]{grid-column:3;grid-row:2;margin:0}}

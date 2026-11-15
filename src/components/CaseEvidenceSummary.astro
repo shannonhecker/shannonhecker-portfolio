@@ -1,0 +1,54 @@
+---
+const summaries = {
+  fusion: {
+    decision: 'I built a reusable Fusion layer on Salt, audited custom components and worked through UI issues in regular reviews with developers.',
+    result: 'Shipped to internal users, then external clients. Other Fusion teams reused the widget and filtering patterns.',
+    evidence: 'Weekly internal reviews and two clients before phase two. Reuse and rollout are the supported outcomes; no timed improvement is claimed.',
+    href: '#fu-outcome',
+  },
+  winking: {
+    decision: 'I designed and built a shared family board, with visible daily rewards and progress that carries across the week.',
+    result: 'Live on web and iOS. Version 1.0.4 includes midnight rollover and accessibility improvements.',
+    evidence: 'Public product and App Store release, with observations from my own family. Adoption and retention results are not yet available in this case.',
+    href: '#ws-outcome',
+  },
+  fx: {
+    decision: 'I brought market context, order progress and repricing into one canvas, with confirmation before an order changes.',
+    result: 'In beta with internal users. The specification was accepted by the business and vendor as the build contract.',
+    evidence: 'Trader observations, specification reviews and implementation exploration. Rollout measures are agreed; results are pending. The linked demo is my public rebuild with sample data.',
+    href: '#fx-outcome',
+  },
+  deal: {
+    decision: 'I led the UI for one shared deal record with four role-specific views, including comparison, validation and approval.',
+    result: 'In use internally. The upload template helped teams move from their spreadsheets into the platform.',
+    evidence: 'A year embedded with four teams, before I moved to Fusion in 2023. The time saving is my estimate, not a measured study. Screens are original design artefacts.',
+    href: '#deal-outcome',
+  },
+  ai: {
+    decision: 'I mapped a structured canvas to real design-system components, with explicit fallbacks where equivalents are missing.',
+    result: 'A working private alpha with a builder, five-system comparison and React export.',
+    evidence: 'Current product screens, source and walkthrough. External usability testing and adoption evidence are still to come.',
+    href: '#ai-outcome',
+  },
+};
+interface Props { project: keyof typeof summaries }
+const summary = summaries[Astro.props.project];
+---
+<aside class="case-evidence" aria-label="Case summary">
+  <dl>
+    <div><dt>My contribution</dt><dd>{summary.decision}</dd></div>
+    <div><dt>Delivery</dt><dd>{summary.result}</dd></div>
+  </dl>
+  <p class="evidence-note">{summary.evidence} <a href={summary.href}>Read the outcome</a></p>
+</aside>
+<style>
+:global(.case-page .chapter-head:has(+ .case-evidence)){margin-bottom:32px}
+.case-evidence{margin-top:0;padding-block:var(--space-panel,32px);border-top:1px solid var(--hair);color:var(--fg)}
+.case-evidence dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 48px;margin:0}
+.case-evidence dt{font:500 16px/1.5 var(--body);margin-bottom:12px}
+.case-evidence dd{margin:0;max-width:58ch;font:400 16px/1.65 var(--body);color:var(--fg-2)}
+.case-evidence .evidence-note{margin:32px 0 0;max-width:70ch;font:400 14px/1.65 var(--body);color:var(--fg-2)}
+.case-evidence a{color:var(--fg);text-underline-offset:4px;white-space:nowrap}
+.case-evidence a:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+@media(max-width:760px){.case-evidence dl{grid-template-columns:1fr;gap:32px}.case-evidence{margin-top:0}}
+</style>

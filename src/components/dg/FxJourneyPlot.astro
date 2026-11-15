@@ -1,0 +1,50 @@
+---
+import { readFileSync } from 'node:fs';
+const steps = [
+ {title:'Pre-trade',color:'#aa5400',description:'Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.',recommendations:['Order ticket with percentile presets','Benchmarks captured and frozen on the canvas'],quotes:["Where’s the liquidity today?"]},
+ {title:'Staging the order',color:'#a63e2c',description:'She stages the order straight from the chart, dragging the BID pill to a level and reviewing the pre-filled ticket before submitting.',recommendations:['Pill-drag staging','Pre-filled ticket, one check and go'],quotes:['Right level, right size?','Ticket’s pre-filled. One check and go.']},
+ {title:'Working passively',color:'#870b33',description:'The algo works. Dana watches percent done against schedule, fills against the market, and the venue mix, without touching anything.',recommendations:['Canvas with pinned tooltip','Passive gauge and venue doughnut'],quotes:['On schedule, without paying the spread?','BARX fills me most. At what cost?']},
+ {title:'Intervention',color:'#963780',description:'When the market drifts or a hatched band comes on, she acts from the chart: repricing the limit, flipping aggressive, or excluding a venue.',recommendations:['Reprice','Venue cross-filter'],quotes:['Act now, or wait one more bar?','Repriced. Let it breathe.']},
+ {title:'Post-trade review',color:'#11689c',description:'Done. Dana compares the order against its sibling, exports the fills, and writes the best-ex note while the context is fresh.',recommendations:['Compare orders','Table view with CSV export'],quotes:['Can I defend this print?','All in, inside arrival.']},
+];
+const quotes=steps.flatMap(step=>step.quotes);
+const positions=[300,590,700,900,1030,1210,1320,1490,1600];
+const levels=[600.08,524.44,545.70,654.04,650.59,584.40,549.85,498.98,491.38];
+const stems=['02234','0c537','2cdd2','1476b','fe36f','0fc8a','564c9','a085e','f2418'];
+const heights=[229,153,175,283,280,213,179,128,120];
+const events=[{x:560,w:187,text:'Order staged from the BID pill'},{x:880,w:162,text:'Suspend band, hands off'},{x:1180,w:100,text:'Limit repriced'},{x:1450,w:151,text:'CSV export for best-ex'}];
+// Embed these small authored vectors so below-fold diagram details do not
+// open twenty image requests during the hero's first render.
+// The source vectors were drawn for a dark panel; stems and loops are white there.
+// On the shared white panel they take the ink colour instead.
+const ink='#272b32';
+const asset=(name:string,recolour=false)=>{let svg=readFileSync(`public/art/fx-journey/${name}.svg`,'utf8');if(recolour)svg=svg.replace(/"white"/g,`"${ink}"`);return `data:image/svg+xml,${encodeURIComponent(svg)}`;};
+---
+  <div class="journey-experience">
+    <div class="journey-plot">
+      <svg viewBox="0 180 1760 840" width="1760" height="840" role="img" aria-labelledby="journey-plot-title journey-plot-desc">
+        <title id="journey-plot-title">Thoughts, feelings and feedback loops</title>
+        <desc id="journey-plot-desc">My qualitative journey map follows Dana’s emotional experience, effort and tool switching. Repricing and venue changes return to working; post-trade learnings feed the next order. Every thought is also readable in the stages below.</desc>
+        <rect x="0" y="180" width="1760" height="640" rx="16" fill="#ffffff" stroke="#e4e6ea" />
+        <text x="24" y="230" fill="#272b32" font-size="18" font-weight="600">Thoughts &amp; feelings</text>
+        <image href={asset('d0ed4')} x="180" y="487.37" width="1511.5" height="293.4" />
+        <image href={asset('9c07e')} x="180" y="600.75" width="1511.5" height="180" />
+        <image href={asset('9f220')} x="180" y="718.6" width="1511.5" height="62.1" />
+        {[{y:366,label:'Quotes'},{y:553,label:'Emotional experience'},{y:656,label:'Effort'},{y:713,label:'Tool switching'}].map(row=><g><text x="24" y={row.y} fill="#4d4644" font-size="13">{row.label}</text><image href={asset('e7589')} x="152" y={row.y-4} width="8" height="8"/><line x1="180" y1={row.y} x2="1690" y2={row.y} stroke="#eb9940" stroke-opacity=".25"/></g>)}
+        <line x1="180" y1="780" x2="1690" y2="780" stroke="#272b32" stroke-opacity=".25"/>
+        {positions.map((x,i)=><g><image href={asset(stems[i],true)} x={x-.5} y="366" width="1" height={heights[i]}/><image href={asset('a3778')} x={x-3} y="363" width="6" height="6"/><image href={asset('f583f')} x={x-5} y={levels[i]-5} width="10" height="10"/><text x={x+2} y="354" transform={`rotate(-35 ${x+2} 354)`} fill="#4d4644" font-size="11.5" font-style="italic">“{quotes[i]}”</text></g>)}
+        {events.map(event=><g><image href={asset('dbc81')} x={event.x-16} y="739" width="8" height="8"/><rect x={event.x} y="728" width={event.w} height="26" rx="4" fill="#732957"/><text x={event.x+12} y="745" fill="#fff" font-size="11.5">{event.text}</text></g>)}
+        <text x="24" y="922" fill="#272b32" font-size="18" font-weight="600">Approach</text>
+        <rect x="180" y="850" width="1510" height="150" rx="12" fill="#ffffff" stroke="#e4e6ea"/>
+        <line x1="200" y1="950" x2="1670" y2="950" stroke="#eb9940" stroke-opacity=".35"/>
+        {[331,633,935,1237,1539].map(x=><image href={asset('de82f')} x={x-6} y="944" width="12" height="12"/>)}
+        <image href={asset('1381a',true)} x="932.1" y="915.5" width="305.387" height="28.5"/>
+        <image href={asset('c8694',true)} x="932.1" y="895.5" width="305.387" height="48.5"/>
+        <image href={asset('efc91',true)} x="327.4" y="873.5" width="1212.18" height="70.5"/>
+        {[{x:1010,y:908,w:147,text:'Reprice, return to working'},{x:990,y:887,w:171,text:'Exclude a venue, keep working'},{x:700,y:865,w:243,text:'Post-trade learnings set the next order’s limit'}].map(loop=><g><rect x={loop.x} y={loop.y} width={loop.w} height="19" rx="3" fill="#732957"/><text x={loop.x+8} y={loop.y+13} font-size="10.5" fill="#fff">{loop.text}</text></g>)}
+      </svg>
+    </div>
+  </div>
+<style>
+ .journey-experience{margin:0}.journey-plot{overflow:visible;border-radius:var(--radius);background:#fff}.journey-plot svg{display:block;width:100%;min-width:1100px;height:auto;font-family:var(--body)}
+</style>

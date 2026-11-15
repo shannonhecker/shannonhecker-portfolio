@@ -1,0 +1,34 @@
+[
+  {
+    "file": "home-deal-composition-current.svg",
+    "sourceSha256": "7c4df23b73a9745bda284a44abfdfe4a5d48cdd62513a9e6ddacf03a5e62b278",
+    "deliverySha256": "e076c25f4a23dee5a06d8d175517e0b91ac06cf1a16efdfff65e4999e57bde57",
+    "sourceBytes": 5523672,
+    "deliveryBytes": 3268543,
+    "comparison": {
+      "density": 192,
+      "width": 1816,
+      "height": 1397,
+      "meanChannelDifference": 0.00017491462195579578,
+      "maxChannelDifference": 9,
+      "changedChannelFraction": 0.00009440462413163513
+    },
+    "method": "SVGO 4.1.0 multipass, floatPrecision5. Original vector content retained; tiny subpixel differences measured."
+  },
+  {
+    "file": "home-deal-composition-mobile-current.svg",
+    "sourceSha256": "15a4969bce63230f9beed887c8bacc1c1bf48d8c2de64a12bdc2311d99f5016d",
+    "deliverySha256": "818e67164debf667d01b8b4641cea1bd0f403f2b183e158d411e9fcd519eee93",
+    "sourceBytes": 5535932,
+    "deliveryBytes": 3312062,
+    "comparison": {
+      "density": 192,
+      "width": 933,
+      "height": 720,
+      "meanChannelDifference": 0.0002593932356794093,
+      "maxChannelDifference": 7,
+      "changedChannelFraction": 0.00010271525544837442
+    },
+    "method": "SVGO 4.1.0 multipass, floatPrecision5. Original vector content retained; tiny subpixel differences measured."
+  }
+]

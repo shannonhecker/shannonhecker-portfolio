@@ -1,0 +1,14 @@
+---
+// Heading whose words fade and rise on enter (40ms stagger). The prototype
+// split words with innerHTML at runtime; doing it at build time avoids a
+// layout shift and works with JS off (the hidden state is scoped to .js).
+interface Props {
+  as?: 'h2' | 'h3';
+  class?: string;
+  style?: string;
+  text: string;
+}
+const { as: Tag = 'h3', class: cls = '', style, text } = Astro.props;
+const words = text.trim().split(/\s+/);
+---
+<Tag class={`${cls} split`.trim()} style={style}>{words.map((w, i) => (<Fragment><span class="wd" style={`--i:${i}`}>{w}</span>{i < words.length - 1 ? ' ' : ''}</Fragment>))}</Tag>

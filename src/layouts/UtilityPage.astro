@@ -1,0 +1,21 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+interface Props { title: string }
+const {title}=Astro.props;
+---
+<Base title={`${title} · Shannon Hecker`}>
+ <a class="skip" href="#main">Skip to content</a>
+ <Nav />
+ <main id="main" class="utility-page wrap"><slot /></main>
+ <Footer />
+</Base>
+<style>
+.utility-page{max-width:900px;padding-top:clamp(136px,12vw,180px);padding-bottom:clamp(72px,9vw,128px)}
+.utility-page :global(h1){font-size:clamp(40px,6vw,80px);line-height:1.1;letter-spacing:-.035em;margin:24px 0 40px}
+.utility-page :global(p){line-height:1.75;max-width:70ch}
+.utility-page :global(p+p){margin-top:20px}
+.utility-page :global(h2){margin:48px 0 16px;font-size:clamp(26px,3vw,36px);line-height:1.2}
+.utility-page :global(a){overflow-wrap:anywhere}
+</style>

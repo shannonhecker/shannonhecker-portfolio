@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-10",
+  "scope": "Local illustrated portfolio release candidate",
+  "results": [
+    {
+      "route": "panel",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "panel",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fx",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fx",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fusion",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "fusion",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "winking-star",
+      "preset": "mobile",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "winking-star",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "uoaui",
+      "preset": "mobile",
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "route": "uoaui",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      }
+    }
+  ]
+}

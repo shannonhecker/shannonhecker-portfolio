@@ -1,0 +1,31 @@
+---
+import { decisionFlows } from '../../lib/decision-flows';
+import type { Project } from '../../lib/process';
+interface Props { project:Project }
+const { project }=Astro.props;
+const {nodes,edges,height}=decisionFlows[project];
+const w=210,h=68;
+const path=(edge:typeof edges[number])=>{
+ const a=nodes.find(n=>n.id===edge.from)!,b=nodes.find(n=>n.id===edge.to)!;
+ if(edge.back){const side=a.x<b.x?Math.max(12,a.x-36):Math.min(1068,a.x+w+28);return `M${a.x+w/2},${a.y} V${a.y-24} H${side} V${b.y+h/2} H${b.x+(side>b.x?w:0)}`;}
+ if(a.y===b.y)return `M${a.x+w},${a.y+h/2} H${b.x}`;
+ const mid=(a.y+h+b.y)/2;
+ return `M${a.x+w/2},${a.y+h} V${mid} H${b.x+w/2} V${b.y}`;
+};
+---
+<figure class="workflow-diagram">
+ <svg class="workflow-canvas" viewBox={`0 0 1080 ${height}`} role="img" aria-labelledby={`${project}-workflow-title`}>
+  <title id={`${project}-workflow-title`}>Workflow decision map</title>
+  <defs><marker id={`${project}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="currentColor" /></marker></defs>
+  {edges.map(e=><path class:list={['workflow-edge',{'return-edge':e.back}]} d={path(e)} marker-end={`url(#${project}-arrow)`} />)}
+  {edges.filter(e=>e.label).map(e=>{const a=nodes.find(n=>n.id===e.from)!,b=nodes.find(n=>n.id===e.to)!;const x=e.back?(a.x+b.x)/2+w/2:(a.x+w/2+b.x+w/2)/2;const y=e.back?a.y-30:a.y===b.y?a.y+h/2-12:(a.y+h+b.y)/2-10;return <text class="workflow-edge-label" x={x} y={y} text-anchor="middle">{e.label}</text>})}
+  {nodes.map(n=><g class:list={['workflow-node',n.kind]}>
+   <rect x={n.x} y={n.y} width={w} height={h} rx={n.kind==='end'?28:8} />
+   {n.kind==='decision'&&<path d={`M${n.x+12} ${n.y+34} l6 -6 6 6 -6 6Z`} class="decision-glyph" />}
+   <text x={n.x+w/2} y={n.y+h/2-(n.lines.length-1)*10+5} text-anchor="middle">{n.lines.map((line,i)=><tspan x={n.x+w/2} dy={i===0?0:21}>{line}</tspan>)}</text>
+  </g>)}
+ </svg>
+ <ol class="workflow-mobile" aria-label="Workflow steps and branches">
+  {nodes.map(n=><li id={`${project}-node-${n.id}`} class:list={[n.kind]}><h4>{n.lines.join(' · ')}</h4><ul>{edges.filter(e=>e.from===n.id).map(e=><li><a href={`#${project}-node-${e.to}`}><span aria-hidden="true">{e.back?'↶':'↓'}</span> {e.label?`${e.label}: `:''}{nodes.find(t=>t.id===e.to)!.lines[0]}</a></li>)}</ul></li>)}
+ </ol>
+</figure>

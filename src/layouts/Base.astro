@@ -1,0 +1,114 @@
+---
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
+import '../styles/fonts.css';
+import '../styles/prototype.css';
+import '../styles/production.css';
+import '../styles/editorial.css';
+import '../styles/scroll-depth.css';
+import '../styles/typography-layout.css';
+import '../styles/type-rhythm.css';
+import '../styles/showcase.css';
+import '../styles/page-transitions.css';
+import '../styles/case-template.css';
+import displayFont from '@fontsource/inter-tight/files/inter-tight-latin-500-normal.woff2?url';
+import bodyFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+// Title and description reuse prototype copy (its <title> and hero intro).
+const {
+  title = 'Shannon Hecker Portfolio',
+  description = "Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.",
+  noindex = false,
+} = Astro.props;
+// DECISION: /panel is the home page with the panel line. Its canonical points
+// at / and it is kept out of the index. The path is neutral on purpose: Shannon
+// works at Barclays, so no employer-visible URL names another company.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const canonical = new URL(noindex ? '/' : path, Astro.site).href;
+// A title card reads at link-preview size; a dense product screenshot does not.
+const og = new URL('/og-card.png', Astro.site).href;
+---
+<!doctype html>
+<html lang="en" data-project={path.slice(1)} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {/* Private share for the Revolut panel: no page is listed in search. The
+        vercel.json X-Robots-Tag header says the same for every file. */}
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#171b22" />
+    <script is:inline>
+      (() => {
+        const d=document.documentElement;
+        let choice='dark';try{const saved=localStorage.getItem('portfolio-theme');if(saved==='light'||saved==='dark'||saved==='system')choice=saved;}catch{}
+        const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);
+        d.dataset.theme=dark?'dark':'light';d.dataset.appearance=choice;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#171b22':'#ffffff');
+        // Capture the outgoing document as one unscaled sheet. The incoming
+        // document separates title, copy and media for staggered entrances.
+        addEventListener('pageswap',event=>{
+          if(!event.viewTransition)return;
+          d.classList.add('page-departing');
+          event.viewTransition.finished.finally(()=>d.classList.remove('page-departing'));
+        });
+        addEventListener('pageshow',()=>d.classList.remove('page-departing'));
+        // Arriving through a page transition already animates the title, copy and
+        // media in. Mark the page so their own entrance does not play a second time.
+        addEventListener('pagereveal',event=>{if(event.viewTransition)d.classList.add('arrived-by-transition');});
+      })();
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shannon Hecker" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shannon Hecker, product designer, London. I design tools where mistakes cost money." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Shannon Hecker',
+      jobTitle: 'Product Designer',
+      address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
+      url: 'https://shannonhecker.com',
+      sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
+    })} />
+    {['/', '/panel'].includes(Astro.url.pathname) && <>
+      <link rel="preload" as="image" href="/art/avatar-idle-0.webp" fetchpriority="high" media="(min-width: 761px)" />
+      <link rel="preload" as="image" href="/art/avatar-greeting/wave.webp" fetchpriority="high" media="(min-width: 761px)" />
+    </>}
+    {!(['/', '/panel'].includes(Astro.url.pathname)) && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
+    <link rel="preload" href={bodyFont} fetchpriority="high" as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      // Motion gate. Hidden-until-revealed states only apply under html.js, and
+      // html.js is only set when motion is allowed. If the motion bundle never
+      // runs (blocked, failed), drop the class so nothing stays hidden.
+      (function (d) {
+        d.classList.add('has-js');
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        d.classList.add('js');
+        setTimeout(function () { if (!d.dataset.ready) d.classList.remove('js'); }, 3000);
+      })(document.documentElement);
+    </script>
+  </head>
+  <body>
+    <slot />
+    <AnalyticsConsent />
+    <script>import '../scripts/adventure.ts';</script>
+    <script>import '../scripts/appearance.ts';</script>
+    <script>import '../scripts/avatar-cursor.ts';</script>
+  </body>
+</html>

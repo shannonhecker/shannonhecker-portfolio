@@ -1,0 +1,47 @@
+---
+import content from '../../data/authored-content.json';
+import JourneyStep from './JourneyStep.astro';
+import WinkingRoutineJourney from './WinkingRoutineJourney.astro';
+interface Props {project:keyof typeof content}
+const {project}=Astro.props;
+const data=content[project].journey;
+// The original Deal Model source shows an owner-authored description and
+// approval with comments; do not repeat the older automatic-summary claim.
+const steps=project==='deal' ? data.steps.map((step,i)=>i===4 ? {...step,
+ description:'The deal owner adds a description and publishes the proposal. The approver compares proposals and approves the deal with comments.',
+ recommendations:['Owner-authored deal description','Proposal comparison and comment thread'],
+ backstage:'Separate deal-owner and approver views keep the proposal and approval discussion attached to the deal.'
+}:step) : data.steps;
+
+---
+<div class:list={['product-journey',`product-journey-${project}`]}>
+ {project==='fusion' && <>
+   <div class="fusion-entry"><p class="journey-caption">Start with the book</p><JourneyStep step={steps[0]} number={1}/></div>
+   <section class="refinement"><header><h4>Refine the view</h4><p>Filters and analysis stay in the same workspace.</p></header><div class="refinement-pair"><JourneyStep step={steps[1]} number={2}/><JourneyStep step={steps[2]} number={3}/></div><p class="loop-note">Back to filters when the view needs to change.</p></section>
+   <div class="presentation"><header><h4>Take the view into the room</h4><p>The audience changes. The data stays in the same surface.</p></header><div class="presentation-pair">{steps.slice(3).map((step,i)=><JourneyStep step={step} number={i+4}/>)}</div></div>
+ </>}
+ {project==='ai' && <>
+  <div class="exchange-heading"><h4>The designer decides. The model drafts.</h4><p>Native components and explicit fallbacks support the draft. Compare and tune are optional review tools; export is available directly.</p></div>
+  <ol class="ai-exchanges">{steps.map((step,i)=><li class:list={[`exchange-${i}`,{'model-turn':i===1}]}><div class="exchange-actor"><span>{String(i+1).padStart(2,'0')}</span><strong>{i===1?'Model':i===4?'Designer → developer':'Designer'}</strong></div><JourneyStep step={step}/>{i===1 && <p class="exchange-return">Draft misses the intent? Return to the prompt.</p>}{i===3 && <p class="exchange-return">Changed density or theme? I compare again before handover.</p>}</li>)}</ol>
+ </>}
+ {project==='winking' && <WinkingRoutineJourney />}
+ {project==='deal' && <>
+  <div class="deal-object"><h4>One deal, shared across the teams</h4><p>Sales, custody operations, legal and product work from the same deal. Each iteration carries the pricing decision forward.</p></div>
+  <div class="deal-blueprint"><div class="blueprint-head" aria-hidden="true"><span>The deal owner’s work</span><span>Behind the surface</span></div>{steps.map((step,i)=><section class="blueprint-row"><div><JourneyStep step={step} number={i+1} system={false}/></div><div class="blueprint-system"><h5>What the system does</h5><p>{step.backstage}</p>{i===2 && <p class="return-path">Rate difference → review the TXN rate against the SK rate.</p>}</div></section>)}</div>
+ </>}
+ {project==='fx' && <>
+  <div class="fx-prepare">{steps.slice(0,2).map((step,i)=><JourneyStep step={step} number={i+1}/>)}</div>
+  <section class="fx-live"><header><h4>While the order is working</h4><p>Watch progress against schedule and fills against the market.</p></header><div class="fx-monitor"><div class="fx-intervene"><p class="journey-caption">On schedule and inside the benchmarks</p><JourneyStep step={steps[2]} number={3} system={false}/><p class="return-path">Keep working and stay passive.</p></div><div class="fx-intervene"><p class="journey-caption">When the order needs attention</p><JourneyStep step={steps[3]} number={4} system={false}/><p class="return-path">Reprice, fill now or filter venues, then return to watching the canvas.</p></div></div></section>
+  <div class="fx-finish"><p class="journey-caption">After the order</p><JourneyStep step={steps[4]} number={5} system={false}/></div>
+ </>}
+</div>
+<style>
+.product-journey{margin-block:48px 64px;min-width:0}.product-journey h4{font-size:24px;line-height:1.3;margin:0 0 12px;font-weight:500}.product-journey header>p,.exchange-heading>p,.family-intro>p,.deal-object>p{font-size:16px;line-height:1.65;color:var(--fg-2);max-width:64ch;margin:0}.journey-caption{font-size:14px;line-height:1.5;color:var(--project-ink);margin:0 0 20px}.loop-note,.return-path,.exchange-return{font-size:15px;line-height:1.6;color:var(--project-ink);margin:28px 0 0;padding-top:16px;border-top:1px dashed var(--divider);max-width:65ch}
+.fusion-entry{max-width:65ch;margin-bottom:48px;border-top:2px solid var(--project-ink);padding-top:24px}.refinement{background:var(--surface-2,rgba(127,127,127,.05));padding:32px;border:1px solid var(--divider);border-radius:4px}.refinement>header,.presentation>header{margin-bottom:32px}.refinement-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.presentation{margin-top:56px}.presentation-pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:2px solid var(--project-ink);padding-top:24px}
+.exchange-heading{margin-bottom:36px}.ai-exchanges{list-style:none;margin:0;padding:0;display:grid;gap:32px}.ai-exchanges>li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;border-top:1px solid var(--divider);padding-top:24px;max-width:90%;min-width:0}.ai-exchanges>li.model-turn{margin-left:10%;max-width:90%;padding:28px;background:var(--surface-2,rgba(127,127,127,.05));border:1px solid var(--divider);border-radius:4px}.exchange-actor{display:grid;align-content:start;gap:8px;font-size:14px;color:var(--project-ink);line-height:1.5}.exchange-actor span{color:var(--fg-2);font-size:13px}.exchange-return{grid-column:2;margin-top:0}
+.family-intro{margin-bottom:36px}.family-rhythm{display:grid;gap:48px}.family-part{border-top:2px solid var(--project-ink);padding-top:24px}.family-part>header{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:28px}.family-part>header>p{color:var(--project-ink);font-size:14px}.family-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}.family-part-1{padding:28px;border:1px solid var(--divider);border-radius:4px;background:var(--surface-2,rgba(127,127,127,.05))}.family-part-2,.family-part-3{max-width:78%}.family-part-3{margin-left:22%}.family-part-2 .family-actions,.family-part-3 .family-actions{grid-template-columns:1fr}
+.deal-object{margin-bottom:40px;max-width:65ch}.blueprint-head,.blueprint-row{display:grid;grid-template-columns:1.2fr 1fr;gap:48px}.blueprint-head{font-size:14px;color:var(--project-ink);padding:0 0 18px;border-bottom:2px solid var(--project-ink)}.blueprint-row{padding-block:32px;border-bottom:1px solid var(--divider)}.blueprint-system{padding:24px;background:var(--surface-2,rgba(127,127,127,.05));align-self:start;border-radius:4px}.blueprint-system h5{font-size:14px;margin:0 0 12px}.blueprint-system>p{font-size:16px;line-height:1.65;color:var(--fg-2);margin:0}.blueprint-system>.return-path{font-size:15px;margin-top:24px;color:var(--project-ink)}
+.fx-prepare{display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:2px solid var(--project-ink);padding-top:24px}.fx-live{margin-block:48px;border:1px solid var(--divider);border-radius:4px;padding:32px}.fx-live>header{margin-bottom:32px}.fx-monitor{display:grid;grid-template-columns:1fr 1fr;gap:40px}.fx-intervene{border-top:2px solid var(--project-ink);padding-top:20px;display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0}.fx-intervene .return-path{margin-top:24px;align-self:start}.fx-finish{max-width:65ch;border-top:2px solid var(--project-ink);padding-top:24px}
+@media(max-width:760px){.refinement-pair{grid-template-columns:1fr;gap:24px}.ai-exchanges>li{grid-template-columns:110px minmax(0,1fr);max-width:100%;gap:20px}.ai-exchanges>li.model-turn{margin-left:5%;max-width:95%;padding:24px}.blueprint-head,.blueprint-row{gap:28px}.family-part-2,.family-part-3{max-width:100%;margin-left:0}}
+@media(max-width:600px){.product-journey{margin-block:36px 48px}.refinement,.fx-live,.family-part-1{padding:22px}.presentation-pair,.family-actions,.fx-prepare,.fx-monitor,.blueprint-row{grid-template-columns:1fr;gap:32px}.family-part>header{display:block}.family-part>header>p{margin-top:8px}.ai-exchanges>li,.ai-exchanges>li.model-turn{display:block;max-width:100%;margin-left:0}.exchange-actor{display:flex;gap:12px;margin-bottom:20px}.exchange-return{margin-top:24px}.blueprint-head{display:none}.blueprint-row:first-of-type{border-top:2px solid var(--project-ink)}.blueprint-system{padding:20px}.presentation{margin-top:40px}}
+</style>

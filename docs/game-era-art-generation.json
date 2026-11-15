@@ -1,0 +1,209 @@
+{
+  "date": "2026-10-10",
+  "provider": "Higgsfield / Nano Banana 2.1",
+  "credits": 16,
+  "requests": [
+    {
+      "index": 0,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Youthful high ponytail with a red scrunchie, white T-shirt with navy collar, navy shorts, white trainers. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Long straight side-swept dark brown hair, navy-and-white striped Breton top, blue skinny jeans, white trainers. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Shoulder-length blunt fringe dark brown hair with warm copper ends, mint blouse with white Peter Pan collar, coral trousers, cream flats. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Chin-length dark brown bob, camel coat worn open over cream shirt, dark charcoal trousers, white trainers. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Sleek centre-parted dark brown hair tied in low ponytail, blue blazer, cream shirt, bright warm tan tailored trousers, dark shoes. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Loose dark brown waves with fringe, cream turtleneck jumper, bright rose wide-leg trousers, cream trainers, tiny gold pendant. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Dark brown messy high bun with face-framing strands, lavender overshirt open over cream tee, dark indigo trousers, white trainers. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "params": {
+        "model": "nano_banana_2_1",
+        "resolution": "2k",
+        "aspect_ratio": "16:9",
+        "count": 1,
+        "use_unlim": false,
+        "prompt": "Create a production SPRITE SHEET for an original 16-bit side-scrolling platform game. A charming Taiwanese female designer avatar, same recognisable smiling face in every pose. CHUNKY PIXEL ART, large readable head roughly one third of full height, short stout readable game silhouette, clean flat colour clusters, ONLY 12 colours, 2 hard shades per material. Strong continuous TWO-PIXEL NEAR-BLACK OUTLINE around head hair arms clothing shoes, no gaps. Think 32x48 logical pixels per figure, nearest-neighbor enlarged. NO realistic anatomy, soft painterly shadows, gradient, anti-aliasing, tiny detailed texture, 3D, glow. Absolutely no Nintendo characters or logos. Pure solid magenta #ff00ff background. EXACTLY FOUR full-body figures evenly spaced in FOUR COLUMNS and ONE ROW: 1 standing neutral facing right; 2 running right left foot forward; 3 running right right foot forward; 4 jumping right with one knee lifted and one arm raised. Same size head/body in all four, foot baseline aligned for standing/running, complete figures with generous clean gaps, no labels or text. Outfit and hairstyle: Dark brown hair in a high claw-clip updo, pale sky-blue pyjamas with white cuffs, rose slippers. Match identity to reference but simplify the silhouette greatly and replace clothing and hairstyle as directed.",
+        "medias": [
+          {
+            "role": "image",
+            "value": "63610cdb-c21f-4c1f-8d7f-efc744b644bb"
+          }
+        ]
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "971888ff-118c-4a13-aa7f-51cc12f80069",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194901_971888ff-118c-4a13-aa7f-51cc12f80069.png"
+    },
+    {
+      "index": 1,
+      "job_id": "f364deb7-f4e2-4d77-b7ea-fb74cf87809e",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194901_f364deb7-f4e2-4d77-b7ea-fb74cf87809e.png"
+    },
+    {
+      "index": 2,
+      "job_id": "6c8598c9-7a2c-4e0b-bc7c-00d472088030",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194900_6c8598c9-7a2c-4e0b-bc7c-00d472088030.png"
+    },
+    {
+      "index": 3,
+      "job_id": "24cdc54c-c388-4420-b1e6-df5dddb01c09",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194901_24cdc54c-c388-4420-b1e6-df5dddb01c09.png"
+    },
+    {
+      "index": 4,
+      "job_id": "53c64292-69bf-4869-9003-0b218f99a42a",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194900_53c64292-69bf-4869-9003-0b218f99a42a.png"
+    },
+    {
+      "index": 5,
+      "job_id": "68e0fcfc-1c44-4766-becf-c0860ad36e31",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194900_68e0fcfc-1c44-4766-becf-c0860ad36e31.png"
+    },
+    {
+      "index": 6,
+      "job_id": "26a25359-81e0-43f5-a526-80dc504618f7",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194906_26a25359-81e0-43f5-a526-80dc504618f7.png"
+    },
+    {
+      "index": 7,
+      "job_id": "47049d05-57e9-485c-9d18-db4d9583f402",
+      "status": "completed",
+      "type": "image",
+      "model": "nano_banana_2_1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JCYHM4TnfNkPUFQEY6APyXeZf7/hf_20261010_194906_47049d05-57e9-485c-9d18-db4d9583f402.png"
+    }
+  ]
+}

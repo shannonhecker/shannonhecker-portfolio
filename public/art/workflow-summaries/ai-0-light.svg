@@ -1,0 +1,13 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">01 / 05</tspan></text>
+<path d="M297 65H41C38.7909 65 37 66.7909 37 69V168C37 170.209 38.7909 172 41 172H297C299.209 172 301 170.209 301 168V69C301 66.7909 299.209 65 297 65Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="13" letter-spacing="0em"><tspan x="55" y="88.7273">Describe your screen</tspan></text>
+<path d="M56 110H254M56 125H227" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M279 138H207C204.791 138 203 139.791 203 142V156C203 158.209 204.791 160 207 160H279C281.209 160 283 158.209 283 156V142C283 139.791 281.209 138 279 138Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="220" y="153.636">Generate</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Prompt</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Describe the screen in words</tspan></text>
+</svg>
+

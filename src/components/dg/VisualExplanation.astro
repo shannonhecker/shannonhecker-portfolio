@@ -1,0 +1,49 @@
+---
+import content from '../../data/visual-explanations.json';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;
+const item=content[project];
+const artwork=import.meta.glob<string>('../../../public/art/explanations/*.svg',{query:'?raw',import:'default',eager:true});
+const separateCopy=true;
+function illustration(svg:string){
+ if(!separateCopy)return svg;
+ const height=Number(svg.match(/<svg[^>]*height="(\d+)"/)?.[1]);
+ // The authored footnotes sat 11px under their rule and 18px above the card edge.
+ // Give them 16px above, a 20px line and 24px below, matching the label at the top.
+ return svg.replace(`height="${height}"`,'height="356"').replace(`viewBox="0 0 336 ${height}"`,'viewBox="0 0 336 356"')
+  .replaceAll(`height="${height-1}"`,'height="355"')
+  .replace(/<text\b[^>]*>[\s\S]*?<\/text>/g,text=>{
+   const y=text.match(/<tspan\b[^>]*\by="([\d.]+)"/);
+   return y&&Number(y[1])>344?'':text;
+  })
+  .replaceAll('<tspan x="17" y="306.864">','<tspan x="17" y="312.864">')
+  .replaceAll('<tspan x="17" y="325.864">','<tspan x="17" y="332.864">');
+}
+---
+<section class="visual-explanation" aria-labelledby={`${project}-explanation-title`}>
+ <div class="explanation-heading"><h4 id={`${project}-explanation-title`}>{item.title}</h4></div>
+ <ul aria-label={`${item.name} illustrated explanation`}>
+  {item.cards.map((card,index)=><li>
+   {(['light','dark'] as const).map(theme=><div class={`explanation-art explanation-${theme}`} role="img" aria-label={`${card.title}. ${card.diagramDescription}. ${card.body}`}><Fragment set:html={illustration(artwork[`../../../public/art/explanations/${project}-${index}-${theme}.svg`])} /></div>)}
+   {separateCopy&&<div class="explanation-copy"><h5>{card.title}</h5><p>{card.body}</p></div>}
+  </li>)}
+ </ul>
+ <p class="explanation-caption">{item.caption}</p>
+</section>
+<style>
+.visual-explanation{margin-block:32px 40px;min-width:0}
+.explanation-heading{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:24px}
+.explanation-heading h4{font-size:24px;line-height:1.4;font-weight:500;color:var(--fg);margin:0;max-width:32ch}
+
+/* Match the workflow cards' authored 336px width rather than enlarging SVG text. */
+ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:696px;gap:var(--space-card-row,40px) 24px;list-style:none;padding:0;margin:0}
+li{min-width:0;margin:0;padding:0}.explanation-art{width:100%;min-width:0}
+.explanation-copy{padding:20px 0 0}
+.explanation-copy h5{margin:0 0 12px;font-size:18px;line-height:1.4;font-weight:500;color:var(--fg)}
+.explanation-copy p{margin:0;font-size:16px;line-height:1.6;color:var(--fg-2)}
+.explanation-art :global(svg){display:block;width:100%;height:auto;border-radius:var(--radius)}
+.explanation-art :global(text){font-family:Inter,Arial,sans-serif}
+.explanation-dark{display:none}:global(html[data-theme=dark]) .explanation-light{display:none}:global(html[data-theme=dark]) .explanation-dark{display:block}
+.explanation-caption{font-size:14px;line-height:1.7;color:var(--fg-2);margin:20px 0 0;max-width:75ch}
+@media(max-width:620px){ul{grid-template-columns:minmax(0,1fr);max-width:336px;gap:32px}.explanation-heading{flex-direction:column;align-items:flex-start;gap:8px}.explanation-heading h4{font-size:20px}}
+</style>

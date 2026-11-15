@@ -1,0 +1,413 @@
+{
+  "fx": {
+    "intro": "Three connected decisions: what the trader sees, where they act, and which data a study can trust. The evidence differs for each call.",
+    "connections": [
+      {
+        "label": "Reading → acting",
+        "text": "Combining progress and price puts the decision on one canvas. Repricing belongs beside that context, with a ticket before the order changes."
+      },
+      {
+        "label": "Acting → trusting",
+        "text": "More controls do not justify unreliable analytics. Study sources need their own data-quality boundary."
+      }
+    ],
+    "items": [
+      {
+        "key": "canvas",
+        "question": "How can a trader compare progress with price without losing the moment?",
+        "problem": "The trader needs to read the market and the order together during live execution. Separating the views makes that comparison a repeated task.",
+        "options": [
+          "Keep price and progress in the same field of view; use distinct axes and hierarchy to handle the density.",
+          "Separate the two measures into cleaner panels, but require the trader to move between them."
+        ],
+        "evidence": "I observed traders during live trading and asked what they watched, waited for and acted on. I used that to design the combined canvas. I do not have a measured comparison of the two layouts.",
+        "status": "Specified for the Barclays beta",
+        "result": "The combined canvas became the build contract. The public rebuild shows the interaction; rollout measures are still pending.",
+        "source": "src/components/CaseFx.astro#fx-decisions",
+        "reason": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view, with separate axes and careful hierarchy."
+      },
+      {
+        "key": "reprice",
+        "question": "Where should a trader change the limit they are already watching?",
+        "problem": "The limit-price log showed repeated changes during an order. Repricing needed to be part of monitoring, with an explicit confirmation before it affected the order.",
+        "options": [
+          "Drag the visible limit, then review the pre-filled ticket and confirm.",
+          "Find the order setting, enter the new limit, then return to the chart."
+        ],
+        "evidence": "The limit-price log established the need. I compared the two options in the written specification with the business and charting vendor. That was a spec review, not a measured usability trial.",
+        "status": "Specified with a confirmation step",
+        "result": "Drag-to-reprice went into the build contract. The gesture prepares the change; the ticket is the point where the trader reviews it.",
+        "source": "src/components/CaseFx.astro#fx-decisions"
+      },
+      {
+        "key": "studies",
+        "question": "Which series are complete enough to support a study?",
+        "problem": "A study can look convincing even when its input is incomplete. Own fills only exist when the order trades, unlike continuous market-price series.",
+        "options": [
+          "Offer bid, ask and mid market prices as study sources.",
+          "Offer every plotted series, including the order’s own fills."
+        ],
+        "evidence": "This reversal came from rebuilding the surface in code with real-shaped data and checking the gaps with the vendor. It was a data and implementation finding, not a user-study result.",
+        "status": "Reversed after implementation exploration",
+        "result": "I specified bid, ask and mid as study inputs to make the data boundary explicit. The current public rebuild does not include that study picker.",
+        "source": "src/components/CaseFx.astro#fx-decisions"
+      }
+    ]
+  },
+  "fusion": {
+    "intro": "The dashboard had to support different data, different decisions and different permissions. These calls address reuse, configuration effort and the move to external clients.",
+    "connections": [
+      {
+        "label": "Reuse without repeated setup",
+        "text": "Widgets let the same structure serve different cubes. Removing the middle configuration tier limits how much setup that flexibility asks of the user."
+      },
+      {
+        "label": "One structure, different access",
+        "text": "The same page and widget patterns then support external clients through entitlements, with review of what each audience can see."
+      }
+    ],
+    "items": [
+      {
+        "key": "widgets",
+        "question": "Should each report have its own page, or share a widget structure?",
+        "problem": "Performance, attribution and risk draw on different data cubes. Fixed pages make the first report straightforward but make each new combination another layout to maintain.",
+        "options": [
+          "Reuse widgets across data cubes and permission levels.",
+          "Build a fixed page for each report type and data combination."
+        ],
+        "evidence": "I watched internal users configure pages during weekly reviews on their own portfolios and used their choices to shape the default layout. Other Fusion teams later reused the widget and filtering patterns.",
+        "status": "Shipped and reused",
+        "result": "Widget and filtering patterns were adopted across other Fusion modules.",
+        "source": "src/components/CaseFusion.astro#fu-decisions"
+      },
+      {
+        "key": "configuration",
+        "question": "How much configuration actually changes the view someone needs?",
+        "problem": "The first design offered page, section and widget settings. The middle level added another place to look before reaching the same result.",
+        "options": [
+          "Keep page and widget configuration; remove the section tier.",
+          "Retain three levels and the extra choices for each level."
+        ],
+        "evidence": "I watched people use the three levels during the same reviews. The middle tier added choices without changing what they built. This was not a timed study, so there is no measured speed improvement.",
+        "status": "Simplified after review",
+        "result": "The flow keeps two configuration levels. I observed an easier route to the first useful view, without claiming a time saving.",
+        "source": "src/components/CaseFusion.astro#fu-decisions",
+        "tradeoff": "Removing a level also removes a place to configure a section independently. I kept the page and widget controls that supported the useful views."
+      },
+      {
+        "key": "entitlements",
+        "question": "Should external clients get a separate product?",
+        "problem": "Phase two brought in clients without training. A second interface would add another set of patterns to maintain; a shared one had to respect their narrower permissions.",
+        "options": [
+          "Keep a shared product and make the permitted view work for each role.",
+          "Create a separate simplified client interface alongside the internal product."
+        ],
+        "evidence": "The client-facing team informed the work, and two clients tested before phase two widened. That is a limited review record, not evidence that every client needed no support.",
+        "status": "Opened to clients in phase two",
+        "result": "The product opened to external clients using shared patterns and entitlement-based views.",
+        "source": "src/components/CaseFusion.astro#fu-decisions"
+      }
+    ]
+  },
+  "ai": {
+    "intro": "A private alpha for turning a brief into an inspectable screen. The model edits a structured canvas; mappings connect its blocks to the selected system. Review and export stay in the designer’s hands.",
+    "connections": [
+      {
+        "label": "Constrain the draft",
+        "text": "The model chooses from defined block types and canvas actions. Covered blocks map to real system components; uncovered combinations have explicit fallbacks."
+      },
+      {
+        "label": "Keep the judgement with the person",
+        "text": "System comparison and tuning let the designer inspect the draft. Export remains available directly, so review is a working practice rather than an enforced gate."
+      }
+    ],
+    "items": [
+      {
+        "key": "components",
+        "question": "What should the model be allowed to make?",
+        "problem": "A plausible-looking screen is not enough for handover. The output needs to map to components a developer can identify and inspect.",
+        "options": [
+          "Generate structured canvas blocks, then map supported blocks to real system components.",
+          "Let the model produce arbitrary UI without the shared block model."
+        ],
+        "evidence": "The source sends Claude a catalogue of block types and canvas tools. Its component registry maps supported blocks to Salt, MUI, Fluent and Carbon; the house system uses its own CSS. The renderer and exporter have fallback paths for uncovered combinations.",
+        "status": "Implemented in the private-alpha source",
+        "result": "The model works with a defined canvas structure. Native component mappings and explicit fallbacks produce a screen I can inspect.",
+        "reason": "I constrained generation to the builder’s block model. Where a system has a supported component, the renderer and React export use it. Where it does not, there is a fallback rather than a fabricated package API.",
+        "source": "shannonhecker/desinghub@5f603e731556c0ec9908a4222c6399a6af765e5f: src/lib/chatSystem.ts:16; src/app/api/chat/route.ts:249; src/lib/componentApiRegistry.ts:1; src/components/builder/ComponentRenderer.tsx:2071; src/lib/export/reactExporter.ts:189",
+        "optionLabels": [
+          "Mapped system components and fallbacks",
+          "Free-form generated UI"
+        ],
+        "title": "Mapped components, with explicit fallbacks",
+        "tradeoff": "The mapping needs maintenance for each system. Unsupported combinations can use custom or generic output, so the designer still needs to inspect them."
+      },
+      {
+        "key": "systems",
+        "question": "What should stay stable when the design system changes?",
+        "problem": "Different systems have their own components, density scales and theme rules. A switch should preserve the intended screen while making those differences visible.",
+        "options": [
+          "Map a shared screen structure to the supported systems, then inspect the result.",
+          "Rebuild the screen separately for every system and maintain the copies."
+        ],
+        "evidence": "The source stores one canvas with a selected system, theme and density. Component and layout registries map that structure differently for each system. The mappings use native APIs where available and token-driven CSS where a system has no equivalent.",
+        "status": "Working private-alpha comparison",
+        "result": "I can switch the same canvas among Salt, Material, Fluent, Carbon and the house system, then inspect how each mapping handles the screen.",
+        "source": "shannonhecker/desinghub@5f603e731556c0ec9908a4222c6399a6af765e5f: src/store/useBuilder.ts:1064; src/lib/componentApiRegistry.ts:1; src/lib/layoutRegistry.ts:1",
+        "reason": "I mapped screen structure, tokens, density and theme so I could compare the supported systems without drawing a separate screen for each. The differences still need a person to inspect them.",
+        "tradeoff": "A shared representation has to accommodate different system rules. Some system-specific choices need an explicit decision rather than a direct one-to-one swap."
+      },
+      {
+        "key": "review",
+        "question": "How can a designer inspect the draft before choosing to export?",
+        "problem": "The first output may miss hierarchy, density or system behaviour. Treating generation as completion would move that correction work into handover.",
+        "options": [
+          "Use comparison and tuning to review the draft, then choose when to export.",
+          "Accept the generated draft without reviewing its system differences."
+        ],
+        "evidence": "The export menu opens directly from the builder. React export generates the current canvas files without a compare or tune prerequisite. The only preview prerequisite in this panel applies to the Figma SVG format, which measures the rendered canvas.",
+        "status": "Direct export; review is optional",
+        "result": "A designer can export the first draft. Comparison and tuning support judgement, but do not guarantee it has happened.",
+        "reason": "I give the designer ways to compare and tune the draft before handover. The current product leaves export available; the person decides when the screen is ready.",
+        "tradeoff": "Keeping export available preserves flexibility, but it also means the designer can export before reviewing. The interface does not enforce the review sequence.",
+        "source": "shannonhecker/desinghub@5f603e731556c0ec9908a4222c6399a6af765e5f: src/components/builder/BuilderApp.tsx:417; src/components/builder/ExportPanel.tsx:31",
+        "title": "Review before handover, without locking export",
+        "optionLabels": [
+          "Compare and tune as review tools",
+          "Accept the first draft"
+        ]
+      }
+    ]
+  },
+  "winking": {
+    "intro": "These decisions began in the iPhone app, with my own family. They separate the first useful moment, a child’s daily action, adult control and the reason to return next week.",
+    "connections": [
+      {
+        "label": "Make the first action understandable",
+        "text": "The optional Sample Family lets a parent inspect the loop before setup. A child’s theme helps them recognise where their own routines live."
+      },
+      {
+        "label": "Connect today to next week",
+        "text": "The star is immediate feedback; the growing pet carries progress across the week. Adult controls and the payment model sit around that loop."
+      }
+    ],
+    "items": [
+      {
+        "key": "motivation",
+        "question": "What makes a completed routine worth looking at?",
+        "problem": "The checklists we tried in our own house stopped holding the children’s attention. I wanted the completion itself to feel visible.",
+        "options": [
+          "Give the tap a visible star and connect it to the pet’s progress.",
+          "Mark the routine with a checkbox and a completed-task count."
+        ],
+        "evidence": "This is based on watching my own two children use the app and the charts we had tried before it. It is a household observation, not a controlled comparison or a general finding about all children.",
+        "status": "Used in the family app",
+        "result": "Stars and the pet became the feedback loop. The observation about less nagging is limited to my own house.",
+        "reason": "The checklist lost attention in our own house within a week. I explored larger icons, stickers and celebration so the child could see a result from the tap.",
+        "tradeoff": "More illustration, motion and state design to build and maintain than a plain list.",
+        "source": "src/components/CaseWinking.astro#ws-problem"
+      },
+      {
+        "key": "first-open",
+        "question": "Should a parent see the loop before entering family details?",
+        "problem": "A blank board asks for setup before showing why a child might care. First use needs a useful example as well as a path to the family’s own board.",
+        "options": [
+          "Offer an optional Sample Family from the iPhone landing page before personal setup.",
+          "Require setup or a tour before a parent can see a useful example."
+        ],
+        "evidence": "The iPhone landing screen has separate Create Family and Try the Sample Family links. The demo route loads a predefined sample board. It is not automatically seeded into every new family.",
+        "status": "iPhone first-use design",
+        "result": "A parent can try the Sample Family before setup or go straight to creating their family.",
+        "source": "weekly-superstar-ios@8388f4d47ea5a027d921e586eccd064d83ac203c: app/index.tsx:125; app/index.tsx:142; lib/demoBoard.ts:6; app/board/[boardId]/_layout.tsx:106",
+        "reason": "I offer the Sample Family as a way to inspect the loop before creating a family. The landing page also lets a parent start setup directly, so trying the sample is a choice."
+      },
+      {
+        "key": "payment",
+        "question": "How should the app ask a parent to pay?",
+        "problem": "I wanted a free starting point without ads or a recurring subscription to manage for a child’s routine app.",
+        "options": [
+          "Offer a free version and a one-off lifetime unlock.",
+          "Offer a monthly or annual subscription."
+        ],
+        "evidence": "The iPhone source defines one non-consumable lifetime-unlock product and exposes free and premium choices. This confirms the payment model, not a pricing experiment or a measured change in trust.",
+        "status": "Product and business-model choice",
+        "result": "Free to start, with a one-off unlock. No measured trust or conversion uplift is claimed.",
+        "source": "weekly-superstar-ios@8388f4d47ea5a027d921e586eccd064d83ac203c: lib/iap.ts:11; lib/i18n.tsx:206"
+      },
+      {
+        "key": "identity",
+        "question": "How does a child recognise their own place on a shared board?",
+        "problem": "Several children can use one family board. Their own picture and theme offer another cue beside a written name.",
+        "options": [
+          "Give each child a recognisable illustrated theme and avatar.",
+          "Use one visual treatment for every child’s card."
+        ],
+        "evidence": "The current source artwork and product screens show the available themes. The case does not record a timed recognition test or establish that children cannot use a shared visual style.",
+        "status": "Implemented personalisation",
+        "result": "Each child can have their own visual identity on the family board.",
+        "reason": "I chose individual themes and avatars so the child has a picture to recognise alongside their name. The original theme artwork keeps that identity consistent across the product.",
+        "tradeoff": "Each theme needs artwork and checks across the screens where it appears.",
+        "source": "src/components/CaseWinking.astro#ws-themes"
+      },
+      {
+        "key": "adult-control",
+        "question": "Which actions should stay with the adult after the phone is handed over?",
+        "problem": "A child needs to complete routines without also changing the family setup or following an external action. The adult still needs a quick route back to editing.",
+        "options": [
+          "Use the iPhone parental gate for protected actions and Kid Mode for the child’s routine flow.",
+          "Use a remembered PIN or lock the whole app behind adult access."
+        ],
+        "evidence": "The iPhone source creates a two-number addition challenge. Its gate policy requires a fresh challenge for destructive actions while in Kid Mode and can reuse a recent unlock for lighter actions. This is a parental interaction gate, not age verification.",
+        "status": "iPhone interaction boundary",
+        "result": "Kid Mode separates the child’s routine actions from adult editing. The gate is a speed bump, not an identity check.",
+        "source": "weekly-superstar-ios@8388f4d47ea5a027d921e586eccd064d83ac203c: components/ParentalGate.tsx:219; lib/gatePolicy.ts:1"
+      },
+      {
+        "key": "weekly-progress",
+        "question": "What should a missed routine do to the week?",
+        "problem": "A daily reset can make each evening feel isolated. I wanted progress to accumulate so a quiet day did not erase the effort already made.",
+        "options": [
+          "Let stars contribute to a pet across the week, with a new pet on Monday.",
+          "Make a daily score and reset it at midnight."
+        ],
+        "evidence": "In the current iPhone source, weekly stars feed a stage function from egg to stage six. Treasures use cumulative completed routines. These are progression rules, not a measured retention result.",
+        "status": "Weekly product loop",
+        "result": "The pet grows from completed routines. The claimed result is continuity across the week, not measured retention.",
+        "source": "weekly-superstar-ios@8388f4d: components/MysteryPet.tsx:128; components/ActivityGrid.tsx:257; lib/treasures.ts:91; weekly-superstar-shared@fb7e63f: src/themes.ts:105-118",
+        "artNote": "The original sketch explores four broad stages. The current app uses star thresholds for six growth steps after the egg; the portfolio demo above simplifies that progression.",
+        "reason": "I wanted the pet to carry progress across the week. A missed day does not deduct stars; correcting a tick can change the total. The next week starts a new pet."
+      }
+    ]
+  },
+  "deal": {
+    "intro": "A shared deal record is the foundation. Reviews shape it, comparison makes pricing usable, the upload route supports migration, and approval keeps the owner’s reasoning with the selected iteration.",
+    "connections": [
+      {
+        "label": "Agree the object before the view",
+        "text": "The four teams share a deal, while their columns and responsibilities differ. Multiple proposals in review helped expose those differences."
+      },
+      {
+        "label": "Price, then make the decision reviewable",
+        "text": "The compare grid and upload route help the owner prepare the deal. Publishing an iteration carries the owner’s reason and comments into approval."
+      },
+      {
+        "label": "Keep exploration separate from delivery",
+        "text": "Smart pricing was explored with the data analyst. It is not evidence of a deployed recommendation model."
+      }
+    ],
+    "items": [
+      {
+        "key": "shared-record",
+        "question": "What is shared when four teams mean different things by a deal?",
+        "problem": "Separate spreadsheets and email chains left each team with its own view of pricing and status. Agreement was needed on the record underneath, not identical screens for every role.",
+        "options": [
+          "Keep one deal record with views for different roles.",
+          "Maintain a separate product and record for each team."
+        ],
+        "evidence": "I spent a year with the four teams, reviewing with each team weekly and together every fortnight. Many disagreements came down to the columns each team needed to see.",
+        "status": "Shared internal product design",
+        "result": "The design puts the teams’ work on a shared deal and iteration history.",
+        "source": "src/data/deal-content.json#research"
+      },
+      {
+        "key": "review-options",
+        "question": "How could four teams make a useful decision in a design review?",
+        "problem": "A single polished proposal made it hard to see which parts each team needed. Alternatives gave the discussion something concrete to compare.",
+        "options": [
+          "Bring three different versions and combine the useful parts.",
+          "Seek approval on one proposal at the end."
+        ],
+        "evidence": "The comparison table and iteration list came out of those reviews. I can explain how the discussions shaped them, but I did not measure the amount of rework the method saved.",
+        "status": "Design-review method",
+        "result": "The reviews shaped the comparison and history views. I do not claim that the method eliminated rework.",
+        "tradeoff": "More alternatives to prepare and explain in each review, with time needed to bring the useful parts together.",
+        "source": "src/data/deal-content.json#research",
+        "hideImages": [
+          false,
+          true
+        ]
+      },
+      {
+        "key": "comparison",
+        "question": "What should a pricing comparison let each role see?",
+        "problem": "Different teams needed different columns to judge the same iterations. A fixed report could not carry all those needs clearly at once.",
+        "options": [
+          "Compare iterations in a grid with a saved column selection.",
+          "Publish the same fixed comparison report for everyone."
+        ],
+        "evidence": "The original designs show the compare grid and column chooser. I designed them around the different comparisons each role needed; I did not measure a separate impact for this feature.",
+        "status": "Designed for the internal pricing workflow",
+        "result": "The comparison becomes a configurable view of the iterations. It supports a choice without requiring a new report layout for every role.",
+        "source": "src/data/deal-content.json#constraints",
+        "hideImages": [
+          false,
+          true
+        ]
+      },
+      {
+        "key": "migration",
+        "question": "How do people bring existing spreadsheet work into the deal?",
+        "problem": "Some users stayed in the spreadsheet because it was familiar. Manual re-entry would make the platform another task instead of a route away from the old one.",
+        "options": [
+          "Let the user fill an upload template that maps into the deal model.",
+          "Require manual entry and a complete switch to the new flow."
+        ],
+        "evidence": "The template idea came from a user session, and I worked it through with the BA. Declining uploads were our adoption signal; I did not measure an adoption rate.",
+        "status": "Migration support in the product",
+        "result": "The upload route let people keep a familiar way of preparing data while moving the record into the platform.",
+        "source": "src/data/deal-content.json#constraints",
+        "hideImages": [
+          false,
+          true
+        ]
+      },
+      {
+        "key": "approval",
+        "question": "What must the approver see with the selected pricing iteration?",
+        "problem": "The pricing choice needs a reviewable reason and a record of the version being approved. Checks during entry and an approval decision are different responsibilities.",
+        "options": [
+          "The owner explains the winning bid and publishes the proposal for review.",
+          "The approver sees the proposed bid beside the existing bid, reads the owner’s reason and adds comments."
+        ],
+        "evidence": "The original Deal Model file shows the owner entering a short winning-bid reason, publishing, and the approver reviewing the comparison and comments before approval. It does not establish that the tool writes the owner’s narrative automatically.",
+        "status": "Original designed approval workflow",
+        "result": "The owner supplies the reason. The approver can review it alongside the iteration comparison and record a decision in the product.",
+        "title": "Checks during pricing, a reason at approval",
+        "reason": "I kept pricing checks close to the inputs and the approval record close to the chosen iteration. The owner explains the winning bid; the approver reviews the comparison and comments before deciding.",
+        "tradeoff": "The owner still has to explain the choice, and the interface must distinguish a pricing warning from the approval itself.",
+        "optionLabels": [
+          "Publish the proposal with a reason",
+          "Review the comparison and comments"
+        ],
+        "source": "Figma MhZ5D5sh8DZgOTYdLXX8It, original pricing/publishing/approver flow",
+        "artNote": "These are the two roles in the selected approval workflow. The alternative was to keep the review in a separate email trail.",
+        "imageLabels": [
+          "Owner workflow",
+          "Approver workflow"
+        ]
+      },
+      {
+        "key": "smart-pricing",
+        "question": "Could past deals help an owner start the next pricing iteration?",
+        "problem": "Starting from rate cards relies on the owner’s experience. A suggestion might give a starting point, but it would depend on reliable history and a person checking the result.",
+        "options": [
+          "The smart-pricing concept explores inputs for creating a new iteration. The owner remains responsible for reviewing the resulting proposal.",
+          "The new-proposal concept collects proposal details and portfolio scope before pricing. It is another part of the exploration, not a rejected alternative."
+        ],
+        "evidence": "I explored this with the data analyst and reviewed it with the four teams. We were still assembling the historical data. It was not built in my time.",
+        "status": "Explored, not built in my time",
+        "result": "The proposal kept the owner in control. No model accuracy, adoption or pricing improvement is claimed.",
+        "source": "Figma MhZ5D5sh8DZgOTYdLXX8It, SmartPricing frame 1:24108 and Add Proposal frame 1:24561",
+        "artNote": "These are exact screens from the original exploration. Both are design concepts, not evidence of a working recommendation model. The alternative was to continue pricing from rate cards.",
+        "imageLabels": [
+          "Smart-pricing exploration",
+          "New-proposal exploration"
+        ],
+        "optionLabels": [
+          "Explore a pricing starting point",
+          "Set up a new proposal"
+        ]
+      }
+    ]
+  }
+}

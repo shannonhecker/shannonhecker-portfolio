@@ -1,0 +1,3078 @@
+{
+  "date": "2026-10-12",
+  "method": "Static source-tag extraction plus explicit dynamic data/component expansion. See docs/current-media-parity.json for fresh-export comparisons and limitations.",
+  "scope": "All six main routes; project/product/decision/persona/journey/brand evidence. Excludes game sprites, decorative cursor/favicon, fonts and duplicate next-case previews.",
+  "media": [
+    {
+      "route": "/fx",
+      "section": "fx-users",
+      "component": "src/components/CaseFx.astro",
+      "line": 66,
+      "asset": "/art/themed/fx-data-layers.svg",
+      "resolvedFile": "public/art/fx-data-layers.svg",
+      "bytes": 201772,
+      "sha256": "1e15d25e19f9f3cbdaa8f926a7299c4c57461d6b413e088d0b00b264aa5bcf37",
+      "presentation": "single",
+      "alt": "Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-312-5288-fresh.svg",
+          "status": "same original diagram; intentional theme adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 117,
+      "asset": "live-fx-classic.png",
+      "resolvedFile": "src/assets/img/live-fx-classic.png",
+      "bytes": 216896,
+      "sha256": "333e984465ac9085fd532e42058d612a48239c103e12950312c3d303893c87ec",
+      "presentation": "single",
+      "alt": "Classic FX public rebuild in dark mode, showing the complete order and execution chart",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336442-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 118,
+      "asset": "live-fx-classic-light.png",
+      "resolvedFile": "src/assets/img/live-fx-classic-light.png",
+      "bytes": 235950,
+      "sha256": "f8e85831de5643ceb43f1648766b80f76075022705d58fea9c47d441c750639b",
+      "presentation": "single",
+      "alt": "The same Classic FX workspace in light mode",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336445-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 119,
+      "asset": "live-fx-hover.png",
+      "resolvedFile": "src/assets/img/live-fx-hover.png",
+      "bytes": 548634,
+      "sha256": "00afbb5ca05fea2694282fa08e786914eb44a5b933772ea14f8a082b9ef31984",
+      "presentation": "single",
+      "alt": "Classic FX canvas with the pinned price and execution tooltip",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336470-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 120,
+      "asset": "live-fx-table.png",
+      "resolvedFile": "src/assets/img/live-fx-table.png",
+      "bytes": 175052,
+      "sha256": "f99aa5a2978173002142f27d652c145a62ca04d9ca6c8602dbb465fd4a06489f",
+      "presentation": "single",
+      "alt": "Classic FX execution canvas in candlestick view with percent done and venue analytics",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336489-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 122,
+      "asset": "live-fx-compare.png",
+      "resolvedFile": "src/assets/img/live-fx-compare.png",
+      "bytes": 261967,
+      "sha256": "6612c470a8497f23e34bca97c03b8710060bcb316a1e188773a8767ed6747075",
+      "presentation": "single",
+      "alt": "Two simulated FX orders compared side by side in the current public rebuild",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336513-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 123,
+      "asset": "live-fx-ticket.png",
+      "resolvedFile": "src/assets/img/live-fx-ticket.png",
+      "bytes": 235684,
+      "sha256": "743a4d5c370216578506d36d90ef0b1140e93b8783c669293eaaf42f4bd07a1b",
+      "presentation": "single",
+      "alt": "Pre-filled FX order ticket opened on the chart, using simulated data",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336503-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 144,
+      "asset": "/art/themed/fx-states-today.svg",
+      "resolvedFile": "public/art/fx-states-today.svg",
+      "bytes": 32332,
+      "sha256": "b7dd803b0e6ab9246167d24ff28fba02a6955966c297bf09aa830ea32a6e738f",
+      "presentation": "single",
+      "alt": "Schematic: hatched state regions behind the price line",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-140-4399-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 145,
+      "asset": "/art/themed/fx-states-designed.svg",
+      "resolvedFile": "public/art/fx-states-designed.svg",
+      "bytes": 55310,
+      "sha256": "bd65cffd1dcd166abe2f02eb51956fe3618b3ff13d1ff61eaa33800b6634cddf",
+      "presentation": "single",
+      "alt": "Schematic: a clean price line with states in a labelled lane under the axis",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-140-4411-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 148,
+      "asset": "/art/themed/fx-fills-today.svg",
+      "resolvedFile": "public/art/fx-fills-today.svg",
+      "bytes": 35728,
+      "sha256": "c557074011de0ab2234fab0436382874e9883f831e71cb9042946e2b5bbf9fb5",
+      "presentation": "single",
+      "alt": "Schematic: hundreds of overlapping fill dots forming a smear",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-140-4429-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-flow",
+      "component": "src/components/CaseFx.astro",
+      "line": 149,
+      "asset": "/art/themed/fx-fills-designed.svg",
+      "resolvedFile": "public/art/fx-fills-designed.svg",
+      "bytes": 37849,
+      "sha256": "04cc6b6677874c18a10638509cdc5afd739b6bf9339606e229f5f8d42a3aa59b",
+      "presentation": "single",
+      "alt": "Schematic: five counted clusters of fills",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-140-4600-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-outcome",
+      "component": "src/components/CaseFx.astro",
+      "line": 182,
+      "asset": "/media/fx-current.webm",
+      "resolvedFile": "public/media/fx-current.webm",
+      "bytes": 4022863,
+      "sha256": "798b2b56c6608528a3395fb4beeaa3e9d0be0c1849ed936bd6b579bcdddcd5f3",
+      "presentation": "video",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Product demonstration recording; outside static Figma export comparison",
+      "freshComparison": []
+    },
+    {
+      "route": "/fx",
+      "section": "fx-outcome",
+      "component": "src/components/CaseFx.astro",
+      "line": 182,
+      "asset": "live-fx-compare.png",
+      "resolvedFile": "src/assets/img/live-fx-compare.png",
+      "bytes": 261967,
+      "sha256": "6612c470a8497f23e34bca97c03b8710060bcb316a1e188773a8767ed6747075",
+      "presentation": "video-poster",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336513-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "fx-outcome",
+      "component": "src/components/CaseFx.astro",
+      "line": 183,
+      "asset": "live-fx-filters.png",
+      "resolvedFile": "src/assets/img/live-fx-filters.png",
+      "bytes": 253551,
+      "sha256": "72a99fd2bf7b38a1d4dbea68fa24b4a45297a9db8954edba8784ab2a7c117c31",
+      "presentation": "single",
+      "alt": "The current FX filters for venue, fill side and execution states",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336516-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "fusion",
+      "component": "src/components/CaseFusion.astro",
+      "line": 33,
+      "asset": "/art/fusion-hero-discovery-composition.svg",
+      "resolvedFile": "public/art/fusion-hero-discovery-composition.svg",
+      "bytes": 99572,
+      "sha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "presentation": "single",
+      "alt": "Original Fusion Analytics Dashboard design with report discovery, featured dashboards and the report table",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-hero-discovery-fresh.svg",
+          "status": "framing mismatch corrected"
+        }
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-800.svg",
+          "width": 800,
+          "bytes": 84196
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-1600.svg",
+          "width": 1600,
+          "bytes": 99572
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-discovery-composition-2400.svg",
+          "width": 2400,
+          "bytes": 99572
+        }
+      ],
+      "deliveryNote": "Responsive display SVGs preserve vector geometry; embedded screenshots resized and losslessly encoded. Original full-size link retained. See fusion-responsive-delivery.json and fusion-responsive-quality.json."
+    },
+    {
+      "route": "/fusion",
+      "section": "fusion",
+      "component": "src/components/CaseFusion.astro",
+      "line": 34,
+      "asset": "/art/fusion-hero-performance-composition.svg",
+      "resolvedFile": "public/art/fusion-hero-performance-composition.svg",
+      "bytes": 355276,
+      "sha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "presentation": "single",
+      "alt": "Original Fusion Performance design showing the complete workspace",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-hero-performance-fresh.svg",
+          "status": "framing mismatch corrected"
+        }
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-800.svg",
+          "width": 800,
+          "bytes": 50492
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-1600.svg",
+          "width": 1600,
+          "bytes": 139136
+        },
+        {
+          "path": "public/art/fusion-responsive/fusion-hero-performance-composition-2400.svg",
+          "width": 2400,
+          "bytes": 260824
+        }
+      ],
+      "deliveryNote": "Responsive display SVGs preserve vector geometry; embedded screenshots resized and losslessly encoded. Original full-size link retained. See fusion-responsive-delivery.json and fusion-responsive-quality.json."
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-decisions",
+      "component": "src/components/CaseFusion.astro",
+      "line": 100,
+      "asset": "live-fusion-config.png",
+      "resolvedFile": "src/assets/img/live-fusion-config.png",
+      "bytes": 701114,
+      "sha256": "20a2796c506f654cbef4bcacc47ea61a361a8202ee66068006ceaa2455c1e595",
+      "presentation": "single",
+      "alt": "The current Fusion performance table beside its configuration panel",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-design",
+      "component": "src/components/CaseFusion.astro",
+      "line": 109,
+      "asset": "/media/fusion-current.webm",
+      "resolvedFile": "public/media/fusion-current.webm",
+      "bytes": 2642061,
+      "sha256": "41361daf8c512b38b729206e9d38a2c444a9f0afb72daa44cadf61cb8cb71db8",
+      "presentation": "video",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Product demonstration recording; outside static Figma export comparison",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-design",
+      "component": "src/components/CaseFusion.astro",
+      "line": 109,
+      "asset": "live-fusion.png",
+      "resolvedFile": "src/assets/img/live-fusion.png",
+      "bytes": 173904,
+      "sha256": "ed7b896d7d1a95433a6d45abbb7fb2671597f5585e074e91cf381e40632a057e",
+      "presentation": "video-poster",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Product demonstration recording; outside static Figma export comparison",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-design",
+      "component": "src/components/CaseFusion.astro",
+      "line": 110,
+      "asset": "/art/fusion-configuration-composition.svg",
+      "resolvedFile": "public/art/fusion-configuration-composition.svg",
+      "bytes": 1492252,
+      "sha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "presentation": "single",
+      "alt": "Original Fusion design with widget configuration and a custom date range",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-configuration-fresh.svg",
+          "status": "framing mismatch corrected"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-design",
+      "component": "src/components/CaseFusion.astro",
+      "line": 111,
+      "asset": "/art/fusion-performance.svg",
+      "resolvedFile": "public/art/fusion-performance.svg",
+      "bytes": 1660786,
+      "sha256": "af9eb958ad00029877f4529ad312d0af7145a1f06d50558a243a3d95915b86b0",
+      "presentation": "single",
+      "alt": "Original Fusion Performance design with performance results and analytical widgets",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-performance-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-design",
+      "component": "src/components/CaseFusion.astro",
+      "line": 112,
+      "asset": "/art/fusion-risk.svg",
+      "resolvedFile": "public/art/fusion-risk.svg",
+      "bytes": 1378112,
+      "sha256": "a4eb4f35b555310e35737bb876bfb6e70f3fa6e50d4c6ee0d1a5f2e3e4fb5f3e",
+      "presentation": "single",
+      "alt": "Original Fusion Risk design with portfolio risk charts, tables and analytical widgets",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-risk-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-outcome",
+      "component": "src/components/CaseFusion.astro",
+      "line": 144,
+      "asset": "/art/fusion-screening.svg",
+      "resolvedFile": "public/art/fusion-screening.svg",
+      "bytes": 1070847,
+      "sha256": "ea0c96b5411fc411809648ec9ef5fb59fb6802836f0fd46eae7befd83d20773b",
+      "presentation": "single",
+      "alt": "Original Fusion screening workspace showing screening changes and their status",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-screening-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "fu-outcome",
+      "component": "src/components/CaseFusion.astro",
+      "line": 145,
+      "asset": "/art/fusion-entity-comparison.svg",
+      "resolvedFile": "public/art/fusion-entity-comparison.svg",
+      "bytes": 1124194,
+      "sha256": "cba57b1855f472295afb4ee7fdc23944adb044889fa987b190476a9f18406eab",
+      "presentation": "single",
+      "alt": "Original Fusion Sustainable Investment design comparing two entities across ESG, emissions and controversies",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fusion-entity-comparison-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai",
+      "component": "src/components/CaseAi.astro",
+      "line": 36,
+      "asset": "/art/ai-hero-builder-composition.svg",
+      "resolvedFile": "public/art/ai-hero-builder-composition.svg",
+      "bytes": 171725,
+      "sha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "presentation": "single",
+      "alt": "The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-400.svg",
+          "width": 400,
+          "bytes": 29777
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-800.svg",
+          "width": 800,
+          "bytes": 75061
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-1600.svg",
+          "width": 1600,
+          "bytes": 171725
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-builder-composition-2400.svg",
+          "width": 2400,
+          "bytes": 171725
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai",
+      "component": "src/components/CaseAi.astro",
+      "line": 37,
+      "asset": "/art/ai-hero-kit-composition.svg",
+      "resolvedFile": "public/art/ai-hero-kit-composition.svg",
+      "bytes": 83841,
+      "sha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "presentation": "single",
+      "alt": "The current uoaui Salt UI Kit, with foundations and component controls",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2035-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-400.svg",
+          "width": 400,
+          "bytes": 31181
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-800.svg",
+          "width": 800,
+          "bytes": 100597
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-1600.svg",
+          "width": 1600,
+          "bytes": 83841
+        },
+        {
+          "path": "public/art/case-responsive/ai-hero-kit-composition-2400.svg",
+          "width": 2400,
+          "bytes": 83841
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-what",
+      "component": "src/components/CaseAi.astro",
+      "line": 46,
+      "asset": "live-uoaui.png",
+      "resolvedFile": "src/assets/img/live-uoaui.png",
+      "bytes": 111608,
+      "sha256": "3a99eb6d35e499d2e08a4d00dd11360444c9f87e1bef5aa98bb2c1166eac6391",
+      "presentation": "single",
+      "alt": "The live uoaui.ai comparison page showing the same finance screen in Salt and uoaui",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-1921-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-flow",
+      "component": "src/components/CaseAi.astro",
+      "line": 71,
+      "asset": "/media/uoaui-current.mp4",
+      "resolvedFile": "public/media/uoaui-current.mp4",
+      "bytes": 2114448,
+      "sha256": "04028969a215c5736c038da4587d5109519e0dcd6d447b9f3ebb0105ad7c37c9",
+      "presentation": "video",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Product demonstration recording; outside static Figma export comparison",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-flow",
+      "component": "src/components/CaseAi.astro",
+      "line": 71,
+      "asset": "/media/uoaui-current-poster.webp",
+      "resolvedFile": "public/media/uoaui-current-poster.webp",
+      "bytes": 58008,
+      "sha256": "c0db16b119522b5d36120de787a43e6f5854c901a1b18496173c456a8edec146",
+      "presentation": "video-poster",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Product demonstration recording; outside static Figma export comparison",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-flow",
+      "component": "src/components/CaseAi.astro",
+      "line": 72,
+      "asset": "live-uoaui-kit.png",
+      "resolvedFile": "src/assets/img/live-uoaui-kit.png",
+      "bytes": 75669,
+      "sha256": "a3ce7ec16b8d72513092bc490977b3b2ab1de4aa1d4eb39c3e44319ce5f83ed4",
+      "presentation": "single",
+      "alt": "The current uoaui Salt UI Kit with foundations, components, patterns and system controls",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2035-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-flow",
+      "component": "src/components/CaseAi.astro",
+      "line": 73,
+      "asset": "live-uoaui-charts.png",
+      "resolvedFile": "src/assets/img/live-uoaui-charts.png",
+      "bytes": 179879,
+      "sha256": "be86682d520771da83c9e92b0ff48813c8ab169f1982ee7da5c6b9f8f28c0435",
+      "presentation": "single",
+      "alt": "The current uoaui UI Kit charts and data visualisation specimens in Salt",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2045-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "ai-flow",
+      "component": "src/components/CaseAi.astro",
+      "line": 74,
+      "asset": "live-uoaui-forms.png",
+      "resolvedFile": "src/assets/img/live-uoaui-forms.png",
+      "bytes": 36884,
+      "sha256": "c6f857a5afc8b39512a29f57d3416fb4de8e9af91fdefd22f75aff194cfa8ac7",
+      "presentation": "single",
+      "alt": "The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2056-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "winking",
+      "component": "src/components/CaseWinking.astro",
+      "line": 37,
+      "asset": "/art/winking-hero-composition.svg",
+      "resolvedFile": "public/art/winking-hero-composition.svg",
+      "bytes": 388496,
+      "sha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "presentation": "single",
+      "alt": "Winking Star iPhone Home, Activity and Progress screens in the original staggered three-phone composition",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-400.svg",
+          "width": 400,
+          "bytes": 44968
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-800.svg",
+          "width": 800,
+          "bytes": 105908
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-1600.svg",
+          "width": 1600,
+          "bytes": 388496
+        },
+        {
+          "path": "public/art/case-responsive/winking-hero-composition-2400.svg",
+          "width": 2400,
+          "bytes": 388496
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
+    },
+    {
+      "route": "/winking-star",
+      "section": "ws-hero",
+      "component": "src/components/CaseWinking.astro",
+      "line": 45,
+      "asset": "ws-hero-art.jpg",
+      "resolvedFile": "src/assets/img/ws-hero-art.jpg",
+      "bytes": 68143,
+      "sha256": "174284d0e7c4afb6395ef839417aec8dbefaf9b83cc764deb9ff164c6df13a81",
+      "presentation": "single",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-3576-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "demo",
+      "component": "src/components/CaseWinking.astro",
+      "line": 116,
+      "asset": "ws-icon.png",
+      "resolvedFile": "src/assets/img/ws-icon.png",
+      "bytes": 709043,
+      "sha256": "bbf0128c6fa20e93be79b360d117ee6f55c530511456bc40518f376b338cd9c0",
+      "presentation": "single",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4240-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "ws-themes",
+      "component": "src/components/CaseWinking.astro",
+      "line": 143,
+      "asset": "ws-source-football.png",
+      "resolvedFile": "src/assets/img/ws-source-football.png",
+      "bytes": 2494206,
+      "sha256": "f07f0ea8621bcc950f4fca6367e0c3f4ccd3d6d42e53095e187b586318b11c5e",
+      "presentation": "single",
+      "alt": "Football theme banner",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4311-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "ws-themes",
+      "component": "src/components/CaseWinking.astro",
+      "line": 143,
+      "asset": "ws-source-dinosaur.png",
+      "resolvedFile": "src/assets/img/ws-source-dinosaur.png",
+      "bytes": 1780112,
+      "sha256": "b6e135c4eceaf0d534266adf9f30d4f66c251b71a15b0d7cdd359b64c09972c7",
+      "presentation": "single",
+      "alt": "Dinosaur theme banner",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4312-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "ws-themes",
+      "component": "src/components/CaseWinking.astro",
+      "line": 143,
+      "asset": "ws-source-ocean.png",
+      "resolvedFile": "src/assets/img/ws-source-ocean.png",
+      "bytes": 1064671,
+      "sha256": "633bc6840c948f5856bc7b459771a665bcc3df1e502160e7de64caa6c68cf6cc",
+      "presentation": "single",
+      "alt": "Ocean theme banner",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4313-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "ws-themes",
+      "component": "src/components/CaseWinking.astro",
+      "line": 143,
+      "asset": "ws-source-unicorn.png",
+      "resolvedFile": "src/assets/img/ws-source-unicorn.png",
+      "bytes": 1108038,
+      "sha256": "26aedf1eddb0a963e679da320c88d046d99cdce210ce10c4fbdf9530e0576bcf",
+      "presentation": "single",
+      "alt": "Unicorn theme banner",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4314-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "deal",
+      "component": "src/components/CaseDeal.astro",
+      "line": 20,
+      "asset": "/art/deal-hero-composition.svg",
+      "resolvedFile": "public/art/deal-hero-composition.svg",
+      "bytes": 1382659,
+      "sha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "presentation": "single",
+      "alt": "Original Deal Model composition with overlapping market pricing comparison and deal approval overview screens",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-400.svg",
+          "width": 400,
+          "bytes": 43525
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-800.svg",
+          "width": 800,
+          "bytes": 123905
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-1600.svg",
+          "width": 1600,
+          "bytes": 349229
+        },
+        {
+          "path": "public/art/case-responsive/deal-hero-composition-2400.svg",
+          "width": 2400,
+          "bytes": 603413
+        }
+      ],
+      "deliveryNote": "Responsive SVG display variants preserve vector geometry; resized embedded screenshots use quality95 WebP where recorded. Native-size variants and original full-size links preserve source images. See case-hero-responsive-delivery.json and case-hero-responsive-quality.json."
+    },
+    {
+      "route": "/fx",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fx-0.png",
+      "resolvedFile": "src/assets/img/personas/fx-0.png",
+      "bytes": 1780039,
+      "sha256": "675ab6d49d12dc04c12c8f8676c064b1c2f04e8b9a1e407b0b02900b2f468d2f",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Dana Chen",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fx",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fx-1.png",
+      "resolvedFile": "src/assets/img/personas/fx-1.png",
+      "bytes": 1532282,
+      "sha256": "0d421b59cf989e73077970b9a1a8a5d940e28f425043eb9f8fe8b8685323386f",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Marcus Webb",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fx",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fx-2.png",
+      "resolvedFile": "src/assets/img/personas/fx-2.png",
+      "bytes": 1543670,
+      "sha256": "beea47472a3da8365aa4e52725487053a24418ad3207c957ed4b530d8c25b08a",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Priya Nair",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fx",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-1-chosen.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-1-chosen.png",
+      "bytes": 83084,
+      "sha256": "bff8c88c78706321fa23d2173cb78afcd1d5b4b126b529e7757a900c863bbe54",
+      "presentation": "paired option image",
+      "alt": "One canvas with price lines, a stepped limit and order progress on a dual axis.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-796-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-1-alternative.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-1-alternative.png",
+      "bytes": 71933,
+      "sha256": "cc33e9077c31739c001389f4eb562f17510720600ed1ec4ac22cca0cb0d7dd17",
+      "presentation": "paired option image",
+      "alt": "Two linked panels separate market prices from execution progress.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-830-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-2-chosen.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-2-chosen.png",
+      "bytes": 110886,
+      "sha256": "9f4be2d122006711589b47decc315c3d8b9ac967d239e7102d7fcddf3ae850a3",
+      "presentation": "paired option image",
+      "alt": "Dragging the limit line opens a pre-filled reprice ticket beside the chart.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-876-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-2-alternative.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-2-alternative.png",
+      "bytes": 110935,
+      "sha256": "f3d0c8ce3266ec66d2427883480899694a444147ea8e48b57b97b7ea38d195d5",
+      "presentation": "paired option image",
+      "alt": "A separate order-settings menu edits the limit price away from the chart.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-924-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-3-chosen.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-3-chosen.png",
+      "bytes": 68262,
+      "sha256": "6408a88c985870c13198eba19e7704380c5f47f0080079bdf9df0eef7b6cb4b9",
+      "presentation": "paired option image",
+      "alt": "The study-source picker offers bid, ask and mid market prices.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-975-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fx-decision-3-alternative.png",
+      "resolvedFile": "src/assets/img/figma-sync/fx-decision-3-alternative.png",
+      "bytes": 75218,
+      "sha256": "e3b36930cdd6c388f521c22015a6f7fbc330cbf09de7bc855c2c4d591714acd1",
+      "presentation": "paired option image",
+      "alt": "The alternative allows own fills, whose data gaps make the study unreliable.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-art-274-1009-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/fx-journey-original.svg",
+      "resolvedFile": "public/art/fx-journey-original.svg",
+      "bytes": 4007996,
+      "sha256": "c590c8efebcd558ce390c900bff035994cd2e8dfe45f362c15d1fe36fd766367",
+      "presentation": "original image cropped to journey chart/approach window",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-original-339-5297-fresh.svg",
+          "status": "same original artwork; intentional presentation adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-fx-tablet.png",
+      "resolvedFile": "src/assets/img/live-fx-tablet.png",
+      "bytes": 218760,
+      "sha256": "8169b305e7971b16ac1d105c8250b13a97019434f9abeb9d9e335cedab49d6ca",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336542-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-fx-mobile.png",
+      "resolvedFile": "src/assets/img/live-fx-mobile.png",
+      "bytes": 160605,
+      "sha256": "74ab50d3ae59d048f624bf0debfde08e5f5fe9512716ed503332fb09b41e4fbd",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-fx-screenshot-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-305-336544-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fusion-0.png",
+      "resolvedFile": "src/assets/img/personas/fusion-0.png",
+      "bytes": 834143,
+      "sha256": "2647af022b3c2978b9a0e25c6b55f3357234ed3eb2460ee48b92f043ea69ac59",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Helen Marsh",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json",
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fusion-1.png",
+      "resolvedFile": "src/assets/img/personas/fusion-1.png",
+      "bytes": 1574313,
+      "sha256": "8c6dfc249f689f5faba1bc9f396756f135517a58677e2ceb3f23ef0202e8c469",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Tom Reilly",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json",
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/fusion-2.png",
+      "resolvedFile": "src/assets/img/personas/fusion-2.png",
+      "bytes": 1737519,
+      "sha256": "41e676465d415a4ea15371ebe0342c5efebea0bbb06e0b45033c89f2bc321821",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Amara Osei",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json",
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-0-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-0-0.png",
+      "bytes": 55642,
+      "sha256": "a175feba8d6d424cc4ad8254cada52278419141d9eb6d38c80ee2af59d8cfa11",
+      "presentation": "paired option image",
+      "alt": "Modular widgets",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-598-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-0-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-0-1.png",
+      "bytes": 32811,
+      "sha256": "0407e3d853ab165c1348b2efd1b9a17ffe38508d93a64a010dac3a7c089198b1",
+      "presentation": "paired option image",
+      "alt": "Fixed layouts per report type",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-654-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-1-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-1-0.png",
+      "bytes": 42964,
+      "sha256": "bc6c28b5d41c277bdf627c6b19435b2c86709fff784cf43a1b334f56f76a4f2b",
+      "presentation": "paired option image",
+      "alt": "Cut a customisation tier",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-708-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-1-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-1-1.png",
+      "bytes": 51508,
+      "sha256": "6c2ba80ac42a2620e35441ccfe818f425d0b7f289e1861395b09e4bee4616125",
+      "presentation": "paired option image",
+      "alt": "Three levels of configuration",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-739-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-2-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-2-0.png",
+      "bytes": 59956,
+      "sha256": "eb9c747db247eb7bfd8203e45ee83adc85df2b1d73413f57bafb0d2fcdce562d",
+      "presentation": "paired option image",
+      "alt": "One product with entitlement-based views",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-791-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/fusion-decision-2-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/fusion-decision-2-1.png",
+      "bytes": 69312,
+      "sha256": "56ed4e047c0d8ef1ccc8a20a172a3907e9399c6f4cb517c04b6a9c7084702098",
+      "presentation": "paired option image",
+      "alt": "A simplified client version",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-277-863-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/fusion-experience.svg",
+      "resolvedFile": "public/art/fusion-experience.svg",
+      "bytes": 313969,
+      "sha256": "f9eb61508140b8e6930ed4b252c0f1f27e622d089c0865248abd10b64fa8fad9",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-352-5448-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/fusion-approach.svg",
+      "resolvedFile": "public/art/fusion-approach.svg",
+      "bytes": 71393,
+      "sha256": "53fb8c349cf82109bd0af0f889e81826eea2fe1a6ad466cb19ebda176197f319",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-fusion-352-5513-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fusion",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-fusion-tablet.png",
+      "resolvedFile": "src/assets/img/live-fusion-tablet.png",
+      "bytes": 167588,
+      "sha256": "c66ca1dbe19a8ec38877c3c5106e5e1f402b46f7615d449ae4c53bbcea40b95d",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/fusion",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-fusion-mobile.png",
+      "resolvedFile": "src/assets/img/live-fusion-mobile.png",
+      "bytes": 293051,
+      "sha256": "6c4f00851e5956126b54e556e927db967bd94453f4618f5fbca57ff327f8434a",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-fusion-screen-sync.json"
+      ],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/ai-0.png",
+      "resolvedFile": "src/assets/img/personas/ai-0.png",
+      "bytes": 1608127,
+      "sha256": "ef523beedfd9ff08fcb22231c7b08f960cca87f68ae5571ac935966aa09707ba",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Mei Lin",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/ai-1.png",
+      "resolvedFile": "src/assets/img/personas/ai-1.png",
+      "bytes": 1532587,
+      "sha256": "f5edc5cf95b7d066d9b42abe334bd00f968f78ed5ff7d2e14db86a138b6efdbb",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Dev Patel",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-0-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-0-0.png",
+      "bytes": 87433,
+      "sha256": "b57dec6c8b2df5f6b04fab954ddbe508c8d45aec8a1bdba87b41ad87a77ad157",
+      "presentation": "paired option image",
+      "alt": "Mapped components with explicit fallbacks",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1380-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-0-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-0-1.png",
+      "bytes": 90810,
+      "sha256": "ddf8599eb1051760b2a6be449c56578df33dd2b6f0866f68553b4fb35fc4f2d9",
+      "presentation": "paired option image",
+      "alt": "Letting the model draw free-form UI",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1472-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-1-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-1-0.png",
+      "bytes": 101389,
+      "sha256": "c8dc6a7795681d896aa9e25146fe5f4dc1233679cda3ade53377a9d6a1b4c349",
+      "presentation": "paired option image",
+      "alt": "Five systems, one model underneath",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1519-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-1-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-1-1.png",
+      "bytes": 75619,
+      "sha256": "f4f0c6e77480602e8b992b8b665b6b932c18019aa1f8f6c1a2c335dc6b23a4ee",
+      "presentation": "paired option image",
+      "alt": "A screen rebuilt by hand",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1611-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-2-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-2-0.png",
+      "bytes": 81111,
+      "sha256": "2a258e98e3ef0ca471ec28a748b07205f277d0276c0d21e79827a891ec2fc9b3",
+      "presentation": "paired option image",
+      "alt": "Compare and tune before export",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1707-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/ai-decision-2-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/ai-decision-2-1.png",
+      "bytes": 82082,
+      "sha256": "c2a40d3685f4201b04947376e8e8aad138bb9dc0c23b0ecec46c84bc72fd0b06",
+      "presentation": "paired option image",
+      "alt": "The model's first answer",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-277-1812-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/ai-experience.svg",
+      "resolvedFile": "public/art/ai-experience.svg",
+      "bytes": 328091,
+      "sha256": "e78ce3ca59d9707be76b21e133c59e51f01628ec47f9c5e4f82e5a0e795b2b48",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-352-5622-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/ai-approach.svg",
+      "resolvedFile": "public/art/ai-approach.svg",
+      "bytes": 83226,
+      "sha256": "4f56590ab11f3d0eb5e56abfcb51b7a2ca834b81bce633d97fc540a9f8395e8f",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-ai-352-5687-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-uikit-tablet.png",
+      "resolvedFile": "src/assets/img/live-uikit-tablet.png",
+      "bytes": 59779,
+      "sha256": "235b09a85898ca9542455a4e43f1e25cc7bdcb3ffa1e13ff188fa78d1a6aec68",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2516-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/uoaui",
+      "section": "responsive evidence",
+      "component": "src/components/ResponsiveEvidence.astro",
+      "line": null,
+      "asset": "live-uikit-mobile.png",
+      "resolvedFile": "src/assets/img/live-uikit-mobile.png",
+      "bytes": 37707,
+      "sha256": "5b4bf3ca0328f4ed7c9eb689bf1d016e8ec2d32e5a696f5efabb76b30cf3c675",
+      "presentation": "single viewport capture",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2520-fresh.svg",
+          "status": "source layout repaired; same screenshot pixels"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/winking-0.png",
+      "resolvedFile": "src/assets/img/personas/winking-0.png",
+      "bytes": 487273,
+      "sha256": "a82c5d00292363af2b8044911175c66890b680effbf69ec84c8c71224da95183",
+      "presentation": "cutout in themed identity panel",
+      "alt": "Leo, 6",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/winking-1.png",
+      "resolvedFile": "src/assets/img/personas/winking-1.png",
+      "bytes": 1073269,
+      "sha256": "88f275f28314a26c3228707a97f1f1e4120196073429960694460fa2910f7aca",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The parent",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/winking-2.png",
+      "resolvedFile": "src/assets/img/personas/winking-2.png",
+      "bytes": 1487497,
+      "sha256": "58828c5cc8d702b919d6741f018e56ff6c4c50d99a54522694146fdecab39f27",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The second adult",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-0-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-0-0.png",
+      "bytes": 108743,
+      "sha256": "2835a85eadb539e8bf819f37169527894e42c36ba955b1479503329b129662da",
+      "presentation": "paired option image",
+      "alt": "Stars and a pet",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2542-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-0-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-0-1.png",
+      "bytes": 77993,
+      "sha256": "dddc94d69a2f6723c60f32a8b1699b7fbf797393c43f55d72d29a898c50a2cae",
+      "presentation": "paired option image",
+      "alt": "A plain tick list",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2611-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-1-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-1-0.png",
+      "bytes": 97612,
+      "sha256": "3450d26046281795ee8b12858a1bcdf5f93dfd42b51f8106eba9a64cc991b02b",
+      "presentation": "paired option image",
+      "alt": "Optional Sample Family before personal setup",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2661-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-1-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-1-1.png",
+      "bytes": 77414,
+      "sha256": "53f3450feac389ec2680f74728f5d7cf26cb851b982755e777d18d22db8c16d4",
+      "presentation": "paired option image",
+      "alt": "A tour and an empty state",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2710-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-2-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-2-0.png",
+      "bytes": 74603,
+      "sha256": "544dcf084c45beb784c86a664669e7f680c07964f19a49129f0d57ed1e1c63db",
+      "presentation": "paired option image",
+      "alt": "Lifetime unlock",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2752-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-2-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-2-1.png",
+      "bytes": 91599,
+      "sha256": "86a08726b4375d1170bf1b5a034572750c529a646fc72b8ad7b9543a54ddff28",
+      "presentation": "paired option image",
+      "alt": "A small subscription",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2786-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 4",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-3-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-3-0.png",
+      "bytes": 88090,
+      "sha256": "bf8539b18da728924ec6dc06fb3560209c8620d44ca28c3a520ff98e549e2f8a",
+      "presentation": "paired option image",
+      "alt": "A theme per child, drawn not templated",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2830-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 4",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-3-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-3-1.png",
+      "bytes": 72235,
+      "sha256": "7abf4c0ccac47c721d3331da00f54b49be1e134c215450a4a23d07209477d560",
+      "presentation": "paired option image",
+      "alt": "One look for all",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2875-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 5",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-4-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-4-0.png",
+      "bytes": 81153,
+      "sha256": "df1d85fccbebe8f22e759e52e767851e9e95277a6d00a10b8feca94cc9bcbbd6",
+      "presentation": "paired option image",
+      "alt": "A quick maths question gates the exits",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2924-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 5",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-4-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-4-1.png",
+      "bytes": 84945,
+      "sha256": "1ef56e47067a0b488ce642ec3115068938fd18f136597ab2fbc0da1895b674d6",
+      "presentation": "paired option image",
+      "alt": "A PIN, or a locked app",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-2952-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 6",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-5-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-5-0.png",
+      "bytes": 100852,
+      "sha256": "0d03fa85de2885b4cef62bdf162fc8aac06d6570d7065c78c301e315aed3206d",
+      "presentation": "paired option image",
+      "alt": "A weekly pet with four stages",
+      "provenanceDocuments": [
+        "docs/figma-final-content-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-3007-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ],
+      "finalUpdateNote": "Approved final source-art correction clarifies original weekly-pet exploration."
+    },
+    {
+      "route": "/winking-star",
+      "section": "decision 6",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/winking-decision-5-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/winking-decision-5-1.png",
+      "bytes": 84918,
+      "sha256": "f555c53df69e5b85984115a86441f949539555fc5f5a4369681f988818e4e99d",
+      "presentation": "paired option image",
+      "alt": "A daily score",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-277-3061-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/winking-experience.svg",
+      "resolvedFile": "public/art/winking-experience.svg",
+      "bytes": 264928,
+      "sha256": "bda8fc82a8478cbe794d470ccd62ffe5cca049fd20966e66e6a390e4ebe3dc0f",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-352-5796-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/winking-approach.svg",
+      "resolvedFile": "public/art/winking-approach.svg",
+      "bytes": 76423,
+      "sha256": "dc3a4c503db02c2ead9040b71c41cf03d7d19196738a02cf885acbd000325294",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-winking-352-5861-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/deal-0.png",
+      "resolvedFile": "src/assets/img/personas/deal-0.png",
+      "bytes": 1119872,
+      "sha256": "c7460ea5a2d658d3e61b3bc13e32128338c4604f23d816fd92b205afcf250470",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The deal owner",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/deal-model",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/deal-1.png",
+      "resolvedFile": "src/assets/img/personas/deal-1.png",
+      "bytes": 1035192,
+      "sha256": "00d5d4da0940908f4425200a9fb05be261fbaf88413607f440cd02016b88cb4e",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The approver",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/deal-model",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/deal-2.png",
+      "resolvedFile": "src/assets/img/personas/deal-2.png",
+      "bytes": 1224821,
+      "sha256": "e8e2e8475efe1fbb3a2844bd31d9b9f05c82ff28329690b6532a36e08fa398f6",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The legal reviewer",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/deal-model",
+      "section": "personas",
+      "component": "src/components/dg/PersonaCard.astro",
+      "line": null,
+      "asset": "personas/deal-3.png",
+      "resolvedFile": "src/assets/img/personas/deal-3.png",
+      "bytes": 1325454,
+      "sha256": "339ba716c36028716678bf2198e0fc258dec2e993a0a5faaf5db469f9cd94d55",
+      "presentation": "cutout in themed identity panel",
+      "alt": "The product owner",
+      "provenanceDocuments": [
+        "docs/figma-persona-reference-template.json"
+      ],
+      "provenanceStatus": "Approved portrait cutout; separate persona audit, outside these 108 fresh roots",
+      "freshComparison": []
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-0-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-0-0.png",
+      "bytes": 62600,
+      "sha256": "f139b75abee2dad132c7613a4317520fbb772a4e3aa43f3b76d4f72668ee7791",
+      "presentation": "paired option image",
+      "alt": "One deal object with role-based views",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-278-533-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 1",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-0-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-0-1.png",
+      "bytes": 48252,
+      "sha256": "abf2bd9430e0248ee5e5512abf39a23ac54d84de49a49cfdd4b44e381c866057",
+      "presentation": "paired option image",
+      "alt": "Four products, one per team",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-278-615-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 2",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-1-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-1-0.png",
+      "bytes": 59684,
+      "sha256": "76f0c9451f3b5ac1190b01e27cfe34bb598935d98c775c0588b6e036436fcdae",
+      "presentation": "paired option image",
+      "alt": "Three versions on the table",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-278-733-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 3",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-2-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-2-0.png",
+      "bytes": 76706,
+      "sha256": "01eac3ccad90326523b77d326d774221e8d747bb4cba4ea6b8b69059810449ae",
+      "presentation": "paired option image",
+      "alt": "Configurable compare grid",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-278-922-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 4",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-3-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-3-0.png",
+      "bytes": 79581,
+      "sha256": "cc6e686f03beb28883afa24fece89d9ae995d6a2d9b390c531e53b7774268f0b",
+      "presentation": "paired option image",
+      "alt": "Upload the template, system maps it",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-278-1132-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 5",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-4-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-4-0.png",
+      "bytes": 293737,
+      "sha256": "9455397df059fa77b441907905939be64b84ec1a81a0754838f5d4fa9da14f45",
+      "presentation": "paired option image",
+      "alt": "Original Deal Model owner screen selecting an iteration and publishing the proposal for approval.",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-art-278-1210-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 5",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-4-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-4-1.png",
+      "bytes": 248073,
+      "sha256": "a1a5b6a45d6d0774f46e8ba8ddb861eb2cd64481cf880111dcbfc0764a9b9310",
+      "presentation": "paired option image",
+      "alt": "Original Deal Model approver dialog showing comments, a quick overview, the proposed bid and the owner-written winning-bid reason.",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-art-278-1241-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 6",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-5-0.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-5-0.png",
+      "bytes": 120947,
+      "sha256": "88413f87a38fb5d2c6ca7362bb552ae4a9e69fc8435e4d2ec987dc26a1f1eece",
+      "presentation": "paired option image",
+      "alt": "Original SmartPricing Reductions concept: a New Iteration dialog with reduction inputs, target fee type, markets and pricing influence.",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-art-278-1284-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "decision 6",
+      "component": "src/components/dg/AuthoredDecisions.astro",
+      "line": null,
+      "asset": "figma-sync/deal-decision-5-1.png",
+      "resolvedFile": "src/assets/img/figma-sync/deal-decision-5-1.png",
+      "bytes": 93823,
+      "sha256": "e5568fbbb93edcdaf413d70c39c5f87ae1b86e65b29eeba6a90b4c6979501994",
+      "presentation": "paired option image",
+      "alt": "Original SmartPricing New Proposal concept: portfolio selection, model scope, a price-all-markets checkbox and five iteration levels.",
+      "provenanceDocuments": [
+        "docs/figma-decision-art-corrections.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-art-278-1320-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/deal-experience.svg",
+      "resolvedFile": "public/art/deal-experience.svg",
+      "bytes": 333405,
+      "sha256": "a8a4ff9577cc944f4845389888230fe64342f00c53d4f3f5a2d379e4c2ab3941",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-final-content-sync.json"
+      ],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-352-5972-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ],
+      "finalUpdateNote": "Approved final content sync: owner-written reasoning replaces automatic-summary wording."
+    },
+    {
+      "route": "/deal-model",
+      "section": "journey",
+      "component": "src/components/dg/AuthoredJourney.astro",
+      "line": null,
+      "asset": "/art/deal-approach.svg",
+      "resolvedFile": "public/art/deal-approach.svg",
+      "bytes": 77993,
+      "sha256": "bbce84ab793e4e07e5678d5473bfd71340c37b0740bcf0781ec8e06590bbafb8",
+      "presentation": "exact vector via /art/themed/ derivative",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "art-deal-352-6037-fresh.svg",
+          "status": "same artwork visually; export/raster rendering differs"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "hero",
+      "component": "src/components/FxHero.astro",
+      "line": null,
+      "asset": "/art/fx-hero-overview.svg",
+      "resolvedFile": "public/art/fx-hero-overview.svg",
+      "bytes": 312163,
+      "sha256": "89d83256598391b010fbdee784e6633b3f36bb95f5dbdc1b21a5c7a80d858c88",
+      "presentation": "three-layer HTML overlap; custom CSS shadow",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-original-120-2397-fresh.svg",
+          "status": "same original artwork; intentional presentation adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "hero",
+      "component": "src/components/FxHero.astro",
+      "line": null,
+      "asset": "/art/fx-hero-compare.svg",
+      "resolvedFile": "public/art/fx-hero-compare.svg",
+      "bytes": 122201,
+      "sha256": "f527588600f6bbf51503b51cb5c137f58d3add5d46b3e84070ad711f0416f6e9",
+      "presentation": "three-layer HTML overlap; custom CSS shadow",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-original-120-3705-fresh.svg",
+          "status": "same original artwork; intentional presentation adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "hero",
+      "component": "src/components/FxHero.astro",
+      "line": null,
+      "asset": "/art/fx-hero-ticket.svg",
+      "resolvedFile": "public/art/fx-hero-ticket.svg",
+      "bytes": 68335,
+      "sha256": "8377dc80aa9bfd2a157da2132461d476692d8662b97bc7f521df95963bb345e5",
+      "presentation": "three-layer HTML overlap; custom CSS shadow",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-original-120-3776-fresh.svg",
+          "status": "same original artwork; intentional presentation adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/fx",
+      "section": "decision context",
+      "component": "src/components/dg/FxOriginalFlow.astro",
+      "line": null,
+      "asset": "/art/fx-original-decision-loop.png",
+      "resolvedFile": "public/art/fx-original-decision-loop.png",
+      "bytes": 270438,
+      "sha256": "13887849fac09bfc3c250a36a9e163f86d5d1e3abfdbac22147ba17c45b9bb24",
+      "presentation": "exact standalone raster",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "fx-original-140-5036-fresh.svg",
+          "status": "same original artwork; intentional presentation adaptation"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-530.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-530.png",
+      "bytes": 205765,
+      "sha256": "6de6b68d01169eee7505a8396b2e0564e3b92f7a39c376004f180e4a37013b12",
+      "presentation": "gallery single",
+      "alt": "01 \u00b7 Deals landing: Every deal, its iteration, status and lead in one list. Filters by region, segment and status.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-530-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-535.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-535.png",
+      "bytes": 210885,
+      "sha256": "7278210753cb47b56c168b7b06e62d418685c3ffd11e9ee9d63e65f8d51e59f0",
+      "presentation": "gallery single",
+      "alt": "02 \u00b7 Portfolio landing: The portfolios behind a deal: default, additional, new.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-535-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-540.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-540.png",
+      "bytes": 185743,
+      "sha256": "aa09883f23b3bebb0c0b6b08c9bff47fab1fbcf1b3ee8d50c8ec24fc57088753",
+      "presentation": "gallery single",
+      "alt": "03 \u00b7 Load data: Bulk search, month end or a date range. Or the upload template.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-540-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-545.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-545.png",
+      "bytes": 477897,
+      "sha256": "df220f55a8312219145dd15aad10b978c1b71d5ab3bbd1f8295c8addca8a5210",
+      "presentation": "gallery single",
+      "alt": "04 \u00b7 Portfolio summary: Holdings, primary and secondary transactions, physical securities, collateral.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-545-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-550.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-550.png",
+      "bytes": 162185,
+      "sha256": "c08a3e54e53f8970b7ccdeb23e8523189111f0b6ea1f5f599b91a2a0ef43584a",
+      "presentation": "gallery single",
+      "alt": "05 \u00b7 New iteration: Create an iteration on a benchmark rate card. Checks as you go.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-550-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-555.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-555.png",
+      "bytes": 402364,
+      "sha256": "f8688754645e0730964a6f6d3c29305e89fbbaccfd2c45dc7190d44381ea854c",
+      "presentation": "gallery single",
+      "alt": "06 \u00b7 Validation states: One field, every state the deal owner can hit.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-555-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-560.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-560.png",
+      "bytes": 491280,
+      "sha256": "29725192e5bda9875a407fdd9f28ce6582a086b9c031779ae30a5adb83010e3a",
+      "presentation": "gallery single",
+      "alt": "07 \u00b7 Compare grid: Iterations side by side, one market per row.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-560-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-565.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-565.png",
+      "bytes": 540876,
+      "sha256": "062711f44f69c3cb29b2c82975cd6f8f3839465cf88752e1a74131cb204cd140",
+      "presentation": "gallery single",
+      "alt": "08 \u00b7 Column chooser: The grid is a view, not a rebuild. Saved per user.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-565-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-570.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-570.png",
+      "bytes": 511744,
+      "sha256": "6f17010da83a247b93369148a639113ab9a7347035df8abc94b29431cbb463b3",
+      "presentation": "gallery single",
+      "alt": "09 \u00b7 Tiering: AUC versus primary transactions, blended bps, tiers only, hide totals.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-570-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-575.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-575.png",
+      "bytes": 143619,
+      "sha256": "6c627c9fec28f5621f612d2865d56bc0be579e8c64cd26f78361318434aa8e71",
+      "presentation": "gallery single",
+      "alt": "10 \u00b7 Smart pricing (explored): Model scope, pricing influence, a suggested iteration to edit or discard.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-575-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-580.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-580.png",
+      "bytes": 375633,
+      "sha256": "5ee84554341f15311c335b9d81890ba71843afb9af8accb6c527cf44b8a07d26",
+      "presentation": "gallery single",
+      "alt": "11 \u00b7 Deal owner dashboard: Fees, costs, gross margin and the deal team, per deal.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-580-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-585.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-585.png",
+      "bytes": 283831,
+      "sha256": "d89949f712e6d008c7643cedf7483a20faf5b96146c1c3f63dcfa03bfca9b274",
+      "presentation": "gallery single",
+      "alt": "12 \u00b7 Approver workflow: Market comparison and approval for the custody ops lead.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-585-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/deal-model",
+      "section": "product screens",
+      "component": "src/data/deal-content.json",
+      "line": null,
+      "asset": "figma-sync/source-242-590.png",
+      "resolvedFile": "src/assets/img/figma-sync/source-242-590.png",
+      "bytes": 475919,
+      "sha256": "bb0794bef40c99c1878232ccc12324042802b6be4515ccb6d836a4fe80710041",
+      "presentation": "gallery single",
+      "alt": "13 \u00b7 ADA specs \u00b7 tabbing order: Landmarks, tabbing order, content hierarchy and alt text, specified per screen.",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "deal-242-590-fresh.svg",
+          "status": "same full product capture visually"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "iPhone flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "/art/winking-ios-launch.svg",
+      "resolvedFile": "public/art/winking-ios-launch.svg",
+      "bytes": 663784,
+      "sha256": "3050b352436f27e8db99295fdad6bd98dcc6d7bf50a8f54cbe7da27476316885",
+      "presentation": "exact authored phone frame; visible mobile",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "iPhone flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "/art/winking-ios-home.svg",
+      "resolvedFile": "public/art/winking-ios-home.svg",
+      "bytes": 1408914,
+      "sha256": "2696edc835e586815bb658d550e985aaee521f47dff1198a1ccecebbd6f005f9",
+      "presentation": "exact authored phone frame; visible mobile",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "iPhone flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "/art/winking-ios-activity.svg",
+      "resolvedFile": "public/art/winking-ios-activity.svg",
+      "bytes": 905032,
+      "sha256": "0b4a9a0fb64d728570757a5101197e05e95c1ffff4ce61edf174fc681e73b814",
+      "presentation": "exact authored phone frame; visible mobile",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "iPhone flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "/art/winking-ios-progress.svg",
+      "resolvedFile": "public/art/winking-ios-progress.svg",
+      "bytes": 241940,
+      "sha256": "d13c958179ffd882462314d932a55209d31e613783703284d392400ba08b5c16",
+      "presentation": "exact authored phone frame; visible mobile",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "iPhone flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "/art/winking-ios-composition.svg",
+      "resolvedFile": "public/art/winking-ios-composition.svg",
+      "bytes": 3221692,
+      "sha256": "6e2afd8115fa646ca455ab3f0e8962be204ac4c81f022b2ef931cd30e10b6c16",
+      "presentation": "exact authored four-phone composition; visible desktop",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "web flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "ws-web-board.jpg",
+      "resolvedFile": "src/assets/img/ws-web-board.jpg",
+      "bytes": 214892,
+      "sha256": "b6796aaf2fd908d8a019a086cd8f7b933c777e7e5a74dfa1d4cfde7373ab7b05",
+      "presentation": "current app sample-data capture, distinct from historical Figma",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/winking-star",
+      "section": "web flow",
+      "component": "src/components/WinkingScreens.astro",
+      "line": null,
+      "asset": "ws-web-mobile.jpg",
+      "resolvedFile": "src/assets/img/ws-web-mobile.jpg",
+      "bytes": 34435,
+      "sha256": "bab401556f4ae7540dca01a08dc0a68bb009f52edc95e48e7795b6c52a94dcd2",
+      "presentation": "current app sample-data capture, distinct from historical Figma",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work fx",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-fx-composition-current.svg",
+      "resolvedFile": "public/art/home-fx-composition-current.svg",
+      "bytes": 1273411,
+      "sha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/fx-current-400.svg",
+        "/art/home-responsive/fx-current-800.svg",
+        "/art/home-responsive/fx-current-1200.svg",
+        "/art/home-responsive/fx-current-1600.svg",
+        "/art/home-responsive/fx-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work fx",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-fx-composition-mobile-current.svg",
+      "resolvedFile": "public/art/home-fx-composition-mobile-current.svg",
+      "bytes": 1273418,
+      "sha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/fx-mobile-current-400.svg",
+        "/art/home-responsive/fx-mobile-current-800.svg",
+        "/art/home-responsive/fx-mobile-current-1200.svg",
+        "/art/home-responsive/fx-mobile-current-1600.svg",
+        "/art/home-responsive/fx-mobile-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work fusion",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-fusion-composition-current.svg",
+      "resolvedFile": "public/art/home-fusion-composition-current.svg",
+      "bytes": 2751111,
+      "sha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/fusion-current-400.svg",
+        "/art/home-responsive/fusion-current-800.svg",
+        "/art/home-responsive/fusion-current-1200.svg",
+        "/art/home-responsive/fusion-current-1600.svg",
+        "/art/home-responsive/fusion-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work fusion",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-fusion-composition-mobile-current.svg",
+      "resolvedFile": "public/art/home-fusion-composition-mobile-current.svg",
+      "bytes": 2751118,
+      "sha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/fusion-mobile-current-400.svg",
+        "/art/home-responsive/fusion-mobile-current-800.svg",
+        "/art/home-responsive/fusion-mobile-current-1200.svg",
+        "/art/home-responsive/fusion-mobile-current-1600.svg",
+        "/art/home-responsive/fusion-mobile-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work ai",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-ai-composition-current.svg",
+      "resolvedFile": "public/art/home-ai-composition-current.svg",
+      "bytes": 1064099,
+      "sha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/ai-current-400.svg",
+        "/art/home-responsive/ai-current-800.svg",
+        "/art/home-responsive/ai-current-1200.svg",
+        "/art/home-responsive/ai-current-1600.svg",
+        "/art/home-responsive/ai-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work ai",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-ai-composition-mobile-current.svg",
+      "resolvedFile": "public/art/home-ai-composition-mobile-current.svg",
+      "bytes": 1064100,
+      "sha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/ai-mobile-current-400.svg",
+        "/art/home-responsive/ai-mobile-current-800.svg",
+        "/art/home-responsive/ai-mobile-current-1200.svg",
+        "/art/home-responsive/ai-mobile-current-1600.svg",
+        "/art/home-responsive/ai-mobile-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work winking",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-winking-composition-current.svg",
+      "resolvedFile": "public/art/home-winking-composition-current.svg",
+      "bytes": 3220728,
+      "sha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/winking-current-400.svg",
+        "/art/home-responsive/winking-current-800.svg",
+        "/art/home-responsive/winking-current-1200.svg",
+        "/art/home-responsive/winking-current-1600.svg",
+        "/art/home-responsive/winking-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work winking",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-winking-composition-mobile-current.svg",
+      "resolvedFile": "public/art/home-winking-composition-mobile-current.svg",
+      "bytes": 3221212,
+      "sha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "presentation": "Original source composition retained; responsive SVG delivery preserves geometry and resizes embedded raster screenshots",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-responsive-delivery.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "deliveryVariants": [
+        "/art/home-responsive/winking-mobile-current-400.svg",
+        "/art/home-responsive/winking-mobile-current-800.svg",
+        "/art/home-responsive/winking-mobile-current-1200.svg",
+        "/art/home-responsive/winking-mobile-current-1600.svg",
+        "/art/home-responsive/winking-mobile-current-2000.svg"
+      ]
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work deal",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-deal-composition-current.svg",
+      "resolvedFile": "public/art/home-deal-composition-current.svg",
+      "bytes": 3268543,
+      "sha256": "e076c25f4a23dee5a06d8d175517e0b91ac06cf1a16efdfff65e4999e57bde57",
+      "presentation": "exact authored composition; current",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-vector-optimization.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "finalUpdateNote": "Approved vector optimization; original authored composition retained."
+    },
+    {
+      "route": "/ and /panel",
+      "section": "work deal",
+      "component": "src/components/HomeProjectArtwork.astro",
+      "line": null,
+      "asset": "/art/home-deal-composition-mobile-current.svg",
+      "resolvedFile": "public/art/home-deal-composition-mobile-current.svg",
+      "bytes": 3312062,
+      "sha256": "818e67164debf667d01b8b4641cea1bd0f403f2b183e158d411e9fcd519eee93",
+      "presentation": "exact authored composition; mobile-current",
+      "alt": "",
+      "provenanceDocuments": [
+        "docs/figma-composition-encoding.json",
+        "docs/figma-current-composition-audit.json",
+        "docs/home-vector-optimization.json"
+      ],
+      "provenanceStatus": "Exact authored composition export; see figma-current-composition-audit.json and figma-composition-encoding.json",
+      "freshComparison": [],
+      "finalUpdateNote": "Approved vector optimization; original authored composition retained."
+    },
+    {
+      "route": "/uoaui",
+      "section": "brand",
+      "component": "src/components/BrandSystem.astro",
+      "line": null,
+      "asset": "uoaui-logo-lockup.png",
+      "resolvedFile": "src/assets/img/uoaui-logo-lockup.png",
+      "bytes": 2705,
+      "sha256": "a283d09350048a4448d520fd5ba4c86c72cc7f6416145535ef3301e92b372856",
+      "presentation": "original logo plate",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Not independently proven by these fresh roots; retain recorded provenance; no equivalence inferred",
+      "freshComparison": []
+    },
+    {
+      "route": "/uoaui",
+      "section": "brand",
+      "component": "src/components/BrandSystem.astro",
+      "line": null,
+      "asset": "live-uoaui-own-system.png",
+      "resolvedFile": "src/assets/img/live-uoaui-own-system.png",
+      "bytes": 117244,
+      "sha256": "01b5692a0b5b5ccada4a5369a8d6f23a5281d2d87497b8d4738d9d60adfed8af",
+      "presentation": "single product capture",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "ai-48-2431-fresh.svg",
+          "status": "same embedded source pixels"
+        }
+      ]
+    },
+    {
+      "route": "/winking-star",
+      "section": "brand",
+      "component": "src/components/BrandSystem.astro",
+      "line": null,
+      "asset": "ws-icon.png",
+      "resolvedFile": "src/assets/img/ws-icon.png",
+      "bytes": 709043,
+      "sha256": "bbf0128c6fa20e93be79b360d117ee6f55c530511456bc40518f376b338cd9c0",
+      "presentation": "original logo plate",
+      "alt": "",
+      "provenanceDocuments": [],
+      "provenanceStatus": "Fresh export compared; see freshComparison and current-media-parity.json",
+      "freshComparison": [
+        {
+          "export": "winking-48-4240-fresh.svg",
+          "status": "same original brand/theme artwork visually"
+        }
+      ]
+    }
+  ],
+  "findings": []
+}

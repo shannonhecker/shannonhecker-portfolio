@@ -1,0 +1,168 @@
+---
+import ThemedArtwork from "./ThemedArtwork.astro";
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+const HD = top ? 'h3' : 'h4'; // decision titles
+import Demo from './Demo.astro';
+import FxHero from './FxHero.astro';
+import ProductCapture from './ProductCapture.astro';
+import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
+import ResponsiveEvidence from './ResponsiveEvidence.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import FxOriginalFlow from './dg/FxOriginalFlow.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+
+import FxOriginalJourney from './dg/FxOriginalJourney.astro';
+
+import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
+import Matrix from './dg/Matrix.astro';
+import BeforeAfter from './dg/BeforeAfter.astro';
+---
+<section id="fx" data-tone="dark" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case one · Barclays · 2025 to now</p>
+          <HT class="h-chapter" style="view-transition-name:t-fx">FX execution analytics</HT>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
+      </div>
+      <FxHero />
+    </header>
+    <CaseEvidenceSummary project="fx" />
+    <CaseContents project="fx" />
+
+
+    <div class="beat rv" id="fx-problem">
+      <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Keep the trader in one place, and cut the time from seeing a price move to acting on it." />
+        <ul class="rows">
+          <li><b>Users</b><p>The sales and trading desk, and the institutional clients executing through the same platform with different entitlements.</p></li>
+          <li><b>Where we started</b><p>One static Execution Over Time chart from the desk. Five spreadsheets covering trades, market data per order, price limit logs and reference prices. A twelve-item wishlist. No design, no interaction model, no visual language.</p></li>
+        </ul>
+        <div class="project-status"><span class="project-status-label">Project status</span><p>In beta with internal users at Barclays. Under NDA, so the screens here are my public rebuild and Figma designs, using sample data and based on the production spec.</p></div>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-users">
+      <div class="label"><HL class="k"><b>02</b> Users and research</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="A trader who acts, a desk head who defends, and a quant who tunes." />
+        <ul class="rows">
+          <li><b>Professionals whose job is the tool</b><p>A trader will tolerate density because power is worth the learning curve. So the problem is hierarchy under pressure, not simplification.</p></li>
+          <li><b>Five spreadsheets, read line by line</b><p>Fills, market data, limit price changes, arrival price, risk transfer price. I grouped them into four kinds of data and that grouping became the layers of the chart. Every mark maps to a data type. Nothing is decorative.</p></li>
+          <li><b>The limit price log was the clue</b><p>Orders were being changed mid-flight, several times each. So repricing is a core action, not an edge case, and it had to live on the chart.</p></li>
+          <li><b>Watching people decide</b><p>I observed traders on the desk to understand when they monitor an order and when they intervene. Their question is whether they are ahead of the market or behind it. That is the first thing the screen answers.</p></li>
+        </ul>
+        <figure class="fx-source-layers">
+          <div class="fx-layer-scroll" tabindex="0" role="region" aria-label="Original data-to-encoding diagram. Scroll horizontally on small screens.">
+            <ThemedArtwork name="fx-data-layers" width={1406} height={739} alt="Market data becomes continuous lines; limit-price changes become steps; order states become ranges; fills become sized dots; benchmarks become fixed reference lines. Each shape gets its own encoding." />
+          </div>
+        </figure>
+
+        <Personas project="fx" />
+        <FxOriginalJourney />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-constraints">
+      <div class="label"><HL class="k"><b>03</b> Constraints</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Four things shaped every decision. None of them were mine to remove." />
+        <VisualExplanation project="fx" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-decisions">
+      <div class="label"><HL class="k"><b>04</b> Decisions and trade-offs</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Three calls that defined the product. Each one had a real alternative." />
+        <p class="lead muted">Watch, assess, step in. Every branch lands on a screen. Two questions, one screen. How far along is my order, and am I getting a good price. Show them apart and the trader flicks between charts under pressure. Mash them together and it's noise. The working principle: readable in two seconds, actionable in one click.</p>
+        <DecisionMap project="fx"><FxOriginalFlow slot="flow" /></DecisionMap>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-flow">
+      <div class="label"><HL class="k"><b>05</b> The full flow</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="From monitoring to action, without leaving the chart." />
+    <section class="screen-sequence" aria-labelledby="fx-live-modes">
+      <h3 id="fx-live-modes">One workflow, two presentations</h3>
+      <p class="muted">Classic represents the visual design I made at Barclays; Enhanced is my extension. These captures show my public rebuild with simulated data. It demonstrates chart interactions, not the full production confirmation and audit workflow.</p>
+      <ProductCapture name="live-fx-classic.png" alt="Classic FX public rebuild in dark mode, showing the complete order and execution chart" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Dark mode · Simulated data" />
+      <ProductCapture name="live-fx-classic-light.png" alt="The same Classic FX workspace in light mode" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Classic · Light mode · Simulated data" />
+      <ProductCapture name="live-fx-hover.png" alt="Classic FX canvas with the pinned price and execution tooltip" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Hover a fill" />
+      <ProductCapture name="live-fx-table.png" alt="Classic FX execution canvas in candlestick view with percent done and venue analytics" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Public rebuild · Candlestick view · Simulated data" />
+    </section>
+        <ProductCapture name="live-fx-compare.png" alt="Two simulated FX orders compared side by side in the current public rebuild" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Compare orders" />
+        <ProductCapture name="live-fx-ticket.png" alt="Pre-filled FX order ticket opened on the chart, using simulated data" href="https://shannonhecker.github.io/fx-execution-analytics/" label="Order ticket" />
+        <p class="lead muted">I specified a progressive flow from inspection to action: drag the limit, review the pre-filled ticket, confirm, then record the change. The sequence below is that design. In my current public rebuild, dragging the limit immediately changes the local simulated price. Dragging the BID pill opens a demo order ticket; submitting it shows feedback without placing a real order or writing an audit record.</p>
+        <FigmaUserFlow project="fx" />
+        <ul class="rows">
+          <li><b>Built in six phases</b><p>Theming and data integration first, then display, then interaction, and order submission last. Each phase reduced the risk of the next, and the desk got something usable early.</p></li>
+          <li><b>Too much on the axis, by design, for now</b><p>Phase one puts every attribute on screen on purpose, so the desk can tell us what matters instead of us guessing. Phase two adds entitlement-based templates per user type and a preference panel to hide attributes. Start wide, then narrow with evidence.</p></li>
+          <li><b>Two version-one debts and the next iteration</b><p>My public rebuild still uses patterned state regions and individual fill dots. The diagrams below show the refinements I designed: a separate state lane and counted clusters that expand on zoom. Patterned regions make the exceptional read as normal, and volume-sized dots become a smear at three hundred fills.</p></li>
+          <li><b>A compare view, because quality is relative</b><p>Execution quality only means something against a benchmark or another order, so I put a patient working order beside an urgent completed one, with the benchmark metrics in one table.</p></li>
+        </ul>
+        <BeforeAfter label="Version-one debt: order states" before="States tiled the canvas" beforeNote="Patterned regions sat behind the prices, so the exceptional read as normal." after="States in their own lane" afterNote="A lane under the time axis. The price field stays quiet.">
+          <ThemedArtwork slot="before" name="fx-states-today" width={430} height={161} alt="Schematic: hatched state regions behind the price line" />
+          <ThemedArtwork slot="after" name="fx-states-designed" width={430} height={161} alt="Schematic: a clean price line with states in a labelled lane under the axis" />
+        </BeforeAfter>
+        <BeforeAfter label="Version-one debt: fills at scale" before="A dot per fill" beforeNote="Volume-sized dots were honest at twenty clips and a smear at three hundred." after="Counted clusters" afterNote="Fills group into clusters with a count, and expand on zoom.">
+          <ThemedArtwork slot="before" name="fx-fills-today" width={430} height={161} alt="Schematic: individual fill dots crowding the plot" />
+          <ThemedArtwork slot="after" name="fx-fills-designed" width={430} height={161} alt="Schematic: five counted clusters of fills" />
+        </BeforeAfter>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-edge">
+      <div class="label"><HL class="k"><b>06</b> Edge and validation states</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="The states a trader hits when things are not normal." />
+        <Matrix
+          caption="Original specified and proposed states. The current public rebuild demonstrates a subset: it does not include confirmation on limit dragging, an audit backend, the separate state lane or counted clusters."
+          cols={['State', 'What the screen does', 'Why']}
+          rows={[
+            ['Suspended, delayed start, outside limit', 'Each gets its own labelled band in a lane under the time axis.', 'The price field stays quiet, and the state is readable at a glance.'],
+            ['Drag to reprice', 'Opens a pre-filled ticket. Nothing changes until it is confirmed.', 'The specified confirmation gives the trader a chance to review the change before committing.'],
+            ['Colour-blind trader, washed-out screen', 'The design combines colour with line styles, fill markers and labelled order states. Favourable and adverse outcomes are named in text.', 'Keep labels and graphical cues alongside colour.'],
+            ['Hundreds of fills', 'Fills group into counted clusters that expand on zoom.', 'Honest at twenty clips and at three hundred.'],
+            ['A new order, no data yet', 'Empty, then loading, states in place of an empty chart.', 'The screen never looks broken while data arrives.'],
+            ['Dark room or bright room', 'Full light and dark themes.', 'Traders run dark rooms and sales run bright ones.'],
+          ]}
+        />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fx-outcome">
+      <div class="label"><HL class="k"><b>07</b> Status and planned measures</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Where it is today, and how it will be measured." />
+        <ul class="rows outcome-rows" aria-label="Status and planned measures">
+          <li><b>6 build phases</b><p>The spec was accepted by business and vendor as the contract.</p></li>
+          <li><b>Beta</b><p>In use with internal users at Barclays today.</p></li>
+          <li><b>3 measures agreed for rollout</b><p>Price move to action, tool switches per order, usage per feature.</p></li>
+        </ul>
+        <Demo src="/media/fx-current.webm" poster="live-fx-compare.png" width={1600} height={1000} label="Enhanced view, filter controls, comparison and the order ticket. All data is simulated." description="Silent recording. It opens the Enhanced view, works through the filter controls, compares orders, then opens the order ticket." />
+        <ProductCapture name="live-fx-filters.png" alt="The current FX filters for venue, fill side and execution states" href="https://shannonhecker.github.io/fx-execution-analytics/" label="My public rebuild · Filter controls" />
+        <p class="muted measure">No adoption numbers yet. Rollout brings three measures, and I'll hold the design to them the way I hold the data. What I'd do differently: direct trader access earlier, instead of going through the business first. And the vendor's engine limits discovered in week one, not mid-spec.</p>
+      </div>
+    </div>
+    <ResponsiveEvidence project="fx" />
+  </div>
+</section>
+
+<style>
+.fx-source-layers{margin:0;min-width:0}.fx-layer-scroll{overflow-x:auto;background:var(--bg-2);padding:24px;border-radius:var(--radius)}.fx-layer-scroll :global(img){display:block;width:100%;min-width:900px;height:auto;max-width:none}.fx-layer-scroll:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+</style>

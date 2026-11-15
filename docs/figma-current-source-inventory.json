@@ -1,0 +1,4990 @@
+{
+  "date": "2026-10-12",
+  "fileKey": "l6noy7onfsRiuBgjqSsKbt",
+  "caseImages": [
+    {
+      "key": "winking",
+      "nodes": [
+        {
+          "id": "169:137",
+          "name": "Screen content",
+          "parent": "169:136",
+          "parentName": "Winking Star home screen with the daily routine and weekly pet",
+          "w": 219.1999969482422,
+          "h": 473.20001220703125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "1ba404a1cd5c89ebf9f9f4a46381893b5d1bc7ac",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "169:139",
+          "name": "Screen content",
+          "parent": "169:138",
+          "parentName": "Winking Star activity screen",
+          "w": 219.1999969482422,
+          "h": 473.20001220703125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "16fc0d4610dd87fdd7768ca18c98b613f4bb6c9d",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "169:141",
+          "name": "Screen content",
+          "parent": "169:140",
+          "parentName": "Winking Star progress screen showing the week's stars",
+          "w": 219.1999969482422,
+          "h": 473.20001220703125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "381d7b43ef962247c10b6e28944650e651d96ac2",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3576",
+          "name": "Image fill \u00b7 ws-hero-art.DXY3HusM_Z1S1CKI.avif",
+          "parent": "48:3575",
+          "parentName": "Container",
+          "w": 613.40625,
+          "h": 345.03125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "4bd5100b592a32a0b678ecb231bceed7f130565f",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "386:257739",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257738",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "ae967cc100c06529894d650051155188cf967564",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "386:257766",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257765",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "fe5a8f984a5d9796f41e1f2872e2dd10fcca660d",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "386:257793",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257792",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d8484fcf0a25692790d80e54544228978c2bd46e",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "345:343536",
+          "name": "Vector",
+          "parent": "345:343524",
+          "parentName": "Group",
+          "w": 169.88282775878906,
+          "h": 368.0794677734375,
+          "x": 73.24658203125,
+          "y": 16.003454208374023,
+          "imageHash": "5d52d077f5154d0f887897ef0a253b831e8be653",
+          "scaleMode": "CROP",
+          "root": "32:18"
+        },
+        {
+          "id": "345:343541",
+          "name": "Vector",
+          "parent": "345:343524",
+          "parentName": "Group",
+          "w": 169.88282775878906,
+          "h": 368.0794677734375,
+          "x": 286.2156295776367,
+          "y": 31.391393661499023,
+          "imageHash": "bfc9fe75d2027d6470a2134498156a7cafaad8ca",
+          "scaleMode": "CROP",
+          "root": "32:18"
+        },
+        {
+          "id": "345:343546",
+          "name": "Vector",
+          "parent": "345:343524",
+          "parentName": "Group",
+          "w": 169.88282775878906,
+          "h": 368.0794677734375,
+          "x": 499.18468475341797,
+          "y": 16.003454208374023,
+          "imageHash": "727d52daee03b2864976f89bd51aa26562ec8087",
+          "scaleMode": "CROP",
+          "root": "32:18"
+        },
+        {
+          "id": "345:343551",
+          "name": "Vector",
+          "parent": "345:343524",
+          "parentName": "Group",
+          "w": 169.88282775878906,
+          "h": 368.0794677734375,
+          "x": 712.1537399291992,
+          "y": 46.77933311462402,
+          "imageHash": "c53496b79ed297b28332e2a31fc2b8ecc058c58e",
+          "scaleMode": "CROP",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3736",
+          "name": "Image fill \u00b7 Published Winking Star iPad home screenshot",
+          "parent": "48:3735",
+          "parentName": "Figure",
+          "w": 397.5474548339844,
+          "h": 750.09375,
+          "x": 0,
+          "y": 0,
+          "imageHash": "e225f76299d51e2b760b931c0a573c6f3465f7ea",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3741",
+          "name": "Image fill \u00b7 Published Winking Star iPad activity screenshot",
+          "parent": "48:3740",
+          "parentName": "Figure",
+          "w": 397.5474548339844,
+          "h": 750.09375,
+          "x": 0,
+          "y": 0,
+          "imageHash": "2ec6655275fb346e04e7f4301d6f1bcf2b90fa52",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3751",
+          "name": "English Winking Star activity artwork",
+          "parent": "48:3750",
+          "parentName": "Figure",
+          "w": 392.41400146484375,
+          "h": 693.328125,
+          "x": 40,
+          "y": 17,
+          "imageHash": "411524e66230749f0d7da38471e9debeade76b4f",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3755",
+          "name": "French Winking Star activity artwork",
+          "parent": "48:3754",
+          "parentName": "Figure",
+          "w": 392.41400146484375,
+          "h": 693.328125,
+          "x": 40,
+          "y": 17,
+          "imageHash": "1973435feb0b5f82280a0b9b9ef5176ed5715e4e",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3764",
+          "name": "Image fill \u00b7 Home tab: The Sample Family, today 23 of 30 done, recent celebrations such as Leo the Brave hatched a cat named Shaul",
+          "parent": "48:3763",
+          "parentName": "Container",
+          "w": 144.8501739501953,
+          "h": 314.14068603515625,
+          "x": 3.017712116241455,
+          "y": 3.017712116241455,
+          "imageHash": "91afa719fa6ed12436506ededfd7bc3280a42742",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3771",
+          "name": "Image fill \u00b7 Activity tab: Leo the Brave's star week, 36 of 70 stars, pet growth card showing Shaul is growing, weekly goal park picnic",
+          "parent": "48:3770",
+          "parentName": "Container",
+          "w": 144.8501739501953,
+          "h": 314.14068603515625,
+          "x": 3.017712116241455,
+          "y": 3.017712116241455,
+          "imageHash": "477e70a73f9c5318127c73e7ec6a70417462b557",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3778",
+          "name": "Image fill \u00b7 Treasure tab: treasure room with 3 surprises found, next mystery spot after 10 activities, pet pal cat family",
+          "parent": "48:3777",
+          "parentName": "Container",
+          "w": 144.8501739501953,
+          "h": 314.14068603515625,
+          "x": 3.017712116241455,
+          "y": 3.017712116241455,
+          "imageHash": "5b53d17519958431e55f527badd6f35d8780e49f",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3785",
+          "name": "Image fill \u00b7 Progress tab: Leo the Brave's map, 8 of 10 stops complete today, week 18 of 70, streak and badges",
+          "parent": "48:3784",
+          "parentName": "Container",
+          "w": 144.8501739501953,
+          "h": 314.14068603515625,
+          "x": 3.017712116241455,
+          "y": 3.017712116241455,
+          "imageHash": "f666f6dcbcba7c512518798ec4833f978fb0b66b",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:3792",
+          "name": "Image fill \u00b7 Onboarding welcome screen with the Winking Star mascot on cream with botanical doodles",
+          "parent": "48:3791",
+          "parentName": "Container",
+          "w": 144.8501739501953,
+          "h": 257.5585632324219,
+          "x": 3.017712116241455,
+          "y": 3.017712116241455,
+          "imageHash": "077d34003f41d94b45f56fbe6e766f9ba42c4190",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "351:6026",
+          "name": "Persona avatar",
+          "parent": "351:6024",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "92dec68db5ded4158af4893dd3d3aeefd332b38e",
+          "scaleMode": "CROP",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4013",
+          "name": "Image fill \u00b7 ws-icon.Ji94HPx6_Z1kCGC6.avif",
+          "parent": "48:4012",
+          "parentName": "Text",
+          "w": 40,
+          "h": 40,
+          "x": 0,
+          "y": 0,
+          "imageHash": "aab3311b3f12a144fce2b7e876e389d62fc9e294",
+          "scaleMode": "FILL",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4240",
+          "name": "Image fill \u00b7 My original Winking Star app icon",
+          "parent": "48:4239",
+          "parentName": "Figure",
+          "w": 240,
+          "h": 240,
+          "x": 193.2030029296875,
+          "y": 41,
+          "imageHash": "92b6f41b42338dbfe8cb3854b0e373cf2f6701d7",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4311",
+          "name": "Image fill \u00b7 Football theme banner",
+          "parent": "48:4310",
+          "parentName": "Theme banners from the app",
+          "w": 650.40625,
+          "h": 162.59375,
+          "x": 0,
+          "y": 0,
+          "imageHash": "bb9d2c838d2bb84c409860073fd27677f60e3609",
+          "scaleMode": "FILL",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4312",
+          "name": "Image fill \u00b7 Dinosaur theme banner",
+          "parent": "48:4310",
+          "parentName": "Theme banners from the app",
+          "w": 650.40625,
+          "h": 162.59375,
+          "x": 674.406005859375,
+          "y": 0,
+          "imageHash": "fa26c696e72fffb608a5337b5d943edd344c996a",
+          "scaleMode": "FILL",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4313",
+          "name": "Image fill \u00b7 Ocean theme banner",
+          "parent": "48:4310",
+          "parentName": "Theme banners from the app",
+          "w": 650.40625,
+          "h": 162.59375,
+          "x": 0,
+          "y": 186.593994140625,
+          "imageHash": "73f5c8b9ec9117b6be9b6c23a89d7a6b6e116c27",
+          "scaleMode": "FILL",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4314",
+          "name": "Image fill \u00b7 Unicorn theme banner",
+          "parent": "48:4310",
+          "parentName": "Theme banners from the app",
+          "w": 650.40625,
+          "h": 162.59375,
+          "x": 674.406005859375,
+          "y": 186.593994140625,
+          "imageHash": "f7256851713d506178be13190c85a1b525d29d76",
+          "scaleMode": "FILL",
+          "root": "32:18"
+        },
+        {
+          "id": "48:4436",
+          "name": "Image fill \u00b7 uoaui logo",
+          "parent": "48:4435",
+          "parentName": "Text",
+          "w": 76,
+          "h": 15.1875,
+          "x": 12,
+          "y": 10,
+          "imageHash": "3d11b93bc43fde630908910c12f7cf9f674dc916",
+          "scaleMode": "FIT",
+          "root": "32:18"
+        },
+        {
+          "id": "133:1502",
+          "name": "Winking Star home screen with the daily routine and weekly pet",
+          "parent": "133:1501",
+          "parentName": "Three original iPhone screens \u00b7 staggered",
+          "w": 100.66666412353516,
+          "h": 215.89022827148438,
+          "x": 0,
+          "y": 0,
+          "imageHash": "1ba404a1cd5c89ebf9f9f4a46381893b5d1bc7ac",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "133:1503",
+          "name": "Winking Star activity screen",
+          "parent": "133:1501",
+          "parentName": "Three original iPhone screens \u00b7 staggered",
+          "w": 100.66666412353516,
+          "h": 215.89022827148438,
+          "x": 112.66666412353516,
+          "y": 32,
+          "imageHash": "16fc0d4610dd87fdd7768ca18c98b613f4bb6c9d",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "133:1504",
+          "name": "Winking Star progress screen showing the week's stars",
+          "parent": "133:1501",
+          "parentName": "Three original iPhone screens \u00b7 staggered",
+          "w": 100.66666412353516,
+          "h": 215.89022827148438,
+          "x": 225.3333282470703,
+          "y": 64,
+          "imageHash": "381d7b43ef962247c10b6e28944650e651d96ac2",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4641",
+          "name": "Image fill \u00b7 ws-hero-art.DXY3HusM_Z1WlQB9.avif",
+          "parent": "48:4640",
+          "parentName": "Container",
+          "w": 292,
+          "h": 164.25,
+          "x": 0,
+          "y": 0,
+          "imageHash": "dd3fec6bb382c221a8ddf601fd09117736c21f39",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "386:257820",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257819",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "ae967cc100c06529894d650051155188cf967564",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "386:257847",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257846",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "fe5a8f984a5d9796f41e1f2872e2dd10fcca660d",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "386:257874",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257873",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d8484fcf0a25692790d80e54544228978c2bd46e",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4777",
+          "name": "Image fill \u00b7 Published Winking Star iPhone home screenshot",
+          "parent": "48:4776",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "f2480d6bfa1eef66be2ea40f82fbbbae142c60cf",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4782",
+          "name": "Image fill \u00b7 Published Winking Star iPhone activity screenshot",
+          "parent": "48:4781",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "411524e66230749f0d7da38471e9debeade76b4f",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4787",
+          "name": "Image fill \u00b7 Published Winking Star iPhone treasure screenshot",
+          "parent": "48:4786",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "233f30f961fb61943d286d7a9a6c2c187c4140e1",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4792",
+          "name": "Image fill \u00b7 Published Winking Star iPhone progress screenshot",
+          "parent": "48:4791",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "102168645a378d2399f38e024811b4097af1288b",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4801",
+          "name": "Image fill \u00b7 Published Winking Star iPad home screenshot",
+          "parent": "48:4800",
+          "parentName": "Figure",
+          "w": 262,
+          "h": 349.328125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "ee85339324e1b4307313a120ff9207659d067634",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4806",
+          "name": "Image fill \u00b7 Published Winking Star iPad activity screenshot",
+          "parent": "48:4805",
+          "parentName": "Figure",
+          "w": 262,
+          "h": 349.328125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "40988a9c9dfb6c24f08aff6b6462dc5e8e060e39",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4816",
+          "name": "English Winking Star activity artwork",
+          "parent": "48:4815",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 40,
+          "y": 16,
+          "imageHash": "411524e66230749f0d7da38471e9debeade76b4f",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4820",
+          "name": "French Winking Star activity artwork",
+          "parent": "48:4819",
+          "parentName": "Figure",
+          "w": 83,
+          "h": 179.828125,
+          "x": 40,
+          "y": 16,
+          "imageHash": "1973435feb0b5f82280a0b9b9ef5176ed5715e4e",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4829",
+          "name": "Image fill \u00b7 Home tab: The Sample Family, today 23 of 30 done, recent celebrations such as Leo the Brave hatched a cat named Shaul",
+          "parent": "48:4828",
+          "parentName": "Container",
+          "w": 208,
+          "h": 451.09375,
+          "x": 6,
+          "y": 6,
+          "imageHash": "91afa719fa6ed12436506ededfd7bc3280a42742",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4836",
+          "name": "Image fill \u00b7 Activity tab: Leo the Brave's star week, 36 of 70 stars, pet growth card showing Shaul is growing, weekly goal park picnic",
+          "parent": "48:4835",
+          "parentName": "Container",
+          "w": 208,
+          "h": 451.09375,
+          "x": 6,
+          "y": 6,
+          "imageHash": "477e70a73f9c5318127c73e7ec6a70417462b557",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4843",
+          "name": "Image fill \u00b7 Treasure tab: treasure room with 3 surprises found, next mystery spot after 10 activities, pet pal cat family",
+          "parent": "48:4842",
+          "parentName": "Container",
+          "w": 208,
+          "h": 451.09375,
+          "x": 6,
+          "y": 6,
+          "imageHash": "5b53d17519958431e55f527badd6f35d8780e49f",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4850",
+          "name": "Image fill \u00b7 Progress tab: Leo the Brave's map, 8 of 10 stops complete today, week 18 of 70, streak and badges",
+          "parent": "48:4849",
+          "parentName": "Container",
+          "w": 208,
+          "h": 451.09375,
+          "x": 6,
+          "y": 6,
+          "imageHash": "f666f6dcbcba7c512518798ec4833f978fb0b66b",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:4857",
+          "name": "Image fill \u00b7 Onboarding welcome screen with the Winking Star mascot on cream with botanical doodles",
+          "parent": "48:4856",
+          "parentName": "Container",
+          "w": 208,
+          "h": 369.84375,
+          "x": 6,
+          "y": 6,
+          "imageHash": "077d34003f41d94b45f56fbe6e766f9ba42c4190",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "351:6194",
+          "name": "Persona avatar",
+          "parent": "351:6192",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "92dec68db5ded4158af4893dd3d3aeefd332b38e",
+          "scaleMode": "CROP",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5075",
+          "name": "Image fill \u00b7 ws-icon.Ji94HPx6_Z1kCGC6.avif",
+          "parent": "48:5074",
+          "parentName": "Text",
+          "w": 40,
+          "h": 40,
+          "x": 0,
+          "y": 0,
+          "imageHash": "aab3311b3f12a144fce2b7e876e389d62fc9e294",
+          "scaleMode": "FILL",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5333",
+          "name": "Image fill \u00b7 My original Winking Star app icon",
+          "parent": "48:5332",
+          "parentName": "Figure",
+          "w": 240,
+          "h": 240,
+          "x": 51,
+          "y": 41,
+          "imageHash": "92b6f41b42338dbfe8cb3854b0e373cf2f6701d7",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5404",
+          "name": "Image fill \u00b7 Football theme banner",
+          "parent": "48:5403",
+          "parentName": "Theme banners from the app",
+          "w": 342,
+          "h": 85.5,
+          "x": 0,
+          "y": 0,
+          "imageHash": "bc26456dfa6f44e4cc84ea7ea26603a9a4c6924a",
+          "scaleMode": "FILL",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5405",
+          "name": "Image fill \u00b7 Dinosaur theme banner",
+          "parent": "48:5403",
+          "parentName": "Theme banners from the app",
+          "w": 342,
+          "h": 85.5,
+          "x": 0,
+          "y": 101.5,
+          "imageHash": "26abe4727b2984cb82e5ea116556179548d18ab3",
+          "scaleMode": "FILL",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5406",
+          "name": "Image fill \u00b7 Ocean theme banner",
+          "parent": "48:5403",
+          "parentName": "Theme banners from the app",
+          "w": 342,
+          "h": 85.5,
+          "x": 0,
+          "y": 203,
+          "imageHash": "a9205ee0c8d80b72146c6b59cc42e72ec3f7370e",
+          "scaleMode": "FILL",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5407",
+          "name": "Image fill \u00b7 Unicorn theme banner",
+          "parent": "48:5403",
+          "parentName": "Theme banners from the app",
+          "w": 342,
+          "h": 85.5,
+          "x": 0,
+          "y": 304.5,
+          "imageHash": "f34311ebde80ddaa6703ffa2c65cfb3ed76c1d5a",
+          "scaleMode": "FILL",
+          "root": "32:19"
+        },
+        {
+          "id": "48:5530",
+          "name": "Image fill \u00b7 uoaui logo",
+          "parent": "48:5529",
+          "parentName": "Text",
+          "w": 76,
+          "h": 15.1875,
+          "x": 12,
+          "y": 10,
+          "imageHash": "3d11b93bc43fde630908910c12f7cf9f674dc916",
+          "scaleMode": "FIT",
+          "root": "32:19"
+        }
+      ]
+    },
+    {
+      "key": "deal",
+      "nodes": [
+        {
+          "id": "345:343599",
+          "name": "Vector",
+          "parent": "345:343598",
+          "parentName": "Group",
+          "w": 403.28857421875,
+          "h": 495.5578308105469,
+          "x": 359.0000000000001,
+          "y": 85.45481008291245,
+          "imageHash": "2487422aa561d42c4cf63b80339a797c1bc72406",
+          "scaleMode": "CROP",
+          "root": "233:460"
+        },
+        {
+          "id": "345:343601",
+          "name": "Vector",
+          "parent": "345:343600",
+          "parentName": "Group",
+          "w": 465.7917175292969,
+          "h": 277.7609558105469,
+          "x": 82,
+          "y": 314,
+          "imageHash": "d6af309245bff47b31d7013e06481b50d2704b8c",
+          "scaleMode": "CROP",
+          "root": "233:460"
+        },
+        {
+          "id": "386:257912",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257911",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b78062d8d69c8786ae5f461b2645848ac1dbf916",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "386:257939",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257938",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "3b192d56dbf4f1eec7b2871f760bfad1960e937f",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "386:257966",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257965",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "5d37af1af7e3b336b30eeff446f9d8329ae17333",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "386:257993",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257992",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "7087a2033ef757b52b629012b178c8665c4308dc",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "351:6447",
+          "name": "Persona avatar",
+          "parent": "351:6445",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "2d014d29a5e572f62ff31a0ee9b44d670328d803",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "278:533",
+          "name": "One object, four views \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:532",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "2739f35b61ff8d8d5dfa5a5d340986ae4e85d289",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:615",
+          "name": "One object, four views \u00b7 alternative \u00b7 live reference \u00b7 original asset",
+          "parent": "278:614",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "f036d5ddea20988548d239ec4b8602ddc65e66b6",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:733",
+          "name": "Three versions, every review \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:732",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "122eb07890eaff26dcdfba5c52659f3b927b1f23",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:922",
+          "name": "A compare grid with a column chooser \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:921",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "c02377acb5e84acf5d3117daf6e11b7a41e1b862",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:1132",
+          "name": "An upload template, not a forced migration \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1131",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "db37c610c069b08d477b12b016651b55e4d5e3d4",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:1210",
+          "name": "Original publish screen \u00b7 source 1:34373",
+          "parent": "278:1209",
+          "parentName": "Original Deal UI \u00b7 exact source capture",
+          "w": 476.5,
+          "h": 317.2279052734375,
+          "x": 0,
+          "y": 0,
+          "imageHash": "243b5076e5e5d0c58f2223757b312ee30db17d0e",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:1241",
+          "name": "Original approval dialog \u00b7 source 1:34757",
+          "parent": "278:1240",
+          "parentName": "Original Deal UI \u00b7 exact source capture",
+          "w": 476.5,
+          "h": 413.5427551269531,
+          "x": 0,
+          "y": 0,
+          "imageHash": "0eb4e14c175b2c86c90ab3a7684f3d9879281112",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:1284",
+          "name": "Original smart-pricing concept \u00b7 exact source export",
+          "parent": "278:1283",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 180.90567016601562,
+          "x": 16,
+          "y": 16,
+          "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "278:1320",
+          "name": "Original smart-pricing concept \u00b7 exact source export",
+          "parent": "278:1319",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 444.5,
+          "h": 309.6874084472656,
+          "x": 16,
+          "y": 16,
+          "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+          "scaleMode": "FIT",
+          "root": "233:460"
+        },
+        {
+          "id": "242:530",
+          "name": "Screen 01 \u00b7 Deals landing",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 223,
+          "imageHash": "4c73e8d283efbe1cc467c941d870b94252e711ec",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:535",
+          "name": "Screen 02 \u00b7 Portfolio landing",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 903,
+          "y": 223,
+          "imageHash": "13d7aed674f04dc68e920cfc9bfc96139770d8ae",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:540",
+          "name": "Screen 03 \u00b7 Load data",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 681.046142578125,
+          "imageHash": "b721b8447d84ef96ae4c9bd01dab71e3b8b5c56c",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:545",
+          "name": "Screen 04 \u00b7 Portfolio summary",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 903,
+          "y": 681.046142578125,
+          "imageHash": "b0d2a8c529b30b9c0593641c685cd49e68e3b5c5",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:550",
+          "name": "Screen 05 \u00b7 New iteration",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 1120.09228515625,
+          "imageHash": "62c82a894ddea64a72ab5946718bde94f87dce9e",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:555",
+          "name": "Screen 06 \u00b7 Validation states",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 903,
+          "y": 1120.09228515625,
+          "imageHash": "58b838b55fd769d7945badd01ea7728c8c899025",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:560",
+          "name": "Screen 07 \u00b7 Compare grid",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 1559.138427734375,
+          "imageHash": "56927865959cc90a19366c0b64a4fe338eefdd99",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:565",
+          "name": "Screen 08 \u00b7 Column chooser",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 336,
+          "x": 903,
+          "y": 1559.138427734375,
+          "imageHash": "7cc355ef39b6a621b8b8ecb9de0b11774a7ca4cd",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:570",
+          "name": "Screen 09 \u00b7 Tiering",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 2001.138427734375,
+          "imageHash": "402bfb294480deb3ed3ca63977b3d78624ca1af7",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:575",
+          "name": "Screen 10 \u00b7 Smart pricing (explored)",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 903,
+          "y": 2001.138427734375,
+          "imageHash": "f1c1c14d7c007e4522ff162730f5ef2e96d27919",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:580",
+          "name": "Screen 11 \u00b7 Deal owner dashboard",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 319.75384521484375,
+          "x": 398,
+          "y": 2440.1845703125,
+          "imageHash": "ba0b52d3c885939164e58c7e44f88aa477f0231d",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:585",
+          "name": "Screen 12 \u00b7 Approver workflow",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 319.75384521484375,
+          "x": 903,
+          "y": 2440.1845703125,
+          "imageHash": "75ef0ec9aa2545be1492c6abd16dd854be9ba2e7",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "242:590",
+          "name": "Screen 13 \u00b7 ADA specs",
+          "parent": "242:526",
+          "parentName": "04b Screens from the design file",
+          "w": 480,
+          "h": 333.046142578125,
+          "x": 398,
+          "y": 2865.9384765625,
+          "imageHash": "b55ff7fc5de7dc40431927e0fea4130a950b44fe",
+          "scaleMode": "FILL",
+          "root": "233:460"
+        },
+        {
+          "id": "239:541",
+          "name": "Hero \u00b7 Deals landing \u00b7 product screen",
+          "parent": "239:531",
+          "parentName": "Header",
+          "w": 350,
+          "h": 243,
+          "x": 20,
+          "y": 671,
+          "imageHash": "4c73e8d283efbe1cc467c941d870b94252e711ec",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "386:258020",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:258019",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b78062d8d69c8786ae5f461b2645848ac1dbf916",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "386:258047",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:258046",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "3b192d56dbf4f1eec7b2871f760bfad1960e937f",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "386:258074",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:258073",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "5d37af1af7e3b336b30eeff446f9d8329ae17333",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "386:258101",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:258100",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "7087a2033ef757b52b629012b178c8665c4308dc",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "351:6607",
+          "name": "Persona avatar",
+          "parent": "351:6605",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "2d014d29a5e572f62ff31a0ee9b44d670328d803",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "278:1392",
+          "name": "One object, four views \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1391",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 192.81787109375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "2739f35b61ff8d8d5dfa5a5d340986ae4e85d289",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:1474",
+          "name": "One object, four views \u00b7 alternative \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1473",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 192.81787109375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "f036d5ddea20988548d239ec4b8602ddc65e66b6",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:1592",
+          "name": "Three versions, every review \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1591",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 192.81787109375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "122eb07890eaff26dcdfba5c52659f3b927b1f23",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:1781",
+          "name": "A compare grid with a column chooser \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1780",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 192.81787109375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "c02377acb5e84acf5d3117daf6e11b7a41e1b862",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:1991",
+          "name": "An upload template, not a forced migration \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "parent": "278:1990",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 192.81787109375,
+          "x": 16,
+          "y": 16,
+          "imageHash": "db37c610c069b08d477b12b016651b55e4d5e3d4",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:2069",
+          "name": "Original publish screen \u00b7 source 1:34373",
+          "parent": "278:2068",
+          "parentName": "Original Deal UI \u00b7 exact source capture",
+          "w": 342,
+          "h": 227.68508911132812,
+          "x": 0,
+          "y": 0,
+          "imageHash": "243b5076e5e5d0c58f2223757b312ee30db17d0e",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:2100",
+          "name": "Original approval dialog \u00b7 source 1:34757",
+          "parent": "278:2099",
+          "parentName": "Original Deal UI \u00b7 exact source capture",
+          "w": 342,
+          "h": 296.8134765625,
+          "x": 0,
+          "y": 0,
+          "imageHash": "0eb4e14c175b2c86c90ab3a7684f3d9879281112",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:2143",
+          "name": "Original smart-pricing concept \u00b7 exact source export",
+          "parent": "278:2142",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 126.16593933105469,
+          "x": 16,
+          "y": 16,
+          "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "278:2179",
+          "name": "Original smart-pricing concept \u00b7 exact source export",
+          "parent": "278:2178",
+          "parentName": "Illustration \u00b7 white surface",
+          "w": 310,
+          "h": 215.97996520996094,
+          "x": 16,
+          "y": 16,
+          "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+          "scaleMode": "FIT",
+          "root": "239:493"
+        },
+        {
+          "id": "242:599",
+          "name": "Screen 01 \u00b7 Deals landing",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 235,
+          "imageHash": "4c73e8d283efbe1cc467c941d870b94252e711ec",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:604",
+          "name": "Screen 02 \u00b7 Portfolio landing",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 563,
+          "imageHash": "13d7aed674f04dc68e920cfc9bfc96139770d8ae",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:609",
+          "name": "Screen 03 \u00b7 Load data",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 891,
+          "imageHash": "b721b8447d84ef96ae4c9bd01dab71e3b8b5c56c",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:614",
+          "name": "Screen 04 \u00b7 Portfolio summary",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 1219,
+          "imageHash": "b0d2a8c529b30b9c0593641c685cd49e68e3b5c5",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:619",
+          "name": "Screen 05 \u00b7 New iteration",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 1547,
+          "imageHash": "62c82a894ddea64a72ab5946718bde94f87dce9e",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:624",
+          "name": "Screen 06 \u00b7 Validation states",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 1875,
+          "imageHash": "58b838b55fd769d7945badd01ea7728c8c899025",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:629",
+          "name": "Screen 07 \u00b7 Compare grid",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 2203,
+          "imageHash": "56927865959cc90a19366c0b64a4fe338eefdd99",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:634",
+          "name": "Screen 08 \u00b7 Column chooser",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 239,
+          "x": 24,
+          "y": 2531,
+          "imageHash": "7cc355ef39b6a621b8b8ecb9de0b11774a7ca4cd",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:639",
+          "name": "Screen 09 \u00b7 Tiering",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 2860,
+          "imageHash": "402bfb294480deb3ed3ca63977b3d78624ca1af7",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:644",
+          "name": "Screen 10 \u00b7 Smart pricing (explored)",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 3188,
+          "imageHash": "f1c1c14d7c007e4522ff162730f5ef2e96d27919",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:649",
+          "name": "Screen 11 \u00b7 Deal owner dashboard",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 228,
+          "x": 24,
+          "y": 3516,
+          "imageHash": "ba0b52d3c885939164e58c7e44f88aa477f0231d",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:654",
+          "name": "Screen 12 \u00b7 Approver workflow",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 228,
+          "x": 24,
+          "y": 3834,
+          "imageHash": "75ef0ec9aa2545be1492c6abd16dd854be9ba2e7",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        },
+        {
+          "id": "242:659",
+          "name": "Screen 13 \u00b7 ADA specs",
+          "parent": "242:595",
+          "parentName": "04b Screens from the design file",
+          "w": 342,
+          "h": 238,
+          "x": 24,
+          "y": 4152,
+          "imageHash": "b55ff7fc5de7dc40431927e0fea4130a950b44fe",
+          "scaleMode": "FILL",
+          "root": "239:493"
+        }
+      ]
+    },
+    {
+      "key": "ai",
+      "nodes": [
+        {
+          "id": "133:82",
+          "name": "The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library",
+          "parent": "133:81",
+          "parentName": "Product capture \u00b7 The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library",
+          "w": 720.9600219726562,
+          "h": 450.6000061035156,
+          "x": 40.31999969482422,
+          "y": 40.31999969482422,
+          "imageHash": "c4f1f1b0734d4f5ce52683e138ee5e00bac41743",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "133:85",
+          "name": "The current uoaui Salt UI Kit, with foundations and component controls",
+          "parent": "133:84",
+          "parentName": "Product capture \u00b7 The current uoaui Salt UI Kit, with foundations and component controls",
+          "w": 720.9600219726562,
+          "h": 450.6000061035156,
+          "x": 40.31999969482422,
+          "y": 40.31999969482422,
+          "imageHash": "1fb418659506b7594921db2561d5165ea65f3bf6",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:1921",
+          "name": "Image fill \u00b7 The live uoaui.ai comparison page showing the same finance screen in Salt and uoaui",
+          "parent": "48:1920",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 614.5824584960938,
+          "x": 0,
+          "y": 0,
+          "imageHash": "8a72e1a3c686c1c2390bb1946aea21a680394ff8",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "386:257622",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257621",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "1ab4a9b27a9e62e69bf50e80ca37e3da05293d41",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "386:257649",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257648",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "26d4b269dbd1d8ce9a76fae55a2490e289b4457c",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2026",
+          "name": "Video - The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems.",
+          "parent": "48:2025",
+          "parentName": "Figure",
+          "w": 984.8280029296875,
+          "h": 616.0692138671875,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b9e50d1ae28d3390e9b73a68682230da6f3e416f",
+          "scaleMode": "FILL",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2035",
+          "name": "Image fill \u00b7 The current uoaui Salt UI Kit with foundations, components, patterns and system controls",
+          "parent": "48:2034",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 614.5824584960938,
+          "x": 0,
+          "y": 0,
+          "imageHash": "1fb418659506b7594921db2561d5165ea65f3bf6",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2045",
+          "name": "Image fill \u00b7 The current uoaui UI Kit charts and data visualisation specimens in Salt",
+          "parent": "48:2044",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 1103.175048828125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "823c2c9ff24040688b95d928bb8ec15dd0cd75f8",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2056",
+          "name": "Image fill \u00b7 The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions",
+          "parent": "48:2055",
+          "parentName": "Image (The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions):margin",
+          "w": 984.8280029296875,
+          "h": 653.9873046875,
+          "x": 0,
+          "y": 0,
+          "imageHash": "eb5ab8c820157cce0b4996f026271bc3797de52a",
+          "scaleMode": "CROP",
+          "root": "32:15"
+        },
+        {
+          "id": "351:5548",
+          "name": "Persona avatar",
+          "parent": "351:5546",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "8d4ef955086031aba2139a311ebb0ddeba6758ab",
+          "scaleMode": "FILL",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2374",
+          "name": "Image fill \u00b7 My original uoaui symbol and wordmark",
+          "parent": "48:2373",
+          "parentName": "Figure",
+          "w": 440,
+          "h": 88,
+          "x": 93.203125,
+          "y": 64.25,
+          "imageHash": "b313d5208adcb771528344554dba1bcfd7e37919",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2431",
+          "name": "Image fill \u00b7 The live uoaui house design system with button comparisons, palette, iconography and four density settings",
+          "parent": "48:2430",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 675.5679931640625,
+          "x": 0,
+          "y": 0,
+          "imageHash": "f5513ab784781f86a9fb1a5f71d667fff93cd63f",
+          "scaleMode": "CROP",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2516",
+          "name": "Image fill \u00b7 Current product at an 820-pixel tablet viewport",
+          "parent": "48:2515",
+          "parentName": "Figure",
+          "w": 862.703125,
+          "h": 1240.296875,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d62c22e10b003bbf40a6b6e765c184789c71f4db",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "48:2520",
+          "name": "Image fill \u00b7 Current product at a 390-pixel phone viewport",
+          "parent": "48:2519",
+          "parentName": "Figure",
+          "w": 414.09375,
+          "h": 893.8125,
+          "x": 0,
+          "y": 0,
+          "imageHash": "ad6af26ddbff278f4e4060f6170256f29a53c239",
+          "scaleMode": "FIT",
+          "root": "32:15"
+        },
+        {
+          "id": "133:103",
+          "name": "The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library",
+          "parent": "133:102",
+          "parentName": "Product capture \u00b7 The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library",
+          "w": 326,
+          "h": 203.75,
+          "x": 12,
+          "y": 12,
+          "imageHash": "9dfe154ab0f5ba21bcc5ccca8bf87484ee0ec29d",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "133:106",
+          "name": "The current uoaui Salt UI Kit, with foundations and component controls",
+          "parent": "133:105",
+          "parentName": "Product capture \u00b7 The current uoaui Salt UI Kit, with foundations and component controls",
+          "w": 326,
+          "h": 203.75,
+          "x": 12,
+          "y": 12,
+          "imageHash": "2f209d71195bc4d1604d706c54b05a50c41e2152",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:2747",
+          "name": "Image fill \u00b7 The live uoaui.ai comparison page showing the same finance screen in Salt and uoaui",
+          "parent": "48:2746",
+          "parentName": "Container",
+          "w": 340,
+          "h": 212.5,
+          "x": 1,
+          "y": 1,
+          "imageHash": "06f7a4d0db17b89078551be25b192f23567d0b9b",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "386:257676",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257675",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "1ab4a9b27a9e62e69bf50e80ca37e3da05293d41",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "386:257703",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257702",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "26d4b269dbd1d8ce9a76fae55a2490e289b4457c",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:2852",
+          "name": "Video - The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems.",
+          "parent": "48:2851",
+          "parentName": "Figure",
+          "w": 342,
+          "h": 214.5,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b9e50d1ae28d3390e9b73a68682230da6f3e416f",
+          "scaleMode": "FILL",
+          "root": "32:16"
+        },
+        {
+          "id": "48:2859",
+          "name": "Image fill \u00b7 The current uoaui Salt UI Kit with foundations, components, patterns and system controls",
+          "parent": "48:2858",
+          "parentName": "Container",
+          "w": 340,
+          "h": 212.5,
+          "x": 1,
+          "y": 1,
+          "imageHash": "2f209d71195bc4d1604d706c54b05a50c41e2152",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:2869",
+          "name": "Image fill \u00b7 The current uoaui UI Kit charts and data visualisation specimens in Salt",
+          "parent": "48:2868",
+          "parentName": "Container",
+          "w": 340,
+          "h": 381.078125,
+          "x": 1,
+          "y": 1,
+          "imageHash": "821d22e28f34dacddd9ffafcdc146b110684445b",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:2879",
+          "name": "Image fill \u00b7 The live Salt Forms pattern with full-name and email fields, a department selector and submit/cancel actions",
+          "parent": "48:2878",
+          "parentName": "Container",
+          "w": 340,
+          "h": 225.953125,
+          "x": 1,
+          "y": 1,
+          "imageHash": "697b0b567c02ad32ab313d458d652b9ad6d4d0e3",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "351:5710",
+          "name": "Persona avatar",
+          "parent": "351:5708",
+          "parentName": "Persona",
+          "w": 56,
+          "h": 56,
+          "x": 0,
+          "y": 43,
+          "imageHash": "8d4ef955086031aba2139a311ebb0ddeba6758ab",
+          "scaleMode": "FILL",
+          "root": "32:16"
+        },
+        {
+          "id": "48:3218",
+          "name": "Image fill \u00b7 My original uoaui symbol and wordmark",
+          "parent": "48:3217",
+          "parentName": "Figure",
+          "w": 292,
+          "h": 58.390625,
+          "x": 25,
+          "y": 49.046875,
+          "imageHash": "3d11b93bc43fde630908910c12f7cf9f674dc916",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:3275",
+          "name": "Image fill \u00b7 The live uoaui house design system with button comparisons, palette, iconography and four density settings",
+          "parent": "48:3274",
+          "parentName": "Container",
+          "w": 340,
+          "h": 233.75,
+          "x": 1,
+          "y": 1,
+          "imageHash": "8b35023851e7bd5eea01a7b4d992d69f8655e3a3",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:3360",
+          "name": "Image fill \u00b7 Current product at an 820-pixel tablet viewport",
+          "parent": "48:3359",
+          "parentName": "Figure",
+          "w": 342,
+          "h": 491.15625,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d62c22e10b003bbf40a6b6e765c184789c71f4db",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        },
+        {
+          "id": "48:3364",
+          "name": "Image fill \u00b7 Current product at a 390-pixel phone viewport",
+          "parent": "48:3363",
+          "parentName": "Figure",
+          "w": 246.234375,
+          "h": 530.546875,
+          "x": 0,
+          "y": 0,
+          "imageHash": "ad6af26ddbff278f4e4060f6170256f29a53c239",
+          "scaleMode": "FIT",
+          "root": "32:16"
+        }
+      ]
+    },
+    {
+      "key": "fx",
+      "nodes": [
+        {
+          "id": "386:257455",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257454",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b7dc8ebc1440aa1b1c0efe2936b4585c0e41cc08",
+          "scaleMode": "FIT",
+          "root": "32:9"
+        },
+        {
+          "id": "386:257482",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257481",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "16ead9c1907d352e8d964868ad30f6eb83d26c89",
+          "scaleMode": "FIT",
+          "root": "32:9"
+        },
+        {
+          "id": "386:257509",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257508",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 305.63629150390625,
+          "h": 320,
+          "x": 0,
+          "y": 0,
+          "imageHash": "f2ff54f085c5f2b9baf287cdc042f1c7e43a696d",
+          "scaleMode": "FIT",
+          "root": "32:9"
+        },
+        {
+          "id": "339:5304",
+          "name": "Vector",
+          "parent": "339:5297",
+          "parentName": "Frame",
+          "w": 33.57368087768555,
+          "h": 34.692806243896484,
+          "x": 0,
+          "y": 17.346527099609375,
+          "imageHash": "a64b8964265533e6bb849b0e1d516bc9be08e33b",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "140:5036",
+          "name": "Image (Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below.)",
+          "parent": "140:5035",
+          "parentName": "Link - Open the complete original FX decision loop image in a new tab",
+          "w": 895.6234130859375,
+          "h": 859.1865844726562,
+          "x": 44.602294921875,
+          "y": 44.60249328613281,
+          "imageHash": "42003599c5f9f5a12729efbead144c4811b5524d",
+          "scaleMode": "FIT",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336442",
+          "name": "Screenshot 2026-10-11 at 19.47.34 1",
+          "parent": "140:4278",
+          "parentName": "Container",
+          "w": 984,
+          "h": 561.0042114257812,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d5b9e8b01fcd9e7e73e7f1b84a48fcf1a6602275",
+          "scaleMode": "FILL",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336445",
+          "name": "Screenshot 2026-10-11 at 19.49.53 1",
+          "parent": "140:4288",
+          "parentName": "Container",
+          "w": 984,
+          "h": 560.2775268554688,
+          "x": 0,
+          "y": 0,
+          "imageHash": "a85e29dc353a58f79f8900e42ab30b097a758e5d",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336470",
+          "name": "Screenshot 2026-10-11 at 21.06.55 (2) 1",
+          "parent": "140:4298",
+          "parentName": "Container",
+          "w": 984,
+          "h": 561,
+          "x": 0,
+          "y": 0,
+          "imageHash": "a459f6f39893f457f5c2b52da3ee3ee991f478e5",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336489",
+          "name": "Screenshot 2026-10-11 at 21.11.17 1",
+          "parent": "305:336488",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 555.0848999023438,
+          "x": 0,
+          "y": 0,
+          "imageHash": "33f705feff914f0eb891d7ac6bf1d0b4f9843159",
+          "scaleMode": "FILL",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336503",
+          "name": "Screenshot 2026-10-11 at 21.13.47 1",
+          "parent": "305:336502",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 558.7391967773438,
+          "x": 0,
+          "y": 0,
+          "imageHash": "573c198799e5bcd38361e12f0a734fed16032101",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336513",
+          "name": "Screenshot 2026-10-11 at 21.16.27 1",
+          "parent": "305:336462",
+          "parentName": "Frame 10",
+          "w": 984,
+          "h": 558.703369140625,
+          "x": 0,
+          "y": 0,
+          "imageHash": "9d05f9b5be51329f1dd48d3661d3d695a0390fcc",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336516",
+          "name": "Screenshot 2026-10-11 at 21.17.35 1",
+          "parent": "140:4702",
+          "parentName": "Container",
+          "w": 984.8280029296875,
+          "h": 560.8887329101562,
+          "x": 0,
+          "y": 0,
+          "imageHash": "d6f70c4dd1c12df322ffec329440b9cbcf5603d6",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336542",
+          "name": "image 2",
+          "parent": "140:4751",
+          "parentName": "Figure",
+          "w": 944.8280029296875,
+          "h": 1748.5616455078125,
+          "x": 20,
+          "y": 20,
+          "imageHash": "8394c1facff025e2384fad2aca8e81482af9895c",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "305:336544",
+          "name": "image 1",
+          "parent": "140:4755",
+          "parentName": "Figure",
+          "w": 469,
+          "h": 1581,
+          "x": 16,
+          "y": 16,
+          "imageHash": "50f2214fc328e9b7fe3e9258bb767a3423acd732",
+          "scaleMode": "CROP",
+          "root": "32:9"
+        },
+        {
+          "id": "386:257536",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257535",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b7dc8ebc1440aa1b1c0efe2936b4585c0e41cc08",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "386:257563",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257562",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "16ead9c1907d352e8d964868ad30f6eb83d26c89",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "386:257590",
+          "name": "Portrait \u00b7 transparent illustration",
+          "parent": "386:257589",
+          "parentName": "Portrait surface \u00b7 matched persona accent",
+          "w": 120,
+          "h": 160,
+          "x": 0,
+          "y": 0,
+          "imageHash": "f2ff54f085c5f2b9baf287cdc042f1c7e43a696d",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "167:795",
+          "name": "Original FX journey map \u00b7 source 148:8308",
+          "parent": "140:6151",
+          "parentName": "User journey \u00b7 fx \u00b7 source-faithful website sync",
+          "w": 342,
+          "h": 265.14605712890625,
+          "x": 0,
+          "y": 3409,
+          "imageHash": "fbc5babfe72cbe0eedc90ac064ea9a72da4efa81",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:6302",
+          "name": "Image (Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below.)",
+          "parent": "140:6301",
+          "parentName": "Link - Open the complete original FX decision loop image in a new tab",
+          "w": 342,
+          "h": 298.359375,
+          "x": 0,
+          "y": 0,
+          "imageHash": "42003599c5f9f5a12729efbead144c4811b5524d",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5535",
+          "name": "Image fill \u00b7 Classic FX public rebuild in dark mode, showing the complete order and execution chart",
+          "parent": "140:5534",
+          "parentName": "Container",
+          "w": 340,
+          "h": 182.75,
+          "x": 1,
+          "y": 1,
+          "imageHash": "e0f7adffefc640b0f1f6c95cbacfccd439ce38c3",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5545",
+          "name": "Image fill \u00b7 The same Classic FX workspace in light mode",
+          "parent": "140:5544",
+          "parentName": "Container",
+          "w": 340,
+          "h": 182.75,
+          "x": 1,
+          "y": 1,
+          "imageHash": "a7c92ab19c885fbfc6d0ce6a3c6c5524efd216a6",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5555",
+          "name": "Image fill \u00b7 Enhanced FX public rebuild with its table view selected",
+          "parent": "140:5554",
+          "parentName": "Container",
+          "w": 340,
+          "h": 182.75,
+          "x": 1,
+          "y": 1,
+          "imageHash": "16c46aa559f7f97e0b3d5c76cc0d7f87aee896d5",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5565",
+          "name": "Image fill \u00b7 Two simulated FX orders compared side by side in the current public rebuild",
+          "parent": "140:5564",
+          "parentName": "Container",
+          "w": 340,
+          "h": 212.5,
+          "x": 1,
+          "y": 1,
+          "imageHash": "ad25389bef0c9fea96dbfef4c5372c43730a54d3",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5575",
+          "name": "Image fill \u00b7 The current FX order ticket opened from Fill now, before confirmation",
+          "parent": "140:5574",
+          "parentName": "Container",
+          "w": 340,
+          "h": 212.5,
+          "x": 1,
+          "y": 1,
+          "imageHash": "48c69725a297806d0f815561f70bb466721a314e",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5977",
+          "name": "Video - Enhanced view, filter controls, comparison and the order ticket. All data is simulated.",
+          "parent": "140:5976",
+          "parentName": "Figure",
+          "w": 342,
+          "h": 214.5,
+          "x": 0,
+          "y": 0,
+          "imageHash": "43c550aabd73b7635ca6e80c29f8cccb1ab374a8",
+          "scaleMode": "FILL",
+          "root": "32:10"
+        },
+        {
+          "id": "140:5984",
+          "name": "Image fill \u00b7 The current FX filters for venue, fill side and execution states",
+          "parent": "140:5983",
+          "parentName": "Container",
+          "w": 340,
+          "h": 212.5,
+          "x": 1,
+          "y": 1,
+          "imageHash": "7abacfe84b3aabb5716a3c0324608308cb981638",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:6029",
+          "name": "Image fill \u00b7 Current product at an 820-pixel tablet viewport",
+          "parent": "140:6028",
+          "parentName": "Figure",
+          "w": 342,
+          "h": 491.15625,
+          "x": 0,
+          "y": 0,
+          "imageHash": "bd5aa0e87a67acd4b195839338df71f35e9a9208",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        },
+        {
+          "id": "140:6033",
+          "name": "Image fill \u00b7 Current product at a 390-pixel phone viewport",
+          "parent": "140:6032",
+          "parentName": "Figure",
+          "w": 246.234375,
+          "h": 530.546875,
+          "x": 0,
+          "y": 0,
+          "imageHash": "b992db7d697e7c98c394a68a4a1cf45d0e80d3c6",
+          "scaleMode": "FIT",
+          "root": "32:10"
+        }
+      ]
+    },
+    {
+      "key": "fusion",
+      "nodes": [
+        {
+          "id": "305:322434",
+          "name": "Screenshot 2026-10-11 at 11.08.42 1",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Header/Product gallery \u00b7 full editable image fills/Product capture \u00b7 The live Fusion public rebuild with report discovery, featured dashboards and the report table",
+          "visible": true,
+          "w": 654,
+          "h": 504,
+          "imageHash": "53213bebeb7c53f068bd4d7574a6ee41ac1279f5",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "305:322444",
+          "name": "image 1",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Header/Product gallery \u00b7 full editable image fills/Product capture \u00b7 The Fusion public rebuild showing the complete Performance workspace",
+          "visible": true,
+          "w": 720.9599609375,
+          "h": 421.02935791015625,
+          "imageHash": "751dd4921ee6f7cc01e57d5cf76a612e866ef9f2",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "48:38",
+          "name": "Image fill \u00b7 journal.webp",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Navigation - Case study sections:margin/Navigation - Case study sections/Link - Back to all projects",
+          "visible": false,
+          "w": 36,
+          "h": 36,
+          "imageHash": "e28c42c7f5aa18be6b69a0cf60d575bc4d4be554",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "176:601",
+          "name": "Helen Marsh \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Helen Marsh \u00b7 authored persona/Helen Marsh \u00b7 identity panel",
+          "visible": false,
+          "w": 563,
+          "h": 845,
+          "imageHash": "455b0332253a393eae03286ba386b9916639dc7b",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "176:601",
+          "name": "Helen Marsh \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Helen Marsh \u00b7 authored persona/Helen Marsh \u00b7 identity panel",
+          "visible": false,
+          "w": 563,
+          "h": 845,
+          "imageHash": "acf0b03903299d5b629b3b843b75f1f198a326c2",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "176:618",
+          "name": "Tom Reilly \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Tom Reilly \u00b7 authored persona/Tom Reilly \u00b7 identity panel",
+          "visible": false,
+          "w": 618,
+          "h": 928,
+          "imageHash": "eace3d3553899072e84f11441589fa506ce3b05d",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "176:618",
+          "name": "Tom Reilly \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Tom Reilly \u00b7 authored persona/Tom Reilly \u00b7 identity panel",
+          "visible": false,
+          "w": 618,
+          "h": 928,
+          "imageHash": "ff6344d08e243c2a345dbeeacead58657790de41",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "176:635",
+          "name": "Amara Osei \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Amara Osei \u00b7 authored persona/Amara Osei \u00b7 identity panel",
+          "visible": false,
+          "w": 577,
+          "h": 865,
+          "imageHash": "a1b29e7569bbeaf47e8c90b39c17585467f720c3",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "176:635",
+          "name": "Amara Osei \u00b7 role illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Amara Osei \u00b7 authored persona/Amara Osei \u00b7 identity panel",
+          "visible": false,
+          "w": 577,
+          "h": 865,
+          "imageHash": "54865f7a3f1f5c49e5fe5ee856e2185fbe9b9a8a",
+          "scaleMode": "FILL",
+          "root": "32:12"
+        },
+        {
+          "id": "386:5155",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Helen Marsh \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 305.63629150390625,
+          "h": 320,
+          "imageHash": "03d69d287a7fbe9b81e71df1cd50134cd7d3f9d9",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "386:5182",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Tom Reilly \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 305.63629150390625,
+          "h": 320,
+          "imageHash": "51d63d2e6ae02fe08ba5879a4fe36a8a581f404d",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "386:5209",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Amara Osei \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 305.63629150390625,
+          "h": 320,
+          "imageHash": "dbb59315391d65af2354f3fd1e94682687251fac",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "181:601",
+          "name": "Persona avatar",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container/Editable user-journey map \u00b7 experience map",
+          "visible": false,
+          "w": 32,
+          "h": 32,
+          "imageHash": "af3d982c877aa185fcebf251201423fa8ba94b2d",
+          "scaleMode": "CROP",
+          "root": "32:12"
+        },
+        {
+          "id": "351:5076",
+          "name": "Persona avatar",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container/Editable user-journey map \u00b7 experience map/User journey \u00b7 fusion \u00b7 source-faithful website sync/Persona, scenario and goal/Persona",
+          "visible": true,
+          "w": 56,
+          "h": 56,
+          "imageHash": "af3d982c877aa185fcebf251201423fa8ba94b2d",
+          "scaleMode": "CROP",
+          "root": "32:12"
+        },
+        {
+          "id": "305:336547",
+          "name": "Screenshot 2026-10-11 at 21.49.22 1",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Container/Figure/Container",
+          "visible": true,
+          "w": 983,
+          "h": 477,
+          "imageHash": "6d97b37b459805cc89aa75f53f3ed8b97bd9fb4b",
+          "scaleMode": "CROP",
+          "root": "32:12"
+        },
+        {
+          "id": "345:343429",
+          "name": "Screenshot 2026-10-11 at 22.35.33 1",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Section/Container:margin/Container/Figure",
+          "visible": true,
+          "w": 862.703125,
+          "h": 1044.8515625,
+          "imageHash": "20555ab132ea2fa0ddccda1a37284ddd527f62b8",
+          "scaleMode": "CROP",
+          "root": "32:12"
+        },
+        {
+          "id": "345:343432",
+          "name": "Screenshot 2026-10-11 at 22.37.54 1",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section/Section/Container:margin/Container/Figure",
+          "visible": true,
+          "w": 414.09375,
+          "h": 1063.1060791015625,
+          "imageHash": "a03af630bf4976cc653dfaa848ef5b241abc3171",
+          "scaleMode": "CROP",
+          "root": "32:12"
+        },
+        {
+          "id": "48:681",
+          "name": "Image fill \u00b7 star.webp",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section - Next case:margin/Section - Next case/Container/Container/Link/Text",
+          "visible": false,
+          "w": 48,
+          "h": 48,
+          "imageHash": "525a59e45b67d39dd59be5a837d4d6e520617373",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "48:685",
+          "name": "Image fill \u00b7 Winking Star app icon",
+          "path": "Desktop \u00b7 1440/Body/Main Content/Section - Next case:margin/Section - Next case/Container/Container/Link/Heading 3",
+          "visible": true,
+          "w": 40,
+          "h": 40,
+          "imageHash": "19118dc54a62b6a2dd11dae51321cfcd2e6b19a3",
+          "scaleMode": "FIT",
+          "root": "32:12"
+        },
+        {
+          "id": "133:1544",
+          "name": "The live Fusion public rebuild with report discovery, featured dashboards and the report table",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Header/Product gallery \u00b7 full editable image fills/Product capture \u00b7 The live Fusion public rebuild with report discovery, featured dashboards and the report table",
+          "visible": true,
+          "w": 326,
+          "h": 203.75,
+          "imageHash": "60c3b95b9953a4a7dbef511c27d5db887d747864",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "133:1547",
+          "name": "The Fusion public rebuild showing the complete Performance workspace",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Header/Product gallery \u00b7 full editable image fills/Product capture \u00b7 The Fusion public rebuild showing the complete Performance workspace",
+          "visible": true,
+          "w": 326,
+          "h": 289.71905517578125,
+          "imageHash": "f6b3836937bc27b4a1d3c930964e4856bb525c37",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "176:655",
+          "name": "Helen Marsh \u00b7 role illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Helen Marsh \u00b7 authored persona/Helen Marsh \u00b7 identity panel",
+          "visible": false,
+          "w": 190,
+          "h": 285,
+          "imageHash": "8b2c86c91c6016183fc81416ff88da265f921f4f",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "176:672",
+          "name": "Tom Reilly \u00b7 role illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Tom Reilly \u00b7 authored persona/Tom Reilly \u00b7 identity panel",
+          "visible": false,
+          "w": 190,
+          "h": 285,
+          "imageHash": "7f9dd2459d16a2cf84ff43f3643909a3f85e4589",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "176:689",
+          "name": "Amara Osei \u00b7 role illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Amara Osei \u00b7 authored persona/Amara Osei \u00b7 identity panel",
+          "visible": false,
+          "w": 190,
+          "h": 285,
+          "imageHash": "f0205249c89db0a244c6ef18aa5a10be74a80ea0",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "386:5236",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Helen Marsh \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 120,
+          "h": 160,
+          "imageHash": "03d69d287a7fbe9b81e71df1cd50134cd7d3f9d9",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "386:5263",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Tom Reilly \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 120,
+          "h": 160,
+          "imageHash": "51d63d2e6ae02fe08ba5879a4fe36a8a581f404d",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "386:5290",
+          "name": "Portrait \u00b7 transparent illustration",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container:margin/Container/Section/Authored personas/Amara Osei \u00b7 persona reference template/Identity \u00b7 portrait and role/Portrait surface \u00b7 matched persona accent",
+          "visible": true,
+          "w": 120,
+          "h": 160,
+          "imageHash": "dbb59315391d65af2354f3fd1e94682687251fac",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "186:727",
+          "name": "Experience map \u00b7 desktop render (source 181:592)",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Editable user-journey map \u00b7 mobile",
+          "visible": false,
+          "w": 342,
+          "h": 418,
+          "imageHash": "000c54b3916f6c680303f232f7781b05783d0547",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "351:5236",
+          "name": "Persona avatar",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Editable user-journey map \u00b7 mobile/User journey \u00b7 fusion \u00b7 source-faithful website sync/Persona, scenario and goal/Persona",
+          "visible": true,
+          "w": 56,
+          "h": 56,
+          "imageHash": "af3d982c877aa185fcebf251201423fa8ba94b2d",
+          "scaleMode": "CROP",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1358",
+          "name": "Image fill \u00b7 The current Fusion performance table beside its configuration panel",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Figure/Container",
+          "visible": true,
+          "w": 340,
+          "h": 302.453125,
+          "imageHash": "b1e2eb9eee0589a5744dbeea70f053a4a96f94a2",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1374",
+          "name": "Video - Report discovery, Performance, its configuration panel and Sustainable Investment.",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Figure",
+          "visible": true,
+          "w": 342,
+          "h": 214.5,
+          "imageHash": "922185790a8f1323e51191c37e04ffd395982e96",
+          "scaleMode": "FILL",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1381",
+          "name": "Image fill \u00b7 The current Fusion Performance workspace with performance results and analytical widgets",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Figure/Container",
+          "visible": true,
+          "w": 340,
+          "h": 302.453125,
+          "imageHash": "f6b3836937bc27b4a1d3c930964e4856bb525c37",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1391",
+          "name": "Image fill \u00b7 The current Fusion Risk workspace with portfolio risk charts, tables and analytical widgets",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Figure/Container",
+          "visible": true,
+          "w": 340,
+          "h": 245.78125,
+          "imageHash": "cce7dc7496f6597b9d62753cd84819b8c8740e48",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1474",
+          "name": "Image fill \u00b7 The current Fusion Sustainable Investment workspace",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Container/Figure/Container",
+          "visible": true,
+          "w": 340,
+          "h": 302.453125,
+          "imageHash": "afa6666ca7ae283054f84a41379ee4416fb2de45",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1501",
+          "name": "Image fill \u00b7 Current product at an 820-pixel tablet viewport",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Section/Container:margin/Container/Figure",
+          "visible": true,
+          "w": 342,
+          "h": 491.15625,
+          "imageHash": "e1f5a96cf6558fb0db3e3431f3b2dce119f3da24",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1505",
+          "name": "Image fill \u00b7 Current product at a 390-pixel phone viewport",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section/Section/Container:margin/Container/Figure",
+          "visible": true,
+          "w": 246.234375,
+          "h": 530.546875,
+          "imageHash": "bbe34b5d40afba8a6aa808ebb5e22efa5dc98f7f",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1518",
+          "name": "Image fill \u00b7 star.webp",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section - Next case:margin/Section - Next case/Container/Container/Link/Text",
+          "visible": false,
+          "w": 40,
+          "h": 48,
+          "imageHash": "525a59e45b67d39dd59be5a837d4d6e520617373",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        },
+        {
+          "id": "48:1524",
+          "name": "Image fill \u00b7 Winking Star app icon",
+          "path": "Mobile \u00b7 390/Body/Main Content/Section - Next case:margin/Section - Next case/Container/Container/Link/Heading 3/Text:margin",
+          "visible": true,
+          "w": 40,
+          "h": 40,
+          "imageHash": "19118dc54a62b6a2dd11dae51321cfcd2e6b19a3",
+          "scaleMode": "FIT",
+          "root": "32:13"
+        }
+      ]
+    }
+  ],
+  "home": {
+    "roots": [
+      {
+        "id": "32:3",
+        "name": "Desktop \u00b7 1440"
+      },
+      {
+        "id": "32:4",
+        "name": "Mobile \u00b7 390"
+      }
+    ],
+    "images": [
+      {
+        "id": "109:1874",
+        "name": "Container",
+        "parent": "109:1872",
+        "parentName": "Container",
+        "w": 56,
+        "h": 56,
+        "imageHash": "e28c42c7f5aa18be6b69a0cf60d575bc4d4be554"
+      },
+      {
+        "id": "109:1875",
+        "name": "Container",
+        "parent": "109:1872",
+        "parentName": "Container",
+        "w": 48,
+        "h": 48,
+        "imageHash": "525a59e45b67d39dd59be5a837d4d6e520617373"
+      },
+      {
+        "id": "109:1876",
+        "name": "Image - Shannon's pixel avatar in a cream jumper and rose trousers",
+        "parent": "109:1872",
+        "parentName": "Container",
+        "w": 250,
+        "h": 380,
+        "imageHash": "0635c8e2fc9740eab24b590501a6140364380f43"
+      },
+      {
+        "id": "109:1885",
+        "name": "Image",
+        "parent": "109:1884",
+        "parentName": "Container",
+        "w": 64,
+        "h": 64,
+        "imageHash": "25c48795adb65b8314ab09a24f84e58c87efb63d"
+      },
+      {
+        "id": "109:1891",
+        "name": "Container",
+        "parent": "109:1890",
+        "parentName": "Container",
+        "w": 1322.8125,
+        "h": 329.203125,
+        "imageHash": "d98c89a04e662a2308957f553c27b234d58ab1b8"
+      },
+      {
+        "id": "I288:466;120:1958",
+        "name": "image 1",
+        "parent": "I288:466;109:21",
+        "parentName": "Picture",
+        "w": 861,
+        "h": 574,
+        "imageHash": "7345bbe72be50b79e0e995b971ec2a5ae1f74fcc"
+      },
+      {
+        "id": "I288:466;120:1950",
+        "name": "Analytics 1",
+        "parent": "I288:466;109:33",
+        "parentName": "Picture",
+        "w": 681,
+        "h": 681,
+        "imageHash": "3138713edf1be741abda079b1b9431142ca0223a"
+      },
+      {
+        "id": "I288:466;120:1747",
+        "name": "Vector",
+        "parent": "I288:466;120:1914",
+        "parentName": "Group 4",
+        "w": 193.57272338867188,
+        "h": 420.1058654785156,
+        "imageHash": "c53496b79ed297b28332e2a31fc2b8ecc058c58e"
+      },
+      {
+        "id": "I288:466;120:1742",
+        "name": "Vector",
+        "parent": "I288:466;120:1901",
+        "parentName": "Group 3",
+        "w": 193.57272338867188,
+        "h": 420.1058654785156,
+        "imageHash": "727d52daee03b2864976f89bd51aa26562ec8087"
+      },
+      {
+        "id": "I288:466;120:1732",
+        "name": "Vector",
+        "parent": "I288:466;120:1875",
+        "parentName": "Group 1",
+        "w": 183.16046142578125,
+        "h": 397.5084228515625,
+        "imageHash": "5d52d077f5154d0f887897ef0a253b831e8be653"
+      },
+      {
+        "id": "I288:466;120:1737",
+        "name": "Vector",
+        "parent": "I288:466;120:1888",
+        "parentName": "Group 2",
+        "w": 183.16046142578125,
+        "h": 397.5084228515625,
+        "imageHash": "bfc9fe75d2027d6470a2134498156a7cafaad8ca"
+      },
+      {
+        "id": "I288:466;109:64",
+        "name": "Image",
+        "parent": "I288:466;109:63",
+        "parentName": "Picture",
+        "w": 715,
+        "h": 550,
+        "imageHash": "8d7e7fb6ecc3fb92b7b3387a007dd45d5b491d05"
+      },
+      {
+        "id": "I288:466;305:323834",
+        "name": "Vector",
+        "parent": "I288:466;305:323833",
+        "parentName": "Group",
+        "w": 12.450630187988281,
+        "h": 10.587848663330078,
+        "imageHash": "e9fe8f446b776fd2d8d212b8d43add76e15de421"
+      },
+      {
+        "id": "I288:466;305:323852",
+        "name": "Vector",
+        "parent": "I288:466;305:323851",
+        "parentName": "Group",
+        "w": 12.450630187988281,
+        "h": 10.587848663330078,
+        "imageHash": "77593c487e9f86b5b164303d78c6f9ba09662730"
+      },
+      {
+        "id": "I288:466;305:323870",
+        "name": "Vector",
+        "parent": "I288:466;305:323869",
+        "parentName": "Group",
+        "w": 12.450630187988281,
+        "h": 10.587848663330078,
+        "imageHash": "7970f6e8357d8f0cf0b846cd3ed616704eaab0fe"
+      },
+      {
+        "id": "109:2124",
+        "name": "Image",
+        "parent": "109:2123",
+        "parentName": "Link",
+        "w": 44,
+        "h": 44,
+        "imageHash": "05ba7bb4c6e55cb60edc31a2e2ec73d31b668d14"
+      },
+      {
+        "id": "109:2131",
+        "name": "Container",
+        "parent": "109:2129",
+        "parentName": "Container",
+        "w": 56,
+        "h": 56,
+        "imageHash": "e28c42c7f5aa18be6b69a0cf60d575bc4d4be554"
+      },
+      {
+        "id": "109:2132",
+        "name": "Container",
+        "parent": "109:2129",
+        "parentName": "Container",
+        "w": 48,
+        "h": 48,
+        "imageHash": "525a59e45b67d39dd59be5a837d4d6e520617373"
+      },
+      {
+        "id": "109:2133",
+        "name": "Image - Shannon's pixel avatar in a cream jumper and rose trousers",
+        "parent": "109:2129",
+        "parentName": "Container",
+        "w": 176,
+        "h": 265,
+        "imageHash": "0635c8e2fc9740eab24b590501a6140364380f43"
+      },
+      {
+        "id": "109:2142",
+        "name": "Image",
+        "parent": "109:2141",
+        "parentName": "Container",
+        "w": 64,
+        "h": 64,
+        "imageHash": "25c48795adb65b8314ab09a24f84e58c87efb63d"
+      },
+      {
+        "id": "109:2150",
+        "name": "Container",
+        "parent": "109:2149",
+        "parentName": "Container",
+        "w": 340,
+        "h": 248,
+        "imageHash": "d98c89a04e662a2308957f553c27b234d58ab1b8"
+      },
+      {
+        "id": "I288:565;120:1998",
+        "name": "image 1",
+        "parent": "I288:565;120:1997",
+        "parentName": "Picture",
+        "w": 421,
+        "h": 281,
+        "imageHash": "7345bbe72be50b79e0e995b971ec2a5ae1f74fcc"
+      },
+      {
+        "id": "I288:565;120:2004",
+        "name": "Analytics 1",
+        "parent": "I288:565;109:204",
+        "parentName": "Picture",
+        "w": 382,
+        "h": 382,
+        "imageHash": "3138713edf1be741abda079b1b9431142ca0223a"
+      },
+      {
+        "id": "I288:565;120:2034",
+        "name": "Vector",
+        "parent": "I288:565;120:2023",
+        "parentName": "Group",
+        "w": 99.48686981201172,
+        "h": 215.66490173339844,
+        "imageHash": "c53496b79ed297b28332e2a31fc2b8ecc058c58e"
+      },
+      {
+        "id": "I288:565;120:2039",
+        "name": "Vector",
+        "parent": "I288:565;120:2023",
+        "parentName": "Group",
+        "w": 99.4863510131836,
+        "h": 215.6651153564453,
+        "imageHash": "727d52daee03b2864976f89bd51aa26562ec8087"
+      },
+      {
+        "id": "I288:565;120:2044",
+        "name": "Vector",
+        "parent": "I288:565;120:2023",
+        "parentName": "Group",
+        "w": 94.13540649414062,
+        "h": 204.0643768310547,
+        "imageHash": "5d52d077f5154d0f887897ef0a253b831e8be653"
+      },
+      {
+        "id": "I288:565;120:2049",
+        "name": "Vector",
+        "parent": "I288:565;120:2023",
+        "parentName": "Group",
+        "w": 94.1355972290039,
+        "h": 204.06422424316406,
+        "imageHash": "bfc9fe75d2027d6470a2134498156a7cafaad8ca"
+      },
+      {
+        "id": "I288:565;120:2129",
+        "name": "Image",
+        "parent": "I288:565;109:237",
+        "parentName": "Picture",
+        "w": 416,
+        "h": 320,
+        "imageHash": "8d7e7fb6ecc3fb92b7b3387a007dd45d5b491d05"
+      },
+      {
+        "id": "I288:565;280:492",
+        "name": "Image",
+        "parent": "I288:565;280:491",
+        "parentName": "Picture",
+        "w": 416,
+        "h": 320,
+        "imageHash": "84f9fa627872446f60130d6a9ac9a3b9ad326423"
+      }
+    ]
+  },
+  "artRoots": [
+    {
+      "key": "fusion",
+      "nodes": [
+        {
+          "id": "384:5140",
+          "name": "Original journey study \u00b7 explanation",
+          "w": 984.8280029296875,
+          "h": 97,
+          "children": [
+            {
+              "id": "384:5141",
+              "name": "Original journey study"
+            }
+          ]
+        },
+        {
+          "id": "384:5141",
+          "name": "Original journey study",
+          "w": 984.8280029296875,
+          "h": 72,
+          "children": [
+            {
+              "id": "384:5142",
+              "name": "Original journey study"
+            },
+            {
+              "id": "384:5143",
+              "name": "My original scenario map, retained here as design exploration. Th"
+            }
+          ]
+        },
+        {
+          "id": "352:5448",
+          "name": "Thoughts and feelings",
+          "w": 984.8280029296875,
+          "h": 356.76788330078125,
+          "children": [
+            {
+              "id": "352:5449",
+              "name": "Panel title"
+            },
+            {
+              "id": "352:5450",
+              "name": "Quotes"
+            },
+            {
+              "id": "352:5451",
+              "name": "Point"
+            },
+            {
+              "id": "352:5452",
+              "name": "Emotional\nexperience"
+            }
+          ]
+        },
+        {
+          "id": "352:5513",
+          "name": "Approach",
+          "w": 871.8515014648438,
+          "h": 83.24584197998047,
+          "children": [
+            {
+              "id": "352:5514",
+              "name": "Line"
+            },
+            {
+              "id": "352:5515",
+              "name": "Point"
+            },
+            {
+              "id": "352:5516",
+              "name": "Point"
+            },
+            {
+              "id": "352:5517",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "id": "384:5144",
+          "name": "Thoughts and turning points",
+          "w": 984.8280029296875,
+          "h": 441,
+          "children": [
+            {
+              "id": "384:5145",
+              "name": "Thoughts and turning points in the scenario"
+            },
+            {
+              "id": "384:5147",
+              "name": "1. \u201cWhich cube has the whole book?\u201d"
+            },
+            {
+              "id": "384:5148",
+              "name": "2. \u201cFixed layout, wrong shape again.\u201d"
+            },
+            {
+              "id": "384:5149",
+              "name": "3. \u201cFilter, toggle, slice. Faster this time.\u201d"
+            }
+          ]
+        },
+        {
+          "id": "384:5145",
+          "name": "Thoughts and turning points in the scenario",
+          "w": 984.8280029296875,
+          "h": 33,
+          "children": [
+            {
+              "id": "384:5146",
+              "name": "Thoughts and turning points in the scenario"
+            }
+          ]
+        },
+        {
+          "id": "277:594",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:595",
+              "name": "I chose"
+            },
+            {
+              "id": "277:651",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:597",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:598",
+              "name": "Dashboard structure \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:598",
+          "name": "Dashboard structure \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:599",
+              "name": "Shape"
+            },
+            {
+              "id": "277:600",
+              "name": "Shape"
+            },
+            {
+              "id": "277:601",
+              "name": "Line"
+            },
+            {
+              "id": "277:602",
+              "name": "Label"
+            }
+          ]
+        },
+        {
+          "id": "277:651",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:652",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:653",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:692",
+              "name": "Fixed layouts per report type"
+            }
+          ]
+        },
+        {
+          "id": "277:653",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:654",
+              "name": "Dashboard structure \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:654",
+          "name": "Dashboard structure \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:655",
+              "name": "Shape"
+            },
+            {
+              "id": "277:656",
+              "name": "Shape"
+            },
+            {
+              "id": "277:657",
+              "name": "Line"
+            },
+            {
+              "id": "277:658",
+              "name": "Label"
+            }
+          ]
+        },
+        {
+          "id": "277:704",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:705",
+              "name": "I chose"
+            },
+            {
+              "id": "277:736",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:707",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:708",
+              "name": "Configuration \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:708",
+          "name": "Configuration \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:709",
+              "name": "Shape"
+            },
+            {
+              "id": "277:710",
+              "name": "Shape"
+            },
+            {
+              "id": "277:711",
+              "name": "Line"
+            },
+            {
+              "id": "277:712",
+              "name": "Label"
+            }
+          ]
+        },
+        {
+          "id": "277:736",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:737",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:738",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:775",
+              "name": "Three levels of configuration"
+            }
+          ]
+        },
+        {
+          "id": "277:738",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:739",
+              "name": "Configuration \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:739",
+          "name": "Configuration \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:740",
+              "name": "Shape"
+            },
+            {
+              "id": "277:741",
+              "name": "Shape"
+            },
+            {
+              "id": "277:742",
+              "name": "Line"
+            },
+            {
+              "id": "277:743",
+              "name": "Label"
+            }
+          ]
+        },
+        {
+          "id": "277:787",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:788",
+              "name": "I chose"
+            },
+            {
+              "id": "277:860",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:790",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:791",
+              "name": "Phase two \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:791",
+          "name": "Phase two \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:792",
+              "name": "Shape"
+            },
+            {
+              "id": "277:793",
+              "name": "Shape"
+            },
+            {
+              "id": "277:794",
+              "name": "Line"
+            },
+            {
+              "id": "277:795",
+              "name": "Label"
+            }
+          ]
+        },
+        {
+          "id": "277:860",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:861",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:862",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:907",
+              "name": "A simplified client version"
+            }
+          ]
+        },
+        {
+          "id": "277:862",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:863",
+              "name": "Phase two \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:863",
+          "name": "Phase two \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:864",
+              "name": "Shape"
+            },
+            {
+              "id": "277:865",
+              "name": "Shape"
+            },
+            {
+              "id": "277:866",
+              "name": "Line"
+            },
+            {
+              "id": "277:867",
+              "name": "Label"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ai",
+      "nodes": [
+        {
+          "id": "384:6061",
+          "name": "Original journey study \u00b7 explanation",
+          "w": 984.8280029296875,
+          "h": 97,
+          "children": [
+            {
+              "id": "384:6062",
+              "name": "Original journey study"
+            }
+          ]
+        },
+        {
+          "id": "384:6062",
+          "name": "Original journey study",
+          "w": 984.8280029296875,
+          "h": 72,
+          "children": [
+            {
+              "id": "384:6063",
+              "name": "Original journey study"
+            },
+            {
+              "id": "384:6064",
+              "name": "My original scenario map, retained here as design exploration. Th"
+            }
+          ]
+        },
+        {
+          "id": "352:5622",
+          "name": "Thoughts and feelings",
+          "w": 984.8280029296875,
+          "h": 356.76788330078125,
+          "children": [
+            {
+              "id": "352:5623",
+              "name": "Panel title"
+            },
+            {
+              "id": "352:5624",
+              "name": "Quotes"
+            },
+            {
+              "id": "352:5625",
+              "name": "Point"
+            },
+            {
+              "id": "352:5626",
+              "name": "Emotional\nexperience"
+            }
+          ]
+        },
+        {
+          "id": "352:5687",
+          "name": "Approach",
+          "w": 871.8515014648438,
+          "h": 83.24584197998047,
+          "children": [
+            {
+              "id": "352:5688",
+              "name": "Line"
+            },
+            {
+              "id": "352:5689",
+              "name": "Point"
+            },
+            {
+              "id": "352:5690",
+              "name": "Point"
+            },
+            {
+              "id": "352:5691",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "id": "384:6065",
+          "name": "Thoughts and turning points",
+          "w": 984.8280029296875,
+          "h": 441,
+          "children": [
+            {
+              "id": "384:6066",
+              "name": "Thoughts and turning points in the scenario"
+            },
+            {
+              "id": "384:6068",
+              "name": "1. \u201cWill it understand what I mean?\u201d"
+            },
+            {
+              "id": "384:6069",
+              "name": "2. \u201cThat is a draft, not an answer.\u201d"
+            },
+            {
+              "id": "384:6070",
+              "name": "3. \u201cSame screen, four systems. Nice.\u201d"
+            }
+          ]
+        },
+        {
+          "id": "384:6066",
+          "name": "Thoughts and turning points in the scenario",
+          "w": 984.8280029296875,
+          "h": 33,
+          "children": [
+            {
+              "id": "384:6067",
+              "name": "Thoughts and turning points in the scenario"
+            }
+          ]
+        },
+        {
+          "id": "277:1376",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:1377",
+              "name": "I chose"
+            },
+            {
+              "id": "277:1469",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:1379",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:1380",
+              "name": "Generation \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1380",
+          "name": "Generation \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:1381",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1382",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1383",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1384",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:1469",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:1470",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:1471",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:1503",
+              "name": "Letting the model draw free-form UI"
+            }
+          ]
+        },
+        {
+          "id": "277:1471",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:1472",
+              "name": "Generation \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1472",
+          "name": "Generation \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:1473",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1474",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1475",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1476",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:1515",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:1516",
+              "name": "I chose"
+            },
+            {
+              "id": "277:1608",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:1518",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:1519",
+              "name": "Switching systems \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1519",
+          "name": "Switching systems \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:1520",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1521",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1522",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1523",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:1608",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:1609",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:1610",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:1691",
+              "name": "A screen rebuilt by hand"
+            }
+          ]
+        },
+        {
+          "id": "277:1610",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:1611",
+              "name": "Switching systems \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1611",
+          "name": "Switching systems \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:1612",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1613",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1614",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1615",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:1703",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:1704",
+              "name": "I chose"
+            },
+            {
+              "id": "277:1809",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:1706",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:1707",
+              "name": "Export \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1707",
+          "name": "Export \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:1708",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1709",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1710",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1711",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:1809",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:1810",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:1811",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:1879",
+              "name": "The model's first answer"
+            }
+          ]
+        },
+        {
+          "id": "277:1811",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:1812",
+              "name": "Export \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:1812",
+          "name": "Export \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:1813",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1814",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1815",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:1816",
+              "name": "Ellipse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "winking",
+      "nodes": [
+        {
+          "id": "384:6447",
+          "name": "Original journey study \u00b7 explanation",
+          "w": 985,
+          "h": 97,
+          "children": [
+            {
+              "id": "384:6448",
+              "name": "Original journey study"
+            }
+          ]
+        },
+        {
+          "id": "384:6448",
+          "name": "Original journey study",
+          "w": 985,
+          "h": 72,
+          "children": [
+            {
+              "id": "384:6449",
+              "name": "Original journey study"
+            },
+            {
+              "id": "384:6450",
+              "name": "My original scenario map, retained here as design exploration. Th"
+            }
+          ]
+        },
+        {
+          "id": "352:5796",
+          "name": "Thoughts and feelings",
+          "w": 985,
+          "h": 470,
+          "children": [
+            {
+              "id": "352:5797",
+              "name": "Panel title"
+            },
+            {
+              "id": "352:5798",
+              "name": "Quotes"
+            },
+            {
+              "id": "352:5799",
+              "name": "Point"
+            },
+            {
+              "id": "352:5800",
+              "name": "Emotional\nexperience"
+            }
+          ]
+        },
+        {
+          "id": "352:5861",
+          "name": "Approach",
+          "w": 873,
+          "h": 112,
+          "children": [
+            {
+              "id": "352:5862",
+              "name": "Line"
+            },
+            {
+              "id": "352:5863",
+              "name": "Point"
+            },
+            {
+              "id": "352:5864",
+              "name": "Point"
+            },
+            {
+              "id": "352:5865",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "id": "384:6451",
+          "name": "Thoughts and turning points",
+          "w": 985,
+          "h": 441,
+          "children": [
+            {
+              "id": "384:6452",
+              "name": "Thoughts and turning points in the scenario"
+            },
+            {
+              "id": "384:6454",
+              "name": "1. \u201cNot another chart.\u201d"
+            },
+            {
+              "id": "384:6455",
+              "name": "2. \u201cTwo minutes. Does it stay?\u201d"
+            },
+            {
+              "id": "384:6456",
+              "name": "3. \u201cOh, there is already a family in here.\u201d"
+            }
+          ]
+        },
+        {
+          "id": "384:6452",
+          "name": "Thoughts and turning points in the scenario",
+          "w": 985,
+          "h": 33,
+          "children": [
+            {
+              "id": "384:6453",
+              "name": "Thoughts and turning points in the scenario"
+            }
+          ]
+        },
+        {
+          "id": "277:2538",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:2539",
+              "name": "I chose"
+            },
+            {
+              "id": "277:2608",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:2541",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:2542",
+              "name": "Daily motivation \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2542",
+          "name": "Daily motivation \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:2543",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2544",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2545",
+              "name": "Leo \u00b7 this week"
+            },
+            {
+              "id": "277:2546",
+              "name": "M"
+            }
+          ]
+        },
+        {
+          "id": "277:2608",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:2609",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:2610",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:2645",
+              "name": "A plain tick list"
+            }
+          ]
+        },
+        {
+          "id": "277:2610",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:2611",
+              "name": "Daily motivation \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2611",
+          "name": "Daily motivation \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:2612",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2613",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2614",
+              "name": "Leo \u00b7 today"
+            },
+            {
+              "id": "277:2615",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2657",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:2658",
+              "name": "I chose"
+            },
+            {
+              "id": "277:2707",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:2660",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:2661",
+              "name": "First open \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2661",
+          "name": "First open \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:2662",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2663",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2664",
+              "name": "The Sample Family"
+            },
+            {
+              "id": "277:2665",
+              "name": "Today"
+            }
+          ]
+        },
+        {
+          "id": "277:2707",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:2708",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:2709",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:2736",
+              "name": "A tour and an empty state"
+            }
+          ]
+        },
+        {
+          "id": "277:2709",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:2710",
+              "name": "First open \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2710",
+          "name": "First open \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:2711",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2712",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2713",
+              "name": "Welcome"
+            },
+            {
+              "id": "277:2714",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:2748",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:2749",
+              "name": "I chose"
+            },
+            {
+              "id": "277:2783",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:2751",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:2752",
+              "name": "Access and trust \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2752",
+          "name": "Access and trust \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:2753",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2754",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2755",
+              "name": "Unlock everything"
+            },
+            {
+              "id": "277:2756",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2783",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:2784",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:2785",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:2814",
+              "name": "A small subscription"
+            }
+          ]
+        },
+        {
+          "id": "277:2785",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:2786",
+              "name": "Access and trust \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2786",
+          "name": "Access and trust \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:2787",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2788",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2789",
+              "name": "Choose a plan"
+            },
+            {
+              "id": "277:2790",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2826",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:2827",
+              "name": "I chose"
+            },
+            {
+              "id": "277:2872",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:2829",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:2830",
+              "name": "A theme per child \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2830",
+          "name": "A theme per child \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:2831",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2832",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2833",
+              "name": "Our family"
+            },
+            {
+              "id": "277:2834",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2872",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:2873",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:2874",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:2908",
+              "name": "One look for all"
+            }
+          ]
+        },
+        {
+          "id": "277:2874",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:2875",
+              "name": "A theme per child \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2875",
+          "name": "A theme per child \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:2876",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2877",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2878",
+              "name": "Our family"
+            },
+            {
+              "id": "277:2879",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2920",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:2921",
+              "name": "I chose"
+            },
+            {
+              "id": "277:2949",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:2923",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:2924",
+              "name": "A parental gate \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2924",
+          "name": "A parental gate \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:2925",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2926",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2927",
+              "name": "Settings"
+            },
+            {
+              "id": "277:2928",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:2949",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:2950",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:2951",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:2991",
+              "name": "A PIN, or a locked app"
+            }
+          ]
+        },
+        {
+          "id": "277:2951",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:2952",
+              "name": "A parental gate \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:2952",
+          "name": "A parental gate \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:2953",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2954",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:2955",
+              "name": "Enter PIN"
+            },
+            {
+              "id": "277:2956",
+              "name": "Ellipse"
+            }
+          ]
+        },
+        {
+          "id": "277:3003",
+          "name": "Chosen and alternative",
+          "w": 984.8280029296875,
+          "h": 388.8900451660156,
+          "children": [
+            {
+              "id": "277:3004",
+              "name": "I chose"
+            },
+            {
+              "id": "277:3058",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "277:3006",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 307.8900451660156,
+          "children": [
+            {
+              "id": "277:3007",
+              "name": "Weekly pet \u00b7 chosen \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:3007",
+          "name": "Weekly pet \u00b7 chosen \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 275.8900451660156,
+          "children": [
+            {
+              "id": "277:3008",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:3009",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:3010",
+              "name": "Leo \u00b7 this week's pet"
+            },
+            {
+              "id": "277:3011",
+              "name": "Rectangle"
+            }
+          ]
+        },
+        {
+          "id": "277:3058",
+          "name": "Alternative",
+          "w": 476.41400146484375,
+          "h": 387.101806640625,
+          "children": [
+            {
+              "id": "277:3059",
+              "name": "Alternative"
+            },
+            {
+              "id": "277:3060",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "277:3095",
+              "name": "A daily score"
+            }
+          ]
+        },
+        {
+          "id": "277:3060",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.41400146484375,
+          "h": 306.101806640625,
+          "children": [
+            {
+              "id": "277:3061",
+              "name": "Weekly pet \u00b7 alternative \u00b7 editable source"
+            }
+          ]
+        },
+        {
+          "id": "277:3061",
+          "name": "Weekly pet \u00b7 alternative \u00b7 editable source",
+          "w": 444.41400146484375,
+          "h": 274.101806640625,
+          "children": [
+            {
+              "id": "277:3062",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:3063",
+              "name": "Rectangle"
+            },
+            {
+              "id": "277:3064",
+              "name": "Leo \u00b7 today"
+            },
+            {
+              "id": "277:3065",
+              "name": "Stars today"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "deal",
+      "nodes": [
+        {
+          "id": "384:6750",
+          "name": "Original journey study \u00b7 explanation",
+          "w": 985,
+          "h": 97,
+          "children": [
+            {
+              "id": "384:6751",
+              "name": "Original journey study"
+            }
+          ]
+        },
+        {
+          "id": "384:6751",
+          "name": "Original journey study",
+          "w": 985,
+          "h": 72,
+          "children": [
+            {
+              "id": "384:6752",
+              "name": "Original journey study"
+            },
+            {
+              "id": "384:6753",
+              "name": "My original scenario map, retained here as design exploration. Th"
+            }
+          ]
+        },
+        {
+          "id": "352:5972",
+          "name": "Thoughts and feelings",
+          "w": 985,
+          "h": 356.8302001953125,
+          "children": [
+            {
+              "id": "352:5973",
+              "name": "Panel title"
+            },
+            {
+              "id": "352:5974",
+              "name": "Quotes"
+            },
+            {
+              "id": "352:5975",
+              "name": "Point"
+            },
+            {
+              "id": "352:5976",
+              "name": "Emotional\nexperience"
+            }
+          ]
+        },
+        {
+          "id": "352:6037",
+          "name": "Approach",
+          "w": 872.0037841796875,
+          "h": 83.2603759765625,
+          "children": [
+            {
+              "id": "352:6038",
+              "name": "Line"
+            },
+            {
+              "id": "352:6039",
+              "name": "Point"
+            },
+            {
+              "id": "352:6040",
+              "name": "Point"
+            },
+            {
+              "id": "352:6041",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "id": "384:6754",
+          "name": "Thoughts and turning points",
+          "w": 985,
+          "h": 441,
+          "children": [
+            {
+              "id": "384:6755",
+              "name": "Thoughts and turning points in the scenario"
+            },
+            {
+              "id": "384:6757",
+              "name": "1. \u201cWhich version is the current one?\u201d"
+            },
+            {
+              "id": "384:6758",
+              "name": "2. \u201cWill product recognise this as a deal?\u201d"
+            },
+            {
+              "id": "384:6759",
+              "name": "3. \u201cDo I have to key all this in again?\u201d"
+            }
+          ]
+        },
+        {
+          "id": "384:6755",
+          "name": "Thoughts and turning points in the scenario",
+          "w": 985,
+          "h": 33,
+          "children": [
+            {
+              "id": "384:6756",
+              "name": "Thoughts and turning points in the scenario"
+            }
+          ]
+        },
+        {
+          "id": "278:529",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 389.4759521484375,
+          "children": [
+            {
+              "id": "278:530",
+              "name": "I chose"
+            },
+            {
+              "id": "278:612",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "278:532",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 308.4759521484375,
+          "children": [
+            {
+              "id": "278:533",
+              "name": "One object, four views \u00b7 chosen \u00b7 live reference \u00b7 original asset"
+            }
+          ]
+        },
+        {
+          "id": "278:533",
+          "name": "One object, four views \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "children": []
+        },
+        {
+          "id": "278:612",
+          "name": "Alternative",
+          "w": 476.5,
+          "h": 389.4759521484375,
+          "children": [
+            {
+              "id": "278:613",
+              "name": "Alternative"
+            },
+            {
+              "id": "278:614",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "278:717",
+              "name": "Four products, one per team"
+            }
+          ]
+        },
+        {
+          "id": "278:614",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 308.4759521484375,
+          "children": [
+            {
+              "id": "278:615",
+              "name": "One object, four views \u00b7 alternative \u00b7 live reference \u00b7 original asset"
+            }
+          ]
+        },
+        {
+          "id": "278:615",
+          "name": "One object, four views \u00b7 alternative \u00b7 live reference \u00b7 original asset",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "children": []
+        },
+        {
+          "id": "278:729",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 389.4759521484375,
+          "children": [
+            {
+              "id": "278:730",
+              "name": "I chose"
+            },
+            {
+              "id": "278:840",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "278:732",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 308.4759521484375,
+          "children": [
+            {
+              "id": "278:733",
+              "name": "Three versions, every review \u00b7 chosen \u00b7 live reference \u00b7 original asset"
+            }
+          ]
+        },
+        {
+          "id": "278:733",
+          "name": "Three versions, every review \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "children": []
+        },
+        {
+          "id": "278:840",
+          "name": "Alternative",
+          "w": 476.5,
+          "h": 65,
+          "children": [
+            {
+              "id": "278:841",
+              "name": "Alternative"
+            },
+            {
+              "id": "278:906",
+              "name": "One proposal, sign-off at the end"
+            }
+          ]
+        },
+        {
+          "id": "278:918",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 389.4759521484375,
+          "children": [
+            {
+              "id": "278:919",
+              "name": "I chose"
+            },
+            {
+              "id": "278:1011",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "278:921",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 308.4759521484375,
+          "children": [
+            {
+              "id": "278:922",
+              "name": "A compare grid with a column chooser \u00b7 chosen \u00b7 live reference \u00b7 original asset"
+            }
+          ]
+        },
+        {
+          "id": "278:922",
+          "name": "A compare grid with a column chooser \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "children": []
+        },
+        {
+          "id": "278:1011",
+          "name": "Alternative",
+          "w": 476.5,
+          "h": 65,
+          "children": [
+            {
+              "id": "278:1012",
+              "name": "Alternative"
+            },
+            {
+              "id": "278:1116",
+              "name": "A fixed comparison report"
+            }
+          ]
+        },
+        {
+          "id": "278:1128",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 389.4759521484375,
+          "children": [
+            {
+              "id": "278:1129",
+              "name": "I chose"
+            },
+            {
+              "id": "278:1165",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "278:1131",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 308.4759521484375,
+          "children": [
+            {
+              "id": "278:1132",
+              "name": "An upload template, not a forced migration \u00b7 chosen \u00b7 live reference \u00b7 original asset"
+            }
+          ]
+        },
+        {
+          "id": "278:1132",
+          "name": "An upload template, not a forced migration \u00b7 chosen \u00b7 live reference \u00b7 original asset",
+          "w": 444.5,
+          "h": 276.4759521484375,
+          "children": []
+        },
+        {
+          "id": "278:1165",
+          "name": "Alternative",
+          "w": 476.5,
+          "h": 65,
+          "children": [
+            {
+              "id": "278:1166",
+              "name": "Alternative"
+            },
+            {
+              "id": "278:1194",
+              "name": "Cut everyone over on day one"
+            }
+          ]
+        },
+        {
+          "id": "278:1206",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 525.542724609375,
+          "children": [
+            {
+              "id": "278:1207",
+              "name": "Owner workflow"
+            },
+            {
+              "id": "278:1238",
+              "name": "Approver workflow"
+            }
+          ]
+        },
+        {
+          "id": "278:1280",
+          "name": "Chosen and alternative",
+          "w": 985,
+          "h": 422.6874084472656,
+          "children": [
+            {
+              "id": "278:1281",
+              "name": "I chose"
+            },
+            {
+              "id": "278:1317",
+              "name": "Alternative"
+            }
+          ]
+        },
+        {
+          "id": "278:1283",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 212.90567016601562,
+          "children": [
+            {
+              "id": "278:1284",
+              "name": "Original smart-pricing concept \u00b7 exact source export"
+            }
+          ]
+        },
+        {
+          "id": "278:1317",
+          "name": "Alternative",
+          "w": 476.5,
+          "h": 422.6874084472656,
+          "children": [
+            {
+              "id": "278:1318",
+              "name": "Alternative"
+            },
+            {
+              "id": "278:1319",
+              "name": "Illustration \u00b7 white surface"
+            },
+            {
+              "id": "278:1376",
+              "name": "Hand-priced from rate cards only"
+            }
+          ]
+        },
+        {
+          "id": "278:1319",
+          "name": "Illustration \u00b7 white surface",
+          "w": 476.5,
+          "h": 341.6874084472656,
+          "children": [
+            {
+              "id": "278:1320",
+              "name": "Original smart-pricing concept \u00b7 exact source export"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

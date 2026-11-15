@@ -1,0 +1,36 @@
+/* Project identity is carried by small structural accents, not another card skin. */
+#work .row .n,
+#work .row .arrow { padding:0; align-self:center; line-height:1.25; }
+#work .row .n { min-height:48px; gap:12px; }
+#work .row .n > .pixel-object {
+  display:block!important; width:48px!important; height:48px!important;
+  max-width:48px; margin:0; padding:0; border-radius:0;
+  object-fit:contain; justify-self:auto; flex:0 0 48px;
+}
+#work .row .arrow { display:flex; align-items:center; min-height:48px; }
+#work .row { border-top-color:color-mix(in srgb,var(--project-ink) 65%,var(--hair)); }
+.case-page .process-heading {
+  border-left:3px solid color-mix(in srgb,var(--project-ink) 65%,var(--hair));
+  padding-left:20px;
+}
+.case-page .persona-roles article {
+  background:color-mix(in srgb,var(--project-wash) 22%,var(--bg));
+}
+.case-page .decision-choice {
+  background:color-mix(in srgb,var(--project-wash) 40%,var(--bg));
+}
+.case-page .process-journey .journey-diagram > li > header {
+  background:color-mix(in srgb,var(--project-wash) 18%,var(--bg));
+}
+/* Retain dark theme's existing high-contrast inks while tinting the surfaces. */
+html[data-theme=dark] #work .row[data-chapter=fx] { --project-ink:#9dccef; }
+html[data-theme=dark] #work .row[data-chapter=fusion] { --project-ink:#a9c9f1; }
+html[data-theme=dark] #work .row[data-chapter=ai] { --project-ink:#bda6f4; }
+html[data-theme=dark] #work .row[data-chapter=winking] { --project-ink:#b3d7b3; }
+@media(max-width:760px) {
+  .case-page .process-heading { padding-left:16px; }
+}
+html[data-theme=dark] .case-page .persona-roles article {
+  background:color-mix(in srgb,var(--project-wash) 22%,var(--bg-2));
+  border-top-color:color-mix(in srgb,var(--project-ink) 65%,var(--hair));
+}

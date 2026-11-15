@@ -1,0 +1,479 @@
+{
+  "method": "Lossless embedded PNG to WebP encoding only when dimensions and decoded RGBA bytes match exactly. SVG geometry, masks, effects and text unchanged.",
+  "assets": [
+    {
+      "path": "public/art/ai-hero-builder-composition.svg",
+      "sourceSha256": "7f516d3ba660a44c3cb847c729878e4315ea6d345d78d80a03007002e1f1ecc9",
+      "packedSha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "sourceBytes": 207856,
+      "packedBytes": 171725,
+      "images": [
+        {
+          "pngBytes": 153693,
+          "webpBytes": 126592,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "f7b1a8c218d5748b91fdf6fc7cc80efae7e2cab7fae344c5305f4759bba7cf10",
+          "width": 1200,
+          "height": 750
+        }
+      ]
+    },
+    {
+      "path": "public/art/ai-hero-kit-composition.svg",
+      "sourceSha256": "afc61993491846622bb4c8d6b48286eb469ea0a7f60f2fc83bfba9eb8ea4b589",
+      "packedSha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "sourceBytes": 103240,
+      "packedBytes": 83841,
+      "images": [
+        {
+          "pngBytes": 75669,
+          "webpBytes": 61118,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "29e35835b4a9461bbc9d8ffbe856ee9c92931b7a858ba51959b5d5cd353f95e6",
+          "width": 1200,
+          "height": 750
+        }
+      ]
+    },
+    {
+      "path": "public/art/deal-hero-composition.svg",
+      "sourceSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "packedSha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "sourceBytes": 1382659,
+      "packedBytes": 1382659,
+      "images": [
+        {
+          "pngBytes": 639437,
+          "webpBytes": 146010,
+          "identical": false,
+          "used": false,
+          "pixelSha256": "86ad63dde00cac6a7f82c1a5d3d4b235d6f7c0e6be07b26e12fe9cd02c8e21d7",
+          "width": 2896,
+          "height": 3552
+        },
+        {
+          "pngBytes": 394391,
+          "webpBytes": 102468,
+          "identical": false,
+          "used": false,
+          "pixelSha256": "52b4c5e4a9d546763dfa05af1d50db49db1e7f0549749529d57b73451f72b8bb",
+          "width": 3374,
+          "height": 2008
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-hero-composition.svg",
+      "sourceSha256": "ec063f219e607e3468550663377427f5058accfb406e54692fd3f68bdbaf269c",
+      "packedSha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "sourceBytes": 439393,
+      "packedBytes": 388496,
+      "images": [
+        {
+          "pngBytes": 98075,
+          "webpBytes": 85814,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "e51bbd20cf4e82eeb7e6ca97dbcced90963da26c4087101874800523a6afa579",
+          "width": 480,
+          "height": 1040
+        },
+        {
+          "pngBytes": 112315,
+          "webpBytes": 98778,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "e37083ee928132c4dbf819b5ee51d70939c7525ae7ebf1e8439130d83967ff9f",
+          "width": 480,
+          "height": 1040
+        },
+        {
+          "pngBytes": 113793,
+          "webpBytes": 101416,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "0ce2547f852d8ee13b529f101ad8ed3484bf18c4e1cd4d2fb611cd47b0e097d2",
+          "width": 480,
+          "height": 1040
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-ios-composition.svg",
+      "sourceSha256": "0c3c955e3fe5fb5d71616527be6922097570516e1c4be76aaff25b4a886be97c",
+      "packedSha256": "6e2afd8115fa646ca455ab3f0e8962be204ac4c81f022b2ef931cd30e10b6c16",
+      "sourceBytes": 5947584,
+      "packedBytes": 3221692,
+      "images": [
+        {
+          "pngBytes": 909226,
+          "webpBytes": 495776,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "34007a343ac8cc5eb30552ee865f79d695799534f4956b1073889388e511f79c",
+          "width": 1600,
+          "height": 3468
+        },
+        {
+          "pngBytes": 1834652,
+          "webpBytes": 1054632,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "932bce8b73b20677e59a9d790e292b0032fe0fc66112757ce404931566cfab2a",
+          "width": 1600,
+          "height": 3468
+        },
+        {
+          "pngBytes": 1270921,
+          "webpBytes": 676646,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "beb9fb4db5d8d438c909b39eaab8f999208ccafc1df8dd3680afcd4277a39722",
+          "width": 1290,
+          "height": 2796
+        },
+        {
+          "pngBytes": 436001,
+          "webpBytes": 179328,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "5d8dae9e6ea10cac425a127a68fb070d8b4f062d6a1af4d88745770f310128e4",
+          "width": 1290,
+          "height": 2796
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-ios-launch.svg",
+      "sourceSha256": "f94638ace7d8dd317de43e452a547855139484e3f5c2f500e8f9696612544472",
+      "packedSha256": "3050b352436f27e8db99295fdad6bd98dcc6d7bf50a8f54cbe7da27476316885",
+      "sourceBytes": 1215051,
+      "packedBytes": 663784,
+      "images": [
+        {
+          "pngBytes": 909226,
+          "webpBytes": 495776,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "34007a343ac8cc5eb30552ee865f79d695799534f4956b1073889388e511f79c",
+          "width": 1600,
+          "height": 3468
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-ios-home.svg",
+      "sourceSha256": "6ce39560a70cdb63ff01a8e24ef8c93edfa60d42fbbb394de55327d201e2508f",
+      "packedSha256": "2696edc835e586815bb658d550e985aaee521f47dff1198a1ccecebbd6f005f9",
+      "sourceBytes": 2448941,
+      "packedBytes": 1408914,
+      "images": [
+        {
+          "pngBytes": 1834652,
+          "webpBytes": 1054632,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "932bce8b73b20677e59a9d790e292b0032fe0fc66112757ce404931566cfab2a",
+          "width": 1600,
+          "height": 3468
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-ios-activity.svg",
+      "sourceSha256": "b5a89a330c8de0c043a7f289608ff8bf115a2713ad18f981e6cd2ebf35eaf745",
+      "packedSha256": "0b4a9a0fb64d728570757a5101197e05e95c1ffff4ce61edf174fc681e73b814",
+      "sourceBytes": 1697399,
+      "packedBytes": 905032,
+      "images": [
+        {
+          "pngBytes": 1270921,
+          "webpBytes": 676646,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "beb9fb4db5d8d438c909b39eaab8f999208ccafc1df8dd3680afcd4277a39722",
+          "width": 1290,
+          "height": 2796
+        }
+      ]
+    },
+    {
+      "path": "public/art/winking-ios-progress.svg",
+      "sourceSha256": "92d0fd9d6a37dda93438ad37c86e742a52d7c317c5256c31498a23c3e6903e89",
+      "packedSha256": "d13c958179ffd882462314d932a55209d31e613783703284d392400ba08b5c16",
+      "sourceBytes": 584171,
+      "packedBytes": 241940,
+      "images": [
+        {
+          "pngBytes": 436001,
+          "webpBytes": 179328,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "5d8dae9e6ea10cac425a127a68fb070d8b4f062d6a1af4d88745770f310128e4",
+          "width": 1290,
+          "height": 2796
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "49903206012ed69db4f21d2dbd804ab942972e3a8e9aa0a82961ed9399e55ed9",
+      "packedSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "sourceBytes": 2102650,
+      "packedBytes": 1273411,
+      "images": [
+        {
+          "pngBytes": 1576361,
+          "webpBytes": 954432,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "660adf154d0dae9dc9e68191835d638fbc13b58ade437ccb26715254991f1adb",
+          "width": 1536,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "a3967a4f6e968d8b698e1f9b5b3f40126d6c9f7c2753dd18ae1111a16f7e0fe4",
+      "packedSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "sourceBytes": 8654934,
+      "packedBytes": 2751111,
+      "images": [
+        {
+          "pngBytes": 6490597,
+          "webpBytes": 2062730,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "1cdbaab3eb3862f44837e37522bc984d9713ff4cb20047302855a311717586f8",
+          "width": 4096,
+          "height": 4096
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "780873cfdbc1a5f366a7bd3640168458b8a5bf8d9c5430384c939d08fd448db4",
+      "packedSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "sourceBytes": 5946620,
+      "packedBytes": 3220728,
+      "images": [
+        {
+          "pngBytes": 436001,
+          "webpBytes": 179328,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "5d8dae9e6ea10cac425a127a68fb070d8b4f062d6a1af4d88745770f310128e4",
+          "width": 1290,
+          "height": 2796
+        },
+        {
+          "pngBytes": 1270921,
+          "webpBytes": 676646,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "beb9fb4db5d8d438c909b39eaab8f999208ccafc1df8dd3680afcd4277a39722",
+          "width": 1290,
+          "height": 2796
+        },
+        {
+          "pngBytes": 909226,
+          "webpBytes": 495776,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "34007a343ac8cc5eb30552ee865f79d695799534f4956b1073889388e511f79c",
+          "width": 1600,
+          "height": 3468
+        },
+        {
+          "pngBytes": 1834652,
+          "webpBytes": 1054632,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "932bce8b73b20677e59a9d790e292b0032fe0fc66112757ce404931566cfab2a",
+          "width": 1600,
+          "height": 3468
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "00677e12ee3cf01d81d61685501a50ef6d0301e49e552d6469b59f6eda16171f",
+      "packedSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "sourceBytes": 1683986,
+      "packedBytes": 1064099,
+      "images": [
+        {
+          "pngBytes": 1262223,
+          "webpBytes": 797306,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "d1cfcda7922050c002de24dab3c7f466740a76d024117d01fe533306107a97d1",
+          "width": 1280,
+          "height": 960
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-deal-composition-current.svg",
+      "sourceSha256": "7c4df23b73a9745bda284a44abfdfe4a5d48cdd62513a9e6ddacf03a5e62b278",
+      "packedSha256": "7c4df23b73a9745bda284a44abfdfe4a5d48cdd62513a9e6ddacf03a5e62b278",
+      "sourceBytes": 5523672,
+      "packedBytes": 5523672,
+      "images": []
+    },
+    {
+      "path": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "b3e978302ef1424ac1976696f5511d9c40a7e33717b05d0d059b737a089ed260",
+      "packedSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "sourceBytes": 2102657,
+      "packedBytes": 1273418,
+      "images": [
+        {
+          "pngBytes": 1576361,
+          "webpBytes": 954432,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "660adf154d0dae9dc9e68191835d638fbc13b58ade437ccb26715254991f1adb",
+          "width": 1536,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "21fd67d46eee6541a74a423b6ecbe887c026e45f8d47c25553dbaaacd0d190cb",
+      "packedSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "sourceBytes": 8654941,
+      "packedBytes": 2751118,
+      "images": [
+        {
+          "pngBytes": 6490597,
+          "webpBytes": 2062730,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "1cdbaab3eb3862f44837e37522bc984d9713ff4cb20047302855a311717586f8",
+          "width": 4096,
+          "height": 4096
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "60da24dfa22bef8c0bc5ea8edd23142910e8efd5a53b66b1bad0fc23f6ab6e5d",
+      "packedSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "sourceBytes": 5947104,
+      "packedBytes": 3221212,
+      "images": [
+        {
+          "pngBytes": 436001,
+          "webpBytes": 179328,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "5d8dae9e6ea10cac425a127a68fb070d8b4f062d6a1af4d88745770f310128e4",
+          "width": 1290,
+          "height": 2796
+        },
+        {
+          "pngBytes": 1270921,
+          "webpBytes": 676646,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "beb9fb4db5d8d438c909b39eaab8f999208ccafc1df8dd3680afcd4277a39722",
+          "width": 1290,
+          "height": 2796
+        },
+        {
+          "pngBytes": 909226,
+          "webpBytes": 495776,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "34007a343ac8cc5eb30552ee865f79d695799534f4956b1073889388e511f79c",
+          "width": 1600,
+          "height": 3468
+        },
+        {
+          "pngBytes": 1834652,
+          "webpBytes": 1054632,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "932bce8b73b20677e59a9d790e292b0032fe0fc66112757ce404931566cfab2a",
+          "width": 1600,
+          "height": 3468
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "3e9b76d2867cb05d86ba7dfd18877c68df70094f7ae0797978c81066e5345ee0",
+      "packedSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "sourceBytes": 1683987,
+      "packedBytes": 1064100,
+      "images": [
+        {
+          "pngBytes": 1262223,
+          "webpBytes": 797306,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "d1cfcda7922050c002de24dab3c7f466740a76d024117d01fe533306107a97d1",
+          "width": 1280,
+          "height": 960
+        }
+      ]
+    },
+    {
+      "path": "public/art/home-deal-composition-mobile-current.svg",
+      "sourceSha256": "15a4969bce63230f9beed887c8bacc1c1bf48d8c2de64a12bdc2311d99f5016d",
+      "packedSha256": "15a4969bce63230f9beed887c8bacc1c1bf48d8c2de64a12bdc2311d99f5016d",
+      "sourceBytes": 5535932,
+      "packedBytes": 5535932,
+      "images": []
+    },
+    {
+      "path": "public/art/fusion-hero-discovery-composition.svg",
+      "sourceSha256": "195fe09dbaa903b2534a8e792aa420ec971ec70f3f8f38eccde4ad79e88fa1a0",
+      "packedSha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "sourceBytes": 298147,
+      "packedBytes": 99572,
+      "images": [
+        {
+          "pngBytes": 221699,
+          "webpBytes": 72766,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "b1524a11f5b5012d779dd223f58f5a0baf277954f58e6ad95b5785f6e9a348a8",
+          "width": 1465,
+          "height": 1125
+        }
+      ]
+    },
+    {
+      "path": "public/art/fusion-hero-performance-composition.svg",
+      "sourceSha256": "2be43fc653f24775c4069a32c47fb3b3b9df69bd0dbf8920f54bf315f8fcd6d1",
+      "packedSha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "sourceBytes": 1125963,
+      "packedBytes": 355276,
+      "images": [
+        {
+          "pngBytes": 842618,
+          "webpBytes": 264602,
+          "identical": true,
+          "used": true,
+          "pixelSha256": "64c6d06da70f1aebe6789fa18afb0166791d8479f653611fb12d10dc408845f5",
+          "width": 4096,
+          "height": 2392
+        }
+      ]
+    },
+    {
+      "path": "public/art/fusion-configuration-composition.svg",
+      "sourceSha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "packedSha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "sourceBytes": 1492252,
+      "packedBytes": 1492252,
+      "images": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<svg width="336" height="348" viewBox="0 0 336 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" stroke="#46515F"/>
+<text fill="#B9D5B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 04</tspan></text>
+<path d="M316 48H22C19.2386 48 17 50.2386 17 53V209C17 211.761 19.2386 214 22 214H316C318.761 214 321 211.761 321 209V53C321 50.2386 318.761 48 316 48Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="28" y="68.8636">Stars help the weekly pet grow</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="28" y="88.6364">Progress builds across completed routines</tspan></text>
+<path d="M51 147C59.2843 147 66 138.046 66 127C66 115.954 59.2843 107 51 107C42.7157 107 36 115.954 36 127C36 138.046 42.7157 147 51 147Z" fill="#B9D5B8" stroke="#B9D5B8" stroke-width="1.5"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="43.2002" y="162.636">Egg</tspan></text>
+<path d="M74 127H99M94 131L99 127L94 123" stroke="#B9D5B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M129 147C137.284 147 144 138.046 144 127C144 115.954 137.284 107 129 107C120.716 107 114 115.954 114 127C114 138.046 120.716 147 129 147Z" fill="#B9D5B8" stroke="#B9D5B8" stroke-width="1.5"/>
+<path d="M120 128L126 122L131 129L138 121" stroke="#222933" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="108.2" y="162.636">Hatching</tspan></text>
+<path d="M152 127H177M172 131L177 127L172 123" stroke="#B9D5B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M207 147C215.284 147 222 138.046 222 127C222 115.954 215.284 107 207 107C198.716 107 192 115.954 192 127C192 138.046 198.716 147 207 147Z" fill="#222933" stroke="#B9D5B8" stroke-width="1.5"/>
+<path d="M202 126C203.105 126 204 125.105 204 124C204 122.895 203.105 122 202 122C200.895 122 200 122.895 200 124C200 125.105 200.895 126 202 126Z" fill="#B9D5B8"/>
+<path d="M212 126C213.105 126 214 125.105 214 124C214 122.895 213.105 122 212 122C210.895 122 210 122.895 210 124C210 125.105 210.895 126 212 126Z" fill="#B9D5B8"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="188.8" y="162.636">Growing</tspan></text>
+<path d="M230 127H255M250 131L255 127L250 123" stroke="#B9D5B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M285 147C293.284 147 300 138.046 300 127C300 115.954 293.284 107 285 107C276.716 107 270 115.954 270 127C270 138.046 276.716 147 285 147Z" fill="#222933" stroke="#B9D5B8" stroke-width="1.5"/>
+<path d="M280 126C281.105 126 282 125.105 282 124C282 122.895 281.105 122 280 122C278.895 122 278 122.895 278 124C278 125.105 278.895 126 280 126Z" fill="#B9D5B8"/>
+<path d="M290 126C291.105 126 292 125.105 292 124C292 122.895 291.105 122 290 122C288.895 122 288 122.895 288 124C288 125.105 288.895 126 290 126Z" fill="#B9D5B8"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="272" y="162.636">Grown</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="28" y="193.5">Monday &#x2192; a new egg for the next week</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="500" letter-spacing="0em"><tspan x="13" y="250.818">See the week grow</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="13" y="281.091">Stars connect the small daily action to a pet </tspan><tspan x="13" y="301.091">and a family reward.</tspan></text>
+</svg>

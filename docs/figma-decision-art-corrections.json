@@ -1,0 +1,1846 @@
+{
+  "date": "2026-10-12",
+  "fileKey": "l6noy7onfsRiuBgjqSsKbt",
+  "method": "Text-only corrections in existing Figma layers. No diagrams redrawn. Corrected editable sources exported at 4x into existing PNG pipeline.",
+  "pages": [
+    {
+      "page": "32:11",
+      "mutatedNodeIds": [
+        "209:849",
+        "209:850",
+        "277:905",
+        "277:906",
+        "209:1108",
+        "209:1109",
+        "277:1230",
+        "277:1231"
+      ],
+      "changes": [
+        {
+          "id": "209:849",
+          "before": "Drift from the product",
+          "after": "Risk of divergence"
+        },
+        {
+          "id": "209:850",
+          "before": "within a year",
+          "after": "over time"
+        },
+        {
+          "id": "277:905",
+          "before": "Drift from the product",
+          "after": "Risk of divergence"
+        },
+        {
+          "id": "277:906",
+          "before": "within a year",
+          "after": "over time"
+        },
+        {
+          "id": "209:1108",
+          "before": "Drift from the product",
+          "after": "Risk of divergence"
+        },
+        {
+          "id": "209:1109",
+          "before": "within a year",
+          "after": "over time"
+        },
+        {
+          "id": "277:1230",
+          "before": "Drift from the product",
+          "after": "Risk of divergence"
+        },
+        {
+          "id": "277:1231",
+          "before": "within a year",
+          "after": "over time"
+        }
+      ]
+    },
+    {
+      "page": "32:14",
+      "mutatedNodeIds": [
+        "48:2308",
+        "217:678",
+        "95:365",
+        "217:708",
+        "217:794",
+        "217:874",
+        "95:429",
+        "208:768",
+        "217:1040",
+        "95:468",
+        "208:780",
+        "277:1467",
+        "277:1468",
+        "277:1502",
+        "277:1605",
+        "277:1690",
+        "277:1693",
+        "277:1697",
+        "277:1878",
+        "277:1881",
+        "277:1885",
+        "48:3154",
+        "217:1127",
+        "95:711",
+        "217:1157",
+        "217:1243",
+        "217:1323",
+        "95:777",
+        "208:792",
+        "217:1489",
+        "95:817",
+        "208:804",
+        "277:1982",
+        "277:1983",
+        "277:2017",
+        "277:2120",
+        "277:2205",
+        "277:2208",
+        "277:2212",
+        "277:2393",
+        "277:2396",
+        "277:2400",
+        "140:11961",
+        "140:12821"
+      ],
+      "changes": [
+        {
+          "id": "48:2308",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "217:678",
+          "before": "Every element maps to a published component",
+          "after": "Native components where available; explicit fallbacks"
+        },
+        {
+          "id": "95:365",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "217:708",
+          "before": "Looks impressive, nothing a developer can ship",
+          "after": "A visual draft without recognised component mappings"
+        },
+        {
+          "id": "217:794",
+          "before": "Strictest definition wins",
+          "after": "Explicit system mappings"
+        },
+        {
+          "id": "217:874",
+          "before": "Rebuilt by hand \u00b7 2 days",
+          "after": "Rebuilt separately by hand"
+        },
+        {
+          "id": "95:429",
+          "before": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
+          "after": "I mapped screen structure, tokens, density and theme across systems. Native packages are used where available, with explicit fallbacks for missing equivalents. The output still needs inspection."
+        },
+        {
+          "id": "208:768",
+          "before": "The strictest definition wins, so a looser system loses some of its own defaults.",
+          "after": "System mappings include fallbacks where a native equivalent is missing."
+        },
+        {
+          "id": "217:1040",
+          "before": "The model's guess ships as it came, and the person corrects it in code",
+          "after": "Direct export is available; unchecked details may need correction in code"
+        },
+        {
+          "id": "95:468",
+          "before": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
+          "after": "I treat the first answer as a draft. Compare and tune are optional review tools; export is available directly. I use the review steps to inspect and correct the output before handover."
+        },
+        {
+          "id": "208:780",
+          "before": "Nothing exports from the first answer. The flow is slower by design.",
+          "after": "I compare and tune before handover. Export is available directly."
+        },
+        {
+          "id": "277:1467",
+          "before": "Every element maps to a published component",
+          "after": "Native components where available; explicit fallbacks"
+        },
+        {
+          "id": "277:1468",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "277:1502",
+          "before": "Looks impressive, nothing a developer can ship",
+          "after": "A visual draft without recognised component mappings"
+        },
+        {
+          "id": "277:1605",
+          "before": "Strictest definition wins",
+          "after": "Explicit system mappings"
+        },
+        {
+          "id": "277:1690",
+          "before": "Rebuilt by hand \u00b7 2 days",
+          "after": "Rebuilt separately by hand"
+        },
+        {
+          "id": "277:1693",
+          "before": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
+          "after": "I mapped screen structure, tokens, density and theme across systems. Native packages are used where available, with explicit fallbacks for missing equivalents. The output still needs inspection."
+        },
+        {
+          "id": "277:1697",
+          "before": "The strictest definition wins, so a looser system loses some of its own defaults.",
+          "after": "System mappings include fallbacks where a native equivalent is missing."
+        },
+        {
+          "id": "277:1878",
+          "before": "The model's guess ships as it came, and the person corrects it in code",
+          "after": "Direct export is available; unchecked details may need correction in code"
+        },
+        {
+          "id": "277:1881",
+          "before": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
+          "after": "I treat the first answer as a draft. Compare and tune are optional review tools; export is available directly. I use the review steps to inspect and correct the output before handover."
+        },
+        {
+          "id": "277:1885",
+          "before": "Nothing exports from the first answer. The flow is slower by design.",
+          "after": "I compare and tune before handover. Export is available directly."
+        },
+        {
+          "id": "48:3154",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "217:1127",
+          "before": "Every element maps to a published component",
+          "after": "Native components where available; explicit fallbacks"
+        },
+        {
+          "id": "95:711",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "217:1157",
+          "before": "Looks impressive, nothing a developer can ship",
+          "after": "A visual draft without recognised component mappings"
+        },
+        {
+          "id": "217:1243",
+          "before": "Strictest definition wins",
+          "after": "Explicit system mappings"
+        },
+        {
+          "id": "217:1323",
+          "before": "Rebuilt by hand \u00b7 2 days",
+          "after": "Rebuilt separately by hand"
+        },
+        {
+          "id": "95:777",
+          "before": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
+          "after": "I mapped screen structure, tokens, density and theme across systems. Native packages are used where available, with explicit fallbacks for missing equivalents. The output still needs inspection."
+        },
+        {
+          "id": "208:792",
+          "before": "The strictest definition wins, so a looser system loses some of its own defaults.",
+          "after": "System mappings include fallbacks where a native equivalent is missing."
+        },
+        {
+          "id": "217:1489",
+          "before": "The model's guess ships as it came, and the person corrects it in code",
+          "after": "Direct export is available; unchecked details may need correction in code"
+        },
+        {
+          "id": "95:817",
+          "before": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
+          "after": "I treat the first answer as a draft. Compare and tune are optional review tools; export is available directly. I use the review steps to inspect and correct the output before handover."
+        },
+        {
+          "id": "208:804",
+          "before": "Nothing exports from the first answer. The flow is slower by design.",
+          "after": "I compare and tune before handover. Export is available directly."
+        },
+        {
+          "id": "277:1982",
+          "before": "Every element maps to a published component",
+          "after": "Native components where available; explicit fallbacks"
+        },
+        {
+          "id": "277:1983",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "277:2017",
+          "before": "Looks impressive, nothing a developer can ship",
+          "after": "A visual draft without recognised component mappings"
+        },
+        {
+          "id": "277:2120",
+          "before": "Strictest definition wins",
+          "after": "Explicit system mappings"
+        },
+        {
+          "id": "277:2205",
+          "before": "Rebuilt by hand \u00b7 2 days",
+          "after": "Rebuilt separately by hand"
+        },
+        {
+          "id": "277:2208",
+          "before": "I mapped their tokens, density scales and theming into one structure so a screen can switch system without being rebuilt by hand. The hard part was where the systems disagree, and I chose the strictest definition each time.",
+          "after": "I mapped screen structure, tokens, density and theme across systems. Native packages are used where available, with explicit fallbacks for missing equivalents. The output still needs inspection."
+        },
+        {
+          "id": "277:2212",
+          "before": "The strictest definition wins, so a looser system loses some of its own defaults.",
+          "after": "System mappings include fallbacks where a native equivalent is missing."
+        },
+        {
+          "id": "277:2393",
+          "before": "The model's guess ships as it came, and the person corrects it in code",
+          "after": "Direct export is available; unchecked details may need correction in code"
+        },
+        {
+          "id": "277:2396",
+          "before": "The model's first answer is a draft. The flow forces a compare step across systems and a tune step on the screen before anything exports. That's where the person decides, and where I correct the model most often.",
+          "after": "I treat the first answer as a draft. Compare and tune are optional review tools; export is available directly. I use the review steps to inspect and correct the output before handover."
+        },
+        {
+          "id": "277:2400",
+          "before": "Nothing exports from the first answer. The flow is slower by design.",
+          "after": "I compare and tune before handover. Export is available directly."
+        },
+        {
+          "id": "140:11961",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        },
+        {
+          "id": "140:12821",
+          "before": "Official components only, never overridden",
+          "after": "Native components with explicit fallbacks"
+        }
+      ],
+      "skipped": [
+        {
+          "id": "140:11444",
+          "text": "Official components only, never overridden",
+          "reason": "Error: The font \"Inter Tight Medium\" could not be loaded. The font family \"Inter Tight\" does not exist."
+        },
+        {
+          "id": "140:12299",
+          "text": "Official components only, never overridden",
+          "reason": "Error: The font \"Inter Tight Medium\" could not be loaded. The font family \"Inter Tight\" does not exist."
+        }
+      ]
+    },
+    {
+      "page": "32:17",
+      "mutatedNodeIds": [
+        "48:4198",
+        "219:641",
+        "219:642",
+        "219:681",
+        "219:682",
+        "219:684",
+        "219:688",
+        "219:722",
+        "219:724",
+        "219:725",
+        "95:2470",
+        "219:806",
+        "219:807",
+        "219:813",
+        "219:836",
+        "219:837",
+        "219:838",
+        "219:853",
+        "219:876",
+        "219:885",
+        "219:901",
+        "219:939",
+        "219:940",
+        "219:942",
+        "219:944",
+        "219:946",
+        "219:1021",
+        "219:1022",
+        "219:1024",
+        "219:1028",
+        "208:972",
+        "277:2592",
+        "277:2593",
+        "277:2637",
+        "277:2638",
+        "277:2640",
+        "277:2644",
+        "277:2695",
+        "277:2697",
+        "277:2698",
+        "277:2706",
+        "277:2806",
+        "277:2807",
+        "277:2813",
+        "277:2853",
+        "277:2854",
+        "277:2855",
+        "277:2870",
+        "277:2898",
+        "277:2907",
+        "277:2940",
+        "277:2983",
+        "277:2984",
+        "277:2986",
+        "277:2988",
+        "277:2990",
+        "277:3087",
+        "277:3088",
+        "277:3090",
+        "277:3094",
+        "277:3101",
+        "48:5292",
+        "219:1078",
+        "219:1079",
+        "219:1118",
+        "219:1119",
+        "219:1121",
+        "219:1125",
+        "219:1159",
+        "219:1161",
+        "219:1162",
+        "95:2683",
+        "219:1243",
+        "219:1244",
+        "219:1250",
+        "219:1273",
+        "219:1274",
+        "219:1275",
+        "219:1290",
+        "219:1313",
+        "219:1322",
+        "219:1338",
+        "219:1376",
+        "219:1377",
+        "219:1379",
+        "219:1381",
+        "219:1383",
+        "219:1458",
+        "219:1459",
+        "219:1461",
+        "219:1465",
+        "208:1008",
+        "277:3161",
+        "277:3162",
+        "277:3206",
+        "277:3207",
+        "277:3209",
+        "277:3213",
+        "277:3264",
+        "277:3266",
+        "277:3267",
+        "277:3275",
+        "277:3375",
+        "277:3376",
+        "277:3382",
+        "277:3422",
+        "277:3423",
+        "277:3424",
+        "277:3439",
+        "277:3467",
+        "277:3476",
+        "277:3509",
+        "277:3552",
+        "277:3553",
+        "277:3555",
+        "277:3557",
+        "277:3559",
+        "277:3656",
+        "277:3657",
+        "277:3659",
+        "277:3663",
+        "277:3670",
+        "140:9992",
+        "140:11080"
+      ],
+      "changes": [
+        {
+          "id": "48:4198",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "219:641",
+          "before": "Research with five to seven year olds",
+          "after": "What I saw in my own family"
+        },
+        {
+          "id": "219:642",
+          "before": "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+          "after": "I explored icons, stickers and celebration to make a completed routine visible."
+        },
+        {
+          "id": "219:681",
+          "before": "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
+          "after": "A plain list marks completion. I wanted a more visible reward after the tap."
+        },
+        {
+          "id": "219:682",
+          "before": "What testing showed",
+          "after": "Design concerns"
+        },
+        {
+          "id": "219:684",
+          "before": "Checkboxes read as chores",
+          "after": "Completion feels routine"
+        },
+        {
+          "id": "219:688",
+          "before": "Parents nag, kids stall",
+          "after": "Limited visible feedback"
+        },
+        {
+          "id": "219:722",
+          "before": "Replace with your family",
+          "after": "Create your family"
+        },
+        {
+          "id": "219:724",
+          "before": "Value before any setup",
+          "after": "Try before family setup"
+        },
+        {
+          "id": "219:725",
+          "before": "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+          "after": "Create a family from the landing screen, or choose Try Sample Family to explore the loop first."
+        },
+        {
+          "id": "95:2470",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "219:806",
+          "before": "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
+          "after": "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock."
+        },
+        {
+          "id": "219:807",
+          "before": "What it costs the family",
+          "after": "What I considered"
+        },
+        {
+          "id": "219:813",
+          "before": "A paywall between a child and their pet",
+          "after": "Access depends on the plan"
+        },
+        {
+          "id": "219:836",
+          "before": "Kids find their own card",
+          "after": "A recognisable card"
+        },
+        {
+          "id": "219:837",
+          "before": "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+          "after": "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option."
+        },
+        {
+          "id": "219:838",
+          "before": "Fourteen banners",
+          "after": "Illustrated themes"
+        },
+        {
+          "id": "219:853",
+          "before": "Colour and picture before they can read",
+          "after": "Colour and picture beside the name"
+        },
+        {
+          "id": "219:876",
+          "before": "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+          "after": "One treatment is simpler to maintain. It gives children fewer visual cues beside their name."
+        },
+        {
+          "id": "219:885",
+          "before": "Kids need a parent to point at their card",
+          "after": "Fewer cues to recognise a card"
+        },
+        {
+          "id": "219:901",
+          "before": "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+          "after": "A quick question adds friction to protected actions. It is not age verification or a security guarantee."
+        },
+        {
+          "id": "219:939",
+          "before": "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
+          "after": "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult."
+        },
+        {
+          "id": "219:940",
+          "before": "Failure modes",
+          "after": "Potential friction"
+        },
+        {
+          "id": "219:942",
+          "before": "Kid shoulder-surfs the code",
+          "after": "Code can be observed"
+        },
+        {
+          "id": "219:944",
+          "before": "Parent locked out at bedtime",
+          "after": "Forgotten code blocks edits"
+        },
+        {
+          "id": "219:946",
+          "before": "Reset flow needs an account",
+          "after": "Recovery needs a route"
+        },
+        {
+          "id": "219:1021",
+          "before": "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
+          "after": "A daily score resets at midnight. I wanted completed routines to contribute across the week."
+        },
+        {
+          "id": "219:1022",
+          "before": "What a child feels",
+          "after": "Design concerns"
+        },
+        {
+          "id": "219:1024",
+          "before": "Pressure every evening",
+          "after": "Focus on each evening"
+        },
+        {
+          "id": "219:1028",
+          "before": "No reason to try again on Friday",
+          "after": "Less weekly continuity"
+        },
+        {
+          "id": "208:972",
+          "before": "No daily pressure means less urgency on a quiet day.",
+          "after": "A weekly loop gives less emphasis to any single day."
+        },
+        {
+          "id": "277:2592",
+          "before": "Research with five to seven year olds",
+          "after": "What I saw in my own family"
+        },
+        {
+          "id": "277:2593",
+          "before": "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+          "after": "I explored icons, stickers and celebration to make a completed routine visible."
+        },
+        {
+          "id": "277:2637",
+          "before": "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
+          "after": "A plain list marks completion. I wanted a more visible reward after the tap."
+        },
+        {
+          "id": "277:2638",
+          "before": "What testing showed",
+          "after": "Design concerns"
+        },
+        {
+          "id": "277:2640",
+          "before": "Checkboxes read as chores",
+          "after": "Completion feels routine"
+        },
+        {
+          "id": "277:2644",
+          "before": "Parents nag, kids stall",
+          "after": "Limited visible feedback"
+        },
+        {
+          "id": "277:2695",
+          "before": "Replace with your family",
+          "after": "Create your family"
+        },
+        {
+          "id": "277:2697",
+          "before": "Value before any setup",
+          "after": "Try before family setup"
+        },
+        {
+          "id": "277:2698",
+          "before": "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+          "after": "Create a family from the landing screen, or choose Try Sample Family to explore the loop first."
+        },
+        {
+          "id": "277:2706",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "277:2806",
+          "before": "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
+          "after": "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock."
+        },
+        {
+          "id": "277:2807",
+          "before": "What it costs the family",
+          "after": "What I considered"
+        },
+        {
+          "id": "277:2813",
+          "before": "A paywall between a child and their pet",
+          "after": "Access depends on the plan"
+        },
+        {
+          "id": "277:2853",
+          "before": "Kids find their own card",
+          "after": "A recognisable card"
+        },
+        {
+          "id": "277:2854",
+          "before": "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+          "after": "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option."
+        },
+        {
+          "id": "277:2855",
+          "before": "Fourteen banners",
+          "after": "Illustrated themes"
+        },
+        {
+          "id": "277:2870",
+          "before": "Colour and picture before they can read",
+          "after": "Colour and picture beside the name"
+        },
+        {
+          "id": "277:2898",
+          "before": "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+          "after": "One treatment is simpler to maintain. It gives children fewer visual cues beside their name."
+        },
+        {
+          "id": "277:2907",
+          "before": "Kids need a parent to point at their card",
+          "after": "Fewer cues to recognise a card"
+        },
+        {
+          "id": "277:2940",
+          "before": "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+          "after": "A quick question adds friction to protected actions. It is not age verification or a security guarantee."
+        },
+        {
+          "id": "277:2983",
+          "before": "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
+          "after": "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult."
+        },
+        {
+          "id": "277:2984",
+          "before": "Failure modes",
+          "after": "Potential friction"
+        },
+        {
+          "id": "277:2986",
+          "before": "Kid shoulder-surfs the code",
+          "after": "Code can be observed"
+        },
+        {
+          "id": "277:2988",
+          "before": "Parent locked out at bedtime",
+          "after": "Forgotten code blocks edits"
+        },
+        {
+          "id": "277:2990",
+          "before": "Reset flow needs an account",
+          "after": "Recovery needs a route"
+        },
+        {
+          "id": "277:3087",
+          "before": "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
+          "after": "A daily score resets at midnight. I wanted completed routines to contribute across the week."
+        },
+        {
+          "id": "277:3088",
+          "before": "What a child feels",
+          "after": "Design concerns"
+        },
+        {
+          "id": "277:3090",
+          "before": "Pressure every evening",
+          "after": "Focus on each evening"
+        },
+        {
+          "id": "277:3094",
+          "before": "No reason to try again on Friday",
+          "after": "Less weekly continuity"
+        },
+        {
+          "id": "277:3101",
+          "before": "No daily pressure means less urgency on a quiet day.",
+          "after": "A weekly loop gives less emphasis to any single day."
+        },
+        {
+          "id": "48:5292",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "219:1078",
+          "before": "Research with five to seven year olds",
+          "after": "What I saw in my own family"
+        },
+        {
+          "id": "219:1079",
+          "before": "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+          "after": "I explored icons, stickers and celebration to make a completed routine visible."
+        },
+        {
+          "id": "219:1118",
+          "before": "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
+          "after": "A plain list marks completion. I wanted a more visible reward after the tap."
+        },
+        {
+          "id": "219:1119",
+          "before": "What testing showed",
+          "after": "Design concerns"
+        },
+        {
+          "id": "219:1121",
+          "before": "Checkboxes read as chores",
+          "after": "Completion feels routine"
+        },
+        {
+          "id": "219:1125",
+          "before": "Parents nag, kids stall",
+          "after": "Limited visible feedback"
+        },
+        {
+          "id": "219:1159",
+          "before": "Replace with your family",
+          "after": "Create your family"
+        },
+        {
+          "id": "219:1161",
+          "before": "Value before any setup",
+          "after": "Try before family setup"
+        },
+        {
+          "id": "219:1162",
+          "before": "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+          "after": "Create a family from the landing screen, or choose Try Sample Family to explore the loop first."
+        },
+        {
+          "id": "95:2683",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "219:1243",
+          "before": "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
+          "after": "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock."
+        },
+        {
+          "id": "219:1244",
+          "before": "What it costs the family",
+          "after": "What I considered"
+        },
+        {
+          "id": "219:1250",
+          "before": "A paywall between a child and their pet",
+          "after": "Access depends on the plan"
+        },
+        {
+          "id": "219:1273",
+          "before": "Kids find their own card",
+          "after": "A recognisable card"
+        },
+        {
+          "id": "219:1274",
+          "before": "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+          "after": "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option."
+        },
+        {
+          "id": "219:1275",
+          "before": "Fourteen banners",
+          "after": "Illustrated themes"
+        },
+        {
+          "id": "219:1290",
+          "before": "Colour and picture before they can read",
+          "after": "Colour and picture beside the name"
+        },
+        {
+          "id": "219:1313",
+          "before": "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+          "after": "One treatment is simpler to maintain. It gives children fewer visual cues beside their name."
+        },
+        {
+          "id": "219:1322",
+          "before": "Kids need a parent to point at their card",
+          "after": "Fewer cues to recognise a card"
+        },
+        {
+          "id": "219:1338",
+          "before": "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+          "after": "A quick question adds friction to protected actions. It is not age verification or a security guarantee."
+        },
+        {
+          "id": "219:1376",
+          "before": "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
+          "after": "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult."
+        },
+        {
+          "id": "219:1377",
+          "before": "Failure modes",
+          "after": "Potential friction"
+        },
+        {
+          "id": "219:1379",
+          "before": "Kid shoulder-surfs the code",
+          "after": "Code can be observed"
+        },
+        {
+          "id": "219:1381",
+          "before": "Parent locked out at bedtime",
+          "after": "Forgotten code blocks edits"
+        },
+        {
+          "id": "219:1383",
+          "before": "Reset flow needs an account",
+          "after": "Recovery needs a route"
+        },
+        {
+          "id": "219:1458",
+          "before": "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
+          "after": "A daily score resets at midnight. I wanted completed routines to contribute across the week."
+        },
+        {
+          "id": "219:1459",
+          "before": "What a child feels",
+          "after": "Design concerns"
+        },
+        {
+          "id": "219:1461",
+          "before": "Pressure every evening",
+          "after": "Focus on each evening"
+        },
+        {
+          "id": "219:1465",
+          "before": "No reason to try again on Friday",
+          "after": "Less weekly continuity"
+        },
+        {
+          "id": "208:1008",
+          "before": "No daily pressure means less urgency on a quiet day.",
+          "after": "A weekly loop gives less emphasis to any single day."
+        },
+        {
+          "id": "277:3161",
+          "before": "Research with five to seven year olds",
+          "after": "What I saw in my own family"
+        },
+        {
+          "id": "277:3162",
+          "before": "Big icons, stickers and celebration win. A star you can tap beats a box you tick.",
+          "after": "I explored icons, stickers and celebration to make a completed routine visible."
+        },
+        {
+          "id": "277:3206",
+          "before": "Reads like homework. Nothing happens when the list is done, so the child stops caring by Wednesday.",
+          "after": "A plain list marks completion. I wanted a more visible reward after the tap."
+        },
+        {
+          "id": "277:3207",
+          "before": "What testing showed",
+          "after": "Design concerns"
+        },
+        {
+          "id": "277:3209",
+          "before": "Checkboxes read as chores",
+          "after": "Completion feels routine"
+        },
+        {
+          "id": "277:3213",
+          "before": "Parents nag, kids stall",
+          "after": "Limited visible feedback"
+        },
+        {
+          "id": "277:3264",
+          "before": "Replace with your family",
+          "after": "Create your family"
+        },
+        {
+          "id": "277:3266",
+          "before": "Value before any setup",
+          "after": "Try before family setup"
+        },
+        {
+          "id": "277:3267",
+          "before": "The first screen is a full week for a family that already exists. You see what the app does, then swap in your own kids.",
+          "after": "Create a family from the landing screen, or choose Try Sample Family to explore the loop first."
+        },
+        {
+          "id": "277:3275",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "277:3375",
+          "before": "Recurring revenue, and a recurring reason to distrust the app. Every renewal is a chance to feel tricked.",
+          "after": "Recurring payment adds another subscription for a parent to manage. I chose a one-off unlock."
+        },
+        {
+          "id": "277:3376",
+          "before": "What it costs the family",
+          "after": "What I considered"
+        },
+        {
+          "id": "277:3382",
+          "before": "A paywall between a child and their pet",
+          "after": "Access depends on the plan"
+        },
+        {
+          "id": "277:3422",
+          "before": "Kids find their own card",
+          "after": "A recognisable card"
+        },
+        {
+          "id": "277:3423",
+          "before": "Fourteen illustrated banners, from Football and Dinosaur to Ocean, Unicorn and Robot, plus a photo avatar if they want their own face on it.",
+          "after": "Illustrated themes include Football, Dinosaur, Ocean, Unicorn and Robot, with a photo avatar option."
+        },
+        {
+          "id": "277:3424",
+          "before": "Fourteen banners",
+          "after": "Illustrated themes"
+        },
+        {
+          "id": "277:3439",
+          "before": "Colour and picture before they can read",
+          "after": "Colour and picture beside the name"
+        },
+        {
+          "id": "277:3467",
+          "before": "Cheaper to build and keep consistent. Every card is the same grey, so a six year old cannot tell which one is theirs.",
+          "after": "One treatment is simpler to maintain. It gives children fewer visual cues beside their name."
+        },
+        {
+          "id": "277:3476",
+          "before": "Kids need a parent to point at their card",
+          "after": "Fewer cues to recognise a card"
+        },
+        {
+          "id": "277:3509",
+          "before": "A sum a seven year old cannot guess and a parent does not need to remember. It only guards edits, so there is nothing to forget.",
+          "after": "A quick question adds friction to protected actions. It is not age verification or a security guarantee."
+        },
+        {
+          "id": "277:3552",
+          "before": "Parents forget PINs and kids watch them type. A locked app also locks the parent out of a quick edit at bedtime.",
+          "after": "A PIN adds a code to remember and a recovery flow. I wanted a quicker route for the adult."
+        },
+        {
+          "id": "277:3553",
+          "before": "Failure modes",
+          "after": "Potential friction"
+        },
+        {
+          "id": "277:3555",
+          "before": "Kid shoulder-surfs the code",
+          "after": "Code can be observed"
+        },
+        {
+          "id": "277:3557",
+          "before": "Parent locked out at bedtime",
+          "after": "Forgotten code blocks edits"
+        },
+        {
+          "id": "277:3559",
+          "before": "Reset flow needs an account",
+          "after": "Recovery needs a route"
+        },
+        {
+          "id": "277:3656",
+          "before": "Every missed routine is a loss the child sees at bedtime. The number resets, so a bad day erases a good one.",
+          "after": "A daily score resets at midnight. I wanted completed routines to contribute across the week."
+        },
+        {
+          "id": "277:3657",
+          "before": "What a child feels",
+          "after": "Design concerns"
+        },
+        {
+          "id": "277:3659",
+          "before": "Pressure every evening",
+          "after": "Focus on each evening"
+        },
+        {
+          "id": "277:3663",
+          "before": "No reason to try again on Friday",
+          "after": "Less weekly continuity"
+        },
+        {
+          "id": "277:3670",
+          "before": "No daily pressure means less urgency on a quiet day.",
+          "after": "A weekly loop gives less emphasis to any single day."
+        },
+        {
+          "id": "140:9992",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        },
+        {
+          "id": "140:11080",
+          "before": "A sample family before any setup",
+          "after": "An optional Sample Family"
+        }
+      ],
+      "skipped": [
+        {
+          "id": "140:9566",
+          "text": "A sample family before any setup",
+          "reason": "Error: The font \"Inter Tight Medium\" could not be loaded. The font family \"Inter Tight\" does not exist."
+        },
+        {
+          "id": "140:10626",
+          "text": "A sample family before any setup",
+          "reason": "Error: The font \"Inter Tight Medium\" could not be loaded. The font family \"Inter Tight\" does not exist."
+        }
+      ]
+    },
+    {
+      "page": "230:592",
+      "mutatedNodeIds": [
+        "237:882",
+        "237:1091",
+        "237:1167",
+        "237:1168",
+        "237:1180",
+        "237:1201",
+        "237:1206",
+        "237:1207",
+        "237:1209",
+        "237:1210",
+        "237:1211",
+        "237:1239",
+        "237:1241",
+        "237:1269",
+        "237:1348",
+        "278:905",
+        "278:1115",
+        "278:1192",
+        "278:1193",
+        "278:1227",
+        "278:1232",
+        "278:1233",
+        "278:1235",
+        "278:1236",
+        "278:1237",
+        "278:1265",
+        "278:1267",
+        "278:1296",
+        "278:1375",
+        "240:1082",
+        "240:1286",
+        "240:1360",
+        "240:1361",
+        "240:1373",
+        "240:1394",
+        "240:1399",
+        "240:1402",
+        "240:1403",
+        "240:1431",
+        "240:1459",
+        "278:1764",
+        "278:1974",
+        "278:2051",
+        "278:2052",
+        "278:2086",
+        "278:2091",
+        "278:2092",
+        "278:2094",
+        "278:2095",
+        "278:2096",
+        "278:2124",
+        "278:2126",
+        "278:2155",
+        "278:2234"
+      ],
+      "changes": [
+        {
+          "id": "237:882",
+          "before": "Four teams say \"fine\" in the room and reopen it by email the next week.",
+          "after": "A single option can leave disagreements hidden until later."
+        },
+        {
+          "id": "237:1091",
+          "before": "Every team rebuilt its own version in Excel anyway.",
+          "after": "A fixed report may miss the columns a team needs."
+        },
+        {
+          "id": "237:1167",
+          "before": "The spreadsheet never dies",
+          "after": "Risk of parallel records"
+        },
+        {
+          "id": "237:1168",
+          "before": "Sixty people keep a private copy and the platform becomes the second source of truth.",
+          "after": "Risk: people keep private spreadsheets alongside the platform."
+        },
+        {
+          "id": "237:1180",
+          "before": "Checks as you go, and the tool writes the sign-off",
+          "after": "Pricing checks and a reviewable approval"
+        },
+        {
+          "id": "237:1201",
+          "before": "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
+          "after": "Illustrative tolerance warning. Review the pricing input."
+        },
+        {
+          "id": "237:1206",
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
+        },
+        {
+          "id": "237:1207",
+          "before": "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
+          "after": "The owner explains the selected iteration and publishes it. The approver reviews the proposal comparison and comments before deciding."
+        },
+        {
+          "id": "237:1209",
+          "before": "Send for approval",
+          "after": "Publish for approval"
+        },
+        {
+          "id": "237:1210",
+          "before": "Checks at the field. Nothing waits for approval to be found.",
+          "after": "Pricing checks, then owner reasoning and approver review."
+        },
+        {
+          "id": "237:1211",
+          "before": "Validation at the field, summary written for you",
+          "after": "Pricing checks and an owner-written reason"
+        },
+        {
+          "id": "237:1239",
+          "before": "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
+          "after": "A pricing issue found later would require correction and resubmission."
+        },
+        {
+          "id": "237:1241",
+          "before": "Written by hand, in email.",
+          "after": "Reason discussed outside the pricing view."
+        },
+        {
+          "id": "237:1269",
+          "before": "Based on 38 similar deals, same region and segment, past two years.",
+          "after": "Illustrative proposal using past deals, region and segment."
+        },
+        {
+          "id": "237:1348",
+          "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
+        },
+        {
+          "id": "278:905",
+          "before": "Four teams say \"fine\" in the room and reopen it by email the next week.",
+          "after": "A single option can leave disagreements hidden until later."
+        },
+        {
+          "id": "278:1115",
+          "before": "Every team rebuilt its own version in Excel anyway.",
+          "after": "A fixed report may miss the columns a team needs."
+        },
+        {
+          "id": "278:1192",
+          "before": "The spreadsheet never dies",
+          "after": "Risk of parallel records"
+        },
+        {
+          "id": "278:1193",
+          "before": "Sixty people keep a private copy and the platform becomes the second source of truth.",
+          "after": "Risk: people keep private spreadsheets alongside the platform."
+        },
+        {
+          "id": "278:1227",
+          "before": "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
+          "after": "Illustrative tolerance warning. Review the pricing input."
+        },
+        {
+          "id": "278:1232",
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
+        },
+        {
+          "id": "278:1233",
+          "before": "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
+          "after": "The owner explains the selected iteration and publishes it. The approver reviews the proposal comparison and comments before deciding."
+        },
+        {
+          "id": "278:1235",
+          "before": "Send for approval",
+          "after": "Publish for approval"
+        },
+        {
+          "id": "278:1236",
+          "before": "Checks at the field. Nothing waits for approval to be found.",
+          "after": "Pricing checks, then owner reasoning and approver review."
+        },
+        {
+          "id": "278:1237",
+          "before": "Validation at the field, summary written for you",
+          "after": "Pricing checks and an owner-written reason"
+        },
+        {
+          "id": "278:1265",
+          "before": "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
+          "after": "A pricing issue found later would require correction and resubmission."
+        },
+        {
+          "id": "278:1267",
+          "before": "Written by hand, in email.",
+          "after": "Reason discussed outside the pricing view."
+        },
+        {
+          "id": "278:1296",
+          "before": "Based on 38 similar deals, same region and segment, past two years.",
+          "after": "Illustrative proposal using past deals, region and segment."
+        },
+        {
+          "id": "278:1375",
+          "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
+        },
+        {
+          "id": "240:1082",
+          "before": "Four teams say \"fine\" in the room and reopen it by email the next week.",
+          "after": "A single option can leave disagreements hidden until later."
+        },
+        {
+          "id": "240:1286",
+          "before": "Every team rebuilt its own version in Excel anyway.",
+          "after": "A fixed report may miss the columns a team needs."
+        },
+        {
+          "id": "240:1360",
+          "before": "The spreadsheet never dies",
+          "after": "Risk of parallel records"
+        },
+        {
+          "id": "240:1361",
+          "before": "Sixty people keep a private copy and the platform becomes the second source of truth.",
+          "after": "Risk: people keep private spreadsheets alongside the platform."
+        },
+        {
+          "id": "240:1373",
+          "before": "Checks as you go, and the tool writes the sign-off",
+          "after": "Pricing checks and a reviewable approval"
+        },
+        {
+          "id": "240:1394",
+          "before": "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
+          "after": "Illustrative tolerance warning. Review the pricing input."
+        },
+        {
+          "id": "240:1399",
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
+        },
+        {
+          "id": "240:1402",
+          "before": "Send for approval",
+          "after": "Publish for approval"
+        },
+        {
+          "id": "240:1403",
+          "before": "Validation at the field, summary written for you",
+          "after": "Pricing checks and an owner-written reason"
+        },
+        {
+          "id": "240:1431",
+          "before": "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
+          "after": "A pricing issue found later would require correction and resubmission."
+        },
+        {
+          "id": "240:1459",
+          "before": "Based on 38 similar deals, same region and segment, past two years.",
+          "after": "Illustrative proposal using past deals, region and segment."
+        },
+        {
+          "id": "278:1764",
+          "before": "Four teams say \"fine\" in the room and reopen it by email the next week.",
+          "after": "A single option can leave disagreements hidden until later."
+        },
+        {
+          "id": "278:1974",
+          "before": "Every team rebuilt its own version in Excel anyway.",
+          "after": "A fixed report may miss the columns a team needs."
+        },
+        {
+          "id": "278:2051",
+          "before": "The spreadsheet never dies",
+          "after": "Risk of parallel records"
+        },
+        {
+          "id": "278:2052",
+          "before": "Sixty people keep a private copy and the platform becomes the second source of truth.",
+          "after": "Risk: people keep private spreadsheets alongside the platform."
+        },
+        {
+          "id": "278:2086",
+          "before": "Outside tolerance for Tier B (max 15 %). Needs legal sign-off.",
+          "after": "Illustrative tolerance warning. Review the pricing input."
+        },
+        {
+          "id": "278:2091",
+          "before": "Sign-off summary \u00b7 written for you",
+          "after": "Winning-bid reason \u00b7 written by owner"
+        },
+        {
+          "id": "278:2092",
+          "before": "Iteration 3 lowers the final bid to 5.00 % on Benchmark 2024 Tier B. Reduction 18 % exceeds tolerance (15 %), flagged for legal review. Change by R. Mensah.",
+          "after": "The owner explains the selected iteration and publishes it. The approver reviews the proposal comparison and comments before deciding."
+        },
+        {
+          "id": "278:2094",
+          "before": "Send for approval",
+          "after": "Publish for approval"
+        },
+        {
+          "id": "278:2095",
+          "before": "Checks at the field. Nothing waits for approval to be found.",
+          "after": "Pricing checks, then owner reasoning and approver review."
+        },
+        {
+          "id": "278:2096",
+          "before": "Validation at the field, summary written for you",
+          "after": "Pricing checks and an owner-written reason"
+        },
+        {
+          "id": "278:2124",
+          "before": "\"Reduction out of tolerance. Please correct and resubmit.\" Three days later.",
+          "after": "A pricing issue found later would require correction and resubmission."
+        },
+        {
+          "id": "278:2126",
+          "before": "Written by hand, in email.",
+          "after": "Reason discussed outside the pricing view."
+        },
+        {
+          "id": "278:2155",
+          "before": "Based on 38 similar deals, same region and segment, past two years.",
+          "after": "Illustrative proposal using past deals, region and segment."
+        },
+        {
+          "id": "278:2234",
+          "before": "Every iteration starts from a blank grid and a rate card. Experience lives in the deal owner's head, so a new starter prices slower and less consistently.",
+          "after": "Manual pricing starts from rate cards and the owner\u2019s judgement. A suggestion could offer another starting point, subject to review."
+        }
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "nodeId": "277:863",
+      "path": "src/assets/img/figma-sync/fusion-decision-2-1.png"
+    },
+    {
+      "nodeId": "277:1380",
+      "path": "src/assets/img/figma-sync/ai-decision-0-0.png"
+    },
+    {
+      "nodeId": "277:1472",
+      "path": "src/assets/img/figma-sync/ai-decision-0-1.png"
+    },
+    {
+      "nodeId": "277:1519",
+      "path": "src/assets/img/figma-sync/ai-decision-1-0.png"
+    },
+    {
+      "nodeId": "277:1611",
+      "path": "src/assets/img/figma-sync/ai-decision-1-1.png"
+    },
+    {
+      "nodeId": "277:1812",
+      "path": "src/assets/img/figma-sync/ai-decision-2-1.png"
+    },
+    {
+      "nodeId": "277:2542",
+      "path": "src/assets/img/figma-sync/winking-decision-0-0.png"
+    },
+    {
+      "nodeId": "277:2611",
+      "path": "src/assets/img/figma-sync/winking-decision-0-1.png"
+    },
+    {
+      "nodeId": "277:2661",
+      "path": "src/assets/img/figma-sync/winking-decision-1-0.png"
+    },
+    {
+      "nodeId": "277:2786",
+      "path": "src/assets/img/figma-sync/winking-decision-2-1.png"
+    },
+    {
+      "nodeId": "277:2830",
+      "path": "src/assets/img/figma-sync/winking-decision-3-0.png"
+    },
+    {
+      "nodeId": "277:2875",
+      "path": "src/assets/img/figma-sync/winking-decision-3-1.png"
+    },
+    {
+      "nodeId": "277:2924",
+      "path": "src/assets/img/figma-sync/winking-decision-4-0.png"
+    },
+    {
+      "nodeId": "277:2952",
+      "path": "src/assets/img/figma-sync/winking-decision-4-1.png"
+    },
+    {
+      "nodeId": "277:3061",
+      "path": "src/assets/img/figma-sync/winking-decision-5-1.png"
+    }
+  ],
+  "remainingDealRaster": {
+    "reason": "Resolved: three unsupported alternative illustrations hidden in both layouts; original copies retained. Both smart-pricing illustrations replaced by exact original dialog exports.",
+    "assets": []
+  },
+  "validation": "Representative corrected Fusion, AI and Winking exports visually inspected. Deal approval pair now replaced with exact original source UI; desktop and mobile inspected. Five other Deal raster illustrations remain qualified. Four obsolete unavailable-font snapshot labels remain documented.",
+  "approvalReplacement": {
+    "sourceFile": "MhZ5D5sh8DZgOTYdLXX8It",
+    "ownerSource": "1:34373",
+    "approverSource": "1:34757",
+    "assets": [
+      "src/assets/img/figma-sync/deal-decision-4-0.png",
+      "src/assets/img/figma-sync/deal-decision-4-1.png"
+    ],
+    "targetImages": [
+      "278:1210",
+      "278:1241",
+      "278:2069",
+      "278:2100"
+    ],
+    "modifiedNodes": [
+      "278:1207",
+      "278:1208",
+      "278:1209",
+      "278:1210",
+      "278:1237",
+      "278:1238",
+      "278:1239",
+      "278:1240",
+      "278:1241",
+      "278:1268",
+      "278:2066",
+      "278:2067",
+      "278:2068",
+      "278:2069",
+      "278:2096",
+      "278:2097",
+      "278:2098",
+      "278:2099",
+      "278:2100",
+      "278:2127"
+    ],
+    "labels": [
+      "Owner \u00b7 publish the proposal",
+      "Approver \u00b7 review and approve"
+    ],
+    "validation": "Both exact source exports uploaded successfully to desktop and mobile; original proportions preserved, extra white wrapper padding removed, no redraw. Desktop and mobile screenshots visually inspected without clipping or overlap. Approver shadow is from the original source export. Both images are chosen workflow roles, not rejected alternatives."
+  },
+  "pendingFigmaWork": [],
+  "finalDealCorrection": {
+    "mutation": {
+      "changed": [
+        "278:842",
+        "278:1013",
+        "278:1167",
+        "278:1701",
+        "278:1872",
+        "278:2026",
+        "278:1282",
+        "278:1318",
+        "278:2141",
+        "278:2177",
+        "278:1316",
+        "278:1376",
+        "278:2175",
+        "278:2235",
+        "249:247615",
+        "351:6560",
+        "384:6709",
+        "351:6721",
+        "384:6808",
+        "278:1284",
+        "278:1320",
+        "278:2143",
+        "278:2179",
+        "237:460",
+        "233:463",
+        "233:462",
+        "233:461",
+        "233:460",
+        "240:675",
+        "239:496",
+        "239:495",
+        "239:494",
+        "239:493",
+        "240:526"
+      ],
+      "created": [
+        "391:14389",
+        "391:14390",
+        "391:14391",
+        "391:14392"
+      ],
+      "hidden": [
+        "278:842",
+        "278:1013",
+        "278:1167",
+        "278:1701",
+        "278:1872",
+        "278:2026"
+      ],
+      "edits": {
+        "278:1282": "Smart-pricing exploration",
+        "278:1318": "New-proposal exploration",
+        "278:2141": "Smart-pricing exploration",
+        "278:2177": "New-proposal exploration",
+        "278:1316": "Explored, not built in my time.",
+        "278:1376": "Explored, not built in my time.",
+        "278:2175": "Explored, not built in my time.",
+        "278:2235": "Explored, not built in my time.",
+        "249:247615": "Mapping translates the uploaded template into the deal data model.",
+        "351:6560": "Mapping translates the uploaded template into the deal data model.",
+        "384:6709": "Mapping translates the uploaded template into the deal data model.",
+        "351:6721": "Mapping translates the uploaded template into the deal data model.",
+        "384:6808": "Mapping translates the uploaded template into the deal data model."
+      },
+      "images": [
+        "278:1284",
+        "278:1320",
+        "278:2143",
+        "278:2179"
+      ]
+    },
+    "wording": [
+      {
+        "key": "fx",
+        "changed": [
+          {
+            "id": "166:1417",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "293:1188",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "I386:257524;386:257452",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "339:5486",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "339:5488",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5640;384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "I384:5640;384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5640;384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          },
+          {
+            "id": "166:1455",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "293:1251",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "I386:257605;386:257452",
+            "before": "\u2022 Complete bid/ask/mid studies\n\u2022 Interval regrouping\n\u2022 Table view with CSV export",
+            "after": "\u2022 Bid/ask/mid study inputs (specified)\n\u2022 Interval regrouping\n\u2022 Table view with CSV export"
+          },
+          {
+            "id": "167:800",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "167:802",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5731;384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "I384:5731;384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "I384:5731;384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          },
+          {
+            "id": "384:5632",
+            "before": "Dana reviews liquidity windows for the session, chooses the algo and limit, and captures her benchmarks, arrival mid and session TWAP, before the first clip goes out.",
+            "after": "Dana reviews liquidity for the session and sets the order limit. Arrival mid anchors the execution; session TWAP provides an evolving market benchmark."
+          },
+          {
+            "id": "384:5634",
+            "before": "\u2022 Order ticket with percentile presets\n\u2022 Benchmarks captured and frozen on the canvas",
+            "after": "\u2022 Order ticket with limit and notional\n\u2022 Fixed arrival mid and evolving session TWAP"
+          },
+          {
+            "id": "384:5637",
+            "before": "The ticket carries percentile presets. Arrival mid and session TWAP are captured when the order goes live and frozen on the canvas.",
+            "after": "The ticket carries the limit and notional. Arrival mid stays fixed; session TWAP updates as market prices arrive."
+          }
+        ],
+        "unavailable": []
+      },
+      {
+        "key": "fusion",
+        "changed": [
+          {
+            "id": "207:621",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "351:5229",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "384:5169",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "351:5393",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          },
+          {
+            "id": "384:5262",
+            "before": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients, and several signed after that launch.",
+            "after": "Zero WCAG AA violations at ship. Widget and filtering patterns reused across other Fusion modules. Phase two opened the product to external clients."
+          }
+        ],
+        "unavailable": []
+      },
+      {
+        "key": "deal",
+        "changed": [
+          {
+            "id": "248:717",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "293:1898",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "386:258001",
+            "before": "Sixty people keep their own version. I need one.",
+            "after": "I need one version we can review together."
+          },
+          {
+            "id": "251:717",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "293:1982",
+            "before": "\u201cSixty people keep their own version. I need one.\u201d",
+            "after": "\u201cI need one version we can review together.\u201d"
+          },
+          {
+            "id": "386:258109",
+            "before": "Sixty people keep their own version. I need one.",
+            "after": "I need one version we can review together."
+          }
+        ],
+        "unavailable": []
+      }
+    ],
+    "friction": [
+      "248:725",
+      "293:1907",
+      "I386:258015;386:257909",
+      "251:725",
+      "293:1991",
+      "I386:258123;386:257909"
+    ],
+    "sourceFile": "MhZ5D5sh8DZgOTYdLXX8It",
+    "exports": [
+      {
+        "sourceNode": "1:24110",
+        "path": "src/assets/img/figma-sync/deal-decision-5-0.png",
+        "sha256": "88413f87a38fb5d2c6ca7362bb552ae4a9e69fc8435e4d2ec987dc26a1f1eece"
+      },
+      {
+        "sourceNode": "1:24564",
+        "path": "src/assets/img/figma-sync/deal-decision-5-1.png",
+        "sha256": "e5568fbbb93edcdaf413d70c39c5f87ae1b86e65b29eeba6a90b4c6979501994"
+      }
+    ],
+    "uploads": [
+      {
+        "success": true,
+        "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+        "sizeBytes": 120947,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:1284"
+      },
+      {
+        "success": true,
+        "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+        "sizeBytes": 93823,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:1320"
+      },
+      {
+        "success": true,
+        "imageHash": "7ad2172f05f143e8b20d86dffb6da447cef62272",
+        "sizeBytes": 120947,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:2143"
+      },
+      {
+        "success": true,
+        "imageHash": "6d046b978f2483f1d6fc52c9d477c0bbf2ca7af6",
+        "sizeBytes": 93823,
+        "contentType": "image/png",
+        "placedOnNodeId": "278:2179"
+      }
+    ],
+    "verification": "Desktop/mobile exact concept pairs visually inspected. Source modal shadows retained. Both labelled exploration, not built. No fabricated UI or benchmark counts. Original rejected raster panels remain hidden; written alternatives remain visible."
+  }
+}

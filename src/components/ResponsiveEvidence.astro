@@ -1,0 +1,20 @@
+---
+import Pic from './Pic.astro';
+interface Props { project:'fx'|'fusion'|'ai' }
+const {project}=Astro.props;
+const capture=project==='ai'?'uikit':project;
+const facts={
+ fx:{heading:'Colour has supporting cues.',text:'In the design, line styles, fill markers and labelled states support the colour coding. The legend below shows those encodings; it is not a claim of a completed accessibility audit of the public rebuild.',responsive:'My public rebuild fits a tablet at 820px. At 390px the trading surface overflows sideways. It is a desk tool, and I don\'t claim mobile parity for it.',href:'https://shannonhecker.github.io/fx-execution-analytics/'},
+ fusion:{heading:'Accessibility was a review step.',text:'An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.',responsive:'The rebuild\'s catalogue reflows at 820px and at 390px. These captures show the catalogue. The dense analytics workspaces are desktop first, and I say so.',href:'https://jpm-analytics-dashboard-shannon-h.vercel.app/'},
+ ai:{heading:'System, theme and density stay inspectable.',text:'The UI Kit has a skip link, and the system, theme and density controls work from the keyboard. That is what I can show today. It is not a full audit, and I haven\'t run one yet.',responsive:'The Salt UI Kit fits 820px and 390px. The builder is a desktop canvas, and stays one.',href:'https://uoaui.ai/ui-kit?ds=salt'},
+}[project];
+---
+<section class="responsive-evidence" id={`${project}-accessibility`} aria-labelledby={`${project}-accessibility-title`}>
+ <header class="process-heading"><h3 id={`${project}-accessibility-title`}>Accessibility and responsiveness</h3></header>
+ <div class="access-notes"><div><h4>{facts.heading}</h4><p>{facts.text}</p></div><div><h4>Across screen sizes</h4><p>{facts.responsive}</p></div></div>
+ {project==='fx'&&<div class="encoding-legend" role="group" aria-label="Chart meaning uses more than colour"><span><i class="encoding-line"></i>Market prices</span><span><i class="encoding-dash"></i>Benchmarks</span><span><i class="encoding-dot"></i>Fills</span><span><i class="encoding-range"></i>Order states</span></div>}
+ <div class="responsive-captures">
+  <figure><div class="responsive-capture-image"><Pic name={`live-${capture}-tablet.png`} alt="Current product at an 820-pixel tablet viewport" sizes="(max-width:760px) 90vw, 620px" widths={[620,820]} /></div><figcaption>Tablet · 820px viewport</figcaption></figure>
+  <figure><div class="responsive-capture-image"><Pic name={`live-${capture}-mobile.png`} alt="Current product at a 390-pixel phone viewport" sizes="(max-width:760px) 72vw, 300px" widths={[390]} /></div><figcaption>Phone · 390px viewport</figcaption></figure>
+ </div>
+</section>

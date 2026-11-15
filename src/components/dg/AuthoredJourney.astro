@@ -1,0 +1,35 @@
+---
+import ThemedArtwork from "../ThemedArtwork.astro";
+import content from '../../data/authored-content.json';
+import ProductJourney from './ProductJourney.astro';
+
+import { Image } from 'astro:assets';
+const portraits=import.meta.glob<{default:import('astro').ImageMetadata}>('../../assets/img/personas/*.png',{eager:true});
+interface Props { project: keyof typeof content; id?: string }
+const {project,id=`${Astro.props.project}-journey`}=Astro.props;
+const data=content[project].journey;
+const persona=content[project].personas.items.find(p=>p.name===data.persona) ?? content[project].personas.items[0];
+const portraitIndex=content[project].personas.items.findIndex(p=>p.name===persona.name);
+const portrait=portraits[`../../assets/img/personas/${project}-${portraitIndex}.png`].default;
+---
+<section id={id} class="authored-journey" aria-labelledby={`${id}-title`}>
+ <header class="process-heading"><h3 id={`${id}-title`}>User journey</h3><p>{data.line}</p></header>
+ <div class="experience-context"><div><h4>Persona</h4><div class="experience-identity"><Image src={portrait} width={64} height={64} alt=""/><div><strong>{data.persona}</strong><p>{persona.role}</p></div></div></div><div><h4>Scenario</h4><p>{data.scenario}</p></div><div><h4>Goal</h4><p>{data.goal}</p></div></div>
+ <ProductJourney project={project}/>
+ {data.takeaways.length>0 && <div class="experience-takeaways">{data.takeaways.map(t=><div><h4>{t.label}</h4><p>{t.text}</p></div>)}</div>}
+</section>
+<style>
+.authored-journey{min-width:0;margin-block:64px 96px;scroll-margin-top:140px}
+.experience-context{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;margin-block:36px 48px}
+.experience-context h4{font-size:14px;line-height:1.5;color:var(--project-ink);border-top:1px solid var(--divider);padding-top:14px;margin:0 0 20px}
+.experience-context p,.experience-takeaways p{font-size:16px;line-height:1.7;color:var(--fg-2);margin:0;white-space:pre-line}
+.experience-identity{display:flex;align-items:center;gap:14px}.experience-identity img{width:56px;height:56px;object-fit:cover;object-position:center 20%;border-radius:50%}.experience-identity strong{font-size:18px}.experience-identity p{margin-top:4px}
+.experience-scroll{overflow-x:auto;overscroll-behavior-x:contain;margin-block:32px 48px}.experience-artwork{display:grid;gap:24px}.experience-artwork :global(img){display:block;width:100%;height:auto}
+.experience-transcript{font-size:16px;line-height:1.7;color:var(--fg-2);margin-block:32px 48px}.experience-transcript h4{font-size:18px;color:var(--fg)}.experience-transcript ol{padding-left:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px}
+.experience-takeaways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px;margin-top:48px;padding-top:32px;border-top:1px solid var(--divider)}.experience-takeaways h4{font-size:16px;margin-bottom:14px;color:var(--project-ink)}
+@media(max-width:1000px){.experience-context{grid-template-columns:1fr;gap:28px}}
+@media(max-width:760px){.experience-artwork,.fx-artwork-window{min-width:1100px}}
+@media(max-width:600px){.authored-journey{margin-block:40px 56px}.experience-takeaways,.experience-transcript ol{grid-template-columns:1fr}.experience-context{margin-block:28px 36px}}
+
+.original-study{margin-top:64px;border-top:1px solid var(--divider);padding-top:32px}.original-study>header h4{font-size:22px;line-height:1.35;margin:0 0 12px}.original-study>header p{font-size:15px;line-height:1.65;color:var(--fg-2);max-width:65ch;margin:0}.fx-artwork-window{position:relative;width:100%;aspect-ratio:985 / 459;overflow:hidden}.fx-artwork-window img{position:absolute;display:block;width:100%;height:auto;max-width:none;top:calc(-100% * 100.7 / 459);left:0}
+</style>

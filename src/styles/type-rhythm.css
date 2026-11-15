@@ -1,0 +1,137 @@
+/* A quieter editorial frame for Shannon's product work. Pixel details remain
+   small; display type and complete product images carry the large scale. */
+:root { --display:'Inter Tight','Inter',sans-serif; --space-section:clamp(88px,9vw,144px); }
+.case-page[data-project=winking-star] { --display:'Inter Tight','Inter',sans-serif; }
+h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
+.case-page .beat .body>.h-sub,#work .row h3,.principle h3,#links .big h2,
+.case-page .dec h3,.ws .dec h3,.process-heading h3,
+.persona-roles h4,.process-journey h4,.decision-map h4,
+.ws .chapter-head h1,.next-case .row h3,.build-log h1 {
+  font-family:var(--display);font-weight:500;letter-spacing:-.025em;
+}
+.adventure-hero>.wrap { grid-template-columns:minmax(0,1.75fr) minmax(260px,1fr);column-gap:clamp(40px,6vw,96px);row-gap:48px; }
+.hero.adventure-hero .h-giant { font-size:clamp(56px,6.5vw,100px);line-height:1.08;letter-spacing:-.02em;max-width:14ch; }
+.adventure-hero .hero-top { margin-top:40px;font-weight:400;font-size:18px;line-height:1.8;max-width:56ch; }
+.adventure-hero .hero-for { font-family:var(--body);font-size:13px;line-height:1.6;color:var(--fg-2); }
+.hero-bonus { margin-top:48px;padding-top:40px; }
+.case-page .chapter-head h1 { font-size:clamp(52px,6.5vw,100px);line-height:1.07;letter-spacing:-.035em; }
+.case-page .chapter-head .lead { font-size:clamp(18px,1.7vw,24px);font-weight:400;line-height:1.65;max-width:45ch; }
+.case-page .chapter-head>.g { row-gap:48px; }
+.case-page .chapter-head .meta { margin-top:16px;padding-top:32px; }
+.h-section { font-size:clamp(32px,3.3vw,52px);line-height:1.18; }
+.case-page .beat .body>.h-sub { font-size:clamp(34px,3.6vw,56px);line-height:1.17;max-width:24ch; }
+.case-page .beat .body { row-gap:48px; }
+.case-page .process-heading { margin-bottom:48px; }
+.process-heading h3 { font-size:clamp(30px,3vw,44px);line-height:1.2; }
+.process-heading p { font-size:16px;line-height:1.8; }
+.persona-roles h4,.process-journey h4,.decision-map h4 { line-height:1.3; }
+.case-page .beat .body>p { max-width:65ch; }
+.project-hero { margin-top:72px; }
+.project-hero .shot { border-radius:var(--radius); }
+/* A little colour at wayfinding moments, while screens keep their own palette. */
+.companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:#f8ede8;border-radius:48% 48% 6px 6px;z-index:-2; }
+html[data-theme=dark] .companion-stage::before { background:#302930; }
+.companion-path { background:repeating-linear-gradient(90deg,#cfae9c 0 10px,transparent 10px 18px); }
+#work .row .arrow { transition:translate .25s ease; }
+#work .row:hover .arrow { translate:4px 0; }
+::view-transition-group(*) { animation-duration:.4s;animation-timing-function:cubic-bezier(.22,1,.36,1); }
+@media(max-width:760px) {
+ :root { --space-section:80px; }
+ .adventure-hero>.wrap { grid-template-columns:1fr;gap:32px; }
+ .hero.adventure-hero .h-giant { font-size:clamp(42px,10.8vw,72px);line-height:1.12;letter-spacing:-.02em;max-width:15ch; }
+ .adventure-hero .hero-top { font-size:16px;margin-top:28px; }
+ .adventure-hero .hero-for { font-size:12px; }
+ .hero-bonus { margin-top:16px;padding-top:28px; }
+ .case-page .chapter-head>.g,.case-page .beat .body { row-gap:32px; }
+ .case-page .chapter-head h1 { font-size:clamp(42px,10vw,64px); }
+ .project-hero { margin-top:40px; }
+ .case-page .process-heading { margin-bottom:32px; }
+}
+@media(prefers-reduced-motion:reduce) { #work .row .arrow{transition:none;translate:none!important} }
+
+/* The optional adventure is a shallow panorama; play retains its 16:9 canvas. */
+.adventure-hero .hero-bonus { grid-template-columns:1fr;gap:20px; }
+.adventure-hero .hero-art.hero-game { max-width:none;width:100%; }
+.hero-bonus .bonus-note { justify-content:flex-start;gap:14px; }
+.hero-bonus .bonus-note .pixel-object { width:44px;height:44px;flex:none; }
+.hero-bonus .bonus-note p { font-size:20px;min-width:0; }
+.hero-bonus .bonus-note span { display:inline;margin:0 0 0 20px;max-width:none; }
+.adventure-hero .play:not(.is-full) .game[data-state=poster] { aspect-ratio:4/1; }
+.adventure-hero .play:not(.is-full) .game-poster img { object-fit:contain;object-position:center;image-rendering:pixelated;background:#39bdd5; }
+.adventure-hero .play:not(.is-full) .game-poster .game-play { align-self:center;margin:0; }
+@media(max-width:760px) {
+ .hero-bonus .bonus-note span { display:block;margin:4px 0 0;font-size:12px; }
+ .hero-bonus .bonus-note p { font-size:18px; }
+ .adventure-hero .play:not(.is-full) .game[data-state=poster] { aspect-ratio:24/9;min-height:140px; }
+}
+
+@media(max-width:760px) {
+ .adventure-hero .play:not(.is-full) .game-bar { flex-wrap:nowrap;gap:8px; }
+ .adventure-hero .play:not(.is-full) .game-world { min-width:0;flex:1; }
+ .adventure-hero .play:not(.is-full) .game-world select { width:100%; }
+ .adventure-hero .play:not(.is-full) .game-tools { flex:none; }
+}
+
+.game-stages[hidden] { display:none; }
+.game-stages { display:flex;gap:6px;width:min(100%,960px);overflow-x:auto;padding:4px;flex-shrink:0; }
+.game-stages button { flex:0 0 auto;border:1px solid #829bac;border-radius:var(--radius);background:#233c4d;color:#fff;font:13px/1.4 var(--body);padding:8px 12px;min-height:44px;cursor:pointer; }
+.game-stages button span { font-family:var(--pixel);color:#ffe28c;margin-right:8px; }
+.game-stages button[data-completed=true]::after{content:' ✓';color:#b9efd1;margin-left:8px;font-weight:700}
+.game-stages button:hover,.game-stages button[aria-current=true] { background:#36566b;border-color:#ffe28c; }
+.game-stages button:focus-visible { outline:2px solid #ffe28c;outline-offset:2px; }
+.play:not(.is-full) .game-stages { display:none; }
+
+.play canvas { image-rendering:pixelated; }
+
+.career-achievements{margin:16px auto;max-width:560px;text-align:left;font-size:14px;line-height:1.6}.career-achievements summary{cursor:pointer;min-height:44px;padding:10px 0;color:inherit}.career-achievements>ul{display:grid;gap:16px;list-style:none;padding:8px 0}.career-achievements li>ul{padding-left:20px;margin-top:6px}.career-achievements strong{font-weight:600}
+
+.hero-game .play:not(.is-full) .game{width:100%;max-width:100%;min-width:0}
+
+.play.is-full .game-caption{color:#b8c7d4}
+.play.is-full .game{flex-shrink:0}
+/* The map has no movement controls. Reserve only its actual navigation. */
+.game-map-hint{display:none}
+.play.is-full:has(.game-stages:not([hidden])) .game{width:min(100%,calc((100dvh - 190px) * 16 / 9))}
+.play.is-full:has(.game-stages:not([hidden])) .game-touch,
+.play.is-full:has(.game-stages:not([hidden])) .game-rotate,
+.adventure-hero .play.is-full:has(.game-stages:not([hidden])) .game-caption{display:none}
+@media(max-width:900px) and (orientation:portrait){
+ .play.is-full:has(.game-stages:not([hidden])) .game{width:100%;height:clamp(270px,calc(100dvh - 240px),540px);aspect-ratio:auto;overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain;touch-action:pan-x}
+ .play.is-full:has(.game-stages:not([hidden])) canvas{position:relative;width:auto;min-width:100%;height:100%;aspect-ratio:16/9;max-width:none;touch-action:pan-x}
+ .play.is-full:has(.game-stages:not([hidden])) .game-map-hint{display:block;font-size:14px;color:#b8c7d4;margin:0;text-align:center}
+ .play.is-full:has(.game-stages:not([hidden])) .game-bar{width:100%}
+}
+@media(max-height:600px) and (orientation:landscape){
+ .play.is-full:has(.game-stages:not([hidden])){padding:8px max(56px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left));gap:8px}
+ .play.is-full:has(.game-stages:not([hidden])) .game{width:min(100%,calc((100dvh - 76px) * 16 / 9))}
+ .adventure-hero .play.is-full:has(.game-stages:not([hidden])) .game-bar{display:none}
+ .play.is-full:has(.game-stages:not([hidden])) .game-stages{width:min(100%,calc((100dvh - 76px) * 16 / 9))}
+}
+
+/* Results belong to the same navy/cyan/gold pixel world as the map and HUD. */
+.play .game[data-result=true]{border:4px solid #90dce8;border-radius:0;background:#172b3b}
+.play .game-end{background:#172b3b;color:#f4f7ea;gap:16px;padding:28px clamp(20px,5vw,64px);place-content:start center}
+.play .game-result-emblem{display:flex;align-items:center;gap:12px;font:24px/1 var(--pixel);color:#ffe28c}
+.game-result-emblem img{image-rendering:pixelated;width:48px;height:48px}
+.play .game-end .game-kicker{font:18px/1.4 var(--pixel);color:#bce8ef}
+.play .game-end .game-case{font:400 clamp(30px,4vw,48px)/1.2 var(--pixel);letter-spacing:0;color:#fff}
+.play .game-end .game-meta{font:16px/1.6 var(--body);color:#d1e3e9;margin:0;max-width:48ch}
+.play .game-end .game-mission{font:18px/1.5 var(--pixel);color:#ffe28c;border:2px solid #456574;padding:10px 16px;background:#213e50}
+.play .game-end .career-achievements{margin:0;width:min(100%,560px);max-width:none;text-align:left;border:2px solid #456574;padding:0 16px;background:#1d3547}
+.play .game-end .career-achievements summary{font:18px/1.5 var(--pixel);color:#e8f4ee;padding:10px 0}
+.play .game-end .career-achievements ul{font:14px/1.6 var(--body);color:#d1e3e9}
+.play .game-end .scoreboard{width:min(100%,560px);border-top:2px solid #456574;padding-top:16px}
+.play .game-end .score-total{font:24px/1.4 var(--pixel);color:#f4f7ea}
+.play .game-end .score-total strong{font:40px/1 var(--pixel);color:#ffe28c}
+.play .game-end .score-total span,.play .game-end .score-rule,.play .game-end .score-note,.play .game-end .scoreboard label span{color:#b9d0da}
+.play .game-end .scoreboard summary{font:18px/1.5 var(--pixel);color:#e8f4ee}
+.play .game-end .scoreboard li{border-color:#456574;color:#f4f7ea}
+.play .game-end .scoreboard input{border:2px solid #90dce8;border-radius:0;background:#102330;color:#fff}
+.play .game-end .game-play,.play .game-end .game-map,.play .game-end .game-read,.play .game-end .scoreboard button{font:20px/1.3 var(--pixel);border:2px solid #90dce8;border-radius:0;padding:12px 20px;background:#213e50;color:#f4f7ea;min-height:48px;box-shadow:4px 4px 0 #081823;transition:transform .1s;}
+.play .game-end .game-play,.play .game-end .scoreboard button{background:#ffe28c;color:#172b3b;border-color:#ffeeb6}
+.play .game-end .game-links a{color:#bce8ef}
+.play .game-end :is(button,a,input,summary):focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:0}
+.play .game-end :is(button,a):active{transform:translate(2px,2px);box-shadow:2px 2px 0 #081823}
+.play .game-end .game-actions{gap:16px;margin:6px 0}
+.play .game-end .game-badge{font:18px/1.4 var(--pixel);color:#a9efb4;background:#213e50;border:2px solid #7cab8a;border-radius:0}
+@media(max-width:600px){.play .game-end{padding:20px 16px;gap:12px}.play .game-end .game-case{font-size:30px}.play .game-end .game-meta{font-size:14px}.play .game-end .game-actions{width:100%;display:grid;grid-template-columns:1fr}.play .game-end .score-total span{font-size:12px}}

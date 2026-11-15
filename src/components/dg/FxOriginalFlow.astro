@@ -1,0 +1,26 @@
+---
+import content from '../../data/authored-content.json';
+const original = '/art/fx-original-decision-loop.png';
+// Light theme uses a recoloured copy of the same Figma frame (node 2116:272).
+const versions = [['dark', original], ['light', '/art/fx-original-decision-loop-light.png']] as const;
+const alt = 'Original FX decision loop: watch order progress and fill prices, assess schedule and benchmarks, then remain passive or intervene. The complete branches are transcribed below.';
+---
+<figure class="fx-original-flow">
+  {versions.map(([theme, src]) => <a class={`diagram-image loop-${theme}`} href={src} target="_blank" rel="noopener" aria-label="Open the complete original FX decision loop image in a new tab">
+    <img src={src} width="3057" height="2667" loading="lazy" decoding="async" alt={alt} />
+  </a>)}
+  <div class="flow-transcript"><h5>The branches in the original loop</h5><ul>{content.fx.decisionFlowText.map(text=><li>{text}</li>)}</ul></div>
+</figure>
+<style>
+  .fx-original-flow { margin: 0; min-width: 0; }
+  .diagram-image { display: block; width: 100%; padding: 0; border: 0; background: transparent; }
+  .loop-dark { display: none; }
+  :global(html[data-theme=dark]) .loop-dark { display: block; }
+  :global(html[data-theme=dark]) .loop-light { display: none; }
+  .diagram-image :global(picture) { display: block; width: 100%; }
+  .diagram-image :global(img) { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: auto 3057 / 2667; object-fit: contain; border-radius: 0; }
+  figcaption { margin-top: 16px; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
+
+  .flow-transcript ul { padding-left: 1.3em; display: grid; gap: 12px; }
+  .flow-transcript li { display: list-item; padding: 0; border: 0; background: none; }
+</style>

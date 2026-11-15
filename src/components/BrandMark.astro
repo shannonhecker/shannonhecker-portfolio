@@ -1,0 +1,8 @@
+---
+import Pic from './Pic.astro';
+interface Props { project:'ai'|'winking'; compact?:boolean }
+const {project,compact=false}=Astro.props;
+---
+<span class:list={['brand-mark',`brand-mark-${project}`,{compact}]}>
+ <Pic name={project==='ai'?'uoaui-logo-lockup.png':'ws-icon.png'} alt={project==='ai'?'uoaui logo':'Winking Star app icon'} sizes={project==='ai'?'160px':'64px'} widths={project==='ai'?[320,440]:[128,256]} />
+</span>

@@ -1,0 +1,22 @@
+---
+const overview={src:"/art/fx-hero-overview.svg"};
+const compare={src:"/art/fx-hero-compare.svg"};
+const ticket={src:"/art/fx-hero-ticket.svg"};
+---
+<figure class="project-hero fx-authored-hero">
+ <div class="fx-hero-composition">
+  <a class="fx-hero-overview" href={overview.src} target="_blank" rel="noopener" aria-label="View full size: my FX overview design (opens in new tab)"><img width="778" height="470" decoding="sync" src={overview.src} alt="My FX design: EURUSD execution chart with limit, arrival, risk-transfer and fill markers, plus venue analytics. Simulated data." loading="eager" fetchpriority="high" /></a>
+  <a class="fx-hero-ticket" href={ticket.src} target="_blank" rel="noopener" aria-label="View full size: FX order ticket detail (opens in new tab)"><img width="271" height="345" decoding="async" loading="lazy" fetchpriority="low" src={ticket.src} alt="Order-ticket detail with direction, size, limit price and Submit control." /></a>
+  <a class="fx-hero-compare" href={compare.src} target="_blank" rel="noopener" aria-label="View full size: FX comparison detail (opens in new tab)"><img width="319" height="347" decoding="async" loading="lazy" fetchpriority="low" src={compare.src} alt="Compare-orders detail showing working and filled orders, execution benchmarks and their trajectories." /></a>
+ </div>
+</figure>
+<style>
+.fx-authored-hero{display:block!important;min-width:0}
+.fx-hero-composition{position:relative;aspect-ratio:622/694;isolation:isolate}
+.fx-hero-composition a{display:block;min-width:0;border-radius:var(--radius);filter:drop-shadow(0 12px 16px rgb(12 12 13 / 25%))}
+.fx-hero-composition :global(img){display:block;width:100%;height:auto;margin:0;max-width:100%}
+.fx-hero-overview{position:relative;width:100%;z-index:0}
+.fx-hero-ticket{position:absolute;width:35%;left:21%;bottom:0;z-index:2}
+.fx-hero-compare{position:absolute;width:41%;left:42%;top:35.6%;z-index:1}
+.fx-hero-composition a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;z-index:3}
+</style>

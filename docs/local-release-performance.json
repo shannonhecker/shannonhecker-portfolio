@@ -1,0 +1,174 @@
+{
+  "date": "2026-10-12",
+  "scope": "All14 local production-build checks. Winking and Deal mobile repeated after final footprint sizing; other results precede that image-only refinement. Exact-head remote CI remains required.",
+  "results": [
+    {
+      "route": "/",
+      "preset": "mobile",
+      "performance": 96,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2629.873,
+      "tbtMs": 0
+    },
+    {
+      "route": "/",
+      "preset": "desktop",
+      "performance": 99,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 849.4207999999999,
+      "tbtMs": 0
+    },
+    {
+      "route": "/panel",
+      "preset": "mobile",
+      "performance": 96,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2630.0423,
+      "tbtMs": 0
+    },
+    {
+      "route": "/panel",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 524.9355,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fx",
+      "preset": "mobile",
+      "performance": 95,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2704.7506000000003,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fx",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 606.2162,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fusion",
+      "preset": "mobile",
+      "performance": 96,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2707.5827,
+      "tbtMs": 0
+    },
+    {
+      "route": "/fusion",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 588.6563,
+      "tbtMs": 0
+    },
+    {
+      "route": "/winking-star",
+      "preset": "mobile",
+      "performance": 95,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2709.5358000000006,
+      "tbtMs": 0
+    },
+    {
+      "route": "/winking-star",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 646.9988999999999,
+      "tbtMs": 0
+    },
+    {
+      "route": "/deal-model",
+      "preset": "mobile",
+      "performance": 95,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2707.4899,
+      "tbtMs": 0
+    },
+    {
+      "route": "/deal-model",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 645.6965,
+      "tbtMs": 0
+    },
+    {
+      "route": "/uoaui",
+      "preset": "mobile",
+      "performance": 96,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2557.9570999999996,
+      "tbtMs": 0
+    },
+    {
+      "route": "/uoaui",
+      "preset": "desktop",
+      "performance": 100,
+      "otherCategories": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 638.5039999999999,
+      "tbtMs": 0
+    }
+  ]
+}

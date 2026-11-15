@@ -1,0 +1,593 @@
+{
+  "date": "2026-10-12",
+  "scope": "Current Home and five project desktop/mobile editable text; original artwork preserved except verified lettering corrections.",
+  "changes": [
+    {
+      "key": "Fx",
+      "edits": [
+        {
+          "id": "285:827",
+          "before": "We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.",
+          "after": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view. The trade-off was a denser chart that needed careful hierarchy.",
+          "height": 93,
+          "parent": "274:868"
+        },
+        {
+          "id": "285:836",
+          "before": "We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.",
+          "after": "I explored two linked panels and one combined chart. I chose the combined canvas to keep price and progress in the same field of view. The trade-off was a denser chart that needed careful hierarchy.",
+          "height": 186,
+          "parent": "274:1123"
+        },
+        {
+          "id": "285:828",
+          "before": "One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.",
+          "after": "I chose one canvas with a dual axis, with careful hierarchy to keep the denser chart readable.",
+          "height": 62,
+          "parent": "274:868"
+        },
+        {
+          "id": "285:837",
+          "before": "One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.",
+          "after": "I chose one canvas with a dual axis, with careful hierarchy to keep the denser chart readable.",
+          "height": 93,
+          "parent": "274:1123"
+        },
+        {
+          "id": "285:830",
+          "before": "The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.",
+          "after": "The limit price log showed orders being changed mid-flight. I reviewed a menu-based edit and drag-to-reprice with the business and charting vendor. I chose drag so the action stayed beside the price the trader was watching.",
+          "height": 93,
+          "parent": "274:967"
+        },
+        {
+          "id": "285:839",
+          "before": "The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.",
+          "after": "The limit price log showed orders being changed mid-flight. I reviewed a menu-based edit and drag-to-reprice with the business and charting vendor. I chose drag so the action stayed beside the price the trader was watching.",
+          "height": 186,
+          "parent": "274:1222"
+        },
+        {
+          "id": "384:5728",
+          "before": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the test records under the decision map are what I have.",
+          "after": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the decision records under the decision map are what I have.",
+          "height": 106,
+          "parent": "384:5726"
+        },
+        {
+          "id": "384:5821",
+          "before": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the test records under the decision map are what I have.",
+          "after": "No adoption numbers yet. Three measures agreed with the business for rollout: price move to trader action, tool switches per order, usage per feature. Until those run, the decision records under the decision map are what I have.",
+          "height": 159,
+          "parent": "384:5819"
+        }
+      ]
+    },
+    {
+      "key": "fusion",
+      "edits": [
+        {
+          "id": "277:916",
+          "before": "Clients onboarded with no training, and several signed after the phase two launch.",
+          "after": "Phase two opened the product to external clients.",
+          "h": 27,
+          "parent": "277:914"
+        },
+        {
+          "id": "277:1241",
+          "before": "Clients onboarded with no training, and several signed after the phase two launch.",
+          "after": "Phase two opened the product to external clients.",
+          "h": 54,
+          "parent": "277:1239"
+        },
+        {
+          "id": "48:630",
+          "before": "opened the product to external clients, and several signed after that launch",
+          "after": "opened the product to external clients",
+          "h": 53,
+          "parent": "48:629"
+        },
+        {
+          "id": "48:1471",
+          "before": "opened the product to external clients, and several signed after that launch",
+          "after": "opened the product to external clients",
+          "h": 54,
+          "parent": "48:1470"
+        },
+        {
+          "id": "48:578",
+          "before": "A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.",
+          "after": "I kept Fusion on Salt so it could follow the firm's updates, and contributed missing patterns back.",
+          "h": 62,
+          "parent": "48:577"
+        },
+        {
+          "id": "48:1419",
+          "before": "A fork would have drifted from the firm's standard within a year. A layer meant every Fusion screen stayed on the platform standard and the platform got better from our work.",
+          "after": "I kept Fusion on Salt so it could follow the firm's updates, and contributed missing patterns back.",
+          "h": 87,
+          "parent": "48:1418"
+        }
+      ]
+    },
+    {
+      "key": "deal",
+      "edits": [
+        {
+          "id": "352:6020",
+          "before": "\u201cThe summary wrote itself.\u201d",
+          "after": "\u201cMy reason stays with this iteration.\u201d",
+          "h": 11,
+          "parent": "352:5972"
+        },
+        {
+          "id": "352:6107",
+          "before": "\u201cThe summary wrote itself.\u201d",
+          "after": "\u201cMy reason stays with this iteration.\u201d",
+          "h": 11,
+          "parent": "352:6059"
+        },
+        {
+          "id": "236:486",
+          "before": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. Step five writes the sign-off summary for you.",
+          "after": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Publish the selected iteration with an owner-written reason, then review the comparison and comments before approval.",
+          "h": 48,
+          "parent": "236:481"
+        },
+        {
+          "id": "240:531",
+          "before": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Approve and sign off. Each step shows only what you need at that stage, with checks as you go. Step five writes the sign-off summary for you.",
+          "after": "Create the deal. Load the portfolio. Price and iterate. Compare and tier. Publish the selected iteration with an owner-written reason, then review the comparison and comments before approval.",
+          "h": 120,
+          "parent": "240:526"
+        },
+        {
+          "id": "236:530",
+          "before": "Iteration list, summary written for you",
+          "after": "Iteration comparison and owner-written reason",
+          "h": 32,
+          "parent": "236:487"
+        },
+        {
+          "id": "240:574",
+          "before": "Iteration list, summary written for you",
+          "after": "Iteration comparison and owner-written reason",
+          "h": 42,
+          "parent": "240:569"
+        },
+        {
+          "id": "237:499",
+          "before": "Approve and sign off\nThe tool writes the summary",
+          "after": "Publish and approve\nOwner writes the reason; approver reviews",
+          "h": 36,
+          "parent": "237:498"
+        },
+        {
+          "id": "240:703",
+          "before": "Approve and sign off \u00b7 The tool writes the summary",
+          "after": "Publish and approve \u00b7 Owner writes the reason; approver reviews",
+          "h": 30,
+          "parent": "240:702"
+        },
+        {
+          "id": "278:1270",
+          "before": "Tolerance breaches used to be found at approval, days later, by email. The flow checks each field as it changes against the rate card and tolerance rules, and step five writes the sign-off summary from what changed.",
+          "after": "I kept pricing feedback close to the work and the owner's explanation with the selected iteration. The owner writes the winning-bid reason and publishes it; the approver sees the comparison and comments before deciding.",
+          "h": 155,
+          "parent": "278:1269"
+        },
+        {
+          "id": "278:2129",
+          "before": "Tolerance breaches used to be found at approval, days later, by email. The flow checks each field as it changes against the rate card and tolerance rules, and step five writes the sign-off summary from what changed.",
+          "after": "I kept pricing feedback close to the work and the owner's explanation with the selected iteration. The owner writes the winning-bid reason and publishes it; the approver sees the comparison and comments before deciding.",
+          "h": 174,
+          "parent": "278:2128"
+        },
+        {
+          "id": "238:531",
+          "before": "Delivered",
+          "after": "Design scope",
+          "h": 23,
+          "parent": "238:527"
+        },
+        {
+          "id": "241:606",
+          "before": "Delivered",
+          "after": "Design scope",
+          "h": 23,
+          "parent": "241:602"
+        },
+        {
+          "id": "238:532",
+          "before": "Six design phases to January 2024: deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow. Reviewed with the four teams at every phase.",
+          "after": "Six design phases to January 2024, covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase.",
+          "h": 72,
+          "parent": "238:527"
+        },
+        {
+          "id": "241:607",
+          "before": "Six design phases to January 2024: deals, portfolio, pricing, tiering, ADA specs, smart pricing, then the deal-owner dashboard and the approver workflow. Reviewed with the four teams at every phase.",
+          "after": "Six design phases to January 2024, covering deals, portfolio, pricing, tiering, ADA specs, the deal-owner dashboard and the approver workflow. Smart pricing was explored with the data analyst but was not built in my time. I reviewed the work with the four teams at each phase.",
+          "h": 168,
+          "parent": "241:602"
+        },
+        {
+          "id": "242:529",
+          "before": "Screens from the Deal Model stakeholder summary, phases one to six. Client names, people and internal links are replaced.",
+          "after": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
+          "h": 56,
+          "parent": "242:526"
+        },
+        {
+          "id": "242:598",
+          "before": "Screens from the Deal Model stakeholder summary, phases one to six. Client names, people and internal links are replaced.",
+          "after": "Original screens from the Deal Model stakeholder design file, phases one to six. These are design artefacts, not live production captures.",
+          "h": 96,
+          "parent": "242:595"
+        }
+      ]
+    },
+    {
+      "key": "ai",
+      "edits": [
+        {
+          "id": "277:1505",
+          "before": "We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable. Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.",
+          "after": "I use defined canvas blocks with native component mappings where available and explicit fallbacks where a system has no equivalent. The output is something a developer can inspect.",
+          "h": 124,
+          "parent": "277:1504"
+        },
+        {
+          "id": "277:2020",
+          "before": "We explored letting the model draw free-form UI and restricting it to each system's published React components. Free-form looked impressive and was unusable. Official-only won. The output is something a developer recognises, at the cost of the model having fewer moves.",
+          "after": "I use defined canvas blocks with native component mappings where available and explicit fallbacks where a system has no equivalent. The output is something a developer can inspect.",
+          "h": 145,
+          "parent": "277:2019"
+        },
+        {
+          "id": "48:2346",
+          "before": "Each system's published React components, never overridden.",
+          "after": "Published React components where available; explicit markup fallbacks and a class-based in-house system.",
+          "h": 24,
+          "parent": "48:2344"
+        },
+        {
+          "id": "48:3194",
+          "before": "Each system's published React components, never overridden.",
+          "after": "Published React components where available; explicit markup fallbacks and a class-based in-house system.",
+          "h": 70,
+          "parent": "48:3192"
+        },
+        {
+          "id": "48:2469",
+          "before": "A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our system, showed both, and we could ship in two weeks instead of months. A generated screen still needs someone who watched how people work.",
+          "after": "A colleague brought me a screen made with AI. I rebuilt it in our own components and showed both. The existing components made it faster to build and kept it consistent with the platform.",
+          "h": 92,
+          "parent": "48:2468"
+        },
+        {
+          "id": "48:3317",
+          "before": "A colleague brought me a screen made with AI. It looked fine, used none of our components, and nobody had tested it with a user. I rebuilt it in our system, showed both, and we could ship in two weeks instead of months. A generated screen still needs someone who watched how people work.",
+          "after": "A colleague brought me a screen made with AI. I rebuilt it in our own components and showed both. The existing components made it faster to build and kept it consistent with the platform.",
+          "h": 144,
+          "parent": "48:3316"
+        },
+        {
+          "id": "48:2342",
+          "before": "Tokens, density scales and theming for five systems in one structure. Where they disagree, the strictest definition wins.",
+          "after": "Tokens, density and theme settings support five systems. Component mappings and explicit fallbacks adapt the same canvas to each system.",
+          "h": 70,
+          "parent": "48:2340"
+        },
+        {
+          "id": "48:3190",
+          "before": "Tokens, density scales and theming for five systems in one structure. Where they disagree, the strictest definition wins.",
+          "after": "Tokens, density and theme settings support five systems. Component mappings and explicit fallbacks adapt the same canvas to each system.",
+          "h": 93,
+          "parent": "48:3188"
+        }
+      ]
+    },
+    {
+      "key": "winking",
+      "edits": [
+        {
+          "id": "48:3581",
+          "before": "Kids check off their day. Stars hatch a pet that grows through four stages as the week fills up. On Monday a new pet arrives, so there is always something to look forward to.",
+          "after": "Kids check off their day. Stars hatch a pet that grows as activities are completed. On Monday a new pet arrives, so there is always something to look forward to.",
+          "h": 119,
+          "parent": "48:3580"
+        },
+        {
+          "id": "48:4646",
+          "before": "Kids check off their day. Stars hatch a pet that grows through four stages as the week fills up. On Monday a new pet arrives, so there is always something to look forward to.",
+          "after": "Kids check off their day. Stars hatch a pet that grows as activities are completed. On Monday a new pet arrives, so there is always something to look forward to.",
+          "h": 173,
+          "parent": "48:4645"
+        },
+        {
+          "id": "48:3796",
+          "before": "The sample family is already there. A parent sees the whole loop before adding anyone.",
+          "after": "Create a family from the welcome screen, or choose Try the Sample Family to explore the loop before personal setup.",
+          "h": 147,
+          "parent": "48:3795"
+        },
+        {
+          "id": "48:4861",
+          "before": "The sample family is already there. A parent sees the whole loop before adding anyone.",
+          "after": "Create a family from the welcome screen, or choose Try the Sample Family to explore the loop before personal setup.",
+          "h": 101,
+          "parent": "48:4860"
+        },
+        {
+          "id": "48:4324",
+          "before": "The Sample Family is the empty state. Add your own kids when the loop makes sense, and the sample goes away.",
+          "after": "Create a family from the welcome screen, or choose Try the Sample Family to explore the loop before personal setup.",
+          "h": 62,
+          "parent": "48:4323"
+        },
+        {
+          "id": "48:5421",
+          "before": "The Sample Family is the empty state. Add your own kids when the loop makes sense, and the sample goes away.",
+          "after": "Create a family from the welcome screen, or choose Try the Sample Family to explore the loop before personal setup.",
+          "h": 87,
+          "parent": "48:5420"
+        },
+        {
+          "id": "277:2738",
+          "before": "Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.",
+          "after": "I offer the Sample Family as a way to inspect the loop before creating a family. The landing page also lets a parent start setup directly, so trying the sample is a choice.",
+          "h": 124,
+          "parent": "277:2737"
+        },
+        {
+          "id": "277:3307",
+          "before": "Explored a tour and an empty state. Both asked parents to invest before they'd seen the loop. The Sample Family shows a full week on first open, and you replace it when you're ready.",
+          "after": "I offer the Sample Family as a way to inspect the loop before creating a family. The landing page also lets a parent start setup directly, so trying the sample is a choice.",
+          "h": 145,
+          "parent": "277:3306"
+        },
+        {
+          "id": "277:2742",
+          "before": "First-run sample data has to be replaced, so there is a clear swap step.",
+          "after": "The demo and personal setup are separate routes, so parents need a clear way to move between them.",
+          "h": 54,
+          "parent": "277:2740"
+        },
+        {
+          "id": "277:3311",
+          "before": "First-run sample data has to be replaced, so there is a clear swap step.",
+          "after": "The demo and personal setup are separate routes, so parents need a clear way to move between them.",
+          "h": 81,
+          "parent": "277:3309"
+        },
+        {
+          "id": "277:3037",
+          "before": "Stars count up and never down. One missed bath does not end the week, and Monday always brings a new egg.",
+          "after": "A missed day does not deduct stars. The pet grows as activities are completed, and Monday brings a new egg.",
+          "h": 18,
+          "parent": "277:3007"
+        },
+        {
+          "id": "277:3606",
+          "before": "Stars count up and never down. One missed bath does not end the week, and Monday always brings a new egg.",
+          "after": "A missed day does not deduct stars. The pet grows as activities are completed, and Monday brings a new egg.",
+          "h": 12,
+          "parent": "277:3576"
+        },
+        {
+          "id": "277:3097",
+          "before": "Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.",
+          "after": "A missed day does not deduct stars. The pet grows as activities are completed, and Monday brings a new egg.",
+          "h": 93,
+          "parent": "277:3096"
+        },
+        {
+          "id": "277:3666",
+          "before": "Daily stars count up and never down. The pet grows across the week on what was done, so one missed bath doesn't end the week, and Monday always brings a new egg.",
+          "after": "A missed day does not deduct stars. The pet grows as activities are completed, and Monday brings a new egg.",
+          "h": 87,
+          "parent": "277:3665"
+        },
+        {
+          "id": "277:3038",
+          "before": "Four stages",
+          "after": "Earlier exploration",
+          "h": 10,
+          "parent": "277:3007"
+        },
+        {
+          "id": "277:3607",
+          "before": "Four stages",
+          "after": "Earlier exploration",
+          "h": 7,
+          "parent": "277:3576"
+        },
+        {
+          "id": "277:3057",
+          "before": "A weekly pet with four stages",
+          "after": "Four-stage pet exploration",
+          "h": 31,
+          "parent": "277:3004"
+        },
+        {
+          "id": "277:3626",
+          "before": "A weekly pet with four stages",
+          "after": "Four-stage pet exploration",
+          "h": 29,
+          "parent": "277:3573"
+        },
+        {
+          "id": "48:4058",
+          "before": "The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.",
+          "after": "An earlier four-stage pet exploration. The current app uses star thresholds across stages 0\u20136, rather than fixed daily stages.",
+          "h": 60,
+          "parent": "48:4057"
+        },
+        {
+          "id": "48:5120",
+          "before": "The pet grows through four stages as the week fills. In the app that takes seven days. Here you can tick all six and watch it now.",
+          "after": "An earlier four-stage pet exploration. The current app uses star thresholds across stages 0\u20136, rather than fixed daily stages.",
+          "h": 144,
+          "parent": "48:5119"
+        },
+        {
+          "id": "384:6416",
+          "before": "Repeat with the next routine. Stars count up, never down.",
+          "after": "Repeat with the next routine. A missed day does not deduct stars.",
+          "h": 21,
+          "parent": "384:6415"
+        },
+        {
+          "id": "384:6529",
+          "before": "Repeat with the next routine. Stars count up, never down.",
+          "after": "Repeat with the next routine. A missed day does not deduct stars.",
+          "h": 41,
+          "parent": "384:6528"
+        },
+        {
+          "id": "I384:6406;384:6360",
+          "before": "\u2022 Stars count up, never down\n\u2022 The pet grows on what was done",
+          "after": "\u2022 A missed day does not deduct stars\n\u2022 The pet grows on what was done",
+          "h": 53,
+          "parent": "384:6406"
+        },
+        {
+          "id": "I384:6519;384:6360",
+          "before": "\u2022 Stars count up, never down\n\u2022 The pet grows on what was done",
+          "after": "\u2022 A missed day does not deduct stars\n\u2022 The pet grows on what was done",
+          "h": 53,
+          "parent": "384:6519"
+        }
+      ]
+    },
+    {
+      "key": "home",
+      "edits": [
+        {
+          "id": "I109:1964;109:88",
+          "before": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Traders observed on the desk. My own kids at bedtime.",
+          "after": "Twelve months with the CAM ops desk. A year embedded with four teams on Deal Model. Paper tests with analysts on Data Manager. Traders observed on the desk for FX. My own kids at bedtime.",
+          "h": 144,
+          "parent": "I109:1964;109:87"
+        },
+        {
+          "id": "I109:2226;109:262",
+          "before": "Twelve months with an ops desk. A year embedded with four teams. Paper tests with analysts. Traders observed on the desk. My own kids at bedtime.",
+          "after": "Twelve months with the CAM ops desk. A year embedded with four teams on Deal Model. Paper tests with analysts on Data Manager. Traders observed on the desk for FX. My own kids at bedtime.",
+          "h": 144,
+          "parent": "I109:2226;109:261"
+        },
+        {
+          "id": "I109:1964;109:116",
+          "before": "Zero violations on Fusion. VoiceOver, Dynamic Type and Calm Mode in Winking Star. Shape and dash beside colour on every FX series.",
+          "after": "Zero violations on Fusion. Labelled tabs for VoiceOver, text scaling and quieter feedback in Winking Star. Colour with line styles, fill markers and labelled states on the FX chart.",
+          "h": 116,
+          "parent": "I109:1964;109:115"
+        },
+        {
+          "id": "I109:2226;109:290",
+          "before": "Zero violations on Fusion. VoiceOver, Dynamic Type and Calm Mode in Winking Star. Shape and dash beside colour on every FX series.",
+          "after": "Zero violations on Fusion. Labelled tabs for VoiceOver, text scaling and quieter feedback in Winking Star. Colour with line styles, fill markers and labelled states on the FX chart.",
+          "h": 116,
+          "parent": "I109:2226;109:289"
+        }
+      ]
+    },
+    {
+      "key": "fusionTakeaway",
+      "edits": [
+        {
+          "id": "384:5159",
+          "before": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and bring the accessibility specialist in from week one.",
+          "after": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and keep the accessibility specialist involved from the first review.",
+          "h": 106,
+          "parent": "384:5157"
+        },
+        {
+          "id": "384:5250",
+          "before": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and bring the accessibility specialist in from week one.",
+          "after": "Get in front of end users directly and earlier. The start leaned on product-owner requirements. Ship a leaner version one with fewer modules, and keep the accessibility specialist involved from the first review.",
+          "h": 132,
+          "parent": "384:5248"
+        }
+      ]
+    }
+  ],
+  "additional": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "[{\"id\":\"352:6008\",\"before\":\"\u201cIs this out of tolerance?\u201d\",\"after\":\"\u201cWhy does this transaction rate differ?\u201d\"},{\"id\":\"352:6095\",\"before\":\"\u201cIs this out of tolerance?\u201d\",\"after\":\"\u201cWhy does this transaction rate differ?\u201d\"}]"
+        }
+      ]
+    }
+  ],
+  "reflow": [
+    {
+      "key": "deal",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mutatedNodeIds\":[\"240:569\",\"251:730\",\"240:526\",\"240:675\",\"241:526\",\"241:602\",\"242:595\",\"239:496\",\"239:495\",\"239:494\",\"239:493\",\"237:498\",\"237:465\",\"237:503\",\"237:460\",\"238:460\",\"238:527\",\"233:463\",\"233:462\",\"233:461\",\"233:460\",\"238:533\",\"238:534\",\"238:535\",\"238:536\",\"238:537\",\"238:538\",\"238:539\",\"238:540\",\"238:541\",\"238:542\",\"238:543\",\"238:544\",\"238:545\",\"238:546\",\"238:547\",\"241:608\",\"241:609\",\"241:610\",\"241:611\",\"241:612\",\"241:613\",\"241:614\",\"241:615\",\"241:616\",\"241:617\",\"241:618\",\"241:619\",\"241:620\",\"241:621\",\"241:622\"]}"
+          }
+        ]
+      }
+    },
+    {
+      "key": "ai",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mutatedNodeIds\":[\"48:3195\",\"48:3192\",\"48:3191\",\"48:3188\"]}"
+          }
+        ]
+      }
+    },
+    {
+      "key": "winking",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mutatedNodeIds\":[\"48:4860\"]}"
+          }
+        ]
+      }
+    },
+    {
+      "key": "home",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mutatedNodeIds\":[\"I109:1964;109:87\",\"I109:2226;109:261\",\"I109:1964;109:115\"]}"
+          }
+        ]
+      }
+    }
+  ],
+  "proof": [
+    "/private/tmp/final-copy-proof-0.png",
+    "/private/tmp/final-copy-proof-1.png",
+    "/private/tmp/final-copy-proof-2.png"
+  ],
+  "sourceNotes": "Cross-checked interview notes and implementation audit: Data Manager analyst test is separate from Fusion Analytics; FX desk observation is not a measured two-layout test; original Deal source uses owner-written reason; current Winking sample is optional and pet growth is star-based.",
+  "assets": [
+    {
+      "path": "public/art/deal-experience.svg",
+      "node": "352:5972",
+      "correction": "Owner-written reason and transaction-rate warning; exact original source group exported without ancestor page background.",
+      "sha256": "a8a4ff9577cc944f4845389888230fe64342f00c53d4f3f5a2d379e4c2ab3941"
+    },
+    {
+      "path": "src/assets/img/figma-sync/winking-decision-5-0.png",
+      "node": "277:3007",
+      "correction": "Four-stage artwork explicitly labelled earlier exploration; missed days do not deduct stars; exact source export.",
+      "sha256": "0d03fa85de2885b4cef62bdf162fc8aac06d6570d7065c78c301e315aed3206d"
+    }
+  ]
+}

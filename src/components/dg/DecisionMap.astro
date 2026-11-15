@@ -1,0 +1,53 @@
+---
+import FlatArrow from "../FlatArrow.astro";
+import { decisions, type Project } from '../../lib/process';
+import DecisionFlow from './DecisionFlow.astro';
+import Schematic from './Schematic.astro';
+import AuthoredImage from '../AuthoredImage.astro';
+interface Props { project: Project }
+const { project } = Astro.props;
+const fxNarrative=[
+ {title:'Progress and price on one canvas, not two panels',body:'We explored two linked panels and one combined chart. Two panels were cleaner to build, but traders flicked between them under pressure and missed the moment.',verdict:'One canvas with a dual axis won, at the cost of a denser screen that needed careful hierarchy.'},
+ {title:'Reprice on the chart, not in a settings menu',body:'The limit price log showed orders being changed mid-flight. We tested a menu-based edit against drag-to-reprice on the price line.',verdict:'Drag won because the decision and the action sit in the same place, with a pre-filled ticket as the safety step.'},
+ {title:'Studies on market prices only. A decision I reversed',body:"My spec let analytics studies run on any series, including the order's own fills. The vendor showed that order data has gaps, so a study on it looks confident and is wrong.",verdict:"I reversed it. Studies run on bid, ask and mid only, and the picker says why. Flexibility that produces plausible but wrong output isn't a feature."},
+];
+const sketches={fx:[['dual','split'],['ticket','menu'],['studies','gaps']],fusion:[['widgets','fixed'],['two','three'],['shared','fork']],ai:[['components','freeform'],['systems','fixed'],['tune','prompt']],winking:[['star','checklist'],['sample','empty'],['unlock','subscription']]};
+const fxDescriptions = [
+  ['One canvas with price lines, a stepped limit and order progress on a dual axis.', 'Two linked panels separate market prices from execution progress.'],
+  ['Dragging the limit line opens a pre-filled reprice ticket beside the chart.', 'A separate order-settings menu edits the limit price away from the chart.'],
+  ['The study-source picker offers bid, ask and mid market prices.', 'The alternative allows own fills, whose data gaps make the study unreliable.'],
+];
+---
+<section class:list={['decision-map', {'authored-fx': project === 'fx'}]} aria-labelledby={`${project}-decision-map-title`} id={`${project}-decision-map`}>
+  <header class="process-heading"><h3 id={`${project}-decision-map-title`}>Decision map</h3><p>The calls, what I tried instead, and what each one cost.</p></header>
+  <slot name="flow"><DecisionFlow project={project} /></slot>
+  <ol class="visual-decisions">{decisions[project].map((d,i) => <li>
+    <div class="choice-origin"><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><h4>{d.question}</h4></div>
+    <div class="choice-fork">
+      <div class="choice-path selected"><div class="choice-status"><span aria-hidden="true">✓</span> I chose</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-chosen.png`} alt={fxDescriptions[i][0]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][0]} />}<p>{d.chosen}</p></div>
+      <div class="choice-path alternative"><div class="choice-status"><FlatArrow /> Alternative</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-alternative.png`} alt={fxDescriptions[i][1]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][1]} />}<p>{d.alternative}</p></div>
+    </div>
+    {project==='fx'?<div class="choice-narrative"><h5>{fxNarrative[i].title}</h5><p>{fxNarrative[i].body}</p><p class="verdict">{fxNarrative[i].verdict}</p></div>:<p class="choice-consequence">{d.reason}</p>}
+  </li>)}</ol>
+</section>
+<style>
+.decision-map>.visual-decisions{display:grid;grid-template-columns:1fr;gap:80px;list-style:none;padding:0;margin-top:64px}.decision-map>.visual-decisions>li{display:grid;grid-template-columns:minmax(140px,.65fr) minmax(0,2fr) minmax(190px,1fr);gap:36px;align-items:center;border:0;padding:0}.choice-origin{position:relative;display:flex;gap:20px;align-items:center}.choice-origin>span{flex:none;display:grid;place-items:center;width:38px;height:38px;position:relative;font-size:13px;color:var(--project-ink)}.choice-origin>span:before{content:'';position:absolute;inset:3px;border:1px solid var(--project-ink);transform:rotate(45deg)}.choice-origin h4{font-size:22px;line-height:1.4;margin:0}.choice-fork{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:32px 0}.choice-fork:before{content:'';position:absolute;left:-25px;top:50%;width:25px;border-top:1px solid var(--project-ink)}.choice-fork:after{content:'';position:absolute;left:0;right:0;top:0;height:20px;border-top:1px solid var(--project-ink);border-left:1px solid var(--project-ink);border-right:1px dashed var(--fg-2)}.choice-path{position:relative;min-width:0;padding:20px;background:var(--project-wash);border-bottom:2px solid var(--project-ink)}.choice-path.alternative{background:transparent;border:1px dashed var(--hair)}.choice-status{font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center;margin-bottom:24px;color:var(--fg-2)}.choice-path p{font-size:17px;line-height:1.5;margin:20px 0 0}.choice-consequence{position:relative;font-size:17px;line-height:1.75;margin:0;padding:24px 0 24px 24px;border-left:2px solid var(--project-ink)}.choice-consequence:before{content:'';position:absolute;left:-37px;top:50%;width:35px;border-top:1px solid var(--project-ink)}
+@media(max-width:1100px){.decision-map>.visual-decisions>li{grid-template-columns:minmax(0,.55fr) minmax(0,1.5fr)}.choice-consequence{grid-column:2}.choice-consequence:before{display:none}}
+@media(max-width:640px){.decision-map>.visual-decisions{gap:56px;margin-top:40px}.decision-map>.visual-decisions>li{display:block}.choice-origin{margin-bottom:32px;gap:16px}.choice-origin:after{content:'';position:absolute;left:19px;bottom:-32px;height:25px;border-left:1px solid var(--project-ink)}.choice-fork{gap:14px;padding:20px 0}.choice-fork:before{display:none}.choice-path{padding:12px}.choice-status{margin-bottom:20px}.choice-path p{font-size:15px;line-height:1.55}.choice-consequence{font-size:16px;margin-top:8px;padding:12px 0 12px 18px}.choice-origin h4{font-size:22px}}
+.authored-fx{scroll-margin-top:140px}
+:global(.case-page #fx-decisions .body>.authored-fx){grid-column:4/-1;width:100%;max-width:1040px}
+.choice-narrative{max-width:68ch;display:grid;gap:18px;font-size:18px;line-height:1.75;color:var(--fg-2)}
+.choice-narrative h5{font:500 24px/1.3 var(--body);letter-spacing:-.02em;color:var(--fg);margin:0}
+.choice-narrative p{margin:0}.choice-narrative .verdict{color:var(--fg)}
+@media(max-width:900px){:global(.case-page #fx-decisions .body>.authored-fx){grid-column:1/-1}}
+.authored-fx>.visual-decisions>li{grid-template-columns:1fr;gap:28px;padding-top:36px;border-top:1px solid var(--divider)}
+.authored-fx .choice-origin{gap:24px}
+.authored-fx .choice-origin>span{width:auto;height:auto}
+.authored-fx .choice-origin>span:before,.authored-fx .choice-origin:after,.authored-fx .choice-fork:before,.authored-fx .choice-fork:after,.authored-fx .choice-consequence:before{display:none}
+.authored-fx .choice-origin h4{font-size:clamp(24px,2.5vw,36px);letter-spacing:-.035em;line-height:1.2}
+.authored-fx .choice-fork{padding:0;gap:32px}
+.authored-fx .choice-path{padding:0;border:0;background:transparent}
+.authored-fx .choice-status{margin-bottom:16px;color:var(--project-ink)}
+.authored-fx .choice-consequence{grid-column:auto;max-width:72ch;padding:0 0 0 24px}
+@media(max-width:760px){.authored-fx .choice-fork{grid-template-columns:1fr;gap:40px}.authored-fx .choice-origin{margin-bottom:0}.authored-fx>.visual-decisions>li{display:grid}.authored-fx .choice-consequence{margin-top:0}}
+</style>

@@ -1,0 +1,1859 @@
+{
+  "fx": {
+    "title": "FX · from monitoring to action",
+    "subtitle": "Trader inspects a working order, reviews a change and returns to monitoring.",
+    "scope": "Original specified flow · beta. Public rebuild uses simulated data and implements only part of this sequence.",
+    "width": 1120,
+    "height": 1528,
+    "nodes": [
+      {
+        "id": "watch",
+        "x": 410,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "start",
+        "actor": "Trader · working order",
+        "title": "Monitor the canvas",
+        "body": "Progress, fills and benchmarks\nin one view"
+      },
+      {
+        "id": "inspect",
+        "x": 410,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Trader · inspection",
+        "title": "Inspect a fill",
+        "body": "Hover for clip detail; right-click\nthe exact time and price"
+      },
+      {
+        "id": "act",
+        "x": 410,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "decision",
+        "actor": "Decision",
+        "title": "Change the order?",
+        "body": "Keep watching or begin\nan intervention"
+      },
+      {
+        "id": "passive",
+        "x": 40,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "No change",
+        "title": "Stay passive",
+        "body": "Continue watching the order\nagainst its benchmarks"
+      },
+      {
+        "id": "reprice",
+        "x": 410,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Trader · chart action",
+        "title": "Drag the limit line",
+        "body": "Propose a new limit at the\npoint of the decision"
+      },
+      {
+        "id": "ticket",
+        "x": 410,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Trader · review",
+        "title": "Review the ticket",
+        "body": "Pre-filled details make the\nproposed change explicit"
+      },
+      {
+        "id": "cancel",
+        "x": 780,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Cancel",
+        "title": "Keep the current order",
+        "body": "Nothing changes in the\noriginal specified sequence"
+      },
+      {
+        "id": "confirm",
+        "x": 410,
+        "y": 1104,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Trader · confirmation",
+        "title": "Confirm the change",
+        "body": "The compliance step remains\nin the chart context"
+      },
+      {
+        "id": "record",
+        "x": 410,
+        "y": 1308,
+        "width": 300,
+        "height": 128,
+        "kind": "end",
+        "actor": "System · specified behaviour",
+        "title": "Record the change",
+        "body": "An audit trail records the\norder change"
+      }
+    ],
+    "edges": [
+      {
+        "source": "watch",
+        "target": "inspect",
+        "label": "Inspect",
+        "points": [
+          [
+            560,
+            212
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          574,
+          240.0
+        ],
+        "back": false
+      },
+      {
+        "source": "inspect",
+        "target": "act",
+        "label": "",
+        "points": [
+          [
+            560,
+            416
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          574,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "act",
+        "target": "passive",
+        "label": "No",
+        "points": [
+          [
+            410,
+            556
+          ],
+          [
+            340,
+            556
+          ]
+        ],
+        "labelAt": [
+          365,
+          524
+        ],
+        "back": false
+      },
+      {
+        "source": "passive",
+        "target": "watch",
+        "label": "Keep watching",
+        "points": [
+          [
+            40,
+            556
+          ],
+          [
+            20,
+            556
+          ],
+          [
+            20,
+            44
+          ],
+          [
+            560,
+            44
+          ],
+          [
+            560,
+            84
+          ]
+        ],
+        "labelAt": [
+          40,
+          22
+        ],
+        "back": true
+      },
+      {
+        "source": "act",
+        "target": "reprice",
+        "label": "Yes",
+        "points": [
+          [
+            560,
+            620
+          ],
+          [
+            560,
+            696
+          ]
+        ],
+        "labelAt": [
+          574,
+          648.0
+        ],
+        "back": false
+      },
+      {
+        "source": "reprice",
+        "target": "ticket",
+        "label": "Review",
+        "points": [
+          [
+            560,
+            824
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          574,
+          852.0
+        ],
+        "back": false
+      },
+      {
+        "source": "ticket",
+        "target": "cancel",
+        "label": "Cancel",
+        "points": [
+          [
+            710,
+            964
+          ],
+          [
+            780,
+            964
+          ]
+        ],
+        "labelAt": [
+          716,
+          931
+        ],
+        "back": false
+      },
+      {
+        "source": "cancel",
+        "target": "watch",
+        "label": "Return to monitor",
+        "points": [
+          [
+            1080,
+            964
+          ],
+          [
+            1100,
+            964
+          ],
+          [
+            1100,
+            24
+          ],
+          [
+            560,
+            24
+          ],
+          [
+            560,
+            84
+          ]
+        ],
+        "labelAt": [
+          854,
+          2
+        ],
+        "back": true
+      },
+      {
+        "source": "ticket",
+        "target": "confirm",
+        "label": "Confirm",
+        "points": [
+          [
+            560,
+            1028
+          ],
+          [
+            560,
+            1104
+          ]
+        ],
+        "labelAt": [
+          574,
+          1056.0
+        ],
+        "back": false
+      },
+      {
+        "source": "confirm",
+        "target": "record",
+        "label": "",
+        "points": [
+          [
+            560,
+            1232
+          ],
+          [
+            560,
+            1308
+          ]
+        ],
+        "labelAt": [
+          574,
+          1260.0
+        ],
+        "back": false
+      },
+      {
+        "source": "record",
+        "target": "watch",
+        "label": "Continue monitoring",
+        "points": [
+          [
+            410,
+            1372
+          ],
+          [
+            20,
+            1372
+          ],
+          [
+            20,
+            44
+          ],
+          [
+            560,
+            44
+          ],
+          [
+            560,
+            84
+          ]
+        ],
+        "labelAt": [
+          44,
+          1304
+        ],
+        "back": true
+      }
+    ]
+  },
+  "fusion": {
+    "title": "Fusion · from data to a board-ready view",
+    "subtitle": "An analyst shapes the workspace, checks the view, then presents and reuses it.",
+    "scope": "Case-study workflow · entitlement-based access and analytics in the same surface.",
+    "width": 1120,
+    "height": 1528,
+    "nodes": [
+      {
+        "id": "open",
+        "x": 410,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "start",
+        "actor": "Analyst",
+        "title": "Open analytics",
+        "body": "Available data and controls\nfollow the user’s entitlements"
+      },
+      {
+        "id": "cube",
+        "x": 410,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Analyst · data selection",
+        "title": "Select a data cube",
+        "body": "Choose the portfolio data\nfeeding the analysis"
+      },
+      {
+        "id": "filter",
+        "x": 410,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Analyst · workspace",
+        "title": "Filter and slice",
+        "body": "Refine asset class, period\nand the relevant dimensions"
+      },
+      {
+        "id": "analyse",
+        "x": 410,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Analyst · analysis",
+        "title": "Read the results",
+        "body": "Returns, attribution and risk\nin a modular widget grid"
+      },
+      {
+        "id": "ready",
+        "x": 410,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "decision",
+        "actor": "Decision",
+        "title": "Ready to present?",
+        "body": "Check whether this view\nanswers the audience’s question"
+      },
+      {
+        "id": "refine",
+        "x": 40,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Refinement",
+        "title": "Adjust the view",
+        "body": "Return to filters when a\ndifferent slice is needed"
+      },
+      {
+        "id": "present",
+        "x": 410,
+        "y": 1104,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Analyst · presentation",
+        "title": "Present in place",
+        "body": "Use the presentation view\nwithout leaving the workspace"
+      },
+      {
+        "id": "reuse",
+        "x": 410,
+        "y": 1308,
+        "width": 300,
+        "height": 128,
+        "kind": "end",
+        "actor": "Analyst → team",
+        "title": "Share and reuse",
+        "body": "Carry the prepared view\ninto the next conversation"
+      }
+    ],
+    "edges": [
+      {
+        "source": "open",
+        "target": "cube",
+        "label": "",
+        "points": [
+          [
+            560,
+            212
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          574,
+          240.0
+        ],
+        "back": false
+      },
+      {
+        "source": "cube",
+        "target": "filter",
+        "label": "",
+        "points": [
+          [
+            560,
+            416
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          574,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "filter",
+        "target": "analyse",
+        "label": "",
+        "points": [
+          [
+            560,
+            620
+          ],
+          [
+            560,
+            696
+          ]
+        ],
+        "labelAt": [
+          574,
+          648.0
+        ],
+        "back": false
+      },
+      {
+        "source": "analyse",
+        "target": "ready",
+        "label": "",
+        "points": [
+          [
+            560,
+            824
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          574,
+          852.0
+        ],
+        "back": false
+      },
+      {
+        "source": "ready",
+        "target": "refine",
+        "label": "No",
+        "points": [
+          [
+            410,
+            964
+          ],
+          [
+            340,
+            964
+          ]
+        ],
+        "labelAt": [
+          365,
+          931
+        ],
+        "back": false
+      },
+      {
+        "source": "refine",
+        "target": "filter",
+        "label": "Change filters",
+        "points": [
+          [
+            40,
+            964
+          ],
+          [
+            20,
+            964
+          ],
+          [
+            20,
+            556
+          ],
+          [
+            410,
+            556
+          ]
+        ],
+        "labelAt": [
+          40,
+          704
+        ],
+        "back": true
+      },
+      {
+        "source": "ready",
+        "target": "present",
+        "label": "Yes",
+        "points": [
+          [
+            560,
+            1028
+          ],
+          [
+            560,
+            1104
+          ]
+        ],
+        "labelAt": [
+          574,
+          1056.0
+        ],
+        "back": false
+      },
+      {
+        "source": "present",
+        "target": "reuse",
+        "label": "",
+        "points": [
+          [
+            560,
+            1232
+          ],
+          [
+            560,
+            1308
+          ]
+        ],
+        "labelAt": [
+          574,
+          1260.0
+        ],
+        "back": false
+      }
+    ]
+  },
+  "ai": {
+    "title": "uoaui.ai · from intent to inspectable React",
+    "subtitle": "The designer can review and refine the draft, or export directly.",
+    "scope": "Private alpha · compare and tune are optional. Export is a developer handover, not a finished product.",
+    "width": 1120,
+    "height": 1528,
+    "nodes": [
+      {
+        "id": "intent",
+        "x": 410,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "start",
+        "actor": "Designer",
+        "title": "Describe the screen",
+        "body": "Write the intent in a prompt\nor begin with a template"
+      },
+      {
+        "id": "generate",
+        "x": 410,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Model · draft",
+        "title": "Generate a screen",
+        "body": "Map to native components;\nuse explicit fallbacks as needed"
+      },
+      {
+        "id": "review",
+        "x": 410,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "decision",
+        "actor": "Designer decides",
+        "title": "What next?",
+        "body": "Review and refine the draft,\nor export React directly"
+      },
+      {
+        "id": "prompt",
+        "x": 40,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Revise intent",
+        "title": "Adjust the prompt",
+        "body": "Return to the brief when the\ndraft misses the intended job"
+      },
+      {
+        "id": "compare",
+        "x": 410,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Designer · optional review",
+        "title": "Compare systems",
+        "body": "See the same screen through\nthe five supported systems"
+      },
+      {
+        "id": "tune",
+        "x": 410,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Designer · optional tuning",
+        "title": "Tune the draft",
+        "body": "Change density, theme, charts\nor individual content"
+      },
+      {
+        "id": "export",
+        "x": 410,
+        "y": 1104,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Designer · handover",
+        "title": "Export React",
+        "body": "Export the current screen\nfor a developer to inspect"
+      },
+      {
+        "id": "inspect",
+        "x": 410,
+        "y": 1308,
+        "width": 300,
+        "height": 128,
+        "kind": "end",
+        "actor": "Developer",
+        "title": "Inspect and continue",
+        "body": "Review the generated code\nand take it into development"
+      }
+    ],
+    "edges": [
+      {
+        "source": "intent",
+        "target": "generate",
+        "label": "",
+        "points": [
+          [
+            560,
+            212
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          574,
+          240.0
+        ],
+        "back": false
+      },
+      {
+        "source": "generate",
+        "target": "review",
+        "label": "",
+        "points": [
+          [
+            560,
+            416
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          574,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "review",
+        "target": "compare",
+        "label": "Review",
+        "points": [
+          [
+            560,
+            620
+          ],
+          [
+            560,
+            696
+          ]
+        ],
+        "labelAt": [
+          574,
+          648.0
+        ],
+        "back": false
+      },
+      {
+        "source": "compare",
+        "target": "tune",
+        "label": "Refine",
+        "points": [
+          [
+            560,
+            824
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          574,
+          852.0
+        ],
+        "back": false
+      },
+      {
+        "source": "tune",
+        "target": "export",
+        "label": "Export",
+        "points": [
+          [
+            560,
+            1028
+          ],
+          [
+            560,
+            1104
+          ]
+        ],
+        "labelAt": [
+          574,
+          1056.0
+        ],
+        "back": false
+      },
+      {
+        "source": "export",
+        "target": "inspect",
+        "label": "",
+        "points": [
+          [
+            560,
+            1232
+          ],
+          [
+            560,
+            1308
+          ]
+        ],
+        "labelAt": [
+          574,
+          1260.0
+        ],
+        "back": false
+      },
+      {
+        "source": "review",
+        "target": "prompt",
+        "label": "Revise prompt",
+        "points": [
+          [
+            410,
+            556
+          ],
+          [
+            375,
+            556
+          ],
+          [
+            375,
+            352
+          ],
+          [
+            340,
+            352
+          ]
+        ],
+        "labelAt": [
+          190,
+          624
+        ],
+        "back": true
+      },
+      {
+        "source": "prompt",
+        "target": "intent",
+        "label": "Generate again",
+        "points": [
+          [
+            190,
+            288
+          ],
+          [
+            190,
+            44
+          ],
+          [
+            560,
+            44
+          ],
+          [
+            560,
+            84
+          ]
+        ],
+        "labelAt": [
+          204,
+          22
+        ],
+        "back": true
+      },
+      {
+        "source": "review",
+        "target": "export",
+        "label": "Export directly",
+        "points": [
+          [
+            710,
+            556
+          ],
+          [
+            1020,
+            556
+          ],
+          [
+            1020,
+            1168
+          ],
+          [
+            710,
+            1168
+          ]
+        ],
+        "labelAt": [
+          815,
+          654
+        ],
+        "back": false
+      },
+      {
+        "source": "tune",
+        "target": "compare",
+        "label": "Compare again",
+        "points": [
+          [
+            710,
+            964
+          ],
+          [
+            750,
+            964
+          ],
+          [
+            750,
+            760
+          ],
+          [
+            710,
+            760
+          ]
+        ],
+        "labelAt": [
+          786,
+          854
+        ],
+        "back": true
+      }
+    ]
+  },
+  "winking": {
+    "title": "Winking Star · one family, one shared routine",
+    "subtitle": "A parent sets up the family, the child sees progress, and another adult can pick up.",
+    "scope": "Current family workflow · optional iPhone Sample Family; shared routines across web and iPhone.",
+    "width": 1120,
+    "height": 1528,
+    "nodes": [
+      {
+        "id": "open",
+        "x": 410,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "start",
+        "actor": "Parent · first open",
+        "title": "Open Winking Star",
+        "body": "Create a family, or try the\noptional Sample Family on iPhone"
+      },
+      {
+        "id": "create",
+        "x": 410,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Parent · setup",
+        "title": "Create your family",
+        "body": "Set up the shared board\nand the child’s identity"
+      },
+      {
+        "id": "sample",
+        "x": 40,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Parent · optional preview",
+        "title": "Try Sample Family",
+        "body": "Explore the routine loop\nbefore personal setup"
+      },
+      {
+        "id": "child",
+        "x": 410,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Parent → child",
+        "title": "Choose a superstar",
+        "body": "Recognise their name, avatar\nand personal theme"
+      },
+      {
+        "id": "tick",
+        "x": 410,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Parent or child · daily action",
+        "title": "Mark the routine",
+        "body": "Tap the activity for the day;\na sticker shows it is done"
+      },
+      {
+        "id": "offline",
+        "x": 40,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Offline recovery",
+        "title": "Keep the tick locally",
+        "body": "Offline ticks sync on reconnect\nfrom the family’s phones"
+      },
+      {
+        "id": "star",
+        "x": 410,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Child · immediate feedback",
+        "title": "See the star land",
+        "body": "The celebration connects\nthe action to visible progress"
+      },
+      {
+        "id": "pet",
+        "x": 410,
+        "y": 1104,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Child · weekly progress",
+        "title": "Watch the pet grow",
+        "body": "Stars build four weekly stages;\na missed day does not deduct stars"
+      },
+      {
+        "id": "week",
+        "x": 410,
+        "y": 1308,
+        "width": 300,
+        "height": 128,
+        "kind": "end",
+        "actor": "Family · next week",
+        "title": "Start a new pet",
+        "body": "Review the week; Monday\nbrings a new egg"
+      },
+      {
+        "id": "invite",
+        "x": 780,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Parent · optional handoff",
+        "title": "Share the family",
+        "body": "Invite a second adult to\nthe same routines and board"
+      },
+      {
+        "id": "join",
+        "x": 780,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Second adult",
+        "title": "Join by invitation",
+        "body": "Pick up the same family\nwithout setting it up again"
+      }
+    ],
+    "edges": [
+      {
+        "source": "open",
+        "target": "create",
+        "label": "Create family",
+        "points": [
+          [
+            560,
+            212
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          574,
+          240.0
+        ],
+        "back": false
+      },
+      {
+        "source": "open",
+        "target": "sample",
+        "label": "Try\nsample",
+        "points": [
+          [
+            410,
+            148
+          ],
+          [
+            340,
+            148
+          ]
+        ],
+        "labelAt": [
+          350,
+          114
+        ],
+        "back": false
+      },
+      {
+        "source": "sample",
+        "target": "create",
+        "label": "Create own family",
+        "points": [
+          [
+            190,
+            212
+          ],
+          [
+            190,
+            248
+          ],
+          [
+            560,
+            248
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          230,
+          221
+        ],
+        "back": false
+      },
+      {
+        "source": "create",
+        "target": "child",
+        "label": "",
+        "points": [
+          [
+            560,
+            416
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          574,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "child",
+        "target": "tick",
+        "label": "",
+        "points": [
+          [
+            560,
+            620
+          ],
+          [
+            560,
+            696
+          ]
+        ],
+        "labelAt": [
+          574,
+          648.0
+        ],
+        "back": false
+      },
+      {
+        "source": "tick",
+        "target": "star",
+        "label": "Online",
+        "points": [
+          [
+            560,
+            824
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          574,
+          852.0
+        ],
+        "back": false
+      },
+      {
+        "source": "tick",
+        "target": "offline",
+        "label": "Offline",
+        "points": [
+          [
+            410,
+            760
+          ],
+          [
+            340,
+            760
+          ]
+        ],
+        "labelAt": [
+          342,
+          727
+        ],
+        "back": false
+      },
+      {
+        "source": "offline",
+        "target": "star",
+        "label": "Local feedback",
+        "points": [
+          [
+            190,
+            824
+          ],
+          [
+            190,
+            860
+          ],
+          [
+            560,
+            860
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          205,
+          834
+        ],
+        "back": false
+      },
+      {
+        "source": "star",
+        "target": "pet",
+        "label": "",
+        "points": [
+          [
+            560,
+            1028
+          ],
+          [
+            560,
+            1104
+          ]
+        ],
+        "labelAt": [
+          574,
+          1056.0
+        ],
+        "back": false
+      },
+      {
+        "source": "pet",
+        "target": "week",
+        "label": "Monday",
+        "points": [
+          [
+            560,
+            1232
+          ],
+          [
+            560,
+            1308
+          ]
+        ],
+        "labelAt": [
+          574,
+          1260.0
+        ],
+        "back": false
+      },
+      {
+        "source": "pet",
+        "target": "child",
+        "label": "Next routine",
+        "points": [
+          [
+            710,
+            1168
+          ],
+          [
+            748,
+            1168
+          ],
+          [
+            748,
+            556
+          ],
+          [
+            710,
+            556
+          ]
+        ],
+        "labelAt": [
+          768,
+          1044
+        ],
+        "back": true
+      },
+      {
+        "source": "week",
+        "target": "child",
+        "label": "Next week",
+        "points": [
+          [
+            410,
+            1372
+          ],
+          [
+            20,
+            1372
+          ],
+          [
+            20,
+            556
+          ],
+          [
+            410,
+            556
+          ]
+        ],
+        "labelAt": [
+          44,
+          1258
+        ],
+        "back": true
+      },
+      {
+        "source": "create",
+        "target": "invite",
+        "label": "Invite",
+        "points": [
+          [
+            710,
+            352
+          ],
+          [
+            780,
+            352
+          ]
+        ],
+        "labelAt": [
+          716,
+          319
+        ],
+        "back": false
+      },
+      {
+        "source": "invite",
+        "target": "join",
+        "label": "Open link",
+        "points": [
+          [
+            930,
+            416
+          ],
+          [
+            930,
+            492
+          ]
+        ],
+        "labelAt": [
+          944,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "join",
+        "target": "child",
+        "label": "Same\nboard",
+        "points": [
+          [
+            780,
+            556
+          ],
+          [
+            710,
+            556
+          ]
+        ],
+        "labelAt": [
+          725,
+          521
+        ],
+        "back": false
+      }
+    ]
+  },
+  "deal": {
+    "title": "Deal Model · from setup to approval",
+    "subtitle": "The deal owner prices and compares proposals before handing one to the approver.",
+    "scope": "Internal design workflow · one deal object shared by sales, custody operations, legal and product.",
+    "width": 1120,
+    "height": 1528,
+    "nodes": [
+      {
+        "id": "create",
+        "x": 410,
+        "y": 84,
+        "width": 300,
+        "height": 128,
+        "kind": "start",
+        "actor": "Deal owner",
+        "title": "Create the deal",
+        "body": "Name, region, segment\nand deal lead"
+      },
+      {
+        "id": "load",
+        "x": 410,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Deal owner · portfolio",
+        "title": "Load the portfolio",
+        "body": "Load data directly or use\nthe spreadsheet template"
+      },
+      {
+        "id": "template",
+        "x": 40,
+        "y": 288,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Deal owner · alternate entry",
+        "title": "Upload the template",
+        "body": "Download, fill and upload;\nmap the data into the deal"
+      },
+      {
+        "id": "price",
+        "x": 410,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Deal owner · pricing",
+        "title": "Create an iteration",
+        "body": "Choose rate cards; check the\npricing inputs as you go"
+      },
+      {
+        "id": "warning",
+        "x": 780,
+        "y": 492,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Rate-source warning",
+        "title": "Review rate difference",
+        "body": "A transaction rate differs\nfrom the custody rate"
+      },
+      {
+        "id": "error",
+        "x": 40,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "state",
+        "actor": "Creation failed",
+        "title": "Try the iteration again",
+        "body": "Show the explicit error; do not\nimply a proposal was created"
+      },
+      {
+        "id": "compare",
+        "x": 410,
+        "y": 696,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Deal owner · comparison",
+        "title": "Compare and tier",
+        "body": "Use the comparison grid,\ncolumn chooser and tiering view"
+      },
+      {
+        "id": "publish",
+        "x": 410,
+        "y": 900,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Deal owner · proposal",
+        "title": "Publish the proposal",
+        "body": "Add a deal description and\nthe winning-bid reason"
+      },
+      {
+        "id": "approve",
+        "x": 410,
+        "y": 1104,
+        "width": 300,
+        "height": 128,
+        "kind": "screen",
+        "actor": "Approver · review",
+        "title": "Review the proposal",
+        "body": "Compare proposals and keep\ncomments beside the decision"
+      },
+      {
+        "id": "done",
+        "x": 410,
+        "y": 1308,
+        "width": 300,
+        "height": 128,
+        "kind": "end",
+        "actor": "Approver → shared record",
+        "title": "Approve and sign off",
+        "body": "The sign-off trail stays\nattached to the deal"
+      }
+    ],
+    "edges": [
+      {
+        "source": "create",
+        "target": "load",
+        "label": "",
+        "points": [
+          [
+            560,
+            212
+          ],
+          [
+            560,
+            288
+          ]
+        ],
+        "labelAt": [
+          574,
+          240.0
+        ],
+        "back": false
+      },
+      {
+        "source": "load",
+        "target": "template",
+        "label": "Template",
+        "points": [
+          [
+            410,
+            352
+          ],
+          [
+            340,
+            352
+          ]
+        ],
+        "labelAt": [
+          342,
+          319
+        ],
+        "back": false
+      },
+      {
+        "source": "template",
+        "target": "price",
+        "label": "Upload",
+        "points": [
+          [
+            190,
+            416
+          ],
+          [
+            190,
+            452
+          ],
+          [
+            560,
+            452
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          250,
+          427
+        ],
+        "back": false
+      },
+      {
+        "source": "load",
+        "target": "price",
+        "label": "Direct data",
+        "points": [
+          [
+            560,
+            416
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          574,
+          444.0
+        ],
+        "back": false
+      },
+      {
+        "source": "price",
+        "target": "warning",
+        "label": "Check\nrates",
+        "points": [
+          [
+            710,
+            556
+          ],
+          [
+            780,
+            556
+          ]
+        ],
+        "labelAt": [
+          715,
+          521
+        ],
+        "back": false
+      },
+      {
+        "source": "warning",
+        "target": "price",
+        "label": "Review inputs",
+        "points": [
+          [
+            930,
+            492
+          ],
+          [
+            930,
+            464
+          ],
+          [
+            560,
+            464
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          780,
+          439
+        ],
+        "back": true
+      },
+      {
+        "source": "price",
+        "target": "compare",
+        "label": "Created",
+        "points": [
+          [
+            560,
+            620
+          ],
+          [
+            560,
+            696
+          ]
+        ],
+        "labelAt": [
+          574,
+          648.0
+        ],
+        "back": false
+      },
+      {
+        "source": "price",
+        "target": "error",
+        "label": "Failed",
+        "points": [
+          [
+            410,
+            556
+          ],
+          [
+            375,
+            556
+          ],
+          [
+            375,
+            760
+          ],
+          [
+            340,
+            760
+          ]
+        ],
+        "labelAt": [
+          225,
+          621
+        ],
+        "back": false
+      },
+      {
+        "source": "error",
+        "target": "price",
+        "label": "Retry",
+        "points": [
+          [
+            40,
+            760
+          ],
+          [
+            20,
+            760
+          ],
+          [
+            20,
+            452
+          ],
+          [
+            560,
+            452
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          43,
+          431
+        ],
+        "back": true
+      },
+      {
+        "source": "compare",
+        "target": "publish",
+        "label": "Choose proposal",
+        "points": [
+          [
+            560,
+            824
+          ],
+          [
+            560,
+            900
+          ]
+        ],
+        "labelAt": [
+          574,
+          852.0
+        ],
+        "back": false
+      },
+      {
+        "source": "compare",
+        "target": "price",
+        "label": "New iteration",
+        "points": [
+          [
+            710,
+            760
+          ],
+          [
+            1085,
+            760
+          ],
+          [
+            1085,
+            464
+          ],
+          [
+            560,
+            464
+          ],
+          [
+            560,
+            492
+          ]
+        ],
+        "labelAt": [
+          817,
+          714
+        ],
+        "back": true
+      },
+      {
+        "source": "publish",
+        "target": "approve",
+        "label": "Publish",
+        "points": [
+          [
+            560,
+            1028
+          ],
+          [
+            560,
+            1104
+          ]
+        ],
+        "labelAt": [
+          574,
+          1056.0
+        ],
+        "back": false
+      },
+      {
+        "source": "approve",
+        "target": "done",
+        "label": "Approve",
+        "points": [
+          [
+            560,
+            1232
+          ],
+          [
+            560,
+            1308
+          ]
+        ],
+        "labelAt": [
+          574,
+          1260.0
+        ],
+        "back": false
+      }
+    ]
+  }
+}

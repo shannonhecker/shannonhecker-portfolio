@@ -1,0 +1,30 @@
+<svg width="336" height="527" viewBox="0 0 336 527" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="526" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">TWO DIFFERENT ENTRY POINTS</tspan></text>
+<path d="M158 51H22C19.2386 51 17 53.2386 17 56V104C17 106.761 19.2386 109 22 109H158C160.761 109 163 106.761 163 104V56C163 53.2386 160.761 51 158 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="73.5909">iPhone</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="94.8636">Choose a start</tspan></text>
+<path d="M316 51H180C177.239 51 175 53.2386 175 56V104C175 106.761 177.239 109 180 109H316C318.761 109 321 106.761 321 104V56C321 53.2386 318.761 51 316 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="73.5909">Web</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="94.8636">Choose a theme</tspan></text>
+<path d="M90 109V129M94 123L90 129L86 123" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M248 109V129M252 123L248 129L244 123" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M158 129H22C19.2386 129 17 131.239 17 134V182C17 184.761 19.2386 187 22 187H158C160.761 187 163 184.761 163 182V134C163 131.239 160.761 129 158 129Z" fill="white" stroke="#4F7352" stroke-width="1.5"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="151.591">Sample Family</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="172.864">Or create family</tspan></text>
+<path d="M316 129H180C177.239 129 175 131.239 175 134V182C175 184.761 177.239 187 180 187H316C318.761 187 321 184.761 321 182V134C321 131.239 318.761 129 316 129Z" fill="white" stroke="#4F7352" stroke-width="1.5"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="151.591">Grown-up check</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="172.864">Before child details</tspan></text>
+<path d="M248 187V207M252 201L248 207L244 201" stroke="#4F7352" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M316 207H180C177.239 207 175 209.239 175 212V260C175 262.761 177.239 265 180 265H316C318.761 265 321 262.761 321 260V212C321 209.239 318.761 207 316 207Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="229.591">Child details</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="250.864">Continue setup</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="26" y="233.864">Sample is optional.</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="26" y="253.864">Not a forced tour.</tspan></text>
+<path d="M17 287H321" stroke="#D6DCE1" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">iPhone offers sample and creation together.</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Web has its own entry sequence.</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">First run</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">iPhone offers Try the Sample Family </tspan><tspan x="13" y="434.618">beside family creation. Web starts with a </tspan><tspan x="13" y="457.818">theme and a grown-up check, then child </tspan><tspan x="13" y="481.018">details. The two entry points are shown </tspan><tspan x="13" y="504.218">separately.</tspan></text>
+</svg>

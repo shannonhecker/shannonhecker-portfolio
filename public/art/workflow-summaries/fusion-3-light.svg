@@ -1,0 +1,14 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#705D8D" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 04</tspan></text>
+<path d="M295 59H43C40.7909 59 39 60.7909 39 63V175C39 177.209 40.7909 179 43 179H295C297.209 179 299 177.209 299 175V63C299 60.7909 297.209 59 295 59Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="54" y="79.6364">BOARD REPORT</tspan></text>
+<path d="M155 92H59C56.7909 92 55 93.7909 55 96V155C55 157.209 56.7909 159 59 159H155C157.209 159 159 157.209 159 155V96C159 93.7909 157.209 92 155 92Z" fill="white" stroke="#D6DCE1"/>
+<path d="M276 92H176C173.791 92 172 93.7909 172 96V119C172 121.209 173.791 123 176 123H276C278.209 123 280 121.209 280 119V96C280 93.7909 278.209 92 276 92Z" fill="white" stroke="#D6DCE1"/>
+<path d="M276 132H176C173.791 132 172 133.791 172 136V155C172 157.209 173.791 159 176 159H276C278.209 159 280 157.209 280 155V136C280 133.791 278.209 132 276 132Z" fill="white" stroke="#D6DCE1"/>
+<path d="M63 143L86 124L109 133L145 106" stroke="#705D8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Report</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Board-ready, without leaving the surface</tspan></text>
+</svg>
+

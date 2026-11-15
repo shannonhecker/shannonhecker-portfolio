@@ -1,0 +1,15 @@
+---
+import UtilityPage from '../layouts/UtilityPage.astro';
+// DECISION: a 404 needs some words. Kept to the minimum and flagged in the PR
+// for Shannon to rewrite in her voice.
+---
+<UtilityPage title="Not found">
+    <div style="display:grid;gap:28px;justify-items:start">
+      <h1 class="h-giant">This page doesn't exist.</h1>
+      <a class="cta-link" href="/panel">Back to the work →</a>
+    </div>
+</UtilityPage>
+<style is:global>
+  .cta-link{font-size:17px;font-weight:500;text-decoration:none;padding:12px 20px;border:1px solid var(--fg);border-radius:var(--radius);background:var(--bg);color:var(--fg)}
+  .cta-link:hover,.cta-link:focus-visible{background:var(--fg);color:var(--bg)}
+</style>

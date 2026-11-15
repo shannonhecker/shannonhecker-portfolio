@@ -1,0 +1,39 @@
+---
+interface Props { project:'fusion'|'ai'|'winking' }
+const {project}=Astro.props;
+type Node={x:number;y:number;w:number;lines:string[];tone?:string};
+const flows:Record<Props['project'],{title:string;height:number;nodes:Node[];paths:string;loops:string;labels:{x:number;y:number;text:string}[]}>= {
+ fusion:{title:'Fusion decision flow',height:680,nodes:[
+  {x:400,y:24,w:300,lines:['Open analytics'],tone:'success'},
+  {x:400,y:124,w:300,lines:['Entitlement-based view'],tone:'accent'},
+  {x:100,y:244,w:280,lines:['Internal team']},{x:720,y:244,w:280,lines:['External client']},
+  {x:400,y:354,w:300,lines:['Select a data cube']},{x:400,y:454,w:300,lines:['Filter and slice']},
+  {x:100,y:574,w:280,lines:['Analyse returns,','attribution and risk']},{x:720,y:574,w:280,lines:['Report in the','same surface'],tone:'success'}
+ ],paths:'M550 88V124M550 188V214M240 244V214H860V244M240 308V332H860V308M550 332V354M550 418V454M550 518V548H240V574M380 606H720',loops:'M100 606H50V486H400',labels:[{x:204,y:468,text:'Refine the view'}]},
+ ai:{title:'uoaui.ai decision flow',height:680,nodes:[
+  {x:400,y:24,w:300,lines:['Describe the screen'],tone:'success'},
+  {x:400,y:134,w:300,lines:['Generate a draft','Official components']},
+  {x:400,y:254,w:300,lines:['The person decides'],tone:'accent'},
+  {x:60,y:414,w:280,lines:['Compare systems']},{x:410,y:414,w:280,lines:['Tune density,','theme and charts']},
+  {x:760,y:414,w:280,lines:['Export React','Developer handover'],tone:'success'},
+  {x:400,y:574,w:300,lines:['The model drafts','I decide']}
+ ],paths:'M550 88V134M550 198V254M550 318V374M200 414V374H900V414M550 374V414M200 478V528H550V478M550 528V574',loops:'M700 286H730V554H550',labels:[{x:900,y:354,text:'Ready to hand over'},{x:420,y:550,text:'Review again'}]},
+ winking:{title:'Winking Star decision flow',height:740,nodes:[
+  {x:400,y:24,w:300,lines:['Open the app'],tone:'success'},
+  {x:400,y:124,w:300,lines:['A shared family board'],tone:'accent'},
+  {x:60,y:254,w:280,lines:['First open','Sample Family']},{x:410,y:254,w:280,lines:['Your own family']},{x:760,y:254,w:280,lines:['Second adult','joins by invitation']},
+  {x:400,y:374,w:300,lines:['Pick your child']},{x:400,y:484,w:300,lines:['Tap a routine','A star lands']},
+  {x:60,y:634,w:280,lines:['The pet grows','Four weekly stages']},{x:760,y:634,w:280,lines:['Weekly summary','New pet on Monday'],tone:'success'}
+ ],paths:'M550 88V124M550 188V224M200 254V224H900V254M550 224V254M200 318V344H900V318M550 318V374M550 438V484M550 548V600H200V634M340 666H760',loops:'M200 634V610H24V406H400M1040 666H1076V156H700',labels:[{x:200,y:590,text:'Daily loop'},{x:936,y:602,text:'Next week'}]}
+};
+const flow=flows[project];
+---
+<svg class="authored-flow-vector" viewBox={`0 0 1100 ${flow.height}`} role="img" aria-labelledby={`${project}-vector-title`} xmlns="http://www.w3.org/2000/svg">
+ <title id={`${project}-vector-title`}>{flow.title}. Full text follows in Read the flow.</title>
+ <g class="connectors" fill="none" stroke-width="1.5"><path d={flow.paths}/><path d={flow.loops} stroke-dasharray="5 5"/></g>
+ {flow.nodes.map(n=><g class:list={['flow-node',n.tone]}><rect x={n.x} y={n.y} width={n.w} height="64" rx="4"/><text x={n.x+n.w/2} y={n.y+37-(n.lines.length-1)*10} text-anchor="middle">{n.lines.map((line,i)=><tspan x={n.x+n.w/2} dy={i?20:0}>{line}</tspan>)}</text></g>)}
+ {flow.labels.map(l=><text class="loop-label" x={l.x} y={l.y} text-anchor="middle">{l.text}</text>)}
+</svg>
+<style>
+.authored-flow-vector{display:block;width:100%;min-width:900px;height:auto;padding:24px;border-radius:var(--radius);background:var(--project-wash)}.connectors{stroke:var(--project-ink)}.flow-node rect{fill:var(--bg);stroke:var(--hair);stroke-width:1.5}.flow-node.accent rect{stroke:var(--project-ink)}.flow-node.success rect{stroke:#61917a}.flow-node text{fill:var(--fg);font:15px var(--body)}.loop-label{fill:var(--project-ink);font:13px var(--body)}
+</style>

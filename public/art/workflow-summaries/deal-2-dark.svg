@@ -1,0 +1,15 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 05</tspan></text>
+<path d="M297 60H41C38.7909 60 37 61.7909 37 64V175C37 177.209 38.7909 179 41 179H297C299.209 179 301 177.209 301 175V64C301 61.7909 299.209 60 297 60Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="54" y="78.6364">PRICING ITERATION</tspan></text>
+<path d="M86 155H70C68.8954 155 68 155.895 68 157V168C68 169.105 68.8954 170 70 170H86C87.1046 170 88 169.105 88 168V157C88 155.895 87.1046 155 86 155Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<path d="M122 143H106C104.895 143 104 143.895 104 145V168C104 169.105 104.895 170 106 170H122C123.105 170 124 169.105 124 168V145C124 143.895 123.105 143 122 143Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<path d="M158 131H142C140.895 131 140 131.895 140 133V168C140 169.105 140.895 170 142 170H158C159.105 170 160 169.105 160 168V133C160 131.895 159.105 131 158 131Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<path d="M194 119H178C176.895 119 176 119.895 176 121V168C176 169.105 176.895 170 178 170H194C195.105 170 196 169.105 196 168V121C196 119.895 195.105 119 194 119Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<path d="M230 107H214C212.895 107 212 107.895 212 109V168C212 169.105 212.895 170 214 170H230C231.105 170 232 169.105 232 168V109C232 107.895 231.105 107 230 107Z" fill="#E3B3C6" stroke="#E3B3C6"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Price and iterate</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Rate cards, iterations, checks as you go</tspan></text>
+</svg>
+

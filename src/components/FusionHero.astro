@@ -1,0 +1,30 @@
+---
+// Native SVG exports from Analytics UI Design M1, with only the surrounding
+// Figma canvas trimmed. Text and charts remain vector artwork at every size.
+const discovery = { src: '/art/fusion-discovery-vector.svg', width: 1920, height: 1096 };
+const performance = { src: '/art/fusion-performance-vector.svg', width: 1920, height: 1141 };
+const screens = [
+  { image: discovery, alt: 'Original Fusion Analytics Dashboard design with report discovery, featured dashboards and the report table' },
+  { image: performance, alt: 'Original Fusion Performance design showing the complete workspace' },
+];
+---
+<div class="project-hero fusion-hero">
+  {screens.map(({ image, alt }, index) => (
+    <figure class="fusion-screen">
+      <a class="full-size-image" href={image.src} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}>
+        <img src={image.src} width={image.width} height={image.height} alt={alt} loading="eager" decoding="async" fetchpriority={index === 0 ? 'high' : undefined} />
+      </a>
+    </figure>
+  ))}
+</div>
+<style>
+  /* Figma 48:5: discovery upper right, performance in front at lower left.
+     Flow layout reserves the entire composition height at every viewport. */
+  .project-hero.fusion-hero { display:block; }
+  .fusion-screen { position:relative;margin:0;width:79.6%;margin-left:auto; }
+  .fusion-screen + .fusion-screen { width:97.56%;margin-left:0;margin-top:-3%; }
+  .full-size-image { display:block;border-radius:4px;box-shadow:0 16px 32px -8px rgb(12 12 13 / .4);cursor:zoom-in; }
+  .full-size-image:focus-visible { outline:2px solid var(--project-ink,var(--fg));outline-offset:6px; }
+  .fusion-screen:focus-within { z-index:1; }
+  .fusion-screen img { display:block;width:100%;height:auto;border-radius:4px; }
+</style>

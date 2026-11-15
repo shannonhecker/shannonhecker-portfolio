@@ -1,0 +1,117 @@
+---
+// The game lives in the hero, the way a playable Doodle sits on Google's home
+// page: optional, idle until pressed, and the headline stays the main thing.
+// It tells Shannon's career as a world map, Kaohsiung to AI. Every card states
+// facts from her CV or her own words; nothing here is invented.
+// DECISION: Named "Working Order" (a live order still filling; also "things in
+// working order"). Mario-era pixel style, every noun from her own story.
+import { ACHIEVEMENTS } from '../lib/achievements';
+import GameTimeline from './GameTimeline.astro';
+import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
+---
+<div class="play" data-lenis-prevent>
+  <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
+  <p class="game-rotate" aria-hidden="true">Turn your phone sideways for a bigger game</p>
+  <div class="game" data-state="poster">
+    <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
+    <div class="game-poster">
+      <img src="/game/banner.webp" alt="" width="960" height="240" loading="lazy" decoding="async" />
+      <div class="title-hud" aria-hidden="true"><span>SHANNON<br />000000</span><span>WORLD<br />1–1</span><span>ADVENTURE<br />START</span></div>
+      <div class="title-plaque" aria-hidden="true"><span>WORKING</span><span>ORDER</span></div>
+      <span class="title-traveller" aria-hidden="true"></span>
+      <span class="title-ground" aria-hidden="true"></span>
+      <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
+      <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
+    </div>
+    <div class="game-loading" role="status" aria-live="polite">
+      <svg class="loading-compass" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+        <path d="M32 4H48V16H64V32H76V48H64V64H48V76H32V64H16V48H4V32H16V16H32Z" fill="none" stroke="#9dccef" stroke-width="2"/>
+        <path d="M40 16L48 32L64 40L48 48L40 64L32 48L16 40L32 32Z" fill="#fff0ce"/>
+        <path d="M40 16V40H64L48 32Z" fill="#d87890"/>
+        <path d="M36 36H44V44H36Z" fill="#172b3b"/>
+      </svg>
+      <p class="loading-title">Charting the route</p>
+      <p class="loading-caption">Kaohsiung → London → What’s next</p>
+      <span class="loading-route" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+    <div class="game-flight" hidden aria-labelledby="flight-title">
+      <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan → United Kingdom</h2>
+      <p class="flight-story">I came to the UK for a working holiday and study.</p>
+      <div class="flight-route" aria-hidden="true"><span>Taiwan</span><i></i><span>UK</span>
+        <svg class="flight-plane" viewBox="0 0 40 32"><path d="M0 14H8V10H18V2H24V12H32V16H40V20H32V24H24V30H18V22H8V18H0Z" fill="#182640"/><path d="M4 14H12V12H20V4H22V14H30V16H36V18H30V20H22V28H20V20H12V18H4Z" fill="#fff0ce"/><path d="M12 14H28V18H12Z" fill="#d87890"/></svg>
+      </div>
+      <p class="flight-next">Next stop: London Met · Digital Media · 2015–2016</p>
+      <button type="button" data-skip-flight>Skip flight →</button>
+    </div>
+    {JOURNEY.map((w, i) => (
+      <div class="game-end" data-end={i} hidden>
+        <div class="game-result-emblem" aria-hidden="true"><img src="/game/star.webp" alt="" width="48" height="48" loading="lazy" /><span>{i===7?'Castle clear · Flag raised':'Stage clear'}</span></div>
+        <p class="game-badge" hidden>Shipped</p>
+        <p class="game-kicker">{stageCode(i) === 'Bonus' ? 'Bonus' : `World ${stageCode(i)}`} · {w.when}</p>
+        <p class="game-case">{w.place}</p>
+        <p class="game-meta">{w.line}</p>
+        <p class="game-mission" hidden></p>
+        <details class="career-achievements">
+          <summary>Career achievements · {ACHIEVEMENTS[i].length} unlocked</summary>
+          <ul>{ACHIEVEMENTS[i].map(reward=><li><strong>{reward.title}</strong><ul>{reward.projects.map(project=><li>{project}</li>)}</ul></li>)}</ul>
+        </details>
+        <section class="scoreboard" aria-label={`${w.place} scoreboard`}>
+          <p class="score-total"><strong data-score>0</strong> points <span>this stage</span></p>
+          <p class="score-rule">100 for finishing + 25 per pickup − 10 per bump. Minimum 100.</p>
+          <details>
+            <summary>Stage scoreboard · share your score</summary>
+            <ol aria-label="Top ten scores"></ol>
+            <form>
+              <label for={`score-name-${i}`}>Nickname <span>(optional)</span></label>
+              <input id={`score-name-${i}`} name="nickname" maxlength="20" autocomplete="off" placeholder="Explorer" aria-describedby={`score-note-${i}`} />
+              <p id={`score-note-${i}`} class="score-note">Your nickname and score will be public. Use a made-up name.</p>
+              <button type="submit">Share my score</button>
+            </form>
+            <p role="status"></p>
+          </details>
+        </section>
+        {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
+        {i < JOURNEY.length - 1 ? (
+          <div class="game-actions">
+            <button type="button" class="game-play" data-next={i + 1}>{nextLabel(i)}</button>
+            <button type="button" class="game-map" data-map>World map</button>
+          </div>
+        ) : (
+          <>
+            <ul class="game-links">
+              <li><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">Winking Star<span class="vh"> (opens in new tab)</span> →</a></li>
+              <li><a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">FX execution analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
+              <li><a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
+            </ul>
+            <div class="game-actions">
+              <button type="button" class="game-play" data-next="0">Play again</button>
+              <button type="button" class="game-map" data-map>World map</button>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </div>
+  <div class="game-touch" aria-hidden="true">
+    <button type="button" tabindex="-1" data-k="left">←</button>
+    <button type="button" tabindex="-1" data-k="right">→</button>
+    <button type="button" tabindex="-1" data-k="jump">↑</button>
+    <button type="button" tabindex="-1" data-k="cast" aria-label="Cast starlight wand" hidden>Cast</button>
+  </div>
+  <p class="game-map-hint">Swipe across the map · Tap a marker to play</p>
+  <div class="game-bar">
+    <button type="button" class="game-sound" id="game-world">World map</button>
+    <span class="game-tools">
+      <button type="button" class="game-sound" id="game-timeline-open" aria-haspopup="dialog" aria-controls="game-timeline">Timeline</button>
+      <button type="button" class="game-sound" id="game-full">Full screen</button>
+      <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
+    </span>
+  </div>
+  <GameTimeline />
+  <nav class="game-stages" aria-label="Choose a stage" hidden>
+    {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
+  </nav>
+  <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Choosing Start adventure opens it full screen; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. In the final stage, face the boss and press X or J, gamepad X, or tap Cast to fire your starlight wand. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
+  <p id="game-status" class="vh" aria-live="polite"></p>
+</div>

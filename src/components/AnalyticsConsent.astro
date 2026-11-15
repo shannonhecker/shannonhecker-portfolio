@@ -1,0 +1,29 @@
+<aside id="analytics-choice" class="analytics-choice" aria-labelledby="analytics-heading" hidden>
+  <h2 id="analytics-heading">Optional analytics</h2>
+  <p>I use Google Analytics for visits, reading and game play. Off unless you allow it. Nicknames are never sent to Google.</p>
+  <div><button type="button" data-analytics-choice="no">No thanks</button><button type="button" data-analytics-choice="yes">Allow analytics</button><a href="/privacy">Privacy details</a></div>
+</aside>
+<script is:inline>
+  // Set visibility before first paint, without waiting for the analytics module.
+  // This only reads the saved preference; tracking still requires explicit consent.
+  (() => {
+    let saved = false;
+    try {
+      const value = JSON.parse(localStorage.getItem('portfolio-analytics-v1') || 'null');
+      saved = !!value && Date.now() - value.at < 180 * 86400000;
+    } catch {}
+    const panel = document.getElementById('analytics-choice');
+    if (panel) panel.hidden = saved;
+  })();
+</script>
+<script>import '../scripts/analytics';</script>
+<style>
+.analytics-choice{position:fixed;z-index:120;bottom:12px;left:12px;width:min(360px,calc(100vw - 24px));padding:12px 14px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg);color:var(--fg);font:400 13px/1.6 var(--body)}
+.analytics-choice[hidden]{display:none}
+.analytics-choice h2{font:500 15px/1.3 var(--display);margin:0 0 4px;letter-spacing:0}
+.analytics-choice p{font:inherit;margin:0 0 8px;font-size:12px;line-height:1.5}
+.analytics-choice div{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.analytics-choice button{padding:8px 12px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg);font:600 13px/1.5 var(--body);cursor:pointer;min-height:40px}
+.analytics-choice a{color:var(--fg);text-decoration:underline;font-size:13px}
+.analytics-choice button:focus-visible,.analytics-choice a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:3px}
+</style>
