@@ -31,7 +31,6 @@
   .case-page .responsive-evidence { margin-left:0; }
 }
 /* Keep the reading grid composed on large monitors rather than stretching it. */
-.case-page > .band > .wrap { max-width:1440px;width:calc(100% - clamp(40px,5vw,112px));margin-inline:auto;padding-inline:0; }
 .case-page .project-status {
   grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);
   width:100%;max-width:none;gap:24px 40px;

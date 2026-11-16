@@ -5,7 +5,6 @@
 
 /* ------------------------------------------------------------------ the index */
 .writing-index{padding-top:clamp(112px,10vw,160px)}
-.writing-index .wrap{max-width:1440px}
 
 /* Head: the Work page's scale. A very large title, its count at the foot, a hairline. */
 .writing-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px);border-bottom:1px solid var(--hair)}
@@ -60,7 +59,6 @@
    the text column's edge. Vertical rhythm: --section above each hairline, --rule
    below it. */
 .essay{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--num:22px;--measure:52ch;padding-top:clamp(120px,11vw,168px)}
-.essay .wrap{max-width:1440px}
 
 /* Head: a way back, the title, then the facts in the label column and the
    standfirst in the text column. */

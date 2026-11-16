@@ -3,7 +3,6 @@
    Screenshots keep their own proportions: width is set, height follows. */
 
 .earlier{padding-top:clamp(120px,11vw,168px)}
-.earlier .wrap{max-width:1440px}
 
 /* Eyebrow: a small way back to the list of work. */
 .earlier-eyebrow{font-size:14px;line-height:1.6;color:var(--fg-2)}

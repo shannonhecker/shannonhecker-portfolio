@@ -1,6 +1,5 @@
 /* Wide, image-led project gallery. Product frames establish each project's
    character; their native proportions determine the height, without crops. */
-:root { --max:1440px; --gutter:clamp(24px,4vw,64px); }
 #work .index {
   display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
   gap:72px 32px; align-items:start;

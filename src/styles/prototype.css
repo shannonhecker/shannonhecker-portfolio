@@ -11,7 +11,7 @@
   --display:"Inter Tight","Inter",system-ui,-apple-system,sans-serif;
   --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --ws-display:"Nunito","Inter Tight",system-ui,sans-serif;
-  --max:1520px; --gutter:clamp(20px,5vw,80px);
+  --max:1440px; --gutter:clamp(24px,3.4vw,64px); /* the one page width and side gutter */
   --ease:cubic-bezier(.22,1,.36,1); --fast:160ms; --base:360ms;
   color-scheme:light;
 }
@@ -45,7 +45,7 @@ em.s{font-style:normal;color:var(--fg-2)}
 .cur{display:none}
 
 /* nav */
-.nav{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:60;padding:22px var(--gutter);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;pointer-events:none;transition:background var(--base),backdrop-filter var(--base)}
+.nav{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:60;padding:22px max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;pointer-events:none;transition:background var(--base),backdrop-filter var(--base)}
 .nav.solid{background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .nav>*{pointer-events:auto}
 .nav .brand{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.04em;text-decoration:none;display:flex;gap:10px;align-items:center;white-space:nowrap}

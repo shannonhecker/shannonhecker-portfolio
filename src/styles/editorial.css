@@ -194,7 +194,7 @@
  --bg:#fffaf2; --bg-2:#f4eee5; --fg:#343b46; --fg-2:#62656c; --fg-3:#68646b;
  --hair:#d9d4cb; --accent:#9b4e65; --display:'Nunito','Inter',sans-serif;
  --ws-display:'Nunito','Inter',sans-serif; --body:'Inter',sans-serif;
- --pixel:'Pixelify Sans',monospace; --max:1280px; --gutter:clamp(24px,4vw,64px);
+ --pixel:'Pixelify Sans',monospace;
  --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px; --space-6:48px;
  --space-section:clamp(72px,8vw,112px); --beat-space:var(--space-section); --reading-gap:40px;
  --project-ink:#496a83; --project-wash:#e7f3f7;
@@ -317,9 +317,9 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
  .case-contents{top:78px}
 }
 @media(max-width:760px){
- :root{--gutter:24px;--space-section:64px;--reading-gap:32px}
+ :root{--space-section:64px;--reading-gap:32px}
  body{font-size:16px;line-height:1.8}
- .nav{grid-template-columns:36px minmax(0,1fr) auto;padding:12px 16px;gap:12px}
+ .nav{grid-template-columns:36px minmax(0,1fr) auto;padding-block:12px;gap:12px}
  .nav ul{justify-self:stretch}.nav a.l{font-size:13px;padding:10px}
  .nav .cta{font-size:13px;padding:8px 12px}
  .hero{padding-top:112px}.hero>.wrap{gap:24px}
