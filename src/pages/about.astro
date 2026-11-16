@@ -10,6 +10,7 @@ import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import WaveField from '../components/WaveField.astro';
 import photo from '../assets/about/photo.webp';
 import '../styles/about.css';
 
@@ -63,7 +64,8 @@ const ld = {
   <a class="skip" href="#main">Skip to content</a>
   <Nav />
   <main id="main" class="about-page">
-    <header class="about-head">
+    <header class="about-head has-wave-field">
+      <WaveField variant="about" />
       <div class="wrap">
         <h1>About me</h1>
         <p class="about-meta">Designing what traders and analysts use every day.</p>

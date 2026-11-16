@@ -1,0 +1,155 @@
+/* Wave field: a soft aurora glow with fine animated hairlines over it, behind a section.
+   Ported from the old site's #wave-bg and #wave-canvas. Decorative only: never focusable,
+   never catches a pointer, always under the content. The drawing is src/scripts/wave-field.ts. */
+
+.has-wave-field { position: relative; }
+.has-wave-field > .wrap { position: relative; z-index: 1; }
+
+.wave-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: layout paint style;
+  /* The ask field hangs from the bottom of its section: keep it out of scroll anchoring, or the
+     browser shifts the page whenever the chat grows. */
+  overflow-anchor: none;
+  /* The aurora colours, as r g b. Dark is the default. */
+  --wf-glow: .55;
+  --wf-a: 130 205 250; --wf-b: 103 232 249; --wf-c: 105 195 235; --wf-d: 94 234 212;
+  --hx: 50%; --hy: 50%; --hw: 1px; --hh: 1px;
+}
+html[data-theme="light"] .wave-field { --wf-glow: .45; }
+html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253; --wf-b: 103 232 249; --wf-c: 129 140 248; --wf-d: 94 234 212; }
+
+/* Artwork the lines must stay clear of: a soft hole around it (measured in the script). */
+.wave-field[data-avoid] {
+  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%);
+  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%);
+}
+
+/* The hero field is pinned while it scrolls past, so its own bottom edge fades the lines out
+   (the canvas's fade would travel with it). */
+.wave-field[data-variant="hero"] {
+  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%), linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
+  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%), linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.wave-field__stage { position: absolute; inset: 0; }
+
+/* ---- the glow: four soft orbs, as in the old #wave-bg ---- */
+.wave-field__glow {
+  position: absolute;
+  top: 0; bottom: 0; left: 36%; right: 0;
+  opacity: var(--wf-glow);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30%, #000 50%, transparent 100%), linear-gradient(to bottom, #000 0, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 30%, #000 50%, transparent 100%), linear-gradient(to bottom, #000 0, #000 55%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.wave-field__glow span { position: absolute; border-radius: 50%; }
+.wave-field__glow span:nth-child(1) {
+  width: 86%; height: 70%; top: -15%; right: 10%;
+  background: radial-gradient(ellipse, rgb(var(--wf-a) / .92) 0, rgb(var(--wf-a) / .55) 45%, transparent 72%);
+}
+.wave-field__glow span:nth-child(2) {
+  width: 75%; height: 60%; top: 20%; right: -6%;
+  background: radial-gradient(ellipse, rgb(var(--wf-b) / .88) 0, rgb(var(--wf-b) / .5) 45%, transparent 72%);
+}
+.wave-field__glow span:nth-child(3) {
+  width: 66%; height: 55%; top: 5%; right: -2%;
+  background: radial-gradient(ellipse, rgb(var(--wf-c) / .8) 0, rgb(var(--wf-c) / .42) 45%, transparent 72%);
+}
+.wave-field__glow span:nth-child(4) {
+  width: 59%; height: 50%; bottom: -5%; right: 2%;
+  background: radial-gradient(ellipse, rgb(var(--wf-d) / .75) 0, rgb(var(--wf-d) / .38) 45%, transparent 72%);
+}
+
+/* ---- the lines ---- */
+.wave-field__canvas {
+  position: absolute;
+  top: 0; right: 0;
+  width: 65%; height: 100%;
+  display: block;
+  opacity: 0;
+  /* The lines lose a little strength towards the text side and dissolve at the top and bottom. */
+  -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, transparent 0, #000 8%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, transparent 0, #000 8%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.wave-field__canvas.is-ready { opacity: 1; }
+.wave-field[data-variant="ask"] .wave-field__canvas.is-ready { opacity: .75; }
+
+@media (max-width: 900px) {
+  .wave-field__glow { left: 0; }
+  .wave-field__glow span:nth-child(1) { width: 80%; height: 50%; top: -5%; right: -10%; opacity: .8; }
+  .wave-field__glow span:nth-child(2) { width: 65%; height: 45%; top: 10%; right: -12%; opacity: .75; }
+  .wave-field__glow span:nth-child(3) { width: 60%; height: 40%; top: auto; bottom: 0; right: -5%; opacity: .65; }
+  .wave-field__glow span:nth-child(4) { width: 50%; height: 35%; top: 35%; bottom: auto; right: -8%; opacity: .6; }
+  .wave-field__canvas { width: 90%; }
+}
+
+/* ---- the first entrance: the glow and lines ease in, the orbs drift ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .wave-field__glow { animation: wave-field-in 1.6s ease .3s both; }
+  .wave-field__canvas { transition: opacity 1.4s ease .3s; }
+  .wave-field__glow span:nth-child(1) { animation: wave-field-drift-1 14s ease-in-out infinite; }
+  .wave-field__glow span:nth-child(2) { animation: wave-field-drift-2 17s ease-in-out infinite; }
+  .wave-field__glow span:nth-child(3) { animation: wave-field-drift-3 20s ease-in-out infinite; }
+  .wave-field__glow span:nth-child(4) { animation: wave-field-drift-4 12s ease-in-out infinite; }
+}
+@keyframes wave-field-in { from { opacity: 0; } to { opacity: var(--wf-glow); } }
+@keyframes wave-field-drift-1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 25px) scale(1.05); } }
+@keyframes wave-field-drift-2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20px, -35px) scale(.95); } }
+@keyframes wave-field-drift-3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-20px, -20px) scale(1.08); } }
+@keyframes wave-field-drift-4 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-15px, 30px) scale(1.04); } }
+
+/* ---- about: amber and blue, the lines run top to bottom ---- */
+.wave-field[data-variant="about"] { --wf-a: 255 239 168; --wf-b: 143 201 255; --wf-c: 255 239 168; --wf-d: 143 201 255; }
+.wave-field[data-variant="about"] .wave-field__canvas {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 84%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 84%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 90%, transparent 100%);
+}
+
+/* ---- work: pink and amber, across the whole head, building up from the left ---- */
+.wave-field[data-variant="work"] { --wf-a: 255 145 185; --wf-b: 255 198 95; --wf-c: 255 175 135; --wf-d: 255 205 110; }
+.wave-field[data-variant="work"] .wave-field__canvas {
+  left: 0; width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .25) 20%, rgb(0 0 0 / .6) 40%, rgb(0 0 0 / .9) 60%, #000 75%), linear-gradient(to bottom, transparent 0, #000 8%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .25) 20%, rgb(0 0 0 / .6) 40%, rgb(0 0 0 / .9) 60%, #000 75%), linear-gradient(to bottom, transparent 0, #000 8%, #000 80%, transparent 100%);
+}
+.wave-field[data-variant="work"] .wave-field__glow { left: 0; }
+
+/* ---- the heads of About and Work: the field starts at the very top of the page ---- */
+.about-head, .work-head { position: relative; }
+.wave-field[data-variant="about"], .wave-field[data-variant="work"] { --wf-glow: .42; }
+html[data-theme="light"] .wave-field[data-variant="about"], html[data-theme="light"] .wave-field[data-variant="work"] { --wf-glow: .4; }
+.about-head > .wave-field, .work-head > .wave-field { top: calc(-1 * clamp(112px, 10vw, 160px)); }
+
+/* ---- ask: low and faint behind the chat, pink and amber, from the left ---- */
+.wave-field[data-variant="ask"] { --wf-a: 255 145 185; --wf-b: 255 198 95; --wf-c: 255 175 135; --wf-d: 255 205 110; --wf-glow: .2; }
+html[data-theme="light"] .wave-field[data-variant="ask"] { --wf-glow: .3; }
+.wave-field[data-variant="ask"] { top: auto; height: min(100%, 520px); }
+.wave-field[data-variant="ask"] .wave-field__glow {
+  left: 0; right: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 45%, transparent 92%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 45%, transparent 92%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
+}
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(1) { width: 55%; height: 90%; top: auto; bottom: -12%; left: 8%; right: auto; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(2) { width: 48%; height: 80%; top: auto; bottom: 14%; left: -6%; right: auto; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(3) { width: 42%; height: 70%; top: auto; bottom: -2%; left: -2%; right: auto; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(4) { display: none; }
+.wave-field[data-variant="ask"] .wave-field__canvas {
+  left: 0; right: auto; width: 65%;
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 40%, transparent 95%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 40%, transparent 95%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
+}
+@media (max-width: 900px) {
+  .wave-field[data-variant="ask"] .wave-field__canvas { width: 90%; }
+  .wave-field[data-variant="ask"] .wave-field__glow span { opacity: 1; }
+}

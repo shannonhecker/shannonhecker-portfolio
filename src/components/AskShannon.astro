@@ -1,11 +1,13 @@
 ---
 import Split from './Split.astro';
+import WaveField from './WaveField.astro';
 import '../styles/ask-shannon.css';
 // The one address the chat may link to is the address the footer already uses.
 import footerSource from './Footer.astro?raw';
 const mail = footerSource.match(/mailto:([^"'<>\s]+)/)?.[1] ?? '';
 ---
-<section id="ask" class="band ask-shannon" aria-label="Ask Shannon" data-clarity-mask="true" data-mail={mail}>
+<section id="ask" class="band ask-shannon has-wave-field" aria-label="Ask Shannon" data-clarity-mask="true" data-mail={mail}>
+  <WaveField variant="ask" />
   <div class="wrap">
     <div class="ask-head">
       <p class="eyebrow">Shannon’s AI</p>

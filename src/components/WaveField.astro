@@ -1,0 +1,28 @@
+---
+// The guilloché wave field from the old site: fine animated hairlines drawn on a canvas
+// over a soft aurora glow. Purely decorative, always the first child of the section it
+// sits behind (the section gets `has-wave-field`). The drawing lives in
+// src/scripts/wave-field.ts, the look in src/styles/wave-field.css.
+//   hero  lavender, cyan and teal lines sweeping across the home hero
+//   about vertical amber to blue lines
+//   work  pink and amber lines
+//   ask   the same pink and amber lines, low and faint behind the chat
+// `avoid` is a selector inside the same section. The lines dissolve around that element
+// so they never cross artwork that has to stay clean (the home page's pixel game).
+import '../styles/wave-field.css';
+
+interface Props {
+  variant: 'hero' | 'about' | 'work' | 'ask';
+  avoid?: string;
+}
+const { variant, avoid } = Astro.props;
+---
+<div class="wave-field" data-variant={variant} data-avoid={avoid} aria-hidden="true">
+  <div class="wave-field__stage">
+    <div class="wave-field__glow"><span></span><span></span><span></span><span></span></div>
+    <canvas class="wave-field__canvas"></canvas>
+  </div>
+</div>
+<script>
+  import '../scripts/wave-field.ts';
+</script>
