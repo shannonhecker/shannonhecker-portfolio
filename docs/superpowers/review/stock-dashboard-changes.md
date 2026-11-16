@@ -2,6 +2,15 @@
 
 For Shannon to read before the site goes live. Source: `project-barclays-data-viz.html` on the `legacy-static` branch. New page: `/work/stock-dashboard`, content in `src/content/earlier/stock-dashboard.md`.
 
+## Needs your decision
+
+The two images on the page still show the Barclays eagle mark in the dashboard's sidebar, and "Barclays" appears as one of the six companies in the sample data (a tile and a row in the price table). The page text, file names, alt text, title, meta description and JSON-LD are clean, but a visitor looking at the pictures will see the name. I have not edited the images:
+
+- `src/assets/earlier/stock-dashboard/stock-dashboard-banner.webp` (the cover): eagle in the sidebar, "Barclays" row in the price table, "Barclays" tile at the bottom left.
+- `src/assets/earlier/stock-dashboard/stock-dashboard-02.webp` (the second image): eagle in each sidebar, "Barclays" row in the price tables, "Barclays" tile at the bottom.
+
+If the design task should carry no Barclays marks, both images need re-exporting with the logo removed and that company renamed.
+
 The rule: the words "Barclays" and "Front Office" appear nowhere on the page, including image file names, alt text, title, meta description and JSON-LD. Titles and the lead are as you gave them. Everywhere else only the minimum words came out.
 
 | Where | Before | After |
@@ -15,10 +24,6 @@ The rule: the words "Barclays" and "Front Office" appear nowhere on the page, in
 | Image file names | barclays-banner.webp, barclays-02.webp | stock-dashboard-banner.webp, stock-dashboard-02.webp |
 
 Nothing in the body text named Barclays or Front Office, so the body is word for word as it was.
-
-## One thing to decide
-
-The two images themselves still show the Barclays eagle mark in the dashboard's sidebar, and "Barclays" appears as one of the six companies in the sample data (price table, charts, a "Barclays" tile). The page text, file names and alt text are clean, but a visitor looking at the pictures will see the name. I have not edited the images. If the design task should carry no Barclays marks, the two images need re-exporting with the logo and that row renamed.
 
 ## Redirect note
 

@@ -22,7 +22,9 @@
 
 /* Outcomes: figures first, each with its label. Values that are phrases are
    set smaller so the row stays level. */
-.earlier-outcomes{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));column-gap:clamp(24px,3vw,48px);margin-top:clamp(56px,8vw,112px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.earlier-results{margin-top:clamp(56px,8vw,112px)}
+.earlier .earlier-label{margin:0 0 16px;font-family:var(--body);font-size:14px;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-2)}
+.earlier-outcomes{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));column-gap:clamp(24px,3vw,48px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .earlier-outcomes li{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px;padding-block:clamp(28px,3vw,40px)}
 .earlier-outcomes .value{align-self:end;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.3vw,34px);line-height:1.2;letter-spacing:-.025em;overflow-wrap:anywhere}
 .earlier-outcomes .value.figure{font-size:clamp(48px,5.6vw,88px);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
@@ -60,7 +62,7 @@
 .earlier-body>ol>li>p:first-of-type strong{font-weight:500}
 
 /* Private projects say so, quietly. */
-.earlier-note{margin-top:var(--section)!important;padding:clamp(24px,3vw,40px)!important;border:1px solid var(--hair);border-radius:var(--radius);color:var(--fg)!important}
+.earlier-body>.earlier-note{margin-top:var(--section);padding:clamp(24px,3vw,40px);border:1px solid var(--hair);border-radius:var(--radius);color:var(--fg)}
 .earlier-note h2{font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-.025em;margin:0 0 12px}
 .earlier-note p{font-size:17px;line-height:1.7;color:var(--fg-2);max-width:56ch}
 .earlier-note p+p{margin-top:8px}
@@ -80,7 +82,8 @@
 @media(max-width:900px){
   .earlier-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
   .earlier-lead,.earlier-facts{grid-column:1}
-  .earlier-outcomes{grid-template-columns:minmax(0,1fr);margin-top:clamp(40px,8vw,72px);border-top:0;border-bottom:0}
+  .earlier-results{margin-top:clamp(40px,8vw,72px)}
+  .earlier-outcomes{grid-template-columns:minmax(0,1fr);border-top:0;border-bottom:0}
   .earlier-outcomes li{grid-row:auto;grid-template-rows:none;border-bottom:1px solid var(--hair);padding-block:24px}
   .earlier-outcomes .value.figure{font-size:clamp(48px,14vw,72px)}
   .earlier-body,.earlier-foot{grid-template-columns:minmax(0,1fr)}

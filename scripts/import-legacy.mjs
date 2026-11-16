@@ -254,11 +254,11 @@ function convert({ slug, legacy }, order) {
       if (!bodies.length) fail(`section "${heading}" has no text`);
       // The checks list sits beside the intro text, not inside .proj-body.
       for (const child of elements(n)) {
-        if (hasClass(child, 'proj-body') || (child.tag === 'ol' && hasClass(child, 'proj-a11y-list')) || (child.tag === 'p')) {
-          if (child.tag === 'p') { const line = para(child, `section "${heading}"`); if (line) body.push({ p: line }); }
-          else if (child.tag === 'ol') paragraphs({ children: [child] }, `section "${heading}"`);
-          else paragraphs(child, `section "${heading}"`);
-        }
+        if (child === h3) continue;
+        if (child.tag === 'p') { const line = para(child, `section "${heading}"`); if (line) body.push({ p: line }); }
+        else if (child.tag === 'ol' && hasClass(child, 'proj-a11y-list')) paragraphs({ children: [child] }, `section "${heading}"`);
+        else if (hasClass(child, 'proj-body')) paragraphs(child, `section "${heading}"`);
+        else fail(`unsupported <${child.tag} class="${child.attrs.class ?? ''}"> in section "${heading}"`);
       }
       continue;
     }

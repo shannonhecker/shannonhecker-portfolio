@@ -63,14 +63,17 @@ const ld = [
         </div>
       </header>
 
-      <ul class="earlier-outcomes" style={`--n:${outcomes.length}`} aria-label="Outcomes">
-        {outcomes.map((o) => (
-          <li>
-            <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
-            <span class="label">{o.label}</span>
-          </li>
-        ))}
-      </ul>
+      <section class="earlier-results" aria-labelledby="earlier-results-title">
+        <h2 id="earlier-results-title" class="earlier-label">Outcomes</h2>
+        <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
+          {outcomes.map((o) => (
+            <li>
+              <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
+              <span class="label">{o.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <div class="earlier-cover">
         <Picture
