@@ -36,7 +36,7 @@ const entries = await writingEntries();
             <li>
               <a href={`/writing/${e.id}`} data-cursor="big">
                 <time class="date" datetime={isoDate(e.data.published)}>{displayDate(e.data.published)}</time>
-                <h2 class="title">{e.data.title}.</h2>
+                <h3 class="title">{e.data.title}.</h3>
                 <span class="read-time">{bodyStats(e).minutes} min</span>
                 <p class="blurb">{e.data.blurb}</p>
                 <span class="read">Read essay <span class="arrow" aria-hidden="true">→</span></span>
