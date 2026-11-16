@@ -60,8 +60,8 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
           <p class="score-rule">100 for finishing + 25 per pickup − 10 per bump. Minimum 100.</p>
           <details>
             <summary>Stage scoreboard · share your score</summary>
-            <ol aria-label="Top ten scores"></ol>
-            <form>
+            <ol aria-label="Top ten scores" data-clarity-mask="true"></ol>
+            <form data-clarity-mask="true">
               <label for={`score-name-${i}`}>Nickname <span>(optional)</span></label>
               <input id={`score-name-${i}`} name="nickname" maxlength="20" autocomplete="off" placeholder="Explorer" aria-describedby={`score-note-${i}`} />
               <p id={`score-note-${i}`} class="score-note">Your nickname and score will be public. Use a made-up name.</p>

@@ -18,12 +18,14 @@ function read(): Choice | null {
 export function track(name: string, fields: Record<string, string | number | boolean> = {}) {
   if (enabled && live) command('event', name, { ...fields, page_location: pageLocation, page_referrer: pageReferrer });
 }
+const clarityGrant = { ad_Storage: 'denied', analytics_Storage: 'granted' };
 function loadClarity() {
-  if (clarityLoaded) { w.clarity?.('consent', true); return; }
+  if (clarityLoaded) { w.clarity?.('consentv2', clarityGrant); return; }
   clarityLoaded = true;
   // Standard queue stub. No custom tags, identify calls or form values are sent.
   const stub: ClarityFn = function (this: unknown, ..._args: unknown[]) { (stub.q = stub.q || []).push(arguments); };
   w.clarity = stub;
+  stub('consentv2', clarityGrant);
   const tag = document.createElement('script');
   tag.async = true; tag.src = `https://www.clarity.ms/tag/${CLARITY_ID}`;
   document.head.append(tag);
@@ -47,29 +49,65 @@ function enable() {
 }
 const panel = document.getElementById('analytics-choice');
 const status = document.getElementById('analytics-status');
-function choose(choice: Choice) {
-  try { localStorage.setItem(KEY, JSON.stringify({ choice, at: Date.now() })); } catch { /* choice still applies for this page */ }
-  if (choice === 'yes') enable();
-  else {
-    enabled = false; w[`ga-disable-${ID}`] = true;
-    if (loaded) command('consent', 'update', { analytics_storage: 'denied' });
-    if (clarityLoaded) w.clarity?.('consent', false);
-    for (const item of document.cookie.split(';')) {
-      const name = item.trim().split('=')[0];
-      if (name === '_ga' || name.startsWith('_ga_') || name === '_clck' || name === '_clsk') {
-        document.cookie = `${name}=; Max-Age=0; Path=/`;
-        document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${location.hostname}`;
-      }
+const OFF_FLAG = 'portfolio-analytics-just-off';
+function expireCookies() {
+  const bare = location.hostname.replace(/^www\./, '');
+  const domains = new Set([location.hostname, bare, `.${bare}`]);
+  for (const item of document.cookie.split(';')) {
+    const name = item.trim().split('=')[0];
+    if (name === '_ga' || name.startsWith('_ga_') || name === '_clck' || name === '_clsk') {
+      document.cookie = `${name}=; Max-Age=0; Path=/`;
+      for (const domain of domains) document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${domain}`;
     }
   }
+}
+function applyNo() {
+  const hadClarity = clarityLoaded;
+  enabled = false; w[`ga-disable-${ID}`] = true;
+  if (loaded) command('consent', 'update', { analytics_storage: 'denied' });
+  if (hadClarity) {
+    w.clarity?.('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' });
+    // Documented way to erase Clarity cookies. Clarity then restarts in no-consent mode, so reload to stop it.
+    w.clarity?.('consent', false);
+  }
+  expireCookies();
   if (panel) panel.hidden = true;
-  if (status) status.textContent = choice === 'yes' ? 'Analytics allowed. You can change this below.' : 'Analytics off. Your choice is saved.';
+  if (status) status.textContent = 'Analytics off. Your choice is saved.';
+  if (hadClarity) {
+    try { sessionStorage.setItem(OFF_FLAG, '1'); } catch { /* the reload still happens */ }
+    location.reload();
+  }
+}
+function choose(choice: Choice) {
+  try { localStorage.setItem(KEY, JSON.stringify({ choice, at: Date.now() })); } catch { /* choice still applies for this page */ }
+  if (choice === 'yes') {
+    enable();
+    if (panel) panel.hidden = true;
+    if (status) status.textContent = 'Analytics allowed. You can change this below.';
+  } else applyNo();
 }
 document.querySelectorAll<HTMLButtonElement>('[data-analytics-choice]').forEach(button => button.addEventListener('click', () => choose(button.dataset.analyticsChoice as Choice)));
 document.querySelectorAll<HTMLButtonElement>('[data-analytics-settings]').forEach(button => button.addEventListener('click', () => { if (panel) { panel.hidden = false; panel.querySelector<HTMLButtonElement>('button')?.focus(); } }));
 const saved = read();
 if (saved === 'yes') enable();
 if (panel) panel.hidden = saved !== null;
+try {
+  if (sessionStorage.getItem(OFF_FLAG)) {
+    sessionStorage.removeItem(OFF_FLAG);
+    if (status) status.textContent = 'Analytics off. Your choice is saved.';
+    // Reloading dropped focus; put it back on the settings control so keyboard users keep their place.
+    document.querySelector<HTMLButtonElement>('[data-analytics-settings]')?.focus();
+  }
+} catch { /* nothing to restore */ }
+// A choice made in another tab or restored from the back/forward cache.
+// A no stops this page at once. A yes elsewhere waits for the next navigation.
+function resync() {
+  const now = read();
+  if (enabled && now !== 'yes') applyNo();
+  else if (!enabled && now !== null && panel) panel.hidden = true;
+}
+window.addEventListener('pageshow', event => { if (event.persisted) resync(); });
+window.addEventListener('storage', event => { if (event.key === KEY || event.key === null) resync(); });
 const seen = new Set<number>();
 window.addEventListener('scroll', () => {
   if (!enabled) return;

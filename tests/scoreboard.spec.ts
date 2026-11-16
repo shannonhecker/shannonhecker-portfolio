@@ -49,6 +49,7 @@ test('production consent loads one tag and sanitizes page URL; revocation disabl
     const response = await request.get(`http://localhost:4329${url.pathname}${url.search}`);
     await route.fulfill({ response });
   });
+  await page.route('https://www.clarity.ms/**', route => route.fulfill({ contentType:'text/javascript', body:'' }));
   let tags = 0;
   await page.route('https://www.googletagmanager.com/**', async route => { tags++; await route.fulfill({ contentType:'text/javascript', body:'' }); });
   await page.goto(`${host}/?private=do-not-send`);
@@ -59,8 +60,10 @@ test('production consent loads one tag and sanitizes page URL; revocation disabl
   expect(JSON.stringify(events)).not.toContain('do-not-send');
   expect(events.some((row: unknown[]) => row[0] === 'event' && row[1] === 'page_view')).toBe(true);
   await page.getByRole('button',{name:'Analytics settings',exact:true}).click();
+  // Clarity was running, so a no reloads the page to stop it completely.
+  await page.evaluate(() => { (window as any).__marker = 1; });
   await page.getByRole('button',{name:'No thanks',exact:true}).click();
-  expect(await page.evaluate(() => (window as any)['ga-disable-G-795LXWTYWM'])).toBe(true);
+  await expect.poll(() => page.evaluate(() => (window as any).__marker).catch(() => undefined)).toBeUndefined();
   await page.waitForLoadState('networkidle');
   await page.reload();
   await page.waitForLoadState('networkidle');
