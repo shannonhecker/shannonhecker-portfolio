@@ -297,6 +297,8 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     window.clearTimeout(settleTimer);
     settleTimer = window.setTimeout(settle, 340);
   }
+  // Focusing the box (or sending) leaves the whole composer above the analytics bar, if it is open.
+  input.addEventListener('focus', () => requestAnimationFrame(keepComposerInView));
   new MutationObserver(fit).observe(log, { childList: true, subtree: true, characterData: true });
   function startConversation() {
     if (started) return;

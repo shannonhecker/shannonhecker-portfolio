@@ -94,65 +94,92 @@ test.describe('1: the chat log is exactly as tall as its content, up to the cap'
   });
 });
 
-test.describe('2: the analytics notice', () => {
+test.describe('2: the analytics notice is a quiet bar on the bottom edge', () => {
   const pages = ['/', '/fx', '/work/tripup', '/writing/trust-surfaces-in-ai', '/about', '/privacy', '/writing'];
   for (const [w, h] of [[1440, 900], [390, 844]] as const) {
-    test(`one position, on the left gutter, on every page type at ${w}`, async ({ page }) => {
-      const xs: number[] = [];
+    test(`one form on every page type: full width, attached to the bottom, hairline on top at ${w}`, async ({ page }) => {
       for (const path of pages) {
         await visit(page, path, w, h, { asked: true, reduced: true });
         await expect(page.locator('#analytics-choice')).toBeVisible();
         const n = await box(page, '#analytics-choice');
-        const gutter = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.wrap')!).paddingLeft));
-        xs.push(Math.round(n.x));
-        expect(Math.abs(n.x - gutter), path).toBeLessThanOrEqual(1);
-        if (w > 760) expect(n.x + n.width, `${path} stays off the right half`).toBeLessThan(w / 2);
+        expect(n.x, path).toBe(0);
+        expect(Math.round(n.width), path).toBe(w);
+        expect(Math.round(n.y + n.height), `${path} is attached to the bottom edge`).toBe(h);
+        const s = await page.locator('#analytics-choice').evaluate((el) => { const c = getComputedStyle(el); return { top: c.borderTopWidth, other: [c.borderLeftWidth, c.borderRightWidth, c.borderBottomWidth], radius: c.borderTopLeftRadius, shadow: c.boxShadow, bg: c.backgroundColor, bodyBg: getComputedStyle(document.body).backgroundColor }; });
+        expect(s.top).toBe('1px');
+        expect(s.other).toEqual(['0px', '0px', '0px']);
+        expect(s.radius).toBe('0px');
+        expect(s.shadow).toBe('none');
+        expect(s.bg).toBe(s.bodyBg);
         await page.unrouteAll();
       }
-      expect(new Set(xs).size).toBe(1);
+    });
+
+    test(`its text starts under the logo and its last control ends under the nav's at ${w}`, async ({ page }) => {
+      for (const path of ['/', '/fx', '/about']) {
+        await visit(page, path, w, h, { asked: true, reduced: true });
+        const logo = await box(page, '.nav .brand');
+        const text = await box(page, '#analytics-choice .analytics-text');
+        const last = await box(page, '#analytics-choice .analytics-actions button:last-child');
+        const navEnd = await box(page, w > 760 ? '.nav .cta' : '.nav .site-menu-toggle svg');
+        expect(Math.abs(text.x - logo.x), `${path} left edge`).toBeLessThanOrEqual(1);
+        // The phone's menu icon is drawn 2px inside its 24px box (round caps), so its visible end is that far in.
+        const inset = w > 760 ? 0 : 2;
+        expect(Math.abs(last.x + last.width - (navEnd.x + navEnd.width - inset)), `${path} right edge`).toBeLessThanOrEqual(1);
+        await page.unrouteAll();
+      }
     });
   }
 
-  test('on a phone it is compact, on one row of controls, and keeps 44px touch targets', async ({ page }) => {
+  test('the bar is at most 80px tall at 1440 and 200px at 390, and the two buttons weigh the same', async ({ page }) => {
+    await visit(page, '/', 1440, 900, { asked: true, reduced: true });
+    expect((await box(page, '#analytics-choice')).height).toBeLessThanOrEqual(80);
+    const look = () => page.locator('#analytics-choice button').evaluateAll((bs) => bs.map((b) => { const c = getComputedStyle(b); return [c.backgroundColor, c.color, c.borderTopColor, c.fontWeight, c.fontSize, Math.round(b.getBoundingClientRect().height)].join('|'); }));
+    const l = await look();
+    expect(l).toHaveLength(2);
+    expect(l[0]).toBe(l[1]);
+    await page.unrouteAll();
     await visit(page, '/', 390, 844, { asked: true, reduced: true });
-    const n = await box(page, '#analytics-choice');
-    expect(n.height).toBeLessThanOrEqual(230);
+    expect((await box(page, '#analytics-choice')).height).toBeLessThanOrEqual(200);
+  });
+
+  test('on a phone it is compact, keeps its row of controls together and 44px touch targets', async ({ page }) => {
+    await visit(page, '/', 390, 844, { asked: true, reduced: true });
     const m = await page.evaluate(() => {
       const root = document.getElementById('analytics-choice')!;
       const cs = getComputedStyle(root);
       const p = getComputedStyle(root.querySelector('p')!);
       const b = [...root.querySelectorAll('button')].map((e) => ({ h: e.getBoundingClientRect().height, reach: parseFloat(getComputedStyle(e, '::after').height) }));
       const tops = [...root.querySelectorAll('button, a')].map((e) => Math.round(e.getBoundingClientRect().top + e.getBoundingClientRect().height / 2));
-      return { pad: cs.paddingTop, size: p.fontSize, line: parseFloat(p.lineHeight) / parseFloat(p.fontSize), b, tops };
+      return { padTop: cs.paddingTop, padBottom: cs.paddingBottom, size: p.fontSize, line: parseFloat(p.lineHeight) / parseFloat(p.fontSize), b, tops };
     });
-    expect(m.pad).toBe('16px');
+    expect(m.padTop).toBe('16px');
+    expect(parseFloat(m.padBottom)).toBeGreaterThanOrEqual(12);
     expect(m.size).toBe('14px');
     expect(m.line).toBeCloseTo(1.45, 2);
     for (const x of m.b) { expect(x.h).toBeLessThanOrEqual(41); expect(x.reach).toBeGreaterThanOrEqual(44); }
-    expect(Math.max(...m.tops) - Math.min(...m.tops), 'buttons and Privacy details share a row').toBeLessThanOrEqual(4);
-    const link = await box(page, '#analytics-choice a');
-    expect(link.height).toBeGreaterThanOrEqual(44);
-  });
-
-  test('it never covers the chat AI note and its Privacy link on desktop, nor the suggestions on a phone', async ({ page }) => {
-    await visit(page, '/', 1440, 900, { asked: true, reduced: true });
-    await page.locator('.ask-note').scrollIntoViewIfNeeded();
-    const notice = await box(page, '#analytics-choice');
-    expect(hits(await box(page, '.ask-note a'), notice)).toBe(false);
-    expect(hits(await box(page, '.ask-note'), notice)).toBe(false);
-    await page.locator('#ask-input').scrollIntoViewIfNeeded();
-    expect(hits(await box(page, '#ask-form'), notice)).toBe(false);
-    await page.unrouteAll();
-    await visit(page, '/', 390, 844, { asked: true, reduced: true });
-    await page.locator('#ask-suggestions').scrollIntoViewIfNeeded();
-    expect(hits(await box(page, '#ask-suggestions'), await box(page, '#analytics-choice'))).toBe(false);
-    await page.locator('.ask-note a').scrollIntoViewIfNeeded();
-    expect(hits(await box(page, '.ask-note a'), await box(page, '#analytics-choice'))).toBe(false);
+    expect(Math.max(...m.tops) - Math.min(...m.tops), 'Privacy details and the buttons share a row').toBeLessThanOrEqual(4);
+    expect((await box(page, '#analytics-choice a')).height).toBeGreaterThanOrEqual(44);
   });
 
   for (const [w, h] of [[1440, 900], [390, 844]] as const) {
+    test(`with the bar open, nothing the visitor scrolls to ends up under it at ${w}`, async ({ page }) => {
+      await visit(page, '/', w, h, { asked: true, reduced: true });
+      const bar = await box(page, '#analytics-choice');
+      for (const sel of ['#ask-input', '#ask-send', '.ask-note a', '#ask-suggestions button', '#ask-form', 'footer .legal-links a', 'footer [data-analytics-settings]']) {
+        await page.locator(sel).first().scrollIntoViewIfNeeded();
+        await page.waitForTimeout(80);
+        expect(hits((await box(page, sel)) as Box, bar), sel).toBe(false);
+      }
+      await page.unrouteAll();
+      await visit(page, '/fx', w, h, { asked: true, reduced: true });
+      await page.evaluate(() => scrollTo({ top: 3000, behavior: 'instant' }));
+      await expect(page.locator('.section-open')).toBeVisible();
+      expect(hits(await box(page, '.section-open'), await box(page, '#analytics-choice'))).toBe(false);
+    });
+
     test(`at the foot of a page the footer's controls end up above it at ${w}`, async ({ page }) => {
-      for (const path of ['/', '/fx', '/work/tripup', '/writing/trust-surfaces-in-ai']) {
+      for (const path of ['/', '/fx', '/work/tripup', '/writing/trust-surfaces-in-ai', '/about']) {
         await visit(page, path, w, h, { asked: true, reduced: true });
         await page.evaluate(() => scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
         await page.waitForTimeout(150);
@@ -167,6 +194,30 @@ test.describe('2: the analytics notice', () => {
       }
     });
   }
+
+  for (const [w, h] of [[1440, 900], [390, 844]] as const) {
+    test(`focusing the composer, and sending a question, leave it fully above the bar at ${w}`, async ({ page }) => {
+      await visit(page, '/', w, h, { asked: true, reduced: true });
+      await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+      await page.locator('#ask-input').focus();
+      await expect.poll(async () => { const f = await box(page, '#ask-form'); const bar = await box(page, '#analytics-choice'); return f.y + f.height <= bar.y + 0.5 && f.y >= 0; }).toBe(true);
+      await page.locator('#ask-input').fill('How do you approach a new design problem?');
+      await page.locator('#ask-send').click();
+      await expect(page.locator('.ask-msg--ai').last()).toContainText('I lead with');
+      await expect.poll(async () => { const f = await box(page, '#ask-form'); const bar = await box(page, '#analytics-choice'); return f.y + f.height <= bar.y + 0.5; }).toBe(true);
+    });
+  }
+
+  test('the Sections button is lifted above the bar while it is open and drops back when it closes', async ({ page }) => {
+    await visit(page, '/fx', 1440, 900, { asked: true, reduced: true });
+    await page.evaluate(() => scrollTo({ top: 3000, behavior: 'instant' }));
+    const open = (await box(page, '.section-open'));
+    expect(open.y + open.height).toBeLessThanOrEqual((await box(page, '#analytics-choice')).y);
+    const lifted = open.y;
+    await page.getByRole('button', { name: 'No thanks' }).click();
+    await expect(page.locator('#analytics-choice')).toBeHidden();
+    expect((await box(page, '.section-open')).y).toBeGreaterThan(lifted);
+  });
 });
 
 test.describe('3: About sits on the page grid', () => {

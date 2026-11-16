@@ -1,7 +1,11 @@
 <aside id="analytics-choice" class="analytics-choice" aria-labelledby="analytics-heading" hidden>
-  <h2 id="analytics-heading">Optional analytics</h2>
-  <p>I use Google Analytics and Microsoft Clarity to see visits, reading and game play. Off unless you allow it. Nicknames are never sent to either.</p>
-  <div><button type="button" data-analytics-choice="no">No thanks</button><button type="button" data-analytics-choice="yes">Allow analytics</button><a href="/privacy">Privacy details</a></div>
+  <div class="analytics-inner">
+    <div class="analytics-text">
+      <h2 id="analytics-heading">Optional analytics</h2>
+      <p>I use Google Analytics and Microsoft Clarity to see visits, reading and game play. Off unless you allow it. Nicknames are never sent to either.</p>
+    </div>
+    <div class="analytics-actions"><a href="/privacy">Privacy details</a><button type="button" data-analytics-choice="no">No thanks</button><button type="button" data-analytics-choice="yes">Allow analytics</button></div>
+  </div>
 </aside>
 <script is:inline>
   // Set visibility before first paint, without waiting for the analytics module.
@@ -27,35 +31,39 @@
 </script>
 <script>import '../scripts/analytics';</script>
 <style>
-/* One place on every page: bottom left, on the page gutter. The only other fixed control, the case
-   pages' Sections button, is bottom right; the chat's AI note and its Privacy link are in the right
-   hand column; on essays, earlier projects, About and Privacy the left column is the empty label
-   column. At the foot of a page the notice's height is reserved (--consent-h), so the footer's
-   Privacy and Analytics settings controls always end up above it. On a phone it spans the gutters. */
-.analytics-choice{position:fixed;z-index:120;bottom:24px;left:max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)));width:min(360px,calc(100% - 2 * var(--gutter)));padding:12px 14px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg);color:var(--fg);font:400 13px/1.6 var(--body)}
-.analytics-choice[hidden]{display:none}
-.analytics-choice h2{font:500 15px/1.3 var(--display);margin:0 0 4px;letter-spacing:0}
-.analytics-choice p{font:inherit;margin:0 0 8px;font-size:12px;line-height:1.5}
-.analytics-choice div{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.analytics-choice button{padding:8px 12px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg);font:600 13px/1.5 var(--body);cursor:pointer;min-height:40px}
-.analytics-choice a{display:inline-flex;align-items:center;min-height:24px;color:var(--fg);text-decoration:underline;font-size:13px}
+/* A quiet bar on the bottom edge, like the nav's family: full width, a hairline on top, the page
+   background, no card. It is the same on every page type and it is page chrome, so content scrolls
+   under it. Its row sits on the nav's gutter and maximum width, so its text starts under the logo and
+   its last control ends under the nav's last control. While it is open its height is published as
+   --consent-h: the page end, focus scrolling, the chat composer and the case pages' Sections button
+   all stay above it. Declining is as easy as accepting: the two buttons are the same, neither filled. */
+.analytics-choice{position:fixed;z-index:120;left:0;right:0;bottom:0;padding:12px max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)));border-top:1px solid var(--hair);background:var(--bg);color:var(--fg);font:400 13px/1.5 var(--body)}
+.analytics-choice[hidden],:global(html.sections-open) .analytics-choice{display:none}
+.analytics-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px}
+.analytics-text{flex:1 1 420px;min-width:0;color:var(--fg-2);text-wrap:balance}
+.analytics-text h2,.analytics-text p{display:inline;margin:0;font:inherit;letter-spacing:0}
+.analytics-text h2{margin-right:10px;font-weight:500;font-size:14px;color:var(--fg)}
+.analytics-text p{font-size:13px}
+.analytics-actions{display:flex;flex:0 0 auto;align-items:center;gap:8px}
+.analytics-choice button{padding:0 14px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg);font:600 13px/1 var(--body);cursor:pointer;min-height:40px}
+.analytics-choice a{display:inline-flex;align-items:center;min-height:24px;margin-right:8px;color:var(--fg);text-decoration:underline;text-underline-offset:.2em;font-size:13px;white-space:nowrap}
 .analytics-choice button:focus-visible,.analytics-choice a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:3px}
 @media(max-width:760px){
-  .analytics-choice{left:var(--gutter);right:var(--gutter);bottom:12px;width:auto}
   .analytics-choice button{min-height:44px}
   .analytics-choice a{min-height:44px;margin-block:-10px}
-  .analytics-choice div{row-gap:10px}
 }
-/* Phones: a compact notice, about 190px tall, so "Try asking" and the composer stay readable.
-   The buttons look 40px tall and keep a 44px touch target through an invisible extension. */
+/* Phones: the same bar, about 185px tall, with the heading on its own line. The buttons look 40px
+   tall and keep a 44px touch target through an invisible extension. */
 @media(max-width:600px){
-  .analytics-choice{padding:16px}
-  .analytics-choice h2{margin:0 0 4px}
-  .analytics-choice p{margin:0 0 12px;font-size:14px;line-height:1.45}
-  .analytics-choice div{flex-wrap:wrap;gap:6px;row-gap:4px}
-  .analytics-choice button{position:relative;min-height:40px;padding:0 9px;line-height:1}
+  .analytics-choice{padding:16px var(--gutter) max(12px,env(safe-area-inset-bottom))}
+  .analytics-inner{display:block}
+  .analytics-text h2{display:block;margin:0 0 4px;font-size:15px}
+  .analytics-text p{display:block;font-size:14px;line-height:1.45}
+  .analytics-actions{flex-wrap:wrap;gap:6px;row-gap:4px;margin-top:12px}
+  .analytics-actions button{flex:1 1 auto}
+  .analytics-choice button{position:relative;min-height:40px;padding:0 9px}
   .analytics-choice button::after{content:"";position:absolute;inset:-3px 0}
-  .analytics-choice a{min-height:44px;margin-block:-8px;padding-inline:0 2px;font-size:13px;white-space:nowrap}
+  .analytics-choice a{min-height:44px;margin:-8px 4px -8px 0;padding-inline:0 2px;white-space:nowrap}
 }
 /* Make room for it while it is open: focus and anchor scrolling stop above it, and the page end
    (the footer, or the body where there is no footer) grows by its height. */

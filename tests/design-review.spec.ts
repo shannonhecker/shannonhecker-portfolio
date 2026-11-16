@@ -87,8 +87,10 @@ test.describe('D1: the analytics notice never covers the chat composer', () => {
       expect(hits(await box(page, '#ask-send'), notice)).toBe(false);
       // On the gutter, not 12px from the edge.
       const gutter = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.wrap')!).paddingLeft));
-      // One place on every page: bottom left, on the gutter (round 2).
-      expect(Math.abs(notice.x - gutter)).toBeLessThanOrEqual(1);
+      // One form on every page: a bar attached to the bottom edge, full width (round 2).
+      expect(gutter).toBeGreaterThan(0);
+      expect(notice.x).toBe(0);
+      expect(Math.round(notice.width)).toBe(w);
     });
   }
 
