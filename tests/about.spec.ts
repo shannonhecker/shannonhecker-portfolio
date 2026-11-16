@@ -63,8 +63,7 @@ const LEGACY_WORDS = [
   'Taiwan-born. English and Mandarin.',
   'Married with two kids, plus one fluffy cat called Quorra.',
   'Soya latte, extra shot. Strong leaf tea on design days.',
-  // Contact
-  'Let’s Talk.', 'Email me directly',
+  // The "Let's Talk." block moved to the shared footer (tests/contact.spec.ts covers it).
 ].map(flat);
 
 // The panel hero's intro paragraph (src/components/Hero.astro): the opening line.
@@ -170,7 +169,11 @@ test.describe('/about', () => {
     expect(at('My approach')).toBeLessThan(at('Experience'));
     expect(at('Experience')).toBeLessThan(at('Expertise'));
     expect(at('Expertise')).toBeLessThan(at('Education'));
-    expect(at('Education')).toBeLessThan(at('Let’s Talk.'));
+    expect(at('Education')).toBeLessThan(at('Outside work'));
+    // The page ends once: the contact block is the footer's, after the last section.
+    await expect(page.locator('main #contact, .about-close')).toHaveCount(0);
+    const body = flat(await page.locator('body').innerText());
+    expect(body.indexOf('Outside work')).toBeLessThan(body.indexOf(flat('Let’s Talk.')));
   });
 
   test('the Resume link is the CV and the PDF is served', async ({ page, request }) => {
@@ -186,10 +189,10 @@ test.describe('/about', () => {
   test('contact links: LinkedIn, email, and the close', async ({ page }) => {
     await open(page, '/about');
     await expect(page.locator('main a[href="https://www.linkedin.com/in/shannonhecker"]').first()).toBeVisible();
-    const mail = page.locator('main a[href="mailto:shannonheckerchen@gmail.com"]');
-    expect(await mail.count()).toBeGreaterThanOrEqual(2);
-    const close = page.locator('#contact');
-    await expect(close).toBeVisible();
+    // The intro's own Email link stays in main; the "Let's Talk." block is the footer's.
+    await expect(page.locator('main a[href="mailto:shannonheckerchen@gmail.com"]')).toHaveCount(1);
+    const close = page.locator('footer #contact');
+    await expect(close).toHaveCount(1);
     await expect(close.getByRole('heading', { name: 'Let’s Talk.' })).toBeVisible();
     await expect(close.locator('a[href^="mailto:"]')).toContainText('Email me directly');
   });

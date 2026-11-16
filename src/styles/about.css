@@ -30,7 +30,7 @@
 .about-who .about-prose{margin-top:clamp(24px,3vw,40px)}
 
 .about-links{display:flex;flex-wrap:wrap;gap:0 clamp(20px,2.4vw,36px);margin:auto 0 0;padding:clamp(16px,2vw,24px) 0 0;list-style:none}
-.about-links a,.about-mail,.about-rows a{color:var(--fg);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.about-links a,.about-rows a{color:var(--fg);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 .about-links a{display:inline-flex;align-items:center;min-height:44px;font-size:17px;font-weight:500}
 .about-links a:hover,.about-rows a:hover{text-decoration-thickness:2px}
 
@@ -90,14 +90,6 @@
 .about-list--two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--g)}
 .about-outside .about-list>li{color:var(--fg-2)}
 
-/* ------------------------------------------------------------------ close */
-.about-close{scroll-margin-top:96px}
-.about-close .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px 48px;padding-top:clamp(56px,7vw,112px);padding-bottom:clamp(56px,7vw,112px);border-top:1px solid var(--hair)}
-.about-close h2{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(64px,11vw,168px);line-height:.9;letter-spacing:-.06em}
-.about-mail{display:inline-flex;align-items:center;min-height:44px;margin-bottom:clamp(6px,1vw,14px);font-family:var(--display,var(--body));font-weight:500;font-size:clamp(22px,2.3vw,34px);line-height:1.2;letter-spacing:-.03em;text-decoration-thickness:2px;white-space:nowrap}
-.about-mail span{display:inline-block;margin-left:.3em;transition:transform .3s}
-.about-mail:hover span,.about-mail:focus-visible span{transform:translateX(4px)}
-
 .about-page a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
 
 /* ------------------------------------------------------------------ narrower */
@@ -114,7 +106,7 @@
   .about-list--two{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:760px){
-  .about-head .wrap,.about-close .wrap{flex-direction:column;align-items:flex-start;gap:12px}
+  .about-head .wrap{flex-direction:column;align-items:flex-start;gap:12px}
   .about-meta{text-align:left;max-width:none}
   .about-schools>li{grid-template-columns:minmax(0,1fr)}
   .about-job{grid-template-columns:28px minmax(0,1fr);column-gap:0;row-gap:4px}
@@ -124,6 +116,4 @@
   .about-rows>div{grid-template-columns:minmax(0,1fr)}
   .about-facts{grid-template-columns:minmax(0,1fr);row-gap:0}
   .about-facts>div{padding-bottom:var(--rule)}
-  .about-mail{margin-bottom:0}
 }
-@media(prefers-reduced-motion:reduce){.about-mail span{transition:none}}

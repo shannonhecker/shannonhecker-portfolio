@@ -358,7 +358,7 @@ test('the site still works if the game chunk fails to load', async ({ page }) =>
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
   await expect(page.getByRole('button', { name: 'Start adventure' })).toBeEnabled();
-  await expect(page.locator('#links h2')).toBeVisible();
+  await expect(page.locator('#links .foot h2')).toBeVisible();
 });
 
 test.describe('JavaScript off', () => {
