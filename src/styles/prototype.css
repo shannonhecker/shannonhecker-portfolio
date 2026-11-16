@@ -11,7 +11,7 @@
   --display:"Inter Tight","Inter",system-ui,-apple-system,sans-serif;
   --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --ws-display:"Nunito","Inter Tight",system-ui,sans-serif;
-  --max:1440px; --gutter:clamp(24px,3.4vw,64px); /* the one page width and side gutter */
+  --track-head:-.03em; --max:1440px; --gutter:clamp(24px,3.4vw,64px); /* the one page width and side gutter */
   --ease:cubic-bezier(.22,1,.36,1); --fast:160ms; --base:360ms;
   color-scheme:light;
 }
