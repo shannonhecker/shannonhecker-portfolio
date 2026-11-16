@@ -103,3 +103,9 @@ Shannon went through all five notes in `docs/superpowers/review/`; each file end
 - Writing and role labels: stand as built.
 
 Preview scoreboard: one test score ("Preview test", 140, stage 0) saved through the API and read back; a real browser play is still worth doing. Suite: 826 tests, build and three checks green. These commits are local until Shannon OKs a push. Still needed from her, not blocking: sharper screenshots and portrait. Next: push, then Task 14 go-live, one confirmed step at a time.
+
+## Go-live, steps 1 and 2 (16 Nov 2026)
+
+- Rollback facts re-checked: A records `185.199.108.153`, `.109`, `.110`, `.111`; `www` CNAME `shannonhecker.github.io.`; Pages serves `legacy-static`.
+- Panel link captured for the later comparison: headers and two screenshots (1440 and 390 wide) in `.golive/` in the working folder. That folder is kept out of git on purpose, because the panel site is private.
+- Review commits pushed (`fafdbf9`); the preview rebuilt and carries the changes.
