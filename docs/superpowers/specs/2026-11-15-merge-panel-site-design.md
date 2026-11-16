@@ -42,6 +42,19 @@ site has.
   this one is not).
 - Light and dark both look finished on every page.
 
+## Quality bar (Shannon, 16 Nov 2026)
+
+The live site is held to the level of work that wins at Awwwards, the Webby
+Awards and FWA. Claude inspects its own output and iterates until that bar is
+met, without being asked. In practice: every page type is looked at as real
+screenshots on a phone and a desktop in light and dark; it is critiqued
+against design, usability, creativity, content, motion and performance; it
+is fixed and looked at again. Passing tests is not the bar. The new
+templates (Work, earlier projects, Writing, About, chat) must match the
+craft of the five flagship case pages, not only reuse their tokens. This
+does not license new content, new copy or a redesign of the flagship pages
+or the game.
+
 ## Non-goals
 
 - No new content, no new projects, no copy rewrite beyond what the rules

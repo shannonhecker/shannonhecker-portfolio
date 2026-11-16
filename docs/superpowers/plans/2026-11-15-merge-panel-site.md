@@ -32,6 +32,8 @@
 - Pushing, changing GitHub Pages, creating Vercel resources, DNS and Render changes are outward-facing: confirm with Shannon at the step that says so. Ask her one question at a time.
 - Delegation: builders on Sonnet at `medium`; Tasks 2, 9, 10, 13 and 14 reviewed on Opus at `high`. UI tasks (4 to 7, 10) load `frontend-design:frontend-design` and `ui-ux-pro-max:ui-ux-pro-max` and say which they used; Task 12 loads `web-design-guidelines` and `accesslint:accessibility-audit`.
 
+- Quality bar (Shannon, 16 Nov 2026): Awwwards, Webby and FWA winning level. Every UI task looks at its own screenshots (390x844 and 1440x900, dark and light), critiques them against design, usability, creativity, content, motion and performance, fixes and re-shoots until it holds up beside the flagship case pages. Task 12 is an iterated, independently judged quality loop over the whole site, not a single pass.
+
 ## Review Focus
 
 1. **Old link with extras.** A visitor opens `/index.html`, `/project-tripup.html?utm_source=x` or `/about.html#contact`. They land on the matching live page, not a 404. Test in Task 8.
