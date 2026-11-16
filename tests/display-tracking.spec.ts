@@ -55,3 +55,17 @@ test('the footer serif is applied only once the footer is near, so its font is n
   await expect.poll(() => page.locator('#contact h2').evaluate((e) => getComputedStyle(e).fontFamily)).toContain('Noto Serif Display');
   await expect.poll(() => fonts.length).toBeGreaterThan(0);
 });
+
+test('the chat heading shares the serif and loads it before the chat is reached', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.locator('#ask').scrollIntoViewIfNeeded();
+  await expect(page.locator('html')).toHaveClass(/serif-on/);
+  const { family, weight, tracking, size } = await page.locator('#ask .ask-head .h-section').evaluate((e) => {
+    const cs = getComputedStyle(e);
+    return { family: cs.fontFamily, weight: cs.fontWeight, tracking: parseFloat(cs.letterSpacing), size: parseFloat(cs.fontSize) };
+  });
+  expect(family).toContain('Noto Serif Display');
+  expect(weight).toBe('500');
+  expect(Math.abs(tracking / size + 0.03)).toBeLessThanOrEqual(TOLERANCE);
+});

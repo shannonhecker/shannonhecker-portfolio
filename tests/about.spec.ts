@@ -66,7 +66,7 @@ const LEGACY_WORDS = [
 ].map(flat);
 
 // The panel hero's intro paragraph (src/components/Hero.astro): the opening line.
-const HERO_INTRO = flat("Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.");
+const HERO_INTRO = flat("Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.");
 
 // Real characters (spaces included) per full line of the long paragraphs on the page.
 // Every character is placed by its own client rect; lines are the distinct vertical

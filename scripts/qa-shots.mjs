@@ -41,6 +41,11 @@ try {
         for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); }
         scrollTo(0, 0);
       });
+      // Lazy images below the fold: make them eager and wait until every image has finished.
+      await page.evaluate(async () => {
+        document.querySelectorAll('img[loading=lazy]').forEach((img) => { img.loading = 'eager'; });
+        await Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); }))));
+      });
       await page.waitForLoadState('networkidle');
       const name = path === '/' ? 'home' : path.slice(1).replaceAll('/', '_');
       await page.screenshot({ path: `${OUT}/${name}-${width}-${theme}.png`, fullPage: true });

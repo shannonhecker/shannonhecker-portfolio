@@ -14,6 +14,10 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 .adventure-hero .hero-top { margin-top:40px;font-weight:400;font-size:18px;line-height:1.8;max-width:56ch; }
 .adventure-hero .hero-for { font-family:var(--body);font-size:13px;line-height:1.6;color:var(--fg-2); }
 .hero-bonus { margin-top:48px;padding-top:40px; }
+/* The hero ends a short step under its last line, and Selected work starts a short step after that, so the
+   next heading peeks into the first screen at 1440x900 instead of sitting 300px of nothing away. */
+header.hero.adventure-hero { padding-bottom:clamp(28px,2.5vw,40px); }
+#work.band { padding-top:clamp(48px,4.4vw,64px); }
 .case-page .chapter-head h1 { font-size:clamp(52px,6.5vw,100px);line-height:1.07;letter-spacing:-.035em; }
 .case-page .chapter-head .lead { font-size:clamp(18px,1.7vw,24px);font-weight:400;line-height:1.65;max-width:45ch; }
 .case-page .chapter-head>.g { row-gap:48px; }
@@ -30,7 +34,8 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 .project-hero .shot { border-radius:var(--radius); }
 /* A little colour at wayfinding moments, while screens keep their own palette. */
 .companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:#f8ede8;border-radius:48% 48% 6px 6px;z-index:-2; }
-html[data-theme=dark] .companion-stage::before { background:#302930; }
+/* A cool blue-grey, so the arch sits in the hero's blue glow rather than reading as a brown cut-out. */
+html[data-theme=dark] .companion-stage::before { background:#252b38; }
 .companion-path { background:repeating-linear-gradient(90deg,#cfae9c 0 10px,transparent 10px 18px); }
 #work .row .arrow { transition:translate .25s ease; }
 #work .row:hover .arrow { translate:4px 0; }
@@ -42,6 +47,8 @@ html[data-theme=dark] .companion-stage::before { background:#302930; }
  .adventure-hero .hero-top { font-size:16px;margin-top:28px; }
  .adventure-hero .hero-for { font-size:12px; }
  .hero-bonus { margin-top:16px;padding-top:28px; }
+ header.hero.adventure-hero { padding-bottom:32px; }
+ #work.band { padding-top:48px; }
  .case-page .chapter-head>.g,.case-page .beat .body { row-gap:32px; }
  .case-page .chapter-head h1 { font-size:clamp(42px,10vw,64px); }
  .project-hero { margin-top:40px; }

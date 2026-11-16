@@ -9,7 +9,7 @@ const heading = ['I', 'design', 'tools', 'where', 'mistakes', 'cost', 'money.'];
   <div class="wrap">
     <div class="hero-story">
       <h1 class="h-giant" aria-label={heading.join(' ')}>{heading.map((word, index) => <><span class="hero-word-window" aria-hidden="true" style={`--word-index:${index}`}><span class="hero-word">{word}</span></span>{index < 6 ? ' ' : ''}</>)}</h1>
-      <p class="hero-top"><span class="hero-copy-depth">Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.</span></p>
+      <p class="hero-top"><span class="hero-copy-depth">Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.</span></p>
       <a class="explore-work" href="#work">Explore my work<span aria-hidden="true">↓</span></a>
     </div>
     <LandingCompanion />

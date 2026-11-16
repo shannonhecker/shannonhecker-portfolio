@@ -46,13 +46,20 @@ const WORK: Spec = {
   dark: stops([[0, 255, 145, 185, 0], [0.06, 255, 145, 185, 0.3], [0.35, 255, 198, 95, 0.3], [0.65, 255, 175, 135, 0.3], [0.94, 255, 205, 110, 0.3], [1, 255, 205, 110, 0]]),
   light: stops([[0, 230, 90, 150, 0], [0.06, 230, 90, 150, 0.3], [0.35, 220, 140, 20, 0.3], [0.65, 225, 120, 80, 0.3], [0.94, 220, 145, 30, 0.3], [1, 220, 145, 30, 0]]),
 };
-// Ask (the old footer strip): the same pink and amber, slower, finer, dissolving to the right.
+// Ask: the card's own family, pink into violet into blue and back, so the lines read as the card's
+// edge continued. They are masked to flank the card on both sides (see wave-field.css).
 const ASK: Spec = {
   axis: 'x', n: 85, speed: 0.00026, phaseStep: 0.19, lineWidth: 0.72, bandStart: 0.05, bandEnd: 0.95, ampl: 0.04, bellFloor: 0.35, pinned: false,
-  dark: stops([[0, 255, 145, 185, 0], [0.06, 255, 145, 185, 0.3], [0.25, 255, 198, 95, 0.3], [0.45, 255, 175, 135, 0.3], [0.6, 255, 205, 110, 0.22], [0.8, 255, 205, 110, 0.08], [1, 255, 205, 110, 0]]),
-  light: stops([[0, 230, 90, 150, 0], [0.06, 230, 90, 150, 0.3], [0.25, 220, 140, 20, 0.3], [0.45, 225, 120, 80, 0.3], [0.6, 220, 145, 30, 0.22], [0.8, 220, 145, 30, 0.08], [1, 220, 145, 30, 0]]),
+  dark: stops([[0, 236, 72, 153, 0], [0.06, 236, 72, 153, 0.3], [0.3, 168, 85, 247, 0.3], [0.5, 91, 141, 239, 0.3], [0.7, 168, 85, 247, 0.3], [0.94, 236, 72, 153, 0.3], [1, 236, 72, 153, 0]]),
+  light: stops([[0, 214, 58, 140, 0], [0.06, 214, 58, 140, 0.3], [0.3, 140, 70, 225, 0.3], [0.5, 60, 110, 215, 0.3], [0.7, 140, 70, 225, 0.3], [0.94, 214, 58, 140, 0.3], [1, 214, 58, 140, 0]]),
 };
-const SPECS: Record<string, Spec> = { hero: HERO, about: ABOUT, work: WORK, ask: ASK };
+// Writing: the head of the writing index. Cool teal into green, a quiet cousin of the hero.
+const WRITING: Spec = {
+  ...HERO, pinned: false,
+  dark: stops([[0, 94, 234, 212, 0], [0.06, 94, 234, 212, 0.3], [0.38, 110, 231, 183, 0.3], [0.68, 103, 232, 249, 0.3], [0.94, 134, 239, 172, 0.3], [1, 134, 239, 172, 0]]),
+  light: stops([[0, 20, 160, 140, 0], [0.06, 20, 160, 140, 0.3], [0.38, 40, 165, 105, 0.3], [0.68, 30, 150, 185, 0.3], [0.94, 60, 165, 100, 0.3], [1, 60, 165, 100, 0]]),
+};
+const SPECS: Record<string, Spec> = { hero: HERO, about: ABOUT, work: WORK, writing: WRITING, ask: ASK };
 
 const MIN_GAP = 6; // closest two lines may sit, in CSS pixels
 const FRAME_MS = 1000 / 30;
@@ -96,6 +103,9 @@ class WaveField {
       this.visible = e.isIntersecting;
       this.sync();
     }).observe(canvas);
+    // Once its section has left the window (the top 96px belong to the nav), the field fades out, so a
+    // pinned field never leaves a faint strip under the nav. It fades back in when the section returns.
+    new IntersectionObserver(([e]) => field.classList.toggle('is-away', !e.isIntersecting), { rootMargin: '-96px 0px 0px 0px' }).observe(this.host);
     document.addEventListener('visibilitychange', () => this.sync());
     new MutationObserver(() => this.theme()).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     reduced.addEventListener('change', () => this.motionChanged());
@@ -117,17 +127,29 @@ class WaveField {
     return root.dataset.theme !== 'light';
   }
 
-  // The lines dissolve around the avoided element. Measured against the field, which
-  // never moves, so scrolling needs no update.
+  // The lines (not the glow) dissolve around the avoided element. The mask sits on the canvas, which
+  // rides with the pinned stage, so the hole is kept in the canvas's own coordinates: measured
+  // against the field (which never moves) and moved back by the stage's current shift.
+  private holeX = 0;
+  private holeY = 0;
+  private shift = 0;
+
   private measureHole(t: HTMLElement) {
     const f = this.field.getBoundingClientRect();
     const r = t.getBoundingClientRect();
     if (!r.width || !f.width) return;
+    this.holeX = r.left - f.left + r.width / 2 - this.canvas.offsetLeft;
+    this.holeY = r.top - f.top + r.height / 2 - this.canvas.offsetTop;
     const s = this.field.style;
-    s.setProperty('--hx', `${r.left - f.left + r.width / 2}px`);
-    s.setProperty('--hy', `${r.top - f.top + r.height / 2}px`);
     s.setProperty('--hw', `${r.width * 0.95}px`);
     s.setProperty('--hh', `${r.height * 0.85}px`);
+    this.placeHole();
+  }
+
+  private placeHole() {
+    const s = this.field.style;
+    s.setProperty('--hx', `${this.holeX}px`);
+    s.setProperty('--hy', `${this.holeY - this.shift}px`);
   }
 
   private resize() {
@@ -214,7 +236,10 @@ class WaveField {
       cancelAnimationFrame(this.raf);
       this.raf = 0;
     }
-    if (reduced.matches) this.stage.style.transform = '';
+    if (reduced.matches) {
+      this.stage.style.transform = '';
+      if (this.shift) { this.shift = 0; this.placeHole(); }
+    }
   }
 
   private frame(ts: number) {
@@ -269,6 +294,10 @@ class WaveField {
       const y = scrollY - this.fieldTop;
       const inside = y > 0 && y < this.field.offsetHeight - 40;
       this.stage.style.transform = inside ? `translate3d(0,${y}px,0)` : '';
+      if (this.holeTarget) {
+        this.shift = inside ? y : 0;
+        this.placeHole();
+      }
     });
   }
 }

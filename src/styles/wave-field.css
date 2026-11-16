@@ -24,20 +24,26 @@
 html[data-theme="light"] .wave-field { --wf-glow: .45; }
 html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253; --wf-b: 103 232 249; --wf-c: 129 140 248; --wf-d: 94 234 212; }
 
-/* Artwork the lines must stay clear of: a soft hole around it (measured in the script). */
-.wave-field[data-avoid] {
-  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%);
-  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%);
-}
-
-/* The hero field is pinned while it scrolls past, so its own bottom edge fades the lines out
+/* The hero field is pinned while it scrolls past, so its own bottom edge fades the glow and the lines out
    (the canvas's fade would travel with it). */
 .wave-field[data-variant="hero"] {
-  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%), linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
-  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 52%, #000 100%), linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent 100%);
 }
+
+/* Artwork the lines must stay clear of: a soft hole in the lines only (the glow runs on behind it, so
+   no dark oval is left round the artwork). Transparent to 30%, opaque by 85%. The hole's position is
+   kept in canvas coordinates by the script. */
+.wave-field[data-avoid] .wave-field__canvas {
+  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 30%, #000 85%), linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, transparent 0, #000 8%, #000 86%, transparent 100%);
+  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 30%, #000 85%), linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, transparent 0, #000 8%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in, source-in;
+  mask-composite: intersect, intersect;
+}
+
+/* Left behind: when the section has scrolled out of the window the whole field fades out. */
+.wave-field.is-away { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) { .wave-field { transition: opacity .4s ease; } }
 
 .wave-field__stage { position: absolute; inset: 0; }
 /* Nothing of the field is laid out or painted until its script switches it on, once the page is
@@ -134,34 +140,57 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 html[data-theme="light"] .wave-field[data-variant="about"], html[data-theme="light"] .wave-field[data-variant="work"] { --wf-glow: .4; }
 .about-head > .wave-field, .work-head > .wave-field { top: calc(-1 * clamp(112px, 10vw, 160px)); }
 
-/* ---- ask: low and faint behind the chat, pink and amber, from the left ---- */
-.wave-field[data-variant="ask"] { --wf-a: 255 145 185; --wf-b: 255 198 95; --wf-c: 255 175 135; --wf-d: 255 205 110; --wf-glow: .2; }
+/* ---- ask: low behind the chat, in the card's own pink, violet and blue, flanking the card ---- */
+.wave-field[data-variant="ask"] { --wf-a: 236 72 153; --wf-b: 168 85 247; --wf-c: 91 141 239; --wf-d: 168 85 247; --wf-glow: .2; }
 html[data-theme="light"] .wave-field[data-variant="ask"] { --wf-glow: .3; }
 .wave-field[data-variant="ask"] { top: auto; height: min(100%, 520px); }
 .wave-field[data-variant="ask"] .wave-field__glow {
   left: 0; right: 0;
-  -webkit-mask-image: linear-gradient(to right, #000 0, #000 45%, transparent 92%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 0, #000 45%, transparent 92%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 22%, transparent 38%, transparent 62%, #000 78%, #000 100%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 22%, transparent 38%, transparent 62%, #000 78%, #000 100%), linear-gradient(to bottom, transparent 0, #000 35%, #000 75%, transparent 100%);
 }
-.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(1) { width: 55%; height: 90%; top: auto; bottom: -12%; left: 8%; right: auto; }
-.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(2) { width: 48%; height: 80%; top: auto; bottom: 14%; left: -6%; right: auto; }
-.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(3) { width: 42%; height: 70%; top: auto; bottom: -2%; left: -2%; right: auto; }
-.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(4) { display: none; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(1) { width: 40%; height: 85%; top: auto; bottom: -10%; left: 0; right: auto; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(2) { width: 36%; height: 75%; top: auto; bottom: 18%; left: auto; right: -4%; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(3) { width: 34%; height: 70%; top: auto; bottom: 0; left: -4%; right: auto; }
+.wave-field[data-variant="ask"] .wave-field__glow span:nth-child(4) { display: block; width: 38%; height: 70%; top: auto; bottom: -8%; left: auto; right: 0; }
 .wave-field[data-variant="ask"] .wave-field__canvas {
-  left: 0; right: auto; width: 65%;
-  -webkit-mask-image: linear-gradient(to right, #000 0, #000 40%, transparent 95%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 0, #000 40%, transparent 95%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
+  left: 0; right: auto; width: 100%;
+  /* Solid at both edges, clear through the middle third where the card sits. */
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 18%, transparent 33%, transparent 67%, #000 82%, #000 100%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 18%, transparent 33%, transparent 67%, #000 82%, #000 100%), linear-gradient(to bottom, transparent 0, #000 30%, #000 75%, transparent 100%);
 }
 @media (max-width: 900px) {
-  .wave-field[data-variant="ask"] .wave-field__canvas { width: 90%; }
   .wave-field[data-variant="ask"] .wave-field__glow span { opacity: 1; }
+}
+/* Phones: the lines end well above the note under the card, so no line sits under that small text. */
+@media (max-width: 760px) {
+  .wave-field[data-variant="ask"] .wave-field__canvas {
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 18%, transparent 33%, transparent 67%, #000 82%, #000 100%), linear-gradient(to bottom, transparent 0, #000 22%, #000 44%, transparent 62%);
+    mask-image: linear-gradient(to right, #000 0, #000 18%, transparent 33%, transparent 67%, #000 82%, #000 100%), linear-gradient(to bottom, transparent 0, #000 22%, #000 44%, transparent 62%);
+  }
+  .wave-field[data-variant="ask"] .wave-field__glow {
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 22%, transparent 38%, transparent 62%, #000 78%, #000 100%), linear-gradient(to bottom, transparent 0, #000 25%, #000 45%, transparent 64%);
+    mask-image: linear-gradient(to right, #000 0, #000 22%, transparent 38%, transparent 62%, #000 78%, #000 100%), linear-gradient(to bottom, transparent 0, #000 25%, #000 45%, transparent 64%);
+  }
+}
+
+/* ---- writing: the head of the writing index, teal into green, lines from the right ---- */
+.wave-field[data-variant="writing"] { --wf-a: 94 234 212; --wf-b: 134 239 172; --wf-c: 103 232 249; --wf-d: 94 234 212; --wf-glow: .42; }
+html[data-theme="light"] .wave-field[data-variant="writing"] { --wf-a: 94 234 212; --wf-b: 134 239 172; --wf-c: 103 232 249; --wf-d: 94 234 212; --wf-glow: .4; }
+.writing-head { position: relative; }
+.writing-head > .wave-field { top: calc(-1 * clamp(112px, 10vw, 160px)); }
+.wave-field[data-variant="writing"] .wave-field__canvas {
+  width: 72%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .5) 22%, #000 55%), linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .5) 22%, #000 55%), linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
 }
 
 /* Phones: the small line under the page title sits in the lower part of the head.
    Fade the lines out before they reach it, so the text reads cleanly in both themes. */
 @media (max-width: 900px) {
   .wave-field[data-variant="about"] .wave-field__canvas,
-  .wave-field[data-variant="work"] .wave-field__canvas {
+  .wave-field[data-variant="work"] .wave-field__canvas,
+  .wave-field[data-variant="writing"] .wave-field__canvas {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 42%, transparent 70%);
     mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 42%, transparent 70%);
     -webkit-mask-composite: source-over;

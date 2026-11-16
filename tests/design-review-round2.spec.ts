@@ -535,7 +535,7 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
   });
 
   for (const w of [390, 1440]) {
-    test(`S4: the 404 fills the screen under the nav, uses the nav's tonal button and a curly apostrophe at ${w}`, async ({ page }) => {
+    test(`S4: the 404 is a comfortable, centred block under the nav with the nav's tonal button, a curly apostrophe, the five case links and the wave field at ${w}`, async ({ page }) => {
       await visit(page, '/no-such-page', w, w === 390 ? 844 : 900, { reduced: true });
       const m = await page.evaluate(() => {
         const main = document.querySelector('main')!.getBoundingClientRect();
@@ -546,15 +546,18 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
         const h1 = document.querySelector('main h1')!.getBoundingClientRect();
         return { top: main.top, h: main.height, footer: document.querySelector('footer')!.getBoundingClientRect().top, vh: innerHeight, bg: cs.backgroundColor, border: cs.borderTopColor, navBg: nav.backgroundColor, navBorder: nav.borderTopColor, text: document.querySelector('main h1')!.textContent, tall: cta0.height, h1top: h1.top, ctaBottom: cta0.bottom };
       });
-      expect(m.h).toBeGreaterThanOrEqual(m.vh - 1);
-      expect(m.footer).toBeGreaterThanOrEqual(m.vh - 1);
+      // min(70svh, 640px) tall, so the footer's opening line can show beneath it.
+      expect(m.h).toBeGreaterThanOrEqual(Math.min(m.vh * 0.7, 640) - 1);
+      expect(m.footer).toBeGreaterThanOrEqual(m.top + m.h - 1);
       expect(m.text).toBe('This page doesn’t exist.');
       expect(m.tall).toBeGreaterThanOrEqual(44);
       expect(m.bg).not.toBe('rgba(0, 0, 0, 0)');
       expect(m.border).not.toBe(m.bg.replace('rgba', 'rgb'));
       // Content sits in the middle band of the screen, not under the nav or at the foot.
-      expect(m.h1top).toBeGreaterThan(m.vh * 0.25);
+      expect(m.h1top).toBeGreaterThan(m.vh * 0.15);
       expect(m.ctaBottom).toBeLessThan(m.vh * 0.85);
+      expect(await page.locator('main .not-found-cases a').count()).toBe(5);
+      await expect(page.locator('main .wave-field')).toHaveCount(1);
     });
   }
 

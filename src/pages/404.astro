@@ -1,16 +1,47 @@
 ---
-import UtilityPage from '../layouts/UtilityPage.astro';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import WaveField from '../components/WaveField.astro';
+import { CASES } from '../lib/cases';
 // DECISION: a 404 needs some words. Kept to the minimum and flagged in the PR
-// for Shannon to rewrite in her voice.
+// for Shannon to rewrite in her voice. The five case titles are the same ones the home page lists.
 ---
-<UtilityPage title="Not found">
-    <div style="display:grid;gap:28px;justify-items:start">
-      <h1 class="h-giant">This page doesn’t exist.</h1>
-      <a class="cta-link" href="/">Back to the work →</a>
+<Base title="Not found · Shannon Hecker">
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main" class="not-found has-wave-field" data-tone="light">
+    <WaveField variant="hero" />
+    <div class="wrap not-found-wrap">
+      <div class="not-found-copy">
+        <h1 class="h-giant">This page doesn’t exist.</h1>
+        <a class="cta-link" href="/">Back to the work →</a>
+        <ul class="not-found-cases">
+          {CASES.map((c) => <li><a href={c.href}>{c.title}</a></li>)}
+        </ul>
+      </div>
+      <div class="not-found-stage" aria-hidden="true"><img class="not-found-avatar" src="/art/avatar-idle-0.webp" alt="" width="160" height="240" decoding="async" /></div>
     </div>
-</UtilityPage>
+  </main>
+  <Footer />
+</Base>
 <style is:global>
   /* The nav Contact button's tonal style: a quiet surface and a hairline, filled with the ink on hover. */
   .cta-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:500;text-decoration:none;padding:8px 20px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg)}
   .cta-link:hover,.cta-link:focus-visible{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+  /* The hero's wave field behind a message in the middle of the screen, the idle avatar on the right. */
+  .not-found{min-height:min(70svh,640px);box-sizing:border-box;display:flex;align-items:center;padding-block:clamp(120px,12vw,168px) clamp(56px,7vw,96px);overflow:clip}
+  .not-found-wrap{width:100%;display:flex;align-items:center;justify-content:space-between;gap:clamp(32px,6vw,96px)}
+  .not-found-copy{display:grid;gap:28px;justify-items:start;min-width:0}
+  .not-found h1{font-size:clamp(40px,6vw,80px);line-height:1.1;letter-spacing:-.035em;max-width:14ch;margin:0}
+  .not-found-cases{display:flex;flex-wrap:wrap;gap:0 24px;margin-top:4px}
+  .not-found-cases a{display:inline-flex;align-items:center;min-height:44px;font-size:15px;color:var(--fg-2);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em}
+  .not-found-cases a:hover{color:var(--fg);text-decoration-thickness:2px}
+  .not-found-cases a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+  /* The hero's arch, in the same two tones, so the avatar stands on something. */
+  .not-found-stage{position:relative;flex:none;display:none;width:200px;padding:28px 20px 0;border-radius:100px 100px 6px 6px;background:#f8ede8;border-bottom:4px dashed #cfae9c}
+  html[data-theme=dark] .not-found-stage{background:#252b38}
+  .not-found-avatar{display:block;width:160px;height:auto}
+  @media(min-width:761px){.not-found-stage{display:block}}
 </style>

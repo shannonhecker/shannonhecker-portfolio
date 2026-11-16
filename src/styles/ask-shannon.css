@@ -14,9 +14,10 @@
   --ask-line: color-mix(in srgb, var(--fg-2) 68%, var(--bg));
   /* The old gradient: pink, violet, blue and a warm olive corner. Light uses deeper tones so the
      edge itself holds 3:1 on white; dark uses the brighter ones. */
-  --ask-pink: #c2308a; --ask-violet: #7c3fd8; --ask-blue: #2f63c9; --ask-olive: #8a6a12;
-  --ask-card: var(--bg);
-  --ask-bubble: color-mix(in srgb, var(--fg) 6%, var(--ask-card));
+  --ask-pink: #c2308a; --ask-violet: #7c3fd8; --ask-blue: #2f63c9; --ask-olive: #b45309;
+  --ask-ring: #7c3fd8;
+  --ask-card: var(--bg-2);
+  --ask-bubble: color-mix(in srgb, var(--fg) 9%, var(--ask-card));
   --ask-glow: 0 0 0 transparent;
   --ask-glow-a: rgb(168 85 247 / .07); --ask-glow-b: rgb(236 72 153 / .06); --ask-glow-c: rgb(79 123 232 / .07);
   --ask-err-bg: #fdeef3; --ask-err-line: #c2308a;
@@ -25,7 +26,8 @@
 }
 html[data-theme="dark"] #ask {
   --ask-line: color-mix(in srgb, var(--fg-2) 52%, var(--bg));
-  --ask-pink: #ec4899; --ask-violet: #a855f7; --ask-blue: #5b8def; --ask-olive: #9a8326;
+  --ask-pink: #ec4899; --ask-violet: #a855f7; --ask-blue: #5b8def; --ask-olive: #f59e0b;
+  --ask-ring: #a855f7;
   --ask-card: var(--bg-2);
   --ask-bubble: color-mix(in srgb, var(--fg) 9%, var(--ask-card));
   --ask-glow-a: rgb(168 85 247 / .2); --ask-glow-b: rgb(236 72 153 / .15); --ask-glow-c: rgb(91 141 239 / .17);
@@ -36,6 +38,11 @@ html[data-theme="dark"] #ask {
    whole section sits on one centre line, like the card, the note and the pills under it. */
 #ask .ask-head { display: flex; flex-direction: column; align-items: center; gap: 40px; margin-bottom: 48px; text-align: center; }
 #ask .ask-head .h-section { max-width: 34ch; margin-inline: auto; }
+/* The site's one serif, shared with the footer's "Let’s Talk.": the page's two conversational moments
+   are set in it. Georgia holds the place until the face loads (Footer.astro adds html.serif-on when the
+   chat nears the window, so the font file is never one of the first requests). */
+#ask .ask-head .h-section { font-family: Georgia, 'Times New Roman', serif; font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.1; letter-spacing: -.03em; }
+html.serif-on #ask .ask-head .h-section { font-family: 'Noto Serif Display', Georgia, 'Times New Roman', serif; }
 
 /* One centred column: the card, then the suggestions and the note. */
 #ask .ask-grid { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 760px; margin-inline: auto; }
@@ -200,8 +207,9 @@ html[data-theme="dark"] #ask {
   border-top: 1px solid var(--hair);
   border-radius: 0 0 18px 18px;
 }
-/* The ring sits just outside the composer's own box, inside the card. */
-#ask .ask-form:has(.ask-input:focus-visible) { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 2px; border-radius: 18px; border-top-color: transparent; }
+/* The focus ring follows the card, not the composer: a 3px gap in the page colour, then a 2px violet
+   ring, outside the card's own edge. The deep violet holds 3:1 on white and the bright one on the dark page. */
+#ask .ask-main:has(.ask-input:focus-visible) { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ask-ring), -14px -8px 48px var(--ask-glow-a), 16px 2px 52px var(--ask-glow-c), 0 18px 52px var(--ask-glow-b); }
 #ask .ask-input:focus-visible { outline: 0; }
 #ask .ask-input {
   display: block;

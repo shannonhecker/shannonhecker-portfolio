@@ -6,14 +6,15 @@
 //   hero  lavender, cyan and teal lines sweeping across the home hero
 //   about vertical amber to blue lines
 //   work  pink and amber lines
-//   ask   the same pink and amber lines, low and faint behind the chat
+//   writing teal to green lines for the head of the writing index
+//   ask   pink, violet and blue lines (the chat card's own colours), flanking the card
 // `avoid` is a selector inside the same section. The lines dissolve around that element
 // so they never cross artwork that has to stay clean (the home page's pixel game).
 // The styles are imported by the Base layout, so they ship in the site's one main stylesheet
 // instead of costing an extra request before first paint.
 
 interface Props {
-  variant: 'hero' | 'about' | 'work' | 'ask';
+  variant: 'hero' | 'about' | 'work' | 'writing' | 'ask';
   avoid?: string;
 }
 const { variant, avoid } = Astro.props;

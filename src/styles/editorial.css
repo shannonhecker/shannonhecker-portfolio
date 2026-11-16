@@ -577,8 +577,8 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 .companion-controls { display:flex;justify-content:center;gap:6px;flex-wrap:wrap; }
 .companion-controls button { font:inherit;min-width:40px;min-height:44px;border:1px solid #d9dfe3;background:#fff;color:#343b46;cursor:pointer;border-radius:var(--radius); }
 .companion-controls button:hover { background:#f6e9ee; }.companion-controls button:active { translate:0 2px; }
-.companion-controls .companion-motion { font-size:12px;padding-inline:10px; }
-.companion-hint { text-align:center;font-size:12px;color:var(--fg-2);margin-top:12px; }
+.companion-controls .companion-motion { font-size:13px;padding-inline:10px; }
+.companion-hint { text-align:center;font-size:13px;color:var(--fg-2);margin-top:12px; }
 .hero-bonus { grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:1fr minmax(280px,420px);gap:40px;align-items:center;margin-top:24px;padding-top:32px;border-top:1px solid var(--hair); }
 .adventure-hero>.wrap:not(:has(.hero-for)) .hero-story,.adventure-hero>.wrap:not(:has(.hero-for)) .landing-companion{grid-row:1}
 .adventure-hero>.wrap:not(:has(.hero-for)) .hero-bonus{grid-row:1;margin-top:0}

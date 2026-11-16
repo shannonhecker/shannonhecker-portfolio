@@ -51,7 +51,7 @@ em.s{font-style:normal;color:var(--fg-2)}
 .nav{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:60;padding:22px max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;pointer-events:none;transition:background var(--base),backdrop-filter var(--base)}
 .nav.solid{background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .nav>*{pointer-events:auto}
-.nav .brand{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.04em;text-decoration:none;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.nav .brand{justify-self:start;width:max-content;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.04em;text-decoration:none;display:flex;gap:10px;align-items:center;white-space:nowrap}
 .nav .brand i{display:none}
 .nav .brand .full{display:none}.nav .brand .short{display:inline}
 .nav ul{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none;justify-self:center}

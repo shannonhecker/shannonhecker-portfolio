@@ -65,22 +65,24 @@ for (const theme of ['light', 'dark'] as const) {
       for (const c of stops) expect(await contrast(page, c, cardBg), c).toBeGreaterThanOrEqual(3);
     });
 
-    test('D6: one focus ring on the composer, in the site ink, inside the card', async ({ page }) => {
+    test('D6: one focus ring on the composer, following the card (a violet box-shadow ring, no outline)', async ({ page }) => {
       await visit(page, '/', theme);
       await page.locator('#ask-input').focus();
-      const form = await page.locator('#ask-form').evaluate((el) => { const s = getComputedStyle(el); return { w: s.outlineWidth, st: s.outlineStyle, off: s.outlineOffset, color: s.outlineColor }; });
-      expect(form.st).toBe('solid');
-      expect(form.w).toBe('2px');
-      expect(parseFloat(form.off)).toBeLessThanOrEqual(2); // hugging the composer, never a second frame
-      const inner = await page.locator('#ask-input').evaluate((el) => getComputedStyle(el).outlineStyle);
-      expect(inner).toBe('none');
-      const cardBg = await page.locator('#ask .ask-main').evaluate((el) => getComputedStyle(el).backgroundColor);
-      expect(await contrast(page, form.color, cardBg)).toBeGreaterThanOrEqual(3);
-      // The ring stays inside the card.
-      const ring = (await page.locator('#ask-form').boundingBox())!;
-      const card = (await page.locator('#ask .ask-main').boundingBox())!;
-      expect(ring.x - 4).toBeGreaterThanOrEqual(card.x);
-      expect(ring.x + ring.width + 4).toBeLessThanOrEqual(card.x + card.width);
+      const m = await page.evaluate(() => {
+        const card = getComputedStyle(document.querySelector('#ask .ask-main')!);
+        const form = getComputedStyle(document.querySelector('#ask-form')!);
+        const input = getComputedStyle(document.querySelector('#ask-input')!);
+        return { shadow: card.boxShadow, ring: getComputedStyle(document.querySelector('#ask')!).getPropertyValue('--ask-ring').trim(), formOutline: form.outlineStyle, inputOutline: input.outlineStyle, radius: card.borderTopLeftRadius };
+      });
+      // No second outline round the composer: the ring is on the card and shares its 28px corner.
+      expect(m.formOutline).toBe('none');
+      expect(m.inputOutline).toBe('none');
+      expect(m.radius).toBe('28px');
+      // A 3px gap in the page colour, then a 2px ring, both listed ahead of the glows.
+      expect(m.shadow).toMatch(/0px 0px 0px 3px/);
+      expect(m.shadow).toMatch(/0px 0px 0px 5px/);
+      const pageBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+      expect(await contrast(page, m.ring, pageBg)).toBeGreaterThanOrEqual(3);
     });
   });
 }
