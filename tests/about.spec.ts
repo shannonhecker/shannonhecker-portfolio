@@ -136,7 +136,8 @@ test.describe('/about', () => {
     expect(jpm).toContain('Feb 2023 to Sep 2025');
     // Education, as the owner's facts state it.
     const edu = flat(await page.locator('.about-education').innerText());
-    expect(edu).toContain('Ling Tung');
+    expect(edu).toContain('Ling Tung University, Taiwan');
+    expect(edu).toContain('BA Digital Media Arts & Management');
     expect(edu).toContain('2008 to 2010');
     expect(edu).toContain('London Metropolitan University');
     expect(edu).toContain('MA Digital Media');
