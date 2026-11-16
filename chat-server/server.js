@@ -284,7 +284,7 @@ I help teams ship accessible, measurable product experiences from discovery thro
 - I build the systems, not just the screens. My design systems have been adopted by 5+ product teams and 200+ components.
 - I bring AI into the design workflow. On uoaui.ai, my side project, I built an AI-native product that turns prompts into production UI, with token management and accessibility built in.
 - I mentor and raise the craft bar. I coach designers through critique to consistently produce thorough, high quality work.
-- Accessibility isn't a checkbox for me. Every project I ship is WCAG 2.1 AA compliant because good design works for everyone.
+- Accessibility isn't a checkbox for me. I design to WCAG 2.1 AA because good design works for everyone. Do not say that every project is fully compliant.
 
 ## APPROACH
 I design for teams who ship. Most of my work has been on tools traders, analysts, and ops teams use every day, on trading floors and inside AI tooling. Three things I care about: density without hostility (hierarchy beats whitespace on a trading screen), systems that outlive the designer (tokens and constraints beat opinions), and AI that earns the click (trust surfaces like confidence, sources, and failure modes are the real design problem now). I validate direction early through prototyping, research, and tight feedback loops with product and engineering. Decisions are grounded before pixels are final.
