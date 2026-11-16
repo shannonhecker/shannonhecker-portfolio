@@ -8,7 +8,7 @@ These are per-project roles carried over unchanged from the old site. They are l
 | /work/tripup | Product Designer | 2025 | none ("I owned the design process ...") |
 | /work/design-system | Product Designer | 2022 to 2024 | "As Product Designer on the core design team" |
 | /work/data-solution | Product Designer | 2023 to 2025 | "As Product Designer" |
-| /work/ui-toolkit | UI Designer | 2016-2018 | "As UI Designer" |
+| /work/ui-toolkit | UI Designer | 2016 to 2018 | "As UI Designer" |
 | /work/corporate-action | UI Designer, UI Lead | 2020 to 2021 | none ("I was on the design team for a year ...") |
 | /work/complex-assets | Product Designer | 2022 | "As Product Designer" |
 | /work/research | UI Designer | 2018 to 2019 | "As UI Designer" |
@@ -16,3 +16,7 @@ These are per-project roles carried over unchanged from the old site. They are l
 | /work/dps-brand | Visual Designer | 2020 | "As a Visual Designer" |
 
 If any label should change, tell me which page and the wording, and I will change the page's `role` line in `src/content/earlier/<slug>.md` and the sentence in its body.
+
+## Owner decision (16 Nov 2026)
+
+All ten role labels and dates stand as shown. The UI toolkit page already reads "2016 to 2018"; only this table had the hyphen.
