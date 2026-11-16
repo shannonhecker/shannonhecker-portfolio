@@ -2,7 +2,7 @@
 title: "UI Toolkit"
 summary: "Trading UI toolkit for multi-asset workflows. Reusable components, order entry patterns, price tiles, and WCAG AA foundations."
 role: "UI Designer"
-dates: "2016-2018"
+dates: "2016 to 2018"
 order: 5
 legacy: "project-ui-toolkit.html"
 details:

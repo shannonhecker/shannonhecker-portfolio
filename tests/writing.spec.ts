@@ -7,9 +7,9 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-prac
 // Newest first, as the index lists them. Word counts and reading times are not
 // listed here: they are read off each body, and the tests below check them.
 const ARTICLES = [
-  { slug: 'when-everyone-can-ship', title: 'When everyone can ship', date: '2026-05-02' },
-  { slug: 'the-design-system-is-the-contract', title: 'The design system is the contract', date: '2026-04-20' },
-  { slug: 'trust-surfaces-in-ai', title: 'Trust surfaces in AI for expert users', date: '2026-04-18' },
+  { slug: 'when-everyone-can-ship', title: 'When everyone can ship', date: '2026-05-02', shown: '2 May 2026' },
+  { slug: 'the-design-system-is-the-contract', title: 'The design system is the contract', date: '2026-04-20', shown: '20 April 2026' },
+  { slug: 'trust-surfaces-in-ai', title: 'Trust surfaces in AI for expert users', date: '2026-04-18', shown: '18 April 2026' },
 ] as const;
 
 async function open(page: Page, path: string, theme: 'dark' | 'light' = 'dark') {
@@ -75,7 +75,8 @@ test.describe('/writing', () => {
     expect([...dates].sort().reverse()).toEqual(dates);
     for (const [i, a] of ARTICLES.entries()) {
       await expect(links.nth(i).getByRole('heading', { level: 2 })).toHaveText(`${a.title}.`);
-      await expect(links.nth(i)).toContainText(a.date);
+      // The date reads as "18 April 2026"; the ISO form stays in datetime.
+      await expect(links.nth(i).locator('time')).toHaveText(a.shown);
     }
   });
 
@@ -133,8 +134,8 @@ for (const a of ARTICLES) {
       const time = page.locator('main time').first();
       await expect(time).toBeVisible();
       await expect(time).toHaveAttribute('datetime', a.date);
-      // The old pages showed ISO dates (2026-04-20), so the page does too.
-      await expect(time).toHaveText(a.date);
+      // Shown as "18 April 2026"; the ISO date stays in datetime.
+      await expect(time).toHaveText(a.shown);
       const head = await page.locator('main header').first().innerText();
       expect(head).toMatch(/\d+ minute read/);
       expect(head).toMatch(/[\d,]+ words/);

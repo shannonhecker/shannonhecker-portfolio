@@ -20,8 +20,12 @@ export async function writingEntries(): Promise<CollectionEntry<'writing'>[]> {
   return entries.sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 }
 
-/** The date as the old site showed it, 2026-04-20. */
+/** The ISO date, 2026-04-20: for `datetime` attributes and structured data. */
 export const isoDate = (d: Date) => d.toISOString().slice(0, 10);
+
+const longDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+/** The date as a visitor reads it, 20 April 2026. One formatter for every page. */
+export const displayDate = (d: Date) => longDate.format(d);
 
 /** Words as the old site showed them, 1,200. */
 export const thousands = (n: number) => n.toLocaleString('en-GB');

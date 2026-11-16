@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import intro from '../../data/writing-index.json';
-import { bodyStats, isoDate, writingEntries } from '../../lib/writing';
+import { bodyStats, displayDate, isoDate, writingEntries } from '../../lib/writing';
 import '../../styles/writing.css';
 
 const entries = await writingEntries();
@@ -35,7 +35,7 @@ const entries = await writingEntries();
           {entries.map((e) => (
             <li>
               <a href={`/writing/${e.id}`} data-cursor="big">
-                <time class="date" datetime={isoDate(e.data.published)}>{isoDate(e.data.published)}</time>
+                <time class="date" datetime={isoDate(e.data.published)}>{displayDate(e.data.published)}</time>
                 <h2 class="title">{e.data.title}.</h2>
                 <span class="read-time">{bodyStats(e).minutes} min</span>
                 <p class="blurb">{e.data.blurb}</p>

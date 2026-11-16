@@ -7,7 +7,7 @@ import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import type { CollectionEntry } from 'astro:content';
-import { bodyStats, isoDate, thousands } from '../lib/writing';
+import { bodyStats, displayDate, isoDate, thousands } from '../lib/writing';
 import '../styles/writing.css';
 
 interface Props {
@@ -68,7 +68,7 @@ const ld = [
             <p class="essay-dek">{dek}</p>
             <dl class="essay-facts">
               <div><dt>Author</dt><dd>Shannon Hecker</dd></div>
-              <div><dt>Published</dt><dd><time datetime={date}>{date}</time></dd></div>
+              <div><dt>Published</dt><dd><time datetime={date}>{displayDate(published)}</time></dd></div>
               <div><dt>Length</dt><dd><span class="nb">{minutes} minute read</span> <span aria-hidden="true">·</span> <span class="nb">{thousands(shown)} words</span></dd></div>
             </dl>
           </div>
