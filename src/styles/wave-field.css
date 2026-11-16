@@ -40,6 +40,9 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 }
 
 .wave-field__stage { position: absolute; inset: 0; }
+/* Nothing of the field is laid out or painted until its script switches it on, once the page is
+   idle. The masked glow is costly to raster, and it must not hold up the first paint of the text. */
+.wave-field:not(.is-on) .wave-field__stage { display: none; }
 
 /* ---- the glow: four soft orbs, as in the old #wave-bg ---- */
 .wave-field__glow {
@@ -152,4 +155,16 @@ html[data-theme="light"] .wave-field[data-variant="ask"] { --wf-glow: .3; }
 @media (max-width: 900px) {
   .wave-field[data-variant="ask"] .wave-field__canvas { width: 90%; }
   .wave-field[data-variant="ask"] .wave-field__glow span { opacity: 1; }
+}
+
+/* Phones: the small line under the page title sits in the lower part of the head.
+   Fade the lines out before they reach it, so the text reads cleanly in both themes. */
+@media (max-width: 900px) {
+  .wave-field[data-variant="about"] .wave-field__canvas,
+  .wave-field[data-variant="work"] .wave-field__canvas {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 42%, transparent 70%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 42%, transparent 70%);
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+  }
 }

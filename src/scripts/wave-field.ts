@@ -276,7 +276,9 @@ class WaveField {
 const start = () => {
   document.querySelectorAll<HTMLElement>('.wave-field').forEach((field) => {
     const canvas = field.querySelector<HTMLCanvasElement>('.wave-field__canvas');
-    if (canvas && canvas.getContext) new WaveField(field, canvas);
+    if (!canvas || !canvas.getContext) return;
+    field.classList.add('is-on');
+    new WaveField(field, canvas);
   });
 };
 // Nothing heavy before first paint: wait until the page is idle.

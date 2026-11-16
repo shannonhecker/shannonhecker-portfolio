@@ -31,7 +31,11 @@ import Logo from './Logo.astro';
 /* The footer's opening line: a ruled row, then the live links below it. The title is
    set no larger than the page heads, so it reads as the start of the footer, not a second ending. */
 .foot-contact{display:flex;align-items:baseline;justify-content:space-between;gap:12px 48px;scroll-margin-top:96px;padding-bottom:clamp(32px,4vw,56px);margin-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--hair)}
-.foot-contact h2{margin:0;font-family:'Noto Serif Display',Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em}
+/* The serif is used here only. Its font file must not be fetched with the page's first requests, so
+   the face is applied (by the script below) once the footer nears the window. Until then the heading
+   uses the fallback serifs, off screen. */
+.foot-contact h2{margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em}
+:global(html.serif-on) .foot-contact h2{font-family:'Noto Serif Display',Georgia,'Times New Roman',serif}
 .foot-mail{--tap:max(0px,calc((44px - 1.2em) / 2));display:inline-block;padding-block:var(--tap);margin-block:calc(-1 * var(--tap));color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
 .foot-mail:hover{text-decoration-thickness:2px}
 .foot-mail:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
@@ -53,3 +57,15 @@ import Logo from './Logo.astro';
   #links .links a{padding-block:12px}
 }
 </style>
+
+<script>
+  // Load the footer's serif only when the footer is close, so it never competes with first paint.
+  const block = document.querySelector('.foot-contact');
+  const on = () => document.documentElement.classList.add('serif-on');
+  if (block && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { on(); io.disconnect(); }
+    }, { rootMargin: '1600px 0px' });
+    io.observe(block);
+  } else on();
+</script>

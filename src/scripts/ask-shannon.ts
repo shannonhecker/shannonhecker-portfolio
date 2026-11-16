@@ -147,8 +147,18 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
   // Where the newest question was put. A short answer ends within a few pixels of that spot, which must
   // not count as "the reader went to the foot": only a move away from it does.
   let pinTop: number | null = null;
+  // Only the reader's own scrolling counts. While the log grows, the browser moves it by itself (it
+  // re-snaps to the question), and those moves must not be read as "the reader went to the foot".
+  let touchedAt = -1e9;
+  let held = false;
+  const touched = () => { touchedAt = performance.now(); };
+  for (const type of ['wheel', 'touchstart', 'touchmove', 'keydown'] as const) log.addEventListener(type, touched, { passive: true });
+  log.addEventListener('pointerdown', () => { held = true; touched(); }, { passive: true });
+  addEventListener('pointerup', () => { if (held) { held = false; touched(); } }, { passive: true });
+  addEventListener('pointercancel', () => { held = false; }, { passive: true });
   log.addEventListener('scroll', () => {
     if (pinTop !== null && Math.abs(log.scrollTop - pinTop) <= 2) { following = false; syncFollow(); return; }
+    if (!held && performance.now() - touchedAt > 3000) { syncFollow(); return; }
     pinTop = null;
     following = distance() <= AT_BOTTOM;
     syncFollow();

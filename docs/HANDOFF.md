@@ -109,3 +109,14 @@ Preview scoreboard: one test score ("Preview test", 140, stage 0) saved through 
 - Rollback facts re-checked: A records `185.199.108.153`, `.109`, `.110`, `.111`; `www` CNAME `shannonhecker.github.io.`; Pages serves `legacy-static`.
 - Panel link captured for the later comparison: headers and two screenshots (1440 and 390 wide) in `.golive/` in the working folder. That folder is kept out of git on purpose, because the panel site is private.
 - Review commits pushed (`fafdbf9`); the preview rebuilt and carries the changes.
+
+## Old site's graphics brought back (16 Nov 2026, night)
+
+Shannon asked to keep the old site's graphic style on the new site ("only the graphic and style"); content and structure stay new.
+
+- Wave lines (`src/components/WaveField.astro`, `src/scripts/wave-field.ts`, `src/styles/wave-field.css`): behind the home hero, the About and Work heads, and low behind Ask Shannon. Ported from `legacy-static`. The field stays unpainted until the page is idle, and its styles ship in the main stylesheet (imported in `Base.astro`), both for first-paint speed.
+- Chat card: gradient edge, round send and mic buttons, centred pill suggestions (`src/styles/ask-shannon.css`).
+- "Let's Talk." in Noto Serif Display (self-hosted, `@fontsource/noto-serif-display`). The face is applied by a small script in `Footer.astro` when the footer nears the window, so the font is not one of the page's first requests (it cost 2 to 3 Lighthouse points on mobile otherwise).
+- Chat fix: only the reader's own scrolling (wheel, touch, keys, pointer) switches the log to follow mode. Before, the browser's own re-snapping while the log grew could send a long answer to its end.
+- Suite: 840 tests, build and three checks green. Lighthouse mobile: home 96, Work 95, About 99, FX 95, Writing 100; desktop 100 on all five. Work and FX sit on the 95 line.
+- Not pushed yet.

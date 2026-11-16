@@ -9,7 +9,8 @@
 //   ask   the same pink and amber lines, low and faint behind the chat
 // `avoid` is a selector inside the same section. The lines dissolve around that element
 // so they never cross artwork that has to stay clean (the home page's pixel game).
-import '../styles/wave-field.css';
+// The styles are imported by the Base layout, so they ship in the site's one main stylesheet
+// instead of costing an extra request before first paint.
 
 interface Props {
   variant: 'hero' | 'about' | 'work' | 'ask';

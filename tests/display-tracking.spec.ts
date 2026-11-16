@@ -41,3 +41,17 @@ test('the footer "Let\u2019s Talk." keeps its own -0.03em (the serif)', async ({
   });
   expect(Math.abs(tracking / size + 0.03)).toBeLessThanOrEqual(TOLERANCE);
 });
+
+test('the footer serif is applied only once the footer is near, so its font is not a first request', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const fonts: string[] = [];
+  page.on('request', (r) => { if (/noto-serif-display/.test(r.url())) fonts.push(r.url()); });
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  expect(fonts, 'not fetched at the top of a long page').toEqual([]);
+  await expect(page.locator('html')).not.toHaveClass(/serif-on/);
+  await page.locator('#contact h2').scrollIntoViewIfNeeded();
+  await expect(page.locator('html')).toHaveClass(/serif-on/);
+  await expect.poll(() => page.locator('#contact h2').evaluate((e) => getComputedStyle(e).fontFamily)).toContain('Noto Serif Display');
+  await expect.poll(() => fonts.length).toBeGreaterThan(0);
+});
