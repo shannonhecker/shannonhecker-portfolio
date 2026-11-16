@@ -164,7 +164,9 @@ test.describe('Ask Shannon', () => {
       await input(page).fill('Hello?');
       await send(page).click();
       await expect(page.locator('#ask-messages .ask-error')).toHaveText(status === 429 ? RATE : REACH);
-      await expect(page.locator('#ask-status')).toHaveText(status === 429 ? RATE : REACH);
+      // One announcement only: the log carries the visible line, the status line stays quiet.
+      await expect(page.locator('#ask-status')).toHaveText('');
+      await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
       await expect(send(page)).toBeEnabled();
       expect(errors).toEqual([]);
     });

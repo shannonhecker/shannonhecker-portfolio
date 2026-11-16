@@ -559,7 +559,7 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 
 /* The portfolio is an explorable set of chapters; gameplay remains optional. */
 .pixel-object { display:inline-block!important; flex:none; object-fit:contain!important; aspect-ratio:1!important; image-rendering:pixelated; vertical-align:middle; }
-.adventure-hero { padding-bottom:56px; }
+.adventure-hero { padding-top:0;padding-bottom:var(--space-section); }
 .adventure-hero>.wrap { display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:36px 64px;align-items:center; }
 .adventure-hero .hero-for { grid-column:1/-1;max-width:none; }
 .hero-story { grid-column:1;grid-row:2; }
@@ -581,7 +581,7 @@ h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
 .companion-hint { text-align:center;font-size:12px;color:var(--fg-2);margin-top:12px; }
 .hero-bonus { grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:1fr minmax(280px,420px);gap:40px;align-items:center;margin-top:24px;padding-top:32px;border-top:1px solid var(--hair); }
 .adventure-hero>.wrap:not(:has(.hero-for)) .hero-story,.adventure-hero>.wrap:not(:has(.hero-for)) .landing-companion{grid-row:1}
-.adventure-hero>.wrap:not(:has(.hero-for)) .hero-bonus{grid-row:2}
+.adventure-hero>.wrap:not(:has(.hero-for)) .hero-bonus{grid-row:1;margin-top:0}
 .bonus-note { display:flex;align-items:center;gap:18px; }.bonus-note p{font-family:var(--pixel);font-size:22px;line-height:1.4}.bonus-note span{display:block;font:14px/1.7 var(--body);color:var(--fg-2);margin-top:8px;max-width:32ch}
 .adventure-hero .hero-art.hero-game { width:100%;max-width:420px;margin:0; }
 .adventure-hero .play:not(.is-full) .game-caption { display:none; }
@@ -610,7 +610,7 @@ html.nav-away .case-contents { top:0; }
  .landing-companion{grid-column:1;grid-row:3;max-width:360px;width:100%;justify-self:center}.companion-stage{height:285px}.companion-avatar{width:176px;height:265px;bottom:14px}.companion-path{bottom:14px}.object-two{top:40px}
  .hero-bonus{grid-row:4;grid-template-columns:1fr;gap:20px;margin-top:8px}.adventure-hero .hero-art.hero-game{justify-self:center;max-width:360px}.bonus-note{justify-content:center}.bonus-note p{font-size:20px}
  .adventure-hero>.wrap:not(:has(.hero-for)) .landing-companion{grid-row:2}
- .adventure-hero>.wrap:not(:has(.hero-for)) .hero-bonus{grid-row:3}
+ .adventure-hero>.wrap:not(:has(.hero-for)) .hero-bonus{grid-row:1;margin-top:0}
  #work .index{grid-template-columns:1fr;gap:36px}#work .row h3{font-size:30px}
  .case-contents{gap:4px}.chapter-count{display:none}.case-contents .chapter-return{display:none}
 }

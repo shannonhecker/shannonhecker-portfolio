@@ -1,19 +1,27 @@
 /* Ask Shannon: an editorial question and answer, not a chat window. The question is set as a
    line of display type, the answer as text on the page, and the two are told apart by type and
    a hairline, never by a coloured bubble. Tokens only, so both themes come for free.
-   The transcript has a fixed height so the composer never moves while an answer streams. */
+   Until a question is sent the transcript is only as tall as its greeting. Once a conversation
+   starts it grows once to a fixed height, so the composer never moves while an answer streams. */
 #ask.ask-shannon { border-bottom: 1px solid var(--hair); }
-#ask .ask-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: clamp(40px, 5vw, 72px); }
+/* A control's edge needs 3:1 against the page (WCAG 1.4.11). Hairlines are for dividers only,
+   so the composer and the mic use a mix of the text grey and the page: 3.3:1 light, 3.5:1 dark. */
+#ask { --ask-line: color-mix(in srgb, var(--fg-2) 68%, var(--bg)); }
+html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, var(--bg)); }
+/* The same header rhythm as How I work: 40px from eyebrow to heading, 48px to the content. */
+#ask .ask-head { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
 #ask .ask-head .h-section { max-width: 34ch; }
 
+/* The same 12 columns and 56px gap as the principles above: the chat takes two of their columns
+   and the suggestions take the third, so both hairlines start where the section above does. */
 #ask .ask-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
+  column-gap: 56px;
   row-gap: 40px;
   align-items: start;
 }
-#ask .ask-main { grid-column: 1 / 8; min-width: 0; }
+#ask .ask-main { grid-column: 1 / 9; min-width: 0; }
 #ask .ask-side { grid-column: 9 / 13; min-width: 0; padding-top: 24px; border-top: 1px solid var(--hair); }
 
 /* The transcript */
@@ -21,7 +29,8 @@
 #ask .ask-log {
   display: flex;
   flex-direction: column;
-  height: clamp(280px, 40svh, 400px);
+  height: auto;
+  max-height: var(--ask-log-h);
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 24px 0 20px;
@@ -29,9 +38,14 @@
   scrollbar-width: thin;
   scrollbar-color: var(--hair) transparent;
 }
-#ask .ask-log:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-/* New text collects at the foot, beside the composer, and the page above it stays still. */
-#ask .ask-log > :first-child { margin-top: auto; }
+/* One focus ring for the whole section: 2px in the site's ink colour. */
+#ask :focus-visible { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 4px; }
+#ask .ask-log:focus-visible { outline-offset: 4px; }
+/* The empty state is just the greeting. When the first question is sent the log grows once, to
+   the full height, and from then on new text collects at the foot beside the composer. */
+#ask { --ask-log-h: clamp(280px, 40svh, 400px); }
+#ask .ask-log[data-started] { height: var(--ask-log-h); }
+#ask .ask-log:not([data-started]) { padding-bottom: 24px; }
 
 #ask .ask-msg { min-width: 0; }
 #ask .ask-msg p { margin: 0; overflow-wrap: anywhere; }
@@ -82,6 +96,7 @@
   background: currentColor;
 }
 @media (prefers-reduced-motion: no-preference) {
+  #ask .ask-log[data-growing] { transition: height .28s var(--ease); }
   #ask .ask-form { transition: border-color var(--fast); }
   #ask .ask-mic, #ask .ask-send { transition: background var(--fast), color var(--fast), border-color var(--fast); }
   #ask .ask-wait i { animation: ask-dot 1.2s ease-in-out infinite; }
@@ -125,12 +140,13 @@
 /* The composer: one hairline box, a quiet hint, and a clear Send */
 #ask .ask-form {
   margin-top: 16px;
-  border: 1px solid var(--hair);
+  border: 1px solid var(--ask-line);
   border-radius: var(--radius);
   background: var(--bg);
 }
-#ask .ask-form:focus-within { border-color: var(--fg); }
-#ask .ask-form:has(.ask-input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 4px; }
+/* The ring sits on the composer's own edge, over its border, so there is one frame, not two. */
+#ask .ask-form:has(.ask-input:focus-visible) { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: -2px; }
+#ask .ask-input:focus-visible { outline: 0; }
 #ask .ask-input {
   display: block;
   width: 100%;
@@ -160,7 +176,7 @@
   cursor: pointer;
 }
 #ask .ask-mic[hidden] { display: none; }
-#ask .ask-mic { color: var(--fg); background: transparent; border: 1px solid var(--hair); }
+#ask .ask-mic { color: var(--fg); background: transparent; border: 1px solid var(--ask-line); }
 #ask .ask-mic:hover { border-color: var(--fg); }
 #ask .ask-mic.listening { color: var(--bg); background: var(--fg); border-color: var(--fg); }
 #ask .ask-send { padding: 0 26px; color: var(--bg); background: var(--fg); border: 1px solid var(--fg); }
@@ -188,17 +204,25 @@
 }
 #ask .ask-chip[aria-disabled="true"] { color: var(--fg-2); cursor: default; }
 #ask .ask-chip[aria-disabled="true"]:hover { text-decoration: none; }
-#ask .ask-chip:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
-#ask .ask-chip:focus-visible { outline-offset: -3px; }
+@media (hover: hover) {
+  #ask .ask-chip:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+  #ask .ask-suggestions[data-quiet] .ask-chip:hover { text-decoration: none; }
+}
+#ask .ask-chip:focus-visible { outline-offset: -2px; }
+#ask .ask-mic:focus-visible, #ask .ask-send:focus-visible { outline-offset: 2px; }
 #ask .ask-note { max-width: 44ch; margin-top: 28px; font-size: 14px; line-height: 1.7; color: var(--fg-2); }
 #ask .ask-note a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
 
+@media (max-width: 1100px) {
+  #ask .ask-main { grid-column: 1 / 7; }
+  #ask .ask-side { grid-column: 7 / 13; }
+}
 @media (max-width: 900px) {
+  #ask .ask-grid { column-gap: 0; }
   #ask .ask-main, #ask .ask-side { grid-column: 1 / -1; }
-  #ask .ask-log { height: clamp(240px, 38svh, 380px); }
+  #ask { --ask-log-h: clamp(240px, 38svh, 380px); }
 }
 @media (max-width: 760px) {
-  #ask .ask-head { gap: 16px; margin-bottom: 32px; }
   #ask .ask-input { min-height: 72px; padding: 16px 16px 4px; }
   #ask .ask-bar { padding: 8px; }
   #ask .ask-hint { display: none; }

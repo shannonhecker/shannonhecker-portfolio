@@ -103,7 +103,8 @@ test('optional game follows the introduction and selected work',async({page})=>{
     expect(game!.y).toBeGreaterThan(story!.y+story!.height);
     expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
     const work=await page.locator('#work').boundingBox();
-    expect(game!.y).toBeGreaterThan(work!.y+work!.height);
+    // The game's own hairline now starts where the work section's padding ends.
+    expect(game!.y).toBeGreaterThanOrEqual(work!.y+work!.height-1);
   }
 });
 

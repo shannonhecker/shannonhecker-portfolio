@@ -40,7 +40,7 @@ em.s{font-style:normal;color:var(--fg-2)}
 .h-sub{font-size:clamp(28px,3vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1.04}
 .lead{font-size:clamp(18px,1.4vw,22px);line-height:1.5;max-width:44ch}
 .measure{max-width:58ch}
-.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:#fff;padding:10px 16px;border-radius:var(--radius);z-index:100}
+.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:var(--radius);z-index:100}
 .skip:focus{left:16px}
 :focus-visible{outline:3px solid var(--fg);outline-offset:4px;border-radius:var(--radius)}
 

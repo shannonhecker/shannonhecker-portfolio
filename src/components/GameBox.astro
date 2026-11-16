@@ -8,6 +8,7 @@
 import { ACHIEVEMENTS } from '../lib/achievements';
 import GameTimeline from './GameTimeline.astro';
 import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
+import { CASES } from '../lib/cases';
 ---
 <div class="play" data-lenis-prevent>
   <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
@@ -70,7 +71,7 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
             <p role="status"></p>
           </details>
         </section>
-        {w.href && <a class="game-read" href={w.href}>Read the case →</a>}
+        {w.href && <a class="game-read" href={w.href}>Read the case →<span class="vh"> ({CASES.find((c) => c.href === w.href)?.title ?? w.place})</span></a>}
         {i < JOURNEY.length - 1 ? (
           <div class="game-actions">
             <button type="button" class="game-play" data-next={i + 1}>{nextLabel(i)}</button>

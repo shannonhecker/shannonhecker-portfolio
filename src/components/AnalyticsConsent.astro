@@ -14,16 +14,39 @@
     } catch {}
     const panel = document.getElementById('analytics-choice');
     if (panel) panel.hidden = saved;
+    // While the notice is open its height is published as --consent-h, so the page end, the case
+    // pages' Sections button and focus scrolling can all stay clear of it. Hidden, it is 0.
+    if (panel && 'ResizeObserver' in window) {
+      const root = document.documentElement;
+      new ResizeObserver(() => {
+        const h = panel.hidden ? 0 : panel.offsetHeight;
+        root.style.setProperty('--consent-h', h ? Math.round(h + (parseFloat(getComputedStyle(panel).bottom) || 0) + 12) + 'px' : '0px');
+      }).observe(panel);
+    }
   })();
 </script>
 <script>import '../scripts/analytics';</script>
 <style>
-.analytics-choice{position:fixed;z-index:120;bottom:12px;left:12px;width:min(360px,calc(100vw - 24px));padding:12px 14px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg);color:var(--fg);font:400 13px/1.6 var(--body)}
+/* Bottom right, on the page gutter, where nothing else of the page lives. Case pages keep their
+   Sections button there, so on those pages the notice moves to the bottom left. On a phone it
+   spans the gutters, and the page makes room for it (--consent-h). */
+.analytics-choice{position:fixed;z-index:120;bottom:24px;right:max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)));width:min(360px,calc(100% - 2 * var(--gutter)));padding:12px 14px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg);color:var(--fg);font:400 13px/1.6 var(--body)}
+:global(body:has(.case-contents)) .analytics-choice{right:auto;left:max(var(--gutter),calc((100% - var(--max))/2 + var(--gutter)))}
 .analytics-choice[hidden]{display:none}
 .analytics-choice h2{font:500 15px/1.3 var(--display);margin:0 0 4px;letter-spacing:0}
 .analytics-choice p{font:inherit;margin:0 0 8px;font-size:12px;line-height:1.5}
 .analytics-choice div{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .analytics-choice button{padding:8px 12px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg);font:600 13px/1.5 var(--body);cursor:pointer;min-height:40px}
-.analytics-choice a{color:var(--fg);text-decoration:underline;font-size:13px}
+.analytics-choice a{display:inline-flex;align-items:center;min-height:24px;color:var(--fg);text-decoration:underline;font-size:13px}
 .analytics-choice button:focus-visible,.analytics-choice a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:3px}
+@media(max-width:760px){
+  .analytics-choice,:global(body:has(.case-contents)) .analytics-choice{left:var(--gutter);right:var(--gutter);bottom:12px;width:auto}
+  .analytics-choice button{min-height:44px}
+  .analytics-choice a{min-height:44px;margin-block:-10px}
+  .analytics-choice div{row-gap:10px}
+}
+/* Make room for it while it is open: focus and anchor scrolling stop above it, and the page end
+   (the footer, or the body where there is no footer) grows by its height. */
+:global(html){scroll-padding-bottom:var(--consent-h,0px)}
+:global(body:not(:has(footer))){padding-bottom:var(--consent-h,0px)}
 </style>

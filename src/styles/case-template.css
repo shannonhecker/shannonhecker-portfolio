@@ -54,3 +54,14 @@
 /* Soften the bright edge baked into the original Deal Model exports. */
 .deal-screen-gallery .authored-image-link{background:var(--divider);overflow:hidden}
 .deal-screen-gallery .authored-image-link img{clip-path:inset(1px round var(--radius))}
+
+/* The next-case row closes the chapter and the footer's tonal band follows it, so the band is the
+   divider: the row's own bottom hairline would stack a second one above it. */
+.case-page .next-case .row { border-bottom: 0; }
+/* The Sections button sits on the page gutter, and clear of the analytics notice while that is open.
+   The page end keeps room for it, so it never rests on the last line. */
+.case-contents, html.nav-away .case-contents { right: max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter))); }
+@media (max-width: 760px) {
+  .case-contents, html.nav-away .case-contents { right: var(--gutter); bottom: calc(16px + var(--consent-h, 0px)); }
+  .case-page .next-case { padding-bottom: 80px; }
+}

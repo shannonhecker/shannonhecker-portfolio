@@ -94,9 +94,10 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
       b.className = 'ask-chip';
       b.textContent = q;
       if (busy) b.setAttribute('aria-disabled', 'true');
-      b.addEventListener('click', () => {
+      b.addEventListener('click', (e) => {
         if (busy) return;
         const at = Array.from(chipsEl.children).indexOf(b);
+        quiet(e.clientX, e.clientY);
         send(q);
         setIndex++;
         renderChips(coarse.matches ? at : -1);
@@ -108,6 +109,19 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     // The row you pressed is replaced; on touch, keep focus where it was.
     if (refocus >= 0) (buttons[refocus] as HTMLElement | undefined)?.focus({ preventScroll: true });
   }
+  // The list is redrawn under the pointer after a click. Until the pointer really moves, the row it
+  // rests on shows no hover underline, so the new first row does not look picked.
+  let quietAt: [number, number] | null = null;
+  function quiet(x: number, y: number) {
+    if (!chipsEl) return;
+    chipsEl.dataset.quiet = '';
+    quietAt = [x, y];
+  }
+  chipsEl?.addEventListener('pointermove', (e) => {
+    if (!quietAt || Math.hypot(e.clientX - quietAt[0], e.clientY - quietAt[1]) < 8) return;
+    quietAt = null;
+    delete chipsEl.dataset.quiet;
+  });
   const chipsBusy = (on: boolean) => {
     chipsEl?.querySelectorAll('button').forEach((b) => (on ? b.setAttribute('aria-disabled', 'true') : b.removeAttribute('aria-disabled')));
   };
@@ -233,8 +247,43 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     return cut;
   }
 
+  // ── The first question: the empty log (just a greeting) grows once to its full height ──
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let started = false;
+  function keepComposerInView() {
+    const reserved = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--consent-h')) || 0;
+    const room = innerHeight - reserved - 16;
+    const bottom = form.getBoundingClientRect().bottom;
+    if (bottom > room) window.scrollBy({ top: bottom - room, behavior: reduced.matches ? 'auto' : 'smooth' });
+  }
+  function startConversation() {
+    if (started) return;
+    started = true;
+    if (reduced.matches) {
+      log.dataset.started = '';
+      keepComposerInView();
+      return;
+    }
+    // Pin today's height, then let the full height take over so it animates once.
+    log.style.height = log.offsetHeight + 'px';
+    log.dataset.growing = '';
+    void log.offsetHeight;
+    log.dataset.started = '';
+    log.style.height = '';
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      delete log.dataset.growing;
+      keepComposerInView();
+    };
+    log.addEventListener('transitionend', (e) => { if (e.propertyName === 'height') settle(); }, { once: true });
+    window.setTimeout(settle, 450);
+  }
+
   // ── Sending ──
   function send(text: string) {
+    startConversation();
     addUser(text);
     input.value = '';
     input.style.height = '';
@@ -347,9 +396,11 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
       cancelAnimationFrame(raf);
       raf = 0;
       const message = failureMessage;
+      // One announcement only: the log announces the visible line, so the status line stays quiet.
+      log.removeAttribute('aria-busy');
       bubble.remove();
       addError(message);
-      say(message);
+      say('');
       // Drop the unanswered question so a retry starts clean, and give it back to the visitor.
       if (history.length && history[history.length - 1].role === 'user') history.pop();
       if (!input.value) { input.value = question; grow(); }

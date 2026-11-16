@@ -23,7 +23,7 @@ import Logo from './Logo.astro';
       </div>
     </div>
     <p class="copyright"><span class="sig"><Logo size={22} />Shannon Hecker · Product Designer · London</span><span><a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span></a> · private alpha</span></p>
-    <p class="copyright legal"><span class="legal-links"><a href="/privacy">Privacy</a><button type="button" data-analytics-settings style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">Analytics settings</button><button type="button" data-avatar-cursor-toggle hidden aria-pressed="true">Avatar cursor on</button></span><span id="analytics-status" role="status"></span></p>
+    <p class="copyright legal"><span class="legal-links"><a href="/privacy">Privacy</a><button type="button" data-analytics-settings>Analytics settings</button><button type="button" data-avatar-cursor-toggle hidden aria-pressed="true">Avatar cursor on</button></span><span id="analytics-status" role="status"></span></p>
   </div>
 </footer>
 
@@ -32,11 +32,19 @@ import Logo from './Logo.astro';
    set no larger than the page heads, so it reads as the start of the footer, not a second ending. */
 .foot-contact{display:flex;align-items:baseline;justify-content:space-between;gap:12px 48px;scroll-margin-top:96px;padding-bottom:clamp(32px,4vw,56px);margin-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--hair)}
 .foot-contact h2{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.045em}
-.foot-mail{display:inline-flex;align-items:center;min-height:44px;color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
+.foot-mail{--tap:max(0px,calc((44px - 1.2em) / 2));display:inline-block;padding-block:var(--tap);margin-block:calc(-1 * var(--tap));color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
 .foot-mail:hover{text-decoration-thickness:2px}
-.foot-mail span{display:inline-block;margin-left:.3em;transition:transform .3s}
-.foot-mail:hover span,.foot-mail:focus-visible span{transform:translateX(4px)}
 .foot-mail:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
 @media(max-width:760px){.foot-contact{flex-direction:column;align-items:flex-start}}
-@media(prefers-reduced-motion:reduce){.foot-mail span{transition:none}}
+/* One underline for the whole line: the arrow is plain inline text, not a box of its own, so the
+   line is underlined once from the first letter to the arrow. */
+
+/* The small links and buttons at the foot: at least 24px tall, 44px on a phone. The extra height
+   is cancelled by an equal negative margin, so the rows look exactly as before. */
+.legal-links a,.legal-links button,.copyright a{display:inline-flex;align-items:center;min-height:24px}
+.legal-links button{font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+.legal-links [hidden]{display:none}
+@media(max-width:760px){.legal-links a,.legal-links button,.copyright a{min-height:44px;margin-block:-10px}}
+/* Room for the analytics notice while it is open (see AnalyticsConsent). */
+#links{padding-bottom:calc(var(--space-section) + var(--consent-h,0px))}
 </style>

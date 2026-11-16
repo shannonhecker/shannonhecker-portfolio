@@ -17,6 +17,9 @@ import CaseRowLink from './CaseRowLink.astro';
 </section>
 
 <style>
+/* The number sits in a fixed slot with tabular digits, so every title starts on the same edge. */
+:global(#work .index .row){grid-template-columns:20px minmax(0,1fr) auto}
+:global(#work .index .row .n){font-variant-numeric:tabular-nums}
 .more-work{margin-top:clamp(40px,5vw,72px)}
 .more-work a{display:inline-flex;align-items:center;min-height:44px;font-size:clamp(18px,1.6vw,22px);font-weight:500;letter-spacing:-.015em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
 .more-work a:hover{text-decoration-thickness:2px}
