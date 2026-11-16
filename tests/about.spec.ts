@@ -52,7 +52,7 @@ const LEGACY_WORDS = [
   'running the design system across FX and MarketsOne: tokens, components, and accessibility.',
   '15 yrs', 'In design, from brand to enterprise fintech',
   '9 yrs', 'At J.P. Morgan, ending as Digital Product Designer VP',
-  'AA WCAG', 'Across every product shipped',
+  'AA WCAG', 'The standard I design to',
   'Now · this month',
   'Shipping. Design system at Barclays across FX and MarketsOne.',
   'Reading. Designing Machine Learning Systems by Chip Huyen.',
