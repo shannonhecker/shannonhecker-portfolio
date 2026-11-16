@@ -12,7 +12,9 @@
 export {};
 
 const API_URL = 'https://ask-shannon-api.onrender.com/api/chat';
-const HEALTH_URL = 'https://ask-shannon-api.onrender.com/api/health';
+// The wake call is an OPTIONS request to the chat address: the server answers it with CORS headers,
+// so nothing is logged to the console. (/api/health sends no CORS headers and is blocked cross-origin.)
+const WAKE_URL = API_URL + '?wake=1';
 // The free server sleeps and can take about a minute to wake.
 const FIRST_BYTE_TIMEOUT_MS = 75000;
 const WAKING_AFTER_MS = 8000;
@@ -54,7 +56,7 @@ if (section && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
     if (!entries.some((e) => e.isIntersecting)) return;
     io.disconnect();
-    try { fetch(HEALTH_URL, { mode: 'no-cors' }).catch(() => {}); } catch { /* ignore */ }
+    try { fetch(WAKE_URL, { method: 'OPTIONS' }).catch(() => {}); } catch { /* ignore */ }
   });
   io.observe(section);
 }

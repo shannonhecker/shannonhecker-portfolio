@@ -6,7 +6,7 @@ import AxeBuilder from '@axe-core/playwright';
 // hold a response open between chunks, which route.fulfill cannot do, so those swap fetch for
 // a stub whose stream the test controls. Either way the request body is checked.
 const API = 'https://ask-shannon-api.onrender.com/api/chat';
-const HEALTH = 'https://ask-shannon-api.onrender.com/api/health';
+const HEALTH = 'https://ask-shannon-api.onrender.com/api/chat?wake=1';
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 const REACH = 'I couldn’t reach the chat just now. Try again in a moment.';
 const REACH_ASCII = "I couldn't reach the chat just now. Try again in a moment.";
@@ -19,7 +19,7 @@ const reply = (route: Route, body: string) => route.fulfill({ status: 200, conte
 
 async function open(page: Page, theme: 'dark' | 'light' = 'light') {
   // The wake-up ping is answered here so no test ever reaches the real server.
-  await page.route(HEALTH, (route) => route.fulfill({ status: 204, body: '' }));
+  await page.route(HEALTH, (route) => route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*' }, body: '' }));
   await page.addInitScript((t) => {
     try {
       localStorage.setItem('portfolio-theme', t);
@@ -38,7 +38,8 @@ async function holdStream(page: Page) {
     const real = w.fetch.bind(w);
     w.fetch = (input: any, init: any) => {
       const url = typeof input === 'string' ? input : input.url;
-      if (!url.includes('ask-shannon-api.onrender.com/api/chat')) return real(input, init);
+      // The wake call (?wake=1) goes to the network, where open() answers it.
+      if (!url.endsWith('ask-shannon-api.onrender.com/api/chat')) return real(input, init);
       w.__askCalls.push({ url, method: init?.method, headers: init?.headers, body: JSON.parse(init?.body ?? 'null') });
       let ctrl: ReadableStreamDefaultController<Uint8Array>;
       const body = new ReadableStream<Uint8Array>({ start(c) { ctrl = c; } });
@@ -402,9 +403,9 @@ test.describe('Ask Shannon', () => {
     await expect(page.locator('.ask-wait')).toHaveCount(0);
   });
 
-  test('the health ping is sent once, only after the section comes into view', async ({ page }) => {
+  test('the wake call is sent once, only after the section comes into view', async ({ page }) => {
     const pings: string[] = [];
-    await page.route(HEALTH, (route) => { pings.push(route.request().method()); return route.fulfill({ status: 204, body: '' }); });
+    await page.route(HEALTH, (route) => { pings.push(route.request().method()); return route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*' }, body: '' }); });
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
     await page.waitForTimeout(800);
@@ -414,10 +415,10 @@ test.describe('Ask Shannon', () => {
     await page.evaluate(() => scrollTo(0, 0));
     await page.locator('#ask').scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
-    expect(pings).toEqual(['GET']);
+    expect(pings).toEqual(['OPTIONS']);
   });
 
-  test('a failed health ping is swallowed', async ({ page }) => {
+  test('a failed wake call is swallowed', async ({ page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (e) => errors.push(e));
     await page.route(HEALTH, (route) => route.abort('failed'));
