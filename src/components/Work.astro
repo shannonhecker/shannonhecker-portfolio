@@ -12,5 +12,13 @@ import CaseRowLink from './CaseRowLink.astro';
     <div class="index">
       {CASES.map((c) => <CaseRowLink c={c} homeArtwork />)}
     </div>
+    <p class="more-work"><a href="/work">More work</a></p>
   </div>
 </section>
+
+<style>
+.more-work{margin-top:clamp(40px,5vw,72px)}
+.more-work a{display:inline-flex;align-items:center;min-height:44px;font-size:clamp(18px,1.6vw,22px);font-weight:500;letter-spacing:-.015em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
+.more-work a:hover{text-decoration-thickness:2px}
+.more-work a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+</style>

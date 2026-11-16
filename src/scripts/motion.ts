@@ -70,13 +70,7 @@ function peek() {
 function chrome() {
   const prog = document.querySelector<HTMLElement>('.progress');
   const nav = document.querySelector<HTMLElement>('.nav');
-  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav a.l'));
-  // Links are either home-page anchors (/#work) or case pages (/fx).
-  const here = location.pathname.replace(/\/$/, '') || '/';
-  const pageLink = links.find((a) => a.getAttribute('href') === here);
-  const sections = here === '/'
-    ? links.map((a) => { const h = a.getAttribute('href') ?? ''; const i = h.indexOf('#'); return i >= 0 ? document.getElementById(h.slice(i + 1)) : null; }).filter((s): s is HTMLElement => !!s)
-    : [];
+  // aria-current is set on the server (Nav.astro); nothing here touches it.
   const list = nav?.querySelector('ul');
   const edges = () => {
     if (!list) return;
@@ -87,31 +81,13 @@ function chrome() {
   // Measure after layout, independently of progress/theme writes. Reading
   // scrollWidth after those writes forced another full layout on first paint.
   if (list) new ResizeObserver(edges).observe(list);
-  let lastCur: HTMLElement | null = null;
   const upd = () => {
-    // At the top, progress and section state are already known. Avoid forcing
+    // At the top, progress is already known. Avoid forcing
     // layout of the full image gallery during the first text/scene entrance.
     const atTop = scrollY === 0;
     const h = atTop ? 0 : root.scrollHeight - innerHeight;
     if (prog) prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
-    const y = scrollY + innerHeight * 0.35;
-    let cur: HTMLElement | null = null;
-    if (!atTop) sections.forEach((s) => { if (s.offsetTop <= y) cur = s; });
-    links.forEach((a) => {
-      const on = pageLink ? a === pageLink : !!cur && (a.getAttribute('href') ?? '').endsWith('#' + (cur as HTMLElement).id);
-      if (on) a.setAttribute('aria-current', pageLink ? 'page' : 'true');
-      else a.removeAttribute('aria-current');
-    });
     nav?.classList.toggle('solid', scrollY > 40);
-    if (list && cur !== lastCur) {
-      lastCur = cur;
-      const a = list.querySelector<HTMLElement>('a[aria-current="true"]');
-      if (a && list.scrollWidth > list.clientWidth) {
-        const ar = a.getBoundingClientRect();
-        const lr = list.getBoundingClientRect();
-        list.scrollTo({ left: list.scrollLeft + ar.left - lr.left - lr.width / 2 + ar.width / 2, behavior: reduce ? 'auto' : 'smooth' });
-      }
-    }
     sweep();
   };
   let t = 0;
