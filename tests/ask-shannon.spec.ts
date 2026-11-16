@@ -355,6 +355,39 @@ test.describe('Ask Shannon', () => {
     expect(small).toEqual([]);
   });
 
+  for (const [name, size] of [['phone', { width: 390, height: 844 }], ['desktop', { width: 1440, height: 900 }]] as const) {
+    test(`look (${name}): round Send, centred pills, a gradient card, no sideways scroll`, async ({ page }) => {
+      await page.setViewportSize(size);
+      await page.addInitScript(() => { (window as any).SpeechRecognition = class { start() {} stop() {} }; });
+      await open(page, 'dark');
+      // Send keeps its name and is a round target of at least 44 by 44.
+      await expect(page.getByRole('button', { name: 'Send', exact: true })).toBeVisible();
+      const sendBox = (await send(page).boundingBox())!;
+      expect(sendBox.width).toBeGreaterThanOrEqual(44);
+      expect(sendBox.height).toBeGreaterThanOrEqual(44);
+      await expect(send(page)).toHaveCSS('border-top-left-radius', '50%');
+      const micBox = (await page.locator('#ask-mic').boundingBox())!;
+      expect(micBox.width).toBeGreaterThanOrEqual(44);
+      await expect(page.locator('#ask-mic')).toHaveCSS('border-top-left-radius', '50%');
+      // The conversation sits in one rounded card.
+      expect(parseFloat(await page.locator('#ask .ask-main').evaluate((el) => getComputedStyle(el).borderTopLeftRadius))).toBeGreaterThanOrEqual(24);
+      // The suggestion pills are visible, rounded and centred on the card.
+      const chips = page.locator('#ask-suggestions .ask-chip');
+      expect(await chips.count()).toBeGreaterThan(0);
+      const main = (await page.locator('#ask .ask-main').boundingBox())!;
+      const mid = main.x + main.width / 2;
+      let left = Infinity; let right = -Infinity;
+      for (const c of await chips.all()) {
+        await expect(c).toBeVisible();
+        await expect(c).toHaveCSS('border-top-left-radius', /^(999|[0-9]{4,})px$|^[2-9][0-9]px$/);
+        const b = (await c.boundingBox())!;
+        left = Math.min(left, b.x); right = Math.max(right, b.x + b.width);
+      }
+      expect(Math.abs((left + right) / 2 - mid)).toBeLessThanOrEqual(2);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
+    });
+  }
+
   test('safe rendering: an answer is text, never markup', async ({ page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (e) => errors.push(e));

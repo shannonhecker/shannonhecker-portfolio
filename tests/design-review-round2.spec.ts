@@ -401,18 +401,18 @@ test.describe('B1: the log never slices through a line at its top edge', () => {
       await expect(page.locator('.ask-msg--ai')).toHaveCount(4);
       const m = await page.locator('#ask-messages').evaluate((log) => {
         const top = log.getBoundingClientRect().top;
-        const wrap = log.parentElement!.getBoundingClientRect();
+        const wrap = log.closest('.ask-main')!.getBoundingClientRect();
         const bad: string[] = [];
         for (const el of log.querySelectorAll(':scope > .ask-msg, :scope > .ask-error')) {
           const r = el.getBoundingClientRect();
           if (r.bottom <= top + 0.5) continue; // entirely above: out of sight
           if (r.top < top - 1) bad.push(`${el.className} starts ${Math.round(top - r.top)}px above the edge`);
         }
-        return { bad, gap: top - wrap.top, scrolls: log.scrollHeight - log.clientHeight > 1, wrapRule: getComputedStyle(log.parentElement!).borderTopWidth };
+        return { bad, gap: top - wrap.top, scrolls: log.scrollHeight - log.clientHeight > 1 };
       });
       expect(m.bad).toEqual([]);
-      expect(m.wrapRule, 'the rule belongs to the non-scrolling wrapper').toBe('1px');
-      expect(m.gap, 'air between the rule and the first line').toBeGreaterThanOrEqual(24);
+      // The card's edge replaces the old rule: it never scrolls, and the first line sits clear of it.
+      expect(m.gap, 'air between the card edge and the first line').toBeGreaterThanOrEqual(20);
       expect(m.scrolls).toBe(w > 900);
     });
   }

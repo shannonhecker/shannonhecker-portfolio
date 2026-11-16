@@ -32,12 +32,12 @@ for (const width of [1440, 1024, 390]) {
   }
 }
 
-test('the footer "Let\u2019s Talk." keeps its own -0.045em', async ({ page }) => {
+test('the footer "Let\u2019s Talk." keeps its own -0.03em (the serif)', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/about');
   const { size, tracking } = await page.locator('#contact h2').evaluate((e) => {
     const cs = getComputedStyle(e);
     return { size: parseFloat(cs.fontSize), tracking: parseFloat(cs.letterSpacing) };
   });
-  expect(Math.abs(tracking / size + 0.045)).toBeLessThanOrEqual(TOLERANCE);
+  expect(Math.abs(tracking / size + 0.03)).toBeLessThanOrEqual(TOLERANCE);
 });

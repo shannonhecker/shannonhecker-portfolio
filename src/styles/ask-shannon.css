@@ -1,34 +1,71 @@
-/* Ask Shannon: an editorial question and answer, not a chat window. The question is set as a
-   line of display type, the answer as text on the page, and the two are told apart by type and
-   a hairline, never by a coloured bubble. Tokens only, so both themes come for free.
+/* Ask Shannon: a conversation card. One rounded card with a thin pink, violet and blue edge and a
+   soft glow holds the whole exchange: the answers as tonal bubbles, the question as an inverted
+   one, then the composer under a hairline. The suggestions sit under it as centred pills. The
+   look is carried over from the old site (the gradient edge, the round pink to violet Send);
+   the words, the structure and the behaviour are the new chat's own. Tokens only, so both themes
+   come for free.
    The transcript is always exactly as tall as what is in it, so there is never an empty gap above
    the greeting. It grows with the conversation (easing, set in ask-shannon.ts) until it reaches
    the cap, then it scrolls with the latest line in view. */
 #ask.ask-shannon { border-bottom: 1px solid var(--hair); }
 /* A control's edge needs 3:1 against the page (WCAG 1.4.11). Hairlines are for dividers only,
-   so the composer and the mic use a mix of the text grey and the page: 3.3:1 light, 3.5:1 dark. */
-#ask { --ask-line: color-mix(in srgb, var(--fg-2) 68%, var(--bg)); }
-html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, var(--bg)); }
-/* The same header rhythm as How I work: 40px from eyebrow to heading, 48px to the content. */
-#ask .ask-head { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
-#ask .ask-head .h-section { max-width: 34ch; }
-
-/* The same 12 columns and 56px gap as the principles above: the chat takes two of their columns
-   and the suggestions take the third, so both hairlines start where the section above does. */
-#ask .ask-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 56px;
-  row-gap: 40px;
-  align-items: start;
+   so the mic and the suggestion pills use a mix of the text grey and the page: 3.3:1 light, 3.5:1 dark. */
+#ask {
+  --ask-line: color-mix(in srgb, var(--fg-2) 68%, var(--bg));
+  /* The old gradient: pink, violet, blue and a warm olive corner. Light uses deeper tones so the
+     edge itself holds 3:1 on white; dark uses the brighter ones. */
+  --ask-pink: #c2308a; --ask-violet: #7c3fd8; --ask-blue: #2f63c9; --ask-olive: #8a6a12;
+  --ask-card: var(--bg);
+  --ask-bubble: color-mix(in srgb, var(--fg) 6%, var(--ask-card));
+  --ask-glow: 0 0 0 transparent;
+  --ask-glow-a: rgb(168 85 247 / .07); --ask-glow-b: rgb(236 72 153 / .06); --ask-glow-c: rgb(79 123 232 / .07);
+  --ask-err-bg: #fdeef3; --ask-err-line: #c2308a;
+  --ask-rec: #b4236f;
+  --ask-radius: 28px;
 }
-#ask .ask-main { grid-column: 1 / 9; min-width: 0; }
-#ask .ask-side { grid-column: 9 / 13; min-width: 0; padding-top: 24px; border-top: 1px solid var(--hair); }
+html[data-theme="dark"] #ask {
+  --ask-line: color-mix(in srgb, var(--fg-2) 52%, var(--bg));
+  --ask-pink: #ec4899; --ask-violet: #a855f7; --ask-blue: #5b8def; --ask-olive: #9a8326;
+  --ask-card: var(--bg-2);
+  --ask-bubble: color-mix(in srgb, var(--fg) 9%, var(--ask-card));
+  --ask-glow-a: rgb(168 85 247 / .2); --ask-glow-b: rgb(236 72 153 / .15); --ask-glow-c: rgb(91 141 239 / .17);
+  --ask-err-bg: color-mix(in srgb, #ec4899 12%, var(--ask-card)); --ask-err-line: #f06ba8;
+  --ask-rec: #ff8fbd;
+}
+/* The same header rhythm as How I work: 40px from eyebrow to heading, 48px to the content. Here the
+   whole section sits on one centre line, like the card, the note and the pills under it. */
+#ask .ask-head { display: flex; flex-direction: column; align-items: center; gap: 40px; margin-bottom: 48px; text-align: center; }
+#ask .ask-head .h-section { max-width: 34ch; margin-inline: auto; }
+
+/* One centred column: the card, then the suggestions and the note. */
+#ask .ask-grid { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 760px; margin-inline: auto; }
+#ask .ask-main, #ask .ask-side { width: 100%; min-width: 0; }
+
+/* The card. The edge is a 1.5px gradient ring cut out with a mask, so the card keeps its own
+   solid fill; the glow is a few wide, faint shadows in the same three hues. */
+#ask .ask-main {
+  position: relative;
+  padding: 28px 28px 20px;
+  border-radius: var(--ask-radius);
+  background: var(--ask-card);
+  box-shadow: -14px -8px 48px var(--ask-glow-a), 16px 2px 52px var(--ask-glow-c), 0 18px 52px var(--ask-glow-b);
+}
+#ask .ask-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, var(--ask-pink) 0deg, var(--ask-olive) 52deg, var(--ask-blue) 125deg, var(--ask-pink) 205deg, var(--ask-violet) 275deg, var(--ask-pink) 340deg, var(--ask-pink) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+#ask .ask-side { padding-top: 0; text-align: center; }
 
 /* The transcript */
-/* The rule and the air under it belong to this wrapper, which never scrolls, so the log's own top
-   edge is always clean: a message starts there, or the one above it is gone. */
-#ask .ask-log-wrap { position: relative; padding-top: 24px; border-top: 1px solid var(--hair); }
+#ask .ask-log-wrap { position: relative; }
 #ask .ask-log {
   position: relative;
   display: flex;
@@ -40,46 +77,45 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
   padding: 0 0 20px;
   scroll-snap-type: y proximity;
   scrollbar-width: thin;
-  scrollbar-color: var(--hair) transparent;
+  scrollbar-color: var(--ask-line) transparent;
 }
 /* One focus ring for the whole section: 2px in the site's ink colour. */
 #ask :focus-visible { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 4px; }
-#ask .ask-log:focus-visible { outline-offset: 4px; }
+#ask .ask-log:focus-visible { outline-offset: 4px; border-radius: 14px; }
 /* The cap: the log is as tall as its content up to here, never taller. */
 #ask { --ask-log-h: clamp(280px, 40svh, 400px); }
-#ask .ask-log:not([data-started]) { padding-bottom: 24px; }
 
 #ask .ask-msg { min-width: 0; }
 #ask .ask-msg p { margin: 0; overflow-wrap: anywhere; }
-/* Each question is set off by a hairline 24px above it, drawn outside its box, so that when the log
-   scrolls a question can sit exactly on the log's top edge and the rule above it is out of sight. */
+#ask .ask-msg p + p { margin-top: 10px; }
+/* Space between bubbles is margin, not flex gap: the script measures the spacer under the newest
+   question to the pixel, and a gap would add a row's worth to that. */
+#ask .ask-msg + .ask-msg, #ask .ask-msg + .ask-error { margin-top: 12px; }
+#ask .ask-spacer { flex: none; margin: 0; }
+/* The question: an inverted bubble on the right. It is the snap point, so when the log scrolls the
+   question can sit on the log's top edge. */
 #ask .ask-msg--user {
-  position: relative;
-  margin-top: 52px;
+  align-self: flex-end;
+  max-width: min(86%, 56ch);
+  padding: 12px 18px;
+  border-radius: 20px 20px 6px 20px;
+  background: var(--fg);
+  color: var(--bg);
   scroll-snap-align: start;
 }
-#ask .ask-msg--user::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; border-top: 1px solid var(--hair); }
-#ask .ask-msg--user:first-child { margin-top: 0; }
-#ask .ask-msg--user:first-child::before { display: none; }
-#ask .ask-spacer { flex: none; }
-#ask .ask-msg--user p {
-  max-width: 40ch;
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(21px, 1.7vw, 26px);
-  line-height: 1.3;
-  letter-spacing: -.02em;
+#ask .ask-msg--user p { font-size: 16px; line-height: 1.55; font-weight: 500; }
+/* The answer: a tonal bubble on the left. */
+#ask .ask-msg--ai {
+  align-self: flex-start;
+  max-width: min(94%, 66ch);
+  padding: 14px 20px;
+  border-radius: 20px 20px 20px 6px;
+  background: var(--ask-bubble);
   color: var(--fg);
 }
-#ask .ask-msg--ai { margin-top: 14px; }
 #ask .ask-msg--ai:first-child { margin-top: auto; }
-#ask .ask-msg--ai p {
-  max-width: 66ch;
-  font-size: 17px;
-  line-height: 1.75;
-  color: var(--fg);
-}
-#ask .ask-greeting p { color: var(--fg-2); }
+#ask .ask-msg--ai p { font-size: 16px; line-height: 1.65; color: var(--fg); }
+#ask .ask-greeting p { color: var(--fg); }
 #ask .ask-msg--ai a {
   color: inherit;
   text-decoration: underline;
@@ -88,9 +124,13 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
 }
 #ask .ask-msg--ai a:hover { text-decoration-thickness: 2px; }
 #ask .ask-msg--ai strong { font-weight: 600; }
+/* When the log scrolls inside the card, its lower edge fades into the composer's hairline instead of
+   cutting a line of text in half. The 24px of padding below the last bubble sits inside the fade,
+   so a log scrolled to the end shows its last line in full. */
+#ask .ask-log { padding-bottom: 24px; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 24px), transparent); }
 
 /* Waiting for the first word, then a caret while text arrives */
-#ask .ask-wait { display: block; max-width: 66ch; font-size: 16px; line-height: 1.75; color: var(--fg-2); }
+#ask .ask-wait { display: block; max-width: 66ch; font-size: 16px; line-height: 1.65; color: var(--fg-2); }
 #ask .ask-wait[data-waking] i { display: none; }
 #ask .ask-wait i { display: inline-block; width: 3px; height: 3px; margin-left: 4px; background: currentColor; border-radius: 50%; }
 #ask .ask-msg--ai.streaming p:not(:empty)::after {
@@ -100,141 +140,164 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
   height: 1.05em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background: currentColor;
+  background: var(--ask-violet);
 }
 @media (prefers-reduced-motion: no-preference) {
-  #ask .ask-form { transition: border-color var(--fast); }
-  #ask .ask-mic, #ask .ask-send { transition: background var(--fast), color var(--fast), border-color var(--fast); }
+  #ask .ask-mic, #ask .ask-send, #ask .ask-chip { transition: background var(--fast), color var(--fast), border-color var(--fast), box-shadow var(--fast), transform var(--fast), opacity var(--fast); }
   #ask .ask-wait i { animation: ask-dot 1.2s ease-in-out infinite; }
   #ask .ask-wait i:nth-child(2) { animation-delay: .15s; }
   #ask .ask-wait i:nth-child(3) { animation-delay: .3s; }
   #ask .ask-msg--ai.streaming p:not(:empty)::after { animation: ask-caret 1s steps(1) infinite; }
+  #ask .ask-mic.listening { animation: ask-rec 1.6s ease-in-out infinite; }
 }
 @keyframes ask-dot { 0%, 100% { opacity: .25; } 40% { opacity: 1; } }
 @keyframes ask-caret { 50% { opacity: 0; } }
+@keyframes ask-rec { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ask-rec) 40%, transparent); } 50% { box-shadow: 0 0 0 7px transparent; } }
 
-/* A failure is plain text with a rule beside it, not an alarm */
+/* A failure is a soft rose bubble with its own edge, not an alarm. The text stays in the page ink. */
 #ask .ask-error {
-  max-width: 66ch;
-  margin: 28px 0 0;
-  padding-left: 16px;
-  border-left: 2px solid var(--fg);
-  font-size: 17px;
+  align-self: flex-start;
+  max-width: min(94%, 66ch);
+  margin: 4px 0 0;
+  padding: 14px 20px;
+  border: 1px solid var(--ask-err-line);
+  border-radius: 20px 20px 20px 6px;
+  background: var(--ask-err-bg);
+  font-size: 16px;
   line-height: 1.6;
   color: var(--fg);
 }
+#ask .ask-error a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
 
 #ask .ask-follow {
   position: absolute;
-  right: 0;
+  left: 50%;
   bottom: 12px;
+  transform: translateX(-50%);
+  width: max-content;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 18px;
   font: 500 14px/1 var(--body);
   color: var(--fg);
-  background: var(--bg);
-  border: 1px solid var(--fg);
-  border-radius: var(--radius);
+  background: var(--ask-card);
+  border: 1px solid var(--ask-line);
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / .18);
   cursor: pointer;
 }
 #ask .ask-follow[hidden] { display: none; }
-#ask .ask-follow:hover { background: var(--fg); color: var(--bg); }
+#ask .ask-follow:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
-/* The composer: one hairline box, a quiet hint, and a clear Send */
+/* The composer sits under a hairline, inside the card: the field, then the mic, a quiet hint and
+   the round Send. */
 #ask .ask-form {
-  margin-top: 16px;
-  border: 1px solid var(--ask-line);
-  border-radius: var(--radius);
-  background: var(--bg);
+  margin-top: 0;
+  padding-top: 4px;
+  border-top: 1px solid var(--hair);
+  border-radius: 0 0 18px 18px;
 }
-/* The ring sits on the composer's own edge, over its border, so there is one frame, not two. */
-#ask .ask-form:has(.ask-input:focus-visible) { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: -2px; }
+/* The ring sits just outside the composer's own box, inside the card. */
+#ask .ask-form:has(.ask-input:focus-visible) { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 2px; border-radius: 18px; border-top-color: transparent; }
 #ask .ask-input:focus-visible { outline: 0; }
 #ask .ask-input {
   display: block;
   width: 100%;
-  min-height: 80px;
+  min-height: 84px;
   max-height: 160px;
-  padding: 18px 18px 6px;
+  padding: 18px 10px 6px;
   font: 400 17px/1.6 var(--body);
   color: var(--fg);
   background: transparent;
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 14px;
   outline: 0;
   resize: none;
 }
 #ask .ask-input::placeholder { color: var(--fg-2); opacity: 1; }
-#ask .ask-bar { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 8px 8px 8px 18px; }
-#ask .ask-hint { margin-right: auto; font-size: 13px; line-height: 1.4; color: var(--fg-2); }
+#ask .ask-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 8px 4px 4px; }
+#ask .ask-hint { margin: 0 auto 0 4px; font-size: 13px; line-height: 1.4; color: var(--fg-2); }
 #ask .ask-mic,
 #ask .ask-send {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  font: 500 15px/1 var(--body);
-  border-radius: var(--radius);
+  flex: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
   cursor: pointer;
 }
 #ask .ask-mic[hidden] { display: none; }
-#ask .ask-mic { color: var(--fg); background: transparent; border: 1px solid var(--ask-line); }
+/* The mic comes first visually, on the left, as it did on the old site; in the markup it still
+   follows the hint, so the focus order is unchanged (mic, then Send). */
+#ask .ask-mic { order: -1; width: 44px; height: 44px; color: var(--fg); background: transparent; border: 1px solid var(--ask-line); }
 #ask .ask-mic:hover { border-color: var(--fg); }
-#ask .ask-mic.listening { color: var(--bg); background: var(--fg); border-color: var(--fg); }
-#ask .ask-send { padding: 0 26px; color: var(--bg); background: var(--fg); border: 1px solid var(--fg); }
-#ask .ask-send:hover:not(:disabled) { color: var(--fg); background: var(--bg); }
-#ask .ask-send:disabled { opacity: .35; cursor: default; }
+#ask .ask-mic.listening { color: var(--ask-rec); background: color-mix(in srgb, var(--ask-rec) 14%, transparent); border-color: var(--ask-rec); }
+/* Send: round, pink to violet, with a paper plane. White on both ends holds 4:1. */
+#ask .ask-send {
+  color: #fff;
+  background: linear-gradient(135deg, #d63a96, #8f4ae8);
+  border: 0;
+  box-shadow: 0 4px 16px rgb(168 85 247 / .28);
+}
+#ask .ask-send svg { width: 20px; height: 20px; margin: 0 2px 0 -2px; }
+#ask .ask-send:hover:not(:disabled) { box-shadow: 0 4px 22px rgb(214 58 150 / .42); transform: scale(1.06); }
+#ask .ask-send:disabled { cursor: default; opacity: .4; filter: saturate(.4); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { #ask .ask-send:hover:not(:disabled) { transform: none; } }
 
 #ask .ask-speech { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
 #ask .ask-speech:empty { display: none; }
 
-/* Suggestions: ruled rows, like the footer's links */
-#ask .ask-side-title { margin-bottom: 8px; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
+/* Suggestions: centred outline pills under the card. */
+#ask .ask-side-title { margin-bottom: 14px; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
+#ask .ask-suggestions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 #ask .ask-chip {
-  display: block;
-  width: 100%;
-  min-height: 56px;
-  padding: 14px 0;
-  font: 400 16px/1.4 var(--body);
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 20px;
+  font: 400 15px/1.35 var(--body);
+  text-align: center;
   color: var(--fg);
-  background: none;
-  border: 0;
-  border-bottom: 1px solid var(--hair);
-  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 62%, transparent);
+  border: 1px solid var(--ask-line);
+  border-radius: 999px;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 #ask .ask-chip[aria-disabled="true"] { color: var(--fg-2); cursor: default; }
-#ask .ask-chip[aria-disabled="true"]:hover { text-decoration: none; }
 @media (hover: hover) {
-  #ask .ask-chip:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
-  #ask .ask-suggestions[data-quiet] .ask-chip:hover { text-decoration: none; }
+  #ask .ask-chip:not([aria-disabled="true"]):hover { color: var(--bg); background: var(--fg); border-color: var(--fg); }
 }
-#ask .ask-chip:focus-visible { outline-offset: -2px; }
-#ask .ask-mic:focus-visible, #ask .ask-send:focus-visible { outline-offset: 2px; }
-#ask .ask-note { max-width: 44ch; margin-top: 28px; font-size: 14px; line-height: 1.7; color: var(--fg-2); }
+#ask .ask-suggestions[data-quiet] .ask-chip:hover { color: var(--fg); background: color-mix(in srgb, var(--bg) 62%, transparent); border-color: var(--ask-line); }
+#ask .ask-chip:active:not([aria-disabled="true"]) { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+#ask .ask-chip:focus-visible { outline-offset: 3px; }
+#ask .ask-mic:focus-visible, #ask .ask-send:focus-visible { outline-offset: 3px; }
+#ask .ask-note { max-width: 52ch; margin: 24px auto 0; font-size: 14px; line-height: 1.7; color: var(--fg-2); }
 #ask .ask-note a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
 
-@media (max-width: 1100px) {
-  #ask .ask-main { grid-column: 1 / 7; }
-  #ask .ask-side { grid-column: 7 / 13; }
-}
 @media (max-width: 900px) {
   /* On a phone or tablet the log is not a box with its own scroll (awkward under a thumb, inside a
      page that already scrolls): it grows, and the page carries the conversation. */
-  #ask .ask-log { max-height: none; overflow-y: visible; }
-  #ask .ask-grid { column-gap: 0; }
-  #ask .ask-main, #ask .ask-side { grid-column: 1 / -1; }
+  #ask .ask-log { max-height: none; overflow-y: visible; -webkit-mask-image: none; mask-image: none; }
   #ask { --ask-log-h: clamp(240px, 38svh, 380px); }
 }
 @media (max-width: 760px) {
-  #ask .ask-input { min-height: 72px; padding: 16px 16px 4px; }
-  #ask .ask-bar { padding: 8px; }
+  #ask .ask-main { padding: 20px 18px 14px; border-radius: 24px; --ask-radius: 24px; }
+  #ask .ask-input { min-height: 76px; padding: 14px 8px 4px; }
   #ask .ask-hint { display: none; }
+  #ask .ask-bar { justify-content: space-between; }
+  #ask .ask-msg--user, #ask .ask-msg--ai, #ask .ask-error { max-width: 94%; }
+  #ask .ask-chip { font-size: 15px; padding-inline: 18px; }
 }
 @media (hover: none) { #ask .ask-hint { display: none; } }
 @media print { #ask { display: none; } }

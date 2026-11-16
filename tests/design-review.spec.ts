@@ -50,26 +50,37 @@ for (const theme of ['light', 'dark'] as const) {
       expect(await contrast(page, fg, bg)).toBeGreaterThanOrEqual(4.5);
     });
 
-    test('A2: the composer, the mic and the theme switch have a 3:1 edge', async ({ page }) => {
+    test('A2: the card edge, the mic and the theme switch have a 3:1 edge', async ({ page }) => {
       await visit(page, '/', theme);
       const pageBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-      for (const sel of ['#ask-form', '#ask-mic', '.theme-toggle']) {
+      for (const sel of ['#ask-mic', '.theme-toggle']) {
         const edge = await page.locator(sel).evaluate((el) => getComputedStyle(el).borderTopColor);
         expect(await contrast(page, edge, pageBg), sel).toBeGreaterThanOrEqual(3);
       }
+      // The chat's own edge is the card's gradient ring: every stop must hold 3:1 on the card.
+      const { cardBg, stops } = await page.locator('#ask .ask-main').evaluate((el) => {
+        const s = getComputedStyle(el);
+        return { cardBg: s.backgroundColor, stops: ['--ask-pink', '--ask-violet', '--ask-blue', '--ask-olive'].map((n) => getComputedStyle(document.querySelector('#ask')!).getPropertyValue(n).trim()) };
+      });
+      for (const c of stops) expect(await contrast(page, c, cardBg), c).toBeGreaterThanOrEqual(3);
     });
 
-    test('D6: one focus ring on the composer, in the site ink, with no frame outside it', async ({ page }) => {
+    test('D6: one focus ring on the composer, in the site ink, inside the card', async ({ page }) => {
       await visit(page, '/', theme);
       await page.locator('#ask-input').focus();
       const form = await page.locator('#ask-form').evaluate((el) => { const s = getComputedStyle(el); return { w: s.outlineWidth, st: s.outlineStyle, off: s.outlineOffset, color: s.outlineColor }; });
       expect(form.st).toBe('solid');
       expect(form.w).toBe('2px');
-      expect(parseFloat(form.off)).toBeLessThan(0); // on its own edge, never a second frame outside
+      expect(parseFloat(form.off)).toBeLessThanOrEqual(2); // hugging the composer, never a second frame
       const inner = await page.locator('#ask-input').evaluate((el) => getComputedStyle(el).outlineStyle);
       expect(inner).toBe('none');
-      const pageBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-      expect(await contrast(page, form.color, pageBg)).toBeGreaterThanOrEqual(3);
+      const cardBg = await page.locator('#ask .ask-main').evaluate((el) => getComputedStyle(el).backgroundColor);
+      expect(await contrast(page, form.color, cardBg)).toBeGreaterThanOrEqual(3);
+      // The ring stays inside the card.
+      const ring = (await page.locator('#ask-form').boundingBox())!;
+      const card = (await page.locator('#ask .ask-main').boundingBox())!;
+      expect(ring.x - 4).toBeGreaterThanOrEqual(card.x);
+      expect(ring.x + ring.width + 4).toBeLessThanOrEqual(card.x + card.width);
     });
   });
 }
@@ -146,20 +157,16 @@ test.describe('D2: the empty chat is only as tall as its greeting', () => {
   }
 });
 
-test.describe('D3, D4: the chat sits on the same grid and header rhythm as How I work', () => {
+test.describe('D3, D4: the chat is one centred column under a centred header', () => {
   for (const [w, h] of [[1440, 900], [1024, 800]] as const) {
-    test(`columns line up at ${w}`, async ({ page }) => {
+    test(`card, suggestions and note share the page centre at ${w}`, async ({ page }) => {
       await page.setViewportSize({ width: w, height: h });
       await visit(page, '/', 'dark');
-      const side = (await box(page, '#ask .ask-side')).x;
-      const main = (await box(page, '#ask .ask-main')).x;
-      // Three columns of principles at 1440, two at 1024: the suggestions take the last column.
-      const want = await page.evaluate(() => {
-        const p = Array.from(document.querySelectorAll('.principle')).map((e) => e.getBoundingClientRect().x);
-        return Math.max(...p.slice(0, 3));
-      });
-      expect(Math.abs(side - want)).toBeLessThanOrEqual(1);
-      expect(Math.abs(main - (await box(page, '.principles')).x)).toBeLessThanOrEqual(1);
+      const centre = async (sel: string) => { const b = await box(page, sel); return b.x + b.width / 2; };
+      const want = await page.evaluate(() => document.documentElement.clientWidth / 2);
+      expect(Math.abs((await centre('#ask .ask-main')) - want)).toBeLessThanOrEqual(1);
+      expect(Math.abs((await centre('#ask .ask-side')) - want)).toBeLessThanOrEqual(1);
+      expect(Math.abs((await centre('#ask .ask-head .h-section')) - want)).toBeLessThanOrEqual(1);
     });
   }
   for (const [w, h] of [[1440, 900], [390, 844]] as const) {
@@ -199,20 +206,23 @@ test('D5, D11: the gaps around the optional adventure follow the section rhythm'
   }
 });
 
-test('D7: a clicked suggestion leaves no underlined row behind', async ({ page }) => {
+test('D7: a clicked suggestion leaves no filled pill behind', async ({ page }) => {
   await visit(page, '/', 'light');
   await page.route('https://ask-shannon-api.onrender.com/api/chat', (route) =>
     route.fulfill({ status: 200, contentType: 'text/event-stream', body: 'data: {"text":"Sure."}\n\ndata: [DONE]\n\n' }));
   await page.locator('#ask-suggestions button').first().scrollIntoViewIfNeeded();
+  const ink = await page.locator('#ask-suggestions button').nth(2).evaluate((e) => getComputedStyle(e).color);
   await page.locator('#ask-suggestions button').first().click();
   await expect(page.locator('.ask-msg--ai').last()).toContainText('Sure.');
-  const lines = await page.locator('#ask-suggestions button').evaluateAll((els) => els.map((e) => getComputedStyle(e).textDecorationLine));
-  expect(lines.every((l) => l === 'none')).toBe(true);
-  // Moving the pointer away and back brings the hover underline back.
+  await page.waitForTimeout(400);
+  const fills = () => page.locator('#ask-suggestions button').evaluateAll((els) => els.map((e) => getComputedStyle(e).color));
+  // The pointer is still over the clicked pill, but it stays quiet (ink text, not the filled hover colours).
+  expect((await fills()).every((c) => c === ink)).toBe(true);
+  // Moving the pointer away and back brings the hover fill back.
   const b = (await page.locator('#ask-suggestions button').nth(1).boundingBox())!;
   await page.mouse.move(b.x + 20, b.y + b.height / 2, { steps: 8 });
   await page.mouse.move(b.x + 60, b.y + b.height / 2, { steps: 8 });
-  expect(await page.locator('#ask-suggestions button').nth(1).evaluate((e) => getComputedStyle(e).textDecorationLine)).toBe('underline');
+  expect(await page.locator('#ask-suggestions button').nth(1).evaluate((e) => getComputedStyle(e).color)).not.toBe(ink);
 });
 
 test.describe('D8, A3: the footer', () => {

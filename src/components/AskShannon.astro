@@ -33,7 +33,9 @@ const mail = footerSource.match(/mailto:([^"'<>\s]+)/)?.[1] ?? '';
             <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text" aria-pressed="false" hidden>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4M8 23h8"/></svg>
             </button>
-            <button class="ask-send" id="ask-send" type="submit">Send</button>
+            <button class="ask-send" id="ask-send" type="submit" aria-label="Send">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2 7 9"/><path d="M14 2 9.5 14 7 9 2 6.5 14 2Z"/></svg>
+            </button>
           </div>
         </form>
         <p class="ask-speech" id="ask-speech" role="status"></p>
