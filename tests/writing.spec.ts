@@ -74,7 +74,7 @@ test.describe('/writing', () => {
     expect(dates).toEqual(ARTICLES.map((a) => a.date));
     expect([...dates].sort().reverse()).toEqual(dates);
     for (const [i, a] of ARTICLES.entries()) {
-      await expect(links.nth(i).getByRole('heading', { level: 2 })).toHaveText(`${a.title}.`);
+      await expect(links.nth(i).getByRole('heading', { level: 3 })).toHaveText(`${a.title}.`);
       // The date reads as "18 April 2026"; the ISO form stays in datetime.
       await expect(links.nth(i).locator('time')).toHaveText(a.shown);
     }
