@@ -88,3 +88,5 @@ Heading "Now · this month" became "Now" (Shannon, 16 Nov 2026). The four lines 
 Education, second entry: "Ling Tung" became "Ling Tung University, Taiwan", "BA Digital Media Arts & Management", 2008 to 2010. Source: Shannon's own older CV (16 Nov 2026).
 
 Employer name "Reeborn Information., Ltd" became "Reeborn Information Co., Ltd." (Shannon, 16 Nov 2026).
+
+Section headings: the full stops came off "My approach", "Experience", "Expertise" and "Education", so all seven headings match (Shannon, 16 Nov 2026). "Let's Talk." in the shared footer is unchanged.
