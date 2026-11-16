@@ -1,6 +1,10 @@
 // One-off import of the ten earlier project pages from the old static site.
 //
-//   node scripts/import-legacy.mjs
+//   node scripts/import-legacy.mjs            the ten earlier projects
+//   node scripts/import-legacy.mjs writing    the Writing index and its three articles
+//
+// The `writing` mode lives in scripts/import-writing.mjs (this file was already
+// long) and shares the HTML parser in scripts/lib/legacy-html.mjs.
 //
 // Reads each page with `git show legacy-static:<file>`, writes
 // src/content/earlier/<slug>.md and copies the images it uses from
@@ -19,13 +23,10 @@
 //
 // If an expected part of a page is missing, the script prints the page and the
 // part and exits non-zero. It never writes an empty field.
-import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const BRANCH = 'legacy-static';
+import { ImportError, setPage, fail, parse, decode, hasClass, byClass, one, elements, plain, git, root, BRANCH } from './lib/legacy-html.mjs';
 
 // Order is the order the pages are shown in (src/lib/earlier.ts).
 const PAGES = [
@@ -58,64 +59,6 @@ const STOCK = {
   files: [['barclays-banner.webp', 'stock-dashboard-banner.webp'], ['barclays-02.webp', 'stock-dashboard-02.webp']],
 };
 
-class ImportError extends Error {}
-let page = '';
-const fail = (message) => { throw new ImportError(`${page}: ${message}`); };
-
-// ---------------------------------------------------------------- HTML parsing
-const VOID = new Set(['img', 'br', 'hr', 'input', 'meta', 'link', 'source']);
-const NAMED = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", rsquo: '\u2019', lsquo: '\u2018', rdquo: '\u201d', ldquo: '\u201c', nbsp: '\u00a0', middot: '\u00b7', hellip: '\u2026' };
-function decode(text) {
-  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (all, body) => {
-    if (body[0] === '#') return String.fromCodePoint(body[1].toLowerCase() === 'x' ? parseInt(body.slice(2), 16) : parseInt(body.slice(1), 10));
-    if (!(body in NAMED)) fail(`unknown character reference ${all}`);
-    return NAMED[body];
-  });
-}
-function parse(html) {
-  const rootNode = { tag: '#root', attrs: {}, children: [] };
-  const stack = [rootNode];
-  const token = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:\s+[^\s=>/]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*(\/?)>|[^<]+|</g;
-  for (const m of html.matchAll(token)) {
-    const [all, closing, tag, rawAttrs] = m;
-    const top = stack[stack.length - 1];
-    if (all.startsWith('<!--')) continue;
-    if (!tag) { top.children.push({ tag: '#text', text: all }); continue; }
-    const name = tag.toLowerCase();
-    if (closing) {
-      const at = stack.map((n) => n.tag).lastIndexOf(name);
-      if (at < 1) fail(`closing </${name}> without an opening tag`);
-      stack.length = at;
-      continue;
-    }
-    const attrs = {};
-    for (const a of (rawAttrs || '').matchAll(/([^\s=>/]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s>]+))?/g)) {
-      attrs[a[1].toLowerCase()] = a[2] === undefined ? '' : decode(a[2].replace(/^["']|["']$/g, ''));
-    }
-    const node = { tag: name, attrs, children: [] };
-    top.children.push(node);
-    if (!VOID.has(name) && !all.endsWith('/>')) stack.push(node);
-  }
-  return rootNode;
-}
-const classes = (n) => (n.attrs?.class ?? '').split(/\s+/).filter(Boolean);
-const hasClass = (n, c) => classes(n).includes(c);
-function all(node, test, out = []) {
-  for (const c of node.children ?? []) { if (test(c)) out.push(c); all(c, test, out); }
-  return out;
-}
-const byClass = (node, c) => all(node, (n) => hasClass(n, c));
-const one = (node, c, what) => {
-  const found = byClass(node, c);
-  if (found.length !== 1) fail(`expected one .${c} (${what}), found ${found.length}`);
-  return found[0];
-};
-const elements = (node) => (node.children ?? []).filter((c) => c.tag !== '#text');
-function plain(node) {
-  if (node.tag === '#text') return decode(node.text);
-  return (node.children ?? []).map(plain).join('').replace(/\s+/g, ' ').trim();
-}
-
 // ------------------------------------------------------------------- the words
 // Only dashes change. A range of numbers becomes "to"; anything else needs a person.
 function dashes(text, where) {
@@ -146,12 +89,8 @@ function inline(nodes, where) {
 const para = (n, where) => dashes(inline(n.children, where).trim(), where);
 
 // ------------------------------------------------------------------- one page
-function git(args, options = {}) {
-  return execFileSync('git', args, { cwd: root, maxBuffer: 64 * 1024 * 1024, ...options });
-}
-
 function convert({ slug, legacy }, order) {
-  page = legacy;
+  setPage(legacy);
   const html = git(['show', `${BRANCH}:${legacy}`], { encoding: 'utf8' });
   const start = html.indexOf('<main id="main-content"'), end = html.indexOf('</main>');
   if (start < 0 || end < 0) fail('no <main id="main-content"> found');
@@ -326,22 +265,29 @@ function convert({ slug, legacy }, order) {
 }
 
 // ----------------------------------------------------------------------- main
-const problems = [];
-const results = [];
-PAGES.forEach((p, i) => {
-  try { results.push(convert(p, i + 1)); } catch (error) {
-    if (error instanceof ImportError) problems.push(error.message); else throw error;
-  }
-});
-if (problems.length) {
-  console.error(`import-legacy failed (${problems.length}):\n- ${problems.join('\n- ')}`);
+if (process.argv[2] === 'writing') {
+  await import('./import-writing.mjs');
+} else if (process.argv[2]) {
+  console.error(`import-legacy: unknown mode "${process.argv[2]}" (use no argument, or "writing")`);
   process.exit(1);
-}
-mkdirSync(join(root, 'src/content/earlier'), { recursive: true });
-for (const { slug, file, copies } of results) {
-  writeFileSync(join(root, 'src/content/earlier', `${slug}.md`), file);
-  const dir = join(root, 'src/assets/earlier', slug);
-  mkdirSync(dir, { recursive: true });
-  for (const { from, to } of copies) writeFileSync(join(dir, to), git(['show', `${BRANCH}:assets/${from}`]));
-  console.log(`${slug}: ${file.split('\n').length} lines, ${copies.length} image${copies.length === 1 ? '' : 's'}`);
+} else {
+  const problems = [];
+  const results = [];
+  PAGES.forEach((p, i) => {
+    try { results.push(convert(p, i + 1)); } catch (error) {
+      if (error instanceof ImportError) problems.push(error.message); else throw error;
+    }
+  });
+  if (problems.length) {
+    console.error(`import-legacy failed (${problems.length}):\n- ${problems.join('\n- ')}`);
+    process.exit(1);
+  }
+  mkdirSync(join(root, 'src/content/earlier'), { recursive: true });
+  for (const { slug, file, copies } of results) {
+    writeFileSync(join(root, 'src/content/earlier', `${slug}.md`), file);
+    const dir = join(root, 'src/assets/earlier', slug);
+    mkdirSync(dir, { recursive: true });
+    for (const { from, to } of copies) writeFileSync(join(dir, to), git(['show', `${BRANCH}:assets/${from}`]));
+    console.log(`${slug}: ${file.split('\n').length} lines, ${copies.length} image${copies.length === 1 ? '' : 's'}`);
+  }
 }

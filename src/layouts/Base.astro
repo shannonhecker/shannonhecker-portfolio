@@ -16,10 +16,13 @@ import bodyFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.w
 interface Props {
   title?: string;
   description?: string;
+  // Open Graph type: an essay is an article, every other page a website.
+  ogType?: 'website' | 'article';
 }
 // Title and description reuse prototype copy (its <title> and hero intro).
 const {
   title = 'Shannon Hecker Portfolio',
+  ogType = 'website',
   description = "Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.",
 } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
@@ -61,7 +64,7 @@ const og = new URL('/og-card.png', Astro.site).href;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Shannon Hecker" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

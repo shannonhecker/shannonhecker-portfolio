@@ -4,10 +4,12 @@ import ThemePicker from './ThemePicker.astro';
 import { CASES } from '../lib/cases';
 
 // Work is current on its index (page) and above every work page (true):
-// the earlier projects at /work/<slug> and the five case pages.
+// the earlier projects at /work/<slug> and the five case pages. Writing is the
+// same: page on /writing, true on /writing/<slug>.
 const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const workAncestor = here.startsWith('/work/') || CASES.some((c) => c.href === here);
-const current = (href: string) => (href === here ? 'page' : href === '/work' && workAncestor ? 'true' : undefined);
+const writingAncestor = here.startsWith('/writing/');
+const current = (href: string) => (href === here ? 'page' : (href === '/work' && workAncestor) || (href === '/writing' && writingAncestor) ? 'true' : undefined);
 ---
 <nav class="nav" aria-label="Sections">
   <a class="brand" href="/" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>

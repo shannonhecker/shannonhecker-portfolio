@@ -27,4 +27,26 @@ const earlier = defineCollection({
     }),
 });
 
-export const collections = { earlier };
+// The Writing articles imported from the old static site
+// (scripts/import-writing.mjs). The Markdown body is the essay itself: paragraphs,
+// numbered sections, a quote, and <dl class="essay-terms"> lists for the old callouts.
+const writing = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/writing' }),
+  schema: z.object({
+    title: z.string(),
+    // The old page's meta description (also the JSON-LD description).
+    description: z.string(),
+    published: z.coerce.date(),
+    // The old file name (writing-<slug>.html), kept for the redirects.
+    legacy: z.string(),
+    // The standfirst shown under the title on the article page.
+    dek: z.string(),
+    // The line shown under the title on the index; the old site worded it differently.
+    blurb: z.string(),
+    minutes: z.number().int().positive(),
+    words: z.number().int().positive(),
+    keywords: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { earlier, writing };
