@@ -20,7 +20,7 @@
 .about-intro .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:stretch;padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(8px,2vw,32px)}
 .about-photo{grid-column:1/6;grid-row:1;margin:0}
 /* The portrait keeps its own proportions: height follows width, never cropped. */
-.about-photo img{display:block;width:100%;height:auto;border-radius:var(--radius);background:var(--bg-2)}
+.about-photo img{display:block;width:100%;max-width:var(--w);height:auto;border-radius:var(--radius);background:var(--bg-2)}
 .about-who{grid-column:7/13;grid-row:1;min-width:0;display:flex;flex-direction:column}
 .about-kicker{margin:0;font:400 14px/1.6 var(--body);letter-spacing:0;color:var(--fg-2)}
 .about-who .about-kicker{margin-bottom:clamp(20px,2.4vw,32px)}
@@ -47,7 +47,9 @@
 .about-label,.about-content{min-width:0;margin:0;padding:0;list-style:none}
 .about-label{padding:var(--rule) var(--g) 0 0;border-top:1px solid var(--hair)}
 .about-label h2{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.3;letter-spacing:-.02em;text-wrap:balance}
-.about-label .about-kicker{margin-bottom:6px}
+/* One pattern for every label: the heading first, level with the section's first line, and
+   where there is a descriptor it sits quietly under the heading. */
+.about-label .about-kicker{margin-top:6px}
 .about-content{padding-top:var(--rule);border-top:1px solid var(--hair)}
 /* Row lists draw their own hairlines, one above every row, so the first one is the
    section's rule; the label's rule continues it on the left. */
@@ -64,7 +66,7 @@
 
 /* Experience: when, then who and what. The dates of a job that is still going read in
    the page's full ink; finished ones are quieter. */
-.about-job,.about-schools>li{display:grid;grid-template-columns:var(--lead) var(--rail) minmax(0,1fr);align-items:baseline;padding-block:var(--rule) var(--jpad)}
+.about-job,.about-schools>li{display:grid;grid-template-columns:var(--lead) var(--rail) minmax(0,1fr);align-items:baseline;padding-block:var(--rule) var(--jpad);border-top:1px solid var(--hair)}
 .about-schools>li{grid-template-columns:var(--lead) minmax(0,1fr);column-gap:var(--rail);align-items:baseline;padding-bottom:var(--rule);border-top:1px solid var(--hair)}
 /* Experience is a sequence, so it gets a rail: a dot for each job, filled while it is
    still going, hollow once it has ended, joined by a hairline. */

@@ -7,6 +7,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { Picture, getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import { imageWidths } from '../lib/image-widths';
 import '../styles/earlier.css';
 
@@ -22,6 +23,45 @@ const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), f
 // A value this short is a figure and is set large; a longer one is a phrase.
 const isFigure = (value: string) => value.length <= 5;
 const pad = (n: number) => String(n).padStart(2, '0');
+
+// Every picture the Markdown body uses, by file name, so the body's plain <img> tags
+// can be rebuilt below with a full srcset (the Markdown pipeline emits one source only).
+const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/earlier/**/*.webp', { eager: true });
+const byName = new Map<string, ImageMetadata>();
+for (const [path, mod] of Object.entries(assets)) byName.set(path.split('/').pop()!.replace(/\.webp$/, ''), mod.default);
+const attr = (tag: string, name: string) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1] ?? '';
+
+/** A picture never shows wider than its own pixels, and every width up to the original is offered. */
+async function figure(tag: string) {
+  const file = attr(tag, 'src').split('/').pop()!.split('.')[0];
+  const meta = byName.get(file) ?? [...byName.entries()].find(([k]) => file.startsWith(k))?.[1];
+  if (!meta) return `<figure class="earlier-fig">${tag}</figure>`;
+  const widths = imageWidths(meta.width);
+  const set = async (format: 'avif' | 'webp') =>
+    (await Promise.all(widths.map(async (w) => { const i = await getImage({ src: meta, width: w, format, quality: 85 }); return `${i.src} ${w}w`; }))).join(', ');
+  const sizes = `(min-width: 901px) min(${meta.width}px, calc(75vw - 24px)), min(${meta.width}px, calc(100vw - 48px))`;
+  const big = await getImage({ src: meta, width: meta.width, format: 'webp', quality: 85 });
+  const alt = attr(tag, 'alt');
+  return `<figure class="earlier-fig" style="--w:${meta.width}px"><picture><source type="image/avif" srcset="${await set('avif')}" sizes="${sizes}"><img src="${big.src}" srcset="${await set('webp')}" sizes="${sizes}" alt="${alt}" width="${meta.width}" height="${meta.height}" loading="lazy" decoding="async"></picture></figure>`;
+}
+
+// The body is a flat run of headings, paragraphs and pictures. Cut it into sections at
+// each h2 so a label can stay beside its own section as the text scrolls.
+let body = await Astro.slots.render('default');
+const noteMatch = body.match(/<aside class="earlier-note"[\s\S]*?<\/aside>/);
+const note = noteMatch ? noteMatch[0] : '';
+if (noteMatch) body = body.replace(noteMatch[0], () => '');
+for (const m of [...body.matchAll(/<p>\s*(<img\b[^>]*>)\s*<\/p>/g)]) { const html = await figure(m[1]); body = body.replace(m[0], () => html); }
+const sections = body.split(/(?=<h2\b)/).map((chunk) => chunk.trim()).filter(Boolean).map((chunk) => {
+  const m = chunk.match(/^<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*)$/);
+  if (!m) return `<div class="earlier-sec-body">${chunk}</div>`;
+  const id = m[1].match(/id="([^"]+)"/)?.[1];
+  return `<section class="earlier-sec"${id ? ` aria-labelledby="${id}"` : ''}><h2${m[1]}>${m[2]}</h2><div class="earlier-sec-body">${m[3]}</div></section>`;
+}).join('\n');
+
+// An outcome label keeps a hyphenated word whole ("end-to-end"), so it never breaks mid-word.
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const keepWords = (t: string) => esc(t).replace(/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g, (w) => `<span class="nb">${w}</span>`);
 
 const ld = [
   {
@@ -69,13 +109,13 @@ const ld = [
           {outcomes.map((o) => (
             <li>
               <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
-              <span class="label">{o.label}</span>
+              <span class="label" set:html={keepWords(o.label)} />
             </li>
           ))}
         </ul>
       </section>
 
-      <div class="earlier-cover">
+      <div class="earlier-cover" style={`--w:${cover.width}px`}>
         <Picture
           src={cover}
           alt={coverAlt}
@@ -90,7 +130,10 @@ const ld = [
         />
       </div>
 
-      <div class="earlier-body"><slot /></div>
+      <div class="earlier-body">
+        <Fragment set:html={sections} />
+        {note && <Fragment set:html={note} />}
+      </div>
 
       <div class="earlier-foot">
         <ul class="earlier-tags" aria-label="Tags">

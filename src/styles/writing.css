@@ -85,6 +85,7 @@
 .essay-body{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);margin-top:var(--section);counter-reset:section}
 .essay-body>*{grid-column:2;min-width:0;margin:1.25rem 0 0;padding-right:max(0px,calc(100% - var(--measure)));font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
 .essay-body>:first-child{margin-top:0}
+.essay-body>p{text-wrap:pretty}
 .essay-body strong{font-weight:600;color:var(--fg)}
 .essay-body em{font-style:italic;font-weight:400;color:var(--fg)}
 .essay-body a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
@@ -103,12 +104,12 @@
 .essay-body>blockquote+p{margin-top:clamp(32px,4vw,56px)}
 
 /* The old callouts: a small label and its text, ruled like the facts in the head. */
-.essay-body>.essay-terms{margin-block:2rem 0;padding-right:0;max-width:54rem;border-bottom:1px solid var(--hair)}
+.essay-body>.essay-terms{margin-block:2rem 0;padding-right:0;max-width:var(--measure);border-bottom:1px solid var(--hair)}
 .essay-body>.essay-terms+p{margin-top:2rem}
 .essay-terms>div{display:grid;grid-template-columns:minmax(6.5rem,.3fr) minmax(0,1fr);gap:8px 24px;padding-block:20px;border-top:1px solid var(--hair)}
 .essay-terms dt{font-size:14px;line-height:1.9;color:var(--fg-2)}
 .essay-terms dd{margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.7;color:var(--fg)}
-.essay-terms dd>p{margin:0;font-size:inherit;line-height:inherit;color:inherit}
+.essay-terms dd>p{margin:0;font-size:inherit;line-height:inherit;color:inherit;text-wrap:pretty}
 
 /* The end: who wrote it, then the neighbours, then the way back. The author
    paragraph is set at the body's size and measure, so the close has weight. */
