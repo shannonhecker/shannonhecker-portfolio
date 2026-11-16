@@ -78,3 +78,5 @@ Left as written because they are your words, but worth a look now that they sit 
 Home location: "Based in St Albans, a 40-minute ride from King's Cross." became "Based just outside London, a 40-minute ride from King's Cross." Family details and the cat stay. The same change was made in the chat.
 
 Figure: "AA WCAG, Across every product shipped" became "AA WCAG, The standard I design to", to match the chat.
+
+Figure: "15 yrs, In design, from brand to enterprise fintech" became "15 yrs, In design, ten of them in fintech", so it agrees with "Ten years" under My approach. The numbers themselves are unchanged.

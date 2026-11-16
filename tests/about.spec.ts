@@ -50,7 +50,7 @@ const LEGACY_WORDS = [
   'Building uoaui.ai on the side, in private alpha.',
   'Before that, nine years at J.P. Morgan, ending as Digital Product Designer VP on Fusion.',
   'running the design system across FX and MarketsOne: tokens, components, and accessibility.',
-  '15 yrs', 'In design, from brand to enterprise fintech',
+  '15 yrs', 'In design, ten of them in fintech',
   '9 yrs', 'At J.P. Morgan, ending as Digital Product Designer VP',
   'AA WCAG', 'The standard I design to',
   'Now · this month',
