@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
+import { EARLIER_SLUGS } from '../lib/earlier';
 
 // Lists every static page under src/pages without a hard-coded list.
 // Pages that are not for search (404) and files with dynamic segments
 // (art, case slugs) are skipped; add dynamic routes through `extraPaths`.
 const files = Object.keys(import.meta.glob('./**/*.astro'));
-const extraPaths: string[] = [];
+const extraPaths: string[] = EARLIER_SLUGS.map((slug) => `/work/${slug}`);
 
 const paths = [
   ...files

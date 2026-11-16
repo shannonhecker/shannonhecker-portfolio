@@ -1,0 +1,114 @@
+---
+// One earlier project: a simpler page in the same language as the case pages
+// (white or dark page, one grotesk, hairlines, air). The Markdown body arrives in
+// the default slot; everything else comes from the entry's front matter.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { Picture, getImage } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { imageWidths } from '../lib/image-widths';
+import '../styles/earlier.css';
+
+interface Props {
+  entry: CollectionEntry<'earlier'>;
+  next: CollectionEntry<'earlier'>;
+}
+const { entry, next } = Astro.props;
+const { title, summary, role, dates, details, outcomes, tags, cover, coverAlt } = entry.data;
+
+const page = new URL(`/work/${entry.id}`, Astro.site).href;
+const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
+// A value this short is a figure and is set large; a longer one is a phrase.
+const isFigure = (value: string) => value.length <= 5;
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description: summary,
+    url: page,
+    image: new URL(share.src, Astro.site).href,
+    keywords: tags.join(', '),
+    author: { '@type': 'Person', name: 'Shannon Hecker', url: 'https://shannonhecker.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shannonhecker.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://shannonhecker.com/work' },
+      { '@type': 'ListItem', position: 3, name: title, item: page },
+    ],
+  },
+];
+---
+<Base title={`${title} · Shannon Hecker`} description={summary}>
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main" class="earlier">
+    <div class="wrap">
+      <header class="earlier-head">
+        <p class="earlier-eyebrow"><a href="/work">Earlier work</a></p>
+        <h1>{title}</h1>
+        <div class="earlier-intro">
+          <p class="earlier-lead">{summary}</p>
+          <dl class="earlier-facts">
+            {details.map((d) => <div><dt>{d.label}</dt><dd>{d.value}</dd></div>)}
+            <div><dt>Year</dt><dd>{dates}</dd></div>
+            <div><dt>Role</dt><dd>{role}</dd></div>
+          </dl>
+        </div>
+      </header>
+
+      <ul class="earlier-outcomes" style={`--n:${outcomes.length}`} aria-label="Outcomes">
+        {outcomes.map((o) => (
+          <li>
+            <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
+            <span class="label">{o.label}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="earlier-cover">
+        <Picture
+          src={cover}
+          alt={coverAlt}
+          formats={['avif']}
+          fallbackFormat="webp"
+          widths={imageWidths(cover.width)}
+          sizes="(min-width: 1500px) 1376px, calc(100vw - 48px)"
+          quality={85}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+
+      <div class="earlier-body"><slot /></div>
+
+      <div class="earlier-foot">
+        <ul class="earlier-tags" aria-label="Tags">
+          {tags.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <section class="band next-case" aria-label="Next project">
+      <div class="wrap earlier-next">
+        <p class="earlier-eyebrow">Next project</p>
+        <div class="index">
+          <a class="row" href={`/work/${next.id}`} data-cursor="big">
+            <span class="n">{pad(next.data.order)}</span>
+            <h3>{next.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
+            <span class="meta">{next.data.summary}</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  {ld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+</Base>
