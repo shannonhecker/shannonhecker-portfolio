@@ -1,12 +1,16 @@
 const ID = 'G-795LXWTYWM';
 const KEY = 'portfolio-analytics-v1';
-const live = location.hostname === 'shannonhecker.com' || location.hostname === 'www.shannonhecker.com';
+const CLARITY_ID = 'w42m2jben0';
+const local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const live = location.hostname === 'shannonhecker.com' || location.hostname === 'www.shannonhecker.com'
+  || (local && new URLSearchParams(location.search).get('analytics-test') === '1');
 const pageLocation = location.origin + location.pathname;
 const pageReferrer = document.referrer ? new URL(document.referrer).origin : '';
 type Choice = 'yes' | 'no';
-type AnalyticsWindow = Window & { dataLayer?: unknown[]; [key: `ga-disable-${string}`]: boolean; };
+type ClarityFn = ((...args: unknown[]) => void) & { q?: unknown[] };
+type AnalyticsWindow = Window & { dataLayer?: unknown[]; clarity?: ClarityFn; [key: `ga-disable-${string}`]: boolean; };
 const w = window as unknown as AnalyticsWindow;
-let enabled = false, loaded = false;
+let enabled = false, loaded = false, clarityLoaded = false;
 function command(..._args: unknown[]) { (w.dataLayer ||= []).push(arguments); }
 function read(): Choice | null {
   try { const stored = JSON.parse(localStorage.getItem(KEY) || 'null'); return stored && Date.now() - stored.at < 180 * 86400000 ? stored.choice : null; } catch { return null; }
@@ -14,10 +18,21 @@ function read(): Choice | null {
 export function track(name: string, fields: Record<string, string | number | boolean> = {}) {
   if (enabled && live) command('event', name, { ...fields, page_location: pageLocation, page_referrer: pageReferrer });
 }
+function loadClarity() {
+  if (clarityLoaded) { w.clarity?.('consent', true); return; }
+  clarityLoaded = true;
+  // Standard queue stub. No custom tags, identify calls or form values are sent.
+  const stub: ClarityFn = function (this: unknown, ..._args: unknown[]) { (stub.q = stub.q || []).push(arguments); };
+  w.clarity = stub;
+  const tag = document.createElement('script');
+  tag.async = true; tag.src = `https://www.clarity.ms/tag/${CLARITY_ID}`;
+  document.head.append(tag);
+}
 function enable() {
   enabled = true;
   w[`ga-disable-${ID}`] = false;
   if (!live) return;
+  loadClarity();
   if (loaded) { command('consent', 'update', { analytics_storage: 'granted' }); return; }
   loaded = true;
   command('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
@@ -38,9 +53,10 @@ function choose(choice: Choice) {
   else {
     enabled = false; w[`ga-disable-${ID}`] = true;
     if (loaded) command('consent', 'update', { analytics_storage: 'denied' });
+    if (clarityLoaded) w.clarity?.('consent', false);
     for (const item of document.cookie.split(';')) {
       const name = item.trim().split('=')[0];
-      if (name === '_ga' || name.startsWith('_ga_')) {
+      if (name === '_ga' || name.startsWith('_ga_') || name === '_clck' || name === '_clsk') {
         document.cookie = `${name}=; Max-Age=0; Path=/`;
         document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${location.hostname}`;
       }
