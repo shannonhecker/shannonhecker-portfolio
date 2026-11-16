@@ -5,8 +5,6 @@ published: 2026-04-20
 legacy: "writing-the-design-system-is-the-contract.html"
 dek: "What Claude Design, Figma MCP, and the collapse of the design-to-code handoff actually change for the designers who want to stay useful."
 blurb: "What Claude Design, Figma MCP, and the collapse of design-to-code handoff change for designers who want to stay useful."
-minutes: 8
-words: 1200
 keywords:
   - "Claude Design"
   - "design systems"

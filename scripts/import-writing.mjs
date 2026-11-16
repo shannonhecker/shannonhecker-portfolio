@@ -20,14 +20,19 @@
 //     checks they run 1, 2, 3 ... so the counter shows the same numbers.
 //   - "Next post" / "Previously" links: rebuilt from the dates by Article.astro.
 //     The script checks the legacy links point at the same neighbours.
-//   - The author paragraph: one shared block in Article.astro. The script checks
-//     every legacy article carries exactly the text in BIO_TEXT.
+//   - The author paragraph: one shared block in Article.astro (site chrome, not essay
+//     prose). The script checks every legacy article carries exactly the text in
+//     BIO_LEGACY, and that Article.astro carries that text with only the two
+//     title corrections in BIO_FIXES (the owner's ruling, Fix round 1).
+//   - The word count and reading time: not copied. The old figures were round guesses;
+//     src/lib/writing.ts reads both off the rendered body. The script still checks the
+//     legacy pages agree with themselves.
 //   - Callouts (a small label and a paragraph) become a <dl>: the label is the term,
 //     the paragraph the description. Adjacent callouts join into one list.
 //
 // If an expected part of a page is missing, or markup the script does not know
 // turns up, it prints the page and the part and exits non-zero.
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ImportError, setPage, fail, parse, decode, all, hasClass, byClass, one, elements, plain, git, root, BRANCH } from './lib/legacy-html.mjs';
 
@@ -36,10 +41,34 @@ const SLUGS = ['the-design-system-is-the-contract', 'trust-surfaces-in-ai', 'whe
 // { slug, from, to }: `from` must occur exactly once in that article's text.
 const DASH_FIXES = [];
 
-// The author paragraph on every legacy article, as plain text. Article.astro
-// carries the same words. It stays as written (see the report: job titles).
-const BIO_TEXT =
+// The author paragraph on every legacy article, as plain text.
+const BIO_LEGACY =
   'Shannon Hecker is a design engineer in London. She designs trading and markets tools at Barclays (opens in new tab), after nine years at J.P. Morgan (opens in new tab) ending as VP Product Design on the Fusion platform. She is building uoaui.ai on the side. A multi-design-system component composition tool for designers who think in systems. Get in touch via email or LinkedIn (opens in new tab).';
+// What src/layouts/Article.astro carries: the legacy text with the two job titles
+// corrected to the owner's facts. Each `from` must occur exactly once. Nothing else changes.
+const BIO_FIXES = [
+  ['is a design engineer in London', 'is a product designer in London'],
+  ['ending as VP Product Design on the Fusion platform', 'ending as Digital Product Designer VP on the Fusion platform'],
+];
+const squashAll = (t) => t.replace(/\s+/g, '');
+function bioForSite() {
+  let out = BIO_LEGACY;
+  for (const [from, to] of BIO_FIXES) {
+    if (out.split(from).length !== 2) fail(`BIO_FIXES: "${from}" must occur exactly once in the legacy author paragraph`);
+    out = out.replace(from, to);
+  }
+  return out;
+}
+/** The template's author paragraph must say exactly bioForSite(). */
+function checkTemplateBio() {
+  setPage('src/layouts/Article.astro');
+  const src = readFileSync(join(root, 'src/layouts/Article.astro'), 'utf8');
+  const m = src.match(/<p class="essay-bio">([\s\S]*?)<\/p>/);
+  if (!m) fail('no <p class="essay-bio"> in the template');
+  // The visually hidden "(opens in new tab)" spans are part of the text, as on the legacy page.
+  const text = m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+  if (squashAll(text) !== squashAll(bioForSite())) fail(`the template's author paragraph is not the legacy text with BIO_FIXES applied:\n  template: ${text.replace(/\s+/g, ' ').trim()}\n  expected: ${bioForSite()}`);
+}
 
 const DASH = /[\u2013\u2014]/;
 let slugNow = '';
@@ -108,8 +137,8 @@ function article(slug) {
   if (start < 0 || end < 0) fail('no <main id="main"> found');
   const main = parse(html.slice(start, end + 7));
 
-  const title = ld.headline;
-  if (!title) fail('JSON-LD has no headline');
+  if (!ld.headline) fail('JSON-LD has no headline');
+  const title = words(ld.headline, 'headline');
   if (ld['@type'] !== 'Article') fail('JSON-LD is not an Article');
   if (ld.description !== description) fail('JSON-LD description differs from the meta description');
   if (ld.datePublished !== ld.dateModified) fail('datePublished and dateModified differ');
@@ -194,11 +223,11 @@ function article(slug) {
   if (section < 1) fail('no sections found');
   if (pendingRule) fail('an <hr> with no section after it');
   // plain() trims each text node, so compare with the spaces taken out.
-  if (bio?.replace(/\s+/g, '') !== BIO_TEXT.replace(/\s+/g, '')) fail(`author paragraph differs from BIO_TEXT:\n  ${bio}`);
+  if (bio === null || squashAll(bio) !== squashAll(BIO_LEGACY)) fail(`author paragraph differs from BIO_LEGACY:\n  ${bio}`);
   const ending = body.at(-1);
   if (!ending?.p) fail('the article does not end with a paragraph');
 
-  const keywords = String(ld.keywords ?? '').split(',').map((k) => k.trim()).filter(Boolean);
+  const keywords = String(ld.keywords ?? '').split(',').map((k) => words(k.trim(), 'keyword')).filter(Boolean);
   return { slug, file, title, description: words(description, 'meta description'), published, minutes, wordCount, dek, keywords, body, prev, h1 };
 }
 
@@ -225,7 +254,7 @@ function index() {
     if (spans.length !== 2 || !read) fail(`unexpected item meta ${JSON.stringify(spans)}`);
     return {
       slug,
-      title: plain(one(a, 'wr-item-title', 'item title')),
+      title: words(plain(one(a, 'wr-item-title', 'item title')), `index title of ${slug}`),
       date: spans[0],
       minutes: Number(read[1]),
       blurb: words(plain(one(a, 'wr-item-dek', 'item standfirst')), `index standfirst of ${slug}`),
@@ -243,6 +272,7 @@ let idx, arts = [];
 try {
   idx = index();
   arts = SLUGS.map(article);
+  checkTemplateBio();
   // The index and the articles must agree, and the "Next post"/"Previously" links
   // must point where the dates say they should.
   const byDate = [...arts].sort((a, b) => b.published.localeCompare(a.published));
@@ -283,8 +313,6 @@ for (const a of arts) {
     `dek: ${q(a.dek)}`,
     // The line under the title on the index, which the old site worded differently.
     `blurb: ${q(it.blurb)}`,
-    `minutes: ${a.minutes}`,
-    `words: ${a.wordCount}`,
     'keywords:',
     ...a.keywords.map((k) => `  - ${q(k)}`),
     '---',

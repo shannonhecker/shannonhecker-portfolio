@@ -4,11 +4,12 @@ import AxeBuilder from '@axe-core/playwright';
 const HOST = 'https://shannonhecker.com';
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 
-// Newest first, as the index lists them.
+// Newest first, as the index lists them. Word counts and reading times are not
+// listed here: they are read off each body, and the tests below check them.
 const ARTICLES = [
-  { slug: 'when-everyone-can-ship', title: 'When everyone can ship', date: '2026-05-02', read: '7 minute read', words: '1,500 words' },
-  { slug: 'the-design-system-is-the-contract', title: 'The design system is the contract', date: '2026-04-20', read: '8 minute read', words: '1,200 words' },
-  { slug: 'trust-surfaces-in-ai', title: 'Trust surfaces in AI for expert users', date: '2026-04-18', read: '7 minute read', words: '1,400 words' },
+  { slug: 'when-everyone-can-ship', title: 'When everyone can ship', date: '2026-05-02' },
+  { slug: 'the-design-system-is-the-contract', title: 'The design system is the contract', date: '2026-04-20' },
+  { slug: 'trust-surfaces-in-ai', title: 'Trust surfaces in AI for expert users', date: '2026-04-18' },
 ] as const;
 
 async function open(page: Page, path: string, theme: 'dark' | 'light' = 'dark') {
@@ -16,6 +17,35 @@ async function open(page: Page, path: string, theme: 'dark' | 'light' = 'dark') 
   await page.addInitScript((t) => { try { localStorage.setItem('portfolio-theme', t); } catch {} }, theme);
   const res = await page.goto(path);
   expect(res!.status(), `GET ${path}`).toBe(200);
+}
+// Real characters (spaces included) per full line of the body paragraphs that run to
+// three lines or more. Every character is placed by its own client rect, lines are the distinct
+// vertical positions, and each paragraph's last (short) line is left out.
+async function lineLength(page: Page) {
+  return page.evaluate(() => {
+    const full: number[] = [];
+    let paragraphs = 0;
+    for (const p of document.querySelectorAll<HTMLElement>('.essay-body>p')) {
+      const perLine: { y: number; n: number }[] = [];
+      const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
+        for (let i = 0; i < node.length; i++) {
+          const range = document.createRange();
+          range.setStart(node, i);
+          range.setEnd(node, i + 1);
+          const r = range.getClientRects()[0];
+          if (!r) continue;
+          const y = r.top + r.height / 2;
+          const line = perLine.find((l) => Math.abs(l.y - y) < 10);
+          if (line) line.n += 1; else perLine.push({ y, n: 1 });
+        }
+      }
+      if (perLine.length < 3) continue;
+      paragraphs += 1;
+      for (const l of perLine.slice(0, -1)) full.push(l.n);
+    }
+    return { average: full.reduce((a, b) => a + b, 0) / Math.max(full.length, 1), paragraphs };
+  });
 }
 const navWriting = (page: Page) => page.locator('.nav a.l', { hasText: /^Writing$/ });
 const stripPeriod = (s: string) => s.replace(/\.$/, '');
@@ -46,6 +76,16 @@ test.describe('/writing', () => {
     for (const [i, a] of ARTICLES.entries()) {
       await expect(links.nth(i).getByRole('heading', { level: 2 })).toHaveText(`${a.title}.`);
       await expect(links.nth(i)).toContainText(a.date);
+    }
+  });
+
+  test('index reading times match each article, and come from its body', async ({ page }) => {
+    for (const a of ARTICLES) {
+      await open(page, `/writing/${a.slug}`);
+      const minutes = Number((await page.locator('.essay-facts').innerText()).match(/(\d+) minute read/)![1]);
+      await open(page, '/writing');
+      const link = page.locator(`main .writing-list a[href="/writing/${a.slug}"]`);
+      await expect(link.locator('.read-time')).toHaveText(`${minutes} min`);
     }
   });
 
@@ -93,11 +133,25 @@ for (const a of ARTICLES) {
       const time = page.locator('main time').first();
       await expect(time).toBeVisible();
       await expect(time).toHaveAttribute('datetime', a.date);
+      // The old pages showed ISO dates (2026-04-20), so the page does too.
       await expect(time).toHaveText(a.date);
       const head = await page.locator('main header').first().innerText();
-      expect(head).toContain(a.read);
-      expect(head).toContain(a.words);
+      expect(head).toMatch(/\d+ minute read/);
+      expect(head).toMatch(/[\d,]+ words/);
       expect(head).toContain('Shannon Hecker');
+    });
+
+    test('shows a word count within 50 of the real body, and a reading time that follows from it', async ({ page }) => {
+      await open(page, path);
+      const real = await page.locator('.essay-body').evaluate((el) => (el as HTMLElement).innerText.split(/\s+/).filter(Boolean).length);
+      const length = await page.locator('.essay-facts').innerText();
+      const shown = Number(length.match(/([\d,]+) words/)![1].replace(/,/g, ''));
+      const minutes = Number(length.match(/(\d+) minute read/)![1]);
+      expect(Math.abs(shown - real), `shown ${shown}, real ${real}`).toBeLessThanOrEqual(50);
+      expect(shown % 50, 'rounded to 50').toBe(0);
+      expect(minutes, 'reading time at 200 words a minute, rounded up').toBe(Math.ceil(real / 200));
+      const ld = (await page.locator('script[type="application/ld+json"]').evaluateAll((ss) => ss.map((x) => JSON.parse(x.textContent ?? '{}')))).find((b) => b['@type'] === 'Article');
+      expect(Math.abs(ld.wordCount - real), 'JSON-LD wordCount').toBeLessThanOrEqual(5);
     });
 
     test('carries Article JSON-LD for this page', async ({ page }) => {
@@ -126,26 +180,125 @@ for (const a of ARTICLES) {
       await expect(page.locator('.nav a.l[aria-current]')).toHaveCount(1);
     });
 
-    test('body paragraphs stay within a 75ch measure', async ({ page }) => {
-      for (const width of [1440, 1024, 390]) {
+    test('body paragraphs run 55 to 75 real characters a line (at most 75 on a phone)', async ({ page }) => {
+      for (const width of [1440, 1024, 768, 390]) {
         await page.setViewportSize({ width, height: 900 });
         await open(page, path);
-        const widest = await page.evaluate(() => {
-          const ps = [...document.querySelectorAll<HTMLElement>('.essay-body p')];
-          const c = document.createElement('canvas').getContext('2d')!;
-          let worst = 0;
-          for (const p of ps) {
-            const cs = getComputedStyle(p);
-            c.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-            const zero = c.measureText('0').width;
-            const inner = p.getBoundingClientRect().width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-            worst = Math.max(worst, inner / zero);
-          }
-          return { worst, count: ps.length };
-        });
-        expect(widest.count, 'paragraphs').toBeGreaterThan(5);
-        expect(widest.worst, `measure at ${width}`).toBeLessThanOrEqual(75);
+        const m = await lineLength(page);
+        expect(m.paragraphs, `paragraphs of 3+ lines at ${width}`).toBeGreaterThan(3);
+        if (width >= 768) {
+          expect(m.average, `average characters a line at ${width}`).toBeGreaterThanOrEqual(55);
+          expect(m.average, `average characters a line at ${width}`).toBeLessThanOrEqual(75);
+        } else {
+          expect(m.average, `average characters a line at ${width}`).toBeLessThanOrEqual(75);
+          expect(m.average, `average characters a line at ${width}`).toBeGreaterThan(25);
+        }
       }
+    });
+
+    test('the head and the body share columns: title, facts and section labels on one edge, standfirst and text on another', async ({ page }) => {
+      for (const width of [1440, 1024]) {
+        await page.setViewportSize({ width, height: 900 });
+        await open(page, path);
+        const x = await page.evaluate(() => {
+          const left = (sel: string) => document.querySelector(sel)!.getBoundingClientRect().left;
+          const textLeft = (sel: string) => { const r = document.createRange(); r.selectNodeContents(document.querySelector(sel)!); return r.getClientRects()[0].left; };
+          return { h1: left('.essay h1'), facts: left('.essay-facts'), h2: left('.essay-body>h2'), dek: left('.essay-dek'), p: textLeft('.essay-body>p'), bio: left('.essay-bio'), pager: left('.essay-pager a') };
+        });
+        expect(Math.abs(x.facts - x.h1), `facts vs title at ${width}`).toBeLessThanOrEqual(2);
+        expect(Math.abs(x.h2 - x.h1), `section label vs title at ${width}`).toBeLessThanOrEqual(2);
+        expect(Math.abs(x.dek - x.p), `standfirst vs body text at ${width}`).toBeLessThanOrEqual(2);
+        expect(Math.abs(x.bio - x.p), `author paragraph vs body text at ${width}`).toBeLessThanOrEqual(2);
+        expect(x.dek, `body column is inset from the title at ${width}`).toBeGreaterThan(x.h1 + 150);
+      }
+    });
+
+    test('the first paragraph of a section starts level with its title, not with its number', async ({ page }) => {
+      for (const width of [1440, 1024]) {
+        await page.setViewportSize({ width, height: 900 });
+        await open(page, path);
+        const d = await page.evaluate(() => {
+          const h2 = document.querySelector('.essay-body>h2')!;
+          const p = h2.nextElementSibling!;
+          const top = (n: Node) => { const r = document.createRange(); r.selectNodeContents(n); return r.getClientRects()[0].top; };
+          const title = top(h2), para = top(p);
+          const number = parseFloat(getComputedStyle(h2, '::before').height);
+          return { title, para, number };
+        });
+        expect(Math.abs(d.para - d.title), `paragraph text vs title text at ${width}`).toBeLessThanOrEqual(10);
+        expect(d.number).toBeGreaterThan(10);
+      }
+    });
+
+    test('section spacing stays on one scale', async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await open(page, path);
+      const gaps = await page.evaluate(() => {
+        const rule = (el: Element) => el.getBoundingClientRect().top;
+        const hs = [...document.querySelectorAll('.essay-body>h2')];
+        const out: number[] = [];
+        for (const h of hs) {
+          const prev = h.previousElementSibling!;
+          out.push(Math.round(rule(h) - prev.getBoundingClientRect().bottom));
+        }
+        const bio = document.querySelector('.essay-bio')!, last = document.querySelector('.essay-body')!.lastElementChild!;
+        out.push(Math.round(bio.getBoundingClientRect().top - last.getBoundingClientRect().bottom));
+        return out;
+      });
+      for (const g of gaps) { expect(g, `gap ${g}`).toBeGreaterThanOrEqual(56); expect(g, `gap ${g}`).toBeLessThanOrEqual(80); }
+      expect(Math.max(...gaps) - Math.min(...gaps), 'every gap before a hairline is the same').toBeLessThanOrEqual(24);
+    });
+
+    test('callouts stack on a phone: the term above its text, the text wide enough to read', async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await open(page, path);
+      const rows = await page.locator('.essay-terms>div').evaluateAll((ds) => ds.map((d) => {
+        const dt = d.querySelector('dt')!.getBoundingClientRect(), dd = d.querySelector('dd')!.getBoundingClientRect();
+        return { dtBottom: dt.bottom, ddTop: dd.top, ddWidth: dd.width, dtHeight: dt.height };
+      }));
+      for (const r of rows) {
+        expect(r.dtBottom, 'term sits above its description').toBeLessThanOrEqual(r.ddTop + 1);
+        expect(r.ddWidth, 'description width').toBeGreaterThanOrEqual(280);
+        expect(r.dtHeight, 'term stays on one line').toBeLessThan(30);
+      }
+    });
+
+    test('inline code never breaks inside its token', async ({ page }) => {
+      for (const width of [390, 1440]) {
+        await page.setViewportSize({ width, height: 844 });
+        await open(page, path);
+        const codes = await page.locator('.essay-body code').evaluateAll((cs) => cs.map((c) => {
+          const cs2 = getComputedStyle(c), box = c.getBoundingClientRect();
+          return { text: c.textContent, lines: Math.round(box.height / (parseFloat(cs2.lineHeight) || box.height)), height: box.height, fontSize: parseFloat(cs2.fontSize), right: box.right };
+        }));
+        for (const c of codes) {
+          expect(c.lines, `${c.text} on one line at ${width}`).toBe(1);
+          expect(c.right, `${c.text} inside the viewport at ${width}`).toBeLessThanOrEqual(width);
+        }
+      }
+    });
+
+    test('emphasis is a true italic, clearly apart from strong', async ({ page }) => {
+      await open(page, path);
+      const style = await page.evaluate(() => {
+        const em = document.querySelector('.essay-body em'), st = document.querySelector('.essay-body strong');
+        return { em: em && { style: getComputedStyle(em).fontStyle, weight: Number(getComputedStyle(em).fontWeight) }, strong: st && { style: getComputedStyle(st).fontStyle, weight: Number(getComputedStyle(st).fontWeight) } };
+      });
+      if (style.em) { expect(style.em.style).toBe('italic'); expect(style.em.weight).toBeLessThanOrEqual(400); }
+      if (style.strong) { expect(style.strong.style).toBe('normal'); expect(style.strong.weight).toBeGreaterThanOrEqual(600); }
+      // Every italic face the page uses is a real file, not a slanted regular.
+      const italicLoaded = await page.evaluate(async () => { await document.fonts.ready; return [...document.fonts].some((f) => f.style === 'italic' && f.status === 'loaded'); });
+      if (style.em) expect(italicLoaded, 'an italic font face is loaded').toBe(true);
+    });
+
+    test('the author paragraph carries the corrected job titles and nothing else changed', async ({ page }) => {
+      await open(page, path);
+      const bio = (await page.locator('.essay-bio').innerText()).replace(/\s+/g, ' ');
+      expect(bio).toContain('Shannon Hecker is a product designer in London. She designs trading and markets tools at Barclays');
+      expect(bio).toContain('after nine years at J.P. Morgan (opens in new tab) ending as Digital Product Designer VP on the Fusion platform. She is building uoaui.ai on the side.');
+      expect(bio).not.toContain('design engineer');
+      expect(bio).not.toContain('VP Product Design');
+      expect(bio.length).toBeGreaterThan(250);
     });
 
     test('has no em or en dash in the text a visitor reads', async ({ page }) => {
@@ -182,7 +335,7 @@ for (const a of ARTICLES) {
       await expect(pager.getByRole('link')).toHaveCount((newer ? 1 : 0) + (older ? 1 : 0));
       if (newer) await expect(pager.getByRole('link', { name: new RegExp(`^Next post\\s*${newer.title}`) })).toHaveAttribute('href', `/writing/${newer.slug}`);
       if (older) await expect(pager.getByRole('link', { name: new RegExp(`^Previously\\s*${older.title}`) })).toHaveAttribute('href', `/writing/${older.slug}`);
-      await expect(end).toContainText('Shannon Hecker is a design engineer in London.');
+      await expect(end).toContainText('Shannon Hecker is a product designer in London.');
     });
   });
 }

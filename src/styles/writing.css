@@ -48,86 +48,104 @@
 @media(prefers-reduced-motion:reduce){.writing-list .arrow,.writing-list .title{transition:none}}
 
 /* ------------------------------------------------------------------ the essay */
-.essay{padding-top:clamp(120px,11vw,168px)}
+/* Emphasis is a true italic. The site's Inter is loaded upright only, so the italic
+   file is declared here and downloaded only on pages that use an italic. */
+@font-face{font-family:'Inter';font-style:italic;font-display:swap;font-weight:400 600;src:url('@fontsource-variable/inter/files/inter-latin-wght-italic.woff2') format('woff2')}
+
+/* One column structure for the whole page. --g is the gutter. The head is twelve
+   columns; the body and the end are a label column of three columns and a text
+   column of nine, the first sized as (100% + g) / 4 so that it ends on the same line
+   as column 3 of the head. Title, facts and section labels start at the left edge;
+   the standfirst, the text, the author paragraph and the next-post rows start at
+   the text column's edge. Vertical rhythm: --section above each hairline, --rule
+   below it. */
+.essay{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--num:22px;--measure:52ch;padding-top:clamp(120px,11vw,168px)}
 .essay .wrap{max-width:1440px}
 
-/* Head: a way back, the title, then the standfirst beside the facts. */
+/* Head: a way back, the title, then the facts in the label column and the
+   standfirst in the text column. */
 .essay-head{display:grid;gap:clamp(20px,3vw,32px)}
 .essay-crumb{margin:0;font-size:14px;line-height:1.6;color:var(--fg-2)}
 .essay-crumb a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none}
 .essay-crumb a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
 .essay h1{margin:0;font-size:clamp(40px,6.2vw,96px);line-height:1.04;letter-spacing:-.04em;max-width:16ch;text-wrap:balance}
-.essay-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:40px;align-items:start;margin-top:clamp(16px,3vw,40px)}
-.essay-dek{grid-column:1/8;margin:0;font-size:clamp(19px,1.8vw,26px);line-height:1.5;max-width:38ch;text-wrap:pretty}
-.essay-facts{grid-column:9/13;margin:0;border-bottom:1px solid var(--hair)}
-.essay-facts>div{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:16px;padding:14px 0;border-top:1px solid var(--hair)}
+.essay-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:40px;align-items:start;margin-top:clamp(16px,3vw,40px)}
+.essay-dek{grid-column:4/13;grid-row:1;margin:0;font-size:clamp(19px,1.8vw,26px);line-height:1.5;max-width:34ch;text-wrap:pretty}
+.essay-facts{grid-column:1/4;grid-row:1;margin:0;border-bottom:1px solid var(--hair)}
+.essay-facts>div{display:grid;gap:2px;padding:14px 0;border-top:1px solid var(--hair)}
 .essay-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
-.essay-facts .nb{white-space:nowrap}
 .essay-facts dd{margin:0;font-size:16px;line-height:1.6;font-variant-numeric:tabular-nums}
+.essay-facts .nb{white-space:nowrap}
 
-/* Body: section numbers and titles in the left column, the text at the right,
-   as on the case pages. The Markdown is a flat run of headings, paragraphs, a
-   quote and lists, so the grid places each kind by hand. A section starts at an
-   h2 and its first neighbour, which share a row and a hairline. The section
-   numbers are a counter, so they run 01, 02, ... as the old pages had them. */
-.essay-body{--gap:clamp(24px,4vw,64px);--section:clamp(64px,8vw,112px);--measure:64ch;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);margin-top:clamp(64px,9vw,128px);counter-reset:section}
-.essay-body>*{grid-column:2;min-width:0;margin:1.5rem 0 0;padding-right:max(0px,calc(100% - var(--measure)));font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
+/* Body: section numbers and titles in the label column, the text in the text column,
+   as on the case pages. The Markdown is a flat run of headings, paragraphs, a quote
+   and lists, so the grid places each kind by hand. A section starts at an h2 and its
+   first neighbour, which share a row and a hairline. The section numbers are a
+   counter, so they run 01, 02, ... as the old pages had them. The first paragraph is
+   pushed down by the height of the number, so its first line sits level with the
+   title and not with the number. */
+.essay-body{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);margin-top:var(--section);counter-reset:section}
+.essay-body>*{grid-column:2;min-width:0;margin:1.25rem 0 0;padding-right:max(0px,calc(100% - var(--measure)));font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
 .essay-body>:first-child{margin-top:0}
 .essay-body strong{font-weight:600;color:var(--fg)}
-.essay-body em{font-style:normal;font-weight:500;color:var(--fg)}
+.essay-body em{font-style:italic;font-weight:400;color:var(--fg)}
 .essay-body a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
-.essay-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;padding:.15em .45em;border-radius:var(--radius);background:var(--bg-2);color:var(--fg);overflow-wrap:anywhere}
+/* Code stays whole: the box moves to the next line before it ever splits, and only a
+   token wider than the column itself may wrap. */
+.essay-body code{display:inline-block;max-width:100%;vertical-align:baseline;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;line-height:1.5;padding:.1em .45em;border-radius:var(--radius);background:var(--bg-2);color:var(--fg);overflow-wrap:anywhere}
 
-.essay-body>h2{grid-column:1;grid-row:span 2;padding-right:var(--gap);font-family:var(--display);font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.3;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
-.essay-body>h2::before{counter-increment:section;content:counter(section,decimal-leading-zero);content:counter(section,decimal-leading-zero) / "";display:block;margin-bottom:10px;font:400 14px/1.6 var(--body);letter-spacing:0;color:var(--fg-2);font-variant-numeric:tabular-nums}
-.essay-body>h2,.essay-body>h2+*{margin-top:var(--section);padding-top:28px;border-top:1px solid var(--hair)}
+.essay-body>h2{grid-column:1;grid-row:span 2;padding-right:var(--g);font-family:var(--display);font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.3;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
+.essay-body>h2::before{counter-increment:section;content:counter(section,decimal-leading-zero);content:counter(section,decimal-leading-zero) / "";display:block;height:var(--num);margin-bottom:10px;font:400 14px/var(--num) var(--body);letter-spacing:0;color:var(--fg-2);font-variant-numeric:tabular-nums}
+.essay-body>h2,.essay-body>h2+*{margin-top:var(--section);padding-top:var(--rule);border-top:1px solid var(--hair)}
+.essay-body>h2+*{padding-top:calc(var(--rule) + var(--num) + 10px)}
 
-/* A quote the essay leans on: set large, no rule, no italic. */
-.essay-body>blockquote{margin-block:clamp(40px,5vw,72px) 0;padding-right:0;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.5vw,36px);line-height:1.28;letter-spacing:-.025em;color:var(--fg);max-width:34ch;text-wrap:pretty}
+/* A quote the essay leans on: set large, no rule. */
+.essay-body>blockquote{margin-block:clamp(32px,4vw,56px) 0;padding-right:0;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.5vw,36px);line-height:1.28;letter-spacing:-.025em;color:var(--fg);max-width:34ch;text-wrap:pretty}
 .essay-body>blockquote>p{margin:0}
-.essay-body>blockquote+p{margin-top:clamp(40px,5vw,72px)}
+.essay-body>blockquote+p{margin-top:clamp(32px,4vw,56px)}
 
 /* The old callouts: a small label and its text, ruled like the facts in the head. */
-.essay-body>.essay-terms{margin-block:2.25rem 0;padding-right:0;max-width:54rem;border-bottom:1px solid var(--hair)}
-.essay-body>.essay-terms+p{margin-top:2.25rem}
+.essay-body>.essay-terms{margin-block:2rem 0;padding-right:0;max-width:54rem;border-bottom:1px solid var(--hair)}
+.essay-body>.essay-terms+p{margin-top:2rem}
 .essay-terms>div{display:grid;grid-template-columns:minmax(6.5rem,.3fr) minmax(0,1fr);gap:8px 24px;padding-block:20px;border-top:1px solid var(--hair)}
 .essay-terms dt{font-size:14px;line-height:1.9;color:var(--fg-2)}
 .essay-terms dd{margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.7;color:var(--fg)}
 .essay-terms dd>p{margin:0;font-size:inherit;line-height:inherit;color:inherit}
 
-/* The end: who wrote it, then the neighbours, then the way back. */
-.essay-end{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);margin-top:clamp(72px,8vw,128px)}
-.essay-bio{grid-column:2;margin:0;padding:28px 0 0;padding-right:max(0px,calc(100% - 60ch));border-top:1px solid var(--hair);font-size:15px;line-height:1.7;color:var(--fg-2)}
+/* The end: who wrote it, then the neighbours, then the way back. The author
+   paragraph is set at the body's size and measure, so the close has weight. */
+.essay-end{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);margin-top:var(--section);margin-bottom:clamp(40px,5vw,72px)}
+.essay-bio{grid-column:2;margin:0;padding:var(--rule) 0 0;padding-right:max(0px,calc(100% - var(--measure)));border-top:1px solid var(--hair);font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
 .essay-bio strong{font-weight:600;color:var(--fg)}
 .essay-bio a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
 .essay-pager,.essay-all{grid-column:1/-1;margin:0}
-.essay-pager{margin-top:clamp(56px,7vw,96px);border-top:1px solid var(--hair)}
+.essay-pager{margin-top:var(--section);border-top:1px solid var(--hair)}
 .essay-pager a{padding-block:clamp(24px,3.2vw,44px)}
 .essay-all a{padding-block:20px}
-.essay-pager a,.essay-all a{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:baseline;border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
+.essay-pager a,.essay-all a{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:baseline;border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
 .essay-pager .kicker,.essay-all .kicker{font-size:14px;line-height:1.6;color:var(--fg-2)}
-.essay-pager .t{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.03em;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}
-.essay-all .t{font-family:var(--display);font-weight:500;font-size:clamp(18px,1.6vw,22px);line-height:1.2;letter-spacing:-.03em;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}
-.essay-all .t{color:var(--fg-2)}
+.essay-pager .t,.essay-all .t{font-family:var(--display);font-weight:500;letter-spacing:-.03em;line-height:1.2;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}
+.essay-pager .t{font-size:clamp(22px,2.4vw,34px)}
+.essay-all .t{font-size:clamp(18px,1.6vw,22px);color:var(--fg-2)}
 .essay-pager .arrow,.essay-all .arrow{display:inline-block;margin-left:.4em;transition:transform .3s}
 .essay-pager a:hover .t,.essay-pager a:focus-visible .t,.essay-all a:hover .t,.essay-all a:focus-visible .t{text-decoration-color:currentColor}
 .essay-pager a:hover .arrow,.essay-all a:hover .arrow{transform:translateX(4px)}
 .essay-all a:hover .t{color:var(--fg)}
 .essay-pager a:focus-visible,.essay-all a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:-2px}
-.essay-end{margin-bottom:clamp(40px,5vw,72px)}
 
 @media(max-width:900px){
   .essay-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
-  .essay-dek,.essay-facts{grid-column:1}
+  .essay-dek,.essay-facts{grid-column:1;grid-row:auto}
+  .essay-facts>div{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:16px}
   .essay-body,.essay-end{grid-template-columns:minmax(0,1fr)}
   .essay-body>*,.essay-body>h2,.essay-bio{grid-column:1}
-  .essay-body>*{padding-right:0}
-  .essay-body>h2{grid-row:auto;padding-right:0;margin-top:var(--section);padding-top:24px;border-top:1px solid var(--hair)}
+  .essay-body>h2{grid-row:auto;padding-right:0;margin-top:var(--section);padding-top:var(--rule);border-top:1px solid var(--hair)}
   .essay-body>h2+*{margin-top:16px;padding-top:0;border-top:0}
-  .essay-bio{padding-right:0}
+  .essay-pager a,.essay-all a{grid-template-columns:minmax(0,1fr) minmax(0,3fr)}
 }
 @media(max-width:560px){
   .essay-facts>div{grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr)}
+  .essay-terms>div{grid-template-columns:minmax(0,1fr);gap:6px}
 }
 @media(max-width:760px){
   .essay-pager a,.essay-all a{grid-template-columns:minmax(0,1fr);row-gap:8px}

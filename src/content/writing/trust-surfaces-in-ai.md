@@ -5,8 +5,6 @@ published: 2026-04-18
 legacy: "writing-trust-surfaces-in-ai.html"
 dek: "What the banks taught me about designing AI that professionals will actually use. Confidence, citations, failure states, reversal, and the absence surface."
 blurb: "What banks taught me about AI professionals will actually use: confidence, citations, failure states, reversal, and the absence surface."
-minutes: 7
-words: 1400
 keywords:
   - "AI design"
   - "trust"

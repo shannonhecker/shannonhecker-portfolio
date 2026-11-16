@@ -42,9 +42,8 @@ const writing = defineCollection({
     // The standfirst shown under the title on the article page.
     dek: z.string(),
     // The line shown under the title on the index; the old site worded it differently.
+    // Word count and reading time are not stored: src/lib/writing.ts reads them off the body.
     blurb: z.string(),
-    minutes: z.number().int().positive(),
-    words: z.number().int().positive(),
     keywords: z.array(z.string()).default([]),
   }),
 });

@@ -5,8 +5,6 @@ published: 2026-05-02
 legacy: "writing-when-everyone-can-ship.html"
 dek: "Two months of writing real code with AI. The gap I was hired to fill no longer maps. The one underneath it is wider than I expected."
 blurb: "Two months writing real code with AI. The design gap changed shape. The one underneath it is wider than I expected."
-minutes: 7
-words: 1500
 keywords:
   - "AI design tools"
   - "Claude Code"
