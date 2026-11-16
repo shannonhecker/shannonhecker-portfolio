@@ -293,32 +293,36 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
 1. uoaui.ai. Founder & Product Designer (2026 to present)
    Designing and building an AI-native visual web builder from 0 to 1. Currently in private alpha. Owns product strategy, user research, interaction design, and brand identity end to end. The brand line: a visual web builder for designers who think in systems. A silent walkthrough video is coming soon. Full demo and technical details shared in private conversations.
 
-2. Barclays, London. Senior Product Designer (2025 to present)
+2. Barclays, London. Lead Product Designer (September 2025 to present)
    Lead designer on the FX and MarketsOne platform. Set the design direction across squads, ship across web and native, and run critique to lift craft across the team. Built and run the design system: tokens, components, accessibility, and consistent UI across web and native. Most visual work is under NDA, happy to walk through it in an interview.
 
-3. J.P. Morgan, London. Vice President, Product Design (2019 to 2025)
+3. J.P. Morgan, London. Digital Product Designer VP (February 2023 to September 2025)
    Fusion Platform Suite. Led design across multiple financial product areas. Built a tokenised component library (Fusion Universal Design System) adopted across Markets UX teams, with interaction standards used across squads. Set design strategy and shaped roadmap with product and engineering leadership on Fusion Data Solution.
 
-4. J.P. Morgan, London. Security Service Products (2019 to 2023)
+4. J.P. Morgan, London. User Experience Designer (August 2016 to January 2023). Security Service Products (2019 to 2023)
    Redesigned trading workflows for ETF Instruct, streamlined valuation tools for Complex Assets and CAM, and simplified compliance-sensitive workflows for Corporate Action Manager.
 
-5. J.P. Morgan, London. JPMM Execute Trading Platform (2016 to 2019)
+5. J.P. Morgan, London. User Experience Designer (August 2016 to January 2023). JPMM Execute Trading Platform (2016 to 2019)
    Modernised legacy trading tools for JPMM FX, Raid, and Algo Center. Established shared UI foundations (Bento Design Library) enabling consistent, scalable cross-asset development.
 
-## KEY PROJECTS (13 case studies on the portfolio)
-1. uoaui.ai (Founder, Product Designer). AI-powered visual web builder currently in development. Shannon's own product. Details are shared in private conversations only.
-2. Barclays Data Visualisation (Product Designer). Equities monitoring dashboard: charts, heatmaps, filters, and responsive layouts. Built a modular card system with 6+ visualisation patterns across desktop and iPad.
-3. TripUp (Product Designer). Design challenge for Bending Spoons: group travel with polls, shared expenses, and real-time coordination in one mobile flow.
-4. Fusion Analytics Dashboard (Product Designer, UI Lead). B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
-5. Fusion Design System (Product Designer). Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
-6. Fusion Data Solution (Product Designer). Enterprise data management: complex technical workflows turned into guided, shippable journeys. 40+ screens, 5 reusable frameworks.
-7. UI Toolkit (UI Designer). Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
-8. Corporate Action Manager (UI Designer, UI Lead). Redesigned a 15-year-old legacy tool, delivering 40% faster task completion and 60% fewer navigation steps for operations teams.
-9. Complex Assets Derivatives Valuation (Product Designer). Unified valuation workspace for derivatives trading: 3x faster scenario modelling, 95% trader satisfaction.
-10. JPMM Research Platform (UI Designer). Research discovery for analysts: IA-first navigation, 4x search relevance, 35% engagement increase.
-11. Global Custody Deal Model (UI Designer). Bespoke deal modelling: multi-step wizard that cut deal creation from 2 hours to 20 minutes with full audit trail.
-12. Execute Algo Center (UI Designer). Algorithmic execution centre: single-screen command centre with 2-click-max interactions, 60% faster intervention.
-13. D&PS Brand Identity (Visual Designer). Internal brand identity for J.P. Morgan's Digital & Platform Services division.
+6. J.P. Morgan, London. Internship (June to September 2016)
+
+## KEY PROJECTS (15 on the portfolio, at shannonhecker.com)
+1. FX execution analytics (Barclays, 2025 to now, in beta). Page: /fx. Five spreadsheets and a static chart became one chart a trader can act from. No real screens or client names are shown.
+2. Fusion Analytics Dashboard (Product Designer, UI Lead). Page: /fusion. B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
+3. Deal Model (UI lead, J.P. Morgan Securities Services, 2022 to 2023). Page: /deal-model. Bespoke deal modelling: multi-step wizard with full audit trail. Deal creation went from about two hours to 20 minutes. That figure is my own estimate, not a measured one, so say so when you quote it.
+4. Winking Star (solo, 2026, live on web and iOS). Page: /winking-star. A shared routine board for families. Designed, built and shipped by me.
+5. uoaui.ai (Founder, Product Designer). Page: /uoaui. AI-powered visual web builder currently in development. Shannon's own product. Details are shared in private conversations only.
+6. Stock dashboard design task (Product Designer). Page: /work/stock-dashboard. Stock performance dashboard design task: charts, heatmaps, filters, and responsive layouts. Built a modular card system with 6+ visualisation patterns across desktop and iPad.
+7. TripUp (Product Designer). Page: /work/tripup. Design challenge for Bending Spoons: group travel with polls, shared expenses, and real-time coordination in one mobile flow.
+8. Fusion Design System (Product Designer). Page: /work/design-system. Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
+9. Fusion Data Solution (Product Designer). Page: /work/data-solution. Enterprise data management: complex technical workflows turned into guided, shippable journeys. 40+ screens, 5 reusable frameworks.
+10. UI Toolkit (UI Designer). Page: /work/ui-toolkit. Reusable trading UI component library: patterns and specs that sped delivery across 6 asset classes.
+11. Corporate Action Manager (UI Designer, UI Lead). Page: /work/corporate-action. Redesigned a 15-year-old legacy tool, delivering 40% faster task completion and 60% fewer navigation steps for operations teams.
+12. Complex Assets Derivatives Valuation (Product Designer). Page: /work/complex-assets. Unified valuation workspace for derivatives trading: 3x faster scenario modelling, 95% trader satisfaction.
+13. JPMM Research Platform (UI Designer). Page: /work/research. Research discovery for analysts: IA-first navigation, 4x search relevance, 35% engagement increase.
+14. Execute Algo Center (UI Designer). Page: /work/algo-center. Algorithmic execution centre: single-screen command centre with 2-click-max interactions, 60% faster intervention.
+15. D&PS Brand Identity (Visual Designer). Page: /work/dps-brand. Internal brand identity for J.P. Morgan's Digital & Platform Services division.
 
 ## EXPERTISE
 - AI Design & LLM Workflows

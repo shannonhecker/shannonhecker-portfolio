@@ -2,7 +2,7 @@ services:
   - type: web
     name: ask-shannon-api
     runtime: node
-    rootDir: api
+    rootDir: chat-server
     buildCommand: npm install
     startCommand: npm start
     envVars:
