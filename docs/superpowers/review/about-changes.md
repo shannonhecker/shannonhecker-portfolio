@@ -82,3 +82,5 @@ Figure: "AA WCAG, Across every product shipped" became "AA WCAG, The standard I 
 Figure: "15 yrs, In design, from brand to enterprise fintech" became "15 yrs, In design, ten of them in fintech", so it agrees with "Ten years" under My approach. The numbers themselves are unchanged.
 
 "I lead design for FX and MarketsOne" and "Sole designer on FX": both stay as written (Shannon, 16 Nov 2026).
+
+Heading "Now · this month" became "Now" (Shannon, 16 Nov 2026). The four lines under it are unchanged.

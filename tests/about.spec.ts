@@ -53,7 +53,6 @@ const LEGACY_WORDS = [
   '15 yrs', 'In design, ten of them in fintech',
   '9 yrs', 'At J.P. Morgan, ending as Digital Product Designer VP',
   'AA WCAG', 'The standard I design to',
-  'Now · this month',
   'Shipping. Design system at Barclays across FX and MarketsOne.',
   'Reading. Designing Machine Learning Systems by Chip Huyen.',
   'Writing. The design system is the contract.',
@@ -275,6 +274,11 @@ test.describe('/about', () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
     });
   }
+
+  test('the Now section carries no date in its heading', async ({ page }) => {
+    await page.goto('/about');
+    await expect(page.locator('#now-title')).toHaveText('Now');
+  });
 
   test('no dash in anything a visitor reads', async ({ page }) => {
     await open(page, '/about');
