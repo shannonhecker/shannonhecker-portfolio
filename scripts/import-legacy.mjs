@@ -2,6 +2,7 @@
 //
 //   node scripts/import-legacy.mjs            the ten earlier projects
 //   node scripts/import-legacy.mjs writing    the Writing index and its three articles
+//   node scripts/import-legacy.mjs about      prints the old About, section by section, for hand placement
 //
 // The `writing` mode lives in scripts/import-writing.mjs (this file was already
 // long) and shares the HTML parser in scripts/lib/legacy-html.mjs.
@@ -267,8 +268,10 @@ function convert({ slug, legacy }, order) {
 // ----------------------------------------------------------------------- main
 if (process.argv[2] === 'writing') {
   await import('./import-writing.mjs');
+} else if (process.argv[2] === 'about') {
+  await import('./import-about.mjs');
 } else if (process.argv[2]) {
-  console.error(`import-legacy: unknown mode "${process.argv[2]}" (use no argument, or "writing")`);
+  console.error(`import-legacy: unknown mode "${process.argv[2]}" (use no argument, "writing" or "about")`);
   process.exit(1);
 } else {
   const problems = [];
