@@ -80,3 +80,5 @@ Home location: "Based in St Albans, a 40-minute ride from King's Cross." became 
 Figure: "AA WCAG, Across every product shipped" became "AA WCAG, The standard I design to", to match the chat.
 
 Figure: "15 yrs, In design, from brand to enterprise fintech" became "15 yrs, In design, ten of them in fintech", so it agrees with "Ten years" under My approach. The numbers themselves are unchanged.
+
+"I lead design for FX and MarketsOne" and "Sole designer on FX": both stay as written (Shannon, 16 Nov 2026).
