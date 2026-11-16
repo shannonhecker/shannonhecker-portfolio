@@ -51,16 +51,19 @@ Task 14, go-live:
 8. Turn off GitHub Pages. Keep the `legacy-static` branch.
 9. Submit `https://shannonhecker.com/sitemap.xml` in Google Search Console (Shannon).
 
-## DNS records (fill in at go-live)
+## DNS records
 
-Not recorded yet. Fill this in before changing anything at the registrar.
+Current records, read with `dig` on 16 Nov 2026 before any change. Name servers: `ns61.domaincontrol.com`, `ns62.domaincontrol.com`. The site answers with `server: GitHub.com`.
 
-| Host | Type | Value | TTL | Recorded on |
-|---|---|---|---|---|
-| `shannonhecker.com` | A | TODO | TODO | TODO |
-| `www.shannonhecker.com` | CNAME | TODO | TODO | TODO |
-| New value for `shannonhecker.com` (from Vercel) | TODO | TODO | TODO | TODO |
-| New value for `www.shannonhecker.com` (from Vercel) | TODO | TODO | TODO | TODO |
+| Host | Type | Value | Recorded on |
+|---|---|---|---|
+| `shannonhecker.com` | A | `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` | 16 Nov 2026 |
+| `shannonhecker.com` | AAAA | none | 16 Nov 2026 |
+| `www.shannonhecker.com` | CNAME | `shannonhecker.github.io.` | 16 Nov 2026 |
+| New value for `shannonhecker.com` (from Vercel) | TODO at go-live | TODO | TODO |
+| New value for `www.shannonhecker.com` (from Vercel) | TODO at go-live | TODO | TODO |
+
+TTLs are not recorded here. Note them at the registrar before changing anything.
 
 ## Rollback
 
