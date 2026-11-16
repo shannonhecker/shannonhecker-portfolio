@@ -25,7 +25,7 @@ for (const width of [390, 1440]) {
 
 test('dark is the default and explicit theme preferences persist across projects',async({page})=>{
   await page.emulateMedia({colorScheme:'light'});
-  for(const route of ['/','/fx','/fusion','/uoaui','/deal-model','/winking-star','/privacy','/404']){
+  for(const route of ['/','/fx','/fusion','/uoaui','/deal-model','/winking-star','/privacy','/404','/work','/work/tripup','/work/stock-dashboard','/writing','/writing/trust-surfaces-in-ai','/about']){
     await page.goto(route);
     await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
     await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content','#171b22');

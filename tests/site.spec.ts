@@ -91,7 +91,7 @@ for (const width of [320, 390, 820, 1440]) {
   });
 }
 
-for (const [width, path] of [390, 820, 1440].flatMap((w) => ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui'].map((p) => [w, p] as const))) {
+for (const [width, path] of [390, 820, 1440].flatMap((w) => ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui', '/work', '/work/tripup', '/work/stock-dashboard', '/writing', '/writing/trust-surfaces-in-ai', '/about'].map((p) => [w, p] as const))) {
   test(`axe: zero violations at ${width}px on ${path}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' }); // scan the settled page, not mid-reveal
     await page.setViewportSize({ width, height: 900 });
@@ -187,7 +187,7 @@ test('structured data names the person', async ({ page }) => {
 });
 
 test('no visible placeholders on any page', async ({ page }) => {
-  for (const p of ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui']) {
+  for (const p of ['/', '/fx', '/fusion', '/winking-star', '/deal-model', '/uoaui', '/work', '/work/tripup', '/work/stock-dashboard', '/writing', '/writing/trust-surfaces-in-ai', '/about']) {
     await page.goto(p);
     await expect(page.locator('.todo, .screen')).toHaveCount(0);
     expect(await page.locator('main').innerText()).not.toMatch(/\bTODO\b|__/);

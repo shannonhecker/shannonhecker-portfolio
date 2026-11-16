@@ -2,7 +2,7 @@ import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const routes=['/','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/404'];
+const routes=['/','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/404','/work','/work/tripup','/work/stock-dashboard','/writing','/writing/trust-surfaces-in-ai','/about'];
 for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
 test(`${route} summary follows complete hero media and links to the outcome`,async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
