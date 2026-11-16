@@ -68,13 +68,12 @@ test('falling plays the death cue and muting clears all voices',async({page})=>{
  await expect.poll(async()=>(await state(page)).audio.effects).toBe(0);await expect.poll(async()=>(await state(page)).audio.voices).toBe(0);
 });
 
-test('timeline contains family and world milestones and pauses play until closed',async({page})=>{
+test('timeline contains life and world milestones and pauses play until closed',async({page})=>{
  await start(page);await page.getByRole('button',{name:'Sound',exact:true}).click();
  await page.getByRole('button',{name:'Timeline',exact:true}).click();
  const journal=page.getByRole('dialog',{name:'Life along the way'});
  await expect(journal).toBeVisible();expect((await state(page)).paused).toBe(true);expect((await state(page)).audio.playing).toBe(false);
- await expect(journal.locator('[data-kind="Life"]').filter({hasText:'I had a baby'})).toHaveCount(2);
- await expect(journal.locator('[data-kind="Life"]').filter({hasText:'I had a baby'})).toContainText(['2018','2021']);
+ await expect(journal.locator('[data-kind="Life"]').filter({hasText:'I came to the UK'})).toHaveCount(1);
  await expect(journal.getByRole('heading',{name:'COVID-19',exact:true})).toBeVisible();
  await expect(journal).toContainText('art, craft and digital media');await expect(journal).toContainText('game and UX design');
  await page.keyboard.press('Escape');await expect(journal).not.toBeVisible();

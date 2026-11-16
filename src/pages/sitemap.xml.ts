@@ -9,7 +9,7 @@ const extraPaths: string[] = [];
 const paths = [
   ...files
     .map((file) => file.replace(/^\.\//, '').replace(/\.astro$/, '').replace(/(^|\/)index$/, ''))
-    .filter((route) => !route.includes('[') && route !== '404')
+    .filter((route) => !route.includes('[') && route !== '404' && !route.split('/').some((segment) => segment.startsWith('_')))
     .map((route) => `/${route}`),
   ...extraPaths,
 ];

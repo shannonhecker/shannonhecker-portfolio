@@ -8,6 +8,7 @@
     "preview": "astro preview --port 4321 --ignore-lock",
     "check": "astro check",
     "check:public": "node scripts/check-public.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
     "test": "playwright test"
   },
   "dependencies": {

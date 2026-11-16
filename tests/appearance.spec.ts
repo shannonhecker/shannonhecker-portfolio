@@ -96,16 +96,14 @@ test('touch devices show all heading words without waiting for desktop motion', 
 test('optional game follows the introduction and selected work',async({page})=>{
   for(const width of [390,1440]){
     await page.setViewportSize({width,height:900});
-    {
-      await page.goto('/');
-      const story=await page.locator('.hero-story').boundingBox();
-      const avatar=await page.locator('.landing-companion').boundingBox();
-      const game=await page.locator('.hero-bonus').boundingBox();
-      expect(game!.y).toBeGreaterThan(story!.y+story!.height);
-      expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
-      const work=await page.locator('#work').boundingBox();
-      expect(game!.y).toBeGreaterThan(work!.y+work!.height);
-    }
+    await page.goto('/');
+    const story=await page.locator('.hero-story').boundingBox();
+    const avatar=await page.locator('.landing-companion').boundingBox();
+    const game=await page.locator('.hero-bonus').boundingBox();
+    expect(game!.y).toBeGreaterThan(story!.y+story!.height);
+    expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
+    const work=await page.locator('#work').boundingBox();
+    expect(game!.y).toBeGreaterThan(work!.y+work!.height);
   }
 });
 

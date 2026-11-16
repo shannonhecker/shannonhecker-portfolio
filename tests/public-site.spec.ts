@@ -66,3 +66,17 @@ test('nav carries Work, Writing and About', async ({ page }) => {
     await expect(page.locator('.nav').getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
   }
 });
+
+test('winking star page has no private publisher details', async ({ page }) => {
+  await page.goto('/winking-star');
+  const text = await page.locator('body').innerText();
+  expect(text).not.toContain('legal name');
+  expect(text).not.toContain('Yu-Hsuan');
+  expect(text).not.toContain('App Store publisher');
+});
+
+test('game timeline has no family entries', async ({ page }) => {
+  await page.goto('/');
+  const html = await page.content();
+  expect(html).not.toContain('I had a baby');
+});

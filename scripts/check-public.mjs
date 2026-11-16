@@ -2,8 +2,9 @@
 // into the public site. Run after `npm run build`.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = new URL('..', import.meta.url).pathname;
+const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 const forbiddenInDist = ['shannonhecker-work', 'noindex', 'Revolut'];
 const forbiddenInVercel = ['X-Robots-Tag', 'includeSubDomains', 'preload'];
@@ -21,7 +22,11 @@ function walk(dir) {
     }
   }
 }
-try { walk(dist); } catch { problems.push('dist/ is missing: run npm run build first'); }
+try {
+  walk(dist);
+} catch (error) {
+  problems.push(error.code === 'ENOENT' ? 'dist/ is missing: run npm run build first' : `could not read dist/: ${error.message}`);
+}
 
 const vercel = readFileSync(join(root, 'vercel.json'), 'utf8');
 for (const word of forbiddenInVercel) {
