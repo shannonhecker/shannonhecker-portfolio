@@ -15,7 +15,7 @@ const follower=document.createElement('span');follower.className='avatar-cursor-
 cursor.append(hotspot,follower);
 let images:HTMLImageElement[]=[],ready=false,loading=false,active=false,frame=0,last=0;
 let mx=0,my=0,x=0,y=0,direction=1,movedAt=0,hovered=false;
-const nativeTarget=(el:Element|null)=>!!el?.closest('input,textarea,select,[contenteditable],video,canvas,dialog,.play.is-full');
+const nativeTarget=(el:Element|null)=>!!el?.closest('input,textarea,select,[contenteditable],video,canvas,dialog,.play.is-full,.ask-shannon');
 function hide(){active=false;root.classList.remove('avatar-cursor-active');cursor.dataset.visible='false';cancelAnimationFrame(frame);frame=0;}
 function sync(){
  if(toggle){toggle.hidden=!allowed.matches;toggle.setAttribute('aria-pressed',String(enabled));toggle.textContent=enabled?'Avatar cursor on':'Avatar cursor off';}
