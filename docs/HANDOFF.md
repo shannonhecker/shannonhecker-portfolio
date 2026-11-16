@@ -92,3 +92,14 @@ node scripts/qa-shots.mjs
 ```
 
 `check:redirects` needs a local `legacy-static` branch (`git fetch origin legacy-static:legacy-static`). CI does this.
+
+## Owner review done (16 Nov 2026, evening)
+
+Shannon went through all five notes in `docs/superpowers/review/`; each file ends with her decisions. In short:
+
+- Stock dashboard: goes live with its two images as they are (the eagle and "Barclays" row stay in the pictures).
+- Chat (`chat-server/server.js`): "product designer"; notice period and office days removed; uoaui.ai answered from the `/uoaui` page only; "I design to WCAG 2.1 AA"; "just outside London", never the town; model stays `claude-sonnet-4-6` for go-live.
+- About: town replaced; figures read "In design, ten of them in fintech" and "The standard I design to"; heading "Now"; no full stops on section headings; second opening paragraph trimmed; education second entry "Ling Tung University, Taiwan, BA Digital Media Arts & Management"; "Reeborn Information Co., Ltd."; no internship line; "I lead design" and "Sole designer on FX" both stay.
+- Writing and role labels: stand as built.
+
+Preview scoreboard: one test score ("Preview test", 140, stage 0) saved through the API and read back; a real browser play is still worth doing. Suite: 826 tests, build and three checks green. These commits are local until Shannon OKs a push. Still needed from her, not blocking: sharper screenshots and portrait. Next: push, then Task 14 go-live, one confirmed step at a time.
