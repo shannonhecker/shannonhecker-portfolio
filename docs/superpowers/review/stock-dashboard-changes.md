@@ -28,3 +28,7 @@ Nothing in the body text named Barclays or Front Office, so the body is word for
 ## Redirect note
 
 The old address `/project-barclays-data-viz.html` is kept in the content file's `legacy` field (never shown on the page) so the redirect task can send it to `/work/stock-dashboard`.
+
+## Owner decision (16 Nov 2026)
+
+Shannon chose to go live with the two images as they are. The Barclays eagle and the "Barclays" row and tile stay visible in the pictures. The rule still holds for everything else on the page: text, alt text, file names and metadata do not name Barclays or Front Office. Sharper re-exports can replace the images later.
