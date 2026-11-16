@@ -86,3 +86,5 @@ Figure: "15 yrs, In design, from brand to enterprise fintech" became "15 yrs, In
 Heading "Now · this month" became "Now" (Shannon, 16 Nov 2026). The four lines under it are unchanged.
 
 Education, second entry: "Ling Tung" became "Ling Tung University, Taiwan", "BA Digital Media Arts & Management", 2008 to 2010. Source: Shannon's own older CV (16 Nov 2026).
+
+Employer name "Reeborn Information., Ltd" became "Reeborn Information Co., Ltd." (Shannon, 16 Nov 2026).

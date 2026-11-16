@@ -37,7 +37,7 @@ const LEGACY_WORDS = [
   'Designed and maintained the B2B platform. Built the corporate website front-end. Led UI/UX direction for a client-facing network platform.',
   'Eastern Shine Production Co., Ltd.', 'Website Designer, Graphic Designer', '2011',
   'Designed web platforms with a usability focus. Art-directed a government video project from concept to delivery.',
-  'Reeborn Information., Ltd', 'Website Designer', '2008 to 2010',
+  'Reeborn Information Co., Ltd.', 'Website Designer', '2008 to 2010',
   'Designed corporate visual identity and web platform interfaces. Produced digital content and product photography for e-commerce.',
   // Expertise
   'Capabilities', 'Expertise',
