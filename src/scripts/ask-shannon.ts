@@ -3,23 +3,41 @@
 // Protocol (unchanged from the previous site):
 //   POST https://ask-shannon-api.onrender.com/api/chat
 //   Content-Type: application/json
-//   body: { "messages": [{ "role": "user" | "assistant", "content": string }, ...] }  (last 10 turns)
+//   body: { "messages": [{ "role": "user" | "assistant", "content": string }, ...] }
 //   reply: server-sent lines "data: {\"text\":\"...\"}", ending "data: [DONE]";
 //          a line "data: {\"error\":\"...\"}" is a failure.
-// Answers are drawn with DOM nodes and textContent only, never innerHTML, so nothing the
-// server sends can become markup.
+// The server refuses bodies over 16 KB and messages over 4,000 characters, so a long chat is
+// trimmed before it is sent (see payload()). Answers are drawn with DOM nodes and textContent
+// only, never innerHTML, so nothing the server sends can become markup.
 export {};
 
 const API_URL = 'https://ask-shannon-api.onrender.com/api/chat';
-const FETCH_TIMEOUT_MS = 30000;
+const HEALTH_URL = 'https://ask-shannon-api.onrender.com/api/health';
+// The free server sleeps and can take about a minute to wake.
+const FIRST_BYTE_TIMEOUT_MS = 75000;
+const WAKING_AFTER_MS = 8000;
 const CHUNK_TIMEOUT_MS = 15000;
 const AT_BOTTOM = 40;
 const KEEP_HISTORY = 20;
 const SEND_HISTORY = 10;
+const MAX_BODY_BYTES = 14 * 1024;
+const MAX_STORED_ANSWER = 3500;
+
 const REACH_ERROR = 'I couldn’t reach the chat just now. Try again in a moment.';
+const RATE_ERROR = 'You’re asking quickly. Wait a minute and try again.';
+const WAKING = 'Waking the chat up. This can take up to a minute.';
+const REPLYING = 'Shannon’s AI is replying.';
+const SPEECH_OFF = 'Speech to text isn’t available here. You can type instead.';
+
+// The only places an answer may link to.
+const HOSTS = new Set([
+  'shannonhecker.com', 'www.shannonhecker.com', 'uoaui.ai', 'www.uoaui.ai',
+  'winkingstar.com', 'www.winkingstar.com', 'linkedin.com', 'www.linkedin.com', 'github.com',
+]);
 
 type Turn = { role: 'user' | 'assistant'; content: string };
 
+const section = document.getElementById('ask');
 const log = document.getElementById('ask-messages');
 const form = document.getElementById('ask-form') as HTMLFormElement | null;
 const input = document.getElementById('ask-input') as HTMLTextAreaElement | null;
@@ -28,15 +46,34 @@ const chipsEl = document.getElementById('ask-suggestions');
 const micBtn = document.getElementById('ask-mic') as HTMLButtonElement | null;
 const followBtn = document.querySelector<HTMLButtonElement>('#ask .ask-follow');
 const statusEl = document.getElementById('ask-status');
+const speechEl = document.getElementById('ask-speech');
+const MAIL = (section?.dataset.mail ?? '').toLowerCase();
+
+// Wake the server the first time the section is seen, so the first question is usually quick.
+if (section && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    try { fetch(HEALTH_URL, { mode: 'no-cors' }).catch(() => {}); } catch { /* ignore */ }
+  });
+  io.observe(section);
+}
 
 if (log && form && input && sendBtn) init(log, form, input, sendBtn);
 
 function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElement, sendBtn: HTMLButtonElement) {
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // iPadOS reports a Mac user agent, so ask about the pointer, not the device.
+  const coarse = matchMedia('(pointer: coarse)');
   let history: Turn[] = [];
   let busy = false;
   let following = true;
   let raf = 0;
+
+  const grow = () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+  };
+  const focusInput = () => { if (!coarse.matches) input.focus({ preventScroll: true }); };
 
   // ── Suggestions: sets that rotate each time one is used ──
   const SETS: string[][] = [
@@ -54,19 +91,24 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
       b.type = 'button';
       b.className = 'ask-chip';
       b.textContent = q;
+      if (busy) b.setAttribute('aria-disabled', 'true');
       b.addEventListener('click', () => {
         if (busy) return;
         const at = Array.from(chipsEl.children).indexOf(b);
         send(q);
         setIndex++;
-        renderChips(at);
+        renderChips(coarse.matches ? at : -1);
+        focusInput();
       });
       return b;
     });
     chipsEl.replaceChildren(...buttons);
-    // The row you pressed is replaced; keep the keyboard where it was.
+    // The row you pressed is replaced; on touch, keep focus where it was.
     if (refocus >= 0) (buttons[refocus] as HTMLElement | undefined)?.focus({ preventScroll: true });
   }
+  const chipsBusy = (on: boolean) => {
+    chipsEl?.querySelectorAll('button').forEach((b) => (on ? b.setAttribute('aria-disabled', 'true') : b.removeAttribute('aria-disabled')));
+  };
 
   // ── Scrolling: follow the stream unless the reader scrolled up ──
   const distance = () => log.scrollHeight - log.scrollTop - log.clientHeight;
@@ -79,15 +121,44 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
   function follow() { if (following) toBottom(); }
   function force() { toBottom(); following = true; syncFollow(); }
 
-  // ── Safe rendering: a small markdown subset built from nodes ──
-  const safeUrl = (u: string) => /^(https?:\/\/|mailto:)/i.test(u);
-  const TOKEN = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)|([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})|((?:https?:\/\/)?(?:www\.)?(?:linkedin\.com|github\.com)[^\s<,)]+[^\s<,).!?])|\n/gi;
+  // ── Safe rendering: a small markdown subset built from nodes, links only to known places ──
+  function resolveHref(raw: string): string | null {
+    const s = raw.trim();
+    if (/^mailto:/i.test(s)) {
+      const to = s.slice(7).split('?')[0].toLowerCase();
+      return MAIL && to === MAIL ? 'mailto:' + MAIL : null;
+    }
+    if (s.startsWith('/')) {
+      if (s.startsWith('//') || s.includes('\\')) return null;
+      try {
+        const u = new URL(s, location.origin);
+        return u.origin === location.origin ? u.pathname + u.search + u.hash : null;
+      } catch { return null; }
+    }
+    try {
+      const u = new URL(/^https?:\/\//i.test(s) ? s : 'https://' + s);
+      if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
+      if (u.username || u.password) return null;
+      return HOSTS.has(u.hostname.toLowerCase()) ? u.href : null;
+    } catch { return null; }
+  }
+  const TOKEN = new RegExp([
+    '\\*\\*(.+?)\\*\\*', // 1 bold
+    '\\[([^\\]]+)\\]\\(([^)\\s]+)\\)', // 2 label, 3 url
+    '([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})', // 4 email
+    '(https?:\\/\\/[^\\s<,)]+[^\\s<,).!?]|(?:www\\.)?[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.[A-Za-z]{2,}(?:\\/[^\\s<,)]*[^\\s<,).!?])?)', // 5 address
+    '(^|\\s)(\\/(?:fx|fusion|deal-model|winking-star|uoaui|work|writing|about|privacy)(?:\\/[a-z0-9-]+)*)(?![\\w/-])', // 6 lead, 7 page
+    '\\n',
+  ].join('|'), 'gi');
   function link(href: string, label: string) {
     const a = document.createElement('a');
     a.href = href;
     a.textContent = label;
-    if (!href.startsWith('mailto:')) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+    if (/^https?:/i.test(href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
     return a;
+  }
+  function linkOrText(href: string | null, label: string): Node {
+    return href ? link(href, label) : document.createTextNode(label);
   }
   function draw(el: HTMLElement, text: string) {
     const frag = document.createDocumentFragment();
@@ -100,11 +171,14 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
         s.textContent = m[1];
         frag.append(s);
       } else if (m[2] !== undefined) {
-        frag.append(safeUrl(m[3]) ? link(m[3], m[2]) : m[2]);
+        frag.append(linkOrText(resolveHref(m[3]), m[2]));
       } else if (m[4] !== undefined) {
-        frag.append(link('mailto:' + m[4], m[4]));
+        frag.append(linkOrText(resolveHref('mailto:' + m[4]), m[4]));
       } else if (m[5] !== undefined) {
-        frag.append(link(/^https?:\/\//i.test(m[5]) ? m[5] : 'https://' + m[5], m[5]));
+        frag.append(linkOrText(resolveHref(m[5]), m[5]));
+      } else if (m[7] !== undefined) {
+        frag.append(m[6] === '\n' ? document.createElement('br') : m[6]);
+        frag.append(linkOrText(resolveHref(m[7]), m[7]));
       } else {
         frag.append(document.createElement('br'));
       }
@@ -130,14 +204,32 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     log.append(el);
     force();
   }
-  function addError() {
+  function addError(message: string) {
     const el = document.createElement('p');
     el.className = 'ask-error';
-    el.textContent = REACH_ERROR;
+    el.textContent = message;
     log.append(el);
     force();
   }
   function say(text: string) { if (statusEl) statusEl.textContent = text; }
+
+  // ── What goes to the server: last turns, under the size limit, starting with the visitor ──
+  const bytes = (messages: Turn[]) => new TextEncoder().encode(JSON.stringify({ messages })).length;
+  function payload() {
+    let messages = history.slice(-SEND_HISTORY);
+    const dropOldest = () => {
+      do { messages = messages.slice(1); } while (messages.length > 1 && messages[0].role !== 'user');
+    };
+    while (messages.length > 1 && messages[0].role !== 'user') dropOldest();
+    while (messages.length > 1 && bytes(messages) > MAX_BODY_BYTES) dropOldest();
+    return JSON.stringify({ messages });
+  }
+  function storable(text: string) {
+    let cut = text.slice(0, MAX_STORED_ANSWER);
+    const end = cut.charCodeAt(cut.length - 1);
+    if (end >= 0xd800 && end <= 0xdbff) cut = cut.slice(0, -1); // never leave half an emoji
+    return cut;
+  }
 
   // ── Sending ──
   function send(text: string) {
@@ -146,14 +238,15 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     input.style.height = '';
     history.push({ role: 'user', content: text });
     if (history.length > KEEP_HISTORY) history = history.slice(-KEEP_HISTORY);
-    void stream();
+    void stream(text);
   }
 
-  async function stream() {
+  async function stream(question: string) {
     busy = true;
     sendBtn.disabled = true;
+    chipsBusy(true);
     log.setAttribute('aria-busy', 'true');
-    say('Shannon’s AI is replying.');
+    say(REPLYING);
     syncFollow();
 
     const bubble = document.createElement('div');
@@ -161,7 +254,8 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     const body = document.createElement('p');
     const wait = document.createElement('span');
     wait.className = 'ask-wait';
-    wait.append('Thinking', document.createElement('i'), document.createElement('i'), document.createElement('i'));
+    const label = document.createTextNode('Thinking');
+    wait.append(label, document.createElement('i'), document.createElement('i'), document.createElement('i'));
     bubble.append(hidden('Answer: '), body, wait);
     log.append(bubble);
     force();
@@ -170,36 +264,46 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     const controller = new AbortController();
     let timer = 0;
     const arm = (ms: number) => { clearTimeout(timer); timer = window.setTimeout(() => controller.abort(), ms); };
-    const paint = () => {
-      raf = 0;
-      draw(body, full);
-      follow();
+    let waking = 0;
+    const settle = () => {
+      clearTimeout(waking);
+      if (label.data === WAKING) { label.data = 'Thinking'; delete wait.dataset.waking; say(REPLYING); }
     };
+    const paint = () => { raf = 0; draw(body, full); follow(); };
     const take = (text: string) => {
       if (!text) return;
-      if (!full) wait.remove();
+      if (!full) { settle(); wait.remove(); }
       full += text;
       if (!raf) raf = requestAnimationFrame(paint);
     };
-    // One "data: ..." line. Returns normally for noise, throws for a server error.
+    // One "data: ..." line. Throws for a server error.
     const line = (raw: string) => {
       if (!raw.startsWith('data: ')) return;
-      const payload = raw.slice(6).trim();
-      if (payload === '[DONE]') return;
+      const payloadText = raw.slice(6).trim();
+      if (payloadText === '[DONE]') return;
       let data: { text?: unknown; error?: unknown };
-      try { data = JSON.parse(payload); } catch { return; }
+      try { data = JSON.parse(payloadText); } catch { return; }
       if (data.error) throw new Error(String(data.error));
       if (typeof data.text === 'string') take(data.text);
     };
 
-    arm(FETCH_TIMEOUT_MS);
+    let failureMessage = REACH_ERROR;
+    arm(FIRST_BYTE_TIMEOUT_MS);
+    waking = window.setTimeout(() => {
+      if (full) return;
+      label.data = WAKING;
+      wait.dataset.waking = 'true';
+      say(WAKING);
+    }, WAKING_AFTER_MS);
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history.slice(-SEND_HISTORY) }),
+        body: payload(),
         signal: controller.signal,
       });
+      settle();
+      if (res.status === 429) { failureMessage = RATE_ERROR; throw new Error('rate limited'); }
       if (!res.ok) throw new Error('API returned ' + res.status);
 
       if (!res.body || typeof res.body.getReader !== 'function') {
@@ -220,29 +324,41 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
           buffer = lines.pop() ?? '';
           lines.forEach(line);
         }
+        buffer += decoder.decode();
         line(buffer);
       }
       if (!full) throw new Error('Empty answer');
       cancelAnimationFrame(raf);
       raf = 0;
-      draw(body, full);
-      bubble.classList.remove('streaming');
-      history.push({ role: 'assistant', content: full });
-      say('Reply complete.');
+      // Finish quietly: clear "busy" first, then drop in the whole answer as a fresh element,
+      // so a screen reader announces it once instead of every frame of the stream.
+      history.push({ role: 'assistant', content: storable(full) });
+      const done = document.createElement('div');
+      done.className = 'ask-msg ask-msg--ai';
+      const text = document.createElement('p');
+      draw(text, full);
+      done.append(hidden('Answer: '), text);
+      log.removeAttribute('aria-busy');
+      bubble.replaceWith(done);
+      say('');
     } catch {
       cancelAnimationFrame(raf);
       raf = 0;
+      const message = failureMessage;
       bubble.remove();
-      addError();
-      say('');
-      // Drop the unanswered question so a retry starts clean.
+      addError(message);
+      say(message);
+      // Drop the unanswered question so a retry starts clean, and give it back to the visitor.
       if (history.length && history[history.length - 1].role === 'user') history.pop();
+      if (!input.value) { input.value = question; grow(); }
     } finally {
       clearTimeout(timer);
+      clearTimeout(waking);
       busy = false;
       sendBtn.disabled = false;
+      chipsBusy(false);
       log.removeAttribute('aria-busy');
-      if (!isMobile) input.focus({ preventScroll: true });
+      focusInput();
       follow();
       syncFollow();
     }
@@ -261,16 +377,13 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
       form.requestSubmit();
     }
   });
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 160) + 'px';
-  });
+  input.addEventListener('input', grow);
 
   // ── Speech to text, only where the browser has it ──
   type Recognition = {
     continuous: boolean; interimResults: boolean; lang: string;
     onresult: ((e: { resultIndex: number; results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
-    onend: (() => void) | null; onerror: (() => void) | null;
+    onend: (() => void) | null; onerror: ((e: { error?: string }) => void) | null;
     start(): void; stop(): void;
   };
   const w = window as unknown as { SpeechRecognition?: new () => Recognition; webkitSpeechRecognition?: new () => Recognition };
@@ -279,20 +392,29 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     const rec = new Ctor();
     rec.continuous = false;
     rec.interimResults = true;
-    rec.lang = 'en-US';
+    rec.lang = 'en-GB';
     const set = (on: boolean) => { micBtn.classList.toggle('listening', on); micBtn.setAttribute('aria-pressed', String(on)); };
+    let draft = '';
     micBtn.hidden = false;
     micBtn.addEventListener('click', () => {
       if (micBtn.classList.contains('listening')) { rec.stop(); return; }
+      if (speechEl) speechEl.textContent = '';
+      // Dictation adds to what is already typed.
+      draft = input.value.replace(/\s+$/, '');
+      if (draft) draft += ' ';
       try { rec.start(); set(true); } catch { set(false); }
     });
     rec.onresult = (e) => {
       let transcript = '';
       for (let i = e.resultIndex; i < e.results.length; i++) transcript += e.results[i][0].transcript;
-      input.value = transcript;
+      input.value = (draft + transcript).slice(0, input.maxLength);
+      grow();
     };
-    rec.onend = () => { set(false); if (!isMobile) input.focus({ preventScroll: true }); };
-    rec.onerror = () => set(false);
+    rec.onend = () => { set(false); focusInput(); };
+    rec.onerror = (e) => {
+      set(false);
+      if (speechEl && ['not-allowed', 'service-not-allowed', 'network'].includes(e?.error ?? '')) speechEl.textContent = SPEECH_OFF;
+    };
   }
 
   renderChips();

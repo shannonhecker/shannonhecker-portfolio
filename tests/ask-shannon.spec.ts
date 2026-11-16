@@ -5,15 +5,21 @@ import AxeBuilder from '@axe-core/playwright';
 // tests answer the request with page.route(); the streaming and follow-scroll tests need to
 // hold a response open between chunks, which route.fulfill cannot do, so those swap fetch for
 // a stub whose stream the test controls. Either way the request body is checked.
-const API = 'https://ask-shannon-api.onrender.com/**';
+const API = 'https://ask-shannon-api.onrender.com/api/chat';
+const HEALTH = 'https://ask-shannon-api.onrender.com/api/health';
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 const REACH = 'I couldn’t reach the chat just now. Try again in a moment.';
 const REACH_ASCII = "I couldn't reach the chat just now. Try again in a moment.";
+const RATE = 'You’re asking quickly. Wait a minute and try again.';
+const WAKING = 'Waking the chat up. This can take up to a minute.';
+const SPEECH_OFF = 'Speech to text isn’t available here. You can type instead.';
 
 const sse = (...texts: string[]) => texts.map((t) => `data: ${JSON.stringify({ text: t })}\n\n`).join('') + 'data: [DONE]\n\n';
 const reply = (route: Route, body: string) => route.fulfill({ status: 200, contentType: 'text/event-stream', body });
 
 async function open(page: Page, theme: 'dark' | 'light' = 'light') {
+  // The wake-up ping is answered here so no test ever reaches the real server.
+  await page.route(HEALTH, (route) => route.fulfill({ status: 204, body: '' }));
   await page.addInitScript((t) => {
     try {
       localStorage.setItem('portfolio-theme', t);
@@ -32,17 +38,19 @@ async function holdStream(page: Page) {
     const real = w.fetch.bind(w);
     w.fetch = (input: any, init: any) => {
       const url = typeof input === 'string' ? input : input.url;
-      if (!url.includes('ask-shannon-api.onrender.com')) return real(input, init);
+      if (!url.includes('ask-shannon-api.onrender.com/api/chat')) return real(input, init);
       w.__askCalls.push({ url, method: init?.method, headers: init?.headers, body: JSON.parse(init?.body ?? 'null') });
       let ctrl: ReadableStreamDefaultController<Uint8Array>;
       const body = new ReadableStream<Uint8Array>({ start(c) { ctrl = c; } });
       w.__push = (s: string) => ctrl.enqueue(new TextEncoder().encode(s));
+      w.__pushBytes = (a: number[]) => ctrl.enqueue(new Uint8Array(a));
       w.__end = () => ctrl.close();
       return Promise.resolve(new Response(body, { status: 200, headers: { 'Content-Type': 'text/event-stream' } }));
     };
   });
 }
 const push = (page: Page, s: string) => page.evaluate((x) => (window as any).__push(x), s);
+const pushBytes = (page: Page, bytes: number[]) => page.evaluate((x) => (window as any).__pushBytes(x), bytes);
 const end = (page: Page) => page.evaluate(() => (window as any).__end());
 
 const input = (page: Page) => page.locator('#ask-input');
@@ -154,7 +162,8 @@ test.describe('Ask Shannon', () => {
       await open(page);
       await input(page).fill('Hello?');
       await send(page).click();
-      await expect(page.locator('#ask-messages .ask-error')).toHaveText(REACH);
+      await expect(page.locator('#ask-messages .ask-error')).toHaveText(status === 429 ? RATE : REACH);
+      await expect(page.locator('#ask-status')).toHaveText(status === 429 ? RATE : REACH);
       await expect(send(page)).toBeEnabled();
       expect(errors).toEqual([]);
     });
@@ -292,7 +301,7 @@ test.describe('Ask Shannon', () => {
   for (const theme of ['dark', 'light'] as const) {
     test(`both themes: axe finds nothing serious in ${theme}`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      await page.route(API, (route) => reply(route, sse('Here is a **bold** answer with a [link](https://example.com) and some more words to wrap.')));
+      await page.route(API, (route) => reply(route, sse('Here is a **bold** answer with a [link](https://uoaui.ai/) and some more words to wrap.')));
       await open(page, theme);
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
       const scan = async (label: string) => {
@@ -343,7 +352,7 @@ test.describe('Ask Shannon', () => {
   test('safe rendering: an answer is text, never markup', async ({ page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (e) => errors.push(e));
-    const nasty = '<img src=x onerror="window.__pwned=1"> and <script>window.__pwned=2</script> **bold** [bad](javascript:window.__pwned=3) [good](https://example.com/a) `code`';
+    const nasty = '<img src=x onerror="window.__pwned=1"> and <script>window.__pwned=2</script> **bold** [bad](javascript:window.__pwned=3) [good](https://www.linkedin.com/in/shannonhecker/) `code`';
     await page.route(API, (route) => reply(route, sse(nasty)));
     await open(page);
     await input(page).fill('<b>me</b>');
@@ -355,9 +364,9 @@ test.describe('Ask Shannon', () => {
     await expect(log(page).locator('img, script, b')).toHaveCount(0);
     await expect(page.locator('.ask-msg--user')).toContainText('<b>me</b>');
     expect(await page.evaluate(() => (window as any).__pwned)).toBeUndefined();
-    // Links are only made for http, https and mailto, and open safely.
+    // Only allow-listed hosts become links, and they open safely.
     const hrefs = await answer.locator('a').evaluateAll((as) => as.map((a) => [a.getAttribute('href'), a.getAttribute('rel')]));
-    expect(hrefs).toEqual([['https://example.com/a', 'noopener noreferrer']]);
+    expect(hrefs).toEqual([['https://www.linkedin.com/in/shannonhecker/', 'noopener noreferrer']]);
     expect(errors).toEqual([]);
   });
 
@@ -373,6 +382,293 @@ test.describe('Ask Shannon', () => {
     const box = (await page.locator('#ask .ask-log').boundingBox())!;
     await page.mouse.move(box.x + 40, box.y + 40, { steps: 4 });
     await expect(page.locator('html')).not.toHaveClass(/avatar-cursor-active/);
+  });
+
+  // ── Review round 1 ──
+  test('cold start: a long wait says the chat is waking up, then still completes', async ({ page }) => {
+    await page.route(API, async (route) => {
+      await new Promise((r) => setTimeout(r, 9000));
+      await reply(route, sse('Awake now.'));
+    });
+    await open(page);
+    await input(page).fill('Anyone there?');
+    await send(page).click();
+    await expect(page.locator('.ask-wait')).toContainText('Thinking');
+    await page.waitForTimeout(2000);
+    await expect(page.locator('.ask-wait')).not.toContainText('Waking');
+    await expect(page.locator('.ask-wait')).toHaveText(WAKING, { timeout: 8000 });
+    await expect(page.locator('#ask-status')).toHaveText(WAKING);
+    await expect(page.locator('.ask-msg--ai').last()).toContainText('Awake now.', { timeout: 8000 });
+    await expect(page.locator('.ask-wait')).toHaveCount(0);
+  });
+
+  test('the health ping is sent once, only after the section comes into view', async ({ page }) => {
+    const pings: string[] = [];
+    await page.route(HEALTH, (route) => { pings.push(route.request().method()); return route.fulfill({ status: 204, body: '' }); });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await page.waitForTimeout(800);
+    expect(pings).toHaveLength(0);
+    await page.locator('#ask').scrollIntoViewIfNeeded();
+    await expect.poll(() => pings.length).toBe(1);
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.locator('#ask').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    expect(pings).toEqual(['GET']);
+  });
+
+  test('a failed health ping is swallowed', async ({ page }) => {
+    const errors: Error[] = [];
+    page.on('pageerror', (e) => errors.push(e));
+    await page.route(HEALTH, (route) => route.abort('failed'));
+    await page.goto('/');
+    await page.locator('#ask').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    expect(errors).toEqual([]);
+  });
+
+  for (const [label, ch] of [['ASCII', 'a'], ['multi-byte curly quotes', '’']] as const) {
+    test(`long chats (${label}): answers are capped, and the body stays under 14 KB with a user turn first`, async ({ page }) => {
+      const bodies: { messages: { role: string; content: string }[] }[] = [];
+      // 3,900 characters back: over the 3,500 cap. Curly quotes are 3 bytes each, so bytes and characters differ a lot.
+      const big = ch.repeat(3900);
+      await page.route(API, async (route) => { bodies.push(route.request().postDataJSON()); await reply(route, sse(big)); });
+      await open(page);
+      for (let i = 1; i <= 5; i++) {
+        await input(page).fill(`Question ${i} ` + ch.repeat(900));
+        await send(page).click();
+        await expect.poll(() => bodies.length).toBe(i);
+        await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+        await expect(send(page)).toBeEnabled();
+      }
+      for (const body of bodies) {
+        expect(Buffer.byteLength(JSON.stringify(body), 'utf8')).toBeLessThan(14 * 1024);
+        expect(body.messages[0].role).toBe('user');
+        expect(body.messages[body.messages.length - 1].role).toBe('user');
+        for (const m of body.messages) expect(m.content.length).toBeLessThanOrEqual(4000);
+      }
+      const last = bodies[4].messages;
+      expect(last[last.length - 1].content).toContain('Question 5');
+      for (const body of bodies) for (const m of body.messages) if (m.role === 'assistant') expect(m.content.length).toBe(3500);
+      if (ch === 'a') {
+        // Small enough to keep a couple of pairs, so the cap on stored answers is visible.
+        expect(bodies[1].messages.map((m) => m.role)).toEqual(['user', 'assistant', 'user']);
+        // Older pairs were dropped to fit.
+        expect(last.length).toBeLessThan(9);
+      } else {
+        // One curly-quote pair is already about 13 KB, so only the newest question fits.
+        expect(bodies[1].messages.map((m) => m.role)).toEqual(['user']);
+      }
+    });
+  }
+
+  test('screen readers: busy while streaming, cleared before the final answer is inserted', async ({ page }) => {
+    await holdStream(page);
+    await open(page);
+    await page.evaluate(() => {
+      const w = window as any;
+      w.__events = [];
+      const el = document.getElementById('ask-messages')!;
+      new MutationObserver((records) => {
+        for (const r of records) {
+          if (r.type === 'attributes' && r.attributeName === 'aria-busy' && !el.hasAttribute('aria-busy')) w.__events.push('busy-removed');
+          if (r.type === 'childList') r.addedNodes.forEach((n) => {
+            const e = n as HTMLElement;
+            if (e.classList?.contains('ask-msg--ai') && !e.classList.contains('streaming')) w.__events.push('final-added');
+            if (e.classList?.contains('ask-error')) w.__events.push('error-added');
+          });
+        }
+      }).observe(el, { attributes: true, childList: true });
+    });
+    await input(page).fill('Question');
+    await send(page).click();
+    await expect(log(page)).toHaveAttribute('aria-busy', 'true');
+    await push(page, 'data: {"text":"Part one. "}\n\n');
+    await push(page, 'data: {"text":"Part two."}\n\n');
+    await expect(page.locator('.ask-msg--ai.streaming')).toContainText('Part one. Part two.');
+    await expect(log(page)).toHaveAttribute('aria-busy', 'true');
+    await push(page, 'data: [DONE]\n\n');
+    await end(page);
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+    await expect(log(page)).not.toHaveAttribute('aria-busy', 'true');
+    const events: string[] = await page.evaluate(() => (window as any).__events);
+    expect(events.filter((e) => e === 'final-added')).toHaveLength(1);
+    expect(events.indexOf('busy-removed')).toBeGreaterThanOrEqual(0);
+    expect(events.indexOf('busy-removed')).toBeLessThan(events.indexOf('final-added'));
+    await expect(page.locator('.ask-msg--ai').last()).toContainText('Part one. Part two.');
+  });
+
+  test('links: only allow-listed hosts, no credentials tricks, same-origin paths', async ({ page }) => {
+    const mail = await (async () => { await page.goto('/about'); return page.locator('footer a[href^="mailto:"]').first().getAttribute('href'); })();
+    expect(mail).toMatch(/^mailto:.+@/);
+    const text = [
+      'Trick one https://github.com@evil.io/x done.',
+      'Trick two linkedin.com.evil.io/in/x done.',
+      'Off list [click here](https://evil.example/page) done.',
+      'Script [run it](javascript:alert(1)) done.',
+      'Protocol relative [sneaky](//evil.io/x) done.',
+      'Page /fx and /work/tripup and [Fusion](/fusion) done.',
+      'Good www.linkedin.com/in/shannonhecker and github.com/shannonhecker and [mine](https://uoaui.ai/) done.',
+      `Mail [me](${mail}) and [them](mailto:someone@else.example) done.`,
+    ].join('\n');
+    await page.route(API, (route) => reply(route, sse(text)));
+    await open(page);
+    await input(page).fill('Links?');
+    await send(page).click();
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+    const answer = page.locator('.ask-msg--ai').last();
+    // Tricks stay visible as plain text and never become links.
+    await expect(answer).toContainText('https://github.com@evil.io/x');
+    await expect(answer).toContainText('linkedin.com.evil.io/in/x');
+    await expect(answer).toContainText('click here');
+    await expect(answer).toContainText('run it');
+    await expect(answer).toContainText('sneaky');
+    await expect(answer).not.toContainText('evil.example/page');
+    const links = await answer.locator('a').evaluateAll((as) => as.map((a) => [a.textContent, a.getAttribute('href')]));
+    expect(links).toEqual([
+      ['/fx', '/fx'],
+      ['/work/tripup', '/work/tripup'],
+      ['Fusion', '/fusion'],
+      ['www.linkedin.com/in/shannonhecker', 'https://www.linkedin.com/in/shannonhecker'],
+      ['github.com/shannonhecker', 'https://github.com/shannonhecker'],
+      ['mine', 'https://uoaui.ai/'],
+      ['me', mail],
+    ]);
+    // Same-origin links stay in this tab; outside links open safely in a new one.
+    expect(await answer.locator('a[href="/fx"]').getAttribute('target')).toBeNull();
+    expect(await answer.locator('a[href^="https://uoaui.ai"]').getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  test('parser: a data line split across two chunks renders once, whole', async ({ page }) => {
+    await holdStream(page);
+    await open(page);
+    await input(page).fill('Split');
+    await send(page).click();
+    await push(page, 'data: {"text":"Hel');
+    await page.waitForTimeout(100);
+    await expect(page.locator('.ask-msg--ai.streaming p').first()).toHaveText('');
+    await push(page, 'lo there"}\n\ndata: {"te');
+    await expect(page.locator('.ask-msg--ai.streaming')).toContainText('Hello there');
+    await push(page, 'xt":"!"}\n\ndata: [DONE]\n\n');
+    await end(page);
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+    await expect(page.locator('.ask-msg--ai').last()).toContainText('Hello there!');
+    await expect(page.locator('.ask-error')).toHaveCount(0);
+  });
+
+  test('parser: a multi-byte character split across chunks renders correctly', async ({ page }) => {
+    await holdStream(page);
+    await open(page);
+    await input(page).fill('Bytes');
+    await send(page).click();
+    const bytes = [...Buffer.from('data: ' + JSON.stringify({ text: 'It’s here 😀 ok' }) + '\n\ndata: [DONE]\n\n', 'utf8')];
+    // Cut inside the three-byte apostrophe and again inside the four-byte emoji.
+    const a = bytes.indexOf(0xe2) + 1;
+    const b = bytes.indexOf(0xf0) + 2;
+    await pushBytes(page, bytes.slice(0, a));
+    await pushBytes(page, bytes.slice(a, b));
+    await pushBytes(page, bytes.slice(b));
+    await end(page);
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+    await expect(page.locator('.ask-msg--ai').last()).toHaveText(/It’s here 😀 ok/);
+  });
+
+  test('a double submit and a chip click while streaming send one request', async ({ page }) => {
+    await holdStream(page);
+    await open(page);
+    await input(page).fill('Once only');
+    await input(page).press('Enter');
+    await page.evaluate(() => (document.getElementById('ask-form') as HTMLFormElement).requestSubmit());
+    // Chips are marked aria-disabled while an answer streams, so Playwright needs force to press them.
+    await page.locator('#ask-suggestions button').first().click({ force: true });
+    await page.locator('#ask-suggestions button').first().click({ force: true });
+    await page.waitForTimeout(300);
+    expect(await page.evaluate(() => (window as any).__askCalls.length)).toBe(1);
+    await expect(page.locator('.ask-msg--user')).toHaveCount(1);
+    await push(page, 'data: [DONE]\n\n');
+    await end(page);
+  });
+
+  test('a failed question is put back, and is not sent twice afterwards', async ({ page }) => {
+    const bodies: { messages: { role: string; content: string }[] }[] = [];
+    let n = 0;
+    await page.route(API, async (route) => {
+      bodies.push(route.request().postDataJSON());
+      if (++n === 1) return route.abort('failed');
+      return reply(route, sse('Fine.'));
+    });
+    await open(page);
+    await input(page).fill('First try');
+    await send(page).click();
+    await expect(page.locator('.ask-error')).toHaveCount(1);
+    await expect(input(page)).toHaveValue('First try');
+    // Typing something new replaces it; the failed turn is not in the next body.
+    await input(page).fill('Second try');
+    await send(page).click();
+    await expect.poll(() => bodies.length).toBe(2);
+    expect(bodies[1].messages).toEqual([{ role: 'user', content: 'Second try' }]);
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+  });
+
+  test('a failure does not overwrite something the visitor typed meanwhile', async ({ page }) => {
+    await page.route(API, async (route) => { await new Promise((r) => setTimeout(r, 400)); await route.abort('failed'); });
+    await open(page);
+    await input(page).fill('First try');
+    await send(page).click();
+    await input(page).fill('Typing something else');
+    await expect(page.locator('.ask-error')).toHaveCount(1);
+    await expect(input(page)).toHaveValue('Typing something else');
+  });
+
+  test.describe('speech details', () => {
+    const stub = (script: string) => `window.SpeechRecognition = class { constructor(){ window.__rec = this; } start(){ ${script} } stop(){ this.onend && this.onend(); } };`;
+    test('uses British English and appends to a typed draft', async ({ page }) => {
+      await page.addInitScript(stub(`setTimeout(() => this.onresult({ resultIndex: 0, results: [[{ transcript: 'Fusion work' }]] }), 10);`));
+      await open(page);
+      await input(page).fill('Tell me about ');
+      await page.getByRole('button', { name: 'Speech to text' }).click();
+      await expect(input(page)).toHaveValue('Tell me about Fusion work');
+      expect(await page.evaluate(() => (window as any).__rec.lang)).toBe('en-GB');
+    });
+    for (const code of ['not-allowed', 'service-not-allowed', 'network']) {
+      test(`${code} gives one polite line`, async ({ page }) => {
+        await page.addInitScript(stub(`setTimeout(() => this.onerror({ error: '${code}' }), 10);`));
+        await open(page);
+        await page.getByRole('button', { name: 'Speech to text' }).click();
+        await expect(page.locator('#ask-speech')).toHaveText(SPEECH_OFF);
+        await expect(page.locator('#ask-speech')).toHaveAttribute('role', 'status');
+        await expect(page.getByRole('button', { name: 'Speech to text' })).toHaveAttribute('aria-pressed', 'false');
+      });
+    }
+    test('a quiet error such as no-speech says nothing', async ({ page }) => {
+      await page.addInitScript(stub(`setTimeout(() => this.onerror({ error: 'no-speech' }), 10);`));
+      await open(page);
+      await page.getByRole('button', { name: 'Speech to text' }).click();
+      await page.waitForTimeout(200);
+      await expect(page.locator('#ask-speech')).toHaveText('');
+    });
+  });
+
+  test('focus: a chip click puts the cursor in the box on desktop', async ({ page }) => {
+    await page.route(API, (route) => reply(route, sse('Sure.')));
+    await open(page);
+    await page.locator('#ask-suggestions button').first().click();
+    await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+    await expect(input(page)).toBeFocused();
+  });
+
+  test.describe('touch devices', () => {
+    test.use({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
+    test('the box is not focused after an answer, so the keyboard stays down', async ({ page }) => {
+      await page.route(API, (route) => reply(route, sse('Sure.')));
+      await open(page);
+      expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
+      await input(page).fill('Hello');
+      await send(page).tap();
+      await expect(page.locator('.ask-msg--ai.streaming')).toHaveCount(0);
+      await expect(page.locator('.ask-msg--ai').last()).toContainText('Sure.');
+      await expect(input(page)).not.toBeFocused();
+    });
   });
 
   test('no dashes in visitor copy', async ({ page }) => {

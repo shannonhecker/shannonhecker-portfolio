@@ -69,8 +69,9 @@
 #ask .ask-msg--ai strong { font-weight: 600; }
 
 /* Waiting for the first word, then a caret while text arrives */
-#ask .ask-wait { display: inline-flex; align-items: baseline; gap: 3px; font-size: 16px; line-height: 1.75; color: var(--fg-2); }
-#ask .ask-wait i { width: 3px; height: 3px; margin-left: 1px; background: currentColor; border-radius: 50%; }
+#ask .ask-wait { display: block; max-width: 66ch; font-size: 16px; line-height: 1.75; color: var(--fg-2); }
+#ask .ask-wait[data-waking] i { display: none; }
+#ask .ask-wait i { display: inline-block; width: 3px; height: 3px; margin-left: 4px; background: currentColor; border-radius: 50%; }
 #ask .ask-msg--ai.streaming p:not(:empty)::after {
   content: "";
   display: inline-block;
@@ -166,6 +167,9 @@
 #ask .ask-send:hover:not(:disabled) { color: var(--fg); background: var(--bg); }
 #ask .ask-send:disabled { opacity: .35; cursor: default; }
 
+#ask .ask-speech { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
+#ask .ask-speech:empty { display: none; }
+
 /* Suggestions: ruled rows, like the footer's links */
 #ask .ask-side-title { margin-bottom: 8px; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
 #ask .ask-chip {
@@ -182,6 +186,8 @@
   border-radius: 0;
   cursor: pointer;
 }
+#ask .ask-chip[aria-disabled="true"] { color: var(--fg-2); cursor: default; }
+#ask .ask-chip[aria-disabled="true"]:hover { text-decoration: none; }
 #ask .ask-chip:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
 #ask .ask-chip:focus-visible { outline-offset: -3px; }
 #ask .ask-note { max-width: 44ch; margin-top: 28px; font-size: 14px; line-height: 1.7; color: var(--fg-2); }

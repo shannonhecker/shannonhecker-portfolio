@@ -1,8 +1,11 @@
 ---
 import Split from './Split.astro';
 import '../styles/ask-shannon.css';
+// The one address the chat may link to is the address the footer already uses.
+import footerSource from './Footer.astro?raw';
+const mail = footerSource.match(/mailto:([^"'<>\s]+)/)?.[1] ?? '';
 ---
-<section id="ask" class="band ask-shannon" aria-label="Ask Shannon" data-clarity-mask="true">
+<section id="ask" class="band ask-shannon" aria-label="Ask Shannon" data-clarity-mask="true" data-mail={mail}>
   <div class="wrap">
     <div class="ask-head">
       <p class="eyebrow">Shannon’s AI</p>
@@ -31,6 +34,7 @@ import '../styles/ask-shannon.css';
             <button class="ask-send" id="ask-send" type="submit">Send</button>
           </div>
         </form>
+        <p class="ask-speech" id="ask-speech" role="status"></p>
       </div>
       <aside class="ask-side">
         <p class="ask-side-title" id="ask-try">Try asking</p>
