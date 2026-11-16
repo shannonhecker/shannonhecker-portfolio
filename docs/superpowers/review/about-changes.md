@@ -92,3 +92,5 @@ Employer name "Reeborn Information., Ltd" became "Reeborn Information Co., Ltd."
 Section headings: the full stops came off "My approach", "Experience", "Expertise" and "Education", so all seven headings match (Shannon, 16 Nov 2026). "Let's Talk." in the shared footer is unchanged.
 
 Opening, smaller paragraph trimmed so nothing is said twice (Shannon, 16 Nov 2026): "I run the design system across FX and MarketsOne: tokens, components, and accessibility. Nine years at J.P. Morgan, ending on Fusion. Building uoaui.ai on the side, in private alpha."
+
+Internship (June to September 2016): not shown on About (Shannon, 16 Nov 2026). Other personal lines stay as written.
