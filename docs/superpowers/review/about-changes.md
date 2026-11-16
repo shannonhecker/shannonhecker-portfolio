@@ -72,3 +72,7 @@ Left as written because they are your words, but worth a look now that they sit 
 - The old home line "Designing what traders and analysts use every day." is the small line at the foot of the page title. The old About page's headline, "I design what traders and analysts use every day. Trading floors. AI tools.", is the large statement under "My approach." Both are kept; they say nearly the same thing.
 - "Writing." in Now links to `/writing/the-design-system-is-the-contract` (it was `writing-the-design-system-is-the-contract.html`).
 - The "Let's Talk." heading keeps its capital T, as on the old site, though the rest of the site uses sentence case.
+
+## Owner decision (16 Nov 2026)
+
+Home location: "Based in St Albans, a 40-minute ride from King's Cross." became "Based just outside London, a 40-minute ride from King's Cross." Family details and the cat stay. The same change was made in the chat.

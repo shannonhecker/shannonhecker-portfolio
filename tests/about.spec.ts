@@ -59,7 +59,7 @@ const LEGACY_WORDS = [
   'Writing. The design system is the contract.',
   'Experimenting. uoaui.ai in private alpha.',
   'Outside work',
-  'Based in St Albans, a 40-minute ride from King’s Cross.',
+  'Based just outside London, a 40-minute ride from King’s Cross.',
   'Taiwan-born. English and Mandarin.',
   'Married with two kids, plus one fluffy cat called Quorra.',
   'Soya latte, extra shot. Strong leaf tea on design days.',
