@@ -49,6 +49,37 @@ test.describe('/work', () => {
     await expect(page.locator('.nav a.l[aria-current]')).toHaveCount(1);
   });
 
+  for (const width of [390, 1440]) for (const theme of ['dark', 'light']) {
+    test(`every Selected artwork image loads at ${width} in ${theme}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      await page.addInitScript((t) => { try { localStorage.setItem('portfolio-theme', t); } catch {} }, theme);
+      await open(page, '/work');
+      const imgs = page.locator('#work .row img');
+      await expect(imgs).toHaveCount(5);
+      for (let i = 0; i < 5; i++) {
+        await imgs.nth(i).scrollIntoViewIfNeeded();
+        await expect.poll(() => imgs.nth(i).evaluate((el) => (el as HTMLImageElement).naturalWidth), { message: `artwork ${i + 1}` }).toBeGreaterThan(0);
+        const box = await imgs.nth(i).boundingBox();
+        expect(box!.height, `artwork ${i + 1} is visible`).toBeGreaterThan(100);
+      }
+    });
+  }
+
+  test('Selected has no empty cell: rows fill the grid at 1440, 1024 and 768', async ({ page }) => {
+    for (const width of [1440, 1024, 768]) {
+      await page.setViewportSize({ width, height: 900 });
+      await open(page, '/work');
+      const tops = await page.locator('#work .index > .row').evaluateAll((rs) => rs.map((r) => { const b = r.getBoundingClientRect(); return [Math.round(b.top + scrollY), Math.round(b.left), Math.round(b.right)]; }));
+      const rows = new Map<number, number[][]>();
+      for (const t of tops) { const k = [...rows.keys()].find((y) => Math.abs(y - t[0]) < 4) ?? t[0]; rows.set(k, [...(rows.get(k) ?? []), t]); }
+      for (const [, items] of rows) {
+        const left = Math.min(...items.map((i) => i[1])), right = Math.max(...items.map((i) => i[2]));
+        const filled = items.reduce((a, i) => a + (i[2] - i[1]), 0);
+        expect(filled / (right - left), `row fill at ${width}`).toBeGreaterThan(0.85);
+      }
+    }
+  });
+
   test('is in the sitemap', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text();
     expect(xml).toContain('<loc>https://shannonhecker.com/work</loc>');
