@@ -26,6 +26,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.04em;line-height:1;margin:0;text-wrap:balance}
 em.s{font-style:normal;color:var(--fg-2)}
 .wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+/* The page-head hairline (Work, Writing, About) runs from the content's left edge to its right edge, not across the padded box. */
+:is(.work-head,.writing-head,.about-head)>.wrap{position:relative}
+:is(.work-head,.writing-head,.about-head)>.wrap::after{content:"";position:absolute;left:var(--gutter);right:var(--gutter);bottom:0;height:1px;background:var(--hair)}
 .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px)}
 .band{position:relative;overflow:clip;padding-block:clamp(110px,16vw,260px)}
 .ink,.bone,.white,.ai{background:var(--bg);color:var(--fg)}

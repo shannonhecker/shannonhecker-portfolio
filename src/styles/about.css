@@ -11,7 +11,7 @@
 .about-page .wrap{max-width:1440px}
 
 /* ------------------------------------------------------------------ head */
-.about-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px);border-bottom:1px solid var(--hair)}
+.about-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px)}
 .about-page h1{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(88px,15vw,224px);line-height:.86;letter-spacing:var(--track-head)}
 .about-meta{margin:0;max-width:24ch;font:14px/1.6 var(--body);color:var(--fg-2);text-align:right}
 .about-head .about-meta{padding-bottom:clamp(6px,1vw,14px)}

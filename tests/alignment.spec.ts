@@ -13,7 +13,7 @@ const PAGES = [
   { path: '/about', type: 'about' },
   { path: '/privacy', type: 'privacy' },
 ];
-const WIDTHS = [390, 768, 1024, 1440];
+const WIDTHS = [390, 768, 1024, 1440, 1920];
 
 async function edges(page: Page) {
   return page.evaluate(() => {
@@ -81,3 +81,40 @@ test.describe('B4: one gutter, one max width', () => {
     }
   }
 });
+
+// The page-head hairline on the three index pages starts and ends on the content edges:
+// the same left as the logo and h1, the same right as the nav's right control.
+const HEADS = [
+  { path: '/work', sel: '.work-head .wrap' },
+  { path: '/writing', sel: '.writing-head .wrap' },
+  { path: '/about', sel: '.about-head .wrap' },
+];
+for (const w of WIDTHS) {
+  for (const h of HEADS) {
+    test(`${h.path} at ${w}: the page-head hairline runs from the content left edge to the content right edge`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: 900 });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto(h.path);
+      const e = await edges(page);
+      const rule = await page.locator(h.sel).evaluate((wrap) => {
+        const r = wrap.getBoundingClientRect();
+        const bottom = parseFloat(getComputedStyle(wrap).borderBottomWidth);
+        const cs = getComputedStyle(wrap, '::after');
+        return {
+          borderBottom: bottom,
+          left: r.left + parseFloat(cs.left),
+          right: r.right - parseFloat(cs.right),
+          height: parseFloat(cs.height),
+          drawn: cs.content !== 'none' && cs.backgroundColor !== 'rgba(0, 0, 0, 0)',
+        };
+      });
+      // The hairline is one 1px line, drawn once (not also as a border on the padded box).
+      expect(rule.borderBottom).toBe(0);
+      expect(rule.drawn).toBe(true);
+      expect(rule.height).toBe(1);
+      expect(Math.abs(rule.left - e.logoLeft!), `rule left ${rule.left} vs logo ${e.logoLeft}`).toBeLessThanOrEqual(1);
+      expect(Math.abs(rule.left - e.h1Left!), `rule left ${rule.left} vs h1 ${e.h1Left}`).toBeLessThanOrEqual(1);
+      expect(Math.abs(rule.right - e.ctrlRight!), `rule right ${rule.right} vs control ${e.ctrlRight}`).toBeLessThanOrEqual(1);
+    });
+  }
+}

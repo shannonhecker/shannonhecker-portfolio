@@ -67,3 +67,14 @@ test('the title is no larger than the page heads', async ({ page }) => {
   const size = (sel: string) => page.locator(sel).evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
   expect(await size('#contact h2')).toBeLessThanOrEqual(await size('main h1'));
 });
+
+test('the footer statement sits clearly second under "Let’s Talk."', async ({ page }) => {
+  for (const [w, minRatio] of [[1440, 1.8], [390, 1.4]] as const) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await page.goto('/about');
+    const size = (sel: string) => page.locator(sel).evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
+    const second = await size('#links .big h2');
+    expect(await size('#contact h2') / second, `at ${w}`).toBeGreaterThanOrEqual(minRatio);
+    if (w === 1440) { expect(second).toBeGreaterThanOrEqual(30); expect(second).toBeLessThanOrEqual(36); }
+  }
+});

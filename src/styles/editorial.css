@@ -252,7 +252,7 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.012em;li
 .principle h3{font-weight:600;font-size:26px;line-height:1.35;letter-spacing:0}
 .principle p{font-size:16px;line-height:1.8;max-width:48ch}
 #links .foot{gap:64px}
-#links .big h2{font-size:clamp(30px,3.5vw,48px);font-weight:600;line-height:1.25;letter-spacing:-.01em}
+#links .big h2{font-size:clamp(24px,2.4vw,34px);font-weight:600;line-height:1.25;letter-spacing:-.01em}
 #links .links a{padding-block:20px;font-size:15px;gap:24px}
 .case-page[data-project=fusion]{--project-ink:#705d8d;--project-wash:#efeaf5}
 .case-page[data-project=uoaui]{--project-ink:#8b5168;--project-wash:#f8e8ed}
