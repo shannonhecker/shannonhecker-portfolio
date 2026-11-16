@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # check:redirects reads the old static site with `git ls-tree legacy-static`
+      # and `git show legacy-static:<file>`, which need a local branch of that name.
+      - name: Fetch the legacy-static branch
+        run: git fetch --no-tags origin legacy-static:refs/heads/legacy-static
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
@@ -25,6 +31,7 @@ jobs:
           JS
       - run: npm run build
       - run: npm run check:public
+      - run: npm run check:copy
       - run: npm run check:redirects
       - run: npx playwright install --with-deps chromium webkit
       - run: npx playwright test
@@ -33,7 +40,7 @@ jobs:
         run: |
           npx astro preview --port 4321 --ignore-lock &
           sleep 3
-          for path in / /fx /fusion /winking-star /deal-model /uoaui; do
+          for path in / /fx /fusion /winking-star /deal-model /uoaui /work /work/tripup /writing /about; do
             for preset in mobile desktop; do
               flag=""; [ "$preset" = desktop ] && flag="--preset=desktop"
               npx -y lighthouse@12 "http://localhost:4321$path" $flag --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json
@@ -61,7 +68,6 @@ jobs:
           args: >-
             --no-progress --max-retries 3 --timeout 20
             --exclude 'linkedin\.com' --exclude 'apps\.apple\.com'
-            --exclude '^https://shannonhecker\.com'
             --exclude '^https://www\.figma\.com/design/'
             src/components/*.astro
           fail: true

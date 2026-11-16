@@ -1,38 +1,48 @@
 # shannonhecker.com
 
-One-page portfolio, built from the signed-off prototype in `prototype/site-v4`. The brief is `prototype/BRIEF.md`.
+Shannon Hecker's public portfolio: five flagship case pages, ten earlier projects, Writing, About and an "Ask Shannon" chat. It is an Astro project with static output. The old static HTML site lives on the `legacy-static` branch.
 
 ## Run
 
 ```sh
-npm install
+npm ci
 npm run dev        # http://localhost:4321
 npm run build      # static output in dist/
-npm test           # Playwright: hero, nav, tick demo, axe, no-JS, reduced motion
+npm run preview    # serves dist/ on http://localhost:4321
 ```
 
-In the Claude Code cloud sandbox, point Playwright at the pre-installed Chromium:
-`PW_CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm test`
+## Test
 
-## Where things live
+```sh
+npm run build
+npx playwright test          # set PW_CHROMIUM_PATH to a local Chromium if needed
+npm run check:public         # nothing from the private panel version leaks into dist/
+npm run check:copy           # no em dashes or en dashes in built pages
+npm run check:redirects      # vercel.json matches every old address (reads the legacy-static branch)
+node scripts/qa-shots.mjs    # screenshots at 390x844 and 1440x900, dark and light, in test-results/qa-shots/
+```
+
+`npx astro check` runs the type check. CI runs all of this plus a Lighthouse budget (95 or more) and a link check.
+
+## Where content lives
 
 | What | Where |
 |---|---|
-| Prototype CSS, unchanged | `src/styles/prototype.css` |
-| Production overrides, each with a reason | `src/styles/production.css` |
-| Sections (one per prototype section, same ids and class names) | `src/components/*.astro` |
-| Motion (GSAP, ScrollTrigger, Lenis) | `src/scripts/motion.ts` |
-| Winking Star tick demo | `src/scripts/demo.ts` |
-| Images (source JPEGs, optimised at build) | `src/assets/img/` |
-| Favicon and OG image generator | `scripts/make-meta-images.mjs` |
-
-Judgement calls are marked with `DECISION:` comments in the code.
-
-## Before each release
-
-- Open the LinkedIn and App Store links by hand. CI skips them because they block bots.
-- Search the source for `todo` placeholders, which are still in the prototype on purpose.
+| Flagship case pages | `src/pages/fx.astro`, `fusion.astro`, `winking-star.astro`, `deal-model.astro`, `uoaui.astro` |
+| Ten earlier projects | `src/content/earlier/*.md`, shown at `/work/<slug>` |
+| Writing | `src/content/writing/*.md`, shown at `/writing/<slug>` |
+| About, Work, Privacy | `src/pages/about.astro`, `work.astro`, `privacy.astro` |
+| Layouts and components | `src/layouts/`, `src/components/` |
+| Copy rules | `VOICE.md` |
 
 ## Deploy
 
-Vercel, framework preset Astro, with no other settings needed. Each PR gets a preview URL.
+Vercel builds from `main`. Pull requests get preview URLs. Redirects from every old address are in `vercel.json`. The `legacy-static` branch holds the old static site and is kept for reference and for the redirect check. `docs/HANDOFF.md` says where go-live stands.
+
+## Chat server
+
+The Ask Shannon chat API is in `chat-server/`. It runs on Render, deployed separately from the site, with the service root directory set to `chat-server`. The game scoreboard runs as Vercel functions in `api/` and needs a Redis store (`KV_REST_API_URL`, `KV_REST_API_TOKEN`). Without it the game still plays and the board shows a "resting" message.
+
+## Before each release
+
+Open the LinkedIn and App Store links by hand. CI skips them because they block bots.
