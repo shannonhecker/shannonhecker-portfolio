@@ -43,7 +43,7 @@
    radius. The image is shown at its own width at most. */
 .earlier-cover{margin-top:clamp(40px,5vw,72px);padding:clamp(12px,2.4vw,32px);border-radius:var(--radius);background:var(--bg-2)}
 .earlier-cover picture{display:block;max-width:var(--w)}
-.earlier-cover img{display:block;width:100%;height:auto;object-fit:contain;border-radius:var(--radius);outline:1px solid var(--hair);outline-offset:-1px}
+.earlier-cover img{display:block;width:100%;height:auto;object-fit:contain;border-radius:var(--radius)}
 
 /* Body: a section is its label at the left (it stays beside the text while the
    section scrolls) and its copy at the right, as on the essays. */
@@ -99,13 +99,25 @@
   .earlier-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
   .earlier-lead,.earlier-facts{grid-column:1}
   .earlier-results{margin-top:clamp(40px,8vw,72px)}
-  .earlier-outcomes{grid-template-columns:minmax(0,1fr);border-top:0;border-bottom:0}
-  .earlier-outcomes li{grid-row:auto;grid-template-rows:none;border-bottom:1px solid var(--hair);padding-block:24px}
-  .earlier-outcomes .value.figure{font-size:clamp(48px,14vw,72px)}
+  /* Two columns, so the cover is never a screen and a half away. There is no column gap, so each rule
+     is one unbroken line; every cell pads its own inner edge by 10px (20px between the columns). The
+     rows still share their value line and label line (subgrid), and an odd last item runs across. */
+  .earlier-outcomes{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:0}
+  .earlier-outcomes li{padding-block:24px}
+  .earlier-outcomes li:nth-child(odd){padding-right:10px}
+  .earlier-outcomes li:nth-child(even){padding-left:10px}
+  .earlier-outcomes li:nth-child(n+3){border-top:1px solid var(--hair)}
+  .earlier-outcomes li:last-child:nth-child(odd){grid-column:1/-1;padding-right:0}
+  .earlier-outcomes .value{font-size:clamp(20px,5.6vw,26px)}
+  .earlier-outcomes .value.figure{font-size:clamp(40px,11vw,56px)}
+  .earlier-outcomes .label{font-size:14px;max-width:none}
   /* Every section reads the same: its label, 16px of air, its copy. */
   .earlier-sec{grid-template-columns:minmax(0,1fr)}
-  .earlier-sec>h2{position:static;padding-right:0}
-  .earlier-sec-body{margin-top:16px}
+  /* A section's title is clearly the larger of the two levels: 26px over 18px. */
+  .earlier-sec>h2{position:static;padding-right:0;font-size:26px;line-height:1.25;letter-spacing:-.025em}
+  .earlier-sec-body{margin-top:20px}
+  .earlier-sec-body>h3{font-size:clamp(18px,1.5vw,21px);line-height:1.35;margin-top:clamp(36px,5vw,48px)}
+  .earlier-sec-body>h3+*{margin-top:10px}
   .earlier-sec-body>ol{grid-template-columns:minmax(0,1fr);gap:28px}
   .earlier-body>.earlier-note{margin-left:0}
   .earlier-foot{grid-template-columns:minmax(0,1fr)}

@@ -247,38 +247,61 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     return cut;
   }
 
-  // ── The first question: the empty log (just a greeting) grows once to its full height ──
+  // ── The log is exactly as tall as its content, up to the cap (CSS max-height) ──
+  // The CSS leaves the height on auto. When the content changes, the box eases from its old
+  // height to the new one, so the composer glides instead of jumping; under reduced motion it
+  // simply changes. Past the cap the log scrolls and follow() keeps the latest line in view.
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let started = false;
+  let lastH = log.offsetHeight;
+  let settleTimer = 0;
   function keepComposerInView() {
     const reserved = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--consent-h')) || 0;
     const room = innerHeight - reserved - 16;
     const bottom = form.getBoundingClientRect().bottom;
-    if (bottom > room) window.scrollBy({ top: bottom - room, behavior: reduced.matches ? 'auto' : 'smooth' });
+    if (bottom > room && bottom < innerHeight + 400) window.scrollBy({ top: bottom - room, behavior: reduced.matches ? 'auto' : 'smooth' });
   }
+  function settle() {
+    window.clearTimeout(settleTimer);
+    log.style.transition = '';
+    log.style.height = '';
+    delete log.dataset.growing;
+    lastH = log.offsetHeight;
+    keepComposerInView();
+  }
+  function fit() {
+    const animating = log.dataset.growing !== undefined;
+    const from = animating ? log.getBoundingClientRect().height : lastH;
+    // Measuring resizes the box for a moment, which can move the scroll position: put it back.
+    const keep = log.scrollTop;
+    const restore = () => { if (following) toBottom(); else log.scrollTop = keep; };
+    log.style.transition = 'none';
+    log.style.height = 'auto';
+    const to = log.offsetHeight;
+    if (reduced.matches || Math.abs(to - from) < 1) {
+      log.style.transition = '';
+      log.style.height = '';
+      delete log.dataset.growing;
+      lastH = to;
+      restore();
+      if (to > from) keepComposerInView();
+      return;
+    }
+    log.style.height = from + 'px';
+    void log.offsetHeight;
+    restore();
+    log.dataset.growing = '';
+    log.style.transition = 'height .26s var(--ease)';
+    log.style.height = to + 'px';
+    lastH = to;
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(settle, 340);
+  }
+  new MutationObserver(fit).observe(log, { childList: true, subtree: true, characterData: true });
   function startConversation() {
     if (started) return;
     started = true;
-    if (reduced.matches) {
-      log.dataset.started = '';
-      keepComposerInView();
-      return;
-    }
-    // Pin today's height, then let the full height take over so it animates once.
-    log.style.height = log.offsetHeight + 'px';
-    log.dataset.growing = '';
-    void log.offsetHeight;
     log.dataset.started = '';
-    log.style.height = '';
-    let settled = false;
-    const settle = () => {
-      if (settled) return;
-      settled = true;
-      delete log.dataset.growing;
-      keepComposerInView();
-    };
-    log.addEventListener('transitionend', (e) => { if (e.propertyName === 'height') settle(); }, { once: true });
-    window.setTimeout(settle, 450);
   }
 
   // ── Sending ──

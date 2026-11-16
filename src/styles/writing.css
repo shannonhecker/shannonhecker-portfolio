@@ -4,7 +4,7 @@
    Every selector hangs off .writing-index or .essay so nothing reaches other pages. */
 
 /* ------------------------------------------------------------------ the index */
-.writing-index{padding-top:clamp(112px,10vw,160px)}
+.writing-index{--g:clamp(16px,2vw,32px);padding-top:clamp(112px,10vw,160px)}
 
 /* Head: the Work page's scale. A very large title, its count at the foot, a hairline. */
 .writing-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px)}
@@ -20,7 +20,7 @@
 /* The list: date, title, then a note and the way in. Hairline rows. */
 .writing-listing{padding-top:clamp(56px,8vw,112px);padding-bottom:clamp(96px,12vw,192px)}
 .writing-list{border-top:1px solid var(--hair);margin:0;padding:0;list-style:none}
-.writing-list a{display:grid;grid-template-columns:minmax(7.5rem,1fr) minmax(0,3fr) minmax(7.5rem,1fr);column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px);align-items:baseline;padding-block:clamp(32px,4.4vw,64px);border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
+.writing-list a{display:grid;grid-template-columns:calc((100% - 3 * var(--g)) / 4) minmax(0,1fr) minmax(7.5rem,.5fr);column-gap:var(--g);row-gap:clamp(14px,1.6vw,22px);align-items:baseline;padding-block:clamp(32px,4.4vw,64px);border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
 .writing-list .date,.writing-list .read-time,.writing-list .read{font-size:14px;line-height:1.7;color:var(--fg-2);font-variant-numeric:tabular-nums}
 .writing-list .date{grid-column:1;grid-row:1}
 .writing-list .title{grid-column:2;grid-row:1;margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(28px,3.7vw,56px);line-height:1.08;letter-spacing:-.035em;max-width:20ch;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}

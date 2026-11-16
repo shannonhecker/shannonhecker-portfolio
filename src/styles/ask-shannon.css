@@ -1,8 +1,9 @@
 /* Ask Shannon: an editorial question and answer, not a chat window. The question is set as a
    line of display type, the answer as text on the page, and the two are told apart by type and
    a hairline, never by a coloured bubble. Tokens only, so both themes come for free.
-   Until a question is sent the transcript is only as tall as its greeting. Once a conversation
-   starts it grows once to a fixed height, so the composer never moves while an answer streams. */
+   The transcript is always exactly as tall as what is in it, so there is never an empty gap above
+   the greeting. It grows with the conversation (easing, set in ask-shannon.ts) until it reaches
+   the cap, then it scrolls with the latest line in view. */
 #ask.ask-shannon { border-bottom: 1px solid var(--hair); }
 /* A control's edge needs 3:1 against the page (WCAG 1.4.11). Hairlines are for dividers only,
    so the composer and the mic use a mix of the text grey and the page: 3.3:1 light, 3.5:1 dark. */
@@ -41,10 +42,8 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
 /* One focus ring for the whole section: 2px in the site's ink colour. */
 #ask :focus-visible { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 4px; }
 #ask .ask-log:focus-visible { outline-offset: 4px; }
-/* The empty state is just the greeting. When the first question is sent the log grows once, to
-   the full height, and from then on new text collects at the foot beside the composer. */
+/* The cap: the log is as tall as its content up to here, never taller. */
 #ask { --ask-log-h: clamp(280px, 40svh, 400px); }
-#ask .ask-log[data-started] { height: var(--ask-log-h); }
 #ask .ask-log:not([data-started]) { padding-bottom: 24px; }
 
 #ask .ask-msg { min-width: 0; }
@@ -96,7 +95,6 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
   background: currentColor;
 }
 @media (prefers-reduced-motion: no-preference) {
-  #ask .ask-log[data-growing] { transition: height .28s var(--ease); }
   #ask .ask-form { transition: border-color var(--fast); }
   #ask .ask-mic, #ask .ask-send { transition: background var(--fast), color var(--fast), border-color var(--fast); }
   #ask .ask-wait i { animation: ask-dot 1.2s ease-in-out infinite; }

@@ -75,9 +75,11 @@ test('the text column starts on one line on an earlier project, an essay and Abo
   const b = await left('/writing/trust-surfaces-in-ai', '.essay-body > p');
   const c = await left('/about', '.about-approach .about-prose');
   const d = await left('/privacy', '.privacy-text > p');
+  const e = await left('/writing', '.writing-list .title');
   expect(Math.abs(a - b), `earlier ${a} vs essay ${b}`).toBeLessThanOrEqual(1);
   expect(Math.abs(c - b), `about ${c} vs essay ${b}`).toBeLessThanOrEqual(1);
   expect(Math.abs(d - b), `privacy ${d} vs essay ${b}`).toBeLessThanOrEqual(1);
+  expect(Math.abs(e - b), `writing index ${e} vs essay ${b}`).toBeLessThanOrEqual(1);
 });
 
 test.describe('earlier-project template, finding 4', () => {
@@ -133,7 +135,7 @@ test.describe('earlier-project template, finding 4', () => {
 
 test.describe('covers sit as framed cards', () => {
   for (const slug of EARLIER_SLUGS) {
-    test(`/work/${slug}: the cover is inset on a tonal frame, whole and with a hairline edge`, async ({ page }) => {
+    test(`/work/${slug}: the cover is inset on a tonal frame and whole; the frame is its only edge (round 2)`, async ({ page }) => {
       await open(page, `/work/${slug}`, 1440, 'dark');
       const m = await page.locator('.earlier-cover').evaluate((frame) => {
         const f = frame.getBoundingClientRect();
@@ -144,7 +146,7 @@ test.describe('covers sit as framed cards', () => {
       });
       for (const k of ['insetTop', 'insetBottom', 'insetLeft', 'insetRight'] as const) expect(m[k]).toBeGreaterThanOrEqual(12);
       expect(m.fit).not.toBe('cover');
-      expect(m.outline).toBe('solid');
+      expect(m.outline).toBe('none');
       expect(m.radius).toBeGreaterThan(0);
       expect(m.overflow).toBe('visible');
     });

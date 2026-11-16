@@ -87,8 +87,8 @@ test.describe('D1: the analytics notice never covers the chat composer', () => {
       expect(hits(await box(page, '#ask-send'), notice)).toBe(false);
       // On the gutter, not 12px from the edge.
       const gutter = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.wrap')!).paddingLeft));
-      if (w > 760) expect(Math.abs(notice.x + notice.width - (w - gutter))).toBeLessThanOrEqual(1);
-      else expect(Math.abs(notice.x - gutter)).toBeLessThanOrEqual(1);
+      // One place on every page: bottom left, on the gutter (round 2).
+      expect(Math.abs(notice.x - gutter)).toBeLessThanOrEqual(1);
     });
   }
 
@@ -135,12 +135,11 @@ test.describe('D2: the empty chat is only as tall as its greeting', () => {
       await expect(page.locator('.ask-msg--ai').last()).toContainText('Hello.');
       const grown = (await box(page, '#ask-messages')).height;
       expect(grown).toBeGreaterThan(empty + 60);
-      // From here the composer stays put while answers arrive.
-      const before = (await box(page, '#ask-form')).y + await page.evaluate(() => scrollY);
+      // From here the log is as tall as what is in it, up to its cap (see design-review-round2).
       await page.locator('#ask-input').fill('Again');
       await page.locator('#ask-send').click();
       await expect(page.locator('.ask-msg--ai')).toHaveCount(3);
-      expect((await box(page, '#ask-form')).y + await page.evaluate(() => scrollY)).toBeCloseTo(before, 0);
+      expect((await box(page, '#ask-messages')).height).toBeGreaterThanOrEqual(grown);
     });
   }
 });
@@ -237,7 +236,9 @@ test.describe('D8, A3: the footer', () => {
         for (const l of await page.locator(sel).all()) {
           if (!(await l.isVisible())) continue;
           const b = (await l.boundingBox())!;
-          if (b.height < min - 0.5) small.push(`${sel} ${Math.round(b.width)}x${Math.round(b.height)}`);
+          // The notice's phone buttons look 40px tall and reach 44px through an invisible extension.
+          const reach = sel === '#analytics-choice button' && min === 44 ? await l.evaluate((el) => parseFloat(getComputedStyle(el, '::after').height)) : 0;
+          if (Math.max(b.height, reach) < min - 0.5) small.push(`${sel} ${Math.round(b.width)}x${Math.round(b.height)}`);
         }
       }
       expect(small).toEqual([]);
