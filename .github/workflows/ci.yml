@@ -25,6 +25,7 @@ jobs:
           JS
       - run: npm run build
       - run: npm run check:public
+      - run: npm run check:redirects
       - run: npx playwright install --with-deps chromium webkit
       - run: npx playwright test
       # Brief §10: Lighthouse 95+ on all four categories, mobile and desktop.

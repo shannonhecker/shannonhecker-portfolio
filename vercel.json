@@ -2,21 +2,73 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/work.html", "destination": "/work", "permanent": true },
+    { "source": "/about.html", "destination": "/about", "permanent": true },
+    { "source": "/writing.html", "destination": "/writing", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/panel", "destination": "/", "permanent": true },
+    { "source": "/build", "destination": "/", "permanent": true },
+    { "source": "/project-analytics.html", "destination": "/fusion", "permanent": true },
+    { "source": "/project-deal-model.html", "destination": "/deal-model", "permanent": true },
+    { "source": "/project-uoaui.html", "destination": "/uoaui", "permanent": true },
+    { "source": "/project-ausos.html", "destination": "/uoaui", "permanent": true },
+    { "source": "/project-winkingstar.html", "destination": "/winking-star", "permanent": true },
+    { "source": "/assets/og-preview.png", "destination": "/og-card.png", "permanent": true },
+    { "source": "/assets/og-preview.webp", "destination": "/og-card.png", "permanent": true },
+    { "source": "/project-algo-center.html", "destination": "/work/algo-center", "permanent": true },
+    { "source": "/project-complex-assets.html", "destination": "/work/complex-assets", "permanent": true },
+    { "source": "/project-corporate-action.html", "destination": "/work/corporate-action", "permanent": true },
+    { "source": "/project-data-solution.html", "destination": "/work/data-solution", "permanent": true },
+    { "source": "/project-design-system.html", "destination": "/work/design-system", "permanent": true },
+    { "source": "/project-dps-brand.html", "destination": "/work/dps-brand", "permanent": true },
+    { "source": "/project-research.html", "destination": "/work/research", "permanent": true },
+    { "source": "/project-barclays-data-viz.html", "destination": "/work/stock-dashboard", "permanent": true },
+    { "source": "/project-tripup.html", "destination": "/work/tripup", "permanent": true },
+    { "source": "/project-ui-toolkit.html", "destination": "/work/ui-toolkit", "permanent": true },
+    { "source": "/writing-the-design-system-is-the-contract.html", "destination": "/writing/the-design-system-is-the-contract", "permanent": true },
+    { "source": "/writing-trust-surfaces-in-ai.html", "destination": "/writing/trust-surfaces-in-ai", "permanent": true },
+    { "source": "/writing-when-everyone-can-ship.html", "destination": "/writing/when-everyone-can-ship", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'" }
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+        }
       ]
     },
     {
       "source": "/_astro/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

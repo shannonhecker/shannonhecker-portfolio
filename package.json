@@ -9,6 +9,7 @@
     "check": "astro check",
     "check:public": "node scripts/check-public.mjs",
     "check:copy": "node scripts/check-copy.mjs",
+    "check:redirects": "node scripts/check-redirects.mjs",
     "test": "playwright test"
   },
   "dependencies": {

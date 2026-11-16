@@ -20,6 +20,14 @@ test('no panel page', async ({ request }) => {
   expect((await request.get('/build')).status()).toBe(404);
 });
 
+// astro preview does not apply vercel.json: old project addresses 404 and
+// /about.html is served as a plain file, never redirected. Redirect coverage
+// lives in `npm run check:redirects`, not in this suite.
+test('local preview does not apply legacy redirects', async ({ request }) => {
+  expect((await request.get('/project-tripup.html', { maxRedirects: 0 })).status()).toBe(404);
+  expect((await request.get('/about.html', { maxRedirects: 0 })).status()).toBe(200);
+});
+
 test('hero has no panel line', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/I design tools\s*where mistakes\s*cost money\./);
