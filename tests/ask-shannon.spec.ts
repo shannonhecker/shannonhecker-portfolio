@@ -272,7 +272,7 @@ test.describe('Ask Shannon', () => {
     }
   });
 
-  test('follow button appears when you scroll up during a long answer', async ({ page }) => {
+  test('a long answer leaves the question on the log’s top edge and offers a button to follow the stream', async ({ page }) => {
     await holdStream(page);
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);
@@ -281,14 +281,17 @@ test.describe('Ask Shannon', () => {
     const para = 'A long paragraph of answer text that keeps going so the pane has to scroll. ';
     await push(page, `data: ${JSON.stringify({ text: para.repeat(60) })}\n\n`);
     await expect.poll(() => log(page).evaluate((el) => el.scrollHeight > el.clientHeight)).toBe(true);
+    // The stream is not pinned to the foot, so the question is never pushed through the top edge.
+    const edge = await log(page).evaluate((el) => el.querySelector('.ask-msg--user')!.getBoundingClientRect().top - el.getBoundingClientRect().top);
+    expect(edge, 'the question is never sliced by the top edge').toBeGreaterThanOrEqual(-1);
     const follow = page.locator('#ask .ask-follow');
-    await expect(follow).toBeHidden();
-    await log(page).evaluate((el) => { el.scrollTop = 0; });
-    await push(page, `data: ${JSON.stringify({ text: ' More.' })}\n\n`);
     await expect(follow).toBeVisible();
     await expect(follow).toHaveAccessibleName('Scroll to latest message');
     await follow.click();
     await expect(follow).toBeHidden();
+    await expect.poll(() => log(page).evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight)).toBeLessThan(41);
+    // Following now, the stream keeps the latest line in view.
+    await push(page, `data: ${JSON.stringify({ text: ' More.' })}\n\n`);
     await expect.poll(() => log(page).evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight)).toBeLessThan(41);
     await push(page, 'data: [DONE]\n\n');
     await end(page);

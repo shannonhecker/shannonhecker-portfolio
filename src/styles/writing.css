@@ -8,7 +8,7 @@
 
 /* Head: the Work page's scale. A very large title, its count at the foot, a hairline. */
 .writing-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px)}
-.writing-index h1{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(88px,15vw,224px);line-height:.86;letter-spacing:var(--track-head)}
+.writing-index h1{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(min(88px,20vw),15vw,224px);line-height:.86;letter-spacing:var(--track-head)}
 .writing-meta{margin:0;font:14px/1.6 var(--body);color:var(--fg-2)}
 .writing-head .writing-meta{padding-bottom:clamp(6px,1vw,14px)}
 

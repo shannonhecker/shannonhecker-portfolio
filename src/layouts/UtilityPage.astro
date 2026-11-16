@@ -12,7 +12,9 @@ const {title}=Astro.props;
  <Footer />
 </Base>
 <style>
-.utility-page{padding-top:clamp(136px,12vw,180px);padding-bottom:clamp(72px,9vw,128px)}
+/* The page fills the screen under the nav, so the footer starts below the fold and the message is the
+   only thing in view, set in the middle of the space rather than at the top. */
+.utility-page{min-height:100svh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(136px,12vw,180px);padding-bottom:clamp(72px,9vw,128px)}
 .utility-page :global(h1){font-size:clamp(40px,6vw,80px);line-height:1.1;letter-spacing:-.035em;margin:24px 0 40px}
 .utility-page :global(p){line-height:1.75;max-width:70ch}
 .utility-page :global(p+p){margin-top:20px}

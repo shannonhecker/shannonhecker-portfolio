@@ -22,6 +22,9 @@ const page = new URL(`/work/${entry.id}`, Astro.site).href;
 const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
 // A value this short is a figure and is set large; a longer one is a phrase.
 const isFigure = (value: string) => value.length <= 5;
+// On a phone the outcomes sit two to a row. A row that pairs a short figure with a long phrase is set
+// evenly (CSS: [data-pair=mixed]), so "4x" is not 56px beside a 26px phrase.
+const pairOf = (i: number) => { const j = i % 2 === 0 ? i + 1 : i - 1; return j < outcomes.length && isFigure(outcomes[i].value) !== isFigure(outcomes[j].value) ? 'mixed' : 'even'; };
 const pad = (n: number) => String(n).padStart(2, '0');
 
 // Every picture the Markdown body uses, by file name, so the body's plain <img> tags
@@ -106,8 +109,8 @@ const ld = [
       <section class="earlier-results" aria-labelledby="earlier-results-title">
         <h2 id="earlier-results-title" class="earlier-label">Outcomes</h2>
         <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
-          {outcomes.map((o) => (
-            <li>
+          {outcomes.map((o, i) => (
+            <li data-pair={pairOf(i)}>
               <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
               <span class="label" set:html={keepWords(o.label)} />
             </li>

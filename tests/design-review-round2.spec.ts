@@ -49,22 +49,37 @@ test.describe('1: the chat log is exactly as tall as its content, up to the cap'
     });
   }
 
-  for (const [w, h] of [[1440, 900], [390, 844]] as const) {
-    test(`it stops at the cap and scrolls with the latest message in view at ${w}`, async ({ page }) => {
-      await visit(page, '/', w, h, { reduced: true, reply: LONG });
-      const cap = await page.locator('#ask-messages').evaluate((log) => parseFloat(getComputedStyle(log).maxHeight));
-      for (const q of ['One', 'Two']) {
-        await page.locator('#ask-input').fill(q);
-        await page.locator('#ask-send').click();
-        await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
-      }
-      await expect(page.locator('.ask-msg--ai')).toHaveCount(3);
-      const m = await page.locator('#ask-messages').evaluate((log) => ({ clientH: log.clientHeight, scrollH: log.scrollHeight, top: log.scrollTop }));
-      expect(Math.abs(m.clientH - cap)).toBeLessThanOrEqual(1);
-      expect(m.scrollH).toBeGreaterThan(m.clientH);
-      expect(m.scrollH - m.top - m.clientH, 'latest message in view').toBeLessThanOrEqual(2);
+  test('at 1440 it stops at the cap, with the newest question on its top edge', async ({ page }) => {
+    await visit(page, '/', 1440, 900, { reduced: true, reply: LONG });
+    const cap = await page.locator('#ask-messages').evaluate((log) => parseFloat(getComputedStyle(log).maxHeight));
+    for (const q of ['One', 'Two']) {
+      await page.locator('#ask-input').fill(q);
+      await page.locator('#ask-send').click();
+      await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
+    }
+    await expect(page.locator('.ask-msg--ai')).toHaveCount(3);
+    const m = await page.locator('#ask-messages').evaluate((log) => {
+      const users = log.querySelectorAll('.ask-msg--user');
+      return { clientH: log.clientHeight, scrollH: log.scrollHeight, edge: users[users.length - 1].getBoundingClientRect().top - log.getBoundingClientRect().top };
     });
-  }
+    expect(Math.abs(m.clientH - cap)).toBeLessThanOrEqual(1);
+    expect(m.scrollH).toBeGreaterThan(m.clientH);
+    expect(Math.abs(m.edge), 'the newest question sits on the top edge').toBeLessThanOrEqual(1);
+  });
+
+  test('at 390 the log is not a box with its own scroll: the page carries the conversation', async ({ page }) => {
+    await visit(page, '/', 390, 844, { reduced: true, reply: LONG });
+    for (const q of ['One', 'Two']) {
+      await page.locator('#ask-input').fill(q);
+      await page.locator('#ask-send').click();
+      await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
+    }
+    const m = await page.locator('#ask-messages').evaluate((log) => ({ max: getComputedStyle(log).maxHeight, over: getComputedStyle(log).overflowY, extra: log.scrollHeight - log.clientHeight, h: log.clientHeight }));
+    expect(m.max).toBe('none');
+    expect(m.over).toBe('visible');
+    expect(m.extra).toBeLessThanOrEqual(1);
+    expect(m.h).toBeGreaterThan(400);
+  });
 
   test('under reduced motion the height changes at once, with no transition', async ({ page }) => {
     await visit(page, '/', 1440, 900, { reduced: true });
@@ -278,7 +293,7 @@ test.describe('4 and 5: earlier projects on a phone', () => {
           const r = li.getBoundingClientRect();
           const parts = [...li.querySelectorAll('.value, .label')].map((e) => ({ over: e.scrollWidth - e.clientWidth, right: e.getBoundingClientRect().right }));
           const value = li.querySelector('.value')!;
-          return { top: Math.round(r.top), left: Math.round(r.left), right: r.right, parts, size: parseFloat(getComputedStyle(value).fontSize), fig: value.classList.contains('figure') };
+          return { top: Math.round(r.top), left: Math.round(r.left), right: r.right, parts, size: parseFloat(getComputedStyle(value).fontSize), fig: value.classList.contains('figure'), mixed: (li as HTMLElement).dataset.pair === 'mixed' };
         });
         const cover = document.querySelector('.earlier-cover')!.getBoundingClientRect().top + scrollY;
         const h2 = [...document.querySelectorAll('.earlier-sec > h2')].map((e) => parseFloat(getComputedStyle(e).fontSize));
@@ -291,7 +306,7 @@ test.describe('4 and 5: earlier projects on a phone', () => {
       expect(firstRow.length, 'the first row has two figures').toBe(m.cells.length === 1 ? 1 : 2);
       for (const c of m.cells) {
         for (const p of c.parts) { expect(p.over, 'nothing overflows its cell').toBeLessThanOrEqual(1); expect(p.right).toBeLessThanOrEqual(m.wrapRight + 1); }
-        if (c.fig) expect(c.size).toBeGreaterThanOrEqual(40);
+        if (c.fig && !c.mixed) expect(c.size).toBeGreaterThanOrEqual(40);
       }
       expect(m.cover, 'the cover is within a screen and a quarter').toBeLessThan(844 * 1.35);
       for (const s of m.h2) expect(s).toBe(26);
@@ -372,4 +387,199 @@ test.describe('9: earlier covers carry one quiet frame', () => {
       expect(m.frameBg).not.toBe('rgba(0, 0, 0, 0)');
     });
   }
+});
+
+test.describe('B1: the log never slices through a line at its top edge', () => {
+  for (const [w, h, theme] of [[1440, 900, 'dark'], [390, 844, 'light'], [390, 844, 'dark'], [1440, 900, 'light']] as const) {
+    test(`after three exchanges at ${w} in ${theme}`, async ({ page }) => {
+      await visit(page, '/', w, h, { theme, reduced: true });
+      for (const q of ['What was hardest about the FX work?', 'What roles are you looking for?', 'How do you approach a new design problem?']) {
+        await page.locator('#ask-input').fill(q);
+        await page.locator('#ask-send').click();
+        await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
+      }
+      await expect(page.locator('.ask-msg--ai')).toHaveCount(4);
+      const m = await page.locator('#ask-messages').evaluate((log) => {
+        const top = log.getBoundingClientRect().top;
+        const wrap = log.parentElement!.getBoundingClientRect();
+        const bad: string[] = [];
+        for (const el of log.querySelectorAll(':scope > .ask-msg, :scope > .ask-error')) {
+          const r = el.getBoundingClientRect();
+          if (r.bottom <= top + 0.5) continue; // entirely above: out of sight
+          if (r.top < top - 1) bad.push(`${el.className} starts ${Math.round(top - r.top)}px above the edge`);
+        }
+        return { bad, gap: top - wrap.top, scrolls: log.scrollHeight - log.clientHeight > 1, wrapRule: getComputedStyle(log.parentElement!).borderTopWidth };
+      });
+      expect(m.bad).toEqual([]);
+      expect(m.wrapRule, 'the rule belongs to the non-scrolling wrapper').toBe('1px');
+      expect(m.gap, 'air between the rule and the first line').toBeGreaterThanOrEqual(24);
+      expect(m.scrolls).toBe(w > 900);
+    });
+  }
+
+  test('on a phone the new question lands just under the nav and the composer is reachable', async ({ page }) => {
+    await visit(page, '/', 390, 844, { reduced: true });
+    for (const q of ['One', 'Two', 'Three']) {
+      await page.locator('#ask-input').fill(q);
+      await page.locator('#ask-send').click();
+      await expect(page.locator('#ask-messages')).not.toHaveAttribute('aria-busy', 'true');
+    }
+    const r = await page.evaluate(() => { const u = [...document.querySelectorAll('.ask-msg--user')].pop()!.getBoundingClientRect(); const navH = document.querySelector('.nav')!.getBoundingClientRect().height; return { top: u.top, navH }; });
+    expect(r.top).toBeGreaterThanOrEqual(r.navH);
+    expect(r.top).toBeLessThan(r.navH + 120);
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// Round 3
+// ---------------------------------------------------------------------------------------------
+test.describe('round 3: earlier projects on phones', () => {
+  test('S1: under 640px the cover is the full content width with one quiet edge, like the body figures', async ({ page }) => {
+    for (const slug of ['design-system', 'corporate-action', 'research', 'stock-dashboard']) {
+      await visit(page, `/work/${slug}`, 390, 844, { theme: 'dark', reduced: true });
+      const m = await page.evaluate(() => {
+        const frame = document.querySelector('.earlier-cover')!;
+        const img = frame.querySelector('img')!;
+        const wrap = document.querySelector('.earlier .wrap')!;
+        const cs = getComputedStyle(frame);
+        const is = getComputedStyle(img);
+        const wr = wrap.getBoundingClientRect();
+        const gutter = parseFloat(getComputedStyle(wrap).paddingLeft);
+        return { w: img.getBoundingClientRect().width, content: wr.width - 2 * gutter, pad: cs.paddingTop, bg: cs.backgroundColor, outline: is.outlineStyle + ' ' + is.outlineWidth, nat: img.naturalWidth };
+      });
+      expect(Math.abs(m.w - m.content), slug).toBeLessThanOrEqual(1);
+      expect(m.pad).toBe('0px');
+      expect(m.bg).toBe('rgba(0, 0, 0, 0)');
+      expect(m.outline).toBe('solid 1px');
+      await page.unrouteAll();
+    }
+  });
+  test('S1: on a wide screen the cover keeps its tonal frame', async ({ page }) => {
+    await visit(page, '/work/design-system', 1440, 900, { theme: 'dark', reduced: true });
+    expect(await page.locator('.earlier-cover').evaluate((e) => parseFloat(getComputedStyle(e).paddingTop))).toBeGreaterThanOrEqual(12);
+  });
+  for (const slug of EARLIER_SLUGS) {
+    test(`/work/${slug}: P1 tags are quiet, P2 sub-headings are 21px with 40px above, P3 paired figures match`, async ({ page }) => {
+      await visit(page, `/work/${slug}`, 390, 844, { reduced: true });
+      const m = await page.evaluate(() => {
+        const tag = document.querySelector('.earlier-tags li')!;
+        const ts = getComputedStyle(tag);
+        const body = getComputedStyle(document.querySelector('.earlier-sec-body > p')!);
+        const h3 = [...document.querySelectorAll('.earlier-sec-body > h3')].map((h) => ({ size: parseFloat(getComputedStyle(h).fontSize), mt: parseFloat(getComputedStyle(h).marginTop), first: h.previousElementSibling === null }));
+        const lis = [...document.querySelectorAll('.earlier-outcomes li')];
+        const rows = new Map<number, number[]>();
+        for (const li of lis) { const t = Math.round(li.getBoundingClientRect().top); const v = parseFloat(getComputedStyle(li.querySelector('.value')!).fontSize); rows.set(t, [...(rows.get(t) || []), v]); }
+        return { tag: { size: ts.fontSize, pad: ts.paddingTop + ' ' + ts.paddingLeft, color: ts.color }, bodyColor: body.color, bodyFg: getComputedStyle(document.body).color, h3, rows: [...rows.values()] };
+      });
+      expect(m.tag.size).toBe('13px');
+      expect(m.tag.pad).toBe('4px 10px');
+      for (const h of m.h3) { expect(h.size).toBe(21); if (!h.first) expect(h.mt).toBe(40); }
+      for (const r of m.rows) { if (r.length === 2) expect(r[0], `a row of two reads evenly: ${r}`).toBe(r[1]); }
+    });
+  }
+});
+
+test.describe('round 3: footer, About, 404, nav, menu', () => {
+  test('S2: the footer rows are about 52px with 44px targets, and it ends 48px under its last line (plus the bar)', async ({ page }) => {
+    await visit(page, '/', 390, 844, { reduced: true });
+    const m = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll('#links .links a')].map((a) => a.getBoundingClientRect().height);
+      const f = document.getElementById('links')!;
+      return { rows, pad: parseFloat(getComputedStyle(f).paddingBottom) };
+    });
+    for (const r of m.rows) { expect(r).toBeGreaterThanOrEqual(44); expect(r).toBeLessThanOrEqual(54); }
+    expect(m.pad).toBe(48);
+    await page.unrouteAll();
+    await visit(page, '/', 390, 844, { asked: true, reduced: true });
+    const open = await page.evaluate(() => ({ pad: parseFloat(getComputedStyle(document.getElementById('links')!).paddingBottom), bar: document.getElementById('analytics-choice')!.offsetHeight }));
+    expect(open.pad).toBeGreaterThanOrEqual(48 + open.bar);
+  });
+
+  for (const w of [390, 360]) {
+    test(`S3: the three page heads fit on one line and share one size at ${w}`, async ({ page }) => {
+      const sizes: number[] = [];
+      for (const path of ['/work', '/writing', '/about']) {
+        await visit(page, path, w, 740, { reduced: true });
+        const m = await page.locator('main h1').evaluate((h) => { const r = document.createRange(); r.selectNodeContents(h); const lines = new Set([...r.getClientRects()].map((x) => Math.round(x.top))); return { size: parseFloat(getComputedStyle(h).fontSize), lines: lines.size, track: getComputedStyle(h).letterSpacing, over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; });
+        expect(m.lines, `${path} at ${w}`).toBe(1);
+        expect(m.over).toBeLessThanOrEqual(0);
+        sizes.push(m.size);
+        await page.unrouteAll();
+      }
+      expect(new Set(sizes).size).toBe(1);
+    });
+  }
+
+  test('S3: the About stats use the earlier-projects outcome grid and figure size on a phone', async ({ page }) => {
+    await visit(page, '/work/design-system', 390, 844, { reduced: true });
+    const fig = await page.locator('.earlier-outcomes .value.figure').first().evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
+    await page.unrouteAll();
+    await visit(page, '/about', 390, 844, { reduced: true });
+    const m = await page.evaluate(() => {
+      const cells = [...document.querySelectorAll('.about-facts > div')].map((c) => { const r = c.getBoundingClientRect(); return { top: Math.round(r.top), left: Math.round(r.left), w: r.width, dt: parseFloat(getComputedStyle(c.querySelector('dt')!).fontSize), over: c.querySelector('dt')!.scrollWidth - c.querySelector('dt')!.clientWidth }; });
+      return { cells, rule: getComputedStyle(document.querySelector('.about-facts')!).borderTopWidth };
+    });
+    expect(m.cells[0].top).toBe(m.cells[1].top);
+    expect(m.cells[1].left).toBeGreaterThan(m.cells[0].left + 100);
+    expect(m.cells[2].top).toBeGreaterThan(m.cells[0].top);
+    expect(m.cells[2].w).toBeGreaterThan(m.cells[0].w * 1.8);
+    for (const c of m.cells) { expect(c.dt).toBe(fig); expect(c.over).toBeLessThanOrEqual(0); }
+    expect(m.rule).toBe('1px');
+  });
+
+  test('P4: the role table runs to the same right edge as the hairlines at 1440', async ({ page }) => {
+    await visit(page, '/about', 1440, 900, { reduced: true });
+    const m = await page.evaluate(() => ({ table: document.querySelector('.about-roles')!.getBoundingClientRect().right, rule: document.querySelector('.about-job')!.getBoundingClientRect().right, content: document.querySelector('.about-jobs')!.getBoundingClientRect().right }));
+    expect(Math.abs(m.table - m.rule)).toBeLessThanOrEqual(1);
+    expect(Math.abs(m.table - m.content)).toBeLessThanOrEqual(1);
+  });
+
+  for (const w of [390, 1440]) {
+    test(`S4: the 404 fills the screen under the nav, uses the nav's tonal button and a curly apostrophe at ${w}`, async ({ page }) => {
+      await visit(page, '/no-such-page', w, w === 390 ? 844 : 900, { reduced: true });
+      const m = await page.evaluate(() => {
+        const main = document.querySelector('main')!.getBoundingClientRect();
+        const cta = document.querySelector('main .cta-link')!;
+        const cs = getComputedStyle(cta);
+        const nav = getComputedStyle(document.querySelector('.nav .cta')!);
+        const cta0 = cta.getBoundingClientRect();
+        const h1 = document.querySelector('main h1')!.getBoundingClientRect();
+        return { top: main.top, h: main.height, footer: document.querySelector('footer')!.getBoundingClientRect().top, vh: innerHeight, bg: cs.backgroundColor, border: cs.borderTopColor, navBg: nav.backgroundColor, navBorder: nav.borderTopColor, text: document.querySelector('main h1')!.textContent, tall: cta0.height, h1top: h1.top, ctaBottom: cta0.bottom };
+      });
+      expect(m.h).toBeGreaterThanOrEqual(m.vh - 1);
+      expect(m.footer).toBeGreaterThanOrEqual(m.vh - 1);
+      expect(m.text).toBe('This page doesn’t exist.');
+      expect(m.tall).toBeGreaterThanOrEqual(44);
+      expect(m.bg).not.toBe('rgba(0, 0, 0, 0)');
+      expect(m.border).not.toBe(m.bg.replace('rgba', 'rgb'));
+      // Content sits in the middle band of the screen, not under the nav or at the foot.
+      expect(m.h1top).toBeGreaterThan(m.vh * 0.25);
+      expect(m.ctaBottom).toBeLessThan(m.vh * 0.85);
+    });
+  }
+
+  for (const theme of ['light', 'dark'] as const) {
+    test(`P5: the scrolled phone nav is 97% opaque in ${theme}`, async ({ page }) => {
+      await visit(page, '/', 390, 844, { theme, reduced: true });
+      await page.evaluate(() => scrollTo({ top: 900, behavior: 'instant' }));
+      await expect.poll(() => page.evaluate(() => document.querySelector('.nav')!.classList.contains('solid'))).toBe(true);
+      const a = await page.evaluate(() => { const m = getComputedStyle(document.querySelector('.nav')!).backgroundColor.match(/[\d.]+/g)!.map(Number); return m[m.length - 1]; });
+      expect(a).toBeGreaterThanOrEqual(0.965);
+    });
+  }
+
+  test('P6: the phone menu links start on the same left edge as the Menu heading, and the highlight still extends past it', async ({ page }) => {
+    await visit(page, '/about', 390, 844, { reduced: true });
+    await page.locator('.site-menu-toggle').click();
+    const m = await page.evaluate(() => {
+      const h = document.querySelector('.menu-intro span')!.getBoundingClientRect().left;
+      const links = [...document.querySelectorAll('.site-menu-panel a.l')];
+      const text = links.map((a) => { const r = document.createRange(); r.selectNodeContents(a); return r.getBoundingClientRect().left; });
+      const hl = getComputedStyle(links[2], '::before');
+      return { h, text, pseudoLeft: links[2].getBoundingClientRect().left - 12, bg: hl.backgroundColor, inset: [hl.left, hl.right] };
+    });
+    for (const t of m.text) expect(Math.abs(t - m.h)).toBeLessThanOrEqual(1);
+    expect(m.bg).not.toBe('rgba(0, 0, 0, 0)');
+    expect(m.inset).toEqual(['-12px', '-12px']);
+  });
 });

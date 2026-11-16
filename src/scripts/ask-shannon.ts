@@ -129,13 +129,33 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
   // ── Scrolling: follow the stream unless the reader scrolled up ──
   const distance = () => log.scrollHeight - log.scrollTop - log.clientHeight;
   const toBottom = () => { log.scrollTop = log.scrollHeight; };
-  function syncFollow() {
-    if (followBtn) followBtn.hidden = !(busy && !following);
+  // A new question is put at the top of the log (see fit) and its answer streams beneath it, so the
+  // stream is only followed once the reader has gone to the foot themselves (or pressed the button).
+  // The button shows while the log scrolls and the newest message runs past its foot.
+  const spacer = document.createElement('div');
+  spacer.className = 'ask-spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  const newest = () => (spacer.isConnected ? spacer.previousElementSibling : log.lastElementChild) as HTMLElement | null;
+  const add = (el: Element) => { if (spacer.isConnected) spacer.before(el); else log.append(el); };
+  function runsPastFoot() {
+    const last = newest();
+    return !!last && log.scrollHeight > log.clientHeight + 1 && last.getBoundingClientRect().bottom > log.getBoundingClientRect().bottom + 4;
   }
-  log.addEventListener('scroll', () => { following = distance() <= AT_BOTTOM; syncFollow(); }, { passive: true });
-  followBtn?.addEventListener('click', () => { toBottom(); following = true; syncFollow(); });
-  function follow() { if (following) toBottom(); }
-  function force() { toBottom(); following = true; syncFollow(); }
+  function syncFollow() {
+    if (followBtn) followBtn.hidden = !(busy && runsPastFoot());
+  }
+  // Where the newest question was put. A short answer ends within a few pixels of that spot, which must
+  // not count as "the reader went to the foot": only a move away from it does.
+  let pinTop: number | null = null;
+  log.addEventListener('scroll', () => {
+    if (pinTop !== null && Math.abs(log.scrollTop - pinTop) <= 2) { following = false; syncFollow(); return; }
+    pinTop = null;
+    following = distance() <= AT_BOTTOM;
+    syncFollow();
+  }, { passive: true });
+  followBtn?.addEventListener('click', () => { pinTop = null; toBottom(); following = true; syncFollow(); });
+  function follow() { if (following) toBottom(); syncFollow(); }
+  let placing: HTMLElement | null = null;
 
   // ── Safe rendering: a small markdown subset built from nodes, links only to known places ──
   function resolveHref(raw: string): string | null {
@@ -217,15 +237,17 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     const p = document.createElement('p');
     p.append(hidden('You asked: '), text);
     el.append(p);
-    log.append(el);
-    force();
+    add(el);
+    placing = el;
+    following = false;
+    syncFollow();
   }
   function addError(message: string) {
     const el = document.createElement('p');
     el.className = 'ask-error';
     el.textContent = message;
-    log.append(el);
-    force();
+    add(el);
+    follow();
   }
   function say(text: string) { if (statusEl) statusEl.textContent = text; }
 
@@ -267,24 +289,51 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     log.style.height = '';
     delete log.dataset.growing;
     lastH = log.offsetHeight;
-    keepComposerInView();
+    if (getComputedStyle(log).maxHeight !== 'none') keepComposerInView();
+  }
+  // On a phone the log is not capped: the page scrolls, not a box inside it. Put the question just
+  // under the nav unless it is already comfortably in view with room for the start of its answer.
+  function placeOnPage(el: HTMLElement) {
+    const navH = document.querySelector('.nav')?.getBoundingClientRect().height ?? 72;
+    const reserved = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--consent-h')) || 0;
+    const r = el.getBoundingClientRect();
+    if (r.top >= navH + 8 && r.bottom + 160 <= innerHeight - reserved) return;
+    window.scrollTo({ top: Math.max(0, r.top + scrollY - navH - 16), behavior: reduced.matches ? 'auto' : 'smooth' });
   }
   function fit() {
     const animating = log.dataset.growing !== undefined;
     const from = animating ? log.getBoundingClientRect().height : lastH;
     // Measuring resizes the box for a moment, which can move the scroll position: put it back.
     const keep = log.scrollTop;
-    const restore = () => { if (following) toBottom(); else log.scrollTop = keep; };
     log.style.transition = 'none';
     log.style.height = 'auto';
+    // Past the cap the log scrolls. Give it room under the newest question so that the question can
+    // always sit at the very top, on a clean edge, with the answer beneath it.
+    const capped = getComputedStyle(log).maxHeight !== 'none';
+    const question = [...log.querySelectorAll<HTMLElement>(':scope > .ask-msg--user')].pop();
+    if (capped && started) {
+      if (!spacer.isConnected) log.append(spacer);
+      spacer.style.height = '0px';
+      const room = question && log.scrollHeight > log.clientHeight + 1 ? Math.max(0, question.offsetTop + log.clientHeight - log.scrollHeight) : 0;
+      spacer.style.height = room + 'px';
+    } else if (spacer.isConnected) spacer.style.height = '0px';
     const to = log.offsetHeight;
+    const target = placing && capped && log.scrollHeight > log.clientHeight + 1 ? placing.offsetTop : null;
+    const restore = () => {
+      if (target !== null) { pinTop = target; log.scrollTop = target; }
+      else if (following) toBottom();
+      else log.scrollTop = keep;
+    };
+    if (placing && !capped) placeOnPage(placing);
+    placing = null;
     if (reduced.matches || Math.abs(to - from) < 1) {
       log.style.transition = '';
       log.style.height = '';
       delete log.dataset.growing;
       lastH = to;
       restore();
-      if (to > from) keepComposerInView();
+      if (to > from && capped) keepComposerInView();
+      syncFollow();
       return;
     }
     log.style.height = from + 'px';
@@ -296,6 +345,7 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     lastH = to;
     window.clearTimeout(settleTimer);
     settleTimer = window.setTimeout(settle, 340);
+    syncFollow();
   }
   // Focusing the box (or sending) leaves the whole composer above the analytics bar, if it is open.
   input.addEventListener('focus', () => requestAnimationFrame(keepComposerInView));
@@ -333,8 +383,8 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
     const label = document.createTextNode('Thinking');
     wait.append(label, document.createElement('i'), document.createElement('i'), document.createElement('i'));
     bubble.append(hidden('Answer: '), body, wait);
-    log.append(bubble);
-    force();
+    add(bubble);
+    syncFollow();
 
     let full = '';
     const controller = new AbortController();

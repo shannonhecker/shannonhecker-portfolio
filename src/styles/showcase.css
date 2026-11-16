@@ -344,7 +344,7 @@ html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-back
    the text behind it is a soft shape and never legible through the header. */
 @supports ((backdrop-filter:blur(16px)) or (-webkit-backdrop-filter:blur(16px))){
  @media(max-width:760px){
-  html .nav.solid,html[data-theme=dark] .nav.solid{background:color-mix(in srgb,var(--bg) 92%,transparent)!important;-webkit-backdrop-filter:blur(28px) saturate(115%);backdrop-filter:blur(28px) saturate(115%)}
+  html .nav.solid,html[data-theme=dark] .nav.solid{background:color-mix(in srgb,var(--bg) 97%,transparent)!important;-webkit-backdrop-filter:blur(28px) saturate(115%);backdrop-filter:blur(28px) saturate(115%)}
  }
 }
 @media(prefers-reduced-motion:reduce){html .nav{transition:none}}

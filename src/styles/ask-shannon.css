@@ -26,16 +26,19 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
 #ask .ask-side { grid-column: 9 / 13; min-width: 0; padding-top: 24px; border-top: 1px solid var(--hair); }
 
 /* The transcript */
-#ask .ask-log-wrap { position: relative; }
+/* The rule and the air under it belong to this wrapper, which never scrolls, so the log's own top
+   edge is always clean: a message starts there, or the one above it is gone. */
+#ask .ask-log-wrap { position: relative; padding-top: 24px; border-top: 1px solid var(--hair); }
 #ask .ask-log {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: auto;
   max-height: var(--ask-log-h);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 24px 0 20px;
-  border-top: 1px solid var(--hair);
+  padding: 0 0 20px;
+  scroll-snap-type: y proximity;
   scrollbar-width: thin;
   scrollbar-color: var(--hair) transparent;
 }
@@ -48,12 +51,17 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
 
 #ask .ask-msg { min-width: 0; }
 #ask .ask-msg p { margin: 0; overflow-wrap: anywhere; }
+/* Each question is set off by a hairline 24px above it, drawn outside its box, so that when the log
+   scrolls a question can sit exactly on the log's top edge and the rule above it is out of sight. */
 #ask .ask-msg--user {
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid var(--hair);
+  position: relative;
+  margin-top: 52px;
+  scroll-snap-align: start;
 }
-#ask .ask-msg--user:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+#ask .ask-msg--user::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; border-top: 1px solid var(--hair); }
+#ask .ask-msg--user:first-child { margin-top: 0; }
+#ask .ask-msg--user:first-child::before { display: none; }
+#ask .ask-spacer { flex: none; }
 #ask .ask-msg--user p {
   max-width: 40ch;
   font-family: var(--display);
@@ -216,6 +224,9 @@ html[data-theme="dark"] #ask { --ask-line: color-mix(in srgb, var(--fg-2) 52%, v
   #ask .ask-side { grid-column: 7 / 13; }
 }
 @media (max-width: 900px) {
+  /* On a phone or tablet the log is not a box with its own scroll (awkward under a thumb, inside a
+     page that already scrolls): it grows, and the page carries the conversation. */
+  #ask .ask-log { max-height: none; overflow-y: visible; }
   #ask .ask-grid { column-gap: 0; }
   #ask .ask-main, #ask .ask-side { grid-column: 1 / -1; }
   #ask { --ask-log-h: clamp(240px, 38svh, 380px); }

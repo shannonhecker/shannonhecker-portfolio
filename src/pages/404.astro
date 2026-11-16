@@ -5,11 +5,12 @@ import UtilityPage from '../layouts/UtilityPage.astro';
 ---
 <UtilityPage title="Not found">
     <div style="display:grid;gap:28px;justify-items:start">
-      <h1 class="h-giant">This page doesn't exist.</h1>
+      <h1 class="h-giant">This page doesn’t exist.</h1>
       <a class="cta-link" href="/">Back to the work →</a>
     </div>
 </UtilityPage>
 <style is:global>
-  .cta-link{font-size:17px;font-weight:500;text-decoration:none;padding:12px 20px;border:1px solid var(--fg);border-radius:var(--radius);background:var(--bg);color:var(--fg)}
-  .cta-link:hover,.cta-link:focus-visible{background:var(--fg);color:var(--bg)}
+  /* The nav Contact button's tonal style: a quiet surface and a hairline, filled with the ink on hover. */
+  .cta-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:500;text-decoration:none;padding:8px 20px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg)}
+  .cta-link:hover,.cta-link:focus-visible{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 </style>

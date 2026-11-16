@@ -47,4 +47,9 @@ import Logo from './Logo.astro';
 @media(max-width:760px){.legal-links a,.legal-links button,.copyright a{min-height:44px;margin-block:-10px}}
 /* Room for the analytics notice while it is open (see AnalyticsConsent). */
 #links{padding-bottom:calc(var(--space-section) + var(--consent-h,0px))}
+/* Phones: the footer's link rows are 52px, not 68, and it ends 48px under its last line. */
+@media(max-width:760px){
+  #links{padding-bottom:calc(48px + var(--consent-h,0px))}
+  #links .links a{padding-block:12px}
+}
 </style>
