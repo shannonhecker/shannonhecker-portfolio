@@ -36,7 +36,7 @@ The two new entries use only the words on the Work page. The Winking Star entry 
 
 The plan said to change nothing else, so these still stand. Each one now differs from the site:
 
-1. **"Design engineer."** The prompt opens "You are Shannon Hecker, a design engineer at Barclays and founder of uoaui.ai" and the profile says "Design engineer based in London." The site now says "product designer in London".
+1. **"Design engineer."** DONE, 16 Nov 2026, with Shannon's OK: both lines now say "product designer" ("a product designer at Barclays and founder of uoaui.ai", "Product designer based in London."), matching the site.
 2. **"Open to Design Manager and Director roles"** and the notice period ("4 weeks"), office days ("two days a week in the office with Barclays") and the personal Gmail address. The chat will say these to anyone who asks.
 3. **"uoaui.ai. Founder & Product Designer (2026 to present)"** and "Details are shared in private conversations only", while the site has a public `/uoaui` page.
 4. **Strong claims with no source:** "Every project I ship is WCAG 2.1 AA compliant", "adopted by 5+ product teams and 200+ components", "Fifteen years in design overall, ten of those in fintech".
