@@ -291,7 +291,7 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
 
 ## EXPERIENCE
 1. uoaui.ai. Founder & Product Designer (2026 to present)
-   Designing and building an AI-native visual web builder from 0 to 1. Currently in private alpha. Owns product strategy, user research, interaction design, and brand identity end to end. The brand line: a visual web builder for designers who think in systems. A silent walkthrough video is coming soon. Full demo and technical details shared in private conversations.
+   A design platform I'm building on Claude, designed and built solo. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, using native components where the mapping supports them, with explicit fallbacks for missing equivalents. Switch system, density or theme and the screen rebuilds. Status: private alpha. The landing page, comparison and UI Kit are public; the builder needs an invited sign-in. External usability testing and adoption evidence are still to come, so claim neither.
 
 2. Barclays, London. Lead Product Designer (September 2025 to present)
    Lead designer on the FX and MarketsOne platform. Set the design direction across squads, ship across web and native, and run critique to lift craft across the team. Built and run the design system: tokens, components, accessibility, and consistent UI across web and native. Most visual work is under NDA, happy to walk through it in an interview.
@@ -312,7 +312,7 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
 2. Fusion Analytics Dashboard (Product Designer, UI Lead). Page: /fusion. B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
 3. Deal Model (UI lead, J.P. Morgan Securities Services, 2022 to 2023). Page: /deal-model. Bespoke deal modelling: multi-step wizard with full audit trail. Deal creation went from about two hours to 20 minutes. That figure is my own estimate, not a measured one, so say so when you quote it.
 4. Winking Star (solo, 2026, live on web and iOS). Page: /winking-star. A shared routine board for families. Designed, built and shipped by me.
-5. uoaui.ai (Founder, Product Designer). Page: /uoaui. AI-powered visual web builder currently in development. Shannon's own product. Details are shared in private conversations only.
+5. uoaui.ai (Founder, Product Designer, solo). Page: /uoaui. A working private alpha with a builder, five-system comparison and React export. The flow is prompt, generate, compare systems, tune density and theme, export React a developer can inspect. The model drafts, I decide. It does not ship the final product and I don't claim it does. Talk about it using only what the /uoaui page says, and link to that page. For anything beyond the page, say it is not public yet and offer a conversation.
 6. Stock dashboard design task (Product Designer). Page: /work/stock-dashboard. Stock performance dashboard design task: charts, heatmaps, filters, and responsive layouts. Built a modular card system with 6+ visualisation patterns across desktop and iPad.
 7. TripUp (Product Designer). Page: /work/tripup. Design challenge for Bending Spoons: group travel with polls, shared expenses, and real-time coordination in one mobile flow.
 8. Fusion Design System (Product Designer). Page: /work/design-system. Token-based design system: 200+ components, 5+ teams adopted, AA accessibility compliance. Built on Salt Design System in Figma.
