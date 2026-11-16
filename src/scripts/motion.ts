@@ -74,7 +74,7 @@ function chrome() {
   // Links are either home-page anchors (/#work) or case pages (/fx).
   const here = location.pathname.replace(/\/$/, '') || '/';
   const pageLink = links.find((a) => a.getAttribute('href') === here);
-  const sections = here === '/' || here === '/panel'
+  const sections = here === '/'
     ? links.map((a) => { const h = a.getAttribute('href') ?? ''; const i = h.indexOf('#'); return i >= 0 ? document.getElementById(h.slice(i + 1)) : null; }).filter((s): s is HTMLElement => !!s)
     : [];
   const list = nav?.querySelector('ul');

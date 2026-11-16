@@ -23,9 +23,6 @@ html.lenis{scroll-behavior:auto}
 .copyright.built{margin-top:16px}
 .built a{text-underline-offset:3px}
 
-/* /revolut hero line */
-.hero-for{margin-bottom:14px}
-
 /* The prototype has no doctype, so it was signed off in quirks mode. In
    standards mode the hero's grid shrinks .wrap to its content; this restores
    the approved full-width composition. */
@@ -75,11 +72,11 @@ html.lenis{scroll-behavior:auto}
 
 ::selection{background:var(--fg);color:var(--bg)}
 
-/* Cross-document transitions between / and /build, no JS. */
+/* Cross-document transitions between pages, no JS. */
 @view-transition{navigation:auto}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 
-/* Print / Save as PDF: panel members annotate. Everything visible, nothing
+/* Print / Save as PDF: readers annotate. Everything visible, nothing
    fixed or moving, beats kept whole, link targets printed. */
 @media print{
   .nav,.progress,.peek,.skip,.mq-toggle,.ticker{display:none!important}

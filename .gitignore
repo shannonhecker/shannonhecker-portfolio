@@ -27,3 +27,7 @@ skills-lock.json
 # Chat server (moved from api/)
 chat-server/node_modules/
 chat-server/.env
+
+# Local tooling
+.claude/
+.cleanup-archive/

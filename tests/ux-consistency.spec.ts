@@ -2,7 +2,7 @@ import {setTheme} from './theme-helper';
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const routes=['/','/panel','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/build','/404'];
+const routes=['/','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/404'];
 for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
 test(`${route} summary follows complete hero media and links to the outcome`,async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -65,7 +65,7 @@ test('section navigation follows each case’s actual reading order',async({page
 
 test('supporting pages remain accessible in both themes',async({page})=>{
  await page.setViewportSize({width:390,height:844});
- for(const route of ['/privacy','/build','/404']){
+ for(const route of ['/privacy','/404']){
   await page.goto(route);
   for(const theme of ['light','dark']){
    await setTheme(page,theme==='dark');
@@ -79,18 +79,17 @@ test('mobile navigation works without JavaScript',async({browser})=>{
  const page=await context.newPage();await page.goto('http://localhost:4329/privacy');
  await expect(page.locator('.nav ul')).toBeVisible();
  await expect(page.getByRole('button',{name:'Menu',exact:true})).toBeHidden();
- await page.locator('.nav').getByRole('link',{name:'Winking Star',exact:true}).click();
- await expect(page).toHaveURL(/winking-star/);await context.close();
+ // /work, /writing and /about are built in later tasks, so check the links are there and visible, not followed.
+ for(const label of ['Work','Writing','About'])await expect(page.locator('.nav').getByRole('link',{name:label,exact:true})).toBeVisible();
+ await page.locator('.nav .brand').click();
+ await expect(page).toHaveURL(/localhost:4329\/$/);await context.close();
 });
 
-test('current project and analytics notice follow both themes',async({page})=>{
+test('analytics notice follows both themes',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.goto('/fx');
- const active=page.locator('.nav a[aria-current="page"]');
  for(const theme of ['light','dark']){
   await setTheme(page,theme==='dark');
-  await expect(active).toHaveText('FX');
-  expect(await active.evaluate(e=>getComputedStyle(e).backgroundColor)).not.toBe('rgba(0, 0, 0, 0)');
   const notice=page.locator('#analytics-choice');await expect(notice).toBeVisible();
   expect(await notice.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(theme==='dark'?'rgb(23, 27, 34)':'rgb(255, 255, 255)');
   expect((await new AxeBuilder({page}).include('#analytics-choice').withTags(['wcag2aa']).analyze()).violations).toEqual([]);
@@ -99,10 +98,10 @@ test('current project and analytics notice follow both themes',async({page})=>{
 
 test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
  await page.setViewportSize({width:390,height:844});
- for(const [label,path] of [['FX','/fx'],['Fusion','/fusion'],['Winking Star','/winking-star'],['Deal Model','/deal-model'],['uoaui.ai','/uoaui']]){
-  await page.goto('/privacy');await page.getByRole('button',{name:'Menu',exact:true}).click();
-  await page.locator('.nav').getByRole('link',{name:label,exact:true}).click();
-  await expect(page).toHaveURL(new RegExp(`${path}$`));
+ for(const route of ['/privacy','/fx']){
+  await page.goto(route);await page.getByRole('button',{name:'Menu',exact:true}).click();
+  await page.locator('.nav .brand').click();
+  await expect(page).toHaveURL(/localhost:4329\/$/);
   await expect(page.getByRole('button',{name:'Menu',exact:true})).toHaveAttribute('aria-expanded','false');
  }
 });
@@ -115,8 +114,8 @@ test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
  const menu=page.locator('#site-menu-panel');
  const bounds=(await menu.boundingBox())!;
  expect(bounds.y+bounds.height).toBeLessThanOrEqual(320);
- await menu.getByRole('link',{name:'How I work',exact:true}).scrollIntoViewIfNeeded();
- await expect(menu.getByRole('link',{name:'How I work',exact:true})).toBeInViewport();
+ await menu.getByRole('link',{name:'About',exact:true}).scrollIntoViewIfNeeded();
+ await expect(menu.getByRole('link',{name:'About',exact:true})).toBeInViewport();
  const close=page.getByRole('button',{name:'Close menu',exact:true});
  await expect(close).toBeInViewport();
  await close.click();await expect(menu).toBeHidden();
@@ -128,7 +127,6 @@ test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
  await page.getByRole('button',{name:'Menu',exact:true}).click();
  await expect(page.locator('#main')).toHaveAttribute('inert','');
  await expect(page.locator('html')).toHaveClass(/site-menu-open/);
- await expect(page.locator('.nav a[aria-current="page"]')).toHaveText('Fusion');
  const contact=page.locator('.nav .cta');await contact.focus();await page.keyboard.press('Tab');
  await expect(page.locator('.nav .brand')).toBeFocused();
  await page.keyboard.press('Shift+Tab');await expect(contact).toBeFocused();

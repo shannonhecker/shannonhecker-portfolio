@@ -68,7 +68,7 @@ test('the game cover stays static and makes no video request under reduced motio
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const requests: string[] = [];
   page.on('request', (r) => { if (r.url().includes('working-order-cover.mp4')) requests.push(r.url()); });
-  await page.goto('/panel');
+  await page.goto('/');
   await page.locator('.game-poster').hover();
   await page.getByRole('button', { name: 'Start adventure' }).focus();
   await expect(page.locator('.game-poster img')).toBeVisible();

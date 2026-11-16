@@ -16,19 +16,14 @@ import bodyFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.w
 interface Props {
   title?: string;
   description?: string;
-  noindex?: boolean;
 }
 // Title and description reuse prototype copy (its <title> and hero intro).
 const {
   title = 'Shannon Hecker Portfolio',
   description = "Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.",
-  noindex = false,
 } = Astro.props;
-// DECISION: /panel is the home page with the panel line. Its canonical points
-// at / and it is kept out of the index. The path is neutral on purpose: Shannon
-// works at Barclays, so no employer-visible URL names another company.
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
-const canonical = new URL(noindex ? '/' : path, Astro.site).href;
+const canonical = new URL(path, Astro.site).href;
 // A title card reads at link-preview size; a dense product screenshot does not.
 const og = new URL('/og-card.png', Astro.site).href;
 ---
@@ -40,14 +35,13 @@ const og = new URL('/og-card.png', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {/* Private share for the Revolut panel: no page is listed in search. The
-        vercel.json X-Robots-Tag header says the same for every file. */}
-    <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#171b22" />
     <script is:inline>
       (() => {
         const d=document.documentElement;
-        let choice='dark';try{const saved=localStorage.getItem('portfolio-theme');if(saved==='light'||saved==='dark'||saved==='system')choice=saved;}catch{}
+        // First visit opens in dark. The old site stored its choice under `theme`
+        // (light or dark): honour it until a choice is saved under `portfolio-theme`.
+        let choice='dark';try{const saved=localStorage.getItem('portfolio-theme');const old=localStorage.getItem('theme');if(saved==='light'||saved==='dark'||saved==='system')choice=saved;else if(old==='light'||old==='dark')choice=old;}catch{}
         const dark=choice==='dark'||(choice==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);
         d.dataset.theme=dark?'dark':'light';d.dataset.appearance=choice;
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#171b22':'#ffffff');
@@ -86,11 +80,11 @@ const og = new URL('/og-card.png', Astro.site).href;
       url: 'https://shannonhecker.com',
       sameAs: ['https://www.linkedin.com/in/shannonhecker/'],
     })} />
-    {['/', '/panel'].includes(Astro.url.pathname) && <>
+    {Astro.url.pathname === '/' && <>
       <link rel="preload" as="image" href="/art/avatar-idle-0.webp" fetchpriority="high" media="(min-width: 761px)" />
       <link rel="preload" as="image" href="/art/avatar-greeting/wave.webp" fetchpriority="high" media="(min-width: 761px)" />
     </>}
-    {!(['/', '/panel'].includes(Astro.url.pathname)) && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
+    {Astro.url.pathname !== '/' && <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />}
     <link rel="preload" href={bodyFont} fetchpriority="high" as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Motion gate. Hidden-until-revealed states only apply under html.js, and

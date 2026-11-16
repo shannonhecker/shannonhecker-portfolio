@@ -23,31 +23,31 @@ test('avatar cursor follows the pointer, changes outfit by page and yields to na
 });
 
 test('reduced motion keeps native cursors and skips route choreography',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/panel');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
  await page.mouse.move(600,300);await page.mouse.move(700,400);
  await expect(page.locator('.avatar-cursor')).toHaveCount(0);
  await expect(page.locator('[data-avatar-cursor-toggle]')).toBeHidden();
- await page.getByRole('link',{name:'FX',exact:true}).click();
+ await page.locator('#work a.row[href="/fx"]').click();
  await expect(page).toHaveURL(/\/fx$/);
  await expect(page.locator('h1')).toBeVisible();
  await expect(page.locator('html')).not.toHaveClass(/page-departing/);
 });
 
 test('page transitions finish and browser back restores usable content',async({page})=>{
- await page.goto('/panel');
- await page.getByRole('link',{name:'FX',exact:true}).click();
+ await page.goto('/');
+ await page.locator('#work a.row[href="/fx"]').click();
  await expect(page).toHaveURL(/\/fx$/);
  await page.waitForFunction(()=>!document.documentElement.matches(':active-view-transition'));
  await expect(page.locator('h1')).toHaveCSS('opacity','1');
  await page.goBack();
- await expect(page).toHaveURL(/\/panel$/);
+ await expect(page).toHaveURL(/localhost:4329\/$/);
  await page.waitForFunction(()=>!document.documentElement.matches(':active-view-transition'));
  await expect(page.locator('html')).not.toHaveClass(/page-departing/);
  await expect(page.locator('h1')).toBeVisible();
 });
 
 test('landing greeting uses registered poses and stops immediately when paused',async({page})=>{
- await page.goto('/panel');
+ await page.goto('/');
  const companion=page.locator('.landing-companion');
  await expect(companion).toHaveAttribute('data-pose','wave');
  await expect(page.locator('.greeting-wave')).toBeVisible();
@@ -61,7 +61,7 @@ test('landing greeting uses registered poses and stops immediately when paused',
 });
 
 test('avatar repeats her greeting while visible and responds to a fresh pointer visit',async({page})=>{
- await page.goto('/panel');
+ await page.goto('/');
  const companion=page.locator('.landing-companion');
  await expect(companion).toHaveAttribute('data-pose','wave',{timeout:8000});
  await expect(page.locator('.greeting-hand')).toHaveCSS('animation-name','companion-wave');
@@ -77,7 +77,7 @@ test('avatar repeats her greeting while visible and responds to a fresh pointer 
 });
 
 test('landing copy finishes before the scene appears, followed by the avatar',async({page})=>{
- await page.goto('/panel');
+ await page.goto('/');
  const stages=await page.evaluate(()=>new Promise<string[]>(resolve=>{
   const seen:string[]=[];const started=performance.now();
   const sample=()=>{

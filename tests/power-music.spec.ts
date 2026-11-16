@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 const state=(page:Page)=>page.evaluate(()=>(window as unknown as {__game:()=>any}).__game());
-async function start(page:Page){await page.goto('/panel?level=3');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(()=>(window as unknown as {__game?:()=>any}).__game?.()?.grounded);}
+async function start(page:Page){await page.goto('/?level=3');await page.getByRole('button',{name:'Start adventure'}).click();await page.waitForFunction(()=>(window as unknown as {__game?:()=>any}).__game?.()?.grounded);}
 test('a power star must be collected, protects against an enemy, then expires',async({page})=>{
  await start(page);expect((await state(page)).powerSeconds).toBe(0);expect((await state(page)).powerItems).toHaveLength(1);
  await page.keyboard.down('ArrowRight');await expect.poll(async()=>(await state(page)).powerStars,{intervals:[30],timeout:4000}).toBe(1);await page.keyboard.up('ArrowRight');
@@ -56,7 +56,7 @@ test('stage changes play different note sequences and stop the previous song',as
 });
 
 test('falling plays the death cue and muting clears all voices',async({page})=>{
- await page.goto('/panel?level=1');await page.getByRole('button',{name:'Start adventure'}).click();
+ await page.goto('/?level=1');await page.getByRole('button',{name:'Start adventure'}).click();
  await page.waitForFunction(()=>(window as any).__game?.()?.grounded);
  await page.getByRole('button',{name:'Sound',exact:true}).click();
  await expect(page.locator('#game')).toBeFocused();await expect.poll(async()=>(await state(page)).audio.enabled).toBe(true);

@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 
 test('home hero text and scene have distinct reversible scroll depth',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/panel');
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/');
  await page.waitForTimeout(1500);
  const word=page.locator('.hero-word').first();
  const copy=page.locator('.hero-copy-depth');
@@ -23,7 +23,7 @@ test('home hero text and scene have distinct reversible scroll depth',async({pag
 });
 
 test('home artwork and captions follow scroll in both directions',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/panel');
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/');
  const row=page.locator('#work .row').first();
  const position=async(fraction:number)=>row.evaluate((el,f)=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*f),fraction);
  const artwork=row.locator('.home-artwork');const title=row.locator('h3');
@@ -40,7 +40,7 @@ test('home artwork and captions follow scroll in both directions',async({page})=
 });
 
 test('section headings keep words aligned throughout their one-time entrance',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/panel');
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/');
  const heading=page.locator('#how .split');
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*.8));
  await expect(heading).toHaveAttribute('data-scroll-motion','true');

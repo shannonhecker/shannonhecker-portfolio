@@ -11,7 +11,7 @@ test('hero renders', async ({ page }) => {
 
 test('header glass follows scrolling in both themes and keeps links usable', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/panel');
+  await page.goto('/');
   const nav = page.locator('.nav');
   const filter = () => nav.evaluate(el => getComputedStyle(el).backdropFilter);
   for (const dark of [false, true]) {
@@ -31,32 +31,21 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
     await expect(nav).toHaveClass(/solid/);
     expect(await filter()).toContain('blur(16px)');
     expect(await nav.evaluate(el => getComputedStyle(el).backgroundColor)).toContain('0.78');
-    await expect(nav.getByRole('link', { name: 'FX', exact: true })).toBeInViewport();
+    await expect(nav.getByRole('link', { name: 'Work', exact: true })).toBeInViewport();
     await contact.hover();
     expect((await new AxeBuilder({ page }).include('.nav').withTags(WCAG).analyze()).violations).toEqual([]);
   }
-  await nav.getByRole('link', { name: 'FX', exact: true }).click();
-  await expect(page).toHaveURL(/\/fx$/);
 });
-
-for (const [label, id] of [['Work', 'work'], ['How I work', 'how']]) {
-  test(`nav link "${label}" scrolls to #${id}`, async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.nav').getByRole('link', { name: label, exact: true }).click();
-    await expect(page.locator(`#${id}`)).toBeInViewport({ timeout: 5000 });
-  });
-}
 
 for (const [label, path, title] of [
   ['FX', '/fx', 'FX execution analytics'], ['Fusion', '/fusion', 'Fusion analytics dashboard'],
   ['Winking Star', '/winking-star', 'Winking Star'], ['uoaui.ai', '/uoaui', 'uoaui.ai'], ['Deal Model', '/deal-model', 'Deal Model'],
 ]) {
-  test(`nav link "${label}" opens ${path} and marks it current`, async ({ page }) => {
+  test(`the ${label} row on the home page opens ${path}`, async ({ page }) => {
     await page.goto('/');
-    await page.locator('.nav').getByRole('link', { name: label, exact: true }).click();
+    await page.locator(`#work a.row[href="${path}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${path}$`));
     await expect(page.getByRole('heading', { level: 1, name: title, exact: true })).toBeVisible();
-    await expect(page.locator('.nav').getByRole('link', { name: label, exact: true })).toHaveAttribute('aria-current', 'page');
   });
 }
 
@@ -76,32 +65,11 @@ test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {
   await expect(group.getByRole('button', { pressed: true })).toHaveCount(6);
 });
 
-test('links home go to /panel, so the panel line stays', async ({ page }) => {
+test('the brand link goes home', async ({ page }) => {
   await page.goto('/fx');
-  await expect(page.locator('.nav a.brand')).toHaveAttribute('href', '/panel');
-  await expect(page.getByRole('link', { name: 'Work', exact: true })).toHaveAttribute('href', '/panel#work');
+  await expect(page.locator('.nav a.brand')).toHaveAttribute('href', '/');
   await page.locator('.nav a.brand').click();
-  await expect(page).toHaveURL(/\/panel$/);
-  await expect(page.getByText('Portfolio for the Revolut design panel: product design, heading into AI')).toBeVisible();
-});
-
-test('private share: every page stays out of search', async ({ page }) => {
-  for (const path of ['/', '/fx', '/fusion', '/uoaui', '/deal-model', '/winking-star', '/panel', '/build']) {
-    await page.goto(path);
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
-  }
-});
-
-test('/panel carries the panel line and stays out of the index', async ({ page }) => {
-  await page.goto('/panel');
-  await expect(page.getByText('Portfolio for the Revolut design panel: product design, heading into AI')).toBeVisible();
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://shannonhecker-work.vercel.app/');
-});
-
-test('build log remains directly available', async ({ page }) => {
-  await page.goto('/build');
-  await expect(page.getByRole('heading', { level: 1, name: 'Build log' })).toBeVisible();
+  await expect(page).toHaveURL(/localhost:4329\/$/);
 });
 
 test('every external link opens in a new tab safely', async ({ page }) => {
@@ -171,20 +139,17 @@ test.describe('JavaScript disabled', () => {
 
 test.describe('mobile nav', () => {
   test.use({ viewport: { width: 390, height: 844 } });
-  test('offers every project in a visible menu and keeps the current section marked', async ({ page }) => {
+  test('offers every section in a visible menu', async ({ page }) => {
     await page.goto('/');
     const button=page.getByRole('button',{name:'Menu',exact:true});
     await expect(button).toBeVisible();
     await expect(page.locator('.nav ul')).toBeHidden();
     await button.click();
-    for(const label of ['Work','FX','Fusion','Winking Star','Deal Model','uoaui.ai','How I work']){
+    for(const label of ['Work','Writing','About']){
       await expect(page.locator('.nav').getByRole('link',{name:label,exact:true})).toBeInViewport();
     }
     await page.keyboard.press('Escape');await expect(button).toBeFocused();
     await expect(button).toHaveAttribute('aria-expanded','false');
-    await page.locator('#how').scrollIntoViewIfNeeded();
-    await button.focus();await button.click();
-    await expect(page.locator('.nav a.l', { hasText: 'How I work' })).toHaveAttribute('aria-current', 'true');
   });
 });
 
@@ -212,7 +177,7 @@ test('print output shows every section with nothing hidden', async ({ page }) =>
 test('unknown paths get the 404 page', async ({ page }) => {
   const res = await page.goto('/nope');
   expect(res?.status()).toBe(404);
-  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/panel');
+  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/');
 });
 
 test('structured data names the person', async ({ page }) => {

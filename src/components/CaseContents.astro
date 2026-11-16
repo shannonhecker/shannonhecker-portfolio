@@ -20,6 +20,6 @@ const links: Record<Props['project'], [string, string][]> = {
     <div class="chapter-stops">
       {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
     </div>
-    <a href="/panel#work" class="all-projects">All projects <FlatArrow /></a>
+    <a href="/work" class="all-projects">All projects <FlatArrow /></a>
   </dialog>
 </nav>

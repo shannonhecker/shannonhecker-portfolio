@@ -24,18 +24,18 @@ jobs:
           if (response.status !== 403) throw new Error('Compiled API origin guard failed');
           JS
       - run: npm run build
+      - run: npm run check:public
       - run: npx playwright install --with-deps chromium webkit
       - run: npx playwright test
       # Brief §10: Lighthouse 95+ on all four categories, mobile and desktop.
-      # is-crawlable is skipped: the site is a private share and noindex on purpose.
       - name: Lighthouse budget
         run: |
           npx astro preview --port 4321 --ignore-lock &
           sleep 3
-          for path in / /panel /fx /fusion /winking-star /deal-model /uoaui; do
+          for path in / /fx /fusion /winking-star /deal-model /uoaui; do
             for preset in mobile desktop; do
               flag=""; [ "$preset" = desktop ] && flag="--preset=desktop"
-              npx -y lighthouse@12 "http://localhost:4321$path" $flag --skip-audits=is-crawlable --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json
+              npx -y lighthouse@12 "http://localhost:4321$path" $flag --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json
               node -e "const c=require('./lh.json').categories;const low=Object.entries(c).filter(([,v])=>v.score<0.95);console.log('$path $preset',Object.fromEntries(Object.entries(c).map(([k,v])=>[k,Math.round(v.score*100)])));if(low.length){console.error('Below 95:',low.map(([k])=>k).join(', '));process.exit(1)}"
             done
           done

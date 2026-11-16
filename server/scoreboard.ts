@@ -21,7 +21,7 @@ function secret() {
   if (!key) throw new Error('Storage unavailable');
   return key;
 }
-export function namespace() { return `portfolio:v1:${process.env.VERCEL_ENV === 'production' ? 'production' : 'preview'}`; }
+export function namespace() { return `shannonhecker-com:v1:${process.env.VERCEL_ENV === 'production' ? 'production' : 'preview'}`; }
 function signature(value: string) { return createHmac('sha256', secret()).update(value).digest('base64url'); }
 export function issue(stage: number, now = Date.now()) {
   const payload = Buffer.from(JSON.stringify({ id: randomUUID(), stage, started: now, env: namespace() })).toString('base64url');

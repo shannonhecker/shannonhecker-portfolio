@@ -4,7 +4,7 @@ import {setTheme} from './theme-helper';
 test('game title does not obscure the world label or start prompt',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [320,390,760,820,1280,1440,1920]){
-  await page.setViewportSize({width,height:900});await page.goto('/panel');await page.evaluate(()=>document.fonts.ready);
+  await page.setViewportSize({width,height:900});await page.goto('/');await page.evaluate(()=>document.fonts.ready);
   const hud=(await page.locator('.title-hud').boundingBox())!,plaque=(await page.locator('.title-plaque').boundingBox())!,prompt=(await page.locator('.game-title-start>span').boundingBox())!;
   expect(hud.y+hud.height,`${width}px HUD`).toBeLessThanOrEqual(plaque.y);
   expect(plaque.y+plaque.height,`${width}px start prompt`).toBeLessThanOrEqual(prompt.y);
@@ -14,7 +14,7 @@ test('game title does not obscure the world label or start prompt',async({page})
 test('home artwork covers its frame and follows the hero alignment',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [390,1280,1512]){
-  await page.setViewportSize({width,height:900});await page.goto('/panel');await page.evaluate(()=>document.fonts.ready);
+  await page.setViewportSize({width,height:900});await page.goto('/');await page.evaluate(()=>document.fonts.ready);
   const geometry=await page.locator('#work .home-artwork').evaluateAll(tiles=>tiles.map(tile=>{
    const image=Array.from(tile.querySelectorAll('img')).find(img=>img.getBoundingClientRect().width>0)!;
    const a=tile.getBoundingClientRect(),b=image.getBoundingClientRect();const inset=tile.classList.contains('home-artwork-deal')?parseFloat(getComputedStyle(tile.querySelector('picture')!).paddingTop):0;return {top:b.top-a.top-inset,left:b.left-a.left-inset,right:b.right-a.right+inset,bottom:b.bottom-a.bottom+inset};

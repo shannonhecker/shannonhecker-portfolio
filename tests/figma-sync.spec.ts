@@ -133,7 +133,7 @@ test('FX comparisons use the authored charts and stay readable on phones', async
 
 test('Deal Model is reachable from selected work and retains its evidence on mobile', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/panel');
+  await page.goto('/');
   await page.getByRole('button', { name: 'No thanks' }).click();
   await page.locator('#work a[href="/deal-model"]').click();
   await expect(page.getByRole('heading', { name: 'Deal Model', exact: true })).toBeVisible();

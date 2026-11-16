@@ -32,7 +32,7 @@ test('cross-origin and invalid submissions stop before storage', async () => {
 test('analytics remains blocked before consent and after refusal', async ({ page }) => {
   const google: string[] = [];
   page.on('request', request => { if (/google-analytics|googletagmanager/.test(request.url())) google.push(request.url()); });
-  await page.goto('/panel');
+  await page.goto('/');
   await expect(page.getByRole('heading',{name:'Optional analytics'})).toBeVisible();
   expect(google).toEqual([]);
   await page.getByRole('button',{name:'No thanks',exact:true}).click();
@@ -43,7 +43,7 @@ test('analytics remains blocked before consent and after refusal', async ({ page
   await expect(page.locator('#analytics-choice')).toBeVisible();
 });
 test('production consent loads one tag and sanitizes page URL; revocation disables collection', async ({ page, request }) => {
-  const host = 'https://shannonhecker-work.vercel.app';
+  const host = 'https://shannonhecker.com';
   await page.route(`${host}/**`, async route => {
     const url = new URL(route.request().url());
     const response = await request.get(`http://localhost:4329${url.pathname}${url.search}`);
@@ -51,7 +51,7 @@ test('production consent loads one tag and sanitizes page URL; revocation disabl
   });
   let tags = 0;
   await page.route('https://www.googletagmanager.com/**', async route => { tags++; await route.fulfill({ contentType:'text/javascript', body:'' }); });
-  await page.goto(`${host}/panel?private=do-not-send`);
+  await page.goto(`${host}/?private=do-not-send`);
   expect(tags).toBe(0);
   await page.getByRole('button',{name:'Allow analytics',exact:true}).click();
   await expect.poll(() => tags).toBe(1);

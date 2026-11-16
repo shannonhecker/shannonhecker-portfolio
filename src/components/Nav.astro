@@ -3,18 +3,14 @@ import Logo from './Logo.astro';
 import ThemePicker from './ThemePicker.astro';
 ---
 <nav class="nav" aria-label="Sections">
-  <a class="brand" href="/panel" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>
+  <a class="brand" href="/" aria-label="Shannon Hecker, home"><span class="full">Shannon Hecker</span><span class="short"><Logo size={34} /></span></a>
   <button type="button" class="site-menu-toggle" aria-expanded="false" aria-controls="site-menu-panel" aria-label="Menu"><span class="menu-label">Menu</span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path class="menu-lines" d="M3 6h18M3 12h18M3 18h18"/><path class="close-lines" d="m5 5 14 14M19 5 5 19"/></svg></button>
   <div class="site-menu-panel" id="site-menu-panel">
   <div class="menu-intro"><span>Menu</span><p>Explore my work</p></div>
   <ul id="site-navigation">
-    <li><a class="l" href="/panel#work">Work</a></li>
-    <li><a class="l" href="/fx">FX</a></li>
-    <li><a class="l" href="/fusion">Fusion</a></li>
-    <li><a class="l" href="/deal-model">Deal Model</a></li>
-    <li><a class="l" href="/winking-star">Winking Star</a></li>
-    <li><a class="l" href="/uoaui">uoaui.ai</a></li>
-    <li><a class="l" href="/panel#how">How I work</a></li>
+    <li><a class="l" href="/work">Work</a></li>
+    <li><a class="l" href="/writing">Writing</a></li>
+    <li><a class="l" href="/about">About</a></li>
   </ul>
   <div class="nav-actions">
     <div class="menu-appearance"><span>Appearance</span><ThemePicker /></div>

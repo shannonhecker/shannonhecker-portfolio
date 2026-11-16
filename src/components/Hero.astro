@@ -1,11 +1,8 @@
 ---
-interface Props { panel?: boolean }
-const { panel = false } = Astro.props;
 import LandingCompanion from './LandingCompanion.astro';
 ---
 <header id="top" data-tone="light" class="hero adventure-hero">
   <div class="wrap">
-    {panel && <p class="eyebrow hero-for">Portfolio for the Revolut design panel: product design, heading into AI</p>}
     <div class="hero-story">
       <h1 class="h-giant">{['I', 'design', 'tools', 'where', 'mistakes', 'cost', 'money.'].map((word, index) => <><span class="hero-word-window" style={`--word-index:${index}`}><span class="hero-word">{word}</span></span>{index < 6 ? ' ' : ''}</>)}</h1>
       <p class="hero-top"><span class="hero-copy-depth">Hi, I'm Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.</span></p>

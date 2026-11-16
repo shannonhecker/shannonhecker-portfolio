@@ -7,7 +7,7 @@ async function chooseTheme(page:Page,label:string){
 }
 
 for (const width of [390, 1440]) {
-  for (const route of ['/panel','/fusion','/uoaui','/deal-model','/winking-star']) {
+  for (const route of ['/','/fusion','/uoaui','/deal-model','/winking-star']) {
     test(`dark theme remains readable at ${width}px on ${route}`, async ({page}) => {
       await page.setViewportSize({width,height:900});
       await page.emulateMedia({reducedMotion:'reduce'});
@@ -25,7 +25,7 @@ for (const width of [390, 1440]) {
 
 test('dark is the default and explicit theme preferences persist across projects',async({page})=>{
   await page.emulateMedia({colorScheme:'light'});
-  for(const route of ['/panel','/fx','/fusion','/uoaui','/deal-model','/winking-star','/privacy','/build','/404']){
+  for(const route of ['/','/fx','/fusion','/uoaui','/deal-model','/winking-star','/privacy','/404']){
     await page.goto(route);
     await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
     await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content','#171b22');
@@ -38,7 +38,7 @@ test('dark is the default and explicit theme preferences persist across projects
   await page.goto('/fusion');
   await expect(page.locator('.theme-toggle')).toHaveAttribute('aria-checked','false');
   await chooseTheme(page,'Dark');
-  await page.goto('/panel');
+  await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
   await chooseTheme(page,'Light');
   await page.goto('/fx');
@@ -46,7 +46,7 @@ test('dark is the default and explicit theme preferences persist across projects
 });
 
 test('avatar follows the pointer gently without movement buttons or keyboard capture',async({page})=>{
-  await page.goto('/panel');
+  await page.goto('/');
   const avatar=page.locator('[data-avatar]');
   const stage=page.locator('.companion-stage');
   await expect(page.locator('[data-move]')).toHaveCount(0);
@@ -65,7 +65,7 @@ test('avatar follows the pointer gently without movement buttons or keyboard cap
 
 test('project arrows sit beside the title and appear on hover and focus',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.goto('/panel');
+  await page.goto('/');
   for(const row of await page.locator('#work .row').all()){
     await page.locator('.nav .brand').focus();
     const number=(await row.locator('.n').boundingBox())!;
@@ -85,7 +85,7 @@ test('project arrows sit beside the title and appear on hover and focus',async({
 test('touch devices show all heading words without waiting for desktop motion', async ({ browser }) => {
   const context = await browser.newContext({ baseURL: 'http://localhost:4329', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   const page = await context.newPage();
-  await page.goto('/panel');
+  await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('data-ready', '1');
   const hiddenWords = await page.locator('.split .wd').evaluateAll(words =>
     words.filter(word => getComputedStyle(word).opacity === '0').length);
@@ -93,20 +93,18 @@ test('touch devices show all heading words without waiting for desktop motion', 
   await context.close();
 });
 
-test('optional game follows the introduction and panel selected work',async({page})=>{
+test('optional game follows the introduction and selected work',async({page})=>{
   for(const width of [390,1440]){
     await page.setViewportSize({width,height:900});
-    for(const route of ['/','/panel']){
-      await page.goto(route);
+    {
+      await page.goto('/');
       const story=await page.locator('.hero-story').boundingBox();
       const avatar=await page.locator('.landing-companion').boundingBox();
       const game=await page.locator('.hero-bonus').boundingBox();
       expect(game!.y).toBeGreaterThan(story!.y+story!.height);
       expect(game!.y).toBeGreaterThan(avatar!.y+avatar!.height);
-      if(route==='/panel'){
-        const work=await page.locator('#work').boundingBox();
-        expect(game!.y).toBeGreaterThan(work!.y+work!.height);
-      }
+      const work=await page.locator('#work').boundingBox();
+      expect(game!.y).toBeGreaterThan(work!.y+work!.height);
     }
   }
 });
@@ -139,7 +137,7 @@ for(const width of [390,1440]){
 test('game preview spans the content as a shallow banner and opens at its original ratio',async({page})=>{
   await page.setViewportSize({width:1440,height:1000});
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.goto('/panel');
+  await page.goto('/');
   const banner=page.locator('.hero-bonus');
   const game=page.locator('.play .game');
   const outer=(await banner.boundingBox())!;

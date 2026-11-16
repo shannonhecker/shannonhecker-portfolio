@@ -1,6 +1,6 @@
 # shannonhecker.com
 
-One-page portfolio, built from the signed-off prototype in `prototype/site-v4`. The brief is `prototype/BRIEF.md`. The build log is `BUILD.md`, which is served at `/build`.
+One-page portfolio, built from the signed-off prototype in `prototype/site-v4`. The brief is `prototype/BRIEF.md`.
 
 ## Run
 

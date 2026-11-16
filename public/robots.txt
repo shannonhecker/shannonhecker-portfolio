@@ -1,5 +1,3 @@
-# Private share: this site is for one interview panel, not for search.
-# Crawlers are allowed in on purpose, so they can read every page's
-# noindex (a Disallow here would stop them seeing it).
 User-agent: *
 Allow: /
+Sitemap: https://shannonhecker.com/sitemap.xml

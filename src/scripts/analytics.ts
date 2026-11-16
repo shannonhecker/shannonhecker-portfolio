@@ -1,6 +1,6 @@
 const ID = 'G-795LXWTYWM';
 const KEY = 'portfolio-analytics-v1';
-const live = location.hostname === 'shannonhecker-work.vercel.app';
+const live = location.hostname === 'shannonhecker.com' || location.hostname === 'www.shannonhecker.com';
 const pageLocation = location.origin + location.pathname;
 const pageReferrer = document.referrer ? new URL(document.referrer).origin : '';
 type Choice = 'yes' | 'no';

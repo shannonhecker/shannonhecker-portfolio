@@ -346,7 +346,7 @@ test('hazards hurt (three hits restart the level)', async ({ page }) => {
 test('a case page links to its chapter of the game without starting it', async ({ page }) => {
   await page.goto('/fusion');
   const link = page.getByRole('link', { name: /Play this chapter in the game/ });
-  await expect(link).toHaveAttribute('href', '/panel?level=5#adventure');
+  await expect(link).toHaveAttribute('href', '/?level=5#adventure');
   await link.click();
   await expect(page.locator('#game-world')).toHaveAttribute('data-stage','4');
   await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
