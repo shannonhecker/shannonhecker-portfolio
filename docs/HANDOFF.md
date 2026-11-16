@@ -65,6 +65,14 @@ Current records, read with `dig` on 16 Nov 2026 before any change. Name servers:
 
 TTLs are not recorded here. Note them at the registrar before changing anything.
 
+## Vercel state (16 Nov 2026)
+
+- Project `shannonhecker-com` (`prj_UyPtGLXXmNmTciKvCpEXsFV0Z53I`) is linked to this repo. Every push to a branch builds a preview. Preview for this branch: `https://shannonhecker-com-git-feat-merge-panel-site-shannon-h.vercel.app` (Vercel login needed).
+- Scoreboard store: Upstash for Redis `shannonhecker-com-scores` (`store_zork1PFR8fDHgjoi`), free plan, region `iad1`, connected for production and preview. On the preview `GET /api/leaderboard?stage=1` returns `{"entries":[]}`.
+- Not yet done: play a stage on the preview and save a score (plan Task 13 step 4).
+- The chat cannot answer on the preview host. The chat server accepts only `shannonhecker.com` and `localhost:3000`.
+- Found on 16 Nov, not caused by any change in this repo as far as can be told: the private panel version's own store (`portfolio-game`, `store_YSB6X3y2bA5GJZcj`) shows as "Uninstalled" in Vercel, and its scoreboard answers "Scoreboard is resting" on every stage. Its pages still load. No snapshot of that board was taken before the new store was created, so it is not known when it stopped. The owner decides whether to restore it. Do not change the panel project from here.
+
 ## Rollback
 
 If any check in go-live step 6 fails:
