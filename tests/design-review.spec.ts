@@ -277,10 +277,13 @@ test('D10: case titles start on the same edge whatever the digits', async ({ pag
       x: r.getBoundingClientRect().x, h3: r.querySelector('h3')!.getBoundingClientRect().x, tnum: getComputedStyle(r.querySelector('.n')!).fontVariantNumeric,
     })));
     expect(rows.length).toBe(5);
-    for (const r of rows) {
+    // The gallery alternates sides on desktop, so the cases on the same side share one title edge;
+    // on a phone every title starts on the same edge.
+    rows.forEach((r, i) => {
       expect(r.tnum).toContain('tabular-nums');
-      expect(Math.abs(r.h3 - r.x - (rows[0].h3 - rows[0].x))).toBeLessThanOrEqual(0.5);
-    }
+      const ref = rows[w > 900 ? i % 2 : 0];
+      expect(Math.abs(r.h3 - r.x - (ref.h3 - ref.x))).toBeLessThanOrEqual(0.5);
+    });
   }
 });
 

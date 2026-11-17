@@ -63,7 +63,7 @@ test('avatar follows the pointer gently without movement buttons or keyboard cap
   expect(await page.locator('.avatar-rig').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
 });
 
-test('project arrows sit beside the title and appear on hover and focus',async({page})=>{
+test('project arrows sit in the title and appear on hover and focus',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/');
   for(const row of await page.locator('#work .row').all()){
@@ -71,7 +71,10 @@ test('project arrows sit beside the title and appear on hover and focus',async({
     const number=(await row.locator('.n').boundingBox())!;
     await expect(row.locator('.pixel-object')).toHaveCount(0);
     const title=(await row.locator('h3').boundingBox())!;
-    expect(Math.abs(number.y+number.height/2-title.y-title.height/2)).toBeLessThan(1);
+    // Gallery layout: the number sits just above its title, and the two start on the same edge.
+    expect(number.y+number.height).toBeLessThanOrEqual(title.y+1);
+    expect(title.y-(number.y+number.height)).toBeLessThan(60);
+    expect(Math.abs(number.x-title.x)).toBeLessThan(1);
     await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','0');
     await row.hover();
     await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','1');
