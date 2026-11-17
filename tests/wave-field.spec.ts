@@ -8,7 +8,14 @@ const pages: { route: string; fields: number }[] = [
   { route: '/work', fields: 1 },
 ];
 
+// A field draws its first picture when it is first seen, so every field is brought into view once.
 async function ready(page: Page, count: number) {
+  const canvases = page.locator('.wave-field__canvas');
+  for (let i = 0; i < count; i++) {
+    await canvases.nth(i).scrollIntoViewIfNeeded();
+    await expect(canvases.nth(i)).toHaveClass(/is-ready/);
+  }
+  await page.evaluate(() => scrollTo(0, 0));
   await expect(page.locator('.wave-field__canvas.is-ready')).toHaveCount(count);
 }
 const frames = (page: Page) => page.$$eval('.wave-field__canvas', (cs) => (cs as HTMLCanvasElement[]).map((c) => c.toDataURL()));
@@ -83,4 +90,36 @@ test('wave field does not cover or block the content', async ({ page }) => {
   });
   expect(hit).toBe(false);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+// The field times the paint of its first picture and never animates on a device that paints it slowly.
+test('a device that paints the field slowly gets one still picture, not a heavy animation', async ({ page }) => {
+  await page.addInitScript(() => {
+    // Make "finish painting" take 40 ms, as on a device with no graphics acceleration and a slow processor.
+    const proto = CanvasRenderingContext2D.prototype;
+    const read = proto.getImageData;
+    proto.getImageData = function (...args: Parameters<typeof read>) {
+      const until = performance.now() + 40;
+      while (performance.now() < until) { /* busy */ }
+      return read.apply(this, args);
+    };
+    let frames = 0;
+    const clear = proto.clearRect;
+    proto.clearRect = function (...args: Parameters<typeof clear>) { frames++; (window as any).__frames = frames; return clear.apply(this, args); };
+    localStorage.setItem('portfolio-analytics-v1', JSON.stringify({ choice: 'no', at: Date.now() }));
+  });
+  await page.goto('/');
+  const field = page.locator('.hero .wave-field, #top .wave-field').first();
+  await expect(field).toHaveAttribute('data-level', '2');
+  await expect(field.locator('canvas')).toHaveClass(/is-ready/);
+  const before = await page.evaluate(() => (window as any).__frames);
+  await page.waitForTimeout(700);
+  expect(await page.evaluate(() => (window as any).__frames), 'no further frames are drawn').toBe(before);
+  // The picture is there: the canvas is not blank.
+  const inked = await field.locator('canvas').evaluate((c: HTMLCanvasElement) => {
+    const d = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
+    for (let i = 3; i < d.length; i += 4) if (d[i] > 0) return true;
+    return false;
+  });
+  expect(inked).toBe(true);
 });

@@ -63,6 +63,19 @@ const SPECS: Record<string, Spec> = { hero: HERO, about: ABOUT, work: WORK, writ
 
 const MIN_GAP = 6; // closest two lines may sit, in CSS pixels
 const FRAME_MS = 1000 / 30;
+// The field must never be heavy. With graphics acceleration a frame costs next to nothing. Without
+// it (some headless browsers, old or locked-down devices) the browser paints every hairline on the
+// processor: 14 ms for a phone-sized field, 24 ms for a large one, 30 times a second. So the cost is
+// measured, not assumed. Right after the first picture is drawn, the canvas is made to finish painting
+// (reading one pixel back does that) and the wait is timed. From that the field starts in full motion,
+// in a lighter drawing (fewer points, one device pixel per CSS pixel, 20 frames a second), or as the
+// one still picture it has already drawn. Afterwards the frame rate is watched and the field steps
+// down if the device cannot keep up. A capable device never notices any of this.
+const PAINT_BUDGET_MS = 4; // the most one frame may cost
+const SLOW_MS = 24; // later on: a frame slower than this is too slow (a 60 Hz screen allows 16.7)
+const WINDOW = 20; // the median of every 20 frames is watched
+// What one field learns about this device, the others on the page adopt.
+let deviceLevel = 0;
 const root = document.documentElement;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const TAU = Math.PI * 2;
@@ -91,6 +104,11 @@ class WaveField {
   private t0 = 0;
   private fieldTop = 0;
   private scrollQueued = false;
+  private level = 0; // 0 full, 1 lighter, 2 still
+  private drewAt = 0; // the frame time of the last draw, while its paint is being timed
+  private samples: number[] = [];
+  private strikes = 0;
+  private measured = false; // the first picture's paint has been timed
 
   constructor(private field: HTMLElement, private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
@@ -101,6 +119,7 @@ class WaveField {
     new ResizeObserver(() => this.resize()).observe(canvas);
     new IntersectionObserver(([e]) => {
       this.visible = e.isIntersecting;
+      if (this.visible && (this.pending || !this.measured)) this.paintNow();
       this.sync();
     }).observe(canvas);
     // Once its section has left the window (the top 96px belong to the nav), the field fades out, so a
@@ -120,6 +139,34 @@ class WaveField {
       }
     }
     this.resize();
+  }
+
+  // Time the paint of the picture just drawn, once, and choose how this field runs.
+  private measureFirstPaint() {
+    this.measured = true;
+    if (deviceLevel) { this.adopt(deviceLevel); return; }
+    let cost = 0;
+    try {
+      const before = performance.now();
+      this.ctx.getImageData(0, 0, 1, 1);
+      cost = performance.now() - before;
+    } catch { /* a canvas that cannot be read is left to the frame-rate watch */ }
+    if (cost <= PAINT_BUDGET_MS) return;
+    // The lighter drawing has about (1 / dpr squared) of the pixels and half the points.
+    const lighter = cost * 0.6 / (this.dpr * this.dpr);
+    this.adopt(lighter <= PAINT_BUDGET_MS ? 1 : 2);
+  }
+
+  private adopt(level: number) {
+    if (level <= this.level) return;
+    this.level = level;
+    if (level > deviceLevel) deviceLevel = level;
+    this.strikes = 0;
+    this.samples = [];
+    this.drewAt = 0;
+    this.field.dataset.level = String(level);
+    if (level === 1) this.resize(); // redraw lighter; a still field keeps the picture it has
+    else this.sync();
   }
   private holeTarget: HTMLElement | null = null;
 
@@ -155,7 +202,7 @@ class WaveField {
   private resize() {
     const r = this.canvas.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    this.dpr = Math.min(devicePixelRatio || 1, 2);
+    this.dpr = this.level === 1 ? 1 : Math.min(devicePixelRatio || 1, 2);
     this.canvas.width = Math.round(r.width * this.dpr);
     this.canvas.height = Math.round(r.height * this.dpr);
     this.w = r.width;
@@ -169,8 +216,18 @@ class WaveField {
     this.fieldTop = fr.top + scrollY;
     if (this.holeTarget) this.measureHole(this.holeTarget);
     this.sync();
-    this.draw(performance.now());
+    this.paintNow();
   }
+
+  // One picture straight away. A field that is off screen waits until it is first seen, so a page
+  // never pays for a field nobody is looking at; the first picture each field draws is also timed.
+  private paintNow() {
+    if (!this.visible) { this.pending = true; return; }
+    this.pending = false;
+    this.draw(performance.now());
+    if (!this.measured) { this.measureFirstPaint(); this.sync(); }
+  }
+  private pending = false;
 
   private build() {
     const sp = this.spec;
@@ -194,6 +251,7 @@ class WaveField {
       this.lines.push({ base: across * sp.bandStart + i * gap, amp: am * bell, ph: i * sp.phaseStep * k });
     }
     this.steps = Math.max(120, Math.min(240, Math.round(along / 4)));
+    if (this.level === 1) this.steps = Math.max(60, Math.round(this.steps / 2));
     const m = this.steps + 1;
     this.s1 = new Float32Array(m); this.c1 = new Float32Array(m);
     this.s2 = new Float32Array(m); this.c2 = new Float32Array(m);
@@ -217,16 +275,21 @@ class WaveField {
 
   private theme() {
     this.buildGradient();
+    this.redraw();
+  }
+
+  private redraw() {
+    if (!this.visible) { this.pending = true; return; }
     this.draw(performance.now());
   }
 
   private motionChanged() {
     this.sync();
-    this.draw(performance.now());
+    this.redraw();
   }
 
   private animate() {
-    return !reduced.matches && this.visible && !document.hidden;
+    return this.measured && this.level < 2 && !reduced.matches && this.visible && !document.hidden;
   }
 
   private sync() {
@@ -245,10 +308,30 @@ class WaveField {
   private frame(ts: number) {
     this.raf = 0;
     if (!this.animate()) return;
+    if (this.level < deviceLevel) { this.adopt(deviceLevel); return; }
     this.raf = requestAnimationFrame((t) => this.frame(t));
-    if (ts - this.last < FRAME_MS - 1) return;
+    if (this.drewAt) {
+      const took = ts - this.drewAt;
+      this.drewAt = 0;
+      // A long gap is a hidden tab or a stalled page, not a slow paint.
+      if (took < 250 && this.watch(took)) return;
+    }
+    if (ts - this.last < (this.level ? 50 : FRAME_MS) - 1) return;
     this.last = ts;
     this.draw(ts);
+    this.drewAt = ts;
+  }
+
+  // The frame-rate watch. Returns true when the field has just been stepped down.
+  private watch(took: number) {
+    this.samples.push(took);
+    if (this.samples.length < WINDOW) return false;
+    const median = this.samples.sort((a, b) => a - b)[WINDOW >> 1];
+    this.samples = [];
+    this.strikes = median > SLOW_MS ? this.strikes + 1 : 0;
+    if (this.strikes < 2) return false;
+    this.adopt(this.level + 1);
+    return true;
   }
 
   private draw(ts: number) {
