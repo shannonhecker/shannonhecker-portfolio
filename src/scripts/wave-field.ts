@@ -152,12 +152,15 @@ class WaveField {
   private firstPaint() {
     this.measured = true;
     const now = performance.now();
-    this.field.classList.add('is-measured');
-    if (reduced.matches) { this.draw(now); return; }
+    if (reduced.matches) { this.draw(now); this.field.classList.add('is-measured'); return; }
     this.draw(now, 0);
     let slice = 1;
     const next = () => {
-      if (slice >= SLICES || !this.sliced) return;
+      if (slice >= SLICES || !this.sliced) {
+        // The glow is painted in a frame of its own, after the lines, so the two never share a step.
+        requestAnimationFrame(() => this.field.classList.add('is-measured'));
+        return;
+      }
       this.draw(now, slice++);
       requestAnimationFrame(next);
     };
