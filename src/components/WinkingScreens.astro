@@ -1,0 +1,39 @@
+---
+import Pic from './Pic.astro';
+import { adaptiveArt } from '../lib/adaptive-art';
+const screens=[
+ {src:'/art/winking-ios-launch.svg',title:'Launch: a familiar welcome',copy:'The opening illustration introduces the same playful world the family sees inside the app.',alt:'Original Winking Star launch screen in its authored iPhone frame'},
+ {src:'/art/winking-ios-home.svg',title:'Home: the family view',copy:'A parent can see today’s progress and each child’s space before opening an activity.',alt:'Updated iPhone Home screen with the Sample Family and child cards'},
+ {src:'/art/winking-ios-activity.svg',title:'Activity: the next small action',copy:'Switch children, find today and tap a large activity target. The week stays close by.',alt:'Updated iPhone Activity screen with child switcher, weekly stars and today’s activities'},
+ {src:'/art/winking-ios-progress.svg',title:'Progress: recognise the effort',copy:'Badges and quests make the week legible beyond a single total.',alt:'Updated iPhone Progress screen with badge trail and special quests'},
+];
+---
+<section class="ws-product-sequence" aria-labelledby="ws-product-comparison">
+ <h3 id="ws-product-comparison">The same routine, adapted to the screen</h3>
+ <div class="ws-platform-comparison">
+  <div><h4>Web: the week together</h4><p>The chart keeps activities, days and totals in one view. Stars, the pet and the reward goal stay on the same board.</p></div>
+  <div><h4>iPhone: one task at a time</h4><p>Four main tabs separate the family overview, daily actions, collection and progress. More holds the supporting controls.</p></div>
+ </div>
+ <figure class="ws-web-full"><Pic name="ws-web-board.jpg" alt="Complete current Winking Star web board with weekly activity chart and Stars and Pet section, rendered from the original source using fictional sample data" sizes="(max-width:760px) 92vw, 980px" /></figure>
+ <h3>The iPhone flow</h3>
+ <figure class="ws-ios-composition"><a href="/art/winking-ios-composition.svg" target="_blank" rel="noopener" aria-label="View full size: original four-phone Winking Star composition (opens in new tab)"><img src={adaptiveArt("/art/winking-ios-composition.svg")} width="985" height="431" loading="lazy" decoding="async" alt="Original Winking Star composition showing Launch, Home, Activity and Progress in four iPhone frames"/></a></figure>
+ <div class="ws-app-steps">{screens.map(s=><figure><a class="ws-phone-detail" href={s.src} target="_blank" rel="noopener" aria-label={`View full size: ${s.alt} (opens in new tab)`}><img src={adaptiveArt(s.src)} width="233" height="434" alt={s.alt} loading="lazy" decoding="async"/></a><figcaption><h4>{s.title}</h4><p>{s.copy}</p></figcaption></figure>)}</div>
+ <div class="ws-mobile-comparison">
+  <div><h3>Recognisable on a smaller screen</h3><p>The web keeps the weekly chart. The iPhone app gives the daily action its own tab. I compare both against the same questions: can a child find their place, can an adult see what is done, and can they continue without learning a second routine?</p></div>
+  <figure><Pic name="ws-web-mobile.jpg" alt="Responsive Winking Star web board on a phone using fictional sample data" sizes="(max-width:760px) 80vw, 340px"/></figure>
+ </div>
+</section>
+<style>
+.ws-product-sequence{display:grid;gap:40px;margin-top:48px;min-width:0}
+.ws-product-sequence h3{font-size:28px;line-height:1.25;margin:0;letter-spacing:-.025em}
+.ws-product-sequence h4{font-size:18px;line-height:1.4;margin:0 0 12px;letter-spacing:-.01em}
+.ws-product-sequence p{font-size:16px;line-height:1.65;color:var(--fg-2);max-width:50ch;margin:0}
+.ws-platform-comparison,.ws-app-steps,.ws-mobile-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 40px}
+.ws-platform-comparison>div{border-top:1px solid var(--divider);padding-top:20px}
+.ws-product-sequence figure{margin:0;min-width:0}.ws-product-sequence :global(img){display:block;width:100%;height:auto;object-fit:contain;border:0;border-radius:4px}
+.ws-phone-detail{display:none}.ws-ios-composition a{display:block}.ws-product-sequence a:focus-visible{outline:2px solid var(--project-ink);outline-offset:5px}.ws-product-sequence a{cursor:zoom-in}
+.ws-web-full{max-width:980px;width:100%;justify-self:center}
+.ws-app-steps figure{max-width:340px;width:100%;justify-self:center}.ws-app-steps figcaption{margin-top:24px}
+.ws-mobile-comparison{align-items:center;margin-top:32px}.ws-mobile-comparison figure{max-width:340px;justify-self:center}.ws-mobile-comparison h3{margin-bottom:20px}.ws-mobile-comparison .ws-source-note{font-size:13px;margin-top:24px}
+@media(max-width:600px){.ws-ios-composition{display:none}.ws-phone-detail{display:block}.ws-platform-comparison,.ws-app-steps,.ws-mobile-comparison{grid-template-columns:1fr;gap:36px}.ws-product-sequence{gap:32px}.ws-product-sequence h3{font-size:24px}}
+</style>

@@ -1,0 +1,14 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">02 / 05</tspan></text>
+<path d="M297 62H41C38.7909 62 37 63.7909 37 66V174C37 176.209 38.7909 178 41 178H297C299.209 178 301 176.209 301 174V66C301 63.7909 299.209 62 297 62Z" fill="white" stroke="#D6DCE1"/>
+<path d="M91 78H56C53.7909 78 52 79.7909 52 82V159C52 161.209 53.7909 163 56 163H91C93.2091 163 95 161.209 95 159V82C95 79.7909 93.2091 78 91 78Z" fill="white" stroke="#D6DCE1"/>
+<path d="M279 78H111C108.791 78 107 79.7909 107 82V98C107 100.209 108.791 102 111 102H279C281.209 102 283 100.209 283 98V82C283 79.7909 281.209 78 279 78Z" fill="white" stroke="#D6DCE1"/>
+<path d="M186 112H111C108.791 112 107 113.791 107 116V159C107 161.209 108.791 163 111 163H186C188.209 163 190 161.209 190 159V116C190 113.791 188.209 112 186 112Z" fill="white" stroke="#D6DCE1"/>
+<path d="M279 112H204C201.791 112 200 113.791 200 116V159C200 161.209 201.791 163 204 163H279C281.209 163 283 161.209 283 159V116C283 113.791 281.209 112 279 112Z" fill="white" stroke="#D6DCE1"/>
+<path d="M62 94H82M62 108H82M62 122H82" stroke="#56616B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Generate</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Mapped to native components, with </tspan><tspan x="13" y="281.418">fallbacks where needed</tspan></text>
+</svg>
+

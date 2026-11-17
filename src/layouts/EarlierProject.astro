@@ -1,0 +1,200 @@
+---
+// One earlier project: a simpler page in the same language as the case pages
+// (white or dark page, one grotesk, hairlines, air). The Markdown body arrives in
+// the default slot; everything else comes from the entry's front matter.
+// Order: the head (title, lead, facts), the cover, the outcomes, the sections, the next project.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { Picture, getImage } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import { imageWidths } from '../lib/image-widths';
+import '../styles/earlier.css';
+
+interface Props {
+  entry: CollectionEntry<'earlier'>;
+  next: CollectionEntry<'earlier'>;
+}
+const { entry, next } = Astro.props;
+const { title, summary, role, dates, details, outcomes, tags, cover, coverAlt, matte } = entry.data;
+
+const page = new URL(`/work/${entry.id}`, Astro.site).href;
+const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
+// A value this short is a figure and is set large; a longer one is a phrase.
+const isFigure = (value: string) => value.length <= 5;
+// On a phone the outcomes sit two to a row. A row that pairs a short figure with a long phrase is set
+// evenly (CSS: [data-pair=mixed]), so "4x" is not 56px beside a 26px phrase.
+const pairOf = (i: number) => { const j = i % 2 === 0 ? i + 1 : i - 1; return j < outcomes.length && isFigure(outcomes[i].value) !== isFigure(outcomes[j].value) ? 'mixed' : 'even'; };
+
+// Every picture the Markdown body uses, by file name, so the body's plain <img> tags
+// can be rebuilt below with a full srcset (the Markdown pipeline emits one source only).
+const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/earlier/**/*.webp', { eager: true });
+const byName = new Map<string, ImageMetadata>();
+for (const [path, mod] of Object.entries(assets)) byName.set(path.split('/').pop()!.replace(/\.webp$/, ''), mod.default);
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const attr = (tag: string, name: string) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1] ?? '';
+
+/** The file name (no extension) a picture goes by in the front matter's `matte` list. */
+const nameOf = (meta: ImageMetadata) => [...byName.entries()].find(([, m]) => m.src === meta.src)?.[0] ?? '';
+/** A picture whose own pixels are 2:1 or wider. On a phone it pans inside its frame instead of shrinking. */
+const isWide = (meta: ImageMetadata) => meta.width / meta.height >= 2;
+const PAN = 760; // The width a wide picture keeps on a phone, in CSS pixels.
+
+/** One figure: the picture on its stage, then a quiet link to the full-size file. A picture never shows
+    wider than its own pixels, and every width up to the original is offered. `alt` is already HTML-safe. */
+async function figure(meta: ImageMetadata, alt: string, opts: { cover?: boolean } = {}) {
+  const widths = imageWidths(meta.width);
+  const set = async (format: 'avif' | 'webp') =>
+    (await Promise.all(widths.map(async (w) => { const i = await getImage({ src: meta, width: w, format, quality: 85 }); return `${i.src} ${w}w`; }))).join(', ');
+  const wide = isWide(meta);
+  const sizes = [
+    wide ? `(max-width: 640px) min(${meta.width}px, ${PAN}px)` : '',
+    opts.cover ? '(min-width: 1500px) 1376px' : `(min-width: 901px) min(${meta.width}px, calc(75vw - 24px))`,
+    opts.cover ? 'calc(100vw - 48px)' : `min(${meta.width}px, calc(100vw - 48px))`,
+  ].filter(Boolean).join(', ');
+  const big = await getImage({ src: meta, width: meta.width, format: 'webp', quality: 85 });
+  const light = matte.includes(nameOf(meta));
+  const load = opts.cover ? 'loading="eager" decoding="async" fetchpriority="high"' : 'loading="lazy" decoding="async"';
+  const classes = ['earlier-fig', opts.cover ? 'earlier-cover' : '', light ? 'is-matte' : '', wide ? 'is-wide' : ''].filter(Boolean).join(' ');
+  const pan = wide ? ' tabindex="0" role="group" aria-label="Wide image, scroll sideways to see all of it"' : '';
+  const picture = `<picture><source type="image/avif" srcset="${await set('avif')}" sizes="${sizes}"><img src="${big.src}" srcset="${await set('webp')}" sizes="${sizes}" alt="${alt}" width="${meta.width}" height="${meta.height}" ${load}></picture>`;
+  return `<figure class="${classes}" style="--w:${meta.width}px;--pan:${PAN}px"><div class="earlier-stage"><div class="earlier-pan"${pan}>${picture}</div></div><a class="earlier-fig-open" href="${big.src}" target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a></figure>`;
+}
+async function bodyFigure(tag: string) {
+  const file = attr(tag, 'src').split('/').pop()!.split('.')[0];
+  const meta = byName.get(file) ?? [...byName.entries()].find(([k]) => file.startsWith(k))?.[1];
+  if (!meta) return `<figure class="earlier-fig">${tag}</figure>`;
+  return figure(meta, attr(tag, 'alt'));
+}
+const coverHtml = await figure(cover, esc(coverAlt), { cover: true });
+
+// The body is a flat run of headings, paragraphs and pictures. Cut it into sections at
+// each h2 so a label can stay beside its own section as the text scrolls.
+let body = await Astro.slots.render('default');
+const noteMatch = body.match(/<aside class="earlier-note"[\s\S]*?<\/aside>/);
+const note = noteMatch ? noteMatch[0] : '';
+if (noteMatch) body = body.replace(noteMatch[0], () => '');
+for (const m of [...body.matchAll(/<p>\s*(<img\b[^>]*>)\s*<\/p>/g)]) { const html = await bodyFigure(m[1]); body = body.replace(m[0], () => html); }
+const sections = body.split(/(?=<h2\b)/).map((chunk) => chunk.trim()).filter(Boolean).map((chunk) => {
+  const m = chunk.match(/^<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*)$/);
+  if (!m) return `<div class="earlier-sec-body">${chunk}</div>`;
+  const id = m[1].match(/id="([^"]+)"/)?.[1];
+  return `<section class="earlier-sec"${id ? ` aria-labelledby="${id}"` : ''}><h2${m[1]}>${m[2]}</h2><div class="earlier-sec-body">${m[3]}</div></section>`;
+}).join('\n');
+
+// An outcome label keeps a hyphenated word whole ("end-to-end"), so it never breaks mid-word.
+const keepWords = (t: string) => esc(t).replace(/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g, (w) => `<span class="nb">${w}</span>`);
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description: summary,
+    url: page,
+    image: new URL(share.src, Astro.site).href,
+    keywords: tags.join(', '),
+    author: { '@type': 'Person', name: 'Shannon Hecker', url: 'https://shannonhecker.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shannonhecker.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://shannonhecker.com/work' },
+      { '@type': 'ListItem', position: 3, name: title, item: page },
+    ],
+  },
+];
+
+const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
+---
+<Base title={`${title} · Shannon Hecker`} description={summary}>
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main" class="earlier">
+    <div class="wrap">
+      <header class="earlier-head">
+        <p class="earlier-eyebrow"><a href="/work">Earlier work</a></p>
+        <h1>{title}</h1>
+        <div class="earlier-intro">
+          <p class="earlier-lead">{summary}</p>
+          <dl class="earlier-facts">
+            {details.map((d) => <div><dt>{d.label}</dt><dd>{d.value}</dd></div>)}
+            <div><dt>Year</dt><dd>{dates}</dd></div>
+            <div><dt>Role</dt><dd>{role}</dd></div>
+            <div><dt>Tags</dt><dd>{tags.join(' · ')}</dd></div>
+          </dl>
+        </div>
+      </header>
+
+      <Fragment set:html={coverHtml} />
+
+      <section class="earlier-results" aria-labelledby="earlier-results-title">
+        <h2 id="earlier-results-title" class="earlier-label">Outcomes</h2>
+        <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
+          {outcomes.map((o, i) => (
+            <li data-pair={pairOf(i)}>
+              <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
+              <span class="label" set:html={keepWords(o.label)} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div class="earlier-body">
+        <Fragment set:html={sections} />
+        {note && <Fragment set:html={note} />}
+      </div>
+    </div>
+
+    <section class="band next-case" aria-label="Next project">
+      <div class="wrap earlier-next">
+        <h2 class="earlier-eyebrow">Next project</h2>
+        <div class="index">
+          <a class="row" href={`/work/${next.id}`} data-cursor="big">
+            <span class:list={['thumb', { 'is-matte': nextMatte }]} aria-hidden="true">
+              <Picture src={next.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[240, 480]} sizes="240px" quality={80} loading="lazy" decoding="async" />
+            </span>
+            <h3>{next.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
+            <span class="meta">{next.data.summary}</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  {ld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+</Base>
+
+<script>
+  // A wide picture pans inside its frame on a phone. Where it fits whole there is nothing to scroll,
+  // so it leaves the tab order; where it overflows it stays a labelled, focusable region.
+  const frames = [...document.querySelectorAll<HTMLElement>('.earlier-pan[tabindex]')];
+  const labels = new Map(frames.map((f) => [f, f.getAttribute('aria-label') ?? '']));
+  const sync = () => frames.forEach((f) => {
+    if (f.scrollWidth > f.clientWidth + 1) { f.tabIndex = 0; f.setAttribute('role', 'group'); f.setAttribute('aria-label', labels.get(f)!); }
+    else { f.removeAttribute('tabindex'); f.removeAttribute('role'); f.removeAttribute('aria-label'); }
+  });
+  if (frames.length) {
+    sync();
+    // A slide on a white stage has its content in the middle and white margins at the sides, so a phone opens it centred.
+    frames.forEach((f) => { if (f.closest('.is-matte') && f.scrollWidth > f.clientWidth) f.scrollLeft = (f.scrollWidth - f.clientWidth) / 2; });
+    // A figure wider than its frame fades at the edge where more lies beyond (right at the start, both
+    // in the middle, left at the end), so a phone can see it pans. Nothing fades when it all fits.
+    const fade = () => frames.forEach((f) => {
+      const stage = f.parentElement;
+      if (!stage) return;
+      const room = f.scrollWidth - f.clientWidth;
+      if (room <= 1) { delete stage.dataset.fadeL; delete stage.dataset.fadeR; return; }
+      if (f.scrollLeft > 1) stage.dataset.fadeL = ''; else delete stage.dataset.fadeL;
+      if (f.scrollLeft < room - 1) stage.dataset.fadeR = ''; else delete stage.dataset.fadeR;
+    });
+    frames.forEach((f) => f.addEventListener('scroll', fade, { passive: true }));
+    fade();
+    const resync = () => { sync(); fade(); };
+    if ('ResizeObserver' in window) new ResizeObserver(resync).observe(document.documentElement);
+    else addEventListener('resize', resync);
+  }
+</script>

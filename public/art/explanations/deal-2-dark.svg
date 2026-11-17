@@ -1,0 +1,20 @@
+<svg width="336" height="504" viewBox="0 0 336 504" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="503" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="503" rx="3.5" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">RECORD BUILT WHILE PEOPLE WORK</tspan></text>
+<path d="M302 51H36C33.2386 51 31 53.2386 31 56V104C31 106.761 33.2386 109 36 109H302C304.761 109 307 106.761 307 104V56C307 53.2386 304.761 51 302 51Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="73.5909">Price &#x2192; source</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="94.8636">Make the origin of each price traceable</tspan></text>
+<path d="M302 130H36C33.2386 130 31 132.239 31 135V183C31 185.761 33.2386 188 36 188H302C304.761 188 307 185.761 307 183V135C307 132.239 304.761 130 302 130Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="152.591">Change &#x2192; person</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="173.864">Associate each change with its author</tspan></text>
+<path d="M302 209H36C33.2386 209 31 211.239 31 214V262C31 264.761 33.2386 267 36 267H302C304.761 267 307 264.761 307 262V214C307 211.239 304.761 209 302 209Z" fill="#222933" stroke="#E3B3C6" stroke-width="1.5"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="231.591">Deal &#x2192; sign-off trail</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="252.864">Retain the approval record</tspan></text>
+<path d="M26 80H17V239H26" stroke="#E3B3C6" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4 4"/>
+<path d="M17 287H321" stroke="#46515F" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Checks run as work happens.</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Three linked records, not sequential steps.</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">A record built as people work</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">Every price needs a source, every </tspan><tspan x="13" y="434.618">change a person, and every deal a sign-</tspan><tspan x="13" y="457.818">off trail. Checks run as people work; the </tspan><tspan x="13" y="481.018">record comes from the tool.</tspan></text>
+</svg>

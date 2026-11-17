@@ -1,0 +1,43 @@
+---
+// Data to encoding: each column is a kind of data, from its source files to
+// the mark it becomes on the chart. The glyph draws that mark.
+type Glyph = 'line' | 'steps' | 'range' | 'dots' | 'dash';
+interface Col { from: string[]; kind: string; note: string; enc: string; encNote: string; glyph: Glyph }
+interface Props { cols: Col[]; result: string; caption?: string; label: string }
+const { cols, result, caption, label } = Astro.props;
+const groups = [
+  { tone: 'market', columns: [cols[0]] },
+  { tone: 'intent', columns: [cols[1], cols[2]] },
+  { tone: 'execution', columns: [cols[3]] },
+  { tone: 'benchmark', columns: [cols[4]] },
+];
+---
+<figure class="fx-data-layers" aria-label={label}>
+  <ol>
+    {groups.map(({tone,columns}) => (
+      <li class={tone}>
+        <div class="layer-sources">{columns.map(c=><span>{c.from.join(' / ')}</span>)}</div>
+        <span class="layer-connector" aria-hidden="true"></span>
+        <div class="layer-kind"><b>{columns[0].kind}</b><span>{columns[0].note}</span></div>
+        <span class="layer-connector" aria-hidden="true"></span>
+        <div class="layer-marks">{columns.map(c=><div class="layer-mark">
+          <svg viewBox="0 0 64 16" aria-hidden="true">
+            {c.glyph === 'line' && <path d="M2 12 L12 6 L22 9 L32 3 L42 8 L52 5 L62 9" fill="none" stroke="currentColor" stroke-width="1.6" />}
+            {c.glyph === 'steps' && <path d="M2 13 H18 V9 H34 V5 H62" fill="none" stroke="currentColor" stroke-width="1.6" />}
+            {c.glyph === 'range' && <g><rect x="2" y="4" width="26" height="8" fill="none" stroke="currentColor" stroke-width="1.2" /><path d="M4 12 L10 4 M10 12 L16 4 M16 12 L22 4 M22 12 L28 4" stroke="currentColor" stroke-width="1" /><rect x="36" y="4" width="26" height="8" fill="currentColor" opacity=".18" /></g>}
+            {c.glyph === 'dots' && <g fill="currentColor"><circle cx="8" cy="8" r="2" /><circle cx="22" cy="8" r="3.2" /><circle cx="40" cy="8" r="4.4" /><circle cx="56" cy="8" r="2.6" /></g>}
+            {c.glyph === 'dash' && <path d="M2 8 H62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4" />}
+          </svg>
+          <b>{c.enc}</b><span>{c.encNote}</span>
+        </div>)}</div>
+      </li>
+    ))}
+  </ol>
+  <p class="layer-result"><b>Each shape gets its own encoding</b><span>{result}</span></p>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+<style>
+ .fx-data-layers{margin:24px 0 40px;min-width:0}.fx-data-layers ol{list-style:none;padding:0;display:grid;grid-template-columns:1fr 2fr 1fr 1.4fr;gap:20px}.fx-data-layers li{--layer-colour:#9d78e8;display:flex;flex-direction:column;align-items:stretch;text-align:center;min-width:0}.fx-data-layers .intent{--layer-colour:#64aef4}.fx-data-layers .execution{--layer-colour:#34c9b8}.fx-data-layers .benchmark{--layer-colour:#f4b04b}.layer-sources{display:flex;justify-content:center;gap:12px;min-height:64px}.layer-sources>span,.layer-kind,.layer-marks{border:1px solid color-mix(in srgb,var(--layer-colour) 65%,transparent);border-radius:var(--radius);background:color-mix(in srgb,var(--layer-colour) 6%,var(--bg));padding:18px 12px}.layer-sources>span{display:flex;align-items:center;justify-content:center;font-size:13px}.layer-kind{display:grid;gap:8px;min-height:104px;align-content:center}.layer-kind b,.layer-mark b{font-size:14px;line-height:1.45}.layer-kind>span,.layer-mark>span{font-size:13px;line-height:1.6;color:var(--fg-2)}.layer-connector{height:36px;border-left:1px solid var(--layer-colour);align-self:center;position:relative}.layer-connector:after{content:'';position:absolute;bottom:0;left:-4px;border:3px solid transparent;border-top-color:var(--layer-colour)}.layer-marks{display:flex;gap:18px;flex:1}.layer-mark{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;min-width:0}.layer-mark+ .layer-mark{border-left:1px solid var(--hair);padding-left:18px}.layer-mark svg{width:64px;height:16px;color:var(--layer-colour)}.layer-result{display:grid;gap:10px;text-align:center;border-top:1px solid var(--hair);margin:28px 0 0;padding:24px 12px}.layer-result b{font-size:16px}.layer-result span,figcaption{font-size:13px;line-height:1.6;color:var(--fg-2)}figcaption{margin-top:16px}
+ @media(max-width:1000px){.fx-data-layers ol{grid-template-columns:1fr 1fr;gap:32px 20px}.layer-kind{min-height:92px}}
+ @media(max-width:560px){.fx-data-layers ol{grid-template-columns:1fr;gap:36px}.layer-marks{padding:20px 16px}.layer-connector{height:24px}.layer-kind{min-height:0}.layer-sources{min-height:56px}.layer-kind b,.layer-mark b{font-size:16px}.layer-kind>span,.layer-mark>span{font-size:14px}}
+</style>

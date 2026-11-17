@@ -1,0 +1,6 @@
+---
+interface Props { down?: boolean }
+const {down=false}=Astro.props;
+---
+<svg style={down ? "transform:rotate(90deg)" : undefined} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
+<style>svg{display:inline-block;flex:none;vertical-align:-.15em}</style>

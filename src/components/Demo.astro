@@ -1,0 +1,14 @@
+---
+import { getImage } from 'astro:assets';
+import { img } from '../lib/img';
+// Native controls keep playback intentional, keyboard accessible and pausable.
+interface Props { src: string; poster: string; label: string; width: number; height: number; description: string }
+const { src, poster, label, width, height, description } = Astro.props;
+const posterUrl = poster.startsWith('/') ? poster : (await getImage({ src: img(poster), width: 1280, format: 'webp', quality: 85 })).src;
+---
+<figure class="demo product-capture">
+  <video muted playsinline loading="lazy" preload="none" controls poster={posterUrl} width={width} height={height} aria-label={label}>
+    <source src={src} type={src.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
+  </video>
+  <figcaption><span class="demo-description">{description}</span></figcaption>
+</figure>

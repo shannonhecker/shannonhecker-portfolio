@@ -1,0 +1,366 @@
+{
+  "date": "2026-10-12",
+  "method": "All original SVG geometry preserved. Only embedded raster screenshots resized and encoded for display; Winking uses lossless encoding, other covers quality95 WebP. Original SVG exports untouched.",
+  "records": [
+    {
+      "source": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "output": "public/art/home-responsive/fx-current-400.svg",
+      "width": 400,
+      "bytes": 34919,
+      "originalBytes": 1273411,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "output": "public/art/home-responsive/fx-current-800.svg",
+      "width": 800,
+      "bytes": 103483,
+      "originalBytes": 1273411,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "output": "public/art/home-responsive/fx-current-1200.svg",
+      "width": 1200,
+      "bytes": 165435,
+      "originalBytes": 1273411,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "output": "public/art/home-responsive/fx-current-1600.svg",
+      "width": 1600,
+      "bytes": 165435,
+      "originalBytes": 1273411,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-current.svg",
+      "sourceSha256": "bbbc3294808ebba49c83e45ccfad28aae08cefcd329bb260f78085b949741519",
+      "output": "public/art/home-responsive/fx-current-2000.svg",
+      "width": 2000,
+      "bytes": 165435,
+      "originalBytes": 1273411,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "output": "public/art/home-responsive/fx-mobile-current-400.svg",
+      "width": 400,
+      "bytes": 34926,
+      "originalBytes": 1273418,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "output": "public/art/home-responsive/fx-mobile-current-800.svg",
+      "width": 800,
+      "bytes": 103490,
+      "originalBytes": 1273418,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "output": "public/art/home-responsive/fx-mobile-current-1200.svg",
+      "width": 1200,
+      "bytes": 165442,
+      "originalBytes": 1273418,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "output": "public/art/home-responsive/fx-mobile-current-1600.svg",
+      "width": 1600,
+      "bytes": 165442,
+      "originalBytes": 1273418,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fx-composition-mobile-current.svg",
+      "sourceSha256": "a9b831118c307d3d01660af6b76cabff9262f9ffe569bdf3a2b92ea3b45df4c8",
+      "output": "public/art/home-responsive/fx-mobile-current-2000.svg",
+      "width": 2000,
+      "bytes": 165442,
+      "originalBytes": 1273418,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "output": "public/art/home-responsive/fusion-current-400.svg",
+      "width": 400,
+      "bytes": 95939,
+      "originalBytes": 2751111,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "output": "public/art/home-responsive/fusion-current-800.svg",
+      "width": 800,
+      "bytes": 268047,
+      "originalBytes": 2751111,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "output": "public/art/home-responsive/fusion-current-1200.svg",
+      "width": 1200,
+      "bytes": 458371,
+      "originalBytes": 2751111,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "output": "public/art/home-responsive/fusion-current-1600.svg",
+      "width": 1600,
+      "bytes": 679803,
+      "originalBytes": 2751111,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-current.svg",
+      "sourceSha256": "d1dc40f0bae32a0dc9416321053a591f8170b1fb3fe03190b04013e32c112c96",
+      "output": "public/art/home-responsive/fusion-current-2000.svg",
+      "width": 2000,
+      "bytes": 917535,
+      "originalBytes": 2751111,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "output": "public/art/home-responsive/fusion-mobile-current-400.svg",
+      "width": 400,
+      "bytes": 95946,
+      "originalBytes": 2751118,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "output": "public/art/home-responsive/fusion-mobile-current-800.svg",
+      "width": 800,
+      "bytes": 268054,
+      "originalBytes": 2751118,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "output": "public/art/home-responsive/fusion-mobile-current-1200.svg",
+      "width": 1200,
+      "bytes": 458378,
+      "originalBytes": 2751118,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "output": "public/art/home-responsive/fusion-mobile-current-1600.svg",
+      "width": 1600,
+      "bytes": 679810,
+      "originalBytes": 2751118,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-fusion-composition-mobile-current.svg",
+      "sourceSha256": "5fe4650abaa04ff75abc389f85bbae22eafab034836cea63454448700d283e8c",
+      "output": "public/art/home-responsive/fusion-mobile-current-2000.svg",
+      "width": 2000,
+      "bytes": 917542,
+      "originalBytes": 2751118,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "output": "public/art/home-responsive/ai-current-400.svg",
+      "width": 400,
+      "bytes": 59683,
+      "originalBytes": 1064099,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "output": "public/art/home-responsive/ai-current-800.svg",
+      "width": 800,
+      "bytes": 149695,
+      "originalBytes": 1064099,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "output": "public/art/home-responsive/ai-current-1200.svg",
+      "width": 1200,
+      "bytes": 174943,
+      "originalBytes": 1064099,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "output": "public/art/home-responsive/ai-current-1600.svg",
+      "width": 1600,
+      "bytes": 174943,
+      "originalBytes": 1064099,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-current.svg",
+      "sourceSha256": "caa45081fb5966bc9dd4844057bfd6d2dffefc3844d955806aab836ba6c26ffe",
+      "output": "public/art/home-responsive/ai-current-2000.svg",
+      "width": 2000,
+      "bytes": 174943,
+      "originalBytes": 1064099,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "output": "public/art/home-responsive/ai-mobile-current-400.svg",
+      "width": 400,
+      "bytes": 59684,
+      "originalBytes": 1064100,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "output": "public/art/home-responsive/ai-mobile-current-800.svg",
+      "width": 800,
+      "bytes": 149696,
+      "originalBytes": 1064100,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "output": "public/art/home-responsive/ai-mobile-current-1200.svg",
+      "width": 1200,
+      "bytes": 174944,
+      "originalBytes": 1064100,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "output": "public/art/home-responsive/ai-mobile-current-1600.svg",
+      "width": 1600,
+      "bytes": 174944,
+      "originalBytes": 1064100,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-ai-composition-mobile-current.svg",
+      "sourceSha256": "8169f6f4dc7ece0701b25f743ee9c45b7175a74e884284f8c488755518cc363a",
+      "output": "public/art/home-responsive/ai-mobile-current-2000.svg",
+      "width": 2000,
+      "bytes": 174944,
+      "originalBytes": 1064100,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "output": "public/art/home-responsive/winking-current-400.svg",
+      "width": 400,
+      "bytes": 188388,
+      "originalBytes": 3220728,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "output": "public/art/home-responsive/winking-current-800.svg",
+      "width": 800,
+      "bytes": 529288,
+      "originalBytes": 3220728,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "output": "public/art/home-responsive/winking-current-1200.svg",
+      "width": 1200,
+      "bytes": 975236,
+      "originalBytes": 3220728,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "output": "public/art/home-responsive/winking-current-1600.svg",
+      "width": 1600,
+      "bytes": 1461912,
+      "originalBytes": 3220728,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-current.svg",
+      "sourceSha256": "3fda83a329393f783b8a6ceea14486a4a5846f2eaa76b0ae6de0ffff0329b41f",
+      "output": "public/art/home-responsive/winking-current-2000.svg",
+      "width": 2000,
+      "bytes": 2162812,
+      "originalBytes": 3220728,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "output": "public/art/home-responsive/winking-mobile-current-400.svg",
+      "width": 400,
+      "bytes": 188872,
+      "originalBytes": 3221212,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "output": "public/art/home-responsive/winking-mobile-current-800.svg",
+      "width": 800,
+      "bytes": 529772,
+      "originalBytes": 3221212,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "output": "public/art/home-responsive/winking-mobile-current-1200.svg",
+      "width": 1200,
+      "bytes": 975720,
+      "originalBytes": 3221212,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "output": "public/art/home-responsive/winking-mobile-current-1600.svg",
+      "width": 1600,
+      "bytes": 1462396,
+      "originalBytes": 3221212,
+      "vectorGeometryPreserved": true
+    },
+    {
+      "source": "public/art/home-winking-composition-mobile-current.svg",
+      "sourceSha256": "1e1165c1f3905f66fba4fe3b094d20e88edf3f37d4cb64f55fd2d138e9f5393c",
+      "output": "public/art/home-responsive/winking-mobile-current-2000.svg",
+      "width": 2000,
+      "bytes": 2163296,
+      "originalBytes": 3221212,
+      "vectorGeometryPreserved": true
+    }
+  ]
+}

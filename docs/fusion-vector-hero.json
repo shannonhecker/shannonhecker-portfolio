@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-12",
+  "layout": { "fileKey": "l6noy7onfsRiuBgjqSsKbt", "nodeId": "48:5" },
+  "sourceFileKey": "1bHE7ups2JJ1zl1uzp6HuX",
+  "screens": [
+    { "nodeId": "5:39810", "asset": "public/art/fusion-discovery-vector.svg", "viewBox": "40 28 1920 1096" },
+    { "nodeId": "5:40355", "asset": "public/art/fusion-performance-vector.svg", "viewBox": "8 4 1920 1141" }
+  ],
+  "notes": "Native M1 source designs supplied by Shannon replace the raster hero captures. Figma's surrounding canvas rect is removed and exports are framed to the source screen bounds. Internal text, charts and paths are unchanged. Overlap is reduced to preserve the discovery table in this shorter source screen. Both exports contain vector paths and no embedded images."
+}

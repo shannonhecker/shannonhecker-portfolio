@@ -1,0 +1,52 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+const chart = ['chart','dual','compare','split','studies','gaps'].includes(kind);
+const grid = ['widgets','fixed','freeform','components','shared','sample','empty'].includes(kind);
+---
+<svg class="concept-sketch" viewBox="0 0 240 140" fill="none" aria-hidden="true">
+  {chart && <>
+    <path class="faint" d="M25 28H219M25 59H219M25 90H219M25 121H219" />
+    <path d="M25 18V121H219" />
+    <path class="accent" d={kind==='gaps'?'M28 99L48 76L67 87 M104 66L123 75 M166 50L188 61L214 32':'M28 99L48 76L67 87L86 58L104 66L123 75L145 41L166 50L188 61L214 32'} />
+    {['dual','compare','studies'].includes(kind)&&<path class="second" d="M28 111L48 102L67 103L86 91L104 82L123 84L145 71L166 69L188 46L214 49" />}
+    {kind==='dual'&&<path class="second" d="M220 18V121M216 28H225M216 59H225M216 90H225" />}
+    {kind==='split'&&<><path d="M119 10V130"/><rect class="paper" x="102" y="54" width="33" height="28" rx="5"/><path d="M109 67H128m-4-4 4 4-4 4"/></>}
+    {kind==='compare'&&<><circle cx="86" cy="58" r="5" class="solid"/><circle cx="166" cy="69" r="5" class="solid second"/><path d="M86 64V126M166 75V126" stroke-dasharray="3 5"/></>}
+    {kind==='studies'&&<path d="M28 106L70 93L111 90L158 65L214 40" stroke-dasharray="4 5"/>}
+  </>}
+  {kind==='cube'&&<><path class="wash" d="M120 16 181 50V113L120 139 59 105V43Z"/><path class="accent" d="M120 13 181 47V105L120 137 59 103V45Z M59 45 120 78 181 47 M120 78V137 M89 29 151 63V121 M151 30 90 61V120 M60 74 120 106 181 76"/></>}
+  {kind==='filter'&&<><path class="faint" d="M18 23H95M18 53H95M18 83H95M18 113H95"/><path class="wash" d="M104 25H220L180 75V112L148 127V75Z"/><path class="accent" d="M104 25H220L180 75V112L148 127V75Z"/><circle cx="43" cy="23" r="6" class="solid"/><circle cx="69" cy="53" r="6" class="solid"/><circle cx="36" cy="83" r="6" class="solid"/><circle cx="82" cy="113" r="6" class="solid"/></>}
+  {grid&&<>
+    <rect x="20" y="14" width="200" height="114" rx="7" class="wash"/><path d="M20 37H220"/><circle cx="32" cy="25" r="2" class="solid"/><circle cx="41" cy="25" r="2" class="solid"/>
+    {kind==='empty'?<><rect x="76" y="56" width="88" height="50" rx="4" stroke-dasharray="4 5"/><path d="M110 81H130M120 71V91"/></>:kind==='freeform'?<><path class="accent" d="M35 51 97 57 92 105 33 114Z M112 54 205 45 208 89 122 100Z"/><path d="M115 109H198" stroke-dasharray="3 5"/></>:<>
+      <rect x="33" y="50" width={kind==='fixed'?174:74} height="64" rx="3" class="accent"/>
+      {kind!=='fixed'&&<><rect x="118" y="50" width="89" height="26" rx="3"/><rect x="118" y="86" width="89" height="28" rx="3" class="second"/></>}
+      <path class="accent" d="M43 99 55 81 67 88 81 63 96 70"/>
+      {kind!=='fixed'&&<path d="M130 61H160M130 98H191"/>}
+    </>}
+    {['systems','shared','fork'].includes(kind)&&<><path d="M55 128V137H186V128"/><circle cx="120" cy="137" r="4" class="solid"/></>}
+    {kind==='components'&&<path class="second" d="M175 101 184 110 202 91"/>}
+  </>}
+  {kind==='fork'&&<><rect x="10" y="31" width="99" height="80" rx="5" class="wash"/><rect x="134" y="31" width="96" height="80" rx="5"/><path d="M10 49H109M134 49H230M20 99V63H55V99M64 63H97M64 79H93M148 64H215M148 82H203M148 99H215"/><path d="M119 23V118" stroke-dasharray="3 5"/></>}
+  {kind==='systems'&&<>{[9,55,101,147,193].map((x,i)=><><rect x={x} y="29" width="37" height="42" rx="4" class="wash accent"/><path d={`M${x+8} 42H${x+29}M${x+8} 53H${x+21}M${x+18} 72V94`}/></>)}<path d="M27 94H211M120 94V111"/><rect x="65" y="111" width="111" height="23" rx="4" class="wash accent"/></>}
+  {['ticket','menu'].includes(kind)&&<>
+    <path class="accent" d="M16 43H105M23 89 46 66 67 77 91 38"/><path d="M105 70H128m-7-7 7 7-7 7"/>
+    <rect x="141" y="15" width="83" height="112" rx="5" class="wash"/>
+    <path d="M152 33H204M152 53H209M152 73H193"/>
+    {kind==='ticket'?<><rect x="152" y="94" width="60" height="20" rx="3" class="accent"/><path d="m173 104 5 5 10-11"/></>:<><path d="M152 90H205M152 106H190"/><circle cx="217" cy="32" r="1"/></>}
+  </>}
+  {['report','code','prompt'].includes(kind)&&<>
+    <rect x="45" y="13" width="150" height="114" rx="6" class="wash"/>
+    {kind==='report'?<><path d="M62 33H154M62 42H124"/><path class="accent" d="M65 103V83H85V103M101 103V66H121V103M137 103V54H157V103"/><path d="M60 109H180"/></>:kind==='code'?<><path class="accent" d="m93 47-24 23 24 23m54-46 24 23-24 23m-18-58-20 70"/></>:<><path d="M64 36H174M64 52H151M64 68H171"/><path class="accent" d="M64 99H173m-8-8 8 8-8 8"/><path d="M78 85v26"/></>}
+  </>}
+  {['tune','two','three'].includes(kind)&&<>
+    {[35,70,105].slice(0,kind==='two'?2:3).map((y,i)=><><path d={`M28 ${y}H211`}/><rect x={[66,149,109][i]} y={y-10} width="18" height="20" rx="4" class="wash accent"/></>)}
+  </>}
+  {['star','checklist','unlock','subscription'].includes(kind)&&<>
+    {kind==='star'?<><path class="wash accent" d="m120 15 24 39 44 9-31 33 5 43-42-18-39 18 5-43-31-33 44-9Z"/><path d="m99 78 14 14 27-29"/></>:kind==='checklist'?<>{[30,70,110].map(y=><><rect x="44" y={y-9} width="18" height="18" rx="3"/><path d={`M80 ${y}H195`}/></>)}</>:<><rect x="64" y="61" width="112" height="66" rx="8" class="wash accent"/><path d={kind==='unlock'?'M93 61V37C93 5 154 5 154 37':'M93 61V37C93 5 148 5 148 37V61'}/><circle cx="120" cy="87" r="6"/><path d="M120 93V107"/>{kind==='subscription'&&<path d="M181 23a35 35 0 0 1 13 36m-1-13 1 13 13-3"/>}</>}
+  </>}
+</svg>
+<style>
+.concept-sketch{width:100%;height:auto;max-height:180px;stroke:var(--fg-2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}.accent{stroke:var(--project-ink)}.second{stroke:#bc875c}.wash{fill:var(--project-wash)}.paper{fill:var(--bg)}.faint{stroke:var(--hair);stroke-width:1}.solid{fill:var(--project-ink);stroke:none}
+</style>

@@ -1,0 +1,122 @@
+---
+interface Props { top?: boolean }
+// On its own page the case title is the h1 and each beat label an h2; inside
+// the one-page version they sit one level lower. Beat labels are headings so
+// screen-reader users can jump beat to beat.
+const { top = false } = Astro.props;
+const HT = top ? 'h1' : 'h2';
+const HL = top ? 'h2' : 'h3';
+import Demo from './Demo.astro';
+import ProductCapture from './ProductCapture.astro';
+import FusionHero from './FusionHero.astro';
+import Split from './Split.astro';
+import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
+import ResponsiveEvidence from './ResponsiveEvidence.astro';
+import DecisionMap from './dg/AuthoredDecisions.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+import Journey from './dg/AuthoredJourney.astro';
+
+import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
+---
+<section id="fusion" data-tone="light" class="band">
+  <div class="wrap">
+    <header class="chapter-head">
+      <div class="g" style="row-gap:28px;align-items:end">
+        <div style="grid-column:1/9;display:grid;gap:24px">
+          <p class="eyebrow">Case two · J.P. Morgan · 2023 to 2025 · shipped</p>
+          <HT class="h-chapter" style="view-transition-name:t-fusion">Fusion analytics dashboard</HT>
+        </div>
+        <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Digital Product Designer VP. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
+      </div>
+      <FusionHero />
+    </header>
+    <CaseEvidenceSummary project="fusion" />
+    <CaseContents project="fusion" />
+
+    <div class="beat rv" id="fu-problem">
+      <div class="label"><HL class="k"><b>01</b> Problem</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Their real need was trust in the numbers, not more features." />
+        <ul class="rows">
+          <li><b>Users</b><p>Portfolio managers and analysts at asset managers, and in phase two their clients, who'd had no training. Expert users under time pressure, often presenting the screen live.</p></li>
+          <li><b>The job</b><p>Performance, attribution and risk they could take into a board meeting, from live and historical data, with heavy filtering.</p></li>
+          <li><b>Where it started</b><p>The existing RaaS interface was a legacy layout that couldn't flex to different data or roles.</p></li>
+        </ul>
+        <Personas project="fusion" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-constraints">
+      <div class="label"><HL class="k"><b>02</b> Constraints and role</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="I led the design. Most of the day-to-day calls were mine." />
+        <ul class="rows">
+          <li><b>My role</b><p>A UX designer was shared across other projects, so most of the day-to-day calls were mine. A product owner set requirements.</p></li>
+          <li><b>Salt, the firm's design system</b><p>Every component had to come from Salt or go back into it. I built the Fusion layer on top and contributed back. My craft shows in layout, hierarchy and data density, not in new components.</p></li>
+          <li><b>Adoption was part of the problem</b><p>Some development teams built custom components instead of using the design system's components out of the box. The UI became inconsistent and harder to extend and evolve. I audited the custom components, organised them into groups and reviewed the issues regularly with developers as we worked through the fixes.</p></li>
+          <li><b>FactSet's engine behind the data</b><p>The analytics came from a partner engine, so the shape of the data was fixed. Design had to fit what the engine could return, fast.</p></li>
+          <li><b>Accessibility as a gate, not a finish</b><p>An accessibility specialist sat in every review. Anything that failed went back before it reached engineering.</p></li>
+          <li><b>Two constraints that pulled against each other</b><p>Dense data and decision speed. I named them both, then built the conflict into the design. Type, hierarchy and colour were set for the worst-case viewing moment, someone presenting live under pressure, not the clean demo.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-workflow">
+      <div class="label"><HL class="k"><b>03</b> Research and workflow</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="One analyst, from a raw data cube to a board-ready page." />
+        <FigmaUserFlow project="fusion" />
+        <ul class="rows">
+          <li><b>Sketch, wireframe, high fidelity</b><p>Each flow went through paper, then wireframes, then built screens on Salt. The sketches set the information hierarchy before any visual decision.</p></li>
+          <li><b>The review cycle</b><p>Requirements with the product owner, iteration with UX, review with product, engineering and the accessibility specialist, then pixel-level work with developers in daily stand-ups. Accessibility was a review step, not a final check.</p></li>
+          <li><b>What testing changed</b><p>The customisation tier I cut came from watching people use the configuration options. The middle tier added choices without changing what they built. Removing it made the first useful view faster to reach.</p></li>
+        </ul>
+        <Journey project="fusion" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-decisions">
+      <div class="label"><HL class="k"><b>04</b> Decisions and trade-offs</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="What I tried, what I dropped, and why." />
+        <DecisionMap project="fusion" />
+
+        <ProductCapture name="live-fusion-config.png" alt="The current Fusion performance table beside its configuration panel" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="My public rebuild · Configure performance" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-design">
+      <div class="label"><HL class="k"><b>05</b> Design and system</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Configurable pages built from modular widgets, on a layer I made on top of Salt." />
+        <p class="muted">The screens below are my original Fusion designs. The recording shows my public rebuild using sample data. FactSet integration and entitlement-based access describe the original project; those services are not connected to the rebuild.</p>
+        <Demo src="/media/fusion-current.webm" poster="live-fusion.png" width={1600} height={1000} label="Report discovery, Performance, its configuration panel and Sustainable Investment." description="Silent recording. It moves from report discovery into the Performance workspace, opens its configuration panel, then shows Sustainable Investment." />
+        <ProductCapture name="/art/fusion-configuration-composition.svg" alt="Original Fusion design with widget configuration and a custom date range" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Widget configuration" />
+        <ProductCapture name="/art/fusion-performance.svg" alt="Original Fusion Performance design with performance results and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Performance design" />
+        <ProductCapture name="/art/fusion-risk.svg" alt="Original Fusion Risk design with portfolio risk charts, tables and analytical widgets" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Risk design" />
+        <ul class="rows">
+          <li><b>Before Fusion, I helped define the foundation</b><p>I worked on UITK, now Salt, on the design language, the look and the feel. I ran the design system workshops in London and New York with design, product and development in the same room. The point wasn't to present. It was to agree what a component is before anyone built it. On Execute, I worked with developers from day one, weekly working sessions and daily when needed.</p></li>
+        </ul>
+        <VisualExplanation project="fusion" />
+      </div>
+    </div>
+
+    <div class="beat rv" id="fu-outcome">
+      <div class="label"><HL class="k"><b>06</b> Outcome</HL></div>
+      <div class="body">
+        <Split as="h3" class="h-sub" text="Shipped, adopted, and opened to clients." />
+        <ul class="rows outcome-rows" aria-label="Outcome">
+          <li><b>Reviewed</b><p>I worked closely with an ADA specialist on a specific flow and used developer tools to run accessibility checks. This describes the flow reviewed, not a product-wide audit or WCAG certification.</p></li>
+          <li><b>Adopted</b><p>Widget and filtering patterns reused across other Fusion modules.</p></li>
+          <li><b>Phase 2</b><p>Opened the product to external clients.</p></li>
+        </ul>
+        <ProductCapture name="/art/fusion-screening.svg" alt="Original Fusion screening workspace showing screening changes and their status" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Screening" />
+        <ProductCapture name="/art/fusion-entity-comparison.svg" alt="Original Fusion Sustainable Investment design comparing two entities across ESG, emissions and controversies" href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" label="Original Fusion Sustainable Investment design" />
+      </div>
+    </div>
+    <ResponsiveEvidence project="fusion" />
+  </div>
+</section>

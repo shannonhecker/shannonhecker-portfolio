@@ -1,0 +1,25 @@
+{
+  "method": "Full-composition reference vs responsive SVG rendered at800px/1600px, embeddedWebP converted toPNG in-memory only for librsvg support; source originals unchanged.",
+  "rows": [
+    {
+      "name": "fusion-hero-discovery-composition",
+      "width": 800,
+      "rmse": 2.3771374227091058
+    },
+    {
+      "name": "fusion-hero-discovery-composition",
+      "width": 1600,
+      "rmse": 0
+    },
+    {
+      "name": "fusion-hero-performance-composition",
+      "width": 800,
+      "rmse": 2.9273823023019983
+    },
+    {
+      "name": "fusion-hero-performance-composition",
+      "width": 1600,
+      "rmse": 3.7346688140057007
+    }
+  ]
+}

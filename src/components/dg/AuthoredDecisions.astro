@@ -1,0 +1,118 @@
+---
+import FigmaDecisionMap from "./FigmaDecisionMap.astro";
+import FlatArrow from "../FlatArrow.astro";
+import content from '../../data/authored-content.json';
+import evidence from '../../data/decision-evidence.json';
+import AuthoredImage from '../AuthoredImage.astro';
+interface Props { project: keyof typeof content }
+interface DecisionEvidence {
+  key: string; question: string; problem: string; options: string[];
+  evidence: string; status: string; result: string; source: string;
+  title?: string; reason?: string; tradeoff?: string; optionLabels?: string[]; imageLabels?: string[]; artNote?: string; hideImages?: boolean[];
+}
+const { project } = Astro.props;
+const data = content[project];
+const review = evidence[project];
+const decisions = data.decisions.map((decision, index) => {
+  const record = review.items[index] as DecisionEvidence;
+  if (!record) throw new Error(`Missing decision evidence: ${project} ${index + 1}`);
+  return { decision, record, id: `${project}-decision-${record.key}` };
+});
+---
+<section class="authored-decisions" id={`${project}-decision-map`} aria-labelledby={`${project}-decision-map-title`}>
+  <header class="process-heading">
+    <h3 id={`${project}-decision-map-title`}>Decision map</h3>
+    <p>{review.intro}</p>
+  </header>
+
+  {project !== 'fx' && <FigmaDecisionMap project={project} />}
+
+  <nav class="decision-index" aria-label={`${project === 'ai' ? 'uoaui.ai' : project} design decisions`}>
+    <ol>{decisions.map(({decision, record, id}, i) => <li>
+      <a href={`#${id}`}><span class="decision-number">{String(i + 1).padStart(2, '0')}</span><span>{record.title ?? decision.title}</span><span class="decision-jump" aria-hidden="true"><FlatArrow down /></span></a>
+    </li>)}</ol>
+  </nav>
+
+  <div class="decision-connections" aria-label="How the decisions connect">
+    {review.connections.map(connection => <div><h4>{connection.label}</h4><p>{connection.text}</p></div>)}
+  </div>
+
+  {Astro.slots.has('flow') && <div class="decision-context" aria-labelledby={`${project}-decision-context-title`}>
+    <h4 id={`${project}-decision-context-title`}>Decision loop · when to step in</h4>
+    <p>The original decision loop shows when the trader watches, waits or intervenes. The design alternatives and evidence are set out below.</p>
+    <div class="authored-flow-scroll"><slot name="flow" /></div>
+  </div>}
+
+  <ol class="authored-decision-list">{decisions.map(({decision: d, record: r, id}, i) => <li id={id}>
+    <header class="decision-heading">
+      <p class="decision-status">{r.status}</p>
+      <h4><span>{String(i + 1).padStart(2, '0')}</span>{r.title ?? d.title}</h4>
+    </header>
+    <div class="decision-problem"><h5>{r.question}</h5><p>{r.problem}</p></div>
+
+    <div class="authored-choice-pair">{d.choices.map((choice, j) => <figure>
+      <p class="authored-choice-label">{r.imageLabels?.[j] ?? (j === 0 ? 'I chose' : 'Alternative')}</p>
+      {!r.hideImages?.[j] && <AuthoredImage name={choice.image} alt={'alt' in choice ? choice.alt : choice.label} sizes="(max-width:760px) 90vw, 43vw" />}
+      <figcaption><span class="choice-title">{r.optionLabels?.[j] ?? choice.label}</span><p>{r.options[j]}</p></figcaption>
+    </figure>)}</div>
+    {r.artNote && <p class="decision-art-note">{r.artNote}</p>}
+
+    <div class="authored-decision-reason">
+      <div><h5>Why I chose it</h5><p>{r.reason ?? d.reason}</p></div>
+      <div><h5>What it cost</h5><p>{r.tradeoff ?? d.tradeoff}</p></div>
+    </div>
+    <div class="decision-evidence">
+      <div><h5>What informed the decision</h5><p>{r.evidence}</p></div>
+    </div>
+  </li>)}</ol>
+</section>
+<style>
+.authored-decisions{min-width:0;scroll-margin-top:140px}
+.process-heading>p{max-width:66ch}
+.decision-index{margin-top:32px}
+.decision-index ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.decision-index li{min-width:0;border-top:1px solid var(--divider)}
+.decision-index a{display:grid;grid-template-columns:24px minmax(0,1fr) 16px;gap:12px;align-items:baseline;padding:18px 0;font-size:16px;line-height:1.45;text-decoration:none}
+.decision-index a:hover{text-decoration:underline;text-underline-offset:5px}
+.decision-index a:focus-visible{outline:2px solid var(--project-ink);outline-offset:5px}
+.decision-number,.decision-jump{color:var(--project-ink);font-size:13px}
+.decision-jump :global(svg){width:1em;height:1em}
+.decision-connections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px;margin-block:40px 64px}
+.decision-connections h4,.decision-context h4{font-size:16px;line-height:1.5;font-weight:600;letter-spacing:0;margin:0 0 12px}
+.decision-connections p,.decision-context>p{font-size:16px;line-height:1.6;color:var(--fg-2);margin:0;max-width:60ch}
+.decision-context{margin-block:0 64px}
+.decision-context>p{margin-bottom:28px}
+.authored-flow-scroll{min-width:0;overflow:auto;overscroll-behavior-x:contain}
+.authored-flow-scroll :global(.authored-image-link){min-width:900px}
+.authored-decision-list{list-style:none;padding:0;margin:0;display:grid;gap:88px}
+.authored-decision-list>li{padding-top:32px;border-top:1px solid var(--divider);min-width:0;scroll-margin-top:120px}
+.decision-status{font-size:14px;line-height:1.5;color:var(--project-ink);margin:0 0 14px}
+.authored-decision-list h4{display:flex;align-items:baseline;gap:20px;font-size:clamp(24px,2.5vw,34px);font-weight:500;letter-spacing:-.03em;line-height:1.2;margin:0 0 24px}
+.authored-decision-list h4>span{font-size:14px;color:var(--project-ink);letter-spacing:0;flex:none}
+.decision-problem{max-width:70ch;margin-bottom:32px}
+.authored-decision-list h5{font-size:16px;line-height:1.5;font-weight:600;letter-spacing:0;margin:0 0 12px}
+.decision-problem p{font-size:17px;line-height:1.65;color:var(--fg-2);margin:0}
+.authored-choice-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.authored-choice-pair figure{margin:0;min-width:0}
+.authored-choice-label{font-size:14px;color:var(--project-ink);margin:0 0 16px}
+/* Raster comparison labels are authored for a light surface in both themes. */
+.authored-choice-pair :global(.authored-image-link){background:#fff;padding:clamp(10px,1.4vw,20px);border:0;box-sizing:border-box;border-radius:var(--radius);overflow:hidden}
+.authored-choice-pair :global(.authored-image-link img){border-radius:0;background:#fff}
+.authored-choice-pair figcaption{margin-top:18px}
+.choice-title{display:block;font-size:18px;line-height:1.45;font-weight:500}
+.authored-choice-pair figcaption p{font-size:15px;line-height:1.6;color:var(--fg-2);margin:10px 0 0;max-width:54ch}
+.decision-art-note{font-size:14px;line-height:1.6;color:var(--fg-2);margin:24px 0 0;max-width:70ch}
+.authored-decision-reason,.decision-evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;margin-top:32px}
+.authored-decision-reason>div,.decision-evidence>div{min-width:0}
+.authored-decision-reason p,.decision-evidence p{font-size:16px;line-height:1.65;color:var(--fg-2);margin:0;max-width:62ch}
+.decision-evidence{padding-top:28px;border-top:1px solid var(--divider);grid-template-columns:1fr}
+@media(max-width:760px){
+ .decision-index ol,.decision-connections,.authored-choice-pair,.authored-decision-reason,.decision-evidence{grid-template-columns:1fr;gap:28px}
+ .decision-index ol{gap:0}.decision-index a{padding-block:16px}
+ .decision-connections{margin-block:32px 48px}
+ .authored-decision-list{gap:64px}.authored-decision-list h4{gap:14px}
+ .decision-context{margin-bottom:48px}
+ .authored-choice-pair{gap:32px}
+ .authored-decision-reason,.decision-evidence{margin-top:28px}
+}
+</style>

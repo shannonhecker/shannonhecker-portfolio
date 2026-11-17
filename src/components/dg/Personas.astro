@@ -1,0 +1,13 @@
+---
+import { personas, type Project } from '../../lib/process';
+import Pic from '../Pic.astro';
+interface Props { project: Project }
+const { project } = Astro.props;
+const items = personas[project] ?? [];
+---
+<section class="process-personas" aria-labelledby={`${project}-personas-title`} id={`${project}-personas`}>
+  <header class="process-heading"><h3 id={`${project}-personas-title`}>User personas</h3><p>{project === 'ai' ? 'Working assumptions about who uses it. The private alpha exists to test them.' : 'The people I designed for, and what each one needed.'}</p></header>
+  <div class="persona-roles">
+    {items.map((p,i) => <article><div class="persona-identity"><Pic name={`persona-${project}-${i}.png`} alt="" sizes="160px" widths={[160,320]} /><h4>{p.role}</h4></div><dl><dt>Job</dt><dd>{p.job}</dd><dt>Need</dt><dd>{p.need}</dd></dl></article>)}
+  </div>
+</section>

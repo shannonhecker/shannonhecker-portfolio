@@ -1,21 +1,17 @@
+node_modules
+dist
+.astro
+test-results
+playwright-report
+.vercel
 .DS_Store
-.claude/
-node_modules/
-dist/
-output/
-*.local
-api/node_modules/
-api/.env
+.env*
 
-# Large source images (>100MB) that GitHub won't accept
-assets/ausos-banner.png
+# Local integration skill installation
+.agents/
+skills-lock.json
 
-# local archive of pruned files; never commit
-.cleanup-archive/
-
-# iCloud Drive sync creates "X 2.html" / "X 5.html" / ".nojekyll 2" style
-# duplicates of files. These are local-only and must never be committed.
-# Generalised to any "<name> <digit>.<ext>" and extension-less "<name> <digit>".
+# iCloud Drive sync duplicates ("X 2.html", ".nojekyll 2" etc): local-only, never commit
 * [0-9].html
 * [0-9].js
 * [0-9].mp4
@@ -24,3 +20,14 @@ assets/ausos-banner.png
 * [0-9].webp
 * [0-9].css
 * [0-9]
+* [0-9].astro
+* [0-9].ts
+* [0-9].md
+
+# Chat server (moved from api/)
+chat-server/node_modules/
+chat-server/.env
+
+# Local tooling
+.claude/
+.cleanup-archive/

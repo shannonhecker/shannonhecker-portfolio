@@ -1,0 +1,25 @@
+---
+import FlatArrow from "./FlatArrow.astro";
+interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' | 'deal' }
+const { project } = Astro.props;
+const links: Record<Props['project'], [string, string][]> = {
+  deal: [['deal-problem','Problem'],['deal-research','Research'],['deal-personas','Personas'],['deal-constraints','Constraints and role'],['deal-workflow','Workflow'],['deal-journey','Journey'],['deal-screens','Product screens'],['deal-decision-map','Decision map'],['deal-edge','Edge states'],['deal-outcome','Outcome']],
+  fx: [['fx-problem','Problem'],['fx-users','Research'],['fx-personas','Personas'],['fx-journey','Journey'],['fx-constraints','Constraints'],['fx-decision-map','Decision map'],['fx-flow','Full flow'],['fx-edge','Edge states'],['fx-outcome','Status'],['fx-accessibility','Accessibility']],
+  fusion: [['fu-problem','Problem'],['fusion-personas','Personas'],['fu-constraints','Constraints'],['fu-workflow','Research and flow'],['fusion-journey','Journey'],['fusion-decision-map','Decision map'],['fu-design','UI craft'],['fu-outcome','Outcome'],['fusion-accessibility','Accessibility']],
+  ai: [['ai-what','Problem'],['ai-personas','Personas'],['ai-flow','Full flow'],['ai-journey','Journey'],['ai-decision-map','Decision map'],['ai-brand','Brand and system'],['ai-judgement','AI at work'],['ai-outcome','Outcome'],['ai-accessibility','Accessibility']],
+  winking: [['ws-hero','Overview'],['ws-problem','Problem and research'],['ws-personas','Personas'],['ws-flow','Full flow'],['ws-journey','Journey'],['winking-decision-map','Decision map'],['ws-brand','Brand and system'],['ws-themes','UI craft'],['ws-edge','Edge states and accessibility'],['ws-outcome','Outcome']],
+};
+---
+<nav class="case-contents" aria-label="Case study sections">
+  <button class="section-open" type="button" aria-haspopup="dialog" aria-controls="section-panel" aria-expanded="false">Sections <span class="section-current">{links[project][0][1]}</span><FlatArrow /></button>
+  <dialog id="section-panel" class="section-panel" aria-labelledby="section-panel-title">
+    <div class="section-panel-head">
+      <h2 id="section-panel-title">Sections</h2>
+      <button class="section-close" type="button" aria-label="Close sections">×</button>
+    </div>
+    <div class="chapter-stops">
+      {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
+    </div>
+    <a href="/work" class="all-projects">All projects <FlatArrow /></a>
+  </dialog>
+</nav>

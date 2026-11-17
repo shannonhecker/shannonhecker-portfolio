@@ -1,0 +1,50 @@
+---
+// Every image on the page goes through here: AVIF + WebP with a JPEG (or PNG)
+// fallback, width-based srcset, explicit width/height, lazy unless told not to.
+import { Picture } from 'astro:assets';
+import { img } from '../lib/img';
+import { imageWidths } from '../lib/image-widths';
+import framing from '../data/fx-screenshot-framing.json';
+
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  eager?: boolean;
+  fullSize?: boolean;
+}
+const { name, alt, sizes = '(max-width: 1100px) 100vw, 70vw', widths, eager = false, fullSize = false } = Astro.props;
+const src = img(name);
+const crop=framing[name as keyof typeof framing];
+const cropStyle=crop?`aspect-ratio:${crop[0]} / ${crop[1]};--crop-width:${100/crop[2]}%;--crop-height:${100/crop[3]}%;--crop-left:${-100*crop[4]/crop[2]}%;--crop-top:${-100*crop[5]/crop[3]}%`:undefined;
+const w = widths ? [...new Set(widths.map(width=>Math.min(width,src.width)))] : imageWidths(src.width);
+const Frame = fullSize ? 'a' : 'div';
+---
+<Frame class:list={['picture-frame',{'figma-crop':!!crop,'full-size-image':fullSize}]} style={cropStyle}
+  href={fullSize ? src.src : undefined} target={fullSize ? '_blank' : undefined}
+  rel={fullSize ? 'noopener' : undefined}
+  aria-label={fullSize ? `View full size: ${alt} (opens in new tab)` : undefined}>
+<Picture
+  src={src}
+  alt={alt}
+  style={`--source-width:${src.width}px;--source-ratio:${src.width / src.height};aspect-ratio:auto ${src.width} / ${src.height}`}
+  formats={['avif', 'webp']}
+  quality={85}
+  fallbackFormat={src.format === 'png' ? 'png' : 'jpg'}
+  widths={w}
+  sizes={crop && crop[2] < 0.9 ? '100vw' : sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding={eager ? 'sync' : 'async'}
+  fetchpriority={eager ? 'high' : undefined}
+/>
+</Frame>
+
+<style>
+.picture-frame{display:contents}
+.picture-frame.full-size-image{display:block;max-width:100%;cursor:zoom-in;outline-offset:6px}
+.full-size-image:focus-visible{outline:2px solid var(--project-ink,var(--fg))}
+.picture-frame.figma-crop{display:block;position:relative;width:100%;overflow:hidden}
+.picture-frame.figma-crop :global(picture){display:block;position:absolute;left:var(--crop-left);top:var(--crop-top);width:var(--crop-width);height:var(--crop-height)}
+.picture-frame.figma-crop :global(picture img){display:block;width:100%;height:100%;max-width:none;object-fit:fill}
+</style>

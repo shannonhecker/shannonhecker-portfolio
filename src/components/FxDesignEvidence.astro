@@ -1,0 +1,10 @@
+---
+import { Picture } from 'astro:assets';
+import { imageWidths } from '../lib/image-widths';
+import reprice from '../assets/img/fx-figma/reprice.png';
+import ticket from '../assets/img/fx-figma/staged-ticket.png';
+const screens=[{image:reprice,label:'Drag-to-reprice',alt:'My Figma interaction design showing the dragged limit-price line and the order-amended confirmation, with simulated data.'},{image:ticket,label:'Pill release to order ticket',alt:'My Figma interaction design showing a pre-filled limit-order ticket opened from a chart price pill, with simulated data.'}];
+---
+<div class="screen-sequence fx-design-evidence">
+ {screens.map(screen=><figure class="product-capture"><div class="shot evidence"><Picture src={screen.image} quality={85} widths={imageWidths(screen.image.width)} sizes="90vw" formats={['avif','webp']} alt={screen.alt} loading="lazy" decoding="async" /></div></figure>)}
+</div>

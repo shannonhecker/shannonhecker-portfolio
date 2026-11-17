@@ -1,0 +1,5 @@
+---
+interface Props { name?: 'star'|'journal'|'arrow'|'gem'|'clock'|'bug'|'cloud'|'moon'|'flag'|'finish'|'scooter'|'heart'; size?: number }
+const { name = 'star', size = 48 } = Astro.props;
+---
+<img class="pixel-object" style={`width:${size}px!important;height:${size}px!important`} src={`/art/${name}.webp`} alt="" aria-hidden="true" width={size} height={size} loading="lazy" decoding="async" />

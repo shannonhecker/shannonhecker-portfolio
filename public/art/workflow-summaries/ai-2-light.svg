@@ -1,0 +1,24 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 05</tspan></text>
+<path d="M95 68H39C36.7909 68 35 69.7909 35 72V167C35 169.209 36.7909 171 39 171H95C97.2091 171 99 169.209 99 167V72C99 69.7909 97.2091 68 95 68Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="40" y="88.7727">Salt</tspan></text>
+<path d="M87 99H47C44.7909 99 43 100.791 43 103V123C43 125.209 44.7909 127 47 127H87C89.2091 127 91 125.209 91 123V103C91 100.791 89.2091 99 87 99Z" fill="white" stroke="#D6DCE1"/>
+<path d="M87 135H47C44.7909 135 43 136.791 43 139V152C43 154.209 44.7909 156 47 156H87C89.2091 156 91 154.209 91 152V139C91 136.791 89.2091 135 87 135Z" fill="#8B5168" stroke="#8B5168"/>
+<path d="M167 68H111C108.791 68 107 69.7909 107 72V167C107 169.209 108.791 171 111 171H167C169.209 171 171 169.209 171 167V72C171 69.7909 169.209 68 167 68Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="112" y="88.7727">Material</tspan></text>
+<path d="M159 99H119C116.791 99 115 100.791 115 103V123C115 125.209 116.791 127 119 127H159C161.209 127 163 125.209 163 123V103C163 100.791 161.209 99 159 99Z" fill="white" stroke="#D6DCE1"/>
+<path d="M159 135H119C116.791 135 115 136.791 115 139V152C115 154.209 116.791 156 119 156H159C161.209 156 163 154.209 163 152V139C163 136.791 161.209 135 159 135Z" fill="#8B5168" stroke="#8B5168"/>
+<path d="M239 68H183C180.791 68 179 69.7909 179 72V167C179 169.209 180.791 171 183 171H239C241.209 171 243 169.209 243 167V72C243 69.7909 241.209 68 239 68Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="184" y="88.7727">Fluent</tspan></text>
+<path d="M231 99H191C188.791 99 187 100.791 187 103V123C187 125.209 188.791 127 191 127H231C233.209 127 235 125.209 235 123V103C235 100.791 233.209 99 231 99Z" fill="white" stroke="#D6DCE1"/>
+<path d="M231 135H191C188.791 135 187 136.791 187 139V152C187 154.209 188.791 156 191 156H231C233.209 156 235 154.209 235 152V139C235 136.791 233.209 135 231 135Z" fill="#8B5168" stroke="#8B5168"/>
+<path d="M311 68H255C252.791 68 251 69.7909 251 72V167C251 169.209 252.791 171 255 171H311C313.209 171 315 169.209 315 167V72C315 69.7909 313.209 68 311 68Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="256" y="88.7727">Carbon</tspan></text>
+<path d="M303 99H263C260.791 99 259 100.791 259 103V123C259 125.209 260.791 127 263 127H303C305.209 127 307 125.209 307 123V103C307 100.791 305.209 99 303 99Z" fill="white" stroke="#D6DCE1"/>
+<path d="M303 135H263C260.791 135 259 136.791 259 139V152C259 154.209 260.791 156 263 156H303C305.209 156 307 154.209 307 152V139C307 136.791 305.209 135 303 135Z" fill="#8B5168" stroke="#8B5168"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Compare systems</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">The same screen in Salt, Material, Fluent </tspan><tspan x="13" y="281.418">and Carbon</tspan></text>
+</svg>
+

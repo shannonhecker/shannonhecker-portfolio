@@ -1,0 +1,11 @@
+---
+import Pic from './Pic.astro';
+interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' }
+const { project } = Astro.props;
+const scene = {fx:'scene-fx.png',fusion:'scene-fusion.png',ai:'scene-ai.png',winking:'scene-winking.png'};
+const avatar = {fx:'avatar-fx.png',fusion:'avatar-fusion.png',ai:'avatar-ai.png',winking:'avatar-winking.png'};
+---
+<div class="chapter-scene" data-adventure-scene aria-hidden="true">
+  <div class="scene-setting"><Pic name={scene[project]} alt="" sizes="(max-width:760px) 92vw, 84vw" widths={[640,1000,1600]} /></div>
+  <div class="scene-traveller"><Pic name={avatar[project]} alt="" sizes="(max-width:760px) 80px, 160px" widths={[160,320]} /></div>
+</div>

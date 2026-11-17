@@ -1,0 +1,22 @@
+---
+import content from '../../data/user-flow-content.json';
+import MapViewport from './MapViewport.astro';
+interface Props { project: keyof typeof content }
+const {project}=Astro.props;
+const graph=content[project];
+---
+<figure class="figma-user-flow" aria-labelledby={`${project}-user-flow-title`}>
+ <figcaption><h4 id={`${project}-user-flow-title`}>{project==='fx'?'Reprice flow · one intervention, step by step':'User flow'}</h4><p>{project==='fx'&&'This follows one branch of the decision loop above, the reprice, from the drag to the audit record. '}{graph.subtitle}</p><p class="flow-scope">{graph.scope}</p></figcaption>
+ <div class="flow-tools"><p>On smaller screens, enlarge the flow to read and explore the branches.</p></div>
+ <MapViewport id={`${project}-user-flow-viewport`} regionClass="user-flow-scroll" title={`${graph.title}. Enlarge the map to explore details, or open the full-size image.`}>
+  {(['light','dark'] as const).map(theme=><a class={`flow-image flow-${theme}`} href={`/art/user-flows/${project}-${theme}.svg`} target="_blank" rel="noopener" aria-label={`Open the full-size ${graph.title} user flow`}><img src={`/art/user-flows/${project}-${theme}.svg`} width={graph.width} height={graph.height} loading="lazy" decoding="async" alt={`${graph.title}. ${graph.subtitle}`}/></a>)}
+ </MapViewport>
+</figure>
+<style>
+.figma-user-flow{margin:36px 0 56px;min-width:0}
+figcaption{margin:0 0 24px}h4{font-size:24px;line-height:1.3;font-weight:500;margin:0 0 12px}figcaption p{font-size:16px;line-height:1.65;max-width:70ch;color:var(--fg-2);margin:0}figcaption .flow-scope{font-size:14px;margin-top:12px}
+.flow-tools{display:flex;gap:20px;justify-content:space-between;align-items:baseline;margin-bottom:16px;font-size:14px;line-height:1.5}.flow-tools p{margin:0;color:var(--fg-2)}
+.user-flow-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}.user-flow-scroll:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}
+.flow-image{display:block;width:100%}.flow-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}.flow-dark{display:none}:global(html[data-theme="dark"]) .flow-light{display:none}:global(html[data-theme="dark"]) .flow-dark{display:block}
+@media(max-width:760px){.flow-tools{align-items:flex-start;flex-direction:column;gap:8px}.figma-user-flow{margin-block:28px 40px}}
+</style>

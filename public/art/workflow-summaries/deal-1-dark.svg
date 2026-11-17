@@ -1,0 +1,18 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">02 / 05</tspan></text>
+<path d="M296 61H42C39.7909 61 38 62.7909 38 65V174C38 176.209 39.7909 178 42 178H296C298.209 178 300 176.209 300 174V65C300 62.7909 298.209 61 296 61Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="55" y="80.6364">PORTFOLIO</tspan></text>
+<path d="M295 89H43C41.8954 89 41 89.8954 41 91V102C41 103.105 41.8954 104 43 104H295C296.105 104 297 103.105 297 102V91C297 89.8954 296.105 89 295 89Z" fill="#E3B3C6" stroke="#46515F"/>
+<path d="M57 97H105M138 97H168M208 97H273" stroke="#222933" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 108H43C41.8954 108 41 108.895 41 110V121C41 122.105 41.8954 123 43 123H295C296.105 123 297 122.105 297 121V110C297 108.895 296.105 108 295 108Z" fill="#222933" stroke="#46515F"/>
+<path d="M57 116H105M138 116H168M208 116H273" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 127H43C41.8954 127 41 127.895 41 129V140C41 141.105 41.8954 142 43 142H295C296.105 142 297 141.105 297 140V129C297 127.895 296.105 127 295 127Z" fill="#222933" stroke="#46515F"/>
+<path d="M57 135H105M138 135H168M208 135H273" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M295 146H43C41.8954 146 41 146.895 41 148V159C41 160.105 41.8954 161 43 161H295C296.105 161 297 160.105 297 159V148C297 146.895 296.105 146 295 146Z" fill="#222933" stroke="#46515F"/>
+<path d="M57 154H105M138 154H168M208 154H273" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Load the portfolio</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Load data, or upload the template</tspan></text>
+</svg>
+

@@ -1,0 +1,21 @@
+---
+import { render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+import { WRITING_SLUGS, writingEntries } from '../../lib/writing';
+
+export async function getStaticPaths() {
+  const entries = await writingEntries(); // newest first
+  const ids = entries.map((e) => e.id).join(',');
+  if (ids !== WRITING_SLUGS.join(',')) {
+    throw new Error(`src/content/writing does not match WRITING_SLUGS (newest first).\n  content: ${ids}\n  slugs:   ${WRITING_SLUGS.join(',')}`);
+  }
+  return entries.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, newer: entries[i - 1], older: entries[i + 1] },
+  }));
+}
+
+const { entry, newer, older } = Astro.props;
+const { Content } = await render(entry);
+---
+<Article entry={entry} newer={newer} older={older}><Content /></Article>

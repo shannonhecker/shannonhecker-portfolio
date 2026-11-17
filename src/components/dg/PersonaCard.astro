@@ -1,0 +1,58 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props {
+ name:string; role:string; quote:string; portrait:string; bio?:string;
+ groups:{label:string;items:string[]}[];
+ kind?:'fx'|'authored'; accent?:string;
+}
+const {name,role,quote,portrait,bio,groups,kind='authored',accent='#7d3848'}=Astro.props;
+const images=import.meta.glob<{default:ImageMetadata}>('../../assets/img/personas/*.png',{eager:true});
+const source=images[`../../assets/img/personas/${portrait}.png`]?.default;
+if(!source)throw new Error(`Missing persona portrait: ${portrait}`);
+const [goals,frictions,response]=groups;
+---
+<article style={`--persona-base:${accent}`} class:list={['persona-card',kind==='fx'?'fx-persona':'authored-persona']}>
+ <div class="persona-identity">
+  <div class="persona-art"><Picture src={source} alt="" formats={['webp']} widths={[300,600,900]} sizes="(max-width:600px) 120px, 28vw" quality={90} loading="lazy" decoding="async"/></div>
+  <div class="persona-copy"><h4>{name}</h4><p class="persona-role">{role}</p></div>
+ </div>
+ <div class="persona-content">
+  <blockquote><span aria-hidden="true">“</span><p>{quote.replace(/^[“"]|[”"]$/g,'')}</p></blockquote>
+  <div class="persona-context"><h5>Context</h5><p>{bio ?? role.replace(/\n/g, '. ')}</p></div>
+  {response && <section class="persona-response"><h5>{response.label}</h5><ul>{response.items.map(item=><li>{item}</li>)}</ul></section>}
+  <div class="authored-persona-needs">
+   {goals && <section><h5>Goals</h5><ul>{goals.items.map(item=><li>{item}</li>)}</ul></section>}
+   {frictions && <section><h5>Pain points</h5><ul>{frictions.items.map(item=><li>{item}</li>)}</ul></section>}
+  </div>
+ </div>
+</article>
+<style>
+.persona-card{--persona-accent:var(--persona-base);--persona-surface:#fff;--persona-panel-ink:#fff;--persona-ink:#272b32;--persona-muted:#514b49;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);background:var(--persona-surface);color:var(--persona-ink);position:relative;border-radius:28px;overflow:hidden;isolation:isolate;font-family:var(--body);box-shadow:0 8px 24px #0000000a}
+.persona-card::after{content:"";position:absolute;inset:0;border:1px solid color-mix(in srgb,var(--persona-accent) 50%,transparent);border-radius:inherit;pointer-events:none;z-index:1}
+.persona-card .persona-identity{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:0;min-height:0;margin:0;padding:0;background:var(--persona-surface)}
+.persona-card .persona-art{width:100%;height:320px;margin:0;display:flex;align-items:flex-end;justify-content:center;background:var(--persona-accent);border-radius:0 0 28px 0;overflow:hidden}
+.persona-art :global(picture){display:block;width:100%;height:100%}
+.persona-art :global(img){display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;border-radius:0}
+.persona-copy{padding:20px 28px;min-width:0}
+.persona-card .persona-copy h4{color:var(--persona-accent);font:600 24px/1.2 var(--display);letter-spacing:-.02em;margin:0 0 12px}
+.persona-card .persona-role{font-size:14px;line-height:1.55;white-space:pre-line;color:var(--persona-muted);margin:0}
+.persona-content{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 32px;align-content:start;padding:40px}
+.persona-card blockquote{grid-column:1/-1;display:flex;gap:12px;margin:0;max-width:52ch}
+.persona-card blockquote>span{font:600 48px/1 var(--display);color:var(--persona-accent)}
+.persona-card blockquote p{font:600 18px/1.5 var(--body);letter-spacing:-.01em;margin:4px 0 0;color:var(--persona-ink)}
+.persona-card h5{font:600 14px/1.4 var(--body);letter-spacing:0;margin:0 0 12px;color:var(--persona-accent)}
+.persona-context{min-width:0;padding-top:12px}
+.persona-context p{font-size:15px;line-height:1.65;color:var(--persona-muted);margin:0}
+.persona-response{min-width:0;background:var(--persona-accent);color:var(--persona-panel-ink);border-radius:24px 0 0 24px;padding:20px 24px;margin-right:-40px}
+.persona-card .persona-response h5{color:var(--persona-panel-ink)}
+.persona-card ul{list-style:disc;padding-left:1.1em;margin:0;display:grid;gap:5px;font-size:15px;line-height:1.55}
+.persona-card li{padding-left:2px}
+.authored-persona-needs{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;min-width:0}
+.authored-persona-needs section{min-width:0}
+.authored-persona-needs ul{color:var(--persona-muted)}
+:global(html[data-theme=dark]) .persona-card{--persona-surface:var(--bg-2);--persona-ink:var(--fg);--persona-muted:var(--fg-2);--persona-accent:color-mix(in srgb,var(--persona-base) 45%,white);--persona-panel-ink:#171b22}
+@media(max-width:1100px){.persona-content{gap:28px;padding:32px}.persona-response{margin-right:-32px;padding:24px}.persona-copy{padding:20px 24px}.persona-card .persona-art{height:280px}.persona-card .persona-copy h4{font-size:22px}}
+@media(max-width:700px){.persona-card{grid-template-columns:1fr;border-radius:24px}.persona-card .persona-identity{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;background:var(--persona-surface)}.persona-card .persona-art{height:160px;border-radius:0}.persona-copy{padding:20px 24px}.persona-card .persona-copy h4{font-size:24px}.persona-content{gap:28px;padding:28px}.persona-card blockquote p{font-size:17px}.persona-response{margin-right:-28px}.authored-persona-needs{gap:28px}}
+@media(max-width:480px){.persona-content{grid-template-columns:1fr;padding:28px 24px}.persona-context{padding-top:0}.persona-response{margin:0 -24px 0 0;padding:24px;border-radius:20px 0 0 20px}.authored-persona-needs{grid-template-columns:1fr}.persona-card .persona-role{font-size:13px}.persona-copy{padding:20px 16px}.persona-card .persona-copy h4{font-size:22px}}
+</style>

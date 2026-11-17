@@ -1,0 +1,14 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">05 / 05</tspan></text>
+<path d="M291 61H47C44.7909 61 43 62.7909 43 65V173C43 175.209 44.7909 177 47 177H291C293.209 177 295 175.209 295 173V65C295 62.7909 293.209 61 291 61Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="60" y="82.6364">PROPOSAL REVIEW</tspan></text>
+<path d="M61 103H271M61 120H233" stroke="#D6DCE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M275 134H63C60.7909 134 59 135.791 59 138V157C59 159.209 60.7909 161 63 161H275C277.209 161 279 159.209 279 157V138C279 135.791 277.209 134 275 134Z" fill="#8B5168" stroke="#8B5168"/>
+<path d="M109 147L113 151L121 142" stroke="#8B5168" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="132" y="151.864">Sign off</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Approve and sign off</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Proposal comparison, description and </tspan><tspan x="13" y="281.418">comments</tspan></text>
+</svg>
+

@@ -1,0 +1,45 @@
+{
+  "method": "Full-composition reference vs responsive SVG rendered at800px/1600px, embeddedWebP converted toPNG in-memory only for librsvg support; source originals unchanged.",
+  "rows": [
+    {
+      "name": "winking-hero-composition",
+      "width": 800,
+      "rmse": 3.4637409213756136
+    },
+    {
+      "name": "winking-hero-composition",
+      "width": 1600,
+      "rmse": 0
+    },
+    {
+      "name": "deal-hero-composition",
+      "width": 800,
+      "rmse": 3.161176725254108
+    },
+    {
+      "name": "deal-hero-composition",
+      "width": 1600,
+      "rmse": 3.116160465316984
+    },
+    {
+      "name": "ai-hero-builder-composition",
+      "width": 800,
+      "rmse": 3.005851295388299
+    },
+    {
+      "name": "ai-hero-builder-composition",
+      "width": 1600,
+      "rmse": 0
+    },
+    {
+      "name": "ai-hero-kit-composition",
+      "width": 800,
+      "rmse": 2.1819479582830033
+    },
+    {
+      "name": "ai-hero-kit-composition",
+      "width": 1600,
+      "rmse": 0
+    }
+  ]
+}

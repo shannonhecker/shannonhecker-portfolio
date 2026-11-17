@@ -1,0 +1,53 @@
+---
+// The index of the essays, newest first. The page head uses the Work page's own
+// scale (a very large title, its count, a hairline) so the two read as siblings.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import WaveField from '../../components/WaveField.astro';
+import intro from '../../data/writing-index.json';
+import { bodyStats, displayDate, isoDate, writingEntries } from '../../lib/writing';
+import '../../styles/writing.css';
+
+const entries = await writingEntries();
+---
+<Base title="Writing · Shannon Hecker" description={intro.description}>
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main" class="writing-index">
+    <header class="writing-head has-wave-field">
+      <WaveField variant="writing" />
+      <div class="wrap">
+        <h1>Writing</h1>
+        <p class="writing-meta">{entries.length} essays</p>
+      </div>
+    </header>
+
+    <div class="writing-intro">
+      <div class="wrap">
+        <p class="writing-statement">{intro.title}</p>
+        <p class="writing-dek">{intro.dek}</p>
+      </div>
+    </div>
+
+    <section class="writing-listing" aria-labelledby="essays-title">
+      <div class="wrap">
+        <h2 id="essays-title" class="vh">Essays</h2>
+        <ol class="writing-list">
+          {entries.map((e) => (
+            <li>
+              <a href={`/writing/${e.id}`} data-cursor="big">
+                <time class="date" datetime={isoDate(e.data.published)}>{displayDate(e.data.published)}</time>
+                <h3 class="title">{e.data.title}.</h3>
+                <span class="read-time">{bodyStats(e).minutes} min</span>
+                <p class="blurb">{e.data.blurb}</p>
+                <span class="read">Read essay <span class="arrow" aria-hidden="true">→</span></span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

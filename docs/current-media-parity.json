@@ -1,0 +1,1480 @@
+{
+  "date": "2026-10-12",
+  "scope": "108 freshly exported Figma roots: 51 product/brand body roots, 41 decision/journey roots, 16 FX original/vector roots. Separate exact composition audit covers restored home/heroes.",
+  "method": "Decoded embedded raster RGBA hashes, 96px render nearest-neighbour triage, then paired visual sheets for decisions/journeys, Deal gallery, Winking historical captures, FX originals and identified Fusion framing differences. Nearest-neighbour RMSE is candidate discovery only, not a parity proof.",
+  "limitations": "Visual comparison is not byte identity and does not validate every text glyph or implementation claim. New exact composition packing parity is separately recorded. AI mobile source clipping repaired by journey agent; complete website screenshot retained.",
+  "records": [
+    {
+      "freshExport": "ai-48-1921-fresh.svg",
+      "sourceNode": "48:1921",
+      "freshSha256": "d09cd528228518bda0302882934d827d4e79e4f69100defee55239882557e952",
+      "websiteTarget": "src/assets/img/live-uoaui.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uoaui.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uoaui.png",
+        "rmse": 7.588813934526947
+      }
+    },
+    {
+      "freshExport": "ai-48-2035-fresh.svg",
+      "sourceNode": "48:2035",
+      "freshSha256": "f682bf5dcb2951013f96bf5f0438e96ee0a8e5ccaedbe6f8e92304fb97ff7bc5",
+      "websiteTarget": "public/art/ai-hero-kit-composition.svg",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "public/art/ai-hero-kit-composition.svg",
+        "src/assets/img/live-uoaui-kit.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uoaui-kit.png",
+        "rmse": 6.431575393092818
+      }
+    },
+    {
+      "freshExport": "ai-48-2045-fresh.svg",
+      "sourceNode": "48:2045",
+      "freshSha256": "e880ffadb0270834b77aabf49d8a572795d023bf0c7fa257bc5debcd622a4fce",
+      "websiteTarget": "src/assets/img/live-uoaui-charts.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uoaui-charts.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uoaui-charts.png",
+        "rmse": 6.191870884175178
+      }
+    },
+    {
+      "freshExport": "ai-48-2056-fresh.svg",
+      "sourceNode": "48:2056",
+      "freshSha256": "8683300f54029394bfc56edbc03b7604b7b13310ca1e46f7d49e6a33f6eeb990",
+      "websiteTarget": "src/assets/img/live-uoaui-forms.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uoaui-forms.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uoaui-forms.png",
+        "rmse": 2.6021172491340088
+      }
+    },
+    {
+      "freshExport": "ai-48-2431-fresh.svg",
+      "sourceNode": "48:2431",
+      "freshSha256": "6490ed194ffe1549f2eda66de1873f02167fb1ab879dc545701b79600776693d",
+      "websiteTarget": "src/assets/img/live-uoaui-own-system.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uoaui-own-system.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uoaui-own-system.png",
+        "rmse": 5.175007967653555
+      }
+    },
+    {
+      "freshExport": "ai-48-2516-fresh.svg",
+      "sourceNode": "48:2516",
+      "freshSha256": "52f12b020608622ad5919e1749ac741d9a7b768bee5b64fb084a38492707448f",
+      "websiteTarget": "src/assets/img/live-uikit-tablet.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uikit-tablet.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-uikit-tablet.png",
+        "rmse": 4.398580631757712
+      }
+    },
+    {
+      "freshExport": "ai-48-2520-fresh.svg",
+      "sourceNode": "48:2520",
+      "freshSha256": "ec04e65e266510dbc64786972fe7ec37f976a0c4dc50029ceb1f534ebdd4c6d9",
+      "websiteTarget": "src/assets/img/live-uikit-mobile.png",
+      "status": "source layout repaired; same screenshot pixels",
+      "note": "Journey agent confirmed gallery overflow caused source clipping and repaired proportional figure widths without replacing image. Website complete capture retained. Proof /private/tmp/ai-gallery-fixed.png.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-uikit-mobile.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "public/art/ai-hero-kit-composition.svg",
+        "rmse": 91.05786191129508
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1380-fresh.svg",
+      "sourceNode": "277:1380",
+      "freshSha256": "5dd6cd06b41a54d75600da0b755a625553800ba024b9aabc96c8b39ebc6c1cc7",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-0-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-0-0.png",
+        "rmse": 2.9588956820759003
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1472-fresh.svg",
+      "sourceNode": "277:1472",
+      "freshSha256": "34d17fa1086e78b1e8f7c98add3948d5643659b3cfd30c72b960858605267ad0",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-0-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-0-1.png",
+        "rmse": 6.4628456458894785
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1519-fresh.svg",
+      "sourceNode": "277:1519",
+      "freshSha256": "ab01298a66da2ef57bc8a0587760c555cab89076a6dff07a79e68dd6c2126dee",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-1-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-1-0.png",
+        "rmse": 3.051010666641951
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1611-fresh.svg",
+      "sourceNode": "277:1611",
+      "freshSha256": "3d7e3764adfd4594510d1bf56dd29fa9ac60b2748dbb55d4a81c4578061ccd67",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-1-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-1-1.png",
+        "rmse": 7.168331928621113
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1707-fresh.svg",
+      "sourceNode": "277:1707",
+      "freshSha256": "2d18f3c0dcba4177fd6ee6c00adec29b5582f48fe6bdeafc5f18c4a217c7ad38",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-2-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-2-0.png",
+        "rmse": 4.776671131123369
+      }
+    },
+    {
+      "freshExport": "art-ai-277-1812-fresh.svg",
+      "sourceNode": "277:1812",
+      "freshSha256": "4277894cf6d61f597cfed8e04bfc117bd6ffdedaaec355ad001a1c5df725c6e4",
+      "websiteTarget": "src/assets/img/figma-sync/ai-decision-2-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/ai-decision-2-1.png",
+        "rmse": 5.672019275534687
+      }
+    },
+    {
+      "freshExport": "art-ai-352-5622-fresh.svg",
+      "sourceNode": "352:5622",
+      "freshSha256": "570253d0fbcb92c2ecaf06b1c9bab900bcd1f462bd3724f42f2ca3c2430ed697",
+      "websiteTarget": "public/art/ai-experience.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/ai-experience.svg",
+        "rmse": 0.19226205833204343
+      }
+    },
+    {
+      "freshExport": "art-ai-352-5687-fresh.svg",
+      "sourceNode": "352:5687",
+      "freshSha256": "15a7b25aa771574c88796ca3bf4dc71c5fa9f65180ae398859cabc97d33e628d",
+      "websiteTarget": "public/art/ai-approach.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/ai-approach.svg",
+        "rmse": 0.16742449237834992
+      }
+    },
+    {
+      "freshExport": "art-deal-278-1132-fresh.svg",
+      "sourceNode": "278:1132",
+      "freshSha256": "340c4f90d0b2f4fb780d48c4a3d6433ed8f086a8cea1113b9339196deedb18aa",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-3-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-3-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-3-0.png",
+        "rmse": 4.895098201309445
+      }
+    },
+    {
+      "freshExport": "art-deal-278-533-fresh.svg",
+      "sourceNode": "278:533",
+      "freshSha256": "0d2f72b9ad2d1461f44c94d553047028c2819944cff9142d131fe95472856ff0",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-0-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-0-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-0-0.png",
+        "rmse": 3.58013726168425
+      }
+    },
+    {
+      "freshExport": "art-deal-278-615-fresh.svg",
+      "sourceNode": "278:615",
+      "freshSha256": "8f7ac6657ad3df6cdd7a96f0e240870b6a4a76e03cd587bb8a1f8f70454a3c36",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-0-1.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-0-1.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-0-1.png",
+        "rmse": 3.72286673006365
+      }
+    },
+    {
+      "freshExport": "art-deal-278-733-fresh.svg",
+      "sourceNode": "278:733",
+      "freshSha256": "7c4ec567272a19ad0630f6c2cbb1e6aacc650149907d8bc1794c4752806d0122",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-1-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-1-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-1-0.png",
+        "rmse": 3.2817735472973664
+      }
+    },
+    {
+      "freshExport": "art-deal-278-922-fresh.svg",
+      "sourceNode": "278:922",
+      "freshSha256": "9d90fadd01d8ae74c133b002292eeb4ccb4e29934cc33732500db387e3f8d701",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-2-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-2-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-2-0.png",
+        "rmse": 4.144406685019381
+      }
+    },
+    {
+      "freshExport": "art-deal-352-5972-fresh.svg",
+      "sourceNode": "352:5972",
+      "freshSha256": "595d9728672986080171d7913822cde44cd63bb1281334c117298d7d70ae53a2",
+      "websiteTarget": "public/art/deal-experience.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/deal-experience.svg",
+        "rmse": 0.22235781453590783
+      }
+    },
+    {
+      "freshExport": "art-deal-352-6037-fresh.svg",
+      "sourceNode": "352:6037",
+      "freshSha256": "94384aa7d9644500b68309a10c5f6623fb01e74bc8e91e8f043ce0af87ffccad",
+      "websiteTarget": "public/art/deal-approach.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/deal-approach.svg",
+        "rmse": 0.17738944131173334
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-598-fresh.svg",
+      "sourceNode": "277:598",
+      "freshSha256": "a85781ef1d9788bdd1cc83016e42d31c9ab6315f08108f7dda93ff0a02315960",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-0-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-0-0.png",
+        "rmse": 6.385569601213696
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-654-fresh.svg",
+      "sourceNode": "277:654",
+      "freshSha256": "c3d9ad3282c6429938fa1c9ba5370d4486097288e04206fb3834e1b727ce7f08",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-0-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-0-1.png",
+        "rmse": 8.717683792500077
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-708-fresh.svg",
+      "sourceNode": "277:708",
+      "freshSha256": "b330511b6cc97530f5b51645a5c3f9ed275b99ce20c261daef004820b0430306",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-1-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-1-0.png",
+        "rmse": 3.6304188026824633
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-739-fresh.svg",
+      "sourceNode": "277:739",
+      "freshSha256": "7262a5bb189fd02c12561b2ac0e15b9c8f1813a165fb7988d461f83aa40fc780",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-1-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-1-1.png",
+        "rmse": 6.329474450310202
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-791-fresh.svg",
+      "sourceNode": "277:791",
+      "freshSha256": "b462d835b257f51125f5d8985ec7fa2cef9c0b86141fac3dc51ae26b713cdbf7",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-2-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-2-0.png",
+        "rmse": 6.495858723491111
+      }
+    },
+    {
+      "freshExport": "art-fusion-277-863-fresh.svg",
+      "sourceNode": "277:863",
+      "freshSha256": "08bf1617c40bf698cb5d9feb497ba625b1e02de824730b3d2e86b649c60afb92",
+      "websiteTarget": "src/assets/img/figma-sync/fusion-decision-2-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fusion-decision-2-1.png",
+        "rmse": 5.24158137847942
+      }
+    },
+    {
+      "freshExport": "art-fusion-352-5448-fresh.svg",
+      "sourceNode": "352:5448",
+      "freshSha256": "3d7a2dd3ff5fa696dbd31dd45180ad9daa622283d83c1e6395b12b8c5b3ec2c0",
+      "websiteTarget": "public/art/fusion-experience.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-experience.svg",
+        "rmse": 0.16013684107778065
+      }
+    },
+    {
+      "freshExport": "art-fusion-352-5513-fresh.svg",
+      "sourceNode": "352:5513",
+      "freshSha256": "a47e94dd1560201028d90e45e4220fa1b5961d16dc38fe8fcc8cf13ed430d8da",
+      "websiteTarget": "public/art/fusion-approach.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-approach.svg",
+        "rmse": 0.16753247335853916
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2542-fresh.svg",
+      "sourceNode": "277:2542",
+      "freshSha256": "32260ad8549c8b56afa3fb8376eee645fe4dfa83079fb060f917870033459f7b",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-0-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-0-0.png",
+        "rmse": 2.6110741723155497
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2611-fresh.svg",
+      "sourceNode": "277:2611",
+      "freshSha256": "021a8a09f79627e4a1b34de7f451a7f095f900f78998ede7f1fb9c1a7914c857",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-0-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-0-1.png",
+        "rmse": 2.568759293035366
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2661-fresh.svg",
+      "sourceNode": "277:2661",
+      "freshSha256": "b82ea789b0f57065529108ef896b2b348ef9dc73e7740da8f82065a1ca171c03",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-1-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-1-0.png",
+        "rmse": 3.8158426830707324
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2710-fresh.svg",
+      "sourceNode": "277:2710",
+      "freshSha256": "20e6c08c6519588a33d6043b67dc2906a79faf009dd2e342601974c6c4aaad07",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-1-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-1-1.png",
+        "rmse": 5.150456200578166
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2752-fresh.svg",
+      "sourceNode": "277:2752",
+      "freshSha256": "5c64f59e4c5e3b34afd0ed5318c28d9d582dbbc3bf71fba20605e1c5e3d059e8",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-2-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-2-0.png",
+        "rmse": 5.304947654600897
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2786-fresh.svg",
+      "sourceNode": "277:2786",
+      "freshSha256": "9d2ecedbfd34445739da46b1194793456bb22b6aad8bb2adfbeac1160a01df9e",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-2-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-2-1.png",
+        "rmse": 2.7993778243930745
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2830-fresh.svg",
+      "sourceNode": "277:2830",
+      "freshSha256": "ed4ff7e75f4415c4d75d6e51c3bcb7177c1864abe4287d5ff44cbe8dca8fe397",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-3-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-3-0.png",
+        "rmse": 3.6950986915477344
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2875-fresh.svg",
+      "sourceNode": "277:2875",
+      "freshSha256": "b907c775f837d16ac0d1828412c4e14327b09f0b2bd95fca88cca8a02380bfcd",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-3-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-3-1.png",
+        "rmse": 2.8058241242465116
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2924-fresh.svg",
+      "sourceNode": "277:2924",
+      "freshSha256": "6ac37b44839d750aff1cea568555b8aa7ef6c3c37bb30d61d5b01749b4472b68",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-4-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-4-0.png",
+        "rmse": 2.7213628887420036
+      }
+    },
+    {
+      "freshExport": "art-winking-277-2952-fresh.svg",
+      "sourceNode": "277:2952",
+      "freshSha256": "13b36897be2a0b782cf7c5525bdd2218bdce1e5e15350e0d88edb8419115b71c",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-4-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-4-1.png",
+        "rmse": 2.5348411311530326
+      }
+    },
+    {
+      "freshExport": "art-winking-277-3007-fresh.svg",
+      "sourceNode": "277:3007",
+      "freshSha256": "035e33f96d48bcbd66cbf23de38c7af6de44a722de144bceb04f7096505d1beb",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-5-0.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-5-0.png",
+        "rmse": 5.67260590510478
+      }
+    },
+    {
+      "freshExport": "art-winking-277-3061-fresh.svg",
+      "sourceNode": "277:3061",
+      "freshSha256": "0855c5481326ef1c8939fc2e0949b0bdfab6eec63660c6ecbc071893ff82a088",
+      "websiteTarget": "src/assets/img/figma-sync/winking-decision-5-1.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/winking-decision-5-1.png",
+        "rmse": 2.550481356619366
+      }
+    },
+    {
+      "freshExport": "art-winking-352-5796-fresh.svg",
+      "sourceNode": "352:5796",
+      "freshSha256": "96ee775d5491fe324d5336d400656b741a6727461906704732676699771dd69a",
+      "websiteTarget": "public/art/winking-experience.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/winking-experience.svg",
+        "rmse": 0.16448221225454182
+      }
+    },
+    {
+      "freshExport": "art-winking-352-5861-fresh.svg",
+      "sourceNode": "352:5861",
+      "freshSha256": "b3880761b0f5718afef3056cf58f80fbb9d666d9cf8c92bde17d63d9e6ff1e56",
+      "websiteTarget": "public/art/winking-approach.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/winking-approach.svg",
+        "rmse": 0.15485488278456777
+      }
+    },
+    {
+      "freshExport": "deal-242-530-fresh.svg",
+      "sourceNode": "242:530",
+      "freshSha256": "673ba0c3e60ad8365ea6c37fb872e8a951e8631b193bb2eb7e1483c80a2566e9",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-530.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-530.png",
+        "rmse": 9.76880087247719
+      }
+    },
+    {
+      "freshExport": "deal-242-535-fresh.svg",
+      "sourceNode": "242:535",
+      "freshSha256": "f84898c7b8bf872bdf5ab5790debb2c4ec303024dd6d460773c90adae6780a36",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-535.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-535.png",
+        "rmse": 10.112886415040887
+      }
+    },
+    {
+      "freshExport": "deal-242-540-fresh.svg",
+      "sourceNode": "242:540",
+      "freshSha256": "6c79eb2d75531395277e3c8845e471671bfeaceafc1e0ce71e0cc801864e56ed",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-540.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-540.png",
+        "rmse": 7.643548137154629
+      }
+    },
+    {
+      "freshExport": "deal-242-545-fresh.svg",
+      "sourceNode": "242:545",
+      "freshSha256": "f93ce7b97484d90db1ba28526c5ba52cc4f544bb2e66c303b69147fd8851a334",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-545.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-545.png",
+        "rmse": 11.256616174355385
+      }
+    },
+    {
+      "freshExport": "deal-242-550-fresh.svg",
+      "sourceNode": "242:550",
+      "freshSha256": "35875536ebfe7ef9a7125c22ef7958d33601dfd25f611bfba885c70043e0efe7",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-550.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-550.png",
+        "rmse": 10.446014214185379
+      }
+    },
+    {
+      "freshExport": "deal-242-555-fresh.svg",
+      "sourceNode": "242:555",
+      "freshSha256": "925b62550a437028d35e9ac197fa0a430cff6ff853e9c776f716ecd76bea1063",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-555.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-555.png",
+        "rmse": 11.020503500105308
+      }
+    },
+    {
+      "freshExport": "deal-242-560-fresh.svg",
+      "sourceNode": "242:560",
+      "freshSha256": "d502a1e4b471bdde37d58cee5742cb70378d52e88bddce27b642468e18d1c595",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-560.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-560.png",
+        "rmse": 10.987932669608595
+      }
+    },
+    {
+      "freshExport": "deal-242-565-fresh.svg",
+      "sourceNode": "242:565",
+      "freshSha256": "b782082ed4090656b0783b2ed1567f247c89fcfb8c8e459a01d771e7c0480295",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-565.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-565.png",
+        "rmse": 8.845831452477949
+      }
+    },
+    {
+      "freshExport": "deal-242-570-fresh.svg",
+      "sourceNode": "242:570",
+      "freshSha256": "22eca37e837378db41e1cf01c1cc2a7e79e5417b4f692cf10410452b94e09478",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-570.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-570.png",
+        "rmse": 11.014047611648802
+      }
+    },
+    {
+      "freshExport": "deal-242-575-fresh.svg",
+      "sourceNode": "242:575",
+      "freshSha256": "e06e6343d8568780a2db13070c302f572330005c4e306a11ef154f92ae55a0f3",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-575.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-575.png",
+        "rmse": 8.541914376489487
+      }
+    },
+    {
+      "freshExport": "deal-242-580-fresh.svg",
+      "sourceNode": "242:580",
+      "freshSha256": "6e9681988cbb565199632389738723f00c52a7af2dfbcf7805081e2384810d21",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-580.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-580.png",
+        "rmse": 6.93187230032139
+      }
+    },
+    {
+      "freshExport": "deal-242-585-fresh.svg",
+      "sourceNode": "242:585",
+      "freshSha256": "11f45b3ef851eddc2305e1b84e806d9e261e2813781b947b3a2d00837ec27200",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-585.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-585.png",
+        "rmse": 6.416300269120712
+      }
+    },
+    {
+      "freshExport": "deal-242-590-fresh.svg",
+      "sourceNode": "242:590",
+      "freshSha256": "7faeb62ce5d03424033f9b444ebd048b6a837771c0c65ef604cc8d89388c5fea",
+      "websiteTarget": "src/assets/img/figma-sync/source-242-590.png",
+      "status": "same full product capture visually",
+      "note": "All 13 paired captures retain full app rectangle; no omitted authored outer shadows, crop, background or different state observed.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/source-242-590.png",
+        "rmse": 11.256262724405172
+      }
+    },
+    {
+      "freshExport": "deal-art-278-1210-fresh.svg",
+      "sourceNode": "278:1210",
+      "freshSha256": "146d1dc570a4d900221aea5502cf2bb872aaa78d9a1fffcbf07c9996ab0d9007",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-4-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-4-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-4-0.png",
+        "rmse": 9.700884943763102
+      }
+    },
+    {
+      "freshExport": "deal-art-278-1241-fresh.svg",
+      "sourceNode": "278:1241",
+      "freshSha256": "c7e1e8253879868d2f8ac7feb123f7adda3715a1bb4b47f772f3c4949734d1e5",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-4-1.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-4-1.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-4-1.png",
+        "rmse": 5.122578752806413
+      }
+    },
+    {
+      "freshExport": "deal-art-278-1284-fresh.svg",
+      "sourceNode": "278:1284",
+      "freshSha256": "79e4dd25acc107d27bea2cf4c825fff5460af3e2026b280761b1e3c0761df51a",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-5-0.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-5-0.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-5-0.png",
+        "rmse": 6.026735620995032
+      }
+    },
+    {
+      "freshExport": "deal-art-278-1320-fresh.svg",
+      "sourceNode": "278:1320",
+      "freshSha256": "91c8528d78ef88f4f54595c9f15acadeef359f2f1d9945ccb993a54b59e41d99",
+      "websiteTarget": "src/assets/img/figma-sync/deal-decision-5-1.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/figma-sync/deal-decision-5-1.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/deal-decision-5-1.png",
+        "rmse": 4.632977666704772
+      }
+    },
+    {
+      "freshExport": "fusion-configuration-fresh.svg",
+      "sourceNode": "305:336564",
+      "freshSha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "websiteTarget": "public/art/fusion-configuration-composition.svg",
+      "status": "framing mismatch corrected",
+      "note": "Root installed exact fresh composition with authored margin/shadow instead of raw single capture.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-configuration-composition.svg",
+        "rmse": 0
+      }
+    },
+    {
+      "freshExport": "fusion-entity-comparison-fresh.svg",
+      "sourceNode": null,
+      "freshSha256": "54ac2e544597dd1bae373a41e4e728a1845ab4698f6f590facf435cea80d8579",
+      "websiteTarget": "public/art/fusion-entity-comparison.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-entity-comparison.svg",
+        "rmse": 0.9763182564937332
+      }
+    },
+    {
+      "freshExport": "fusion-hero-discovery-fresh.svg",
+      "sourceNode": "305:322434",
+      "freshSha256": "195fe09dbaa903b2534a8e792aa420ec971ec70f3f8f38eccde4ad79e88fa1a0",
+      "websiteTarget": "public/art/fusion-hero-discovery-composition.svg",
+      "status": "framing mismatch corrected",
+      "note": "Root installed exact fresh composition with authored margin/shadow instead of raw single capture.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-entity-comparison.svg",
+        "rmse": 45.03359527524259
+      }
+    },
+    {
+      "freshExport": "fusion-hero-performance-fresh.svg",
+      "sourceNode": "305:322444",
+      "freshSha256": "2be43fc653f24775c4069a32c47fb3b3b9df69bd0dbf8920f54bf315f8fcd6d1",
+      "websiteTarget": "public/art/fusion-hero-performance-composition.svg",
+      "status": "framing mismatch corrected",
+      "note": "Root installed exact fresh composition with authored margin/shadow instead of raw single capture.",
+      "decodedPixelMatches": [
+        "public/art/fusion-hero-performance-composition.svg"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fusion-tablet.png",
+        "rmse": 52.62819686284836
+      }
+    },
+    {
+      "freshExport": "fusion-performance-fresh.svg",
+      "sourceNode": null,
+      "freshSha256": "30ef63375de78253de919b0d29fc6c7dc8f0a748db3b220c9a986012876939af",
+      "websiteTarget": "public/art/fusion-performance.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-performance.svg",
+        "rmse": 1.754159656227744
+      }
+    },
+    {
+      "freshExport": "fusion-risk-fresh.svg",
+      "sourceNode": null,
+      "freshSha256": "85d6d83038b14b68f28b4d3664f8768596fbe2bab422fde9ccc7760a050d00ec",
+      "websiteTarget": "public/art/fusion-risk.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-risk.svg",
+        "rmse": 3.098656322818722
+      }
+    },
+    {
+      "freshExport": "fusion-screening-fresh.svg",
+      "sourceNode": null,
+      "freshSha256": "afc9409051d4cca64e3ad45853639a237118f6f920026e715abe695381006ed6",
+      "websiteTarget": "public/art/fusion-screening.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fusion-screening.svg",
+        "rmse": 0.9758180032480251
+      }
+    },
+    {
+      "freshExport": "fx-305-336442-fresh.svg",
+      "sourceNode": "305:336442",
+      "freshSha256": "e72185125ced1b4cd2b7efaa33300349aa8ea18a491eb87af909d79ea3aa20e4",
+      "websiteTarget": "src/assets/img/live-fx-classic.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-classic.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-classic.png",
+        "rmse": 3.4625089834754434
+      }
+    },
+    {
+      "freshExport": "fx-305-336445-fresh.svg",
+      "sourceNode": "305:336445",
+      "freshSha256": "5e46d33900cf06a190deed15c89b4c16f478227b64017129cd1e10b54749eb04",
+      "websiteTarget": "src/assets/img/live-fx-classic-light.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-classic-light.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-classic-light.png",
+        "rmse": 5.513002176462947
+      }
+    },
+    {
+      "freshExport": "fx-305-336470-fresh.svg",
+      "sourceNode": "305:336470",
+      "freshSha256": "0857a660f01764a1717bbd466b3dbb589abf7f467da8b4ef1c7bb2ab062cd27c",
+      "websiteTarget": "src/assets/img/live-fx-hover.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-hover.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-classic.png",
+        "rmse": 33.32334757110857
+      }
+    },
+    {
+      "freshExport": "fx-305-336489-fresh.svg",
+      "sourceNode": "305:336489",
+      "freshSha256": "a82fdcff40707df852b0ea50805da4837d5a210dbedebbc6364beb66e5c06579",
+      "websiteTarget": "src/assets/img/live-fx-table.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-table.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-table.png",
+        "rmse": 3.474251143332106
+      }
+    },
+    {
+      "freshExport": "fx-305-336503-fresh.svg",
+      "sourceNode": "305:336503",
+      "freshSha256": "90a1c1740802c5ed5b8bcd3b6d6434ac36567f1d3fa56185a9e79e5d147bf0a1",
+      "websiteTarget": "src/assets/img/live-fx-ticket.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-ticket.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-ticket.png",
+        "rmse": 7.971570397762381
+      }
+    },
+    {
+      "freshExport": "fx-305-336513-fresh.svg",
+      "sourceNode": "305:336513",
+      "freshSha256": "00035b53c6db20b45711042005ea7a05a13ae839b8a1097c663efd194581fba4",
+      "websiteTarget": "src/assets/img/live-fx-compare.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-compare.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-compare.png",
+        "rmse": 9.105527247049412
+      }
+    },
+    {
+      "freshExport": "fx-305-336516-fresh.svg",
+      "sourceNode": "305:336516",
+      "freshSha256": "a83f03d99cbf2a571d5d7dc1cd5f7e48e18715d3f146664eb96337dd98ece1ee",
+      "websiteTarget": "src/assets/img/live-fx-filters.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-filters.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-filters.png",
+        "rmse": 6.670116295004824
+      }
+    },
+    {
+      "freshExport": "fx-305-336542-fresh.svg",
+      "sourceNode": "305:336542",
+      "freshSha256": "df3a781a3ab8d1cc51b5fccd4500778697bb648519a86795e70374cc1466e8ae",
+      "websiteTarget": "src/assets/img/live-fx-tablet.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-tablet.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-tablet.png",
+        "rmse": 13.806957996617879
+      }
+    },
+    {
+      "freshExport": "fx-305-336544-fresh.svg",
+      "sourceNode": "305:336544",
+      "freshSha256": "e96d432050c1089922daba95c312693905cd3a65da583f5dee90d8b8b7125fd8",
+      "websiteTarget": "src/assets/img/live-fx-mobile.png",
+      "status": "same embedded source pixels",
+      "note": "Decoded RGBA pixel hash matches; outer SVG framing reviewed separately.",
+      "decodedPixelMatches": [
+        "src/assets/img/live-fx-mobile.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-mobile.png",
+        "rmse": 17.862231583137355
+      }
+    },
+    {
+      "freshExport": "fx-art-140-4399-fresh.svg",
+      "sourceNode": "140:4399",
+      "freshSha256": "098d4451d9874d87c1a9b5206c58639f4f2875c50d08e760b90d0ceb41809cd7",
+      "websiteTarget": "public/art/fx-states-today.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-states-today.svg",
+        "rmse": 7.055288127860522
+      }
+    },
+    {
+      "freshExport": "fx-art-140-4411-fresh.svg",
+      "sourceNode": "140:4411",
+      "freshSha256": "e8080adf1572e1a7865f2e23d34638a53bbd9d4b395531a8a33878b5241229b6",
+      "websiteTarget": "public/art/fx-states-designed.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-states-designed.svg",
+        "rmse": 6.91366965691882
+      }
+    },
+    {
+      "freshExport": "fx-art-140-4429-fresh.svg",
+      "sourceNode": "140:4429",
+      "freshSha256": "03b53f5f7dc33bd4f06ae63543efb55198635b9f7c7f5091e685f1a28ecc1e5d",
+      "websiteTarget": "public/art/fx-fills-today.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-fills-today.svg",
+        "rmse": 4.456361518785377
+      }
+    },
+    {
+      "freshExport": "fx-art-140-4600-fresh.svg",
+      "sourceNode": "140:4600",
+      "freshSha256": "5f703c1f912eba11edcf41654a7d7ddc5002edd38cc6d77cc711da3d4286b68e",
+      "websiteTarget": "public/art/fx-fills-designed.svg",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-fills-designed.svg",
+        "rmse": 4.537810544418645
+      }
+    },
+    {
+      "freshExport": "fx-art-274-1009-fresh.svg",
+      "sourceNode": "274:1009",
+      "freshSha256": "70cc0cbadd3f2c1df3ac2c7416236ef9f0862b896b8e5a4e0d44f339f3d5bf12",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-3-alternative.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-3-alternative.png",
+        "rmse": 5.156670858245442
+      }
+    },
+    {
+      "freshExport": "fx-art-274-796-fresh.svg",
+      "sourceNode": "274:796",
+      "freshSha256": "f641a78f4397c47601b98e22326acffce538f684b6518d4813f137fa6ed7c269",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-1-chosen.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-1-chosen.png",
+        "rmse": 3.7873716516573572
+      }
+    },
+    {
+      "freshExport": "fx-art-274-830-fresh.svg",
+      "sourceNode": "274:830",
+      "freshSha256": "765b7647874daa9ee7d41cd12953eafd8dc43552027fed21e78422a0378eba2a",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-1-alternative.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-1-alternative.png",
+        "rmse": 3.982982463626416
+      }
+    },
+    {
+      "freshExport": "fx-art-274-876-fresh.svg",
+      "sourceNode": "274:876",
+      "freshSha256": "0508fdf0f0069451e230cbd54c1a62fbc8a8179e92f173fcf374de0cc993a772",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-2-chosen.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-2-chosen.png",
+        "rmse": 4.184648697587675
+      }
+    },
+    {
+      "freshExport": "fx-art-274-924-fresh.svg",
+      "sourceNode": "274:924",
+      "freshSha256": "8fe7e653634acfa3863c1e00375dff3d72460137c1fb04f15d8447d7bf1a4cdf",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-2-alternative.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-2-alternative.png",
+        "rmse": 3.9297257540844774
+      }
+    },
+    {
+      "freshExport": "fx-art-274-975-fresh.svg",
+      "sourceNode": "274:975",
+      "freshSha256": "e5d91aa070fa0d9b3997997c769f384db3103f02aaf325465a1fc38a456535e5",
+      "websiteTarget": "src/assets/img/figma-sync/fx-decision-3-chosen.png",
+      "status": "same artwork visually; export/raster rendering differs",
+      "note": "Paired rendered overview matches layout and content. Not a byte-equivalence claim.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/figma-sync/fx-decision-3-chosen.png",
+        "rmse": 3.588275822679972
+      }
+    },
+    {
+      "freshExport": "fx-art-312-5288-fresh.svg",
+      "sourceNode": "312:5288",
+      "freshSha256": "33804553fa81f528b396ebd4ba3763d1aca6dca1f8d4963f7d2e6efa768bd2f4",
+      "websiteTarget": "public/art/fx-data-layers.svg",
+      "status": "same original diagram; intentional theme adaptation",
+      "note": "Same geometry/content. Current themed route preserves original vector and adapts neutrals; source dark canvas intentionally not baked into website.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-compare.png",
+        "rmse": 20.217644439978386
+      }
+    },
+    {
+      "freshExport": "fx-original-120-2397-fresh.svg",
+      "sourceNode": "120:2397",
+      "freshSha256": "4afe866385a14994a590a3bfff95f1ecfe949062ffcbc73837a457684d14262d",
+      "websiteTarget": "public/art/fx-hero-overview.svg",
+      "status": "same original artwork; intentional presentation adaptation",
+      "note": "Hero cutouts remove outer dark rectangle for requested transparent overlays; journey displays chart/approach crop; loop preserves original pixels with transparency. Fresh framing should not undo these explicit requests.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-hero-overview.svg",
+        "rmse": 21.84060374469695
+      }
+    },
+    {
+      "freshExport": "fx-original-120-3705-fresh.svg",
+      "sourceNode": "120:3705",
+      "freshSha256": "088fcab20606e3be0687ecaee008f469f6fb3f75358718a4be0ec5db44818fef",
+      "websiteTarget": "public/art/fx-hero-compare.svg",
+      "status": "same original artwork; intentional presentation adaptation",
+      "note": "Hero cutouts remove outer dark rectangle for requested transparent overlays; journey displays chart/approach crop; loop preserves original pixels with transparency. Fresh framing should not undo these explicit requests.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-compare.png",
+        "rmse": 17.370392657852125
+      }
+    },
+    {
+      "freshExport": "fx-original-120-3776-fresh.svg",
+      "sourceNode": "120:3776",
+      "freshSha256": "0caa7a72b1274c86e69cdec5d68811c812336e38fdab362a05dfb8b5d1097f46",
+      "websiteTarget": "public/art/fx-hero-ticket.svg",
+      "status": "same original artwork; intentional presentation adaptation",
+      "note": "Hero cutouts remove outer dark rectangle for requested transparent overlays; journey displays chart/approach crop; loop preserves original pixels with transparency. Fresh framing should not undo these explicit requests.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-hero-compare.svg",
+        "rmse": 23.400305363134965
+      }
+    },
+    {
+      "freshExport": "fx-original-140-5036-fresh.svg",
+      "sourceNode": "140:5036",
+      "freshSha256": "db70ef9fc23817c4a8c79d240de93810ed87400561dac94954df2a079a75bbde",
+      "websiteTarget": "public/art/fx-original-decision-loop.png",
+      "status": "same original artwork; intentional presentation adaptation",
+      "note": "Hero cutouts remove outer dark rectangle for requested transparent overlays; journey displays chart/approach crop; loop preserves original pixels with transparency. Fresh framing should not undo these explicit requests.",
+      "decodedPixelMatches": [
+        "public/art/fx-original-decision-loop.png"
+      ],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/live-fx-compare.png",
+        "rmse": 17.23885005993407
+      }
+    },
+    {
+      "freshExport": "fx-original-339-5297-fresh.svg",
+      "sourceNode": "339:5297",
+      "freshSha256": "aa93cdfdbc8a335978fab647cd062098ce27f7870df228b8194f888e033f67c2",
+      "websiteTarget": "public/art/fx-journey-original.svg",
+      "status": "same original artwork; intentional presentation adaptation",
+      "note": "Hero cutouts remove outer dark rectangle for requested transparent overlays; journey displays chart/approach crop; loop preserves original pixels with transparency. Fresh framing should not undo these explicit requests.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/fx-hero-overview.svg",
+        "rmse": 26.751267574458556
+      }
+    },
+    {
+      "freshExport": "winking-48-3576-fresh.svg",
+      "sourceNode": "48:3576",
+      "freshSha256": "50d40260ea4964cea19939930fba1fec31bfd69440f3d4013d01ac65edb403ae",
+      "websiteTarget": "src/assets/img/ws-hero-art.jpg",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-hero-art.jpg",
+        "rmse": 7.738700039322568
+      }
+    },
+    {
+      "freshExport": "winking-48-3736-fresh.svg",
+      "sourceNode": "48:3736",
+      "freshSha256": "c9e382ee80923555b13d7376bab7821bc00718a516ab431350a49fc2eff896a1",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-mobile-current.svg",
+        "rmse": 46.12512624819619
+      }
+    },
+    {
+      "freshExport": "winking-48-3741-fresh.svg",
+      "sourceNode": "48:3741",
+      "freshSha256": "7140dfd2a12809a44159a47ed8a6e29da317e27192e439bf235e67343a6c6126",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-mobile-current.svg",
+        "rmse": 51.29516873875648
+      }
+    },
+    {
+      "freshExport": "winking-48-3751-fresh.svg",
+      "sourceNode": "48:3751",
+      "freshSha256": "eecf7d9cba832d15c4b2520d036724b475e74f273761b454a3441f7e9688a7d9",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 48.367517021609125
+      }
+    },
+    {
+      "freshExport": "winking-48-3755-fresh.svg",
+      "sourceNode": "48:3755",
+      "freshSha256": "23145dbdb79028332c4cd14ce8d08943e2e625d67c8f0655df70e6f4bc9d8e11",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 51.64505911581851
+      }
+    },
+    {
+      "freshExport": "winking-48-3764-fresh.svg",
+      "sourceNode": "48:3764",
+      "freshSha256": "6c7bef06f209f663d04d03d557a6d381b634166f95b004f47a4dec0ee89c6b46",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 39.95782915189972
+      }
+    },
+    {
+      "freshExport": "winking-48-3771-fresh.svg",
+      "sourceNode": "48:3771",
+      "freshSha256": "f2f3f6303f147444dc278dc82568d2aa7232bb3733e62e0b5cf6c69860073c36",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 42.098050317884436
+      }
+    },
+    {
+      "freshExport": "winking-48-3778-fresh.svg",
+      "sourceNode": "48:3778",
+      "freshSha256": "7118e3869443de18b38553737e0fdcfcefc64c15d914c14c5eeb18f5b706678e",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 40.435029924129864
+      }
+    },
+    {
+      "freshExport": "winking-48-3785-fresh.svg",
+      "sourceNode": "48:3785",
+      "freshSha256": "58f7ccf8199f5376c8e1cbefebd5157257df10e6bef7381e9f17c9c4e0318b93",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 41.093991602585085
+      }
+    },
+    {
+      "freshExport": "winking-48-3792-fresh.svg",
+      "sourceNode": "48:3792",
+      "freshSha256": "c1d28a265123061f5a1f1aa62e8a5988a27079770dde227a36a477bd3ec276f5",
+      "websiteTarget": null,
+      "status": "historical Figma capture; composition/current-app evidence intentionally separate",
+      "note": "Fresh source contains older individual/phone captures. Exact current authored hero/iPhone compositions are now installed separately; current web board uses verified app source and sample data. Not grounds to replace current app evidence.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "public/art/home-fusion-composition-current.svg",
+        "rmse": 33.82436508807092
+      }
+    },
+    {
+      "freshExport": "winking-48-4240-fresh.svg",
+      "sourceNode": "48:4240",
+      "freshSha256": "75d2778ba25efa1a7d1dea6ccd1e00169754dbac9e1fd600fb3de023b741328c",
+      "websiteTarget": "src/assets/img/ws-icon.png",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-icon.png",
+        "rmse": 2.7870699614303565
+      }
+    },
+    {
+      "freshExport": "winking-48-4311-fresh.svg",
+      "sourceNode": "48:4311",
+      "freshSha256": "c4600fa96515b23d4485ce08a8bc9b17d475b7d5e5d28bdb0b2cfd211c8186cd",
+      "websiteTarget": "src/assets/img/ws-source-football.png",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-source-football.png",
+        "rmse": 8.802216879328794
+      }
+    },
+    {
+      "freshExport": "winking-48-4312-fresh.svg",
+      "sourceNode": "48:4312",
+      "freshSha256": "743d2a0bdd3e98650ca023ed2684a6bf3870bf569265ab3aaae586c767f371f2",
+      "websiteTarget": "src/assets/img/ws-source-dinosaur.png",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-source-dinosaur.png",
+        "rmse": 5.580806331127748
+      }
+    },
+    {
+      "freshExport": "winking-48-4313-fresh.svg",
+      "sourceNode": "48:4313",
+      "freshSha256": "dfd26509eedb179323532e528f0c8c887cba1397a9901e0749b18e47a2924cb3",
+      "websiteTarget": "src/assets/img/ws-source-ocean.png",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-source-ocean.png",
+        "rmse": 3.0045658734604177
+      }
+    },
+    {
+      "freshExport": "winking-48-4314-fresh.svg",
+      "sourceNode": "48:4314",
+      "freshSha256": "14f3a4def678344f8758e63d7506081e8f9f0a6e46d775abae5d97fc96958d28",
+      "websiteTarget": "src/assets/img/ws-source-unicorn.png",
+      "status": "same original brand/theme artwork visually",
+      "note": "Paired artwork matches; embedded encoding/resampling differs.",
+      "decodedPixelMatches": [],
+      "renderNearestCandidate": {
+        "asset": "src/assets/img/ws-source-unicorn.png",
+        "rmse": 3.23394024408535
+      }
+    }
+  ],
+  "proofFiles": [
+    "/private/tmp/parity-contact.png",
+    "/private/tmp/parity-body-contact.png",
+    "/private/tmp/parity-art-contact.png",
+    "/private/tmp/parity-fx-contact.png",
+    "/private/tmp/parity-fx-mapped.png"
+  ],
+  "regenerationScripts": [
+    "/private/tmp/make-media-map.py",
+    "/private/tmp/media-parity.py",
+    "/private/tmp/render-media-parity.cjs",
+    "/private/tmp/save-parity.py"
+  ]
+}

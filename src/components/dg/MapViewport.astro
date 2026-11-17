@@ -1,0 +1,40 @@
+---
+interface Props { id: string; title: string; regionClass: string }
+const {id,title,regionClass}=Astro.props;
+---
+<div class="map-viewport" data-map-viewport>
+ <div class="map-size-tools"><button type="button" data-map-size aria-controls={id} aria-pressed="false">Enlarge map</button></div>
+ <div id={id} class={regionClass} data-map-region tabindex="0" role="region" aria-label={title}><slot /></div>
+</div>
+<style>
+.map-viewport{min-width:0}
+.map-size-tools{display:none;justify-content:flex-end;margin-bottom:12px}
+button{font:inherit;font-size:13px;min-height:44px;padding:10px 16px;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg-2);color:var(--fg);cursor:pointer}
+button:focus-visible,[data-map-region]:focus-visible{outline:2px solid var(--project-ink);outline-offset:4px}
+[data-map-region]{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--divider);border-radius:var(--radius)}
+@media(max-width:760px){
+ :global(html.has-js) .map-size-tools{display:flex}
+ .map-viewport[data-map-zoomed] :global(.map-image),.map-viewport[data-map-zoomed] :global(.flow-image){min-width:1120px}
+}
+</style>
+<script>
+ const narrow=window.matchMedia('(max-width:760px)');
+ document.querySelectorAll<HTMLElement>('[data-map-viewport]').forEach(viewport=>{
+  const region=viewport.querySelector<HTMLElement>('[data-map-region]')!;
+  const button=viewport.querySelector<HTMLButtonElement>('[data-map-size]')!;
+  const position=()=>{region.scrollLeft=narrow.matches&&viewport.hasAttribute('data-map-zoomed')?(region.scrollWidth-region.clientWidth)/2:0;};
+  button.addEventListener('click',()=>{
+   const zoomed=viewport.toggleAttribute('data-map-zoomed');
+   button.setAttribute('aria-pressed',String(zoomed));
+   button.textContent=zoomed?'Fit to screen':'Enlarge map';
+   position();
+  });
+  region.addEventListener('keydown',event=>{
+   if(event.target!==region||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey)return;
+   if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;
+   if(region.scrollWidth<=region.clientWidth)return;
+   event.preventDefault();region.scrollBy({left:event.key==='ArrowRight'?80:-80,behavior:'instant'});
+  });
+  narrow.addEventListener('change',position);
+ });
+</script>

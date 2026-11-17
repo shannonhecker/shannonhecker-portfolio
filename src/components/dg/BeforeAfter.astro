@@ -1,0 +1,12 @@
+---
+// Two panels side by side: what the public rebuild does today, and the refinement
+// I designed next. The pictures are slotted SVG schematics, never real screens
+// (NDA-safe). The labels say Today and Designed, not Before and After, because
+// the second panel is not shipped.
+interface Props { before: string; after: string; beforeNote: string; afterNote: string; label: string }
+const { before, after, beforeNote, afterNote, label } = Astro.props;
+---
+<figure class="dg dg-ba" aria-label={label}>
+  <div class="dg-ba-panel"><span class="dg-tag">Today</span><div class="dg-pic"><slot name="before" /></div><b>{before}</b><span class="dg-d">{beforeNote}</span></div>
+  <div class="dg-ba-panel after"><span class="dg-tag">Designed</span><div class="dg-pic"><slot name="after" /></div><b>{after}</b><span class="dg-d">{afterNote}</span></div>
+</figure>

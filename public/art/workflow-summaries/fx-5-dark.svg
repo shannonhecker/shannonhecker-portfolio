@@ -1,0 +1,17 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#A4CBE6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">06 / 06</tspan></text>
+<path d="M291 60H47C44.7909 60 43 61.7909 43 64V173C43 175.209 44.7909 177 47 177H291C293.209 177 295 175.209 295 173V64C295 61.7909 293.209 60 291 60Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="60" y="81.6364">ORDER HISTORY</tspan></text>
+<path d="M63 105C64.6569 105 66 103.657 66 102C66 100.343 64.6569 99 63 99C61.3431 99 60 100.343 60 102C60 103.657 61.3431 105 63 105Z" fill="#A4CBE6"/>
+<path d="M76 102H275" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M63 131C64.6569 131 66 129.657 66 128C66 126.343 64.6569 125 63 125C61.3431 125 60 126.343 60 128C60 129.657 61.3431 131 63 131Z" fill="#A4CBE6"/>
+<path d="M76 128H275" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M63 157C64.6569 157 66 155.657 66 154C66 152.343 64.6569 151 63 151C61.3431 151 60 152.343 60 154C60 155.657 61.3431 157 63 157Z" fill="#A4CBE6"/>
+<path d="M76 154H275" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M63 102V155" stroke="#A4CBE6" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Audit trail</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Every change to the order is recorded</tspan></text>
+</svg>
+

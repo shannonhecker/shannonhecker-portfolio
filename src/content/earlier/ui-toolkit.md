@@ -1,0 +1,49 @@
+---
+title: "UI Toolkit"
+summary: "Trading UI toolkit for multi-asset workflows. Reusable components, order entry patterns, price tiles, and WCAG AA foundations."
+role: "UI Designer"
+dates: "2016 to 2018"
+order: 5
+legacy: "project-ui-toolkit.html"
+details:
+  - label: "Project"
+    value: "Market UI Toolkit"
+  - label: "Project type"
+    value: "Trading UI / Component Library"
+outcomes:
+  - value: "30+"
+    label: "Screens designed"
+  - value: "6"
+    label: "Asset classes supported"
+  - value: "WCAG 2.1 AA"
+    label: "Accessibility compliance"
+tags:
+  - "UI/UX Design"
+  - "Trading"
+  - "Figma"
+  - "Design System"
+  - "Data Visualisation"
+  - "Responsive"
+  - "Accessibility"
+cover: ../../assets/earlier/ui-toolkit/uitkbanner.webp
+coverAlt: "UI Toolkit"
+matte:
+  - "uitkbanner"
+---
+## Overview
+
+Worked on the modernisation of a trading platform UI, bringing legacy interfaces into a shared Market UI standard. The goal was clarity and speed for traders working across multiple asset classes and execution workflows.
+
+The project covered pre-trade, execution, and post-trade activities, consolidating fragmented tools into one responsive experience across desktop and tablet.
+
+## My Role
+
+As **UI Designer**, I modernised the trading UI with the UX team and kept the work aligned to Market UI. I designed scalable flows with product and engineering.
+
+Key responsibilities included order entry flows, price tile layouts, strategy builders, and real-time data displays, with performance and accessibility standards built in.
+
+## Key Focus Areas
+
+Real-time price tiles, order management grids, strategy configuration panels, and multi-asset trading views. Dense, but still readable.
+
+Reusable patterns covered spot, forward, and options workflows, with consistent interaction models across FX, rates, and commodities.

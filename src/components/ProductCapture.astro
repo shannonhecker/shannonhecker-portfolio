@@ -1,0 +1,44 @@
+---
+import Pic from './Pic.astro';
+import { adaptiveArt } from '../lib/adaptive-art';
+interface Props { name: string; alt: string; href: string; label: string; eager?: boolean }
+const { name, alt, href, label, eager = false } = Astro.props;
+const vectorSizes: Record<string, [number, number]> = {
+  "/art/fusion-hero-discovery-composition.svg": [702, 552],
+  "/art/fusion-hero-performance-composition.svg": [769, 470],
+  "/art/fusion-configuration-composition.svg": [1035, 709],
+  "/art/ai-hero-builder-composition.svg": [802, 535],
+  "/art/ai-hero-kit-composition.svg": [802, 532],
+  "/art/winking-hero-composition.svg": [757, 674],
+  "/art/winking-ios-composition.svg": [985, 431],
+  "/art/deal-hero-composition.svg": [742, 515],
+  "/art/fusion-configuration.svg": [979, 652],
+  "/art/fusion-performance.svg": [980, 582],
+  "/art/fusion-risk.svg": [981, 662],
+  "/art/fusion-screening.svg": [985, 554],
+  "/art/fusion-entity-comparison.svg": [985, 554],
+};
+const vectorSize = vectorSizes[name];
+const delivery: Record<string,{directory:string;widths:number[];fallback:number}> = {
+ '/art/fusion-hero-discovery-composition.svg':{directory:'fusion-responsive',widths:[800,1600,2400],fallback:800},
+ '/art/fusion-hero-performance-composition.svg':{directory:'fusion-responsive',widths:[800,1600,2400],fallback:800},
+ '/art/winking-hero-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/deal-hero-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/ai-hero-builder-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+ '/art/ai-hero-kit-composition.svg':{directory:'case-responsive',widths:[400,800,1600,2400],fallback:800},
+};
+const responsive = delivery[name];
+const stem = name.split('/').pop()?.replace('.svg', '');
+const displaySrc = adaptiveArt(responsive ? `/art/${responsive.directory}/${stem}-${responsive.fallback}.svg` : name);
+const displaySrcset = responsive ? responsive.widths.map(width => `${adaptiveArt(`/art/${responsive.directory}/${stem}-${width}.svg`)} ${width}w`).join(', ') : undefined;
+
+---
+<figure class:list={["product-capture", {"original-composition": name.endsWith("-composition.svg")} ]}>
+  <div class="shot evidence">{name.endsWith(".svg") ? <a class="full-size-image" href={name} target="_blank" rel="noopener" aria-label={`View full size: ${alt} (opens in new tab)`}><img src={displaySrc} srcset={displaySrcset} sizes={responsive ? "(max-width:1100px) 95vw, 55vw" : undefined} alt={alt} width={vectorSize?.[0]} height={vectorSize?.[1]} style={vectorSize ? `aspect-ratio: auto ${vectorSize[0]} / ${vectorSize[1]}` : undefined} loading={eager ? "eager" : "lazy"} decoding="async" fetchpriority={eager ? "high" : undefined} /></a> : <Pic name={name} alt={alt} sizes="(max-width: 900px) 92vw, (max-width: 1550px) 66vw, 1040px" eager={eager} fullSize />}</div>
+</figure>
+<style>
+.original-composition .shot{padding:0!important;background:transparent!important;border:0;box-shadow:none}
+
+.full-size-image{display:block;max-width:100%;cursor:zoom-in;outline-offset:6px}
+.full-size-image:focus-visible{outline:2px solid var(--project-ink,var(--fg))}
+</style>

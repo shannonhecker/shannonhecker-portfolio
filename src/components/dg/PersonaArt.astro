@@ -1,0 +1,9 @@
+---
+import Pic from '../Pic.astro';
+import type { Project } from '../../lib/process';
+interface Props { project:Project }
+const {project}=Astro.props;
+---
+<figure class="persona-art">
+ <Pic name={`personas-${project}.png`} alt="Illustrated role archetypes for this case study" sizes="(max-width:760px) 90vw, 1000px" widths={[640,1000,1344]} />
+</figure>

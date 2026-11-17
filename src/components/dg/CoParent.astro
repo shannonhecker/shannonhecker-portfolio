@@ -1,0 +1,14 @@
+---
+import Flow from './Flow.astro';
+---
+<section class="co-parent" aria-labelledby="ws-sync-title">
+  <header class="process-heading"><h3 id="ws-sync-title">Two adults, one shared board</h3></header>
+  <div><h4>Caregiver steps</h4>
+  <Flow label="Co-parent user flow" steps={[
+    { t: 'Second adult joins', d: 'Invites grandma to the board.' },
+    { t: 'Open the same board', d: 'One shared board. Same screen on every phone.' },
+    { t: 'Pick the child', d: "Each child's card carries their name, photo, colour and theme." },
+    { t: 'Tick a routine', d: 'She opens it and ticks a bath.', branch: { t: 'Offline', d: 'An offline banner, ticks queued, synced on reconnect.' } },
+  ]} />
+  </div>
+</section>

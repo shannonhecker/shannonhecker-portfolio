@@ -1,0 +1,21 @@
+---
+import { render } from 'astro:content';
+import EarlierProject from '../../layouts/EarlierProject.astro';
+import { EARLIER_SLUGS, earlierProjects } from '../../lib/earlier';
+
+export async function getStaticPaths() {
+  const projects = await earlierProjects();
+  const ids = projects.map((p) => p.id).join(',');
+  if (ids !== EARLIER_SLUGS.join(',')) {
+    throw new Error(`src/content/earlier does not match EARLIER_SLUGS.\n  content: ${ids}\n  slugs:   ${EARLIER_SLUGS.join(',')}`);
+  }
+  return projects.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+---
+<EarlierProject entry={entry} next={next}><Content /></EarlierProject>

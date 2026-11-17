@@ -1,0 +1,67 @@
+/* One case-study grid: section labels at left, all evidence and copy at right. */
+:root{--space-panel:32px;--space-content:48px;--space-card-row:40px}
+@media(max-width:900px){:root{--space-content:32px;--space-card-row:32px}}
+.case-page .beat {
+  grid-template-columns:minmax(150px,1fr) minmax(0,3fr);
+  column-gap:clamp(24px,4vw,64px);
+}
+.case-page .beat .label {
+  grid-column:1;grid-row:1;position:sticky;top:110px;
+  padding:0;background:none;max-width:100%;
+}
+.case-page .beat .body {
+  grid-column:2;grid-row:1;grid-template-columns:minmax(0,1fr);
+  gap:var(--space-content);max-width:1040px;width:100%;
+}
+.case-page .beat .body > * { grid-column:1/-1!important;min-width:0; }
+.case-page .beat .body > :is(figure,section,.co-parent,.screen-sequence){margin-block:0}
+.case-page .beat .body > .process-personas,
+.case-page .beat .body > .process-journey,
+.case-page .beat .body > .decision-map { margin:0;padding-top:0; }
+.case-page .screen-sequence { margin:0;gap:32px;min-width:0; }
+.case-page .screen-sequence h3 { margin:0; }
+.case-page .product-capture { min-width:0;max-width:1040px;width:100%; }
+.case-page .product-capture .shot { padding:0; }
+.case-page .product-capture img { display:block;max-width:min(100%,var(--source-width,1040px));height:auto;margin-inline:auto; }
+.case-page .responsive-evidence { margin-left:calc((100% - clamp(24px,4vw,64px))/4 + clamp(24px,4vw,64px)); }
+@media(max-width:900px) {
+  .case-page .beat { grid-template-columns:minmax(0,1fr); }
+  .case-page .beat .label,.case-page .beat .body { grid-column:1;grid-row:auto;position:static; }
+  .case-page .beat .body { gap:32px; }
+  .case-page .responsive-evidence { margin-left:0; }
+}
+/* Keep the reading grid composed on large monitors rather than stretching it. */
+.case-page .project-status {
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);
+  width:100%;max-width:none;gap:24px 40px;
+  padding-block:28px;border-bottom:1px solid var(--hair);
+  font-size:17px;line-height:1.8;margin-top:0;
+}
+.case-page .project-status-label { font-family:var(--display);font-size:20px;line-height:1.4;letter-spacing:-.025em; }
+.case-page .project-status-label::before { content:none; }
+.case-page .project-status p { max-width:60ch; }
+@media(max-width:760px) {
+  .case-page .project-status { grid-template-columns:1fr;gap:12px;font-size:16px; }
+}
+
+/* Explicit sizing prevents auto margins from shrinking a hero to min-content. */
+.case-page .chapter-head > .project-hero { width:100%; }
+@media(max-width:760px) {
+  .case-page .project-hero .shot { padding:0; }
+  .case-page .product-capture img { width:100%; }
+}
+
+/* Soften the bright edge baked into the original Deal Model exports. */
+.deal-screen-gallery .authored-image-link{background:var(--divider);overflow:hidden}
+.deal-screen-gallery .authored-image-link img{clip-path:inset(1px round var(--radius))}
+
+/* The next-case row closes the chapter and the footer's tonal band follows it, so the band is the
+   divider: the row's own bottom hairline would stack a second one above it. */
+.case-page .next-case .row { border-bottom: 0; }
+/* The Sections button sits on the page gutter, and clear of the analytics notice while that is open.
+   The page end keeps room for it, so it never rests on the last line. */
+.case-contents, html.nav-away .case-contents { right: max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter))); }
+@media (max-width: 760px) {
+  .case-contents, html.nav-away .case-contents { right: var(--gutter); bottom: calc(16px + var(--consent-h, 0px)); }
+  .case-page .next-case { padding-bottom: 80px; }
+}

@@ -1,0 +1,14 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#A4CBE6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">03 / 06</tspan></text>
+<path d="M303 59H35C32.7909 59 31 60.7909 31 63V177C31 179.209 32.7909 181 35 181H303C305.209 181 307 179.209 307 177V63C307 60.7909 305.209 59 303 59Z" fill="#222933" stroke="#46515F"/>
+<path d="M299 159H39V87" stroke="#46515F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M43 147L77 137L112 143L150 110L189 122L233 95L297 81" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M42 119H295" stroke="#A4CBE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M293 106H238C235.791 106 234 107.791 234 110V128C234 130.209 235.791 132 238 132H293C295.209 132 297 130.209 297 128V110C297 107.791 295.209 106 293 106Z" fill="#A4CBE6" stroke="#A4CBE6"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="245" y="122.636">LIMIT</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Drag the limit line</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Reprice where the decision was made</tspan></text>
+</svg>
+

@@ -1,0 +1,390 @@
+/* Product-led composition, following the reviewed editorial design plan. */
+:root { --radius:4px; }
+.hero.adventure-hero { padding-top:clamp(136px,10vw,184px); }
+.hero.adventure-hero .h-giant { font-size:clamp(64px,7.3vw,128px);line-height:1.01;letter-spacing:-.045em;max-width:13ch; }
+.adventure-hero>.wrap { grid-template-columns:minmax(0,1.85fr) minmax(280px,1fr);column-gap:6vw; }
+.adventure-hero .hero-top { max-width:55ch;font-size:clamp(17px,1.35vw,21px);line-height:1.65; }
+.hero.adventure-hero .status-row { display:flex;max-width:none;gap:10px 20px; }
+.hero.adventure-hero .status-row span { white-space:nowrap; }
+@media(min-width:1101px){.hero.adventure-hero .status-row { flex-wrap:nowrap;font-size:clamp(10px,.86vw,13px);gap:clamp(12px,1.4vw,24px); }.hero.adventure-hero .status-row span{gap:7px}}
+.adventure-hero .landing-companion { align-self:center; }
+.hero-bonus { margin-top:48px; }
+
+/* Two generous image tiles, tight centre gutter, quiet labels below. */
+#work>.wrap { max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter); }
+#work .index { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 6px; }
+#work .row { display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 12px;align-content:start;align-items:center;padding:0;border:0; }
+#work .row .n { grid-column:1;grid-row:2;align-self:center;margin:0;font-size:13px;gap:6px; }
+#work .row .n .pixel-object { width:24px;height:24px; }
+#work .row h3 { grid-column:2;grid-row:2;font-size:clamp(25px,2.3vw,38px);line-height:1.12;letter-spacing:-.035em;align-self:center; }
+#work .row .meta { grid-column:2/-1;grid-row:3;max-width:58ch;font-size:15px;line-height:1.65;padding-right:24px; }
+#work .row .arrow { grid-column:3;grid-row:2;align-self:center;justify-self:end;font-size:14px;padding-right:12px; }
+#work .row>picture,#work .row>.project-preview { grid-column:1/-1;grid-row:1;display:flex;align-items:center;justify-content:center;aspect-ratio:1.3;padding:clamp(20px,3.2vw,60px);background:var(--work-surface);border-radius:var(--radius);overflow:hidden; }
+#work .row>picture img { width:100%;height:auto;max-height:100%;object-fit:contain; }
+#work .row>.appstore-preview { display:grid;grid-template-columns:repeat(4,minmax(0,1fr)); }
+#work .row>.appstore-preview picture { min-width:0; }
+#work .row>.appstore-preview img { width:100%;height:auto; }
+#work .row[data-chapter=fx] { --work-surface:#dbeaf2; }
+#work .row[data-chapter=fusion] { --work-surface:#e4efec; }
+#work .row[data-chapter=winking] { --work-surface:#fff0de; }
+#work .row[data-chapter=ai] { --work-surface:#ede8f6; }
+#work .row>.appstore-preview { gap:12px; }
+#work .row .brand-mark { display:inline-block;max-width:48px;vertical-align:middle; }
+html[data-theme=dark] #work .row { --work-surface:#263747; }
+html[data-theme=dark] #work .row[data-chapter=winking] { --work-surface:#3b352f; }
+html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
+
+.case-page .chapter-head { display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:32px;align-items:start;margin-bottom:96px; }
+.case-page .chapter-head>.g { display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);column-gap:28px;row-gap:36px!important;align-items:start!important;position:sticky;top:112px;padding-top:36px; }
+.case-page .chapter-head>.g>div:first-child { display:contents!important; }
+.case-page .chapter-head h1 { grid-column:1/-1;grid-row:1;font-size:clamp(44px,4.2vw,80px);line-height:1.03;letter-spacing:-.045em;margin-bottom:40px; }
+.case-page .chapter-head .eyebrow { grid-column:1;grid-row:2;font-family:var(--body);font-size:15px;line-height:1.5;max-width:18ch; }
+.case-page .chapter-head .lead,.case-page .chapter-head .avatar-practice { grid-column:2!important;grid-row:3;font-size:clamp(17px,1.4vw,23px);line-height:1.45;max-width:30ch; }
+.case-page .chapter-head .meta { grid-column:2!important;grid-row:2;display:grid;grid-template-columns:1fr;gap:10px;margin:0;padding:0;border:0;font-size:15px;line-height:1.5; }
+.case-page .chapter-head .meta>span { max-width:none; }
+.case-page .chapter-head .meta b { font-weight:600; }
+.case-page .chapter-head>.g>div:first-child>.brand-mark { display:none; }
+.case-page .project-hero { display:grid;gap:16px;margin:0;min-width:0;background:transparent; }
+.case-page .project-hero .product-capture { margin:0; }
+.case-page .project-hero .shot { padding:clamp(20px,2.8vw,48px);background:color-mix(in srgb,var(--project-wash) 78%,var(--bg));border:0;border-radius:0; }
+.case-page .project-hero figcaption { gap:8px 16px;font-size:12px;line-height:1.6;margin-top:12px; }
+.case-page .project-hero .shot img { width:100%;max-width:none; }
+.case-page .chapter-head .avatar-practice { display:block; }
+.case-page .chapter-head .avatar-practice>picture { display:none; }
+.case-page .chapter-head .brand-mark { max-width:112px; }
+.case-page .project-hero.app-hero { display:block;padding:clamp(24px,3.5vw,56px);background:#fff0de;border-radius:0; }
+.case-page .app-hero-screens { gap:clamp(12px,1.5vw,24px);align-items:center;padding:0;background:transparent; }
+.case-page .app-hero-screens picture:nth-child(2) { margin-top:72px; }
+.case-page .app-hero-screens picture:nth-child(3) { margin-top:144px; }
+.case-page .project-hero.app-hero>figcaption { color:#555c55; }
+.case-page .beat .label { position:sticky;top:116px;align-self:start; }
+.case-page .beat .body>.h-sub { font-size:clamp(36px,3.9vw,64px);letter-spacing:-.035em;line-height:1.12; }
+.case-page .screen-sequence { gap:28px; }
+.case-page .screen-sequence>.product-capture { margin:0; }
+
+@media(min-width:1101px) {
+  #work>.wrap>.g { display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px; }
+  #work .h-section { font-size:clamp(34px,3vw,48px);max-width:32ch; }
+}
+@media(max-width:1100px) {
+ .case-page .chapter-head { grid-template-columns:1fr;gap:40px; }
+ .case-page .chapter-head>.g { position:static;max-width:800px;padding-top:0; }
+ .case-page .chapter-head h1 { font-size:clamp(48px,7vw,76px); }
+ .case-page .chapter-head .meta { grid-template-columns:1fr; }
+ .case-page .beat .label { position:static; }
+ .case-page .project-hero { gap:32px; }
+}
+@media(max-width:760px) {
+ .hero.adventure-hero .h-giant { font-size:clamp(44px,11.7vw,78px);line-height:1.05;max-width:14ch; }
+ .adventure-hero>.wrap { grid-template-columns:1fr;gap:32px; }
+ #work .index { grid-template-columns:1fr;gap:64px; }
+ #work .row { grid-template-columns:auto minmax(0,1fr) auto;gap:18px 10px; }
+ #work .row>picture,#work .row>.project-preview { grid-column:1/-1;grid-row:1;padding:18px; }
+ #work .row .n { grid-column:1;grid-row:2;margin:0;align-self:center; }
+ #work .row h3 { grid-column:2;grid-row:2;font-size:clamp(22px,5.7vw,34px);align-self:center; }
+ #work .row .arrow { grid-column:3;grid-row:2;align-self:center;font-size:13px; }
+ #work .row .meta { grid-column:1/-1;grid-row:3;font-size:15px;max-width:none; }
+ #work .row>.appstore-preview { gap:6px;padding:12px; }
+ #work .row .brand-mark { max-width:28px; }
+ .case-page .chapter-head>.g { grid-template-columns:1fr;gap:24px!important; }
+ .case-page .chapter-head>.g .eyebrow { grid-column:1;grid-row:2;max-width:none; }
+ .case-page .chapter-head .meta { grid-column:1!important;grid-row:3; }
+ .case-page .chapter-head .lead,.case-page .chapter-head .avatar-practice { grid-column:1!important;grid-row:4;max-width:none; }
+ .case-page .chapter-head h1 { font-size:clamp(44px,10.7vw,68px); }
+ .case-page .chapter-head { margin-bottom:48px; }
+ .case-page .project-hero .shot { padding:12px; }
+ .case-page .project-hero.app-hero { padding:20px 12px; }
+ .case-page .app-hero-screens picture:nth-child(2) { margin-top:32px; }
+ .case-page .app-hero-screens picture:nth-child(3) { margin-top:64px; }
+ .case-page .beat .body>.h-sub { font-size:clamp(30px,7.8vw,44px); }
+}
+@media(prefers-reduced-motion:reduce) { ::view-transition-group(*) { animation:none; } }
+@media(hover:none),(pointer:coarse) {
+ .js .split .wd,.js .rv.pre { opacity:1;transform:none;transition:none; }
+}
+
+/* A quiet opener expands into a full-height reading index. */
+.case-contents,html.nav-away .case-contents { position:fixed;inset:auto 24px calc(24px + var(--consent-h,0px)) auto;z-index:40;width:auto;max-width:calc(100vw - 40px);padding:0!important;margin:0;border:0;border-radius:0;background:transparent!important;overflow:visible; }
+.case-contents { transition:opacity .2s; }
+html.footer-in-view:not(.sections-open) .case-contents { opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s; }
+.section-open { display:flex;align-items:center;gap:18px;min-height:48px;padding:12px 18px;background:var(--bg);color:var(--fg);border:1px solid var(--hair);border-radius:var(--radius);cursor:pointer;font:14px var(--body); }
+.section-current { color:var(--fg-2);font-size:12px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+html.sections-open { overflow:hidden; }
+html:not(.has-js) .case-contents { display:none; }
+.section-panel { position:fixed;inset:0 0 0 auto;margin:0;width:min(400px,calc(100vw - 24px));max-width:none;height:100%;height:100dvh;max-height:none;box-sizing:border-box;padding:28px 32px;background:var(--bg);color:var(--fg);border:0;border-left:1px solid var(--hair);font-family:var(--body); }
+.section-panel[open] { display:flex;flex-direction:column;gap:24px; }
+.section-panel::backdrop { background:#0005; }
+.section-panel-head { display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none; }
+.section-panel-head h2 { font:500 24px/1.2 var(--body);letter-spacing:-.025em; }
+.section-close { display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--hair);border-radius:var(--radius);background:transparent;color:var(--fg);font:28px/1 var(--body);cursor:pointer; }
+.case-contents .chapter-stops { display:flex;flex-direction:column;gap:4px;overflow:auto;min-height:0;padding:0;flex:1; }
+.case-contents .chapter-stops a { display:flex;align-items:center;gap:12px;flex-shrink:0;padding:12px 0;min-height:46px;white-space:normal;font-size:18px;line-height:1.3;border-radius:0;color:var(--fg-2);background:transparent; }
+.case-contents .chapter-stops a::before { content:'';width:5px;height:5px;flex:none;border-radius:50%;background:currentColor;opacity:0; }
+.case-contents .chapter-stops a[aria-current=true] { color:var(--fg);background:transparent; }
+.case-contents .chapter-stops a[aria-current=true]::before { opacity:1; }
+.case-contents .section-panel .all-projects { background:transparent;color:var(--fg);border-top:1px solid var(--hair);padding-block:20px 8px;flex:none;font-size:15px; }
+@media(max-width:760px){.case-contents,html.nav-away .case-contents{right:20px;bottom:16px}.section-current{display:none}.section-panel{padding:20px 24px}}
+@media(prefers-reduced-motion:no-preference){
+ .section-panel[open] { animation:sections-in .28s cubic-bezier(.16,1,.3,1); }
+ @keyframes sections-in { from{transform:translateX(100%)}to{transform:translateX(0)} }
+ #work .row .arrow { transition:translate .25s ease; }
+ #work .row:hover .arrow { translate:4px 0; }
+}
+/* Status is editorial context, not an alert card. */
+.case-page .project-status { display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px 24px;max-width:76ch;color:var(--fg-2);font-size:14px;line-height:1.75; }
+.project-status-label { display:flex;align-items:center;align-self:start;gap:10px;font-weight:500;color:var(--fg); }
+.project-status-label::before { content:'';width:6px;height:6px;flex:none;border-radius:50%;background:#c38b2e;align-self:center; }
+@media(max-width:760px){.case-page .project-status{grid-template-columns:1fr;gap:8px}}
+
+#work>.wrap>.g { display:grid;grid-template-columns:1fr 1fr;gap:20px 48px!important;align-items:start;margin-bottom:56px!important; }
+#work .work-title { grid-column:1;grid-row:1/3;font:500 clamp(42px,4.8vw,80px)/1.05 var(--display,var(--body));letter-spacing:-.045em; }
+#work .work-method { grid-column:2!important;grid-row:1;font:14px var(--body); }
+#work .work-description { grid-column:2!important;grid-row:2;font:400 16px/1.6 var(--body);max-width:60ch;letter-spacing:0; }
+@media(max-width:760px){#work>.wrap>.g{grid-template-columns:1fr;gap:16px!important}#work .work-title{grid-column:1;grid-row:1}#work .work-method{grid-column:1!important;grid-row:2}#work .work-description{grid-column:1!important;grid-row:3}}
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){
+ .case-page .chapter-head h1 { animation:case-title-enter .8s cubic-bezier(.16,1,.3,1) both; }
+ .case-page .chapter-head .project-hero { animation:case-gallery-enter 1s cubic-bezier(.16,1,.3,1) both; }
+ #work .row>picture img,#work .row>.appstore-preview img { transition:translate .65s cubic-bezier(.16,1,.3,1); }
+ #work .row:hover>picture img { translate:0 -8px; }
+ #work .row:hover>.appstore-preview picture:nth-child(odd) img { translate:0 -10px; }
+ #work .row:hover>.appstore-preview picture:nth-child(even) img { translate:0 10px; }
+ @keyframes case-title-enter { from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0} }
+ @keyframes case-gallery-enter { from{opacity:.5;translate:0 64px}to{opacity:1;translate:0 0} }
+}
+.case-page .strip-wrap { margin-inline:0;max-width:100%; }
+.case-page .beat .label { width:fit-content;max-width:100%;justify-self:start;background:var(--bg);padding:10px 18px;border-radius:var(--radius);z-index:2;isolation:isolate; }
+/* More air on case pages without weakening the tight home image pairs. */
+.case-page .chapter-head { margin-bottom:clamp(112px,10vw,176px); }
+.case-page .chapter-head>.g { row-gap:48px!important; }
+.case-page .project-hero { gap:40px; }
+.case-page .beat { padding-block:clamp(100px,9vw,160px); }
+.case-page .beat .body { row-gap:clamp(64px,6vw,104px); }
+.case-page .beat .body>.process-journey,.case-page .beat .body>.decision-map,.case-page .beat .body>.process-personas { margin-top:40px; }
+.case-page .screen-sequence { gap:64px; }
+.case-page .beat .rows>li { padding-block:28px; }
+@media(max-width:760px){
+ .case-page .chapter-head { margin-bottom:64px; }
+ .case-page .chapter-head>.g { row-gap:28px!important; }
+ .case-page .beat { padding-block:64px; }
+ .case-page .beat .body { row-gap:40px; }
+ .case-page .screen-sequence { gap:40px; }
+ .case-page .beat .rows>li { padding-block:24px; }
+ .case-page .beat .body>.process-journey,.case-page .beat .body>.decision-map,.case-page .beat .body>.process-personas { margin-top:16px; }
+}
+/* One portfolio type system; pixel lettering belongs to the playable game. */
+.eyebrow,.case-page .beat .label .k,.case-page .k.mono,#work .row .n,.hero-bonus .bonus-note p { font-family:var(--body);letter-spacing:0; }
+.case-page .beat .label .k { font-size:14px;line-height:1.65; }
+.case-page .beat .label .k b { font-weight:500;margin-right:12px;color:var(--project-ink,var(--fg)); }
+.hero-bonus .bonus-note p { font-weight:500; }
+.play:not(.is-full) .game-poster { border-radius:var(--radius); }
+.play:not(.is-full) .game-play { border-radius:var(--radius);border-color:var(--hair);font-family:var(--body); }
+.case-page .dg-i,.case-page .process-step,.case-page .decision-map .decision-number { font-family:var(--body); }
+
+/* The project arrow belongs to its title, with room reserved before hover. */
+.row h3 .arrow,#work .row h3 .arrow { display:inline-block;min-height:0;padding:0;margin-left:.4em;font:inherit;line-height:inherit;color:inherit;vertical-align:baseline;opacity:0;transform:translateX(-6px);translate:none;transition:opacity .2s ease,transform .3s cubic-bezier(.16,1,.3,1); }
+.row:hover h3 .arrow,.row:focus-visible h3 .arrow,#work .row:hover h3 .arrow,#work .row:focus-visible h3 .arrow { opacity:1;transform:translateX(0);translate:none; }
+@media(hover:none),(pointer:coarse){.row h3 .arrow,#work .row h3 .arrow{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.row h3 .arrow,#work .row h3 .arrow{transition:none}}
+
+.avatar-cursor { position:fixed;inset:0;pointer-events:none;z-index:10000;visibility:hidden;contain:layout style; }
+.avatar-cursor[data-visible=true] { visibility:visible; }
+.avatar-cursor-hotspot { position:absolute;top:-3px;left:-3px;width:6px;height:6px;border-radius:50%;background:var(--fg);box-shadow:0 0 0 1.5px var(--bg); }
+.avatar-cursor-follower { position:absolute;left:0;top:0;width:34px;height:48px; }
+.avatar-cursor-follower img { position:absolute;inset:0;width:34px;height:48px;image-rendering:pixelated;transform:scaleX(var(--cursor-facing,1));filter:drop-shadow(1px 0 0 #fff8) drop-shadow(-1px 0 0 #fff8); }
+.avatar-cursor-follower img[hidden] { display:none; }
+.avatar-cursor[data-visible=true][data-moving=false] .avatar-cursor-follower img { animation:cursor-idle 2.4s ease-in-out infinite; }
+.avatar-cursor[data-hover=true] .avatar-cursor-hotspot { width:10px;height:10px;top:-5px;left:-5px;background:var(--accent,var(--fg)); }
+.avatar-cursor[data-hover=true] .avatar-cursor-follower img { translate:0 -4px; }
+.avatar-cursor[data-pressed=true] .avatar-cursor-follower img { translate:0 2px; }
+[data-avatar-cursor-toggle] { font:inherit;color:inherit;background:none;border:0;text-decoration:underline;cursor:pointer; }
+@keyframes cursor-idle { 0%,100%{translate:0 0}50%{translate:0 -2px} }
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){html.avatar-cursor-active,html.avatar-cursor-active *{cursor:none!important}}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.avatar-cursor,[data-avatar-cursor-toggle]{display:none!important}}
+
+/* Registered arm poses: facial expression layers stay on the original body. */
+.greeting-frame{visibility:hidden}
+.landing-companion[data-pose=lift] .greeting-lift,
+.landing-companion[data-pose=wave] .greeting-wave,
+.landing-companion[data-pose=wave] .greeting-hand{visibility:visible}
+.greeting-hand{transform-origin:34.5% 31.8%}
+.landing-companion[data-pose=wave]:not([data-paused=true]) .greeting-hand{animation:companion-wave .45s ease-in-out 4}
+@keyframes companion-wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}
+.landing-companion:is([data-pose=lift],[data-pose=wave]) .idle-open{visibility:hidden}
+.has-js .landing-companion:not([data-entered=true]) .companion-avatar{opacity:0}
+.landing-companion[data-intro=true] .companion-avatar{animation:companion-arrive .5s calc(.72s - var(--intro-elapsed,0ms)) cubic-bezier(.22,1,.36,1) both}
+.landing-companion[data-pose=wave] .idle-smile{opacity:1;animation:none!important}
+@keyframes companion-arrive{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
+@media(prefers-reduced-motion:reduce){.greeting-frame{visibility:hidden!important}.idle-open{visibility:visible!important}.companion-avatar{animation:none!important;opacity:1!important}}
+@media(prefers-reduced-motion:no-preference){
+ .has-js .hero-story>h1{animation:hero-copy-enter .55s .08s cubic-bezier(.16,1,.3,1) both}
+ .has-js .hero-story>.hero-top{animation:hero-copy-enter .45s .16s cubic-bezier(.16,1,.3,1) both}
+ .has-js .hero-story>.status-row{animation:hero-copy-enter .4s .22s cubic-bezier(.16,1,.3,1) both}
+ .has-js .hero-story>.explore-work{animation:hero-copy-enter .4s .28s cubic-bezier(.16,1,.3,1) both}
+ @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+}
+@media print{.hero-story>*{animation:none!important;opacity:1!important;clip-path:none!important}.companion-avatar{animation:none!important;opacity:1!important}}
+
+/* The scene arrives between the finished copy and the character greeting. */
+.has-js .landing-companion:not([data-entered=true]) .companion-stage::before,
+.has-js .landing-companion:not([data-entered=true]) :is(.companion-object,.companion-path,.companion-controls,.companion-hint){opacity:0}
+.landing-companion[data-intro=true] .companion-stage::before,
+.landing-companion[data-intro=true] :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:companion-scene-enter .25s calc(.64s - var(--intro-elapsed,0ms)) ease-out both}
+@keyframes companion-scene-enter{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+ .landing-companion .companion-stage::before,.landing-companion :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:none!important;opacity:1!important}
+}
+@media print{
+ .landing-companion .companion-stage::before,.landing-companion :is(.companion-object,.companion-path,.companion-controls,.companion-hint){animation:none!important;opacity:1!important}
+}
+
+/* An original cartridge-era title screen, using the game's own harbour art. */
+.game-loading{display:none;position:absolute;inset:0;z-index:8;background:#17202c;color:#edf1f5;align-content:center;justify-items:center;gap:16px;text-align:center;padding:24px}
+.game[data-state=loading] .game-loading{display:grid}
+.game[data-state=loading] .game-poster{visibility:hidden}
+.game-loading .loading-title{margin:0;font:clamp(24px,3vw,40px)/1.2 var(--pixel)}
+.game-loading .loading-caption{margin:0;font:14px/1.6 var(--body);color:#b7c1ce}
+.loading-compass{width:clamp(48px,7vw,80px);height:auto;animation:route-compass 2s ease-in-out infinite}
+.loading-route{display:flex;gap:12px;margin-top:8px}.loading-route i{width:6px;height:6px;background:#9dccef;animation:route-dot 1.2s ease-in-out infinite}.loading-route i:nth-child(2){animation-delay:.15s}.loading-route i:nth-child(3){animation-delay:.3s}
+@keyframes route-compass{50%{transform:translateY(-5px) rotate(8deg)}}
+@keyframes route-dot{50%{opacity:.25;transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.loading-compass,.loading-route i{animation:none}}
+.play .game-poster{--title-ink:#172b3b;--title-paper:#fff2cf;--title-sign:#a34b29;overflow:hidden;color:var(--title-paper);font-family:var(--pixel);isolation:isolate}
+.adventure-hero .play:not(.is-full) .game[data-state=poster]{min-height:290px}
+.play .title-hud{position:absolute;inset:16px 5% auto;display:flex;justify-content:space-between;z-index:1;font:clamp(12px,1.2vw,18px)/1.1 var(--pixel);letter-spacing:.04em;color:#172b3b}
+.play .title-hud span:last-child{text-align:right}
+.play .title-plaque{position:absolute;top:72px;left:50%;translate:-50% 0;display:grid;text-align:center;padding:8px 28px 12px;background:var(--title-sign);border:4px solid #edb876;box-shadow:5px 5px 0 var(--title-ink);font:clamp(36px,3.8vw,54px)/.9 var(--pixel);letter-spacing:.025em;text-shadow:3px 3px 0 #532e2b;z-index:1}
+.play .title-plaque::before,.play .title-plaque::after{content:'';position:absolute;top:6px;bottom:6px;width:4px;border-block:4px solid var(--title-paper)}
+.play .title-plaque::before{left:6px}.play .title-plaque::after{right:6px}
+.adventure-hero .game-poster .game-title-start{position:absolute;inset:0;z-index:3;width:100%;height:100%;margin:0;padding:0;border:0!important;border-radius:0!important;background:transparent!important;color:#172b3b;font:clamp(17px,1.7vw,25px)/1.2 var(--pixel);box-shadow:none}
+.game-title-start>span{position:absolute;top:70%;left:50%;translate:-50% 0;white-space:nowrap;padding:4px 12px;background:#d5f2ee}
+.title-pointer{display:inline-block;margin-right:8px;animation:title-prompt 1.2s steps(2,end) infinite}
+.game-title-start:hover>span,.game-title-start:focus-visible>span{background:#fff2cf;color:#172b3b}
+.play .game-title-start:focus-visible{outline:4px solid #fff2cf!important;outline-offset:-8px}
+.play .game-title-start:disabled>span{opacity:.65}
+.play .title-credit{position:absolute;top:84%;left:50%;translate:-50% 0;white-space:nowrap;font:clamp(10px,1vw,14px)/1 var(--pixel);color:#172b3b;background:#d5f2ee;padding:3px 6px;z-index:1}
+.play .title-ground{position:absolute;bottom:0;inset-inline:0;height:20px;background:#607887 url('/game/stone.webp') repeat-x bottom/40px 40px;border-top:4px solid #fff2cf;image-rendering:pixelated;z-index:1}
+.play .title-traveller{position:absolute;bottom:24px;left:12%;width:51px;height:72px;background:url('/game/eras/kaohsiung/1.png') center/contain no-repeat;image-rendering:pixelated;z-index:2;animation:title-idle 2.4s steps(2,end) infinite}
+@keyframes title-prompt{50%{opacity:0}}
+@keyframes title-idle{50%{translate:0 -2px}}
+@media(max-width:760px){
+ .adventure-hero .play:not(.is-full) .game[data-state=poster]{min-height:250px}
+ .play .title-plaque{top:60px;padding:8px 22px 10px;font-size:40px}
+ .play .title-hud{font-size:12px}
+ .play .title-traveller{left:5%;width:34px;height:48px}
+ .game-title-start>span{top:69%;padding:5px 8px}
+ .play .title-credit{top:84%;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.title-pointer,.play .title-traveller{animation:none}}
+
+/* Exact Figma cover compositions include their authored crop and framing. */
+.hero-story .h-giant,#work .work-title,#work .row h3{font-family:var(--body)}
+#work .row>.home-artwork{position:relative;padding:0;display:block;aspect-ratio:681/523.844;border-radius:var(--radius);background:transparent}
+#work .home-artwork picture{display:block;position:absolute;inset:0}
+#work .home-artwork img{display:block;width:100%;height:100%;max-height:none;margin:0;border-radius:0;object-fit:cover}
+/* Each artwork is a 1 to 3 MB vector file. Its own compositor layer stops nearby
+   motion from redrawing it, and it never scales, because every scale step is a full redraw. */
+@media(hover:hover) and (pointer:fine){#work .row>.home-artwork{will-change:transform}}
+/* Hover and keyboard focus lift the artwork. It never scales. The lift uses the individual `translate`
+   property: the scroll entrance (scroll-effects.ts) owns `transform` on this element, and a CSS
+   transform here would be overridden by it, or fight it. */
+#work .row>.home-artwork{transition:box-shadow .3s ease,translate .3s ease}
+#work .row:is(:hover,:has(:focus-visible))>.home-artwork{box-shadow:0 18px 40px rgb(0 0 0 / .28)}
+html[data-theme=light] #work .row:is(:hover,:has(:focus-visible))>.home-artwork{box-shadow:0 18px 40px rgb(0 0 0 / .14)}
+@media(prefers-reduced-motion:no-preference){#work .row:is(:hover,:has(:focus-visible))>.home-artwork{translate:0 -4px}}
+@media(prefers-reduced-motion:reduce){#work .row>.home-artwork{transition:none}}
+/* Before an image paints, its slab is the dark page's own surface, not a light grey or beige patch. */
+html[data-theme=dark] #work .home-artwork.home-artwork-winking.exact-composition,html[data-theme=dark] #work .home-artwork.home-artwork-deal.exact-composition{background:var(--bg-2)}
+@media(max-width:760px){.adventure-hero .play:not(.is-full) .game-bar{flex-wrap:wrap}.game-tools{flex-wrap:wrap}#game-full{display:none}}
+.game-flight{position:absolute;inset:0;z-index:12;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;background:#263d54;color:#fff0ce;font-family:var(--pixel)}.game-flight[hidden]{display:none}.game-flight h2{font:clamp(22px,3.4vw,48px)/1.1 var(--pixel)}.flight-year{font-size:clamp(13px,1.5vw,20px);color:#90dce8}.flight-story,.flight-next{font:clamp(12px,1.4vw,18px)/1.4 var(--body);max-width:45ch}.flight-route{position:relative;width:75%;height:90px;display:flex;align-items:end;justify-content:space-between;font-size:18px}.flight-route i{position:absolute;left:8%;right:8%;top:40%;border-top:2px dashed #90dce8}.flight-plane{position:absolute;left:0;top:8%;width:64px;height:52px;transform:scaleX(-1);animation:uk-flight 2s .1s ease-in-out both;image-rendering:pixelated}.game-flight button{border:1px solid #90dce8;border-radius:var(--radius);background:transparent;color:#fff0ce;font:14px var(--body);padding:10px 16px;min-height:44px;cursor:pointer}@keyframes uk-flight{0%{left:0;top:8%}45%{top:-12%}100%{left:calc(100% - 64px);top:8%}}@media(max-height:600px){.game-flight{gap:8px;padding:12px}.flight-route{height:55px}.flight-plane{width:48px;height:38px}.flight-next{display:none}}
+
+/* The overlay fallback must clear the fixed site navigation and cursor too. */
+html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important}
+.play .title-hud span{background:#86cddd;padding:3px 5px}
+
+.title-pointer,.play .title-traveller{animation-play-state:paused}
+.game-poster[data-visible=true] .title-pointer,.play .game-poster[data-visible=true] .title-traveller{animation-play-state:running}
+
+.game-stages button[data-locked='true']{opacity:.6;cursor:not-allowed}.game-stages button[data-locked='true']::after{content:'Locked';font-size:11px;margin-left:auto}
+
+/* Text masks and staggered entrances share one restrained motion rhythm. */
+.split[data-scroll-motion] .wd{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
+.hero-word-window{display:inline-block;vertical-align:top;padding-block:.08em;margin-block:-.08em}
+.hero-word,.hero-copy-depth{display:inline-block}
+/* Keep a single accessible sentence and natural line wrapping. Cropped words
+   return to their complete position when the reader scrolls back to the top. */
+@media(prefers-reduced-motion:no-preference) and (hover:hover){
+ .has-js .hero-word-window{animation:hero-word-arrive .45s calc(.08s + var(--word-index,0)*.02s) cubic-bezier(.16,1,.3,1) backwards}
+ @keyframes hero-word-arrive{from{clip-path:inset(0 0 100% 0);translate:0 18px}to{clip-path:inset(0);translate:0 0}}
+}
+.has-js .hero-story>:is(.hero-top,.status-row,.explore-work){animation-fill-mode:backwards}
+@media(prefers-reduced-motion:reduce),print{.hero-word,.hero-copy-depth,.hero-story .status-row>span{transform:none!important}.hero-word-window{animation:none!important;overflow:visible}}
+@media(prefers-reduced-motion:no-preference){
+ @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+ @keyframes case-title-enter{from{opacity:0;translate:0 28px;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0 0;clip-path:inset(0 0 0 0)}}
+ .case-page .chapter-head .eyebrow{animation:case-copy-enter .6s .1s cubic-bezier(.16,1,.3,1) both}
+ .case-page .chapter-head .meta{animation:case-copy-enter .65s .18s cubic-bezier(.16,1,.3,1) both}
+ .case-page .chapter-head .lead{animation:case-copy-enter .7s .26s cubic-bezier(.16,1,.3,1) both}
+ @keyframes case-copy-enter{from{opacity:0;translate:0 20px}to{opacity:1;translate:0 0}}
+}
+@media(prefers-reduced-motion:reduce){.split .wd,.work-title,.process-heading h3{clip-path:none!important;transform:none!important;opacity:1!important}.case-page .chapter-head :is(.eyebrow,.meta,.lead){animation:none!important}}
+
+/* Decorative rules sit quietly between sections in either theme. Controls,
+   focus rings and diagram encodings retain their separate contrast tokens. */
+:root{--divider:color-mix(in srgb,var(--fg) 10%,var(--bg))}
+.nav,.nav.solid,.hero-bonus,.hero .ticker,#how,.index,.case-page .beat,.beat,.rows,.rows>li,.rows.two>li,
+.dec>li,.metrics,.metric,.steps,.step,.principles,.principle,.links,.links a,
+.next-case,.responsive-evidence,.brand-rules,
+.case-contents .section-panel .all-projects{border-color:var(--divider)}
+
+/* Frosted glass appears only once content scrolls beneath the fixed header.
+   The opaque base is also the fallback for reduced transparency and old browsers. */
+html .nav,html[data-theme=dark] .nav{background:var(--bg)!important;-webkit-backdrop-filter:none;backdrop-filter:none;transition:transform .3s ease,background-color .24s ease,box-shadow .24s ease}
+.nav.solid a.l{color:var(--fg)}
+@supports ((backdrop-filter:blur(16px)) or (-webkit-backdrop-filter:blur(16px))){
+ html .nav.solid,html[data-theme=dark] .nav.solid{
+  background:color-mix(in srgb,var(--bg) 78%,transparent)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(115%);backdrop-filter:blur(16px) saturate(115%);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / 12%);
+ }
+}
+@media(prefers-reduced-transparency:reduce),(forced-colors:active){
+ html .nav.solid,html[data-theme=dark] .nav.solid{background:var(--bg)!important;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+}
+/* Phones scroll large headings under the bar. Keep the glass, but blur harder so
+   the text behind it is a soft shape and never legible through the header. */
+@supports ((backdrop-filter:blur(16px)) or (-webkit-backdrop-filter:blur(16px))){
+ @media(max-width:760px){
+  html .nav.solid,html[data-theme=dark] .nav.solid{background:color-mix(in srgb,var(--bg) 97%,transparent)!important;-webkit-backdrop-filter:blur(28px) saturate(115%);backdrop-filter:blur(28px) saturate(115%)}
+ }
+}
+@media(prefers-reduced-motion:reduce){html .nav{transition:none}}
+
+/* Keep phone entrances on opacity/transform compositor layers. Scroll masks
+   remain available once the reader moves through the page. */
+@media(max-width:760px) and (hover:none) and (prefers-reduced-motion:no-preference){
+ .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
+ /* Settle the reading copy promptly on phones while the remaining intro
+    continues. This paragraph is the largest initial content on narrow screens. */
+ .has-js .hero-story>.hero-top{animation:none}
+ .has-js .hero-word-window{animation:none}
+ .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
+ @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
+}
+
+/* Pair foreground and surface in every interactive state and both themes. */
+html .nav .cta:hover,html .nav .cta:focus-visible,
+html[data-theme=dark] .nav .cta:hover,html[data-theme=dark] .nav .cta:focus-visible{
+ background:var(--fg);color:var(--bg);border-color:var(--fg)
+}
+
+/* Deal Model follows the same editorial grid and restrained project accent. */
+.case-page[data-project=deal-model]{--project-ink:#8a2d3b;--project-wash:#f8eff1}
+html[data-theme=dark] .case-page[data-project=deal-model]{--project-ink:#e5a8b4;--project-wash:#33262f}
+#work .home-artwork-deal{background:#f3f4f6}
+#work .home-artwork-deal img{object-position:top center}
+
+/* Touch reveals are visible in CSS without a page-wide startup mutation. */
+@media (hover:none),(pointer:coarse){.js .rv.pre,.js .split .wd{opacity:1;transform:none;transition:none}}
+
+/* Keep every case introduction at the standard reading size. */
+.case-page .chapter-head .lead{font-size:16px;line-height:1.7;max-width:40ch}

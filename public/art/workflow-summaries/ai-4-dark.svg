@@ -1,0 +1,12 @@
+<svg width="336" height="370" viewBox="0 0 336 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="369" rx="3.5" stroke="#46515F"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">05 / 05</tspan></text>
+<path d="M296 63H42C39.7909 63 38 64.7909 38 67V172C38 174.209 39.7909 176 42 176H296C298.209 176 300 174.209 300 172V67C300 64.7909 298.209 63 296 63Z" fill="#222933" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="57" y="86.6364">REACT</tspan></text>
+<path d="M83 111L68 123L83 135M255 111L270 123L255 135M180 104L160 143" stroke="#E3B3C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M106 114H142M107 129H138M204 114H231M199 129H232" stroke="#B8C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="225.273">Export React</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="259.018">Code a developer recognises</tspan></text>
+</svg>
+

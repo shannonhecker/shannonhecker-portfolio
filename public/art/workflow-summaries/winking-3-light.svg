@@ -1,0 +1,23 @@
+<svg width="336" height="348" viewBox="0 0 336 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" stroke="#D6DCE1"/>
+<text fill="#4F7352" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">04 / 04</tspan></text>
+<path d="M133 52H23C20.2386 52 18 54.2386 18 57V89C18 91.7614 20.2386 94 23 94H133C135.761 94 138 91.7614 138 89V57C138 54.2386 135.761 52 133 52Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="30" y="69.8636">Parent</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="30" y="85.6364">Share invite link</tspan></text>
+<path d="M143 73H192M187 77L192 73L187 69" stroke="#4F7352" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M315 52H205C202.239 52 200 54.2386 200 57V89C200 91.7614 202.239 94 205 94H315C317.761 94 320 91.7614 320 89V57C320 54.2386 317.761 52 315 52Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="210" y="69.8636">Second adult</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="210" y="85.6364">Join the family</tspan></text>
+<path d="M78 98V113H169M169 113V125M169 113H260V98" stroke="#4F7352" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272 128H66C63.2386 128 61 130.239 61 133V211C61 213.761 63.2386 216 66 216H272C274.761 216 277 213.761 277 211V133C277 130.239 274.761 128 272 128Z" fill="white" stroke="#4F7352"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="75" y="148.864">One shared family board</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="75" y="168.5">Teeth</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="173" y="168.5">Reading</tspan></text>
+<path d="M136 166L139 169L145 162" stroke="#4F7352" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M241 166L244 169L250 162" stroke="#4F7352" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75 183H263" stroke="#D6DCE1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="75" y="202.636">Same children &#xb7; same routines</tspan></text>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="500" letter-spacing="0em"><tspan x="13" y="250.818">Share the board</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="13" y="281.091">A second adult joins the same family, with the </tspan><tspan x="13" y="301.091">same routines.</tspan></text>
+</svg>

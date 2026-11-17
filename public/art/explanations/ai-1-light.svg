@@ -1,0 +1,31 @@
+<svg width="336" height="597" viewBox="0 0 336 597" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="596" rx="3.5" fill="white"/>
+<rect x="0.5" y="0.5" width="335" height="596" rx="3.5" stroke="#D6DCE1"/>
+<g clip-path="url(#clip0_463_9440)">
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">MAPPED LAYERS &#xb7; NOT GENERATED TOKENS</tspan></text>
+<path d="M302 51H36C33.2386 51 31 53.2386 31 56V104C31 106.761 33.2386 109 36 109H302C304.761 109 307 106.761 307 104V56C307 53.2386 304.761 51 302 51Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="73.5909">Screen structure from the model</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="94.8636">System &#xb7; density &#xb7; theme selected</tspan></text>
+<path d="M169 109V130M173 124L169 130L165 124" stroke="#8B5168" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M302 130H36C33.2386 130 31 132.239 31 135V183C31 185.761 33.2386 188 36 188H302C304.761 188 307 185.761 307 183V135C307 132.239 304.761 130 302 130Z" fill="white" stroke="#8B5168" stroke-width="1.5"/>
+<text fill="#8B5168" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="41" y="152.591">Mapping I designed</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="41" y="173.864">Tokens and system-specific props</tspan></text>
+<path d="M158 209H22C19.2386 209 17 211.239 17 214V262C17 264.761 19.2386 267 22 267H158C160.761 267 163 264.761 163 262V214C163 211.239 160.761 209 158 209Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="231.591">Component exists</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="252.864">Published React</tspan></text>
+<path d="M316 209H180C177.239 209 175 211.239 175 214V262C175 264.761 177.239 267 180 267H316C318.761 267 321 264.761 321 262V214C321 211.239 318.761 209 316 209Z" fill="white" stroke="#D6DCE1"/>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="231.591">No equivalent</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="252.864">Explicit fallback</tspan></text>
+<path d="M17 287H321" stroke="#D6DCE1" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Salt &#xb7; Material &#xb7; Fluent &#xb7; Carbon</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Own system: class-based implementation.</tspan></text>
+<path d="M169 188V198M169 198H90V209M169 198H248V209M94 203L90 209L86 203M252 203L248 209L244 203" stroke="#8B5168" stroke-width="1.5"/>
+</g>
+<text fill="#202932" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">One structure, five systems</tspan></text>
+<text fill="#56616B" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="411.418">I designed the token, density and theme </tspan><tspan x="13" y="434.618">mapping. It resolves system-specific </tspan><tspan x="13" y="457.818">props across Salt, Material, Fluent, </tspan><tspan x="13" y="481.018">Carbon and my own system. Published </tspan><tspan x="13" y="504.218">React components are used where </tspan><tspan x="13" y="527.418">available; missing equivalents use </tspan><tspan x="13" y="550.618">explicit markup fallbacks, alongside a </tspan><tspan x="13" y="573.818">class-based in-house system.</tspan></text>
+<defs>
+<clipPath id="clip0_463_9440">
+<rect width="312" height="320" fill="white" transform="translate(13 17)"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,27 @@
+<svg width="336" height="533" viewBox="0 0 336 533" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="532" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="532" rx="3.5" stroke="#46515F"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="33.8636">SHARED OBJECT &#xb7; NOT A TEAM HANDOFF</tspan></text>
+<path d="M158 51H22C19.2386 51 17 53.2386 17 56V104C17 106.761 19.2386 109 22 109H158C160.761 109 163 106.761 163 104V56C163 53.2386 160.761 51 158 51Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="73.5909">Sales</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="94.8636">Own view</tspan></text>
+<path d="M316 51H180C177.239 51 175 53.2386 175 56V104C175 106.761 177.239 109 180 109H316C318.761 109 321 106.761 321 104V56C321 53.2386 318.761 51 316 51Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="73.5909">Legal</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="94.8636">Own view</tspan></text>
+<path d="M90 109V123H248V109M169 123V139" stroke="#E3B3C6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M282 139H56C53.2386 139 51 141.239 51 144V192C51 194.761 53.2386 197 56 197H282C284.761 197 287 194.761 287 192V144C287 141.239 284.761 139 282 139Z" fill="#222933" stroke="#E3B3C6" stroke-width="1.5"/>
+<text fill="#E3B3C6" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="61" y="161.591">One shared deal</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="61" y="182.864">Same underlying record</tspan></text>
+<path d="M169 197V211M90 226V211H248V226" stroke="#E3B3C6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M158 226H22C19.2386 226 17 228.239 17 231V279C17 281.761 19.2386 284 22 284H158C160.761 284 163 281.761 163 279V231C163 228.239 160.761 226 158 226Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="27" y="248.591">Custody ops</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="27" y="269.864">Own view</tspan></text>
+<path d="M316 226H180C177.239 226 175 228.239 175 231V279C175 281.761 177.239 284 180 284H316C318.761 284 321 281.761 321 279V231C321 228.239 318.761 226 316 226Z" fill="#222933" stroke="#46515F"/>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="185" y="248.591">Product</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="185" y="269.864">Own view</tspan></text>
+<path d="M17 287H321" stroke="#46515F" stroke-width="1.5" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="306.864">Lines mean &#x201c;views the same deal&#x201d;.</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="17" y="325.864">Each team sees and changes what it needs.</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" font-weight="500" letter-spacing="0em"><tspan x="13" y="372.773">A shared object, role-specific </tspan><tspan x="13" y="401.773">views</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" letter-spacing="0em"><tspan x="13" y="440.418">Sales, legal, custody operations and </tspan><tspan x="13" y="463.618">product had different definitions of a </tspan><tspan x="13" y="486.818">deal. Each needed its own view of the </tspan><tspan x="13" y="510.018">same object.</tspan></text>
+</svg>

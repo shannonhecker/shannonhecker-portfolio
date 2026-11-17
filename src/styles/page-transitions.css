@@ -1,0 +1,38 @@
+/* Background first, then typography, then product media. Native links stay native. */
+@media(prefers-reduced-motion:no-preference) {
+  @view-transition { navigation:auto; }
+  main { view-transition-name:page-content; }
+  .nav { view-transition-name:page-navigation; }
+  main h1 { view-transition-name:page-title!important; }
+  .chapter-head .project-hero,.landing-companion { view-transition-name:page-media; }
+  .chapter-head .meta { view-transition-name:page-details; }
+  .chapter-head .lead,.hero-story .hero-top { view-transition-name:page-description; }
+  html.page-departing main,html.page-departing .nav,html.page-departing main h1,html.page-departing .project-hero,html.page-departing .landing-companion,html.page-departing .chapter-head .meta,html.page-departing .chapter-head .lead,html.page-departing .hero-story .hero-top { view-transition-name:none!important; }
+  ::view-transition-group(*) { animation:none; }
+  ::view-transition-image-pair(*) { isolation:isolate; }
+  ::view-transition-old(*),::view-transition-new(*) { mix-blend-mode:normal; }
+  ::view-transition-group(root) { z-index:0; }
+  ::view-transition-old(root) { z-index:2;animation:page-background-exit .65s cubic-bezier(.76,0,.24,1) both; }
+  ::view-transition-new(root) { z-index:1;animation:none; }
+  ::view-transition-old(page-content),::view-transition-old(page-title),::view-transition-old(page-details),::view-transition-old(page-description),::view-transition-old(page-media),::view-transition-old(page-navigation) { animation:page-content-exit .22s ease both; }
+  ::view-transition-new(page-content) { animation:page-content-enter .55s .43s ease both; }
+  ::view-transition-new(page-title) { animation:page-text-enter .7s .36s cubic-bezier(.16,1,.3,1) both; }
+  ::view-transition-new(page-details),::view-transition-new(page-description) { animation:page-text-enter .7s .46s cubic-bezier(.16,1,.3,1) both; }
+  ::view-transition-new(page-media) { animation:page-media-enter .8s .53s cubic-bezier(.16,1,.3,1) both; }
+  ::view-transition-new(page-navigation) { animation:page-content-enter .35s .32s ease both; }
+  /* One entrance only: the transition brings these in, so their own load animation stays off
+     for the life of the page, not just while the transition runs. */
+  html.arrived-by-transition .chapter-head :is(h1,.eyebrow,.meta,.lead,.project-hero),
+  html.arrived-by-transition .hero-story>*,
+  html.arrived-by-transition .hero-story h1 *,
+  html:active-view-transition .chapter-head h1,html:active-view-transition .chapter-head .project-hero { animation:none!important; }
+  @keyframes page-background-exit { to { transform:translateY(-100%); } }
+  @keyframes page-content-exit { to { opacity:0;transform:translateY(-24px); } }
+  @keyframes page-content-enter { from{opacity:0}to{opacity:1} }
+  @keyframes page-text-enter { from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(30px)}to{opacity:1;clip-path:inset(0);transform:none} }
+  @keyframes page-media-enter { from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none} }
+}
+@media(prefers-reduced-motion:reduce) {
+  @view-transition { navigation:none; }
+  ::view-transition-old(*),::view-transition-new(*),::view-transition-group(*) { animation:none!important; }
+}

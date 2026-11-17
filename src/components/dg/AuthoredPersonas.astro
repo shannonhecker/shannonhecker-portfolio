@@ -1,0 +1,23 @@
+---
+import content from '../../data/authored-content.json';
+import PersonaCard from './PersonaCard.astro';
+interface Props { project: keyof typeof content; id?: string }
+const {project,id=`${Astro.props.project}-personas`}=Astro.props;
+const data=content[project].personas;
+const accents = {
+ fx: ['#3e617b', '#69527f', '#386b61'],
+ fusion: ['#265f70', '#80533e', '#65558a'],
+ ai: ['#6247a5', '#2f6970'],
+ winking: ['#346946', '#97602f', '#765482'],
+ deal: ['#7d3848', '#3e617b', '#5d6442', '#765482'],
+};
+---
+<section class="authored-personas" id={id} aria-labelledby={`${id}-title`}>
+ <header class="process-heading"><h3 id={`${id}-title`}>User personas</h3><p>{data.intro}</p></header>
+ <div class="authored-persona-list">{data.items.map((p,index)=><PersonaCard name={p.name} role={p.role} quote={p.quote} portrait={`${project}-${index}`} bio={p.bio} groups={p.groups} accent={accents[project][index]}/>)}</div>
+ {data.note && <p class="art-note">{data.note}</p>}
+</section>
+<style>
+.authored-personas{min-width:0;margin-block:48px 80px;scroll-margin-top:140px}.authored-persona-list{display:grid;gap:56px;margin-top:40px}.art-note{margin-top:28px;color:var(--fg-2);font-size:14px;line-height:1.6}
+@media(max-width:850px){.authored-persona-list{gap:48px}.authored-personas{margin-bottom:48px}}
+</style>

@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-12",
+  "method": "Responsive display SVGs preserve original geometry; embedded screenshots resized with5% sampling margin and losslessWebP encoding. Original full-size sources unchanged. Configuration composition is pure vector and remains unchanged.",
+  "records": [
+    {
+      "source": "public/art/fusion-hero-discovery-composition.svg",
+      "sourceSha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "output": "public/art/fusion-responsive/fusion-hero-discovery-composition-800.svg",
+      "displayWidth": 800,
+      "sourceBytes": 99572,
+      "bytes": 84196,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1465,
+          "originalHeight": 1125,
+          "width": 840,
+          "height": 645,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    },
+    {
+      "source": "public/art/fusion-hero-discovery-composition.svg",
+      "sourceSha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "output": "public/art/fusion-responsive/fusion-hero-discovery-composition-1600.svg",
+      "displayWidth": 1600,
+      "sourceBytes": 99572,
+      "bytes": 99572,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1465,
+          "originalHeight": 1125,
+          "width": 1465,
+          "height": 1125,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    },
+    {
+      "source": "public/art/fusion-hero-discovery-composition.svg",
+      "sourceSha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "output": "public/art/fusion-responsive/fusion-hero-discovery-composition-2400.svg",
+      "displayWidth": 2400,
+      "sourceBytes": 99572,
+      "bytes": 99572,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 1465,
+          "originalHeight": 1125,
+          "width": 1465,
+          "height": 1125,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    },
+    {
+      "source": "public/art/fusion-hero-performance-composition.svg",
+      "sourceSha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "output": "public/art/fusion-responsive/fusion-hero-performance-composition-800.svg",
+      "displayWidth": 800,
+      "sourceBytes": 355276,
+      "bytes": 50492,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 4096,
+          "originalHeight": 2392,
+          "width": 840,
+          "height": 491,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    },
+    {
+      "source": "public/art/fusion-hero-performance-composition.svg",
+      "sourceSha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "output": "public/art/fusion-responsive/fusion-hero-performance-composition-1600.svg",
+      "displayWidth": 1600,
+      "sourceBytes": 355276,
+      "bytes": 139136,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 4096,
+          "originalHeight": 2392,
+          "width": 1680,
+          "height": 981,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    },
+    {
+      "source": "public/art/fusion-hero-performance-composition.svg",
+      "sourceSha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "output": "public/art/fusion-responsive/fusion-hero-performance-composition-2400.svg",
+      "displayWidth": 2400,
+      "sourceBytes": 355276,
+      "bytes": 260824,
+      "geometryIdentical": true,
+      "images": [
+        {
+          "originalWidth": 4096,
+          "originalHeight": 2392,
+          "width": 2520,
+          "height": 1472,
+          "losslessResizedPixelMatch": true
+        }
+      ]
+    }
+  ]
+}

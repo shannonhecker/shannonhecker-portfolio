@@ -1,0 +1,67 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # check:redirects reads the old static site with `git ls-tree legacy-static`
+      # and `git show legacy-static:<file>`, which need a local branch of that name.
+      - name: Fetch the legacy-static branch
+        run: git fetch --no-tags origin legacy-static:refs/heads/legacy-static
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx astro check
+      - name: Compiled API runtime
+        run: |
+          npx tsc api/game-run.ts api/leaderboard.ts --outDir "$RUNNER_TEMP/portfolio-api" --module NodeNext --moduleResolution NodeNext --target ES2022 --types node --skipLibCheck --ignoreConfig
+          node --input-type=module <<'JS'
+          const api = await import(`${process.env.RUNNER_TEMP}/portfolio-api/api/game-run.js`);
+          const response = await api.POST(new Request('https://example.com/api/game-run', {
+            method: 'POST', headers: { origin: 'https://wrong.example', 'content-type': 'application/json' }, body: '{}'
+          }));
+          if (response.status !== 403) throw new Error('Compiled API origin guard failed');
+          JS
+      - run: npm run build
+      - run: npm run check:public
+      - run: npm run check:copy
+      - run: npm run check:redirects
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npx playwright test
+      # Brief §10: Lighthouse 95+ on all four categories, mobile and desktop.
+      - name: Lighthouse budget
+        # One warm-up run, then each page once; a page under 95 is run twice
+        # more and judged on the median of three. See the script's header.
+        run: node scripts/lighthouse-budget.mjs
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-check-reports
+          path: |
+            test-results
+            lh.json
+            lh-*.json
+
+  links:
+    # Brief §10: every external link checked live. LinkedIn (HTTP 999) and the
+    # App Store rate-limit bots, so they are excluded here and checked by hand
+    # before each release (see README). Figma design links require sign-in and
+    # reject the bot with 403; validate their file/node IDs through Figma MCP.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --max-retries 3 --timeout 20
+            --exclude 'linkedin\.com' --exclude 'apps\.apple\.com'
+            --exclude '^https://www\.figma\.com/design/'
+            src/components/*.astro
+          fail: true

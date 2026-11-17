@@ -1,0 +1,26 @@
+---
+import HomeProjectArtwork from './HomeProjectArtwork.astro';
+import type { CaseRow } from '../lib/cases';
+interface Props { c: CaseRow; homeArtwork?: boolean }
+const { c, homeArtwork=false } = Astro.props;
+---
+<a class:list={["row",{"next-project-row":!homeArtwork}]} href={c.href} data-cursor="big" data-chapter={c.vt}>
+  <span class="n">{c.n}</span>
+  <h3>{c.title}<span class="arrow" aria-hidden="true">→</span></h3>
+  <span class="meta">{c.meta}</span>
+  <HomeProjectArtwork project={c.vt} />
+</a>
+
+<style>
+.next-project-row{display:grid;grid-template-columns:32px minmax(0,1fr) minmax(0,1fr);gap:20px 32px;align-items:start}
+.next-project-row .n{grid-column:1;grid-row:1}
+.next-project-row h3{grid-column:2;grid-row:1;margin:0}
+.next-project-row .meta{grid-column:2;grid-row:2}
+.next-project-row :global(.home-artwork){grid-column:3;grid-row:1/3;display:block;width:100%;min-width:0;align-self:center}
+.next-project-row :global(.home-artwork picture){display:block;width:100%}
+.next-project-row :global(.home-artwork img){display:block;width:100%;max-width:none;height:auto;aspect-ratio:auto;object-fit:contain;margin:0;border-radius:0;transform:none}
+@media(max-width:760px){
+ .next-project-row{grid-template-columns:32px minmax(0,1fr);gap:16px 12px}
+ .next-project-row :global(.home-artwork){grid-column:1/-1;grid-row:3;margin-top:12px}
+}
+</style>

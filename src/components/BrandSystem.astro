@@ -1,0 +1,53 @@
+---
+import Pic from './Pic.astro';
+import ProductCapture from './ProductCapture.astro';
+import Stack from './dg/Stack.astro';
+interface Props { project:'ai'|'winking' }
+const {project}=Astro.props;
+const ai=project==='ai';
+const palette=ai?[
+ ['Midnight Canvas','#0A0E1A','Background'],['Purple Compute','#A78BFA','Primary accent'],['Peach Output','#F0B5A4','Secondary highlight'],['Teal Input','#3DDCC4','Signal'],
+]:[
+ ['Canvas','#F7F5EF','Page surface'],['Forest','#12351F','Text and actions'],['Sage','#A9D5B2','Soft emphasis'],['Peach','#FFE0D2','Warm accent'],
+];
+---
+<section class:list={['brand-system',{'brand-system-ai':ai}]} id={ai?'ai-brand':'ws-brand'} aria-labelledby={`${project}-brand-title`}>
+ <header class="process-heading">
+  <p class="eyebrow">My brand, my system, my product</p>
+  <h3 id={`${project}-brand-title`}>Brand and design system</h3>
+  <p>{ai?"I designed the name, brand, interface and system model. My own uoaui system sits alongside Salt, Material 3, Fluent 2 and Carbon; those four libraries retain their own authorship and component rules.":"I designed the brand, copy, illustration direction and app as one family product, then built it and took it through App Store submission."}</p>
+ </header>
+ <div class="brand-identity">
+  <figure class:list={{'brand-logo-plate':ai,'brand-logo-dark':ai,'brand-icon-figure':!ai}}>
+   <Pic name={ai?'uoaui-logo-lockup.png':'ws-icon.png'} alt={ai?'My original uoaui symbol and wordmark':'My original Winking Star app icon'} sizes={ai?'(max-width:760px) 70vw, 440px':'(max-width:760px) 90vw, (max-width:1200px) 45vw, 540px'} widths={ai?[320,440]:[360,540,720,1080]} />
+   <figcaption>{ai?'Original symbol and wordmark':'Original app icon'}</figcaption>
+  </figure>
+  <div class="brand-intent">
+   <h4>{ai?'One identity, several visual systems.':'A picture-book world children can recognise.'}</h4>
+   <p>{ai?"The name wraps around U and I. The product has its own identity, while the screen inside the builder follows the selected system. Brand, builder controls and the generated canvas have separate token layers.":"The star, rounded type and warm illustrated world belong together. I use colour and pictures as cues beside the child’s name, so the card does not rely on reading alone. The same language continues through routines, rewards and the weekly pet."}</p>
+   <p class="brand-type-label">{ai?'Brand typography: Bricolage Grotesque · Inter · IBM Plex Mono. Component typography: Inter in my own system; system-native type in the others.':'Typography: Nunito for both display and body. Shared family tokens keep the rounded character consistent across surfaces.'}</p>
+  </div>
+ </div>
+ <div class="brand-palette" role="group" aria-label="Design-system colour palette">
+  {palette.map(([name,hex,role])=><div class="brand-swatch"><span class="brand-colour" style={`background:${hex}`} aria-hidden="true"></span><h4>{name}</h4><p>{role}<br/><code>{hex}</code></p></div>)}
+ </div>
+ <p class="brand-source-note">{ai?'Current landing-page palette. The component library has separate light and dark semantic tokens.':'Current native-app palette. Earlier earthy brand explorations on my old site use a different palette.'}</p>
+ {ai?<>
+  <Stack label="The design-system layers I keep separate" layers={[
+   {t:'Product identity',d:'Name, logo, landing-page palette and editorial typography.',mine:true},
+   {t:'Builder controls',d:'The working environment around the canvas has its own tokens.',mine:true},
+   {t:'System mapping',d:'One structure maps theme, density and components across five systems.',mine:true},
+   {t:'Component library',d:'My uoaui system alongside the official Salt, Material 3, Fluent 2 and Carbon libraries.'},
+  ]} legend="The product layers I designed" />
+  <ProductCapture name="live-uoaui-own-system.png" alt="The live uoaui house design system with button comparisons, palette, iconography and four density settings" href="https://uoaui.ai/ui-kit?ds=uoaui" label="My uoaui design system · Live library · Dark theme" />
+  <div class="brand-rules"><div><h4>Theme and density</h4><p>Light and dark themes, with High, Medium, Low and Touch densities. The same component changes through tokens, rather than becoming a separate design.</p></div><div><h4>Interaction styling</h4><p>My system defines 150, 250 and 350ms motion, a shared radius scale and separate glass-opacity levels for light and dark surfaces.</p></div></div>
+ </>:<>
+  <Stack label="From Winking Star identity to the family experience" layers={[
+   {t:'Identity',d:'Star mark, warm illustration and Nunito typography.',mine:true},
+   {t:'Shared foundations',d:'Colour, typography, radii, motion and component sizing.',mine:true},
+   {t:'Reusable patterns',d:'Child cards, routine rows, stars, rewards and the weekly pet.',mine:true},
+   {t:'Family experience',d:'One visual language across onboarding, the board and weekly progress.',mine:true},
+  ]} legend="Designed and built by me" />
+  <div class="brand-rules"><div><h4>Predictable spacing</h4><p>The native app uses a 2, 4, 8, 12, 16, 20, 24 and 32px spacing scale, so rows, cards and sheets share a rhythm.</p></div><div><h4>Comfortable controls</h4><p>The shared primary-button token has a 50px minimum height and 25px corner radius. Labels and pictures support colour, so meaning does not depend on colour alone.</p></div></div>
+ </>}
+</section>

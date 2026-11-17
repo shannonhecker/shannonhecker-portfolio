@@ -1,0 +1,20 @@
+---
+// A left-to-right flow of steps (top-to-bottom on a phone), with optional
+// side branches under a step. Semantic: an ordered list in a figure.
+interface Step { t: string; d?: string; branch?: { t: string; d?: string } }
+interface Props { steps: Step[]; caption?: string; label: string }
+const { steps, caption, label } = Astro.props;
+---
+<figure class="dg dg-flow" aria-label={label}>
+  <ol style={`--n:${steps.length}`}>
+    {steps.map((s, i) => (
+      <li>
+        <span class="dg-i">{String(i + 1).padStart(2, '0')}</span>
+        <b>{s.t}</b>
+        {s.d && <span class="dg-d">{s.d}</span>}
+        {s.branch && <span class="dg-branch"><b>{s.branch.t}</b>{s.branch.d && <span class="dg-d">{s.branch.d}</span>}</span>}
+      </li>
+    ))}
+  </ol>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

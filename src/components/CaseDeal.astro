@@ -1,0 +1,43 @@
+---
+import data from '../data/deal-content.json';
+import CaseContents from './CaseContents.astro';
+import CaseEvidenceSummary from './CaseEvidenceSummary.astro';
+import AuthoredImage from './AuthoredImage.astro';
+import Personas from './dg/AuthoredPersonas.astro';
+import Journey from './dg/AuthoredJourney.astro';
+import Decisions from './dg/AuthoredDecisions.astro';
+import Split from './Split.astro';
+import FigmaUserFlow from './dg/FigmaUserFlow.astro';
+import VisualExplanation from './dg/VisualExplanation.astro';
+import ProductCapture from './ProductCapture.astro';
+---
+<section id="deal" class="band"><div class="wrap">
+ <header class="chapter-head">
+  <div class="g">
+   <div><p class="eyebrow">Case three · J.P. Morgan · Securities Services · 2022 to 2023</p><h1 class="h-chapter" style="view-transition-name:t-deal">Deal Model</h1></div>
+   <p class="lead muted">{data.intro}</p>
+   <div class="meta">{data.meta.slice(1).map(m=><span><b>{m.split(' · ')[0]}</b> · {m.split(' · ').slice(1).join(' · ')}</span>)}</div>
+  </div>
+  <div class="project-hero deal-hero" aria-label="Updated Deal Model designs">
+   <ProductCapture name="/art/deal-hero-composition.svg" href="/art/deal-hero-composition.svg" alt="Original Deal Model composition with overlapping market pricing comparison and deal approval overview screens" label="Original Deal Model design composition" eager />
+  </div>
+ </header>
+    <CaseEvidenceSummary project="deal" />
+ <CaseContents project="deal" />
+ <div class="beat rv" id="deal-problem"><div class="label"><h2 class="k"><b>01</b> Problem</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.problem.title}/><ul class="rows">{data.problem.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
+ <div class="beat rv" id="deal-research"><div class="label"><h2 class="k"><b>02</b> Users and research</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.research.title}/><ul class="rows">{data.research.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul><Personas project="deal"/></div></div>
+ <div class="beat rv" id="deal-constraints"><div class="label"><h2 class="k"><b>03</b> Constraints and role</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.constraints.title}/><VisualExplanation project="deal" /><ul class="rows">{data.constraints.rows.slice(3).map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
+ <div class="beat rv" id="deal-workflow"><div class="label"><h2 class="k"><b>04</b> Workflow</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.flow.title}/><p class="lead muted">{data.flow.intro}</p><FigmaUserFlow project="deal" /><Journey project="deal"/></div></div>
+ <div class="beat rv" id="deal-screens"><div class="label"><h2 class="k">Product screens</h2></div><div class="body"><Split as="h3" class="h-sub" text="The product, phase by phase."/><p class="lead muted">{data.screensIntro}</p><div class="deal-screen-gallery">{data.screens.map(s=><figure><AuthoredImage name={s.image} alt={`${s.title}: ${s.description}`} sizes="(max-width:900px) 90vw, 43vw"/><figcaption><h3>{s.title}</h3><p>{s.description}</p></figcaption></figure>)}</div></div></div>
+ <div class="beat rv" id="deal-decisions"><div class="label"><h2 class="k"><b>05</b> Decisions and trade-offs</h2></div><div class="body"><Split as="h3" class="h-sub" text="Six calls that made four teams one product."/><Decisions project="deal"/></div></div>
+ <div class="beat rv" id="deal-edge"><div class="label"><h2 class="k"><b>06</b> Edge and validation states</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.edge.title}/><div class="deal-edge-table" role="region" tabindex="0" aria-label="Edge and validation states, scroll horizontally on small screens"><table><caption class="vh">Designed edge and validation states</caption><thead><tr><th scope="col">State</th><th scope="col">What the screen does</th><th scope="col">Why</th></tr></thead><tbody>{data.edge.rows.map(r=><tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody></table></div>
+ <section class="deal-validation" aria-labelledby="deal-validation-title"><h3 id="deal-validation-title">Feedback at the point of action</h3><p class="muted">A text summary of the original Pricing designs: an empty list, a rate-source warning, and success or failure when creating iterations.</p><div class="validation-examples">{data.validation.map(v=><figure data-state={v.name.toLowerCase()}><figcaption>{v.name}</figcaption><p class="field-label">{v.label}</p><div class="field-example">{v.value}{['Warning','Error'].includes(v.name)&&<span aria-hidden="true">!</span>}</div><p class="field-message">{v.message}</p></figure>)}</div></section>
+ </div></div>
+ <div class="beat rv" id="deal-outcome"><div class="label"><h2 class="k"><b>07</b> Outcome and impact</h2></div><div class="body"><Split as="h3" class="h-sub" text={data.outcome.title}/><ul class="rows">{data.outcome.rows.map(r=><li><b>{r.label}</b><p>{r.text}</p></li>)}</ul></div></div>
+</div></section>
+<style>
+.deal-hero{display:block!important;width:100%;min-width:0;max-width:1100px;margin-inline:auto}
+.deal-hero figcaption{font-size:13px;line-height:1.6;color:var(--fg-2);margin-top:20px;max-width:65ch}.deal-screen-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 32px;margin-top:48px}.deal-screen-gallery figure{min-width:0;margin:0}.deal-screen-gallery h3{font-size:20px;line-height:1.4;letter-spacing:-.02em;margin:20px 0 10px}.deal-screen-gallery p{font-size:15px;line-height:1.65;color:var(--fg-2);max-width:55ch}.deal-edge-table{overflow:auto;margin-top:40px}.deal-edge-table table{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left;font-size:16px;line-height:1.7}.deal-edge-table th,.deal-edge-table td{padding:24px 24px 24px 0;vertical-align:top;border-bottom:1px solid var(--divider)}.deal-edge-table th:first-child{width:24%}.deal-edge-table thead th{font-size:13px;color:var(--fg-2);font-weight:500}.deal-edge-table td{color:var(--fg-2)}.deal-validation{margin-top:64px}.deal-validation>h3{font-size:28px;letter-spacing:-.03em;margin-bottom:16px}.validation-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:32px}.validation-examples figure{margin:0;padding:24px;border:1px solid var(--hair);border-radius:var(--radius)}.validation-examples figcaption{font-size:14px;color:var(--fg-2);margin-bottom:24px}.field-label{font-size:15px;margin-bottom:10px}.field-example{display:flex;justify-content:space-between;padding:12px 14px;border:1px solid var(--hair);border-radius:var(--radius);font-size:16px}.field-message{font-size:14px;line-height:1.6;color:var(--fg-2);margin-top:12px}.field-example span{font-weight:700}.validation-examples [data-state=warning] .field-example{border-color:#bc791e}.validation-examples [data-state=error] .field-example{border-color:#c86474}.validation-examples [data-state=blocked] .field-example{background:var(--project-wash)}
+@media(max-width:900px){.deal-screen-gallery{grid-template-columns:1fr;gap:44px}.deal-edge-table table{min-width:680px}.deal-edge-table{border-radius:var(--radius)}}
+@media(max-width:600px){.validation-examples{grid-template-columns:1fr;gap:20px}.deal-screen-gallery{margin-top:32px}}
+</style>

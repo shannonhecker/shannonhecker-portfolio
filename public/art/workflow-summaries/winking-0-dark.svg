@@ -1,0 +1,23 @@
+<svg width="336" height="348" viewBox="0 0 336 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" fill="#222933"/>
+<rect x="0.5" y="0.5" width="335" height="347" rx="3.5" stroke="#46515F"/>
+<text fill="#B9D5B8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" font-weight="500" letter-spacing="0em"><tspan x="13" y="29.7636">01 / 04</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="21" y="60.8636">Your family</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="11" letter-spacing="0em"><tspan x="21" y="78.5">Choose whose routines to open</tspan></text>
+<path d="M156 91H26C23.2386 91 21 93.2386 21 96V204C21 206.761 23.2386 209 26 209H156C158.761 209 161 206.761 161 204V96C161 93.2386 158.761 91 156 91Z" fill="#222933" stroke="#B9D5B8"/>
+<path d="M49 137C58.3888 137 66 129.389 66 120C66 110.611 58.3888 103 49 103C39.6112 103 32 110.611 32 120C32 129.389 39.6112 137 49 137Z" fill="#B9D5B8"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="44" y="123.864">L</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="74" y="117.864">Leo</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="74" y="135.636">Selected</tspan></text>
+<path d="M35 159H147M35 179H107" stroke="#46515F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="35" y="197.636">Routines for Leo</tspan></text>
+<path d="M306 91H176C173.239 91 171 93.2386 171 96V204C171 206.761 173.239 209 176 209H306C308.761 209 311 206.761 311 204V96C311 93.2386 308.761 91 306 91Z" fill="#222933" stroke="#46515F"/>
+<path d="M199 137C208.389 137 216 129.389 216 120C216 110.611 208.389 103 199 103C189.611 103 182 110.611 182 120C182 129.389 189.611 137 199 137Z" fill="#46515F"/>
+<text fill="#222933" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="194" y="123.864">M</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="12" letter-spacing="0em"><tspan x="224" y="117.864">Maya</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="224" y="135.636">Choose child</tspan></text>
+<path d="M185 159H297M185 179H257" stroke="#46515F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="185" y="197.636">Routines for Maya</tspan></text>
+<text fill="#EDF0F4" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="16" font-weight="500" letter-spacing="0em"><tspan x="13" y="250.818">Choose a superstar</tspan></text>
+<text fill="#B8C0CA" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="14" letter-spacing="0em"><tspan x="13" y="281.091">Their name, avatar and theme make the board </tspan><tspan x="13" y="301.091">recognisable.</tspan></text>
+</svg>

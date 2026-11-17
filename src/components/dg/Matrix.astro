@@ -1,0 +1,17 @@
+---
+// A state matrix as a real table: each row a state, each column what the
+// screen does about it. Stacks into labelled cards on a phone.
+interface Props { cols: string[]; rows: string[][]; caption: string }
+const { cols, rows, caption } = Astro.props;
+---
+<figure class="dg dg-matrix">
+  <table>
+    <caption>{caption}</caption>
+    <thead><tr>{cols.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>{r.map((cell, i) => (i === 0 ? <th scope="row">{cell}</th> : <td data-col={cols[i]}>{cell}</td>))}</tr>
+      ))}
+    </tbody>
+  </table>
+</figure>

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index", "destination": "/", "permanent": true },
+    { "source": "/panel", "destination": "/", "permanent": true },
+    { "source": "/build", "destination": "/", "permanent": true },
+    { "source": "/project-analytics", "destination": "/fusion", "permanent": true },
+    { "source": "/project-deal-model", "destination": "/deal-model", "permanent": true },
+    { "source": "/project-uoaui", "destination": "/uoaui", "permanent": true },
+    { "source": "/project-ausos", "destination": "/uoaui", "permanent": true },
+    { "source": "/project-winkingstar", "destination": "/winking-star", "permanent": true },
+    { "source": "/assets/og-preview.png", "destination": "/og-card.png", "permanent": true },
+    { "source": "/assets/og-preview.webp", "destination": "/og-card.png", "permanent": true },
+    { "source": "/project-algo-center", "destination": "/work/algo-center", "permanent": true },
+    { "source": "/project-complex-assets", "destination": "/work/complex-assets", "permanent": true },
+    { "source": "/project-corporate-action", "destination": "/work/corporate-action", "permanent": true },
+    { "source": "/project-data-solution", "destination": "/work/data-solution", "permanent": true },
+    { "source": "/project-design-system", "destination": "/work/design-system", "permanent": true },
+    { "source": "/project-dps-brand", "destination": "/work/dps-brand", "permanent": true },
+    { "source": "/project-research", "destination": "/work/research", "permanent": true },
+    { "source": "/project-barclays-data-viz", "destination": "/work/stock-dashboard", "permanent": true },
+    { "source": "/project-tripup", "destination": "/work/tripup", "permanent": true },
+    { "source": "/project-ui-toolkit", "destination": "/work/ui-toolkit", "permanent": true },
+    { "source": "/writing-the-design-system-is-the-contract", "destination": "/writing/the-design-system-is-the-contract", "permanent": true },
+    { "source": "/writing-trust-surfaces-in-ai", "destination": "/writing/trust-surfaces-in-ai", "permanent": true },
+    { "source": "/writing-when-everyone-can-ship", "destination": "/writing/when-everyone-can-ship", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(self), geolocation=(), interest-cohort=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.clarity.ms; font-src 'self'; connect-src 'self' https://ask-shannon-api.onrender.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

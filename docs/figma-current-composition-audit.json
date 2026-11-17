@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-12",
+  "fileKey": "l6noy7onfsRiuBgjqSsKbt",
+  "status": "Current image/composition parity complete: 108 source roots classified, 146 active website references resolved, 22 compositions restored; see current-media-parity.json. Performance delivery verification remains a separate release gate.",
+  "preserved": "Exact source geometry, masks, fills and shadows. Embedded screenshots remain raster. Temporary export clones removed.",
+  "exports": [
+    {
+      "node": "133:81",
+      "file": "ai-hero-builder-composition.svg",
+      "sha256": "7f516d3ba660a44c3cb847c729878e4315ea6d345d78d80a03007002e1f1ecc9",
+      "bytes": 207856,
+      "deliverySha256": "8db7713b6926dcea3760daa466f558f3d8d4c47e97b0a008d6a95a993abf4ecf",
+      "deliveryBytes": 171725,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": "133:84",
+      "file": "ai-hero-kit-composition.svg",
+      "sha256": "afc61993491846622bb4c8d6b48286eb469ea0a7f60f2fc83bfba9eb8ea4b589",
+      "bytes": 103240,
+      "deliverySha256": "8e7aab42f2778372a36c0127123efa4c38fc9a7b91c2ed9a17bb2c62491d38d8",
+      "deliveryBytes": 83841,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": "133:1481",
+      "file": "winking-hero-composition.svg",
+      "sha256": "ec063f219e607e3468550663377427f5058accfb406e54692fd3f68bdbaf269c",
+      "bytes": 439393,
+      "deliverySha256": "36a2e095fd451aff44ddfc9afdeb1d67700be5a1e6f1243cb1f884c44e1821d4",
+      "deliveryBytes": 388496,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": "345:343520",
+      "file": "winking-ios-composition.svg",
+      "sha256": "0c3c955e3fe5fb5d71616527be6922097570516e1c4be76aaff25b4a886be97c",
+      "bytes": 5947584,
+      "deliverySha256": "6e2afd8115fa646ca455ab3f0e8962be204ac4c81f022b2ef931cd30e10b6c16",
+      "deliveryBytes": 3221692,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": "345:343583",
+      "file": "deal-hero-composition.svg",
+      "sha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "bytes": 1382659,
+      "deliverySha256": "c39c183631ae643965eac30044e72b94a390b1e760781955d54dc5d9676d1745",
+      "deliveryBytes": 1382659,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": [
+        "345:343533",
+        "345:343535",
+        "345:343536",
+        "345:343537"
+      ],
+      "file": "winking-ios-launch.svg",
+      "temporaryExportNode": "405:5208",
+      "sha256": "f94638ace7d8dd317de43e452a547855139484e3f5c2f500e8f9696612544472",
+      "bytes": 1215051,
+      "deliverySha256": "3050b352436f27e8db99295fdad6bd98dcc6d7bf50a8f54cbe7da27476316885",
+      "deliveryBytes": 663784,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": [
+        "345:343538",
+        "345:343540",
+        "345:343541",
+        "345:343542"
+      ],
+      "file": "winking-ios-home.svg",
+      "temporaryExportNode": "405:5214",
+      "sha256": "6ce39560a70cdb63ff01a8e24ef8c93edfa60d42fbbb394de55327d201e2508f",
+      "bytes": 2448941,
+      "deliverySha256": "2696edc835e586815bb658d550e985aaee521f47dff1198a1ccecebbd6f005f9",
+      "deliveryBytes": 1408914,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": [
+        "345:343543",
+        "345:343545",
+        "345:343546",
+        "345:343547"
+      ],
+      "file": "winking-ios-activity.svg",
+      "temporaryExportNode": "405:5220",
+      "sha256": "b5a89a330c8de0c043a7f289608ff8bf115a2713ad18f981e6cd2ebf35eaf745",
+      "bytes": 1697399,
+      "deliverySha256": "0b4a9a0fb64d728570757a5101197e05e95c1ffff4ce61edf174fc681e73b814",
+      "deliveryBytes": 905032,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": [
+        "345:343548",
+        "345:343550",
+        "345:343551",
+        "345:343552"
+      ],
+      "file": "winking-ios-progress.svg",
+      "temporaryExportNode": "405:5226",
+      "sha256": "92d0fd9d6a37dda93438ad37c86e742a52d7c317c5256c31498a23c3e6903e89",
+      "bytes": 584171,
+      "deliverySha256": "d13c958179ffd882462314d932a55209d31e613783703284d392400ba08b5c16",
+      "deliveryBytes": 241940,
+      "packing": "Embedded raster re-encoding only; used changes passed exact RGBA comparison."
+    },
+    {
+      "node": "I288:466;109:21",
+      "file": "home-fx-composition-current.svg",
+      "temporaryExportNode": "406:14373",
+      "sha256": "49903206012ed69db4f21d2dbd804ab942972e3a8e9aa0a82961ed9399e55ed9",
+      "bytes": 2102650
+    },
+    {
+      "node": "I288:466;109:33",
+      "file": "home-fusion-composition-current.svg",
+      "temporaryExportNode": "406:14375",
+      "sha256": "a3967a4f6e968d8b698e1f9b5b3f40126d6c9f7c2753dd18ae1111a16f7e0fe4",
+      "bytes": 8654934
+    },
+    {
+      "node": "I288:466;109:46",
+      "file": "home-winking-composition-current.svg",
+      "temporaryExportNode": "406:14377",
+      "sha256": "780873cfdbc1a5f366a7bd3640168458b8a5bf8d9c5430384c939d08fd448db4",
+      "bytes": 5946620
+    },
+    {
+      "node": "I288:466;109:63",
+      "file": "home-ai-composition-current.svg",
+      "temporaryExportNode": "406:14410",
+      "sha256": "00677e12ee3cf01d81d61685501a50ef6d0301e49e552d6469b59f6eda16171f",
+      "bytes": 1683986
+    },
+    {
+      "node": "I288:466;280:475",
+      "file": "home-deal-composition-current.svg",
+      "temporaryExportNode": "406:14412",
+      "sha256": "7c4df23b73a9745bda284a44abfdfe4a5d48cdd62513a9e6ddacf03a5e62b278",
+      "bytes": 5523672,
+      "deliverySha256": "e076c25f4a23dee5a06d8d175517e0b91ac06cf1a16efdfff65e4999e57bde57",
+      "deliveryBytes": 3268543,
+      "geometryOptimization": "home-vector-optimization.json; all vector artwork retained;192dpi render comparison measured subpixel differences."
+    },
+    {
+      "node": "I288:565;120:1997",
+      "file": "home-fx-composition-mobile-current.svg",
+      "temporaryExportNode": "409:4920",
+      "sha256": "b3e978302ef1424ac1976696f5511d9c40a7e33717b05d0d059b737a089ed260",
+      "bytes": 2102657
+    },
+    {
+      "node": "I288:565;109:204",
+      "file": "home-fusion-composition-mobile-current.svg",
+      "temporaryExportNode": "409:4922",
+      "sha256": "21fd67d46eee6541a74a423b6ecbe887c026e45f8d47c25553dbaaacd0d190cb",
+      "bytes": 8654941
+    },
+    {
+      "node": "I288:565;109:219",
+      "file": "home-winking-composition-mobile-current.svg",
+      "temporaryExportNode": "409:4924",
+      "sha256": "60da24dfa22bef8c0bc5ea8edd23142910e8efd5a53b66b1bad0fc23f6ab6e5d",
+      "bytes": 5947104
+    },
+    {
+      "node": "I288:565;109:237",
+      "file": "home-ai-composition-mobile-current.svg",
+      "temporaryExportNode": "409:4957",
+      "sha256": "3e9b76d2867cb05d86ba7dfd18877c68df70094f7ae0797978c81066e5345ee0",
+      "bytes": 1683987
+    },
+    {
+      "node": "280:491",
+      "file": "home-deal-composition-mobile-current.svg",
+      "temporaryExportNode": "409:4959",
+      "sha256": "15a4969bce63230f9beed887c8bacc1c1bf48d8c2de64a12bdc2311d99f5016d",
+      "bytes": 5535932,
+      "sourceComposition": "I288:466;280:475",
+      "createdNode": "419:14993",
+      "archivedNode": "280:492",
+      "reason": "Mobile retained old list screenshot; current desktop collage scaled intact to350x269.23. Old image hidden, preserved.",
+      "deliverySha256": "818e67164debf667d01b8b4641cea1bd0f403f2b183e158d411e9fcd519eee93",
+      "deliveryBytes": 3312062,
+      "geometryOptimization": "home-vector-optimization.json; all vector artwork retained;192dpi render comparison measured subpixel differences."
+    },
+    {
+      "file": "fusion-hero-discovery-composition.svg",
+      "node": "305:322434",
+      "sha256": "195fe09dbaa903b2534a8e792aa420ec971ec70f3f8f38eccde4ad79e88fa1a0",
+      "bytes": 298147,
+      "deliverySha256": "999b3e6609a19124ad2f4d2ebd04458ed137450a4f42174be2fd255273b0ab07",
+      "deliveryBytes": 99572,
+      "packing": "Exact RGBA lossless raster embedding optimization, source geometry preserved."
+    },
+    {
+      "file": "fusion-hero-performance-composition.svg",
+      "node": "305:322444",
+      "sha256": "2be43fc653f24775c4069a32c47fb3b3b9df69bd0dbf8920f54bf315f8fcd6d1",
+      "bytes": 1125963,
+      "deliverySha256": "0ef3b71871a446b051372753601771e82d747f22a06c36637b9d2026c6c8f183",
+      "deliveryBytes": 355276,
+      "packing": "Exact RGBA lossless raster embedding optimization, source geometry preserved."
+    },
+    {
+      "file": "fusion-configuration-composition.svg",
+      "node": "305:336564",
+      "sha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "bytes": 1492252,
+      "deliverySha256": "64b736d32d98e75d27a74342a75fe37ec6a4e4fe8705b2f2a40f725068bccc46",
+      "deliveryBytes": 1492252,
+      "packing": "Exact RGBA lossless raster embedding optimization, source geometry preserved."
+    }
+  ]
+}

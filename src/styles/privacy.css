@@ -1,0 +1,31 @@
+/* Privacy (src/pages/privacy.astro). The essays' structure and type: a label column of
+   three of twelve columns (sized as (100% + g) / 4, so the text starts where it does on
+   every essay, About and earlier-project page), then the text at the essays' measure,
+   body size and colour. Hairlines between sections, no boxes. Every selector hangs off
+   .privacy so nothing reaches other pages. */
+.privacy{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--measure:52ch;padding-top:clamp(120px,11vw,168px);padding-bottom:clamp(72px,9vw,128px)}
+
+/* Head: the date line the essays carry as their way back, then the title. */
+.privacy-head{display:grid;gap:clamp(20px,3vw,32px)}
+.privacy-eyebrow{margin:0;font-size:14px;line-height:1.6;color:var(--fg-2)}
+.privacy h1{margin:0;font-size:clamp(40px,6.2vw,96px);line-height:1.04;letter-spacing:-.04em;max-width:16ch;text-wrap:balance}
+
+/* Sections: the label stays beside its text while the section scrolls. */
+.privacy-body{margin-top:var(--section)}
+.privacy-sec{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:start;padding-top:var(--rule);border-top:1px solid var(--hair)}
+.privacy-sec+.privacy-sec{margin-top:var(--section)}
+.privacy-sec>h2{position:sticky;top:104px;margin:0;padding-right:var(--g);font-family:var(--display);font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
+.privacy-text{min-width:0}
+.privacy-text>p{max-width:var(--measure);margin:1.25rem 0 0;font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2);text-wrap:pretty;overflow-wrap:anywhere}
+.privacy-text>p:first-child{margin-top:0}
+.privacy-text a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+.privacy-text a:hover,.privacy-inline:hover{text-decoration-thickness:2px}
+/* A button that reads as a word in the sentence: same type, ink colour, underlined like the links. */
+.privacy-inline{display:inline;padding:0;font:inherit;letter-spacing:inherit;color:var(--fg);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.privacy-inline:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+
+@media(max-width:900px){
+  .privacy-sec{grid-template-columns:minmax(0,1fr)}
+  .privacy-sec>h2{position:static;padding-right:0}
+  .privacy-text{margin-top:16px}
+}

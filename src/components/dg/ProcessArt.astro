@@ -1,0 +1,10 @@
+---
+import Pic from '../Pic.astro';
+import type { Project } from '../../lib/process';
+interface Props { project:Project }
+const {project}=Astro.props;
+---
+<figure class="process-art">
+ <Pic name={`process-art-${project}.png`} alt="" sizes="(max-width:760px) 90vw, 1160px" />
+ <figcaption>Illustrations of the process, not product screenshots or research evidence.</figcaption>
+</figure>
