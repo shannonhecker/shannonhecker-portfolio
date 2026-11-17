@@ -24,6 +24,9 @@ const earlier = defineCollection({
       tags: z.array(z.string()).min(1),
       cover: image(),
       coverAlt: z.string().min(1),
+      // File names (no extension) of the pictures on this page that are slides on a white
+      // ground. They sit on a deliberate white stage in both themes instead of a dark plate.
+      matte: z.array(z.string()).default([]),
     }),
 });
 

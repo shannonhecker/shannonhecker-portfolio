@@ -26,6 +26,8 @@ tags:
   - "Enterprise UX"
 cover: ../../assets/earlier/stock-dashboard/stock-dashboard-banner.webp
 coverAlt: "Stock dashboard: desktop, tablet, and mobile views"
+matte:
+  - "stock-dashboard-banner"
 ---
 ## Project Overview
 

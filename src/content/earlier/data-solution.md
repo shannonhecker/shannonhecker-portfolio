@@ -26,6 +26,8 @@ tags:
   - "Accessibility"
 cover: ../../assets/earlier/data-solution/fusion-data-banner.webp
 coverAlt: "Fusion Data Solution: data quality summary, DQ rules, and transaction management"
+matte:
+  - "fusion-data-banner"
 ---
 ## Overview
 

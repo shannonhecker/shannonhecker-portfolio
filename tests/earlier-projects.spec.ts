@@ -35,7 +35,8 @@ for (const slug of EARLIER_SLUGS) {
       await expect(page.getByRole('heading', { level: 2, name: 'Outcomes', exact: true })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Outcomes' }).locator('li').first()).toBeVisible();
       await loadImages(page);
-      const images = await page.evaluate(() => [...document.images].map((img) => ({
+      // The small cover beside "Next project" is decorative (aria-hidden, empty alt) and not counted here.
+      const images = await page.evaluate(() => [...document.images].filter((img) => !img.closest('[aria-hidden="true"]')).map((img) => ({
         src: img.currentSrc || img.src, alt: img.alt.trim(), width: img.naturalWidth,
         fit: getComputedStyle(img).objectFit,
       })));

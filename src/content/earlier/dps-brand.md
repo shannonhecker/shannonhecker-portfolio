@@ -25,6 +25,8 @@ tags:
   - "Guidelines"
 cover: ../../assets/earlier/dps-brand/dbs-banner.webp
 coverAlt: "Digital & Platform Services brand identity system"
+matte:
+  - "dbs-banner"
 ---
 ## Project Summary
 

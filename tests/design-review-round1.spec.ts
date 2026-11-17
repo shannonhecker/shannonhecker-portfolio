@@ -47,7 +47,8 @@ test.describe('images are never shown wider than their own pixels', () => {
         await open(page, path, width);
         await loadImages(page);
         const imgs = await page.evaluate(() => [...document.querySelectorAll<HTMLImageElement>('main img')]
-          .filter((i) => i.getClientRects().length > 0)
+          // The small decorative cover beside "Next project" is aria-hidden and never needs the full source.
+          .filter((i) => i.getClientRects().length > 0 && !i.closest('[aria-hidden="true"]'))
           .map((i) => ({
             src: i.currentSrc.split('/').pop(), shown: i.getBoundingClientRect().width, intrinsic: Number(i.getAttribute('width')),
             largest: Math.max(0, ...(i.srcset || '').split(',').map((c) => parseInt(c.trim().split(/\s+/)[1] || '0', 10))),
@@ -135,20 +136,26 @@ test.describe('earlier-project template, finding 4', () => {
 
 test.describe('covers sit as framed cards', () => {
   for (const slug of EARLIER_SLUGS) {
-    test(`/work/${slug}: the cover is inset on a tonal frame and whole; the frame is its only edge (round 2)`, async ({ page }) => {
+    test(`/work/${slug}: the cover is whole on one stage; a white slide gets a white stage with room, the others fill their frame`, async ({ page }) => {
       await open(page, `/work/${slug}`, 1440, 'dark');
       const m = await page.locator('.earlier-cover').evaluate((frame) => {
-        const f = frame.getBoundingClientRect();
+        const stage = frame.querySelector('.earlier-stage')!;
+        const f = stage.getBoundingClientRect();
         const img = frame.querySelector('img')!;
         const i = img.getBoundingClientRect();
         const cs = getComputedStyle(img);
-        return { insetTop: i.top - f.top, insetBottom: f.bottom - i.bottom, insetLeft: i.left - f.left, insetRight: f.right - i.right, fit: cs.objectFit, outline: cs.outlineStyle, radius: parseFloat(cs.borderTopLeftRadius), overflow: getComputedStyle(frame).overflow };
+        return { insetTop: i.top - f.top, insetLeft: i.left - f.left, insetRight: f.right - i.right, insetBottom: f.bottom - i.bottom, fit: cs.objectFit, outline: cs.outlineStyle, radius: parseFloat(getComputedStyle(stage).borderTopLeftRadius), matte: frame.classList.contains('is-matte'), bg: getComputedStyle(stage).backgroundColor, top: frame.getBoundingClientRect().top + scrollY };
       });
-      for (const k of ['insetTop', 'insetBottom', 'insetLeft', 'insetRight'] as const) expect(m[k]).toBeGreaterThanOrEqual(12);
       expect(m.fit).not.toBe('cover');
       expect(m.outline).toBe('none');
       expect(m.radius).toBeGreaterThan(0);
-      expect(m.overflow).toBe('visible');
+      expect(m.top, 'the cover starts in the first screen at 1440x900').toBeLessThan(700);
+      if (m.matte) {
+        expect(m.bg).toBe('rgb(255, 255, 255)');
+        for (const k of ['insetTop', 'insetBottom', 'insetLeft', 'insetRight'] as const) expect(m[k]).toBeGreaterThanOrEqual(24);
+      } else {
+        for (const k of ['insetTop', 'insetBottom', 'insetLeft', 'insetRight'] as const) expect(Math.abs(m[k])).toBeLessThanOrEqual(1);
+      }
     });
   }
 });

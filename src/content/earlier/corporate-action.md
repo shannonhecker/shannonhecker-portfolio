@@ -25,6 +25,8 @@ tags:
   - "WCAG"
 cover: ../../assets/earlier/corporate-action/copratbanner.webp
 coverAlt: "Corporate Action Manager"
+matte:
+  - "copratbanner"
 ---
 ## Project Summary
 

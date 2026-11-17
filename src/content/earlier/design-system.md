@@ -30,6 +30,9 @@ tags:
   - "Cross-team Collaboration"
 cover: ../../assets/earlier/design-system/fusion-ds-banner.webp
 coverAlt: "Fusion Design System: data catalog, ESG datasets, and cloud-native data platform"
+matte:
+  - "fusion-ds-banner"
+  - "fusion-d02"
 ---
 ## Project Overview
 

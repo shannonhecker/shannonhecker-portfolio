@@ -26,6 +26,9 @@ tags:
   - "Monitoring"
 cover: ../../assets/earlier/algo-center/algo-banner.webp
 coverAlt: "Execute Algo Center"
+matte:
+  - "algo-banner"
+  - "algo02"
 ---
 ## Project Summary
 

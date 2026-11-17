@@ -27,6 +27,8 @@ tags:
   - "Accessibility"
 cover: ../../assets/earlier/ui-toolkit/uitkbanner.webp
 coverAlt: "UI Toolkit"
+matte:
+  - "uitkbanner"
 ---
 ## Overview
 

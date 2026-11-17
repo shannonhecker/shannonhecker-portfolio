@@ -25,6 +25,8 @@ tags:
   - "Complex Interactions"
 cover: ../../assets/earlier/complex-assets/complex-banner.webp
 coverAlt: "Complex Assets Derivatives Valuation"
+matte:
+  - "complex-banner"
 ---
 ## Project Summary
 

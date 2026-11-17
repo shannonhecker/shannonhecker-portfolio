@@ -236,7 +236,7 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
 });
 
 test.describe('3: About sits on the page grid', () => {
-  test('at 1440 the text blocks have at most four distinct left edges, and the facts fall on grid lines', async ({ page }) => {
+  test('at 1440 the text blocks have at most six distinct left edges, and the facts sit under the opening on grid lines', async ({ page }) => {
     await visit(page, '/about', 1440, 900, { reduced: true });
     const m = await page.evaluate(() => {
       const edges: number[] = [];
@@ -257,10 +257,11 @@ test.describe('3: About sits on the page grid', () => {
     });
     const clusters: number[] = [];
     for (const e of [...m.edges].sort((a, b) => a - b)) if (!clusters.some((c) => Math.abs(c - e) <= 3)) clusters.push(e);
-    expect(clusters, `left edges: ${clusters.join(', ')}`).toHaveLength(4);
-    expect(m.facts.map((x) => Math.abs(x - 392) <= 2 || Math.abs(x - 734) <= 2 || Math.abs(x - 1076) <= 2).every(Boolean), `facts ${m.facts}`).toBe(true);
-    expect(Math.abs(m.facts[1] - m.who), 'the opening starts on the middle fact').toBeLessThanOrEqual(2);
-    expect(Math.abs(m.facts[0] - 392)).toBeLessThanOrEqual(2);
+    // The three figures sit under the opening (columns 7 to 12 of the twelve-column grid), so the page has the
+    // four edges it had plus the two later figure columns (9 and 11).
+    expect(clusters.length, `left edges: ${clusters.join(', ')}`).toBeLessThanOrEqual(6);
+    expect(m.facts.map((x) => [734, 962, 1191].some((g) => Math.abs(x - g) <= 2)).every(Boolean), `facts ${m.facts}`).toBe(true);
+    expect(Math.abs(m.facts[0] - m.who), 'the first figure starts where the opening starts').toBeLessThanOrEqual(2);
   });
 
   test('the facts rule and the multi-column rules are each one continuous line', async ({ page }) => {
@@ -310,7 +311,7 @@ test.describe('4 and 5: earlier projects on a phone', () => {
       }
       expect(m.cover, 'the cover is within a screen and a quarter').toBeLessThan(844 * 1.35);
       for (const s of m.h2) expect(s).toBe(26);
-      for (const s of m.h3) { expect(s).toBeLessThanOrEqual(21); expect(s).toBeGreaterThanOrEqual(18); }
+      for (const s of m.h3) { expect(s, 'a decision title is a step below the 26px section title').toBeLessThan(26); expect(s).toBeGreaterThanOrEqual(22); }
     });
   }
 });
@@ -374,17 +375,19 @@ test.describe('8: Privacy', () => {
 });
 
 test.describe('9: earlier covers carry one quiet frame', () => {
-  for (const [slug, theme] of [['corporate-action', 'dark'], ['design-system', 'dark'], ['research', 'dark'], ['corporate-action', 'light'], ['research', 'light']] as const) {
-    test(`/work/${slug} in ${theme}: a tonal frame and no outline on the image`, async ({ page }) => {
+  // A slide on a white ground sits on a white stage in both themes; a cover that fills its own frame sits on the tonal one.
+  for (const [slug, theme, stage] of [['corporate-action', 'dark', 'rgb(255, 255, 255)'], ['design-system', 'dark', 'rgb(255, 255, 255)'], ['research', 'dark', ''], ['corporate-action', 'light', 'rgb(255, 255, 255)'], ['research', 'light', '']] as const) {
+    test(`/work/${slug} in ${theme}: one stage and no outline on the image`, async ({ page }) => {
       await visit(page, `/work/${slug}`, 1440, 900, { theme, reduced: true });
       const m = await page.locator('.earlier-cover img').evaluate((img) => {
-        const frame = getComputedStyle(img.closest('.earlier-cover')!);
+        const frame = getComputedStyle(img.closest('.earlier-stage')!);
         const s = getComputedStyle(img);
-        return { outline: s.outlineStyle, outlineWidth: s.outlineWidth, frameBg: frame.backgroundColor, frameBorder: frame.borderTopWidth };
+        return { outline: s.outlineStyle, frameBg: frame.backgroundColor, frameBorder: frame.borderTopWidth };
       });
       expect(m.outline).toBe('none');
       expect(m.frameBorder).toBe('0px');
       expect(m.frameBg).not.toBe('rgba(0, 0, 0, 0)');
+      if (stage) expect(m.frameBg).toBe(stage);
     });
   }
 });
@@ -434,46 +437,49 @@ test.describe('B1: the log never slices through a line at its top edge', () => {
 // Round 3
 // ---------------------------------------------------------------------------------------------
 test.describe('round 3: earlier projects on phones', () => {
-  test('S1: under 640px the cover is the full content width with one quiet edge, like the body figures', async ({ page }) => {
+  test('S1: under 640px the cover frame is the full content width, and a wide cover pans inside it', async ({ page }) => {
     for (const slug of ['design-system', 'corporate-action', 'research', 'stock-dashboard']) {
       await visit(page, `/work/${slug}`, 390, 844, { theme: 'dark', reduced: true });
       const m = await page.evaluate(() => {
-        const frame = document.querySelector('.earlier-cover')!;
+        const frame = document.querySelector('.earlier-cover .earlier-stage')!;
+        const pan = frame.querySelector<HTMLElement>('.earlier-pan')!;
         const img = frame.querySelector('img')!;
         const wrap = document.querySelector('.earlier .wrap')!;
-        const cs = getComputedStyle(frame);
-        const is = getComputedStyle(img);
         const wr = wrap.getBoundingClientRect();
         const gutter = parseFloat(getComputedStyle(wrap).paddingLeft);
-        return { w: img.getBoundingClientRect().width, content: wr.width - 2 * gutter, pad: cs.paddingTop, bg: cs.backgroundColor, outline: is.outlineStyle + ' ' + is.outlineWidth, nat: img.naturalWidth };
+        return { w: frame.getBoundingClientRect().width, content: wr.width - 2 * gutter, pans: pan.scrollWidth > pan.clientWidth, overflowX: getComputedStyle(pan).overflowX, imgW: img.getBoundingClientRect().width, nat: img.naturalWidth, overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth };
       });
       expect(Math.abs(m.w - m.content), slug).toBeLessThanOrEqual(1);
-      expect(m.pad).toBe('0px');
-      expect(m.bg).toBe('rgba(0, 0, 0, 0)');
-      expect(m.outline).toBe('solid 1px');
+      expect(m.overflow, `${slug} does not scroll the page sideways`).toBeLessThanOrEqual(0);
+      expect(m.overflowX).toBe('auto');
+      // A banner this wide keeps a readable width and pans; nothing is cropped (the image is shown whole inside the scroller).
+      expect(m.pans, `${slug} pans`).toBe(true);
+      expect(m.imgW).toBeGreaterThan(m.content);
       await page.unrouteAll();
     }
   });
-  test('S1: on a wide screen the cover keeps its tonal frame', async ({ page }) => {
+  test('S1: on a wide screen a cover that is a white slide keeps a white stage with room around it', async ({ page }) => {
     await visit(page, '/work/design-system', 1440, 900, { theme: 'dark', reduced: true });
-    expect(await page.locator('.earlier-cover').evaluate((e) => parseFloat(getComputedStyle(e).paddingTop))).toBeGreaterThanOrEqual(12);
+    const m = await page.locator('.earlier-cover .earlier-stage').evaluate((e) => ({ pad: parseFloat(getComputedStyle(e).paddingTop), bg: getComputedStyle(e).backgroundColor }));
+    expect(m.pad).toBeGreaterThanOrEqual(24);
+    expect(m.bg).toBe('rgb(255, 255, 255)');
   });
   for (const slug of EARLIER_SLUGS) {
-    test(`/work/${slug}: P1 tags are quiet, P2 sub-headings are 21px with 40px above, P3 paired figures match`, async ({ page }) => {
+    test(`/work/${slug}: P1 tags sit in the facts, P2 decisions are 24px with a hairline, P3 paired figures match`, async ({ page }) => {
       await visit(page, `/work/${slug}`, 390, 844, { reduced: true });
       const m = await page.evaluate(() => {
-        const tag = document.querySelector('.earlier-tags li')!;
-        const ts = getComputedStyle(tag);
-        const body = getComputedStyle(document.querySelector('.earlier-sec-body > p')!);
-        const h3 = [...document.querySelectorAll('.earlier-sec-body > h3')].map((h) => ({ size: parseFloat(getComputedStyle(h).fontSize), mt: parseFloat(getComputedStyle(h).marginTop), first: h.previousElementSibling === null }));
+        const row = [...document.querySelectorAll('.earlier-facts > div')].find((d) => d.querySelector('dt')!.textContent === 'Tags')!;
+        const dd = getComputedStyle(row.querySelector('dd')!);
+        const h3 = [...document.querySelectorAll('.earlier-sec-body > h3')].map((h) => ({ size: parseFloat(getComputedStyle(h).fontSize), mt: parseFloat(getComputedStyle(h).marginTop), pt: parseFloat(getComputedStyle(h).paddingTop), rule: getComputedStyle(h).borderTopWidth, first: h.previousElementSibling === null }));
         const lis = [...document.querySelectorAll('.earlier-outcomes li')];
         const rows = new Map<number, number[]>();
         for (const li of lis) { const t = Math.round(li.getBoundingClientRect().top); const v = parseFloat(getComputedStyle(li.querySelector('.value')!).fontSize); rows.set(t, [...(rows.get(t) || []), v]); }
-        return { tag: { size: ts.fontSize, pad: ts.paddingTop + ' ' + ts.paddingLeft, color: ts.color }, bodyColor: body.color, bodyFg: getComputedStyle(document.body).color, h3, rows: [...rows.values()] };
+        return { tags: { size: dd.fontSize, text: row.querySelector('dd')!.textContent! }, chips: document.querySelectorAll('.earlier-tags').length, h3, rows: [...rows.values()] };
       });
-      expect(m.tag.size).toBe('13px');
-      expect(m.tag.pad).toBe('4px 10px');
-      for (const h of m.h3) { expect(h.size).toBe(21); if (!h.first) expect(h.mt).toBe(40); }
+      expect(m.tags.size).toBe('16px');
+      expect(m.tags.text).toContain(' · ');
+      expect(m.chips, 'no chip cloud at the foot').toBe(0);
+      for (const h of m.h3) { expect(h.size).toBe(24); if (!h.first) { expect(h.mt).toBe(40); expect(h.pt).toBe(24); expect(h.rule).toBe('1px'); } }
       for (const r of m.rows) { if (r.length === 2) expect(r[0], `a row of two reads evenly: ${r}`).toBe(r[1]); }
     });
   }

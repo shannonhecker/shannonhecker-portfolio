@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import WaveField from '../../components/WaveField.astro';
 import intro from '../../data/writing-index.json';
 import { bodyStats, displayDate, isoDate, writingEntries } from '../../lib/writing';
 import '../../styles/writing.css';
@@ -14,7 +15,8 @@ const entries = await writingEntries();
   <a class="skip" href="#main">Skip to content</a>
   <Nav />
   <main id="main" class="writing-index">
-    <header class="writing-head">
+    <header class="writing-head has-wave-field">
+      <WaveField variant="writing" />
       <div class="wrap">
         <h1>Writing</h1>
         <p class="writing-meta">{entries.length} essays</p>

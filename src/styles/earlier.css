@@ -6,9 +6,11 @@
    One column structure, the essays' and About's: --g is the gutter and the label
    column is (100% + g) / 4, so the text column starts on the same line as column 4 of
    a twelve-column head (x = 392 at 1440). Vertical rhythm: --section above each
-   hairline, --rule below it. */
+   hairline, --rule below it. Order down the page: head, cover, outcomes, sections,
+   next project, so the first picture is on screen before anyone scrolls.
+   The accent is --project-ink, the colour the case pages use for their numbered kickers. */
 
-.earlier{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--measure:52ch;padding-top:clamp(120px,11vw,168px)}
+.earlier{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--measure:52ch;padding-top:clamp(104px,9vw,136px)}
 
 /* Eyebrow: a small way back to the list of work. */
 .earlier-eyebrow{font-size:14px;line-height:1.6;color:var(--fg-2)}
@@ -16,18 +18,48 @@
 .earlier-eyebrow a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
 
 /* Head: title, then the lead beside the facts. */
-.earlier-head{display:grid;gap:clamp(20px,3vw,32px)}
+.earlier-head{display:grid;gap:clamp(12px,1.6vw,20px)}
 .earlier h1{font-size:clamp(44px,4.8vw,72px);line-height:1.08;letter-spacing:-.035em;max-width:20ch;text-wrap:balance}
-.earlier-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:40px;align-items:start;margin-top:clamp(16px,3vw,40px)}
-.earlier-lead{grid-column:1/7;font-size:clamp(18px,1.7vw,24px);line-height:1.55;max-width:40ch;text-wrap:pretty}
-.earlier-facts{grid-column:8/13;margin:0;border-bottom:1px solid var(--hair)}
-.earlier-facts>div{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:16px;padding:14px 0;border-top:1px solid var(--hair)}
+.earlier-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:32px;align-items:start;margin-top:clamp(0px,.6vw,8px)}
+.earlier-lead{grid-column:1/6;font-size:clamp(18px,1.7vw,24px);line-height:1.55;max-width:40ch;text-wrap:pretty}
+.earlier-facts{grid-column:6/13;margin:0;border-bottom:1px solid var(--hair)}
+.earlier-facts>div{display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,1.6fr);gap:16px;padding:10px 0;border-top:1px solid var(--hair)}
 .earlier-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
-.earlier-facts dd{margin:0;font-size:16px;line-height:1.6}
+.earlier-facts dd{margin:0;font-size:16px;line-height:1.6;text-wrap:pretty}
+
+/* Figures and the cover share one build: a stage (the frame), a pan (the scroller that only
+   scrolls on a phone) and the picture. A picture is never cropped and never shown wider than its
+   own pixels. A slide on a white ground (the front matter's `matte` list) sits on a deliberate
+   white stage with room around it, in both themes; a picture that fills its own frame sits bare. */
+.earlier-fig{margin:clamp(32px,4vw,56px) 0 0;max-width:var(--w)}
+.earlier-stage{position:relative;border-radius:var(--radius);background:var(--bg-2);overflow:hidden}
+.earlier-stage::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--hair);pointer-events:none}
+.earlier-pan{border-radius:inherit;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;overscroll-behavior-x:contain}
+.earlier-pan picture{display:block;max-width:var(--w)}
+.earlier-pan img{display:block;width:100%;height:auto;object-fit:contain}
+.earlier-pan:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.earlier-fig.is-matte .earlier-stage{padding:clamp(16px,3vw,48px);background:#fff}
+.earlier-fig.is-matte .earlier-stage::after{box-shadow:none}
+html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shadow:inset 0 0 0 1px var(--hair)}
+.earlier-fig.is-matte .earlier-pan{border-radius:0}
+/* The way to the full file: quiet, below the stage, at the right. */
+.earlier-fig-open{display:flex;justify-content:flex-end;align-items:center;min-height:32px;margin-top:4px;font-size:13px;line-height:1.6;color:var(--fg-2);text-decoration:none}
+.earlier-fig-open::after{content:" \2197";white-space:pre}
+.earlier-fig-open:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
+.earlier-fig-open:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:var(--radius)}
+@media(hover:hover) and (min-width:901px){
+  .earlier-fig-open{opacity:0;transition:opacity .2s}
+  .earlier-fig:hover .earlier-fig-open,.earlier-fig:focus-within .earlier-fig-open{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){.earlier-fig-open{transition:none}}
+
+/* Cover: straight after the head, so it starts near y=560 at 1440x900. */
+.earlier-cover{margin-top:clamp(24px,2.8vw,40px);max-width:none}
+.earlier-cover .earlier-pan picture{max-width:var(--w)}
 
 /* Outcomes: figures first, each with its label. Values that are phrases are
    set smaller so the row stays level. */
-.earlier-results{margin-top:clamp(56px,8vw,112px)}
+.earlier-results{margin-top:clamp(40px,5vw,72px)}
 .earlier .earlier-label{margin:0 0 16px;font-family:var(--body);font-size:14px;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-2)}
 .earlier-outcomes{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));column-gap:clamp(24px,3vw,48px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .earlier-outcomes li{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px;padding-block:clamp(28px,3vw,40px)}
@@ -37,35 +69,27 @@
 .earlier-outcomes .label{font-size:15px;line-height:1.55;color:var(--fg-2);max-width:32ch;text-wrap:balance}
 .earlier .nb{white-space:nowrap}
 
-/* Cover: the whole picture, never cropped. Most covers carry their own matte (white
-   in nearly every case) and bleed the screens off the bottom of the file, so the file
-   sits as a card on a tonal ground: inset on every side, a hairline edge, the page's
-   radius. The image is shown at its own width at most. */
-.earlier-cover{margin-top:clamp(40px,5vw,72px);padding:clamp(12px,2.4vw,32px);border-radius:var(--radius);background:var(--bg-2)}
-.earlier-cover picture{display:block;max-width:var(--w)}
-.earlier-cover img{display:block;width:100%;height:auto;object-fit:contain;border-radius:var(--radius)}
-
 /* Body: a section is its label at the left (it stays beside the text while the
-   section scrolls) and its copy at the right, as on the essays. */
-.earlier-body{margin-top:var(--section)}
+   section scrolls) and its copy at the right, as on the essays. The label opens with its
+   number, 01, 02 and so on, a counter in the accent colour as on the essays and /fx; the
+   number is generated content, so the heading's own name is unchanged. */
+.earlier-body{margin-top:clamp(56px,6vw,88px);counter-reset:sec}
 .earlier-sec{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:start;margin-top:var(--section);padding-top:var(--rule);border-top:1px solid var(--hair)}
 .earlier-body>.earlier-sec:first-child{margin-top:0}
-.earlier-sec>h2{position:sticky;top:104px;margin:0;padding-right:var(--g);font-family:var(--display);font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
-.earlier-sec-body{min-width:0}
+.earlier-sec>h2{position:sticky;top:104px;margin:0;padding-right:var(--g);font-family:var(--display);font-weight:500;font-size:clamp(26px,2.4vw,34px);line-height:1.2;letter-spacing:-.025em;color:var(--fg);text-wrap:balance}
+.earlier-sec>h2::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);content:counter(sec,decimal-leading-zero) / "";display:block;margin-bottom:10px;font:500 14px/1.4 var(--body);letter-spacing:0;color:var(--project-ink,var(--fg-2));font-variant-numeric:tabular-nums}
+/* The copy starts level with the title, not with its number. */
+.earlier-sec-body{min-width:0;padding-top:calc(14px * 1.4 + 10px)}
 .earlier-sec-body>*{margin:1.25rem 0 0;font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
 .earlier-sec-body>:first-child{margin-top:0}
-.earlier-sec-body>p,.earlier-sec-body>h3{max-width:var(--measure)}
-.earlier-sec-body>p{text-wrap:pretty}
+.earlier-sec-body>p{max-width:var(--measure);text-wrap:pretty}
 .earlier-sec-body strong{font-weight:600;color:var(--fg)}
 .earlier-sec-body em{font-style:normal;font-weight:500;color:var(--fg)}
-.earlier-sec-body>h3{margin-top:clamp(32px,3.4vw,48px);font-family:var(--display);font-weight:500;font-size:clamp(20px,1.8vw,24px);line-height:1.3;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
-.earlier-sec-body>h3+*{margin-top:12px}
+/* A decision is a unit: a hairline above it, 24px of air, a title that carries weight. */
+.earlier-sec-body>h3{margin-top:clamp(40px,4.4vw,64px);padding-top:24px;border-top:1px solid var(--hair);font-family:var(--display);font-weight:500;font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-.025em;color:var(--fg);text-wrap:balance}
+.earlier-sec-body>h3:first-child{padding-top:0;border-top:0}
+.earlier-sec-body>h3+*{margin-top:14px}
 
-/* Pictures hang from the text column's edge and run to the right edge, at their own
-   width at most (--w is the file's own pixel width). */
-.earlier-fig{margin-top:clamp(32px,4vw,56px);max-width:var(--w)}
-.earlier-fig picture{display:block}
-.earlier-fig img{display:block;width:100%;height:auto;object-fit:contain;border-radius:var(--radius);background:var(--bg-2);outline:1px solid var(--hair);outline-offset:-1px}
 .earlier-sec-body>.earlier-fig:first-child{margin-top:0}
 
 /* A list of checks: three columns when there is room, across the same width. */
@@ -82,24 +106,24 @@
 .earlier-note p{margin:0;font-size:clamp(17px,1.3vw,19px);line-height:1.7;color:var(--fg-2);max-width:56ch}
 .earlier-note p+p{margin-top:8px}
 
-/* Tags: plain chips under the body, aligned with its copy. */
-.earlier-foot{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);margin-top:var(--section)}
-.earlier-tags{grid-column:2;display:flex;flex-wrap:wrap;gap:8px}
-.earlier-tags li{padding:4px 10px;border-radius:var(--radius);background:var(--bg-2);font-size:13px;line-height:1.6;color:var(--fg-2)}
-
-/* Next project: the essays' closing row, without artwork, set well below the title. */
+/* Next project: the essays' closing row, with the next cover where the number was. The band's own
+   rule is the only rule above it (the list's would double it), and the footer's band follows it. */
 .earlier .next-case{margin-top:clamp(64px,8vw,112px)}
 .earlier-next .earlier-eyebrow{margin-bottom:12px}
-.earlier-next .row{grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1.5fr) minmax(0,1fr);column-gap:0;align-items:baseline}
-.earlier-next .row .n{padding-right:var(--g)}
+.earlier-next .index{border-top:0}
+.earlier-next .row{grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr) minmax(0,1fr);column-gap:0;align-items:center;border-bottom:0}
+.earlier-next .row .thumb{grid-column:1;justify-self:start;box-sizing:border-box;width:min(240px,calc(100% - var(--g)));border-radius:var(--radius);overflow:hidden;background:var(--bg-2)}
+.earlier-next .row .thumb.is-matte{padding:8px;background:#fff}
+.earlier-next .row .thumb picture{display:block}
+.earlier-next .row .thumb img{display:block;width:100%;height:auto;object-fit:contain}
 .earlier .earlier-next .row h3{grid-column:2;font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
-.earlier-next .row .meta{grid-column:3;padding-left:var(--g)}
+.earlier-next .row .meta{grid-column:3;padding-left:var(--g);max-width:46ch;text-wrap:pretty}
 
 @media(max-width:900px){
   .earlier-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
   .earlier-lead,.earlier-facts{grid-column:1}
   .earlier-results{margin-top:clamp(40px,8vw,72px)}
-  /* Two columns, so the cover is never a screen and a half away. There is no column gap, so each rule
+  /* Two columns, so the next thing is never a screen and a half away. There is no column gap, so each rule
      is one unbroken line; every cell pads its own inner edge by 10px (20px between the columns). The
      rows still share their value line and label line (subgrid), and an odd last item runs across. */
   .earlier-outcomes{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:0}
@@ -113,27 +137,27 @@
   /* A row that pairs a figure with a long phrase reads evenly: both are set at the phrase size. */
   .earlier-outcomes li[data-pair="mixed"] .value.figure{font-size:clamp(20px,5.6vw,26px);line-height:1.2;letter-spacing:-.025em}
   .earlier-outcomes .label{font-size:14px;max-width:none}
-  /* Every section reads the same: its label, 16px of air, its copy. */
+  /* Every section reads the same: its number and title, 20px of air, its copy. */
   .earlier-sec{grid-template-columns:minmax(0,1fr)}
-  /* A section's title is clearly the larger of the two levels: 26px over 18px. */
-  .earlier-sec>h2{position:static;padding-right:0;font-size:26px;line-height:1.25;letter-spacing:-.025em}
-  .earlier-sec-body{margin-top:20px}
-  .earlier-sec-body>h3{font-size:21px;line-height:1.3;margin-top:40px}
-  .earlier-sec-body>h3+*{margin-top:10px}
+  .earlier-sec>h2{position:static;padding-right:0;font-size:26px;line-height:1.25}
+  .earlier-sec-body{margin-top:20px;padding-top:0}
+  .earlier-sec-body>h3{font-size:24px;line-height:1.25;margin-top:40px}
   .earlier-sec-body>ol{grid-template-columns:minmax(0,1fr);gap:28px}
   .earlier-body>.earlier-note{margin-left:0}
-  .earlier-foot{grid-template-columns:minmax(0,1fr)}
-  .earlier-tags{grid-column:1}
 }
-/* Under 640px the cover is the whole content width with the same single quiet edge as the figures in
-   the text, not a picture inside a tonal mat (which would shrink it to about 318px). */
+/* On a phone a picture 2:1 or wider keeps a readable width and pans sideways inside its frame
+   (nothing cropped); the link under it opens the whole file. The link is a proper touch target. */
 @media(max-width:640px){
-  .earlier-cover{padding:0;background:transparent;border-radius:0}
-  .earlier-cover img{background:var(--bg-2);outline:1px solid var(--hair);outline-offset:-1px}
+  .earlier-fig.is-wide .earlier-pan picture{width:min(var(--pan),var(--w));max-width:none}
+  .earlier-fig-open{min-height:44px}
+  /* A tighter head, so the cover shows in the first screen. */
+  .earlier-lead{font-size:17px;line-height:1.5}
+  .earlier-intro{row-gap:24px}
+  .earlier-facts>div{grid-template-columns:minmax(0,.32fr) minmax(0,.68fr);gap:12px;padding:8px 0}
 }
 @media(max-width:760px){
-  .earlier-next .row{grid-template-columns:32px minmax(0,1fr);gap:12px}
-  .earlier-next .row .n{padding-right:0}
-  .earlier .earlier-next .row h3,.earlier-next .row .meta{grid-column:2}
-  .earlier-next .row .meta{grid-row:2;padding-left:0}
+  .earlier-next .row{grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+  .earlier-next .row .thumb,.earlier .earlier-next .row h3,.earlier-next .row .meta{grid-column:1}
+  .earlier-next .row .thumb{width:min(240px,100%)}
+  .earlier-next .row .meta{grid-row:auto;padding-left:0}
 }
