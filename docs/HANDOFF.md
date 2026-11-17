@@ -120,3 +120,17 @@ Shannon asked to keep the old site's graphic style on the new site ("only the gr
 - Chat fix: only the reader's own scrolling (wheel, touch, keys, pointer) switches the log to follow mode. Before, the browser's own re-snapping while the log grew could send a long answer to its end.
 - Suite: 840 tests, build and three checks green. Lighthouse mobile: home 96, Work 95, About 99, FX 95, Writing 100; desktop 100 on all five. Work and FX sit on the 95 line.
 - Not pushed yet.
+
+## Design rounds 4 to 6 (17 Nov 2026, overnight)
+
+Shannon asked for the award bar to be judged and worked towards unattended, and allowed a push when tests and visual checks pass. Three rounds: fresh Opus judges, Sonnet builders, verified here each time.
+
+Final judge (round 6), out of 10, with `/fx` anchored at 8.0: home 7.6, Ask Shannon 7.8, shell 7.4, 404 7.0, Work 7.0, earlier template 6.6, Writing 7.2, About 7.2, Privacy 6.8. Verdict: ready to go live as a strong professional portfolio; about 0.8 to 1.2 points under a Site of the Day nomination. Three judges agree the rest cannot come from code. Ceilings without new material: home 8.3, chat 8.2, shell 8.0, 404 7.5, Work 7.6, earlier 7.0, Writing 7.6, About 7.6, Privacy 7.0.
+
+Changed in these rounds: serif on the chat heading as well as "Let's Talk."; chat waves in the card's colours on both sides; 404 with waves, avatar and case links; earlier pages with the cover above the fold, a white stage for white-background slides (`matte` front matter), numbered kickers, compact facts, pannable wide figures with edge fades, figure links; Work hover previews and phone covers; Writing wave variant; essay sections split per h2 with a sticky label that releases (a round 4 version stacked the labels; fixed and tested); one focus ring token `--focus`; Fusion hero served as AVIF/WebP rendered from the vectors (mobile Lighthouse 77 to 97), vector kept behind the full-size link.
+
+Declined because they touch owner decisions: the home headline typeface, the 6px case-card gap, the phone menu's type, left-aligned chat pills on phones, fainter hero waves on phones.
+
+Needs Shannon, ranked by lift: one diagram or annotated figure per earlier project; sharper covers for Brand Identity, Fusion Design System, Complex Assets; a figure per section in the trust-surfaces essay; whether to print the email address in the footer's "Email" row; a second About image; dark-theme FX and Fusion artwork; the 404 sentence (still placeholder); whether the Fusion hero should go back to vector on the page.
+
+Suite: 872 tests, build and three checks green. Lighthouse (the CI budget, ten pages, mobile and desktop): all 95 or more; home, FX and Winking Star sit on 95 on mobile.
