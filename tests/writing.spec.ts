@@ -25,7 +25,7 @@ async function lineLength(page: Page) {
   return page.evaluate(() => {
     const full: number[] = [];
     let paragraphs = 0;
-    for (const p of document.querySelectorAll<HTMLElement>('.essay-body>p')) {
+    for (const p of document.querySelectorAll<HTMLElement>('.essay-flow>p')) {
       const perLine: { y: number; n: number }[] = [];
       const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
       for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
@@ -198,13 +198,14 @@ for (const a of ARTICLES) {
     });
 
     test('the head and the body share columns: title, facts and section labels on one edge, standfirst and text on another', async ({ page }) => {
-      for (const width of [1440, 1024]) {
+      // From 1100px a section is a label column and a text column; below that the label sits above its text.
+      for (const width of [1440, 1180]) {
         await page.setViewportSize({ width, height: 900 });
         await open(page, path);
         const x = await page.evaluate(() => {
           const left = (sel: string) => document.querySelector(sel)!.getBoundingClientRect().left;
           const textLeft = (sel: string) => { const r = document.createRange(); r.selectNodeContents(document.querySelector(sel)!); return r.getClientRects()[0].left; };
-          return { h1: left('.essay h1'), facts: left('.essay-facts'), h2: left('.essay-body>h2'), dek: left('.essay-dek'), p: textLeft('.essay-body>p'), bio: left('.essay-bio'), pager: left('.essay-pager a') };
+          return { h1: left('.essay h1'), facts: left('.essay-facts'), h2: left('.essay-sec>h2'), dek: left('.essay-dek'), p: textLeft('.essay-flow>p'), bio: left('.essay-bio'), pager: left('.essay-pager a') };
         });
         expect(Math.abs(x.facts - x.h1), `facts vs title at ${width}`).toBeLessThanOrEqual(2);
         expect(Math.abs(x.h2 - x.h1), `section label vs title at ${width}`).toBeLessThanOrEqual(2);
@@ -215,12 +216,12 @@ for (const a of ARTICLES) {
     });
 
     test('the first paragraph of a section starts level with its title, not with its number', async ({ page }) => {
-      for (const width of [1440, 1024]) {
+      for (const width of [1440, 1180]) {
         await page.setViewportSize({ width, height: 900 });
         await open(page, path);
         const d = await page.evaluate(() => {
-          const h2 = document.querySelector('.essay-body>h2')!;
-          const p = h2.nextElementSibling!;
+          const h2 = document.querySelector('.essay-sec>h2')!;
+          const p = h2.nextElementSibling!.firstElementChild!;
           const top = (n: Node) => { const r = document.createRange(); r.selectNodeContents(n); return r.getClientRects()[0].top; };
           const title = top(h2), para = top(p);
           const number = parseFloat(getComputedStyle(h2, '::before').height);
@@ -236,11 +237,11 @@ for (const a of ARTICLES) {
       await open(page, path);
       const gaps = await page.evaluate(() => {
         const rule = (el: Element) => el.getBoundingClientRect().top;
-        const hs = [...document.querySelectorAll('.essay-body>h2')];
+        const secs = [...document.querySelectorAll('.essay-sec')];
         const out: number[] = [];
-        for (const h of hs) {
-          const prev = h.previousElementSibling!;
-          out.push(Math.round(rule(h) - prev.getBoundingClientRect().bottom));
+        for (const sec of secs) {
+          const prev = sec.previousElementSibling!;
+          out.push(Math.round(rule(sec) - prev.getBoundingClientRect().bottom));
         }
         const bio = document.querySelector('.essay-bio')!, last = document.querySelector('.essay-body')!.lastElementChild!;
         out.push(Math.round(bio.getBoundingClientRect().top - last.getBoundingClientRect().bottom));
@@ -248,6 +249,30 @@ for (const a of ARTICLES) {
       });
       for (const g of gaps) { expect(g, `gap ${g}`).toBeGreaterThanOrEqual(56); expect(g, `gap ${g}`).toBeLessThanOrEqual(80); }
       expect(Math.max(...gaps) - Math.min(...gaps), 'every gap before a hairline is the same').toBeLessThanOrEqual(24);
+    });
+
+    test('on a wide screen the section labels take turns: no two overlap and at most one is stuck, inside sections 2, 3 and 4', async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await open(page, path);
+      const count = await page.locator('.essay-sec').count();
+      expect(count, 'sections').toBeGreaterThanOrEqual(4);
+      for (const n of [1, 2, 3]) {
+        await page.evaluate((i) => {
+          const s = document.querySelectorAll('.essay-sec')[i].getBoundingClientRect();
+          scrollTo(0, scrollY + s.top - 20); // the section's top is above the sticky line, its end still below it
+        }, n);
+        await page.waitForTimeout(150);
+        const m = await page.evaluate(() => {
+          const boxes = [...document.querySelectorAll('.essay-sec>h2')].map((h) => { const r = h.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, left: r.left, right: r.right, stuck: Math.abs(r.top - 104) < 1.5 }; });
+          return boxes;
+        });
+        for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++) {
+          const overlap = m[i].top < m[j].bottom && m[j].top < m[i].bottom && m[i].left < m[j].right && m[j].left < m[i].right;
+          expect(overlap, `labels ${i + 1} and ${j + 1} overlap while in section ${n + 1}`).toBe(false);
+        }
+        expect(m.filter((b) => b.stuck).length, `labels stuck while in section ${n + 1}`).toBeLessThanOrEqual(1);
+        expect(m[n].stuck, `label ${n + 1} is the stuck one inside its own section`).toBe(true);
+      }
     });
 
     test('callouts stack on a phone: the term above its text, the text wide enough to read', async ({ page }) => {

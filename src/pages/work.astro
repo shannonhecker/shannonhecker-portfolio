@@ -9,9 +9,14 @@ import WaveField from '../components/WaveField.astro';
 import CaseRowLink from '../components/CaseRowLink.astro';
 import { CASES } from '../lib/cases';
 import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { earlierProjects } from '../lib/earlier';
 
 const earlier = await earlierProjects();
+// A cover that is a slide on a white ground (the front matter's `matte` list) sits on a white
+// stage in its row on a phone, as it does on its own page.
+const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/earlier/**/*.webp', { eager: true });
+const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m.default.src === meta.src)?.[0].split('/').pop()!.replace(/\.webp$/, '') ?? '';
 ---
 <Base title="Work · Shannon Hecker" description="Fifteen projects by Shannon Hecker: five selected cases in trading, analytics, deal pricing and products I built myself, then ten earlier projects.">
   <a class="skip" href="#main">Skip to content</a>
@@ -50,6 +55,9 @@ const earlier = await earlierProjects();
                 <h3>{p.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
                 <p class="summary">{p.data.summary}</p>
                 <span class="dates">{p.data.dates}</span>
+                <span class:list={['row-cover', { 'is-matte': p.data.matte.includes(nameOf(p.data.cover)) }]} aria-hidden="true">
+                  <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[240, 480]} sizes="(max-width: 760px) min(240px, 60vw)" quality={75} loading="lazy" decoding="async" />
+                </span>
               </a>
               <span class="row-preview" aria-hidden="true">
                 <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[280, 560]} sizes="280px" quality={75} loading="lazy" decoding="async" />
@@ -115,7 +123,7 @@ const earlier = await earlierProjects();
 .earlier-list .dates{font-size:14px;line-height:1.7;color:var(--fg-2);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* The same 3px ring in the same colour as the nav and the case rows (the site's --accent). */
 .earlier-list a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.earlier-list .row-preview{display:none}
+.earlier-list .row-preview,.earlier-list .row-cover{display:none}
 @media(max-width:1100px){
   .earlier-list a{grid-template-columns:minmax(0,1fr) 7.5rem;row-gap:10px}
   .earlier-list .summary{grid-column:1;grid-row:2}
@@ -126,10 +134,15 @@ const earlier = await earlierProjects();
    never cropped). It is out of the flow, so nothing moves. Until a row is hovered or focused the preview is
    display:none, so its lazy image is not requested at all; the fade runs from @starting-style. */
 @media(min-width:1101px){
-  .earlier-list a{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) 7.5rem}
+  /* The row's tint and focus ring bleed 16px past the text on both sides, so neither sits flush against
+     the first letter or the last digit. The hairline is drawn inside that bleed, so it still lines up
+     with the list above it. */
+  .earlier-list a{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) 7.5rem;margin-inline:-16px;padding-inline:16px;border-bottom:0;border-radius:var(--radius)}
+  .earlier-list a::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--hair)}
   .earlier-list a:hover,.earlier-list a:focus-visible{background:var(--bg-2)}
-  .earlier-list .summary{max-width:38ch}
-  .earlier-list .row-preview{position:absolute;z-index:2;right:0;top:50%;width:280px;margin-top:-3.25rem;pointer-events:none;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair);opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,display .2s allow-discrete}
+  /* The summary stops short of the card, which sits left of the dates column at every width from here up. */
+  .earlier-list .summary{max-width:30ch}
+  .earlier-list .row-preview{position:absolute;z-index:2;right:calc(7.5rem + clamp(16px,3vw,48px));top:50%;width:clamp(200px,18vw,280px);margin-top:-3.25rem;pointer-events:none;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair);opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,display .2s allow-discrete}
   .earlier-list .row-preview picture{display:block}
   .earlier-list .row-preview img{display:block;width:100%;height:auto;object-fit:contain}
   .earlier-list a:hover~.row-preview,.earlier-list a:focus-visible~.row-preview{display:block;opacity:1;transform:none}
@@ -141,9 +154,15 @@ const earlier = await earlierProjects();
   .earlier-list .dates{grid-column:1;grid-row:2;text-align:left}
   .earlier-list .summary{grid-row:3}
   .earlier-list .arrow{display:none}
+  /* A phone has no hover, so each row carries its own project's cover: whole, never cropped, on a white
+     stage when it is a slide on a white ground. It sits inside the link, so it is part of the tap target. */
+  .earlier-list .row-cover{display:block;box-sizing:border-box;grid-column:1;grid-row:4;width:min(240px,60%);margin-top:6px;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair)}
+  .earlier-list .row-cover.is-matte{padding:8px;background:#fff}
+  .earlier-list .row-cover picture{display:block}
+  .earlier-list .row-cover img{display:block;width:100%;height:auto;object-fit:contain}
 }
-/* From 1400px there is room to set the card beside the dates instead of over them. */
-@media(min-width:1400px){.earlier-list .row-preview{right:calc(7.5rem + clamp(16px,3vw,48px))}}
+/* From 1400px the summary has room for a longer line before the card. */
+@media(min-width:1400px){.earlier-list .summary{max-width:38ch}}
 @media(prefers-reduced-motion:reduce){
   .earlier-list .arrow,.earlier-list a{transition:none}
   .earlier-list .row-preview{transform:none!important;transition:opacity .2s ease,display .2s allow-discrete}

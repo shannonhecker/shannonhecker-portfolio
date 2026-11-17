@@ -10,7 +10,7 @@
    next project, so the first picture is on screen before anyone scrolls.
    The accent is --project-ink, the colour the case pages use for their numbered kickers. */
 
-.earlier{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--measure:52ch;padding-top:clamp(104px,9vw,136px)}
+.earlier{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--measure:52ch;padding-top:clamp(96px,8vw,120px)}
 
 /* Eyebrow: a small way back to the list of work. */
 .earlier-eyebrow{font-size:14px;line-height:1.6;color:var(--fg-2)}
@@ -26,6 +26,26 @@
 .earlier-facts>div{display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,1.6fr);gap:16px;padding:10px 0;border-top:1px solid var(--hair)}
 .earlier-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
 .earlier-facts dd{margin:0;font-size:16px;line-height:1.6;text-wrap:pretty}
+/* Wide screens: the facts are label-over-value pairs, two across and the Tags row spanning both, so the
+   head is short and the cover starts high. An odd fact before Tags spans both too, so no cell is left empty.
+   From 1280px there is room for four across (the lead gives up a column), and the whole head stays one
+   short block: a one-line title, the lead, the facts. */
+@media(min-width:1100px){
+  .earlier h1{font-size:clamp(40px,4.4vw,64px);max-width:none}
+  .earlier-eyebrow a{min-height:28px}
+  .earlier-head{gap:clamp(8px,.9vw,12px)}
+  .earlier-intro{row-gap:0;margin-top:0}
+  .earlier-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--g)}
+  .earlier-facts>div{grid-template-columns:minmax(0,1fr);gap:0;align-content:start;padding:6px 0 8px}
+  .earlier-facts dt{font-size:13px;line-height:1.5}
+  .earlier-facts>div:last-child,.earlier-facts>div:nth-last-child(2):nth-child(odd){grid-column:1/-1}
+}
+@media(min-width:1280px){
+  .earlier-lead{grid-column:1/5;font-size:clamp(19px,1.5vw,22px);line-height:1.5}
+  .earlier-facts{grid-column:5/13;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .earlier-facts>div:nth-last-child(2):nth-child(odd){grid-column:auto}
+  .earlier-facts>div:nth-child(3):nth-last-child(2){grid-column:span 2}
+}
 
 /* Figures and the cover share one build: a stage (the frame), a pan (the scroller that only
    scrolls on a phone) and the picture. A picture is never cropped and never shown wider than its
@@ -38,12 +58,12 @@
 .earlier-pan picture{display:block;max-width:var(--w)}
 .earlier-pan img{display:block;width:100%;height:auto;object-fit:contain}
 .earlier-pan:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.earlier-fig.is-matte .earlier-stage{padding:clamp(16px,3vw,48px);background:#fff}
+.earlier-fig.is-matte .earlier-stage{padding:clamp(16px,2vw,32px);background:#fff}
 .earlier-fig.is-matte .earlier-stage::after{box-shadow:none}
 html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shadow:inset 0 0 0 1px var(--hair)}
 .earlier-fig.is-matte .earlier-pan{border-radius:0}
 /* The way to the full file: quiet, below the stage, at the right. */
-.earlier-fig-open{display:flex;justify-content:flex-end;align-items:center;min-height:32px;margin-top:4px;font-size:13px;line-height:1.6;color:var(--fg-2);text-decoration:none}
+.earlier-fig-open{display:flex;width:fit-content;margin:4px -8px 0 auto;padding-inline:8px;justify-content:flex-end;align-items:center;min-height:32px;font-size:13px;line-height:1.6;color:var(--fg-2);text-decoration:none}
 .earlier-fig-open::after{content:" \2197";white-space:pre}
 .earlier-fig-open:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
 .earlier-fig-open:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:var(--radius)}
@@ -53,17 +73,17 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 }
 @media(prefers-reduced-motion:reduce){.earlier-fig-open{transition:none}}
 
-/* Cover: straight after the head, so it starts near y=560 at 1440x900. */
-.earlier-cover{margin-top:clamp(24px,2.8vw,40px);max-width:none}
+/* Cover: straight after the head, so it starts at about y=440 or higher at 1440x900. */
+.earlier-cover{margin-top:clamp(24px,1.7vw,28px);max-width:none}
 .earlier-cover .earlier-pan picture{max-width:var(--w)}
 
-/* Outcomes: figures first, each with its label. Values that are phrases are
-   set smaller so the row stays level. */
+/* Outcomes: figures first, each with its label. A value that is a word or a short phrase is set large
+   too, so the row keeps its weight; a numeral is larger still. */
 .earlier-results{margin-top:clamp(40px,5vw,72px)}
 .earlier .earlier-label{margin:0 0 16px;font-family:var(--body);font-size:14px;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-2)}
 .earlier-outcomes{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));column-gap:clamp(24px,3vw,48px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .earlier-outcomes li{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px;padding-block:clamp(28px,3vw,40px)}
-.earlier-outcomes .value{align-self:end;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.3vw,34px);line-height:1.2;letter-spacing:-.025em;overflow-wrap:anywhere}
+.earlier-outcomes .value{align-self:end;font-family:var(--display);font-weight:500;font-size:clamp(32px,3.4vw,52px);line-height:1.12;letter-spacing:-.03em;overflow-wrap:anywhere}
 .earlier-outcomes .value.figure{font-size:clamp(48px,5.6vw,88px);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 /* A hyphenated word (end-to-end) stays whole; the rest of the line balances around it. */
 .earlier-outcomes .label{font-size:15px;line-height:1.55;color:var(--fg-2);max-width:32ch;text-wrap:balance}
@@ -83,7 +103,7 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 .earlier-sec-body>*{margin:1.25rem 0 0;font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
 .earlier-sec-body>:first-child{margin-top:0}
 .earlier-sec-body>p{max-width:var(--measure);text-wrap:pretty}
-.earlier-sec-body strong{font-weight:600;color:var(--fg)}
+.earlier-sec-body strong{font-weight:500;color:var(--fg)}
 .earlier-sec-body em{font-style:normal;font-weight:500;color:var(--fg)}
 /* A decision is a unit: a hairline above it, 24px of air, a title that carries weight. */
 .earlier-sec-body>h3{margin-top:clamp(40px,4.4vw,64px);padding-top:24px;border-top:1px solid var(--hair);font-family:var(--display);font-weight:500;font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-.025em;color:var(--fg);text-wrap:balance}
@@ -110,14 +130,25 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
    rule is the only rule above it (the list's would double it), and the footer's band follows it. */
 .earlier .next-case{margin-top:clamp(64px,8vw,112px)}
 .earlier-next .earlier-eyebrow{margin-bottom:12px}
+.earlier-next h2.earlier-eyebrow{margin:0 0 12px;font:400 14px/1.6 var(--body);letter-spacing:0;text-transform:none;color:var(--fg-2)}
 .earlier-next .index{border-top:0}
-.earlier-next .row{grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr) minmax(0,1fr);column-gap:0;align-items:center;border-bottom:0}
-.earlier-next .row .thumb{grid-column:1;justify-self:start;box-sizing:border-box;width:min(240px,calc(100% - var(--g)));border-radius:var(--radius);overflow:hidden;background:var(--bg-2)}
+/* One unit: the cover fills its label column, then the title and the line, all starting on the same line,
+   with the arrow showing at rest. */
+.earlier-next .row{grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr) minmax(0,1fr);column-gap:0;align-items:start;border-bottom:0}
+.earlier-next .row .arrow{opacity:1;transform:none}
+.earlier-next .row .thumb{grid-column:1;justify-self:start;box-sizing:border-box;width:min(100%,calc(100% - var(--g)));border-radius:var(--radius);overflow:hidden;background:var(--bg-2)}
 .earlier-next .row .thumb.is-matte{padding:8px;background:#fff}
 .earlier-next .row .thumb picture{display:block}
 .earlier-next .row .thumb img{display:block;width:100%;height:auto;object-fit:contain}
 .earlier .earlier-next .row h3{grid-column:2;font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
 .earlier-next .row .meta{grid-column:3;padding-left:var(--g);max-width:46ch;text-wrap:pretty}
+
+/* Wide screens: the row's tint and focus ring bleed 16px past the text, so neither sits flush against it. */
+@media(min-width:1101px){
+  .earlier-next .row{margin-inline:-16px;padding-inline:16px;border-radius:var(--radius);transition:background-color .2s}
+  .earlier-next .row:hover,.earlier-next .row:focus-visible{padding-left:16px;background:var(--bg-2)}
+}
+@media(prefers-reduced-motion:reduce){.earlier-next .row{transition:none}}
 
 @media(max-width:900px){
   .earlier-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}

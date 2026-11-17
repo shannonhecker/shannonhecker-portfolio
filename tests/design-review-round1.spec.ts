@@ -73,7 +73,7 @@ test('the text column starts on one line on an earlier project, an essay and Abo
     return page.locator(selector).first().evaluate((el) => el.getBoundingClientRect().left);
   };
   const a = await left('/work/tripup', '.earlier-sec-body > p');
-  const b = await left('/writing/trust-surfaces-in-ai', '.essay-body > p');
+  const b = await left('/writing/trust-surfaces-in-ai', '.essay-flow > p');
   const c = await left('/about', '.about-approach .about-prose');
   const d = await left('/privacy', '.privacy-text > p');
   const e = await left('/writing', '.writing-list .title');
@@ -226,8 +226,8 @@ test.describe('Privacy, finding 6', () => {
   test('the h2 is no louder than the essay h2 and the body is set as the essay body', async ({ page }) => {
     const style = (sel: string) => page.locator(sel).first().evaluate((el) => { const cs = getComputedStyle(el); return { size: parseFloat(cs.fontSize), color: cs.color, line: cs.lineHeight, weight: cs.fontWeight }; });
     await open(page, '/writing/trust-surfaces-in-ai', 1440);
-    const essayH2 = await style('.essay-body > h2');
-    const essayP = await style('.essay-body > p');
+    const essayH2 = await style('.essay-sec > h2');
+    const essayP = await style('.essay-flow > p');
     await open(page, '/privacy', 1440);
     const h2 = await style('.privacy-sec > h2');
     const p = await style('.privacy-text > p');
@@ -259,8 +259,8 @@ test.describe('Essays, findings 8 and 9', () => {
     test(`/writing/${slug}: the terms table stops at the text measure`, async ({ page }) => {
       await open(page, `/writing/${slug}`, 1440);
       const m = await page.evaluate(() => {
-        const para = document.querySelector('.essay-body > p')!.getBoundingClientRect();
-        const text = document.querySelector('.essay-body > p')!;
+        const para = document.querySelector('.essay-flow > p')!.getBoundingClientRect();
+        const text = document.querySelector('.essay-flow > p')!;
         const pad = parseFloat(getComputedStyle(text).paddingRight);
         return { measureRight: para.right - pad, tables: [...document.querySelectorAll('.essay-terms')].map((t) => t.getBoundingClientRect().right) };
       });
@@ -269,7 +269,7 @@ test.describe('Essays, findings 8 and 9', () => {
   }
   test('body paragraphs break lines with text-wrap pretty', async ({ page }) => {
     await open(page, '/writing/trust-surfaces-in-ai', 1440);
-    expect(await page.locator('.essay-body > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
+    expect(await page.locator('.essay-flow > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
     await open(page, '/work/tripup', 1440);
     expect(await page.locator('.earlier-sec-body > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
   });

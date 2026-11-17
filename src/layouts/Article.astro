@@ -23,6 +23,19 @@ const date = isoDate(published);
 // Length is read off the body, so it cannot drift from the text.
 const { words, shown, minutes } = bodyStats(entry);
 
+// The Markdown body is a flat run of headings, paragraphs, a quote and lists. Cut it into one
+// section per h2 (the h2 and everything up to the next one) so each label stays beside its own
+// section and is released when that section ends. Anything before the first h2 stays outside.
+const body = (await Astro.slots.render('default')).trim();
+const chunks = body.split(/(?=<h2\b)/).map((c) => c.trim()).filter(Boolean);
+const lede = chunks.length && !chunks[0].startsWith('<h2') ? chunks.shift()! : '';
+const sections = chunks.map((chunk) => {
+  const m = chunk.match(/^<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*)$/);
+  if (!m) return `<div class="essay-sec-body essay-flow">${chunk}</div>`;
+  const id = m[1].match(/id="([^"]+)"/)?.[1];
+  return `<section class="essay-sec"${id ? ` aria-labelledby="${id}"` : ''}><h2${m[1]}>${m[2]}</h2><div class="essay-sec-body essay-flow">${m[3].trim()}</div></section>`;
+}).join('\n');
+
 const page = new URL(`/writing/${entry.id}`, Astro.site).href;
 const share = new URL('/og-card.png', Astro.site).href;
 const author = { '@type': 'Person', name: 'Shannon Hecker', url: 'https://shannonhecker.com' };
@@ -74,7 +87,10 @@ const ld = [
           </div>
         </header>
 
-        <div class="essay-body"><slot /></div>
+        <div class="essay-body">
+          {lede && <div class="essay-lede essay-flow" set:html={lede} />}
+          <Fragment set:html={sections} />
+        </div>
 
         <footer class="essay-end">
           <p class="essay-bio">

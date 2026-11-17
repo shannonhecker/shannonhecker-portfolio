@@ -109,8 +109,10 @@ test.describe('earlier projects', () => {
     await expect(next.locator('.n')).toHaveCount(0);
     await next.locator('img').evaluate((i: HTMLImageElement) => { i.loading = 'eager'; return i.decode(); });
     const w = await next.locator('.thumb').evaluate((e) => e.getBoundingClientRect().width);
-    expect(w).toBeGreaterThanOrEqual(230);
-    expect(w).toBeLessThanOrEqual(250);
+    // The cover fills its label column (the column less one gutter), so it reads as part of the row.
+    expect(w).toBeGreaterThanOrEqual(280);
+    expect(w).toBeLessThanOrEqual(340);
+    expect(await next.evaluate((e) => e.querySelector('.thumb')!.getBoundingClientRect().right <= e.querySelector('h3')!.getBoundingClientRect().left)).toBe(true);
     expect(await next.locator('.meta').evaluate((e) => getComputedStyle(e).textWrap)).toMatch(/pretty/);
     // One rule above the band, not two.
     expect(await page.locator('.earlier-next .index').evaluate((e) => getComputedStyle(e).borderTopWidth)).toBe('0px');
@@ -118,7 +120,7 @@ test.describe('earlier projects', () => {
 });
 
 test.describe('Work: the earlier list', () => {
-  test('hovering a row shows its cover at 280px without moving anything, and nothing loads before that', async ({ page }) => {
+  test('hovering a row shows its cover (18vw, between 200 and 280px) without moving anything, and nothing loads before that', async ({ page }) => {
     await open(page, '/work', 1440, 'dark', false);
     const row = page.locator('.earlier-list li').nth(2);
     const img = row.locator('.row-preview img');
@@ -130,7 +132,7 @@ test.describe('Work: the earlier list', () => {
     await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
     await expect.poll(() => row.locator('.row-preview').evaluate((e) => getComputedStyle(e).opacity)).toBe('1');
     const m = await row.locator('.row-preview').evaluate((e) => ({ w: e.getBoundingClientRect().width, alt: e.querySelector('img')!.getAttribute('alt'), pos: getComputedStyle(e).position }));
-    expect(Math.round(m.w)).toBe(280);
+    expect(Math.round(m.w)).toBe(Math.round(Math.min(280, Math.max(200, 0.18 * 1440))));
     expect(m.alt).toBe('');
     expect(m.pos).toBe('absolute');
     expect(await page.locator('.earlier-list').evaluate((e) => e.getBoundingClientRect().height)).toBe(before);
@@ -179,7 +181,7 @@ test.describe('Writing', () => {
     const gap = await page.evaluate(() => {
       const facts = document.querySelector('.essay-facts')!.getBoundingClientRect().bottom;
       const dek = document.querySelector('.essay-dek')!.getBoundingClientRect().bottom;
-      const p = document.querySelector('.essay-body > p')!.getBoundingClientRect().top;
+      const p = document.querySelector('.essay-flow > p')!.getBoundingClientRect().top;
       return p - Math.max(facts, dek);
     });
     expect(gap).toBeLessThanOrEqual(64);
@@ -188,10 +190,10 @@ test.describe('Writing', () => {
 
   test('on a wide screen the section labels stay under the nav while their text scrolls', async ({ page }) => {
     await open(page, '/writing/trust-surfaces-in-ai', 1440);
-    const h2 = page.locator('.essay-body > h2').nth(1);
+    const h2 = page.locator('.essay-sec > h2').nth(1);
     expect(await h2.evaluate((e) => getComputedStyle(e).position)).toBe('sticky');
     const box = (await h2.boundingBox())!;
-    await page.evaluate((y) => scrollTo(0, y), box.y + 260);
+    await page.evaluate((y) => scrollTo(0, y), box.y + 150);
     const now = (await h2.boundingBox())!;
     expect(now.y).toBeGreaterThanOrEqual(90);
     expect(now.y).toBeLessThan(220);
@@ -199,7 +201,7 @@ test.describe('Writing', () => {
 
   test('on a phone the labels sit inline and do not stick', async ({ page }) => {
     await open(page, '/writing/trust-surfaces-in-ai', 390);
-    expect(await page.locator('.essay-body > h2').first().evaluate((e) => getComputedStyle(e).position)).toBe('static');
+    expect(await page.locator('.essay-sec > h2').first().evaluate((e) => getComputedStyle(e).position)).toBe('static');
   });
 });
 
