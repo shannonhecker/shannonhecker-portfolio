@@ -56,6 +56,8 @@ em.s{font-style:normal;color:var(--fg-2)}
 .nav .brand .full{display:none}.nav .brand .short{display:inline}
 .nav ul{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none;justify-self:center}
 .nav ul::-webkit-scrollbar{display:none}
+/* Wide enough to show every link, so nothing needs to scroll and the focus ring is not clipped. */
+@media(min-width:1101px){.nav ul{overflow:visible}}
 .nav a.l{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:var(--radius);white-space:nowrap;color:var(--fg-2);transition:color var(--fast)}
 .nav a.l:hover,.nav a.l[aria-current="true"]{color:var(--fg)}
 .nav .cta{justify-self:end;font-size:14px;font-weight:500;text-decoration:none;padding:10px 18px;border:1px solid var(--fg);border-radius:var(--radius);transition:background var(--fast),color var(--fast)}

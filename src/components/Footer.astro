@@ -4,7 +4,7 @@ import Logo from './Logo.astro';
 <footer id="links" class="band">
   <div class="wrap">
     <section id="contact" class="foot-contact" aria-labelledby="contact-title">
-      <h2 id="contact-title">Let’s Talk.</h2>
+      <h2 id="contact-title" tabindex="-1">Let’s Talk.</h2>
       <a class="foot-mail" href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email me directly<span aria-hidden="true"> →</span></a>
     </section>
     <div class="foot">
@@ -37,6 +37,8 @@ import Logo from './Logo.astro';
 .foot-contact h2{margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em}
 :global(html.serif-on) .foot-contact h2{font-family:'Noto Serif Display',Georgia,'Times New Roman',serif}
 .foot-mail{--tap:max(0px,calc((44px - 1.2em) / 2));display:inline-block;padding-block:var(--tap);margin-block:calc(-1 * var(--tap));color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
+#contact-title:focus:not(:focus-visible){outline:none}
+#contact-title:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:6px}
 .foot-mail:hover{text-decoration-thickness:2px}
 .foot-mail:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
 @media(max-width:760px){.foot-contact{flex-direction:column;align-items:flex-start}}

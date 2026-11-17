@@ -11,7 +11,7 @@ import { CASES } from '../lib/cases';
   <a class="skip" href="#main">Skip to content</a>
   <Nav />
   <main id="main" class="not-found has-wave-field" data-tone="light">
-    <WaveField variant="hero" />
+    <WaveField variant="hero" avoid=".not-found-stage" />
     <div class="wrap not-found-wrap">
       <div class="not-found-copy">
         <h1 class="h-giant">This page doesn’t exist.</h1>
@@ -39,9 +39,16 @@ import { CASES } from '../lib/cases';
   .not-found-cases a{display:inline-flex;align-items:center;min-height:44px;font-size:15px;color:var(--fg-2);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em}
   .not-found-cases a:hover{color:var(--fg);text-decoration-thickness:2px}
   .not-found-cases a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
-  /* The hero's arch, in the same two tones, so the avatar stands on something. */
-  .not-found-stage{position:relative;flex:none;display:none;width:200px;padding:28px 20px 0;border-radius:100px 100px 6px 6px;background:#f8ede8;border-bottom:4px dashed #cfae9c}
+  /* The hero's arch, in the same two tones, so the avatar stands on something. Its floor is the home
+     companion's: a row of 6px dashes (see .companion-path), not a border. */
+  .not-found-stage{position:relative;isolation:isolate;flex:none;display:none;width:280px;padding:28px 30px 30px;border-radius:140px 140px 6px 6px;background:#f8ede8}
+  .not-found-stage::after{content:'';position:absolute;bottom:24px;left:8%;right:8%;height:6px;background:repeating-linear-gradient(90deg,#cfae9c 0 10px,transparent 10px 18px);z-index:-1}
   html[data-theme=dark] .not-found-stage{background:#252b38}
-  .not-found-avatar{display:block;width:160px;height:auto}
+  .not-found-avatar{display:block;width:220px;height:auto}
   @media(min-width:761px){.not-found-stage{display:block}}
+  /* Phones: the lines would cut through the underlined links. Softer, and gone before they reach the links. */
+  @media(max-width:760px){
+    .not-found .wave-field__canvas{opacity:.45}
+    .not-found .wave-field[data-avoid] .wave-field__canvas{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 420px),transparent calc(100% - 300px));mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 420px),transparent calc(100% - 300px));-webkit-mask-composite:source-over;mask-composite:add}
+  }
 </style>

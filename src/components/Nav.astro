@@ -118,4 +118,11 @@ const current = (href: string) => (href === here ? 'page' : (href === '/work' &&
   navigation.addEventListener('focusout',event=>{if(!mobile.matches&&!navigation.contains(event.relatedTarget as Node|null))closeMenu();});
   window.addEventListener('pagehide',()=>closeMenu());
  }
+ // Jumping to the footer leaves the keyboard where it was. Move it to the contact heading (focusable by
+ // script only), without scrolling again, so the smooth scroll runs as it does and Tab continues from there.
+ document.addEventListener('click',event=>{
+  if(!(event.target as Element).closest?.('a[href="#contact"]'))return;
+  // After the browser's own jump, which clears focus.
+  setTimeout(()=>document.getElementById('contact-title')?.focus({preventScroll:true}),0);
+ });
 </script>

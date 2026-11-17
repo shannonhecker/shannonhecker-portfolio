@@ -36,17 +36,22 @@ try {
     const page = await context.newPage();
     for (const path of PAGES) {
       await page.goto(ORIGIN + path, { waitUntil: 'networkidle' });
-      // Walk the page once so lazy images load before the full-page capture.
+      // Every image eager, the page walked top to bottom in steps, then wait until every image has
+      // loaded (complete and a real width), so no lazy image is missing from the full-page capture.
+      await page.evaluate(() => document.querySelectorAll('img').forEach((img) => { img.loading = 'eager'; }));
       await page.evaluate(async () => {
-        for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); }
-        scrollTo(0, 0);
+        for (let y = 0; y < document.documentElement.scrollHeight; y += Math.round(innerHeight / 2)) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 80)); }
+        scrollTo(0, document.documentElement.scrollHeight);
       });
-      // Lazy images below the fold: make them eager and wait until every image has finished.
-      await page.evaluate(async () => {
-        document.querySelectorAll('img[loading=lazy]').forEach((img) => { img.loading = 'eager'; });
-        await Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); }))));
+      await page.waitForFunction(() => [...document.images].every((img) => img.complete && img.naturalWidth > 0), null, { timeout: 20000 }).catch(() => {
+        console.warn(`images still missing on ${path}`);
       });
+      // Artwork far below the window is skipped by content-visibility until it is near; a full-page capture
+      // would show it empty. Paint everything for the capture.
+      await page.addStyleTag({ content: '*{content-visibility:visible!important}' });
+      await page.evaluate(() => scrollTo(0, 0));
       await page.waitForLoadState('networkidle');
+      await page.waitForTimeout(400);
       const name = path === '/' ? 'home' : path.slice(1).replaceAll('/', '_');
       await page.screenshot({ path: `${OUT}/${name}-${width}-${theme}.png`, fullPage: true });
       if (path === '/' && (await page.locator('#ask').count())) {

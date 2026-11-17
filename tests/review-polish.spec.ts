@@ -28,8 +28,9 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
   const tile=page.locator('#work .home-artwork-winking');
   for(const dark of [false,true]){
    await setTheme(page,dark);
-   await expect(tile).toHaveCSS('background-color','rgb(239, 226, 210)');
-   await expect(page.locator('#work .home-artwork-deal')).toHaveCSS('background-color','rgb(217, 218, 218)');
+   // In dark the slab before the image paints is the page's own surface (--bg-2), not a light patch.
+   await expect(tile).toHaveCSS('background-color',dark?'rgb(34, 40, 50)':'rgb(239, 226, 210)');
+   await expect(page.locator('#work .home-artwork-deal')).toHaveCSS('background-color',dark?'rgb(34, 40, 50)':'rgb(217, 218, 218)');
    await tile.scrollIntoViewIfNeeded();
    await tile.screenshot({path:`/tmp/winking-home-${width}-${dark?'dark':'light'}.png`});
   }

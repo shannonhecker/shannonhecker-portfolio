@@ -142,3 +142,14 @@ html[data-theme=dark] .companion-stage::before { background:#252b38; }
 .play .game-end .game-actions{gap:16px;margin:6px 0}
 .play .game-end .game-badge{font:18px/1.4 var(--pixel);color:#a9efb4;background:#213e50;border:2px solid #7cab8a;border-radius:0}
 @media(max-width:600px){.play .game-end{padding:20px 16px;gap:12px}.play .game-end .game-case{font-size:30px}.play .game-end .game-meta{font-size:14px}.play .game-end .game-actions{width:100%;display:grid;grid-template-columns:1fr}.play .game-end .score-total span{font-size:12px}}
+
+/* Under reduced motion the motion button is disabled and labelled "Reduced motion". A button that
+   cannot be used is not shown (the wrapper holds nothing else). */
+@media(prefers-reduced-motion:reduce){.companion-controls{display:none}}
+
+/* One eyebrow on the home page: the size and tone of "Five cases, one method". */
+#work p.work-method,#how .eyebrow,#ask .eyebrow,.foot .eyebrow{font:400 14px/1.4 var(--body);color:var(--fg-2);letter-spacing:.01em}
+
+/* One divider system: the line above the adventure runs the full width, like the ones on #how and #ask. */
+section#adventure{border-top:1px solid var(--hair)}
+.hero-bonus{border-top:0}
