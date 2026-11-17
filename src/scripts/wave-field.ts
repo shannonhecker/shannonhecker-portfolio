@@ -75,7 +75,7 @@ const FRAME_MS = 1000 / 30;
 //     is only being loaded does no animation work.
 //  3. Once moving, the frame rate is watched. A field that cannot keep up steps down to a lighter
 //     drawing (fewer points, one device pixel per CSS pixel, 20 frames a second) and then to still.
-const SLICES = 6; // the still picture is drawn one line in six at a time
+const SLICES = 10; // the still picture is drawn one line in ten at a time
 const WAKE_AFTER_MS = 12000;
 const SLOW_MS = 24; // later on: a frame slower than this is too slow (a 60 Hz screen allows 16.7)
 const WINDOW = 20; // the median of every 20 frames is watched

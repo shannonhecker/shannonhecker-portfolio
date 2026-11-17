@@ -285,7 +285,15 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
   // simply changes. Past the cap the log scrolls and follow() keeps the latest line in view.
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let started = false;
-  let lastH = log.offsetHeight;
+  // The log's height before the first message, for the first glide. It is not read while the page is
+  // loading: asking for a height then forces the browser to lay out the whole page inside this script
+  // (150 ms on a slow machine). It is read once the page is idle, or the moment the visitor reaches for
+  // the chat, whichever comes first, and always before anything is added to the log.
+  let lastH = -1;
+  const measureStart = () => { if (lastH < 0) lastH = log.offsetHeight; };
+  const whenIdle = () => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(measureStart, { timeout: 2000 }) : setTimeout(measureStart, 300));
+  if (document.readyState === 'complete') whenIdle(); else addEventListener('load', whenIdle, { once: true });
+  for (const type of ['pointerdown', 'focusin', 'keydown', 'touchstart'] as const) section?.addEventListener(type, measureStart, { capture: true, passive: true });
   let settleTimer = 0;
   function keepComposerInView() {
     const reserved = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--consent-h')) || 0;
@@ -312,7 +320,7 @@ function init(log: HTMLElement, form: HTMLFormElement, input: HTMLTextAreaElemen
   }
   function fit() {
     const animating = log.dataset.growing !== undefined;
-    const from = animating ? log.getBoundingClientRect().height : lastH;
+    const from = animating ? log.getBoundingClientRect().height : lastH < 0 ? log.offsetHeight : lastH;
     // Measuring resizes the box for a moment, which can move the scroll position: put it back.
     const keep = log.scrollTop;
     log.style.transition = 'none';
