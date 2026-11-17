@@ -43,7 +43,7 @@ jobs:
           for path in / /fx /fusion /winking-star /deal-model /uoaui /work /work/tripup /writing /about; do
             for preset in mobile desktop; do
               flag=""; [ "$preset" = desktop ] && flag="--preset=desktop"
-              npx -y lighthouse@12 "http://localhost:4321$path" $flag --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json
+              npx -y lighthouse@12 "http://localhost:4321$path" $flag --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=lh.json --save-assets
               node -e "const c=require('./lh.json').categories;const low=Object.entries(c).filter(([,v])=>v.score<0.95);console.log('$path $preset',Object.fromEntries(Object.entries(c).map(([k,v])=>[k,Math.round(v.score*100)])));if(low.length){console.error('Below 95:',low.map(([k])=>k).join(', '));process.exit(1)}"
             done
           done
@@ -54,6 +54,7 @@ jobs:
           path: |
             test-results
             lh.json
+            lh-*.json
 
   links:
     # Brief §10: every external link checked live. LinkedIn (HTTP 999) and the

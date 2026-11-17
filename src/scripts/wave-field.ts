@@ -65,13 +65,17 @@ const MIN_GAP = 6; // closest two lines may sit, in CSS pixels
 const FRAME_MS = 1000 / 30;
 // The field must never be heavy. With graphics acceleration a frame costs next to nothing. Without
 // it (some headless browsers, old or locked-down devices) the browser paints every hairline on the
-// processor: 14 ms for a phone-sized field, 24 ms for a large one, 30 times a second. So the cost is
-// measured, not assumed. Right after the first picture is drawn, the canvas is made to finish painting
-// (reading one pixel back does that) and the wait is timed. From that the field starts in full motion,
-// in a lighter drawing (fewer points, one device pixel per CSS pixel, 20 frames a second), or as the
-// one still picture it has already drawn. Afterwards the frame rate is watched and the field steps
-// down if the device cannot keep up. A capable device never notices any of this.
-const PAINT_BUDGET_MS = 4; // the most one frame may cost
+// processor: 14 ms for a phone-sized field, 24 ms for a large one, 30 times a second. So the field
+// asks the browser, once per tab, whether accelerated graphics are available (the question WebGL's
+// failIfMajorPerformanceCaveat answers; nothing is drawn with it). Where they are, the field runs in
+// full motion. Where they are not, it draws one still picture, a slice per frame so that no single
+// step is long, and the glow behind it appears without its fade or drift (see wave-field.css).
+// Timing the canvas itself was tried and rejected: reading a pixel back from an accelerated canvas
+// takes 5 to 16 ms on a perfectly good machine, so it cannot tell the two apart.
+// Afterwards the frame rate is watched, and a field that cannot keep up steps down to a lighter
+// drawing (fewer points, one device pixel per CSS pixel, 20 frames a second) and then to still.
+const SLICES = 6; // a still picture is drawn one line in six at a time
+const REMEMBER = 'wave-field-accelerated'; // this tab's answer: '1' accelerated, '0' not
 const SLOW_MS = 24; // later on: a frame slower than this is too slow (a 60 Hz screen allows 16.7)
 const WINDOW = 20; // the median of every 20 frames is watched
 // What one field learns about this device, the others on the page adopt.
@@ -141,21 +145,31 @@ class WaveField {
     this.resize();
   }
 
-  // Time the paint of the picture just drawn, once, and choose how this field runs.
-  private measureFirstPaint() {
+  // The first picture (see the note at the top of this file).
+  private firstPaint() {
     this.measured = true;
-    if (deviceLevel) { this.adopt(deviceLevel); return; }
-    let cost = 0;
-    try {
-      const before = performance.now();
-      this.ctx.getImageData(0, 0, 1, 1);
-      cost = performance.now() - before;
-    } catch { /* a canvas that cannot be read is left to the frame-rate watch */ }
-    if (cost <= PAINT_BUDGET_MS) return;
-    // The lighter drawing has about (1 / dpr squared) of the pixels and half the points.
-    const lighter = cost * 0.6 / (this.dpr * this.dpr);
-    this.adopt(lighter <= PAINT_BUDGET_MS ? 1 : 2);
+    const now = performance.now();
+    if (reduced.matches || (deviceLevel < 2 && accelerated())) {
+      this.draw(now);
+      this.field.classList.add('is-measured');
+      return;
+    }
+    // No acceleration here: no motion. The picture arrives a slice per frame.
+    this.level = 2;
+    deviceLevel = 2;
+    this.field.dataset.level = '2';
+    this.field.classList.add('is-measured');
+    this.draw(now, 0);
+    let slice = 1;
+    const next = () => {
+      if (slice >= SLICES || !this.sliced) return;
+      this.draw(now, slice++);
+      requestAnimationFrame(next);
+    };
+    this.sliced = true;
+    requestAnimationFrame(next);
   }
+  private sliced = false; // a sliced picture is in progress or on the canvas; a full redraw replaces it
 
   private adopt(level: number) {
     if (level <= this.level) return;
@@ -224,8 +238,9 @@ class WaveField {
   private paintNow() {
     if (!this.visible) { this.pending = true; return; }
     this.pending = false;
+    if (!this.measured) { this.firstPaint(); this.sync(); return; }
+    this.sliced = false;
     this.draw(performance.now());
-    if (!this.measured) { this.measureFirstPaint(); this.sync(); }
   }
   private pending = false;
 
@@ -280,6 +295,7 @@ class WaveField {
 
   private redraw() {
     if (!this.visible) { this.pending = true; return; }
+    this.sliced = false;
     this.draw(performance.now());
   }
 
@@ -334,19 +350,21 @@ class WaveField {
     return true;
   }
 
-  private draw(ts: number) {
+  // `slice` draws only every sixth line, starting at that line, on top of what is there.
+  private draw(ts: number, slice = -1) {
     if (!this.grad || !this.w) return;
     if (!this.t0) this.t0 = ts;
     // One still frame under reduced motion, at the animation's first moment.
-    const el = reduced.matches ? 0 : ts - this.t0;
+    const el = reduced.matches || slice >= 0 ? 0 : ts - this.t0;
     const { ctx, spec, w, h, steps } = this;
     const run = spec.axis === 'x';
-    ctx.clearRect(0, 0, w, h);
+    if (slice <= 0) ctx.clearRect(0, 0, w, h);
     ctx.strokeStyle = this.grad;
     ctx.lineWidth = spec.lineWidth;
     const { s1, c1, s2, c2, s3, c3 } = this;
     const lenStep = (run ? w : h) / steps;
-    for (let i = 0; i < this.lines.length; i++) {
+    const stride = slice < 0 ? 1 : SLICES;
+    for (let i = Math.max(0, slice); i < this.lines.length; i += stride) {
       const ln = this.lines[i];
       const phi = el * spec.speed + ln.ph;
       const p2 = phi * 1.5, p3 = phi * 2.1;
@@ -385,6 +403,24 @@ class WaveField {
   }
 }
 
+// Are accelerated graphics available? Asked once per tab and remembered.
+let answer: boolean | null = null;
+function accelerated() {
+  if (answer !== null) return answer;
+  try {
+    const saved = sessionStorage.getItem(REMEMBER);
+    if (saved === '1' || saved === '0') return (answer = saved === '1');
+  } catch { /* private mode: ask each time */ }
+  try {
+    const probe = document.createElement('canvas');
+    const gl = probe.getContext('webgl', { failIfMajorPerformanceCaveat: true }) as WebGLRenderingContext | null;
+    answer = !!gl;
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch { answer = false; }
+  try { sessionStorage.setItem(REMEMBER, answer ? '1' : '0'); } catch { /* private mode */ }
+  return answer;
+}
+
 const start = () => {
   document.querySelectorAll<HTMLElement>('.wave-field').forEach((field) => {
     const canvas = field.querySelector<HTMLCanvasElement>('.wave-field__canvas');
@@ -393,8 +429,12 @@ const start = () => {
     new WaveField(field, canvas);
   });
 };
-// Nothing heavy before first paint: wait until the page is idle.
-if ('requestIdleCallback' in window) (window as any).requestIdleCallback(start, { timeout: 800 });
-else setTimeout(start, 200);
+// Nothing of the field competes with the page: it starts once the page has loaded and is idle.
+const whenIdle = () => {
+  if ('requestIdleCallback' in window) (window as any).requestIdleCallback(start, { timeout: 1200 });
+  else setTimeout(start, 200);
+};
+if (document.readyState === 'complete') whenIdle();
+else addEventListener('load', whenIdle, { once: true });
 
 export {};

@@ -70,16 +70,9 @@ for (const { route, fields } of pages) {
 }
 
 test('wave field moves when motion is allowed', async ({ page }) => {
-  // The field holds still on a device that paints it slowly, and CI's machines do. This test is about
-  // motion, so the one-pixel read the field uses to time its first paint is made instant here.
-  await page.addInitScript(() => {
-    const proto = CanvasRenderingContext2D.prototype;
-    const read = proto.getImageData;
-    proto.getImageData = function (x: number, y: number, w: number, h: number, ...rest: any[]) {
-      if (w === 1 && h === 1) return new ImageData(1, 1);
-      return (read as any).call(this, x, y, w, h, ...rest);
-    };
-  });
+  // The field holds still where graphics are not accelerated, and test browsers and CI's machines
+  // are like that. This test is about motion, so the field is told acceleration is available.
+  await page.addInitScript(() => sessionStorage.setItem('wave-field-accelerated', '1'));
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/about');
   await ready(page, 1);
@@ -102,34 +95,42 @@ test('wave field does not cover or block the content', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-// The field times the paint of its first picture and never animates on a device that paints it slowly.
-test('a device that paints the field slowly gets one still picture, not a heavy animation', async ({ page }) => {
+// Without accelerated graphics the field never animates: every frame would be painted on the processor.
+test('a device without accelerated graphics gets one still picture, not a heavy animation', async ({ page }) => {
   await page.addInitScript(() => {
-    // Make "finish painting" take 40 ms, as on a device with no graphics acceleration and a slow processor.
-    const proto = CanvasRenderingContext2D.prototype;
-    const read = proto.getImageData;
-    proto.getImageData = function (...args: Parameters<typeof read>) {
-      const until = performance.now() + 40;
-      while (performance.now() < until) { /* busy */ }
-      return read.apply(this, args);
-    };
+    sessionStorage.setItem('wave-field-accelerated', '0');
     let frames = 0;
+    const proto = CanvasRenderingContext2D.prototype;
     const clear = proto.clearRect;
     proto.clearRect = function (...args: Parameters<typeof clear>) { frames++; (window as any).__frames = frames; return clear.apply(this, args); };
     localStorage.setItem('portfolio-analytics-v1', JSON.stringify({ choice: 'no', at: Date.now() }));
   });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
-  const field = page.locator('.hero .wave-field, #top .wave-field').first();
+  const field = page.locator('.wave-field[data-variant="hero"]');
   await expect(field).toHaveAttribute('data-level', '2');
   await expect(field.locator('canvas')).toHaveClass(/is-ready/);
+  await page.waitForTimeout(500);
   const before = await page.evaluate(() => (window as any).__frames);
   await page.waitForTimeout(700);
-  expect(await page.evaluate(() => (window as any).__frames), 'no further frames are drawn').toBe(before);
-  // The picture is there: the canvas is not blank.
-  const inked = await field.locator('canvas').evaluate((c: HTMLCanvasElement) => {
+  expect(await page.evaluate(() => (window as any).__frames), 'the picture is drawn once and left').toBe(before);
+  // The glow is shown without its fade or drift.
+  expect(await field.locator('.wave-field__glow').evaluate((g) => getComputedStyle(g).animationName)).toBe('none');
+  // The whole picture is there: lines reach the lower half of the canvas, not just the first slice.
+  const rows = await field.locator('canvas').evaluate((c: HTMLCanvasElement) => {
     const d = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
-    for (let i = 3; i < d.length; i += 4) if (d[i] > 0) return true;
-    return false;
+    let inked = 0;
+    for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x += 8) if (d[(y * c.width + x) * 4 + 3] > 0) { inked++; break; }
+    return inked / c.height;
   });
-  expect(inked).toBe(true);
+  expect(rows, 'most rows of the canvas carry a line').toBeGreaterThan(0.5);
+});
+
+test('with accelerated graphics the field runs in full motion', async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('wave-field-accelerated', '1'));
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/about');
+  const field = page.locator('.wave-field[data-variant="about"]');
+  await expect(field).toHaveClass(/is-measured/);
+  expect(await field.getAttribute('data-level')).toBeNull();
 });

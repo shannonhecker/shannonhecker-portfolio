@@ -54,7 +54,8 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 .wave-field__glow {
   position: absolute;
   top: 0; bottom: 0; left: 36%; right: 0;
-  opacity: var(--wf-glow);
+  /* Not painted until the field's first picture has been timed (the script adds is-measured). */
+  opacity: 0;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30%, #000 50%, transparent 100%), linear-gradient(to bottom, #000 0, #000 55%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0, #000 30%, #000 50%, transparent 100%), linear-gradient(to bottom, #000 0, #000 55%, transparent 100%);
   -webkit-mask-composite: source-in;
@@ -91,6 +92,7 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+.wave-field.is-measured .wave-field__glow { opacity: var(--wf-glow); }
 .wave-field__canvas.is-ready { opacity: 1; }
 .wave-field[data-variant="ask"] .wave-field__canvas.is-ready { opacity: .75; }
 
@@ -105,12 +107,15 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 
 /* ---- the first entrance: the glow and lines ease in, the orbs drift ---- */
 @media (prefers-reduced-motion: no-preference) {
-  .wave-field__glow { animation: wave-field-in 1.6s ease .3s both; }
-  .wave-field__canvas { transition: opacity 1.4s ease .3s; }
-  .wave-field__glow span:nth-child(1) { animation: wave-field-drift-1 14s ease-in-out infinite; }
-  .wave-field__glow span:nth-child(2) { animation: wave-field-drift-2 17s ease-in-out infinite; }
-  .wave-field__glow span:nth-child(3) { animation: wave-field-drift-3 20s ease-in-out infinite; }
-  .wave-field__glow span:nth-child(4) { animation: wave-field-drift-4 12s ease-in-out infinite; }
+  /* Motion is for devices that paint the field cheaply. Once the script has marked a field as lighter
+     or still (data-level), the glow neither fades in nor drifts, and the lines appear at once: on a
+     device that paints on the processor, every one of those frames would be a full repaint. */
+  .wave-field.is-measured:not([data-level]) .wave-field__glow { animation: wave-field-in 1.6s ease .1s both; }
+  .wave-field:not([data-level]) .wave-field__canvas { transition: opacity 1.4s ease .1s; }
+  .wave-field:not([data-level]) .wave-field__glow span:nth-child(1) { animation: wave-field-drift-1 14s ease-in-out infinite; }
+  .wave-field:not([data-level]) .wave-field__glow span:nth-child(2) { animation: wave-field-drift-2 17s ease-in-out infinite; }
+  .wave-field:not([data-level]) .wave-field__glow span:nth-child(3) { animation: wave-field-drift-3 20s ease-in-out infinite; }
+  .wave-field:not([data-level]) .wave-field__glow span:nth-child(4) { animation: wave-field-drift-4 12s ease-in-out infinite; }
 }
 @keyframes wave-field-in { from { opacity: 0; } to { opacity: var(--wf-glow); } }
 @keyframes wave-field-drift-1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 25px) scale(1.05); } }
