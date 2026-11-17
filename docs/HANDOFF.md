@@ -134,3 +134,16 @@ Declined because they touch owner decisions: the home headline typeface, the 6px
 Needs Shannon, ranked by lift: one diagram or annotated figure per earlier project; sharper covers for Brand Identity, Fusion Design System, Complex Assets; a figure per section in the trust-surfaces essay; whether to print the email address in the footer's "Email" row; a second About image; dark-theme FX and Fusion artwork; the 404 sentence (still placeholder); whether the Fusion hero should go back to vector on the page.
 
 Suite: 872 tests, build and three checks green. Lighthouse (the CI budget, ten pages, mobile and desktop): all 95 or more; home, FX and Winking Star sit on 95 on mobile.
+
+## CI green (17 Nov 2026, morning)
+
+Run 44050071638 on `e01ab45` passed: 874 tests, links, build, the three checks and the Lighthouse budget on all ten pages, mobile and desktop.
+
+- The home page had failed the budget on mobile in five CI runs in a row (66 to 94) while scoring 94 to 97 on this machine. Two causes, both fixed:
+  - The avatar's hidden greeting frames (about 80 KB) loaded at the same priority as the hero text's fonts. They now carry `fetchpriority="low"` (`src/components/LandingCompanion.astro`). The greeting still waits for them to decode.
+  - The CI step took one cold run per page and stopped at the first page under 95. A trace showed Chrome given no processor time for two 110 ms stretches. The step is now `node scripts/lighthouse-budget.mjs`: one warm-up run thrown away, a page at 95 or more passes, a page under 95 is run twice more and judged on the median of three. The bar is still 95, and every page is measured before the step ends.
+- CI readings, mobile performance: home 97, FX 95, Fusion 97, Winking Star 95, Deal Model 96, uoaui 96, Work 96, TripUp 98, Writing 99, About 99. Desktop 98 to 100. Other categories 100 everywhere. All passed on the first run.
+- FX and Winking Star sit on the line. FX's cost is its 81 KB hero drawing (`/art/fx-hero-overview.svg`); serving it as a picture, as was done for Fusion, would lift it, but that is the owner's call.
+- One local test wobble, not seen in CI: `design-review-round2.spec.ts:226` (the Sections button lifting above the analytics bar) failed once in a full local run and passed 5 of 5 alone.
+
+Next: Task 14 step 3, the PR to `main`, on Shannon's confirmation.
