@@ -69,17 +69,19 @@ for (const { route, fields } of pages) {
   });
 }
 
-test('wave field moves when motion is allowed', async ({ page }) => {
-  // The field holds still where graphics are not accelerated, and test browsers and CI's machines
-  // are like that. This test is about motion, so the field is told acceleration is available.
-  await page.addInitScript(() => sessionStorage.setItem('wave-field-accelerated', '1'));
+test('wave field is one still picture until the visitor does something, then it moves', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/about');
   await ready(page, 1);
+  await page.waitForTimeout(400); // the slices of the still picture have landed
   const a = await frames(page);
   await page.waitForTimeout(600);
-  const b = await frames(page);
-  expect(b[0]).not.toEqual(a[0]);
+  expect((await frames(page))[0], 'nothing is redrawn while the page is only being looked at').toEqual(a[0]);
+  await expect(page.locator('.wave-field')).not.toHaveClass(/is-moving/);
+  await page.mouse.move(200, 300);
+  await expect(page.locator('.wave-field')).toHaveClass(/is-moving/);
+  await page.waitForTimeout(600);
+  expect((await frames(page))[0]).not.toEqual(a[0]);
 });
 
 test('wave field does not cover or block the content', async ({ page }) => {
@@ -95,28 +97,16 @@ test('wave field does not cover or block the content', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-// Without accelerated graphics the field never animates: every frame would be painted on the processor.
-test('a device without accelerated graphics gets one still picture, not a heavy animation', async ({ page }) => {
-  await page.addInitScript(() => {
-    sessionStorage.setItem('wave-field-accelerated', '0');
-    let frames = 0;
-    const proto = CanvasRenderingContext2D.prototype;
-    const clear = proto.clearRect;
-    proto.clearRect = function (...args: Parameters<typeof clear>) { frames++; (window as any).__frames = frames; return clear.apply(this, args); };
-    localStorage.setItem('portfolio-analytics-v1', JSON.stringify({ choice: 'no', at: Date.now() }));
-  });
+test('the still picture is whole: its slices cover the canvas, and the glow shows without drifting', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('portfolio-analytics-v1', JSON.stringify({ choice: 'no', at: Date.now() })));
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   const field = page.locator('.wave-field[data-variant="hero"]');
-  await expect(field).toHaveAttribute('data-level', '2');
-  await expect(field.locator('canvas')).toHaveClass(/is-ready/);
+  await expect(field).toHaveClass(/is-measured/);
   await page.waitForTimeout(500);
-  const before = await page.evaluate(() => (window as any).__frames);
-  await page.waitForTimeout(700);
-  expect(await page.evaluate(() => (window as any).__frames), 'the picture is drawn once and left').toBe(before);
-  // The glow is shown without its fade or drift.
-  expect(await field.locator('.wave-field__glow').evaluate((g) => getComputedStyle(g).animationName)).toBe('none');
-  // The whole picture is there: lines reach the lower half of the canvas, not just the first slice.
+  const glow = field.locator('.wave-field__glow');
+  expect(Number(await glow.evaluate((g) => getComputedStyle(g).opacity))).toBeGreaterThan(0.2);
+  expect(await glow.locator('span').first().evaluate((g) => getComputedStyle(g).animationName)).toBe('none');
   const rows = await field.locator('canvas').evaluate((c: HTMLCanvasElement) => {
     const d = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
     let inked = 0;
@@ -126,11 +116,18 @@ test('a device without accelerated graphics gets one still picture, not a heavy 
   expect(rows, 'most rows of the canvas carry a line').toBeGreaterThan(0.5);
 });
 
-test('with accelerated graphics the field runs in full motion', async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('wave-field-accelerated', '1'));
+test('motion starts from the still picture without a jump', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/about');
-  const field = page.locator('.wave-field[data-variant="about"]');
-  await expect(field).toHaveClass(/is-measured/);
-  expect(await field.getAttribute('data-level')).toBeNull();
+  await ready(page, 1);
+  await page.waitForTimeout(400);
+  // Count the pixels that change between the still picture and the first moments of motion: a
+  // continuous start changes few of them, a jump in phase changes most of the inked ones.
+  const before = await page.locator('.wave-field__canvas').evaluate((c: HTMLCanvasElement) => Array.from(c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data.filter((_, i) => i % 4 === 3)));
+  await page.keyboard.press('Shift');
+  await expect(page.locator('.wave-field')).toHaveClass(/is-moving/);
+  const after = await page.locator('.wave-field__canvas').evaluate((c: HTMLCanvasElement) => Array.from(c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data.filter((_, i) => i % 4 === 3)));
+  let inked = 0, flipped = 0;
+  for (let i = 0; i < before.length; i++) { if (before[i] > 0) { inked++; if (after[i] === 0) flipped++; } }
+  expect(flipped / inked, 'most inked pixels are still inked a moment later').toBeLessThan(0.5);
 });

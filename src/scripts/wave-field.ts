@@ -63,19 +63,20 @@ const SPECS: Record<string, Spec> = { hero: HERO, about: ABOUT, work: WORK, writ
 
 const MIN_GAP = 6; // closest two lines may sit, in CSS pixels
 const FRAME_MS = 1000 / 30;
-// The field must never be heavy. With graphics acceleration a frame costs next to nothing. Without
-// it (some headless browsers, old or locked-down devices) the browser paints every hairline on the
-// processor: 14 ms for a phone-sized field, 24 ms for a large one, 30 times a second. So the field
-// asks the browser, once per tab, whether accelerated graphics are available (the question WebGL's
-// failIfMajorPerformanceCaveat answers; nothing is drawn with it). Where they are, the field runs in
-// full motion. Where they are not, it draws one still picture, a slice per frame so that no single
-// step is long, and the glow behind it appears without its fade or drift (see wave-field.css).
-// Timing the canvas itself was tried and rejected: reading a pixel back from an accelerated canvas
-// takes 5 to 16 ms on a perfectly good machine, so it cannot tell the two apart.
-// Afterwards the frame rate is watched, and a field that cannot keep up steps down to a lighter
-// drawing (fewer points, one device pixel per CSS pixel, 20 frames a second) and then to still.
-const SLICES = 6; // a still picture is drawn one line in six at a time
-const REMEMBER = 'wave-field-accelerated'; // this tab's answer: '1' accelerated, '0' not
+// The field must never be heavy, and nothing reliable tells a page whether a frame is cheap here.
+// With graphics acceleration it costs next to nothing; without it (some headless browsers, old or
+// locked-down devices) every hairline is painted on the processor: 14 ms for a phone-sized field, 24 ms
+// for a large one. Timing the canvas cannot tell the two apart (reading a pixel back from an
+// accelerated canvas takes 5 to 70 ms on a good machine), and a browser will say accelerated graphics
+// are available while painting the canvas on the processor. So the field does not guess:
+//  1. Its first picture is still, drawn a slice per frame so that no single step is long.
+//  2. Motion starts when the visitor does anything (moves the pointer, touches, scrolls, presses a
+//     key), or after 12 seconds. Someone looking at the page sees it move almost at once; a page that
+//     is only being loaded does no animation work.
+//  3. Once moving, the frame rate is watched. A field that cannot keep up steps down to a lighter
+//     drawing (fewer points, one device pixel per CSS pixel, 20 frames a second) and then to still.
+const SLICES = 6; // the still picture is drawn one line in six at a time
+const WAKE_AFTER_MS = 12000;
 const SLOW_MS = 24; // later on: a frame slower than this is too slow (a 60 Hz screen allows 16.7)
 const WINDOW = 20; // the median of every 20 frames is watched
 // What one field learns about this device, the others on the page adopt.
@@ -145,20 +146,14 @@ class WaveField {
     this.resize();
   }
 
-  // The first picture (see the note at the top of this file).
+  wake() { this.sync(); }
+
+  // The first picture: still, a slice per frame (see the note at the top of this file).
   private firstPaint() {
     this.measured = true;
     const now = performance.now();
-    if (reduced.matches || (deviceLevel < 2 && accelerated())) {
-      this.draw(now);
-      this.field.classList.add('is-measured');
-      return;
-    }
-    // No acceleration here: no motion. The picture arrives a slice per frame.
-    this.level = 2;
-    deviceLevel = 2;
-    this.field.dataset.level = '2';
     this.field.classList.add('is-measured');
+    if (reduced.matches) { this.draw(now); return; }
     this.draw(now, 0);
     let slice = 1;
     const next = () => {
@@ -305,10 +300,11 @@ class WaveField {
   }
 
   private animate() {
-    return this.measured && this.level < 2 && !reduced.matches && this.visible && !document.hidden;
+    return awake && this.measured && this.level < 2 && !reduced.matches && this.visible && !document.hidden;
   }
 
   private sync() {
+    this.field.classList.toggle('is-moving', this.animate());
     if (this.animate()) {
       if (!this.raf) this.raf = requestAnimationFrame((t) => this.frame(t));
     } else if (this.raf) {
@@ -334,6 +330,8 @@ class WaveField {
     }
     if (ts - this.last < (this.level ? 50 : FRAME_MS) - 1) return;
     this.last = ts;
+    if (!this.t0) this.t0 = ts;
+    this.sliced = false;
     this.draw(ts);
     this.drewAt = ts;
   }
@@ -353,9 +351,9 @@ class WaveField {
   // `slice` draws only every sixth line, starting at that line, on top of what is there.
   private draw(ts: number, slice = -1) {
     if (!this.grad || !this.w) return;
-    if (!this.t0) this.t0 = ts;
     // One still frame under reduced motion, at the animation's first moment.
-    const el = reduced.matches || slice >= 0 ? 0 : ts - this.t0;
+    // Still pictures are the animation's first moment, so motion starts from them without a jump.
+    const el = reduced.matches || slice >= 0 || !this.t0 ? 0 : ts - this.t0;
     const { ctx, spec, w, h, steps } = this;
     const run = spec.axis === 'x';
     if (slice <= 0) ctx.clearRect(0, 0, w, h);
@@ -403,31 +401,26 @@ class WaveField {
   }
 }
 
-// Are accelerated graphics available? Asked once per tab and remembered.
-let answer: boolean | null = null;
-function accelerated() {
-  if (answer !== null) return answer;
-  try {
-    const saved = sessionStorage.getItem(REMEMBER);
-    if (saved === '1' || saved === '0') return (answer = saved === '1');
-  } catch { /* private mode: ask each time */ }
-  try {
-    const probe = document.createElement('canvas');
-    const gl = probe.getContext('webgl', { failIfMajorPerformanceCaveat: true }) as WebGLRenderingContext | null;
-    answer = !!gl;
-    gl?.getExtension('WEBGL_lose_context')?.loseContext();
-  } catch { answer = false; }
-  try { sessionStorage.setItem(REMEMBER, answer ? '1' : '0'); } catch { /* private mode */ }
-  return answer;
+// Motion waits for the visitor (or 12 seconds).
+let awake = false;
+const fields: WaveField[] = [];
+function wake() {
+  if (awake) return;
+  awake = true;
+  for (const type of WAKE_ON) removeEventListener(type, wake);
+  for (const f of fields) f.wake();
 }
+const WAKE_ON = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'] as const;
 
 const start = () => {
   document.querySelectorAll<HTMLElement>('.wave-field').forEach((field) => {
     const canvas = field.querySelector<HTMLCanvasElement>('.wave-field__canvas');
     if (!canvas || !canvas.getContext) return;
     field.classList.add('is-on');
-    new WaveField(field, canvas);
+    fields.push(new WaveField(field, canvas));
   });
+  for (const type of WAKE_ON) addEventListener(type, wake, { passive: true, once: true });
+  setTimeout(wake, WAKE_AFTER_MS);
 };
 // Nothing of the field competes with the page: it starts once the page has loaded and is idle.
 const whenIdle = () => {
