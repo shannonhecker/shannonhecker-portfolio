@@ -33,9 +33,10 @@ header.hero.adventure-hero { padding-bottom:clamp(28px,2.5vw,40px); }
 .project-hero { margin-top:72px; }
 .project-hero .shot { border-radius:var(--radius); }
 /* A little colour at wayfinding moments, while screens keep their own palette. */
-.companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:#f8ede8;border-radius:48% 48% 6px 6px;z-index:-2; }
+/* The arch is a veil, not a slab: see-through, strongest at the crown and fading towards the floor, so the hero's waves carry on behind it. */
+.companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:linear-gradient(180deg,rgb(248 237 232/.62),rgb(248 237 232/.2));border-radius:48% 48% 6px 6px;z-index:-2; }
 /* A cool blue-grey, so the arch sits in the hero's blue glow rather than reading as a brown cut-out. */
-html[data-theme=dark] .companion-stage::before { background:#252b38; }
+html[data-theme=dark] .companion-stage::before { background:linear-gradient(180deg,rgb(52 62 82/.5),rgb(52 62 82/.12));box-shadow:inset 0 1px 0 rgb(255 255 255/.05); }
 .companion-path { background:linear-gradient(90deg,transparent 4px,#cfae9c 4px 14px,transparent 14px) 0 0/18px 6px;background-repeat:round; }
 #work .row .arrow { transition:translate .25s ease; }
 #work .row:hover .arrow { translate:4px 0; }
