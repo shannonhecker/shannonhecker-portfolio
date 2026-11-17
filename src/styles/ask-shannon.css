@@ -86,8 +86,8 @@ html.serif-on #ask .ask-head .h-section { font-family: 'Noto Serif Display', Geo
   scrollbar-width: thin;
   scrollbar-color: var(--ask-line) transparent;
 }
-/* One focus ring for the whole section: 2px in the site's ink colour. */
-#ask :focus-visible { outline: 2px solid var(--project-ink, var(--fg)); outline-offset: 4px; }
+/* One focus ring for the whole section: the site focus ring, 3px. */
+#ask :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
 #ask .ask-log:focus-visible { outline-offset: 4px; border-radius: 14px; }
 /* The cap: the log is as tall as its content up to here, never taller. */
 #ask { --ask-log-h: clamp(280px, 40svh, 400px); }

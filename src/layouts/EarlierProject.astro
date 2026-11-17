@@ -181,7 +181,20 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
     sync();
     // A slide on a white stage has its content in the middle and white margins at the sides, so a phone opens it centred.
     frames.forEach((f) => { if (f.closest('.is-matte') && f.scrollWidth > f.clientWidth) f.scrollLeft = (f.scrollWidth - f.clientWidth) / 2; });
-    if ('ResizeObserver' in window) new ResizeObserver(sync).observe(document.documentElement);
-    else addEventListener('resize', sync);
+    // A figure wider than its frame fades at the edge where more lies beyond (right at the start, both
+    // in the middle, left at the end), so a phone can see it pans. Nothing fades when it all fits.
+    const fade = () => frames.forEach((f) => {
+      const stage = f.parentElement;
+      if (!stage) return;
+      const room = f.scrollWidth - f.clientWidth;
+      if (room <= 1) { delete stage.dataset.fadeL; delete stage.dataset.fadeR; return; }
+      if (f.scrollLeft > 1) stage.dataset.fadeL = ''; else delete stage.dataset.fadeL;
+      if (f.scrollLeft < room - 1) stage.dataset.fadeR = ''; else delete stage.dataset.fadeR;
+    });
+    frames.forEach((f) => f.addEventListener('scroll', fade, { passive: true }));
+    fade();
+    const resync = () => { sync(); fade(); };
+    if ('ResizeObserver' in window) new ResizeObserver(resync).observe(document.documentElement);
+    else addEventListener('resize', resync);
   }
 </script>

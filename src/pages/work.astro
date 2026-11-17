@@ -56,7 +56,7 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
                 <p class="summary">{p.data.summary}</p>
                 <span class="dates">{p.data.dates}</span>
                 <span class:list={['row-cover', { 'is-matte': p.data.matte.includes(nameOf(p.data.cover)) }]} aria-hidden="true">
-                  <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[240, 480]} sizes="(max-width: 760px) min(240px, 60vw)" quality={75} loading="lazy" decoding="async" />
+                  <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[360, 720, 1080]} sizes="(max-width: 760px) calc(100vw - 32px)" quality={75} loading="lazy" decoding="async" />
                 </span>
               </a>
               <span class="row-preview" aria-hidden="true">
@@ -90,6 +90,13 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
 /* The number, the title and the arrow share a first baseline, so "05" sits level with the
    first line of a two-line title instead of floating to the middle of it. */
 .work-index #work .row .n,.work-index #work .row h3,.work-index #work .row .arrow{align-self:baseline}
+/* Tiles in a row share their tracks (picture, title, description), so when one title wraps to two lines the
+   descriptions still start on one line. Each tile keeps its own 16px between its three tracks. */
+@media(min-width:761px){
+  .work-index #work .index{row-gap:16px}
+  .work-index #work .index>.row{grid-row:span 3;grid-template-rows:subgrid;row-gap:16px;margin-bottom:calc(clamp(48px,5vw,80px) - 16px)}
+  .work-index #work .index>.row .meta{align-self:start}
+}
 /* The artwork is a product composition: it is never cropped, whatever the tile. */
 .work-index #work .home-artwork.exact-composition{content-visibility:visible}
 @media(max-width:1100px) and (min-width:901px){
@@ -122,7 +129,7 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
 .earlier-list .summary{margin:0;font-size:15px;line-height:1.7;color:var(--fg-2);max-width:60ch}
 .earlier-list .dates{font-size:14px;line-height:1.7;color:var(--fg-2);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* The same 3px ring in the same colour as the nav and the case rows (the site's --accent). */
-.earlier-list a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.earlier-list a:focus-visible{outline:3px solid var(--focus);outline-offset:-3px}
 .earlier-list .row-preview,.earlier-list .row-cover{display:none}
 @media(max-width:1100px){
   .earlier-list a{grid-template-columns:minmax(0,1fr) 7.5rem;row-gap:10px}
@@ -156,7 +163,7 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
   .earlier-list .arrow{display:none}
   /* A phone has no hover, so each row carries its own project's cover: whole, never cropped, on a white
      stage when it is a slide on a white ground. It sits inside the link, so it is part of the tap target. */
-  .earlier-list .row-cover{display:block;box-sizing:border-box;grid-column:1;grid-row:4;width:min(240px,60%);margin-top:6px;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair)}
+  .earlier-list .row-cover{display:block;box-sizing:border-box;grid-column:1;grid-row:4;width:100%;margin-top:6px;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair)}
   .earlier-list .row-cover.is-matte{padding:8px;background:#fff}
   .earlier-list .row-cover picture{display:block}
   .earlier-list .row-cover img{display:block;width:100%;height:auto;object-fit:contain}

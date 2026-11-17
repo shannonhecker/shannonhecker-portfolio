@@ -35,7 +35,7 @@ const current = (href: string) => (href === here ? 'page' : (href === '/work' &&
 .nav a.l[aria-current]{color:var(--fg);background:var(--bg-2);font-weight:500}
 .site-menu-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;color:var(--fg);background:transparent;border:0;border-radius:var(--radius);cursor:pointer}
 .close-lines,.menu-label{display:none}
-.site-menu-toggle:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+.site-menu-toggle:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 @media(max-width:760px){
  :global(html.has-js) .nav{grid-template-columns:1fr auto}
  :global(html.has-js) .site-menu-toggle{display:flex;justify-self:end;margin-right:-12px}

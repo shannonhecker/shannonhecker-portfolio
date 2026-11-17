@@ -30,7 +30,7 @@
 .writing-list .arrow{display:inline-block;transition:transform .3s}
 .writing-list a:hover .title,.writing-list a:focus-visible .title{text-decoration-color:currentColor}
 .writing-list a:hover .arrow,.writing-list a:focus-visible .arrow{transform:translateX(4px)}
-.writing-list a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:-2px}
+.writing-list a:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
 @media(max-width:900px){
   .writing-intro .wrap{grid-template-columns:minmax(0,1fr);row-gap:24px;align-items:start}
   .writing-statement,.writing-dek{grid-column:1}
@@ -140,7 +140,7 @@
 .essay-pager a:hover .t,.essay-pager a:focus-visible .t,.essay-all a:hover .t,.essay-all a:focus-visible .t{text-decoration-color:currentColor}
 .essay-pager a:hover .arrow,.essay-all a:hover .arrow{transform:translateX(4px)}
 .essay-all a:hover .t{color:var(--fg)}
-.essay-pager a:focus-visible,.essay-all a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:-2px}
+.essay-pager a:focus-visible,.essay-all a:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
 
 @media(max-width:1099px){
   .essay-end{grid-template-columns:minmax(0,1fr)}

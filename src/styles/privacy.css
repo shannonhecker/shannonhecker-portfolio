@@ -22,7 +22,7 @@
 .privacy-text a:hover,.privacy-inline:hover{text-decoration-thickness:2px}
 /* A button that reads as a word in the sentence: same type, ink colour, underlined like the links. */
 .privacy-inline{display:inline;padding:0;font:inherit;letter-spacing:inherit;color:var(--fg);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.privacy-inline:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:3px}
+.privacy-inline:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 
 @media(max-width:900px){
   .privacy-sec{grid-template-columns:minmax(0,1fr)}

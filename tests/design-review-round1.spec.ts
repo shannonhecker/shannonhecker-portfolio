@@ -169,7 +169,8 @@ test.describe('About, finding 5', () => {
       const wrapRight = wrap.right - parseFloat(getComputedStyle(wrapEl).paddingRight);
       const label = sec.querySelector('.about-label')!;
       const content = sec.querySelector('.about-content')!;
-      const w = (el: Element) => parseFloat(getComputedStyle(el).borderTopWidth);
+      // A job's rule is drawn by its ::before, starting at the content column beside the rail (the rail runs unbroken).
+      const w = (el: Element) => parseFloat(getComputedStyle(el).borderTopWidth) || (el.classList.contains('about-job') ? parseFloat(getComputedStyle(el, '::before').height) || 0 : 0);
       const topOf = (el: Element) => Math.round(el.getBoundingClientRect().top);
       // The rule on the right is the content's own, or the top rule of its first row (a two-column
       // list draws one per column, so the rule is the rows that start level with the label's).

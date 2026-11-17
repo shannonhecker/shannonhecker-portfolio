@@ -36,7 +36,7 @@ header.hero.adventure-hero { padding-bottom:clamp(28px,2.5vw,40px); }
 .companion-stage::before { content:'';position:absolute;inset:14% 10% 5%;background:#f8ede8;border-radius:48% 48% 6px 6px;z-index:-2; }
 /* A cool blue-grey, so the arch sits in the hero's blue glow rather than reading as a brown cut-out. */
 html[data-theme=dark] .companion-stage::before { background:#252b38; }
-.companion-path { background:repeating-linear-gradient(90deg,#cfae9c 0 10px,transparent 10px 18px); }
+.companion-path { background:linear-gradient(90deg,transparent 4px,#cfae9c 4px 14px,transparent 14px) 0 0/18px 6px;background-repeat:round; }
 #work .row .arrow { transition:translate .25s ease; }
 #work .row:hover .arrow { translate:4px 0; }
 ::view-transition-group(*) { animation-duration:.4s;animation-timing-function:cubic-bezier(.22,1,.36,1); }

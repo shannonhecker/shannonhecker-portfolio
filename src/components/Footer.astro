@@ -38,9 +38,9 @@ import Logo from './Logo.astro';
 :global(html.serif-on) .foot-contact h2{font-family:'Noto Serif Display',Georgia,'Times New Roman',serif}
 .foot-mail{--tap:max(0px,calc((44px - 1.2em) / 2));display:inline-block;padding-block:var(--tap);margin-block:calc(-1 * var(--tap));color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
 #contact-title:focus:not(:focus-visible){outline:none}
-#contact-title:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:6px}
+#contact-title:focus-visible{outline:3px solid var(--focus);outline-offset:6px}
 .foot-mail:hover{text-decoration-thickness:2px}
-.foot-mail:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+.foot-mail:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 @media(max-width:760px){.foot-contact{flex-direction:column;align-items:flex-start}}
 /* One underline for the whole line: the arrow is plain inline text, not a box of its own, so the
    line is underlined once from the first letter to the arrow. */

@@ -71,6 +71,9 @@
 /* Experience: when, then who and what. The dates of a job that is still going read in
    the page's full ink; finished ones are quieter. */
 .about-job,.about-schools>li{display:grid;grid-template-columns:var(--lead) var(--rail) minmax(0,1fr);align-items:baseline;padding-block:var(--rule) var(--jpad);border-top:1px solid var(--hair)}
+/* The rail runs unbroken, so a job's divider starts at the content column, beside the rail and not across it. */
+.about-job{position:relative;border-top:0}
+.about-job::before{content:"";position:absolute;grid-column:3;grid-row:1/-1;top:calc(-1 * var(--rule));left:0;right:0;height:1px;background:var(--hair)}
 .about-schools>li{grid-template-columns:var(--lead) minmax(0,1fr);column-gap:var(--g);align-items:baseline;padding-bottom:var(--rule);border-top:1px solid var(--hair)}
 /* Experience is a sequence, so it gets a rail: a dot for each job, filled while it is
    still going, hollow once it has ended, joined by a hairline. */
@@ -99,7 +102,7 @@
 .about-list--two>li:nth-child(odd){padding-right:var(--g)}
 .about-outside .about-list>li{color:var(--fg-2)}
 
-.about-page a:focus-visible{outline:2px solid var(--project-ink,var(--fg));outline-offset:4px}
+.about-page a:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 
 /* ------------------------------------------------------------------ narrower */
 @media(max-width:900px){
@@ -113,6 +116,7 @@
   .about-label{padding:var(--rule) 0 14px}
   .about-content{padding-top:0;border-top:0}
   .about-rows>:first-child,.about-jobs>:first-child,.about-schools>:first-child,.about-list>:first-child{border-top:0;padding-top:0}
+  .about-jobs>:first-child::before{display:none}
   .about-list--two{grid-template-columns:minmax(0,1fr)}
   .about-list--two>li:nth-child(odd){padding-right:0}
 }
@@ -123,6 +127,7 @@
   .about-job .about-dates{grid-column:2;grid-row:1}
   .about-job .about-rail{grid-column:1;grid-row:1/3;font-size:24px}
   .about-job .about-job-main{grid-column:2;grid-row:2}
+  .about-job::before{grid-column:2}
   .about-rows>div{grid-template-columns:minmax(0,1fr)}
   /* The same two columns and figure size as the earlier projects' outcomes: the rule is one line, each
      cell pads its inner edge by 10px, and an odd last figure runs across. */
