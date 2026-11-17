@@ -7,7 +7,7 @@ import { themedNames, explicitThemeArtwork } from '../src/lib/themed-art';
 
 test('project heroes use the available phone width without overflow', async ({ page }) => {
   // Twenty navigations; WebKit runs out of the default 30s when the machine is busy.
-  test.setTimeout(90_000);
+  test.setTimeout(process.env.CI ? 300_000 : 90_000);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const width of [320, 390, 430, 820]) {
     await page.setViewportSize({ width, height: 900 });

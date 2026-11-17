@@ -17,7 +17,9 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], launchOptions: { executablePath } } },
     // Cover the phone-image regression with Safari's engine as well as Chrome.
-    { name: 'webkit-media', testMatch: ['product-media.spec.ts', 'figma-decision-maps.spec.ts', 'figma-user-flows.spec.ts', 'ux-consistency.spec.ts'], use: { ...devices['iPhone 13'], launchOptions: {} } },
+    // These files loop over every page and theme. CI's two-core runners render WebKit several times
+    // slower than a laptop (the slowest take 8 to 37 s locally), so CI gets a longer limit.
+    { name: 'webkit-media', timeout: process.env.CI ? 150_000 : 30_000, testMatch: ['product-media.spec.ts', 'figma-decision-maps.spec.ts', 'figma-user-flows.spec.ts', 'ux-consistency.spec.ts'], use: { ...devices['iPhone 13'], launchOptions: {} } },
   ],
   // Always a fresh server on its own port, so tests can never hit a stale
   // preview left running from another build.

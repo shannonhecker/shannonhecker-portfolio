@@ -25,7 +25,7 @@ test(`${route} summary follows complete hero media and links to the outcome`,asy
 });
 }
 test('every page shares usable navigation, theme controls and an overflow-free shell',async({page})=>{
- test.setTimeout(90000);
+ test.setTimeout(process.env.CI ? 300_000 : 90_000);
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [320,820,1440]){
   await page.setViewportSize({width,height:1000});
