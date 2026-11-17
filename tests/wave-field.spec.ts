@@ -70,6 +70,16 @@ for (const { route, fields } of pages) {
 }
 
 test('wave field moves when motion is allowed', async ({ page }) => {
+  // The field holds still on a device that paints it slowly, and CI's machines do. This test is about
+  // motion, so the one-pixel read the field uses to time its first paint is made instant here.
+  await page.addInitScript(() => {
+    const proto = CanvasRenderingContext2D.prototype;
+    const read = proto.getImageData;
+    proto.getImageData = function (x: number, y: number, w: number, h: number, ...rest: any[]) {
+      if (w === 1 && h === 1) return new ImageData(1, 1);
+      return (read as any).call(this, x, y, w, h, ...rest);
+    };
+  });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/about');
   await ready(page, 1);
