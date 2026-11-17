@@ -618,9 +618,11 @@ test.describe('Ask Shannon', () => {
     await input(page).fill('Once only');
     await input(page).press('Enter');
     await page.evaluate(() => (document.getElementById('ask-form') as HTMLFormElement).requestSubmit());
-    // Chips are marked aria-disabled while an answer streams, so Playwright needs force to press them.
-    await page.locator('#ask-suggestions button').first().click({ force: true });
-    await page.locator('#ask-suggestions button').first().click({ force: true });
+    // Chips are marked aria-disabled while an answer streams, and the page may still be moving the
+    // new question into view, so the click is dispatched straight at the chip (this tests the guard,
+    // not the pointer).
+    await page.locator('#ask-suggestions button').first().dispatchEvent('click');
+    await page.locator('#ask-suggestions button').first().dispatchEvent('click');
     await page.waitForTimeout(300);
     expect(await page.evaluate(() => (window as any).__askCalls.length)).toBe(1);
     await expect(page.locator('.ask-msg--user')).toHaveCount(1);
