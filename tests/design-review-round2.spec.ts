@@ -231,7 +231,8 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
     const lifted = open.y;
     await page.getByRole('button', { name: 'No thanks' }).click();
     await expect(page.locator('#analytics-choice')).toBeHidden();
-    expect((await box(page, '.section-open')).y).toBeGreaterThan(lifted);
+    // The button settles a moment after the bar goes, so wait for it instead of reading once.
+    await expect.poll(async () => (await box(page, '.section-open')).y).toBeGreaterThan(lifted);
   });
 });
 
