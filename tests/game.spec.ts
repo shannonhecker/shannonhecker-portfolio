@@ -452,3 +452,33 @@ test.describe('mobile fullscreen map', () => {
     });
   }
 });
+
+// The map once rebuilt the character's whole sprite set on every frame: thousands of
+// canvases a second. Chrome then emptied older canvases, so the map's icons and the
+// scooter went blank and the page lagged. Canvases are made at start-up, then no more.
+test('the world map and a stage make no new canvases once they are running', async ({ page }) => {
+  await page.addInitScript(() => {
+    const made = { n: 0 };
+    (window as unknown as { __canvases: typeof made }).__canvases = made;
+    const create = document.createElement.bind(document);
+    document.createElement = ((tag: string, ...rest: []) => {
+      if (String(tag).toLowerCase() === 'canvas') made.n++;
+      return create(tag, ...rest);
+    }) as typeof document.createElement;
+  });
+  const made = () => page.evaluate(() => (window as unknown as { __canvases: { n: number } }).__canvases.n);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  await expect.poll(async () => (await state(page)).mode).toBe('map');
+  const onMap = await made();
+  await page.waitForTimeout(1500);
+  expect(await made() - onMap, 'canvases made while the map sits open').toBeLessThanOrEqual(2);
+  await page.keyboard.press('Space');
+  await expect.poll(async () => (await state(page)).mode).toBe('level');
+  await page.waitForTimeout(500);
+  const inStage = await made();
+  await page.waitForTimeout(1500);
+  expect(await made() - inStage, 'canvases made while a stage runs').toBeLessThanOrEqual(2);
+  expect(inStage, 'canvases made in total').toBeLessThan(600);
+});

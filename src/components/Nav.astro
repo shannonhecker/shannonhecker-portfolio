@@ -76,6 +76,13 @@ const current = (href: string) => (href === here ? 'page' : (href === '/work' &&
 </style>
 <script>
  const navigation=document.querySelector<HTMLElement>('.nav');
+ // The header is clear at the top of a page and takes its colour once the page has scrolled.
+ if(navigation){
+  let queued=0;
+  const fill=()=>{queued=0;navigation.classList.toggle('solid',scrollY>24);};
+  addEventListener('scroll',()=>{if(!queued)queued=requestAnimationFrame(fill);},{passive:true});
+  fill();
+ }
  const menuButton=navigation?.querySelector<HTMLButtonElement>('.site-menu-toggle');
  if(navigation&&menuButton){
   const mobile=matchMedia('(max-width:760px)');

@@ -256,8 +256,17 @@ function body(look: Look, pose: Pose, f: number) {
   return c;
 }
 
-/** The character's frames for one world's era. */
+/** The character's frames for one world's era. Built once per era and kept:
+ * the map asks for them on every frame, and building a set makes 39 canvases.
+ * Rebuilding each frame made thousands of canvases a second, and the browser
+ * then emptied older ones (map icons, the scooter) to make room. */
+const builtFrames = new Map<LookId, ReturnType<typeof buildFrames>>();
 export function playerFrames(id: LookId) {
+  let frames = builtFrames.get(id);
+  if (!frames) builtFrames.set(id, frames = buildFrames(id));
+  return frames;
+}
+function buildFrames(id: LookId) {
   const look = LOOKS[id];
   const make = (pose: Pose, n: number) => Array.from({ length: n }, (_, f) => body(look, pose, f));
   const right = {
