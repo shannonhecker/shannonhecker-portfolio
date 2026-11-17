@@ -301,7 +301,8 @@ test('A6: each "Read the case" link names its case', async ({ page }) => {
   const names = await page.locator('a.game-read').evaluateAll((els) => els.map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim()));
   expect(names.length).toBe(4);
   expect(new Set(names).size).toBe(4);
-  for (const n of names) expect(n.startsWith('Read the case →')).toBe(true);
+  for (const n of names) expect(n).toMatch(/^Read the case \(.+\)$/);
+  await expect(page.locator('a.game-read svg[aria-hidden="true"]')).toHaveCount(4);
 });
 
 test('A7: a chat failure is announced once, by the log', async ({ page }) => {

@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 // About me. The words are the old About page's and the old home page's About
 // section, as written there; docs/superpowers/review/about-changes.md lists every
 // place where they differ (job titles and dates, the opening line, the description)
@@ -16,8 +17,10 @@ import '../styles/about.css';
 
 const description = 'Product designer in London. Fifteen years in design, 10+ in fintech. Trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan.';
 
-// The panel home hero's intro paragraph (src/components/Hero.astro), word for word.
-const intro = "Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.";
+const intro = [
+  "Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.",
+  "Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.",
+];
 
 type Job = { company: string; dates: string; current?: boolean; role?: string; roles?: { title: string; dates: string }[]; summary: string };
 // Newest first, as the old page listed them.
@@ -79,12 +82,12 @@ const ld = {
         </figure>
         <div class="about-who">
           <h2 id="who-title" class="about-kicker">Who I am</h2>
-          <p class="about-lede">{intro}</p>
+          <div class="about-lede">{intro.map((paragraph) => <p>{paragraph}</p>)}</div>
           <p class="about-prose">I run the design system across FX and MarketsOne: tokens, components, and accessibility. Nine years at <strong>J.P.&nbsp;Morgan</strong>, ending on Fusion. Building <strong>uoaui.ai</strong> on the side, in private alpha.</p>
           <ul class="about-links">
-            <li><a href="https://www.linkedin.com/in/shannonhecker" target="_blank" rel="noopener noreferrer" data-cursor="big">LinkedIn<span aria-hidden="true"> ↗</span><span class="vh"> (opens in new tab)</span></a></li>
-            <li><a href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="/assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer" data-cursor="big">Résumé<span aria-hidden="true"> ↗</span><span class="vh"> (opens in new tab)</span></a></li>
+            <li><a href="https://www.linkedin.com/in/shannonhecker" target="_blank" rel="noopener noreferrer" data-cursor="big">LinkedIn<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
+            <li><a href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email<Icon name="mail" /></a></li>
+            <li><a href="/assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer" data-cursor="big">Résumé<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
           </ul>
         </div>
         <dl class="about-facts">

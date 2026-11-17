@@ -56,7 +56,7 @@ function showEnd(n: number | null, shipped = false, mission?: Mission) {
     if (m && i === n && mission) {
       m.hidden = false;
       m.dataset.done = String(mission.done);
-      m.textContent = mission.done ? `★ Mission complete: ${mission.text}.` : `Mission: ${mission.text}. ${mission.need > 1 ? `${mission.have} of ${mission.need} this time.` : 'Not this time.'}`;
+      m.textContent = mission.done ? `Mission complete: ${mission.text}.` : `Mission: ${mission.text}. ${mission.need > 1 ? `${mission.have} of ${mission.need} this time.` : 'Not this time.'}`;
     }
   });
   if (n !== null) ends[n]?.querySelector<HTMLElement>('[data-next]')?.focus();

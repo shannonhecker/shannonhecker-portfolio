@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 // One earlier project: a simpler page in the same language as the case pages
 // (white or dark page, one grotesk, hairlines, air). The Markdown body arrives in
 // the default slot; everything else comes from the entry's front matter.
@@ -157,7 +158,7 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
             <span class:list={['thumb', { 'is-matte': nextMatte }]} aria-hidden="true">
               <Picture src={next.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[240, 480]} sizes="240px" quality={80} loading="lazy" decoding="async" />
             </span>
-            <h3>{next.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
+            <h3>{next.data.title}<Icon name="arrow-right" class="arrow" /></h3>
             <span class="meta">{next.data.summary}</span>
           </a>
         </div>

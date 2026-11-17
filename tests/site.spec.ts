@@ -58,11 +58,32 @@ test('each case page ends with the next case', async ({ page }) => {
 });
 
 test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/winking-star#ws-loops');
+  const demo = page.locator('#demo');
+  const clipped = await demo.evaluate(el => {
+    const frame = el.getBoundingClientRect();
+    return Array.from(el.querySelectorAll('.rt, .stages span')).filter(item => {
+      const bounds = item.getBoundingClientRect();
+      return bounds.left < frame.left || bounds.right > frame.right;
+    }).map(item => item.textContent);
+  });
+  expect(clipped).toEqual([]);
   const group = page.getByRole('group', { name: 'Tick a routine' });
-  for (const b of await group.getByRole('button').all()) await b.click();
+  const routines = await group.getByRole('button').all();
+  const petStages = page.locator('#egg-pet svg');
+  await expect(petStages.nth(0)).toBeVisible();
+  for (const [i, routine] of routines.entries()) {
+    await routine.click();
+    const stage = i < 2 ? 1 : i < 5 ? 2 : 3;
+    await expect(petStages.nth(stage)).toBeVisible();
+    await expect(page.locator('#egg-pet svg:visible')).toHaveCount(1);
+  }
   await expect(page.locator('#demo-stars')).toHaveText('6 of 6 stars');
   await expect(group.getByRole('button', { pressed: true })).toHaveCount(6);
+  await routines[5].click();
+  await expect(petStages.nth(2)).toBeVisible();
+  await expect(petStages.nth(3)).toBeHidden();
 });
 
 test('the brand link goes home', async ({ page }) => {

@@ -1,5 +1,5 @@
 ---
-import FlatArrow from "./FlatArrow.astro";
+import Icon from './Icon.astro';
 interface Props { project: 'fx' | 'fusion' | 'ai' | 'winking' | 'deal' }
 const { project } = Astro.props;
 const links: Record<Props['project'], [string, string][]> = {
@@ -11,15 +11,15 @@ const links: Record<Props['project'], [string, string][]> = {
 };
 ---
 <nav class="case-contents" aria-label="Case study sections">
-  <button class="section-open" type="button" aria-haspopup="dialog" aria-controls="section-panel" aria-expanded="false">Sections <span class="section-current">{links[project][0][1]}</span><FlatArrow /></button>
+  <button class="section-open" type="button" aria-haspopup="dialog" aria-controls="section-panel" aria-expanded="false">Sections <span class="section-current">{links[project][0][1]}</span><Icon name="arrow-down" /></button>
   <dialog id="section-panel" class="section-panel" aria-labelledby="section-panel-title">
     <div class="section-panel-head">
       <h2 id="section-panel-title">Sections</h2>
-      <button class="section-close" type="button" aria-label="Close sections">×</button>
+      <button class="section-close" type="button" aria-label="Close sections"><Icon name="close" /></button>
     </div>
     <div class="chapter-stops">
       {links[project].map(([id, name]) => <a href={`#${id}`}>{name}</a>)}
     </div>
-    <a href="/work" class="all-projects">All projects <FlatArrow /></a>
+    <a href="/work" class="all-projects">All projects <Icon name="arrow-right" /></a>
   </dialog>
 </nav>

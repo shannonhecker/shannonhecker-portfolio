@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 // The index of the essays, newest first. The page head uses the Work page's own
 // scale (a very large title, its count, a hairline) so the two read as siblings.
 import Base from '../../layouts/Base.astro';
@@ -41,7 +42,7 @@ const entries = await writingEntries();
                 <h3 class="title">{e.data.title}.</h3>
                 <span class="read-time">{bodyStats(e).minutes} min</span>
                 <p class="blurb">{e.data.blurb}</p>
-                <span class="read">Read essay <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="read">Read essay <Icon name="arrow-right" class="arrow" /></span>
               </a>
             </li>
           ))}

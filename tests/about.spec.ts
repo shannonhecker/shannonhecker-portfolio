@@ -187,10 +187,16 @@ test.describe('/about', () => {
   });
 
   test('contact links: LinkedIn, email, and the close', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await open(page, '/about');
     await expect(page.locator('main a[href="https://www.linkedin.com/in/shannonhecker"]').first()).toBeVisible();
     // The intro's own Email link stays in main; the "Let's Talk." block is the footer's.
     await expect(page.locator('main a[href="mailto:shannonheckerchen@gmail.com"]')).toHaveCount(1);
+    const contactLinks = page.locator('.about-links a');
+    await expect(contactLinks.locator('svg[aria-hidden="true"]:visible')).toHaveCount(3);
+    for (const link of await contactLinks.all()) {
+      expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    }
     const close = page.locator('footer #contact');
     await expect(close).toHaveCount(1);
     await expect(close.getByRole('heading', { name: 'Let’s Talk.' })).toBeVisible();

@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 interface Props { top?: boolean }
 // On its own page the case title is the h1 and each beat label an h2; inside
 // the one-page version they sit one level lower. Beat labels are headings so
@@ -32,7 +33,7 @@ import VisualExplanation from './dg/VisualExplanation.astro';
           <HT class="h-chapter" style="view-transition-name:t-winking">Winking Star</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A shared routine board that a child can make their own. A tap becomes a star, the week grows a Mystery Pet, and another adult can pick up where the family left off. I designed and built the web and iPhone experiences myself.</p>
-        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Platforms</b> · Web, iPhone and iPad</span><span><b>Status</b> · Live web app and iOS v1.0.4</span><span><b>Languages</b> · EN, FR, ES, DE, Traditional Chinese</span><span><b>Web</b> · <a href="https://winkingstar.com/" target="_blank" rel="noopener">Open Winking Star<span class="vh"> (opens in new tab)</span> →</a></span><span><b>iOS</b> · <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">View the iPhone app<span class="vh"> (opens in new tab)</span> →</a></span></div>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designer and builder, one of one</span><span><b>Platforms</b> · Web, iPhone and iPad</span><span><b>Status</b> · Live web app and iOS v1.0.4</span><span><b>Languages</b> · EN, FR, ES, DE, Traditional Chinese</span><span><b>Web</b> · <a href="https://winkingstar.com/" target="_blank" rel="noopener">Open Winking Star<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span><span><b>iOS</b> · <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">View the iPhone app<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span></div>
       </div>
       <div class="project-hero">
         <ProductCapture name="/art/winking-hero-composition.svg" alt="Winking Star iPhone Home, Activity and Progress screens in the original staggered three-phone composition" href="https://winkingstar.com/" label="Original Winking Star iPhone composition" eager />
@@ -98,24 +99,31 @@ import VisualExplanation from './dg/VisualExplanation.astro';
         <p>These are the decisions behind the iPhone app. The web carries the same routines, themes and family data into a weekly board. I keep the daily action short and let the week give it meaning.</p>
         <div>
           <div class="loop-label">Daily · a short routine</div>
-          <div class="loop"><span>Open</span><i>→</i><span>Pick your child</span><i>→</i><span>Tap a star spot</span><i>→</i><span>Star lands</span><i>→</i><span>Celebration</span><i>→</i><span class="end">Pet grows a little</span></div>
+          <div class="loop"><span>Open</span><Icon name="arrow-right" /><span>Pick your child</span><Icon name="arrow-right" /><span>Tap a star spot</span><Icon name="arrow-right" /><span>Star lands</span><Icon name="arrow-right" /><span>Celebration</span><Icon name="arrow-right" /><span class="end">Pet grows a little</span></div>
         </div>
         <div>
           <div class="loop-label">Weekly · the reason to come back</div>
-          <div class="loop"><span>Seven days of stars</span><i>→</i><span>Star-based pet growth</span><i>→</i><span>Treasures and badges</span><i>→</i><span>Fridge summary</span><i>→</i><span class="end">Monday, a new pet</span></div>
+          <div class="loop"><span>Seven days of stars</span><Icon name="arrow-right" /><span>Star-based pet growth</span><Icon name="arrow-right" /><span>Treasures and badges</span><Icon name="arrow-right" /><span>Fridge summary</span><Icon name="arrow-right" /><span class="end">Monday, a new pet</span></div>
         </div>
         <div class="demo" id="demo">
           <div class="demo-head"><span class="demo-name"><Pic name="ws-icon.png" alt="" sizes="40px" widths={[80]} />Try it · Leo, Tuesday</span><span class="demo-stars" id="demo-stars" aria-live="polite">0 of 6 stars</span></div>
           <div class="demo-routines" role="group" aria-label="Tick a routine">
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🦷</span>Teeth</button>
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🛁</span>Bath</button>
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">📖</span>Reading</button>
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🀄</span>Mandarin</button>
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">🚶</span>Walk</button>
-            <button type="button" class="rt" aria-pressed="false"><span class="em" aria-hidden="true">😴</span>Sleep</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="tooth" class="routine-icon" />Teeth</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="bath" class="routine-icon" />Bath</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="book" class="routine-icon" />Reading</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="language" class="routine-icon" />Mandarin</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="walk" class="routine-icon" />Walk</button>
+            <button type="button" class="rt" aria-pressed="false"><Icon name="moon" class="routine-icon" />Sleep</button>
           </div>
           <div class="demo-pet">
-            <div class="egg" id="egg" aria-hidden="true"><div class="fill" id="egg-fill"></div><span class="pet" id="egg-pet">🥚</span></div>
+            <div class="egg" id="egg" aria-hidden="true">
+              <div class="fill" id="egg-fill"></div>
+              <span class="pet" id="egg-pet">
+                {(['egg', 'hatch', 'cat', 'happy-cat'] as const).map((name, i) => (
+                  <span hidden={i !== 0}><Icon name={name} /></span>
+                ))}
+              </span>
+            </div>
             <div style="display:grid;gap:10px">
               <div class="stages" id="stages" aria-hidden="true"><span class="on">Egg</span><span>Hatching</span><span>Growing</span><span>Grown</span></div>
               <p class="muted" id="demo-msg">This is a simplified four-stage illustration. The current app grows the pet at star thresholds across the week. Tick all six routines here to preview the idea.</p>

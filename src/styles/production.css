@@ -119,6 +119,7 @@ html:not(.has-js) .game-play{display:none}
 .game-end[hidden]{display:none}
 .game-mission{font-size:14px;font-weight:500;color:var(--fg-2)}
 .game-mission[data-done="true"]{color:var(--fg)}
+.game-mission[data-done="true"]::before{content:"";display:inline-block;width:1em;height:1em;margin-right:.35em;vertical-align:-.125em;background:currentColor;mask:var(--icon-star)}
 .game-mission[hidden]{display:none}
 .game-badge{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,56px);letter-spacing:-.04em}
 .game-links{display:grid;gap:8px}
@@ -164,7 +165,7 @@ html:not(.has-js) .game-sound{display:none}
 .chain{display:flex;flex-wrap:wrap;gap:10px;align-items:center;counter-reset:c}
 .chain li{counter-increment:c;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:var(--radius);background:var(--bg-2);font-size:15px;font-weight:500}
 .chain li::before{content:counter(c);font-size:13px;color:var(--fg-2);font-variant-numeric:tabular-nums}
-.chain li:not(:last-child)::after{content:"→";margin-left:6px;color:var(--fg-2)}
+.chain li:not(:last-child)::after{content:"";display:inline-block;width:1em;height:1em;vertical-align:-.125em;margin-left:6px;background:var(--fg-2);mask:var(--icon-arrow)}
 .chain li:last-child{background:var(--fg);color:var(--bg)}
 .chain li:last-child::before{color:var(--bg)}
 .play-link{padding-top:clamp(32px,4vw,64px);font-size:17px;font-weight:500}

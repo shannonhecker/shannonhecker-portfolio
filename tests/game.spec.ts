@@ -222,7 +222,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     // the card states the facts and, where there is one, links to the case
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
-    if (CASE_LINK[n]) await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', CASE_LINK[n]);
+    if (CASE_LINK[n]) await expect(card.getByRole('link', { name: /^Read the case \(/ })).toHaveAttribute('href', CASE_LINK[n]);
     // every card reports that world's mission
     await expect(card.locator('.game-mission')).toContainText('Mission');
     // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
