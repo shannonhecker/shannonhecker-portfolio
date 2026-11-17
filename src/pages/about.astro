@@ -1,12 +1,5 @@
 ---
 import Icon from '../components/Icon.astro';
-// About me. The words are the old About page's and the old home page's About
-// section, as written there; docs/superpowers/review/about-changes.md lists every
-// place where they differ (job titles and dates, the opening line, the description)
-// and every personal detail carried over. The page head is the Work and Writing
-// head: a very large title, a small line at its foot, a hairline. Below it the page
-// uses the essays' column structure (a label column, then the text) so the three
-// read as one family.
 import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
@@ -17,17 +10,12 @@ import '../styles/about.css';
 
 const description = 'Product designer in London. Fifteen years in design, 10+ in fintech. Trading platforms, design systems, and accessible enterprise UX at Barclays and J.P. Morgan.';
 
-const intro = [
-  "Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.",
-  "Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.",
-];
-
 type Job = { company: string; dates: string; current?: boolean; role?: string; roles?: { title: string; dates: string }[]; summary: string };
 // Newest first, as the old page listed them.
 const jobs: Job[] = [
-  { company: 'uoaui.ai', dates: '2026 to present', current: true, role: 'Designer + Builder', summary: 'Started, designed, and built an AI design-system builder. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the uoaui system. In private alpha. I own product strategy, research, interaction design, brand, and front-end build.' },
+  { company: 'uoaui.ai', dates: '2026 to present', current: true, role: 'Designer + Builder', summary: 'I designed and built a visual web builder for designers. Its UI Kit and private-preview Builder support Salt, Material 3, Fluent 2, Carbon and the uoaui system.' },
   { company: 'Barclays, London', dates: 'Sep 2025 to present', current: true, role: 'Lead Product Designer', summary: 'Sole designer on FX, covering trader, sales, ops, institutional and corporate-client surfaces. Leading a design system refactor across the platform. Most visual work is under NDA; happy to walk through it in an interview.' },
-  { company: 'J.P. Morgan, London', dates: 'Aug 2016 to Sep 2025', roles: [{ title: 'Digital Product Designer VP', dates: 'Feb 2023 to Sep 2025' }, { title: 'User Experience Designer', dates: 'Aug 2016 to Jan 2023' }], summary: 'User Experience Designer from 2016, then Digital Product Designer VP on Fusion from 2023. Led UI for Fusion Analytics, defining component structure and Salt accessibility patterns. Before Fusion, led UI on Deal Model in Securities Services, with two UX designers and teams across custody ops, sales, legal and product. Contributed to the Fusion Design System.' },
+  { company: 'J.P. Morgan, London', dates: 'Aug 2016 to Sep 2025', roles: [{ title: 'Digital Product Designer VP', dates: 'Feb 2023 to Sep 2025' }, { title: 'User Experience Designer', dates: 'Aug 2016 to Jan 2023' }], summary: 'I led UI for Fusion Analytics, defining components and accessibility patterns in Salt. Before Fusion, I led UI on Deal Model with two UX designers and teams across custody operations, sales, legal and product.' },
   { company: 'Pegasus Global Travel, London', dates: '2015', role: 'Graphic Designer', summary: 'Designed the company website end to end, plus promotional assets and video content. Brought the brand into one system across channels.' },
   { company: 'Genuine C&C Inc, Taiwan', dates: '2011 to 2015', role: 'Visual Designer & Web Developer', summary: 'Designed and maintained the B2B platform. Built the corporate website front-end. Led UI/UX direction for a client-facing network platform.' },
   { company: 'Eastern Shine Production Co., Ltd.', dates: '2011', role: 'Website Designer, Graphic Designer', summary: 'Designed web platforms with a usability focus. Art-directed a government video project from concept to delivery.' },
@@ -82,8 +70,7 @@ const ld = {
         </figure>
         <div class="about-who">
           <h2 id="who-title" class="about-kicker">Who I am</h2>
-          <div class="about-lede">{intro.map((paragraph) => <p>{paragraph}</p>)}</div>
-          <p class="about-prose">I run the design system across FX and MarketsOne: tokens, components, and accessibility. Nine years at <strong>J.P.&nbsp;Morgan</strong>, ending on Fusion. Building <strong>uoaui.ai</strong> on the side, in private alpha.</p>
+          <p class="about-lede">I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.</p>
           <ul class="about-links">
             <li><a href="https://www.linkedin.com/in/shannonhecker" target="_blank" rel="noopener noreferrer" data-cursor="big">LinkedIn<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
             <li><a href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email<Icon name="mail" /></a></li>
@@ -102,9 +89,8 @@ const ld = {
       <div class="wrap">
         <div class="about-label"><h2 id="approach-title">My approach</h2></div>
         <div class="about-content">
-          <p class="about-statement">I design what traders and analysts use every day. Trading floors. AI tools.</p>
-          <p class="about-prose">Ten years designing for engineering, quant, and ops audiences inside banks, plus the clients who use the same data. I prototype early, run quick research loops, and pressure-test decisions with product and engineering before the pixels harden.</p>
-          <p class="about-prose">Design systems and modern tooling, including AI where it helps, speed delivery without losing clarity. The goal is simple: accessible interfaces teams can ship and keep iterating on.</p>
+          <p class="about-statement">I build what I design.</p>
+          <p class="about-prose">I put early prototypes in front of the people who use them. Then I work through their feedback with product and engineering.</p>
         </div>
       </div>
     </section>

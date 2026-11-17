@@ -11,7 +11,7 @@ Essentials:
 - No unmeasured metrics. Never crop a screenshot. Dark first.
 - First person, British English, no em dashes or en dashes, `uoaui.ai` lowercase.
 - The private panel version of this site is frozen. Never edit it or deploy from it.
-- Quality bar: Awwwards, Webby and FWA level. Check every UI change in screenshots at 390x844 and 1440x900, dark and light, before calling it done.
+- Quality bar: Awwwards, Webby and FWA level. Inspect every UI change in screenshots at 390x844 and 1440x900, dark and light. Fix issues the inspection reveals and inspect the rendered result again. For requested copy edits, cut repeated claims and keep the decisions, evidence and delivery status that a reader needs.
 - Branch per change, PR to `main`. Before pushing: `npm run build`, `npm run check:public`, `npm run check:copy`, `npm run check:redirects` and `npx playwright test` (set `PW_CHROMIUM_PATH` to a local Chromium if the default download is unavailable).
 - Pushing, Vercel, DNS, Render and GitHub Pages changes need Shannon's confirmation first.
 - Ask Shannon one question at a time.
