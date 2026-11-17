@@ -33,9 +33,9 @@ import Logo from './Logo.astro';
 .foot-contact{display:flex;align-items:baseline;justify-content:space-between;gap:12px 48px;scroll-margin-top:96px;padding-bottom:clamp(32px,4vw,56px);margin-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--hair)}
 /* The serif is used here and on the chat heading. Its font file must not be fetched with the page's first
    requests, so the face is applied (by the script below) once the chat or the footer nears the window.
-   Until then the headings use the fallback serifs, off screen. */
-.foot-contact h2{margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em}
-:global(html.serif-on) .foot-contact h2{font-family:'Noto Serif Display',Georgia,'Times New Roman',serif}
+   Until it has loaded the headings stay in the site's own display face, off screen. */
+.foot-contact h2{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.03em}
+:global(html.serif-on) .foot-contact h2{font-family:'Noto Serif Display',var(--display)}
 .foot-mail{--tap:max(0px,calc((44px - 1.2em) / 2));display:inline-block;padding-block:var(--tap);margin-block:calc(-1 * var(--tap));color:var(--fg);font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.025em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
 #contact-title:focus:not(:focus-visible){outline:none}
 #contact-title:focus-visible{outline:3px solid var(--focus);outline-offset:6px}
@@ -64,7 +64,13 @@ import Logo from './Logo.astro';
   // Load the serif (the footer's "Let’s Talk." and the chat heading) only when the first of them is
   // close, so it never competes with first paint. The chat section comes first on the home page.
   const block = document.querySelector('#ask') ?? document.querySelector('.foot-contact');
-  const on = () => document.documentElement.classList.add('serif-on');
+  // The face is fetched first and switched on only once it is ready, so the headings never pass
+  // through a system serif on the way.
+  const on = () => {
+    const ready = () => document.documentElement.classList.add('serif-on');
+    if (document.fonts?.load) document.fonts.load("500 1em 'Noto Serif Display'").then(ready, ready);
+    else ready();
+  };
   if (block && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) { on(); io.disconnect(); }

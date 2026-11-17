@@ -39,10 +39,12 @@ html[data-theme="dark"] #ask {
 #ask .ask-head { display: flex; flex-direction: column; align-items: center; gap: 40px; margin-bottom: 48px; text-align: center; }
 #ask .ask-head .h-section { max-width: 34ch; margin-inline: auto; }
 /* The site's one serif, shared with the footer's "Let’s Talk.": the page's two conversational moments
-   are set in it. Georgia holds the place until the face loads (Footer.astro adds html.serif-on when the
-   chat nears the window, so the font file is never one of the first requests). */
-#ask .ask-head .h-section { font-family: Georgia, 'Times New Roman', serif; font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.1; letter-spacing: -.03em; }
-html.serif-on #ask .ask-head .h-section { font-family: 'Noto Serif Display', Georgia, 'Times New Roman', serif; }
+   are set in it. Until the face has loaded they stay in the site's own display face, off screen: no
+   system serif is ever asked for (on a machine without one that search alone can stall the page), and
+   nothing flashes in a second serif. Footer.astro fetches the font when the chat nears the window, so
+   the file is never one of the first requests, and adds html.serif-on once it is ready. */
+#ask .ask-head .h-section { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.1; letter-spacing: -.03em; }
+html.serif-on #ask .ask-head .h-section { font-family: 'Noto Serif Display', var(--display); }
 
 /* One centred column: the card, then the suggestions and the note. */
 #ask .ask-grid { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 760px; margin-inline: auto; }
