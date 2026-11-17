@@ -87,7 +87,6 @@ function chrome() {
     const atTop = scrollY === 0;
     const h = atTop ? 0 : root.scrollHeight - innerHeight;
     if (prog) prog.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
-    nav?.classList.toggle('solid', scrollY > 40);
     sweep();
   };
   let t = 0;
