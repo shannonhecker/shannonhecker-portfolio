@@ -27,6 +27,7 @@ export function initScrollEffects() {
     // The artwork leads, followed by its title and description. A single
     // timeline follows native scrolling in both directions without pinning.
     document.querySelectorAll<HTMLElement>('#work .row').forEach((row,index)=>{
+      if(row.closest('.work-index') && index===0)return;
       const artwork=row.querySelector(':scope > picture, :scope > .project-preview');
       if(!artwork)return;
       row.dataset.scrollMotion='true';marked.push(row);
@@ -34,11 +35,11 @@ export function initScrollEffects() {
       gsap.fromTo(artwork,{y:desktop?(index%2?88:56):20},{y:0,ease:'none',scrollTrigger:{...enter(row),end:'top 30%'}});
       // Captions sit below a tall image. Their own trigger keeps their motion
       // visible instead of completing while they are still below the screen.
-      const title=row.querySelector('h3');
+      const title=row.querySelector('.project-title');
       if(title){
         const timeline=gsap.timeline({scrollTrigger:enter(title)});
         // Titles rise into place but never fade: a heading stays readable throughout.
-        timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > h3'),{y:desktop?40:14},{y:0,duration:.7,ease:'none'},0);
+        timeline.fromTo(row.querySelectorAll(':scope > .n, :scope > .project-title'),{y:desktop?40:14},{y:0,duration:.7,ease:'none'},0);
         timeline.fromTo(row.querySelector(':scope > .meta'),{y:desktop?28:10},{y:0,duration:.7,ease:'none'},.15);
       }
     });

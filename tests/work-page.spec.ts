@@ -10,18 +10,19 @@ async function open(page: Page, path: string) {
 const navWork = (page: Page) => page.locator('.nav a.l', { hasText: /^Work$/ });
 
 test.describe('/work', () => {
-  test('has one h1 "Work" and the page title', async ({ page }) => {
+  test('has one Selected work heading and the Work page title', async ({ page }) => {
     await open(page, '/work');
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.getByRole('heading', { level: 1, name: 'Work', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Selected work', exact: true })).toBeVisible();
     await expect(page).toHaveTitle('Work · Shannon Hecker');
   });
 
   test('Selected lists the five cases in CASES order', async ({ page }) => {
     await open(page, '/work');
-    await expect(page.getByRole('heading', { level: 2, name: 'Selected', exact: true })).toBeVisible();
-    const links = page.getByRole('region', { name: 'Selected' }).getByRole('link');
+    const links = page.getByRole('region', { name: 'Selected work' }).getByRole('link');
     await expect(links).toHaveCount(5);
+    await expect(page.getByRole('region', { name: 'Selected work' }).getByRole('heading', { level: 2 })).toHaveCount(5);
+    await expect(page.getByText('5 of 15 projects', { exact: true })).toBeVisible();
     expect(await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))).toEqual(CASES.map((c) => c.href));
   });
 

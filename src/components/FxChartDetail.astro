@@ -1,0 +1,78 @@
+---
+import reprice from '../assets/img/fx-figma/reprice.png';
+import Icon from './Icon.astro';
+---
+<a class="chart-detail-link" href={reprice.src} data-chart-open>
+  View chart detail <Icon name="arrow-right" />
+</a>
+<dialog id="fx-chart-detail" aria-labelledby="fx-detail-heading" aria-describedby="fx-detail-caption">
+  <header>
+    <h2 id="fx-detail-heading">Repricing an order</h2>
+    <form method="dialog">
+      <button type="submit" aria-label="Close chart detail" autofocus><Icon name="close" /></button>
+    </form>
+  </header>
+  <p id="fx-detail-caption">As the order fills (blue), the trader can adjust the limit price (purple). Here, the limit steps up to 1.37699.</p>
+  <div id="fx-chart-viewport" class="chart-viewport" data-chart-viewport tabindex="0" role="region" aria-label="Enlarged execution chart" aria-describedby="fx-pan-hint">
+    <img src={reprice.src} width={reprice.width} height={reprice.height} loading="lazy" decoding="async" alt="EURUSD order with a stepped purple limit line, rising blue fill progress and a limit-price amendment confirmation. Simulated data." />
+  </div>
+  <div class="chart-tools">
+    <button type="button" data-chart-zoom aria-controls="fx-chart-viewport">Enlarge chart</button>
+    <p class="pan-hint" id="fx-pan-hint">Swipe or use arrow keys to pan.</p>
+  </div>
+</dialog>
+<style>
+.chart-detail-link{display:inline-flex;align-items:center;gap:.5em;min-height:44px;margin-top:16px;color:var(--fg);text-underline-offset:4px}
+dialog{box-sizing:border-box;width:min(1040px,calc(100% - 32px));max-width:none;max-height:calc(100dvh - 32px);margin:auto;padding:clamp(16px,3vw,32px);overflow:auto;border:1px solid var(--hair);border-radius:var(--radius);background:var(--bg);color:var(--fg)}
+dialog::backdrop{background:rgb(0 0 0 / 70%)}
+dialog header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+dialog h2{margin:0;font:500 clamp(24px,4vw,38px)/1.15 var(--display,var(--body));letter-spacing:-.035em}
+dialog form{margin:0}
+dialog button{display:grid;place-items:center;width:44px;height:44px;padding:0;background:transparent;color:var(--fg);border:1px solid var(--hair);border-radius:var(--radius);cursor:pointer;font-size:22px}
+dialog p{max-width:63ch;margin:8px 0 16px;color:var(--fg-2);font:400 16px/1.5 var(--body)}
+.chart-viewport{overflow:auto;overscroll-behavior:contain;aspect-ratio:3/2;max-height:50dvh;container-type:inline-size;border:1px solid var(--hair);border-radius:var(--radius);background:#161616}
+.chart-viewport img{display:block;width:min(144cqw,110dvh);max-width:none;height:auto}
+
+.chart-viewport[data-enlarged] img{width:max(1800px,210cqw)}
+.chart-tools{display:flex;align-items:center;flex-wrap:wrap;gap:4px 16px;margin-top:12px}
+.chart-tools button{width:auto;padding:0 12px;font:500 15px/1.2 var(--body)}
+dialog .pan-hint{margin:0;font-size:14px}
+
+</style>
+<script>
+  const trigger = document.querySelector<HTMLAnchorElement>('[data-chart-open]');
+  const detail = document.querySelector<HTMLDialogElement>('#fx-chart-detail');
+  const viewport = detail?.querySelector<HTMLElement>('[data-chart-viewport]');
+  const zoom = detail?.querySelector<HTMLButtonElement>('[data-chart-zoom]');
+  const chart = viewport?.querySelector('img');
+  const panSteps: Record<string, [number, number]> = {
+    ArrowLeft: [-48, 0], ArrowRight: [48, 0], ArrowUp: [0, -48], ArrowDown: [0, 48],
+  };
+  if (trigger && detail && viewport && zoom && chart && typeof detail.showModal === 'function') {
+    function frameChart(enlarged: boolean) {
+      if (!viewport || !zoom || !chart) return;
+      viewport.toggleAttribute('data-enlarged', enlarged);
+      zoom.textContent = enlarged ? 'Show chart overview' : 'Enlarge chart';
+      // The price plot occupies the left panel of the authored dashboard.
+      // In detail, centre the second price change and the rising fill curve.
+      viewport.scrollLeft = chart.clientWidth * (enlarged ? .394 : .395) - viewport.clientWidth / 2;
+      viewport.scrollTop = chart.clientHeight * (enlarged ? .45 : .5) - viewport.clientHeight / 2;
+    }
+    zoom.addEventListener('click', () => frameChart(!viewport.hasAttribute('data-enlarged')));
+    detail.addEventListener('close', () => trigger.focus({ preventScroll: true }));
+    viewport.addEventListener('keydown', (event) => {
+      const step = panSteps[event.key];
+      if (!step || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      event.preventDefault();
+      viewport.scrollBy(step[0], step[1]);
+    });
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    trigger.setAttribute('aria-controls', detail.id);
+    trigger.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      detail.showModal();
+      frameChart(false);
+    });
+  }
+</script>

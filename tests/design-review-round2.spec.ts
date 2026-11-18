@@ -146,7 +146,7 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
     });
   }
 
-  test('the bar is at most 80px tall at 1440 and 200px at 390, and the two buttons weigh the same', async ({ page }) => {
+  test('the bar is at most 80px tall at 1440 and 140px at 390, and the two buttons weigh the same', async ({ page }) => {
     await visit(page, '/', 1440, 900, { asked: true, reduced: true });
     expect((await box(page, '#analytics-choice')).height).toBeLessThanOrEqual(80);
     const look = () => page.locator('#analytics-choice button').evaluateAll((bs) => bs.map((b) => { const c = getComputedStyle(b); return [c.backgroundColor, c.color, c.borderTopColor, c.fontWeight, c.fontSize, Math.round(b.getBoundingClientRect().height)].join('|'); }));
@@ -155,24 +155,21 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
     expect(l[0]).toBe(l[1]);
     await page.unrouteAll();
     await visit(page, '/', 390, 844, { asked: true, reduced: true });
-    expect((await box(page, '#analytics-choice')).height).toBeLessThanOrEqual(200);
+    expect((await box(page, '#analytics-choice')).height).toBeLessThanOrEqual(140);
   });
 
   test('on a phone it is compact, keeps its row of controls together and 44px touch targets', async ({ page }) => {
     await visit(page, '/', 390, 844, { asked: true, reduced: true });
     const m = await page.evaluate(() => {
       const root = document.getElementById('analytics-choice')!;
-      const cs = getComputedStyle(root);
       const p = getComputedStyle(root.querySelector('p')!);
-      const b = [...root.querySelectorAll('button')].map((e) => ({ h: e.getBoundingClientRect().height, reach: parseFloat(getComputedStyle(e, '::after').height) }));
+      const buttonHeights = [...root.querySelectorAll('button')].map(e => e.getBoundingClientRect().height);
       const tops = [...root.querySelectorAll('button, a')].map((e) => Math.round(e.getBoundingClientRect().top + e.getBoundingClientRect().height / 2));
-      return { padTop: cs.paddingTop, padBottom: cs.paddingBottom, size: p.fontSize, line: parseFloat(p.lineHeight) / parseFloat(p.fontSize), b, tops };
+      return { size: p.fontSize, line: parseFloat(p.lineHeight) / parseFloat(p.fontSize), buttonHeights, tops };
     });
-    expect(m.padTop).toBe('16px');
-    expect(parseFloat(m.padBottom)).toBeGreaterThanOrEqual(12);
     expect(m.size).toBe('14px');
     expect(m.line).toBeCloseTo(1.45, 2);
-    for (const x of m.b) { expect(x.h).toBeLessThanOrEqual(41); expect(x.reach).toBeGreaterThanOrEqual(44); }
+    for (const height of m.buttonHeights) expect(height).toBeGreaterThanOrEqual(44);
     expect(Math.max(...m.tops) - Math.min(...m.tops), 'Privacy details and the buttons share a row').toBeLessThanOrEqual(4);
     expect((await box(page, '#analytics-choice a')).height).toBeGreaterThanOrEqual(44);
   });
@@ -484,7 +481,7 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
   });
 
   for (const w of [390, 360]) {
-    test(`S3: the three page heads fit on one line and share one size at ${w}`, async ({ page }) => {
+    test(`S3: the three page heads fit on one line and Work uses a smaller title at ${w}`, async ({ page }) => {
       const sizes: number[] = [];
       for (const path of ['/work', '/writing', '/about']) {
         await visit(page, path, w, 740, { reduced: true });
@@ -494,7 +491,9 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
         sizes.push(m.size);
         await page.unrouteAll();
       }
-      expect(new Set(sizes).size).toBe(1);
+      const [work, writing, about] = sizes;
+      expect(writing).toBe(about);
+      expect(work).toBeLessThan(writing);
     });
   }
 

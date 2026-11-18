@@ -1,7 +1,8 @@
 ---
+import fxMobile from '../assets/fx-work-mobile.avif';
 import { adaptiveArt } from '../lib/adaptive-art';
-interface Props { project:string }
-const {project}=Astro.props;
+interface Props { project:string; priority?:boolean }
+const {project,priority=false}=Astro.props;
 const desktop=adaptiveArt(`/art/home-${project}-composition-current.svg`);
 const mobile=adaptiveArt(`/art/home-${project}-composition-mobile-current.svg`);
 const mobileHeight=project==='winking'?350*524/681:project==='fx'?269:270;
@@ -11,7 +12,13 @@ const srcset=(variant:string)=>[400,800,1200,1600,2000].map(w=>`${adaptiveArt(`/
 const sizes='(max-width:760px) calc(100vw - 48px), (min-width:1680px) 780px, calc(46.6vw - 3px)';
 ---
 <div class={`project-preview home-artwork home-artwork-${project} exact-composition`} style={`--mobile-ratio:350/${mobileHeight}`}>
- <picture><source media="(max-width:760px)" srcset={responsive?srcset(project==='winking'?'current':'mobile-current'):mobile} sizes={sizes} width="350" height={mobileHeight}/><img src={responsive?adaptiveArt(`/art/home-responsive/${project}-current-800.${extension}`):desktop} srcset={responsive?srcset('current'):undefined} sizes={responsive?sizes:undefined} alt="" width="681" height="524" loading="lazy" decoding="async" /></picture>
+ <picture>
+   {priority && project === 'fx' && (
+     <source media="(max-width:760px)" type="image/avif" srcset={fxMobile.src} width={fxMobile.width} height={fxMobile.height} />
+   )}
+   <source media="(max-width:760px)" srcset={responsive?srcset(project==='winking'?'current':'mobile-current'):mobile} sizes={sizes} width="350" height={mobileHeight} />
+   <img src={responsive?adaptiveArt(`/art/home-responsive/${project}-current-800.${extension}`):desktop} srcset={responsive?srcset('current'):undefined} sizes={responsive?sizes:undefined} alt="" width="681" height="524" loading={priority?"eager":"lazy"} fetchpriority={priority?"high":undefined} decoding="async" />
+ </picture>
 </div>
 <style>
 :global(#work .home-artwork.exact-composition){aspect-ratio:681/524;background:transparent;content-visibility:auto}

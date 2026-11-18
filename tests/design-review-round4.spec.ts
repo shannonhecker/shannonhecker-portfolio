@@ -123,13 +123,14 @@ test.describe('Work: the earlier list', () => {
     await expect(page.locator('.earlier-list .row-preview').first()).toBeHidden();
   });
 
-  test('the earlier rows and headings share the Selected type', async ({ page }) => {
+  test('the page title, archive heading and earlier project titles have a clear hierarchy', async ({ page }) => {
     await open(page, '/work', 1440);
     const t = await page.evaluate(() => {
       const s = (sel: string) => { const c = getComputedStyle(document.querySelector(sel)!); return { size: c.fontSize, weight: c.fontWeight, ls: c.letterSpacing, family: c.fontFamily }; };
-      return { selected: s('.work-title'), earlier: s('.work-earlier-head h2'), row: s('.earlier-list h3') };
+      return { selected: s('main h1'), earlier: s('.work-earlier-head h2'), row: s('.earlier-list h3') };
     });
-    expect(t.earlier).toEqual(t.selected);
+    expect(parseFloat(t.selected.size)).toBeGreaterThan(parseFloat(t.earlier.size));
+    expect(parseFloat(t.earlier.size)).toBeGreaterThan(parseFloat(t.row.size));
     expect(t.row.weight).toBe('500');
     expect(parseFloat(t.row.ls) / parseFloat(t.row.size)).toBeCloseTo(-0.025, 3);
   });
