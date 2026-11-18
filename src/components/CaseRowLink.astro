@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import HomeProjectArtwork from './HomeProjectArtwork.astro';
 import type { CaseRow } from '../lib/cases';
 interface Props { c: CaseRow; homeArtwork?: boolean }
@@ -6,7 +7,7 @@ const { c, homeArtwork=false } = Astro.props;
 ---
 <a class:list={["row",{"next-project-row":!homeArtwork}]} href={c.href} data-cursor="big" data-chapter={c.vt}>
   <span class="n">{c.n}</span>
-  <h3>{c.title}<span class="arrow" aria-hidden="true">→</span></h3>
+  <h3>{c.title}<Icon name="arrow-right" class="arrow" /></h3>
   <span class="meta">{c.meta}</span>
   <HomeProjectArtwork project={c.vt} />
 </a>

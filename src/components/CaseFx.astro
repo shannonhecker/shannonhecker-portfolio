@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import ThemedArtwork from "./ThemedArtwork.astro";
 interface Props { top?: boolean }
 // On its own page the case title is the h1 and each beat label an h2; inside
@@ -35,7 +36,7 @@ import BeforeAfter from './dg/BeforeAfter.astro';
           <HT class="h-chapter" style="view-transition-name:t-fx">FX execution analytics</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">A trader works a large FX order over hours and keeps deciding whether to step in or leave it. The desk did that across a static chart, five spreadsheets and a separate execution tool.</p>
-        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Lead designer, one of one</span><span><b>Team</b> · ~20 engineers, business, charting vendor</span><span><b>Status</b> · Beta with internal users</span><span><b>Platform</b> · Web, light and dark</span><span><b>Live</b> · <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span></div>
       </div>
       <FxHero />
     </header>

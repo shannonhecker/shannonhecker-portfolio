@@ -84,7 +84,7 @@ html[data-theme=dark] .companion-stage::before { background:linear-gradient(180d
 .game-stages { display:flex;gap:6px;width:min(100%,960px);overflow-x:auto;padding:4px;flex-shrink:0; }
 .game-stages button { flex:0 0 auto;border:1px solid #829bac;border-radius:var(--radius);background:#233c4d;color:#fff;font:13px/1.4 var(--body);padding:8px 12px;min-height:44px;cursor:pointer; }
 .game-stages button span { font-family:var(--pixel);color:#ffe28c;margin-right:8px; }
-.game-stages button[data-completed=true]::after{content:' ✓';color:#b9efd1;margin-left:8px;font-weight:700}
+.game-stages button[data-completed=true]::after{content:"";display:inline-block;width:1em;height:1em;margin-left:8px;vertical-align:-.125em;background:#b9efd1;mask:var(--icon-check)}
 .game-stages button:hover,.game-stages button[aria-current=true] { background:#36566b;border-color:#ffe28c; }
 .game-stages button:focus-visible { outline:2px solid #ffe28c;outline-offset:2px; }
 .play:not(.is-full) .game-stages { display:none; }

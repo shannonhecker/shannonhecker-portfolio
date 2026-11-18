@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 // One essay: a page in the same language as the case pages (white or dark page,
 // one grotesk, hairlines, air). The Markdown body arrives in the default slot;
 // the title, dates and counts come from the entry's front matter. The "Previously"
@@ -100,17 +101,17 @@ const ld = [
             {newer && (
               <a href={`/writing/${newer.id}`} data-cursor="big">
                 <span class="kicker">Next post</span>
-                <span class="t">{newer.data.title}.<span class="arrow" aria-hidden="true">→</span></span>
+                <span class="t">{newer.data.title}.<Icon name="arrow-right" class="arrow" /></span>
               </a>
             )}
             {older && (
               <a href={`/writing/${older.id}`} data-cursor="big">
                 <span class="kicker">Previously</span>
-                <span class="t">{older.data.title}.<span class="arrow" aria-hidden="true">→</span></span>
+                <span class="t">{older.data.title}.<Icon name="arrow-right" class="arrow" /></span>
               </a>
             )}
           </nav>
-          <p class="essay-all"><a href="/writing"><span class="kicker">Writing</span><span class="t">All writing<span class="arrow" aria-hidden="true">→</span></span></a></p>
+          <p class="essay-all"><a href="/writing"><span class="kicker">Writing</span><span class="t">All writing<Icon name="arrow-right" class="arrow" /></span></a></p>
         </footer>
       </article>
     </div>

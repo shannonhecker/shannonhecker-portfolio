@@ -1,6 +1,6 @@
 ---
 import FigmaDecisionMap from "./FigmaDecisionMap.astro";
-import FlatArrow from "../FlatArrow.astro";
+import Icon from '../Icon.astro';
 import content from '../../data/authored-content.json';
 import evidence from '../../data/decision-evidence.json';
 import AuthoredImage from '../AuthoredImage.astro';
@@ -29,7 +29,7 @@ const decisions = data.decisions.map((decision, index) => {
 
   <nav class="decision-index" aria-label={`${project === 'ai' ? 'uoaui.ai' : project} design decisions`}>
     <ol>{decisions.map(({decision, record, id}, i) => <li>
-      <a href={`#${id}`}><span class="decision-number">{String(i + 1).padStart(2, '0')}</span><span>{record.title ?? decision.title}</span><span class="decision-jump" aria-hidden="true"><FlatArrow down /></span></a>
+      <a href={`#${id}`}><span class="decision-number">{String(i + 1).padStart(2, '0')}</span><span>{record.title ?? decision.title}</span><span class="decision-jump" aria-hidden="true"><Icon name="arrow-down" /></span></a>
     </li>)}</ol>
   </nav>
 

@@ -1,11 +1,12 @@
 ---
+import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 ---
 <footer id="links" class="band">
   <div class="wrap">
     <section id="contact" class="foot-contact" aria-labelledby="contact-title">
       <h2 id="contact-title" tabindex="-1">Let’s Talk.</h2>
-      <a class="foot-mail" href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email me directly<span aria-hidden="true"> →</span></a>
+      <a class="foot-mail" href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email me directly <span><Icon name="mail" /></span></a>
     </section>
     <div class="foot">
       <div class="big">
@@ -14,12 +15,12 @@ import Logo from './Logo.astro';
         <p class="muted measure" style="margin-top:24px">Shipped work is live. In-flight work says so. Rebuilds are labelled as mine.</p>
       </div>
       <div class="links">
-        <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star<span class="vh"> (opens in new tab)</span></span><span>App Store →</span></a>
-        <a href="https://winkingstar.com" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star site<span class="vh"> (opens in new tab)</span></span><span>winkingstar.com →</span></a>
-        <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener" data-cursor="big"><span>FX analytics, rebuild<span class="vh"> (opens in new tab)</span></span><span>GitHub Pages →</span></a>
-        <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener" data-cursor="big"><span>Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span></span><span>Vercel →</span></a>
-        <a href="https://www.linkedin.com/in/shannonhecker/" target="_blank" rel="noopener" data-cursor="big"><span>LinkedIn<span class="vh"> (opens in new tab)</span></span><span>in/shannonhecker →</span></a>
-        <a href="mailto:shannonheckerchen@gmail.com" data-cursor="big"><span>Email</span><span aria-hidden="true">→</span></a>
+        <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star<span class="vh"> (opens in new tab)</span></span><span>App Store <Icon name="external" /></span></a>
+        <a href="https://winkingstar.com" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star site<span class="vh"> (opens in new tab)</span></span><span>winkingstar.com <Icon name="external" /></span></a>
+        <a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener" data-cursor="big"><span>FX analytics, rebuild<span class="vh"> (opens in new tab)</span></span><span>GitHub Pages <Icon name="external" /></span></a>
+        <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener" data-cursor="big"><span>Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span></span><span>Vercel <Icon name="external" /></span></a>
+        <a href="https://www.linkedin.com/in/shannonhecker/" target="_blank" rel="noopener" data-cursor="big"><span>LinkedIn<span class="vh"> (opens in new tab)</span></span><span>in/shannonhecker <Icon name="external" /></span></a>
+        <a href="mailto:shannonheckerchen@gmail.com" data-cursor="big"><span>Email</span><span><Icon name="mail" /></span></a>
       </div>
     </div>
     <p class="copyright"><span class="sig"><Logo size={22} />Shannon Hecker · Product Designer · London</span><span><a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span></a> · private alpha</span></p>
@@ -42,8 +43,6 @@ import Logo from './Logo.astro';
 .foot-mail:hover{text-decoration-thickness:2px}
 .foot-mail:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 @media(max-width:760px){.foot-contact{flex-direction:column;align-items:flex-start}}
-/* One underline for the whole line: the arrow is plain inline text, not a box of its own, so the
-   line is underlined once from the first letter to the arrow. */
 
 /* The small links and buttons at the foot: at least 24px tall, 44px on a phone. The extra height
    is cancelled by an equal negative margin, so the rows look exactly as before. */

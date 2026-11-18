@@ -1,0 +1,34 @@
+---
+const paths = {
+  'arrow-right': 'M4 12h15m-6-6 6 6-6 6',
+  'arrow-left': 'M20 12H5m6-6-6 6 6 6',
+  'arrow-up': 'M12 20V5m-6 6 6-6 6 6',
+  'arrow-down': 'M12 4v15m-6-6 6 6 6-6',
+  return: 'M4 11h10a5 5 0 0 1 0 10m-5-15-5 5 5 5',
+  external: 'M13 5h6v6m0-6-9 9m7-2v6a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h6',
+  mail: 'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm-2 3 9 6 9-6',
+  check: 'm5 12 4 4L19 6',
+  close: 'm6 6 12 12M6 18 18 6',
+  play: 'm7 4 13 8-13 8Z',
+  tooth: 'M12 5c-2-2-6-3-8 1-2 4 1 7 2 11 .4 1.5 1 4 2.5 4 2 0 .8-7 3.5-7s1.5 7 3.5 7c1.5 0 2.1-2.5 2.5-4 1-4 4-7 2-11-2-4-6-3-8-1Zm0 0 2 1',
+  bath: 'M2 12h20M4 12v3a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-3M6 19l-1 2m13-2 1 2M6 12V6a3 3 0 0 1 6 0v1',
+  book: 'M12 6C9 4 5 4 3 5v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1Zm0 0v14',
+  language: 'M3 6h12m-6-3v3m3 0c-1 5-4 8-9 10m2-7c1 2 3 4 6 5m2 7 4-10 4 10m-6.5-3h5',
+  walk: 'M12 4a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0ZM8 12l3-4h3l2 4 3 1m-6-5-2 7-4 5m4-5 5 2v4',
+  moon: 'M20.5 14.4A8.8 8.8 0 0 1 9.6 3.5 8.8 8.8 0 1 0 20.5 14.4Z',
+  egg: 'M20 14a8 8 0 0 1-16 0c0-5 4-11 8-11s8 6 8 11Z',
+  hatch: 'M4 14c0-5 4-11 8-11s8 6 8 11a8 8 0 0 1-16 0Zm0-1 4 2 3-4 4 4 5-2',
+  cat: 'M4 13V5l5 3a11 11 0 0 1 6 0l5-3v8c0 5-3 8-8 8s-8-3-8-8Zm4 0h.01M16 13h.01M11 16l1 1 1-1',
+  'happy-cat': 'M4 13V5l5 3a11 11 0 0 1 6 0l5-3v8c0 5-3 8-8 8s-8-3-8-8Zm3 1 1.5-1.5L10 14m4 0 1.5-1.5L17 14m-7 3q2 3 4 0',
+} as const;
+
+interface Props {
+  name: keyof typeof paths;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+<svg class:list={['site-icon', className]} viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d={paths[name]} />
+</svg>

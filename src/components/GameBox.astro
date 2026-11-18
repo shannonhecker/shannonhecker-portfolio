@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // The game lives in the hero, the way a playable Doodle sits on Google's home
 // page: optional, idle until pressed, and the headline stays the main thing.
 // It tells Shannon's career as a world map, Kaohsiung to AI. Every card states
@@ -11,7 +12,7 @@ import { JOURNEY, stageCode, nextLabel } from '../lib/journey';
 import { CASES } from '../lib/cases';
 ---
 <div class="play" data-lenis-prevent>
-  <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <span aria-hidden="true">✕</span></button>
+  <button type="button" class="game-exit" id="game-exit" hidden><span class="game-exit-label">Exit full screen</span> <Icon name="close" /></button>
   <p class="game-rotate" aria-hidden="true">Turn your phone sideways for a bigger game</p>
   <div class="game" data-state="poster">
     <canvas id="game" width="480" height="270" tabindex="-1" role="application" aria-roledescription="game" aria-label="Working Order" aria-describedby="game-desc"></canvas>
@@ -21,7 +22,7 @@ import { CASES } from '../lib/cases';
       <div class="title-plaque" aria-hidden="true"><span>WORKING</span><span>ORDER</span></div>
       <span class="title-traveller" aria-hidden="true"></span>
       <span class="title-ground" aria-hidden="true"></span>
-      <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><span class="title-pointer" aria-hidden="true">▶</span> START ADVENTURE</span></button>
+      <button type="button" class="game-play game-title-start" id="game-play" aria-label="Start adventure" disabled><span><Icon name="play" class="title-pointer" /> START ADVENTURE</span></button>
       <span class="title-credit" aria-hidden="true">A SHANNON HECKER ADVENTURE</span>
     </div>
     <div class="game-loading" role="status" aria-live="polite">
@@ -32,17 +33,17 @@ import { CASES } from '../lib/cases';
         <path d="M36 36H44V44H36Z" fill="#172b3b"/>
       </svg>
       <p class="loading-title">Charting the route</p>
-      <p class="loading-caption">Kaohsiung → London → What’s next</p>
+      <p class="loading-caption">Kaohsiung <Icon name="arrow-right" /> London <Icon name="arrow-right" /> What’s next</p>
       <span class="loading-route" aria-hidden="true"><i></i><i></i><i></i></span>
     </div>
     <div class="game-flight" hidden aria-labelledby="flight-title">
-      <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan → United Kingdom</h2>
+      <p class="flight-year">A new chapter · 2013</p><h2 id="flight-title">Taiwan <Icon name="arrow-right" /> United Kingdom</h2>
       <p class="flight-story">I came to the UK for a working holiday and study.</p>
       <div class="flight-route" aria-hidden="true"><span>Taiwan</span><i></i><span>UK</span>
         <svg class="flight-plane" viewBox="0 0 40 32"><path d="M0 14H8V10H18V2H24V12H32V16H40V20H32V24H24V30H18V22H8V18H0Z" fill="#182640"/><path d="M4 14H12V12H20V4H22V14H30V16H36V18H30V20H22V28H20V20H12V18H4Z" fill="#fff0ce"/><path d="M12 14H28V18H12Z" fill="#d87890"/></svg>
       </div>
       <p class="flight-next">Next stop: London Met · Digital Media · 2015 to 2016</p>
-      <button type="button" data-skip-flight>Skip flight →</button>
+      <button type="button" data-skip-flight>Skip flight <Icon name="arrow-right" /></button>
     </div>
     {JOURNEY.map((w, i) => (
       <div class="game-end" data-end={i} hidden>
@@ -71,7 +72,7 @@ import { CASES } from '../lib/cases';
             <p role="status"></p>
           </details>
         </section>
-        {w.href && <a class="game-read" href={w.href}>Read the case →<span class="vh"> ({CASES.find((c) => c.href === w.href)?.title ?? w.place})</span></a>}
+        {w.href && <a class="game-read" href={w.href}>Read the case <Icon name="arrow-right" /><span class="vh"> ({CASES.find((c) => c.href === w.href)?.title ?? w.place})</span></a>}
         {i < JOURNEY.length - 1 ? (
           <div class="game-actions">
             <button type="button" class="game-play" data-next={i + 1}>{nextLabel(i)}</button>
@@ -80,9 +81,9 @@ import { CASES } from '../lib/cases';
         ) : (
           <>
             <ul class="game-links">
-              <li><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">Winking Star<span class="vh"> (opens in new tab)</span> →</a></li>
-              <li><a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">FX execution analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
-              <li><a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span> →</a></li>
+              <li><a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener">Winking Star<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></li>
+              <li><a href="https://shannonhecker.github.io/fx-execution-analytics/" target="_blank" rel="noopener">FX execution analytics, rebuild<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></li>
+              <li><a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></li>
             </ul>
             <div class="game-actions">
               <button type="button" class="game-play" data-next="0">Play again</button>
@@ -94,9 +95,9 @@ import { CASES } from '../lib/cases';
     ))}
   </div>
   <div class="game-touch" aria-hidden="true">
-    <button type="button" tabindex="-1" data-k="left">←</button>
-    <button type="button" tabindex="-1" data-k="right">→</button>
-    <button type="button" tabindex="-1" data-k="jump">↑</button>
+    <button type="button" tabindex="-1" data-k="left" aria-label="Move left"><Icon name="arrow-left" /></button>
+    <button type="button" tabindex="-1" data-k="right" aria-label="Move right"><Icon name="arrow-right" /></button>
+    <button type="button" tabindex="-1" data-k="jump" aria-label="Jump"><Icon name="arrow-up" /></button>
     <button type="button" tabindex="-1" data-k="cast" aria-label="Cast starlight wand" hidden>Cast</button>
   </div>
   <p class="game-map-hint">Swipe across the map · Tap a marker to play</p>

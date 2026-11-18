@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -15,7 +16,7 @@ import { CASES } from '../lib/cases';
     <div class="wrap not-found-wrap">
       <div class="not-found-copy">
         <h1 class="h-giant">This page doesn’t exist.</h1>
-        <a class="cta-link" href="/">Back to the work →</a>
+        <a class="cta-link" href="/">Back to the work <Icon name="arrow-left" /></a>
         <ul class="not-found-cases">
           {CASES.map((c) => <li><a href={c.href}>{c.title}</a></li>)}
         </ul>
