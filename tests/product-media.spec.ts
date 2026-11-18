@@ -97,6 +97,17 @@ test('FX chart detail opens from the keyboard, pans on a phone, and restores foc
   await expect(close).toBeFocused();
   const chart = dialog.getByRole('region', { name: 'Enlarged execution chart' });
   await chart.locator('img').evaluate((img: HTMLImageElement) => img.decode());
+  const overview = await chart.evaluate(el => {
+    const image = el.querySelector('img')!;
+    return { left: el.scrollLeft / image.clientWidth, right: (el.scrollLeft + el.clientWidth) / image.clientWidth,
+      top: el.scrollTop / image.clientHeight, bottom: (el.scrollTop + el.clientHeight) / image.clientHeight };
+  });
+  expect(overview.left).toBeLessThan(.098);
+  expect(overview.right).toBeGreaterThan(.716);
+  expect(overview.top).toBeLessThan(.32);
+  expect(overview.bottom).toBeGreaterThan(.74);
+  await dialog.getByRole('button', { name: 'Enlarge chart' }).click();
+  await expect(dialog.getByRole('button', { name: 'Show chart overview' })).toBeVisible();
   const position = await chart.evaluate(el => ({ left: el.scrollLeft, top: el.scrollTop, max: el.scrollWidth - el.clientWidth }));
   expect(position.left).toBeGreaterThan(0);
   expect(position.top).toBeGreaterThan(0);
