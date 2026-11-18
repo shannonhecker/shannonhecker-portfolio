@@ -207,7 +207,7 @@ document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) =
   // keep focus on the canvas, so a tap never reads as leaving the game
   const set = (v: boolean) => (e: Event) => {
     e.preventDefault();
-    if (game) game.touch[k] = v;
+    game?.setTouch(k, v);
     if (v) {
       canvas?.focus({ preventScroll: true });
       game?.resume();

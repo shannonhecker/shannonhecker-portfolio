@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { issue, verify, validateResult, stageLimits, nickname } from '../server/scoreboard';
 import { POST as start } from '../api/game-run';
-import { POST as submit } from '../api/leaderboard';
+import { GET as readBoard, POST as submit } from '../api/leaderboard';
 
 test('run receipts reject tampering, expiration and environment replay', () => {
   process.env.KV_REST_API_TOKEN = 'test-only-key';
@@ -13,6 +13,25 @@ test('run receipts reject tampering, expiration and environment replay', () => {
   process.env.VERCEL_ENV = 'production';
   expect(() => verify(token, 20000)).toThrow();
   process.env.VERCEL_ENV = 'preview';
+});
+test('the stage leaderboard is read fresh after a score is saved', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalUrl = process.env.KV_REST_API_URL;
+  const originalToken = process.env.KV_REST_API_TOKEN;
+  process.env.KV_REST_API_URL = 'https://storage.invalid';
+  process.env.KV_REST_API_TOKEN = 'test-only-key';
+  try {
+    globalThis.fetch = async () => Response.json({ result: [JSON.stringify({ nickname: 'Player', score: 390 })] });
+    const response = await readBoard(new Request('https://example.com/api/leaderboard?stage=0'));
+    expect(response.headers.get('cache-control')).toBe('no-store');
+    expect(await response.json()).toEqual({ entries: [{ nickname: 'Player', score: 390 }] });
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (originalUrl === undefined) delete process.env.KV_REST_API_URL;
+    else process.env.KV_REST_API_URL = originalUrl;
+    if (originalToken === undefined) delete process.env.KV_REST_API_TOKEN;
+    else process.env.KV_REST_API_TOKEN = originalToken;
+  }
 });
 test('scores use bounded game data and no supplied score', () => {
   const run = { stage: 0, started: 10000 };

@@ -139,6 +139,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function loadLevel(n: number) {
     if(isLocked(n)){showMap(n);opts.onStatus(`Final level locked. Complete all seven earlier stages first. ${s.done.filter(i=>i<7).length} of 7 complete.`);return;}
     runSequence++;
+    taps.clear();
     bolts.length=0;castCooldown=0;castPose=0;wandHits=0;
     s.elapsed = 0; s.jumps = 0; s.achievements=[]; achievementToast=0; s.powerSeconds=0; s.powerStars=0; setPowerMusic(false);
     opts.onLevelStart?.(n);
@@ -175,6 +176,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   function showMap(sel = mapSel) {
     runSequence++;
+    taps.clear();
     s.mode = 'map';bolts.length=0;touch.cast=false;
     setMusicStage(null);
     s.paused=false;mapHover=-1;canvas.style.cursor='default';
@@ -204,6 +206,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // its arrow keys and space bar, and Tab always leaves (no focus trap).
   const keys = new Set<string>();
   const touch = { left: false, right: false, jump: false, cast: false };
+  // A tap may press and release between physics steps. Sample its leading edge once.
+  const taps = new Set<keyof typeof touch>();
   const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter', 'a', 'd', 'w', 'A', 'D', 'W', 'x', 'X', 'j', 'J']);
   const isJumpKey = (k: string) => k === ' ' || k === 'ArrowUp' || k === 'w' || k === 'W';
   const onKey = (e: KeyboardEvent, down: boolean) => {
@@ -313,16 +317,18 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function setPaused(v: boolean) {
     pausedOffscreen = false;
     if (s.finished || s.paused === v) return;
+    if (v) taps.clear();
     s.paused = v;setMusicPlaying(!v);
     opts.onStatus(v ? 'Paused. Press Escape or click the game to carry on.' : 'Playing.');
     if (!v) resume(); else draw();
   }
 
   function input() {
-    let left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A') || touch.left;
-    let right = keys.has('ArrowRight') || keys.has('d') || keys.has('D') || touch.right;
-    let jump = keys.has(' ') || keys.has('ArrowUp') || keys.has('w') || keys.has('W') || touch.jump;
-    let cast=keys.has('x')||keys.has('X')||keys.has('j')||keys.has('J')||touch.cast;
+    let left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A') || touch.left || taps.has('left');
+    let right = keys.has('ArrowRight') || keys.has('d') || keys.has('D') || touch.right || taps.has('right');
+    let jump = keys.has(' ') || keys.has('ArrowUp') || keys.has('w') || keys.has('W') || touch.jump || taps.has('jump');
+    let cast=keys.has('x')||keys.has('X')||keys.has('j')||keys.has('J')||touch.cast || taps.has('cast');
+    taps.clear();
     const pad = navigator.getGamepads?.().find(Boolean);
     if (pad) {
       left ||= pad.axes[0] < -0.4 || !!pad.buttons[14]?.pressed;
@@ -877,7 +883,10 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   return {
     state: () => ({ ...s,weapon:boss?'starlight-wand':null,wandHits,castCooldown,bolts:bolts.map(b=>({...b})),boss:boss?{...boss}:null,flagRaised:!!boss&&s.finished&&(opts.reduceMotion||endT>=1.6),mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
-    touch,
+    setTouch(key: keyof typeof touch, down: boolean) {
+      if (down && !touch[key]) taps.add(key);
+      touch[key] = down;
+    },
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },
     showMap: (n?: number) => { canvas.focus(); cancelAnimationFrame(raf); raf = 0; showMap(n ?? mapSel); },

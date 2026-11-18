@@ -240,6 +240,36 @@ async function startWorld(page: Page, n: number, invuln = false) {
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
 
+test('sharing a score refreshes the board even if the opening read finishes last', async ({ page }) => {
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  let reads = 0;
+  await page.route('**/api/game-run', route => route.fulfill({ json: { token: 'local-test' } }));
+  await page.route('**/api/leaderboard', route => route.fulfill({ json: { saved: true, score: 390 } }));
+  await page.route('**/api/leaderboard?stage=0', async route => {
+    const first = ++reads === 1;
+    if (first) await gate;
+    await route.fulfill({ json: { entries: first ? [] : [{ nickname: 'Test player', score: 390 }] } });
+  });
+  try {
+    await startWorld(page, 0, true);
+    expect((await runLevel(page, 0)).finished).toBe(true);
+    const board = page.locator('.game-end[data-end="0"] .scoreboard');
+    await board.locator('summary').click();
+    await expect.poll(() => reads).toBe(1);
+    await board.getByRole('textbox').fill('Test player');
+    await board.getByRole('button', { name: 'Share my score' }).click();
+    await expect(board.locator('ol')).toContainText('Test player390 pts');
+    const settled = page.waitForEvent('requestfinished', req => req.url().endsWith('/api/leaderboard?stage=0'));
+    release();
+    await settled;
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await expect(board.locator('ol')).toContainText('Test player390 pts');
+  } finally {
+    release();
+  }
+});
+
 test('small enemies: landing on one clears it and counts toward the mission', async ({ page }) => {
   await startWorld(page, 2, true); // 捷元電腦: squash 4 bugs
   const before = await state(page);
@@ -271,16 +301,19 @@ test('small enemies: walking into one from the side is a hit', async ({ page }) 
   expect(s.stomped).toBe(0);
 });
 
-test('every world has a mission, shown in the HUD state', async ({ page }) => {
-  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
-  for (const n of [1, 3, 4, 5, 6, 7]) {
-    await startWorld(page, n);
+for (const [stage, level] of LEVELS.entries()) {
+  test(`mission appears in the HUD for ${level.theme}`, async ({ page }) => {
+    if (stage === 7) {
+      await page.addInitScript(() => localStorage.setItem('working-order-progress-v2', JSON.stringify({ done: [0, 1, 2, 3, 4, 5, 6], missions: [] })));
+    }
+    await startWorld(page, stage);
     const s = await state(page);
+    expect(s.level).toBe(stage);
     expect(s.mission.text.length).toBeGreaterThan(5);
     expect(s.mission.need).toBeGreaterThan(0);
     expect(s.mission.done).toBe(false);
-  }
-});
+  });
+}
 
 test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
