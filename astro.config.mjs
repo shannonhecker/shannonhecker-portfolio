@@ -9,6 +9,8 @@ export default defineConfig({
   // Canonical host: the share image, canonical links and sitemap resolve here.
   site: 'https://shannonhecker.com',
   output: 'static',
+  // Keep compiled scripts external so the production CSP only needs hashes for the early boot scripts.
+  vite: { build: { assetsInlineLimit: (file) => file.endsWith('.js') ? false : undefined } },
   trailingSlash: 'never',
   // Cache the shared stylesheet across cases instead of embedding the full
   // design system into every HTML document; tiny component styles stay inline.
