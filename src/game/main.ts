@@ -385,7 +385,17 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     clock += dt;
     achievementToast=Math.max(0,achievementToast-dt);
     if (!s.finished) s.elapsed += dt * 1000;
-    if (s.finished) { endT += dt; p.vx = 0; return; }
+    if (s.finished) {
+      endT += dt;
+      if (s.level === 0 && p.ride && !opts.reduceMotion) {
+        p.vx *= Math.exp(-6 * dt);
+        if (Math.abs(p.vx) < 1) p.vx = 0;
+        p.x = Math.min(lvl.w * TILE - PW, Math.max(0, p.x + p.vx * dt));
+        s.x = p.x;
+      } else p.vx = 0;
+      s.vx = p.vx;
+      return;
+    }
     for (const m of movers) { m.prevY = m.y; m.y = m.baseY * TILE - AMP * price(clock + m.i * 0.7); }
     if (riding && p.vy >= 0 && p.x + PW > riding.px && p.x < riding.px + riding.pw) p.y = riding.y - PH;
     else riding = null;
@@ -496,6 +506,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'F' && !s.finished) {
         if(boss?.hp){if(!finaleHint){opts.onStatus('Defeat the Scrollkeeper first. Face it and cast your wand with X or J, or tap Cast.');finaleHint=true;}continue;}
         if(boss&&!jump){if(!finaleHint){opts.onStatus('The castle is open! Press Up or Space beside the flag to raise it.');finaleHint=true;}continue;}
+        if (s.level === 0 && p.ride) { p.y = iy + TILE - PH; p.vy = 0; p.grounded = true; }
         if(boss){p.y=iy+TILE-PH;p.vx=0;p.vy=0;p.grounded=true;}
         s.finished = true; endT = 0; s.powerSeconds=0; setPowerMusic(false); sfx.finish(); unlockAchievements(true);
         if (MISSIONS[s.level].kind === 'ride' && p.ride) progress(1);
@@ -761,6 +772,31 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'C') { if (!drawIllustration(ctx, 'flag', ix + TILE / 2, iy + TILE, 26, 38)) W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART); }
       else if (it.kind === 'F') {
         if(boss){drawBedtimeCastle(ctx,ix,iy+TILE,s.finished?(opts.reduceMotion?1:Math.min(1,endT/1.6)):0,clock+endT,opts.reduceMotion);continue;}
+        if (theme.id === 'kaohsiung') {
+          // The last stretch opens onto the harbour. Keep the quay level with the road.
+          const shore = ix - 9 * TILE, quay = iy + TILE;
+          ctx.fillStyle = '#518fa0';
+          for (let ledge = 0; ledge < 5; ledge++) {
+            const left = shore + ledge * 36;
+            ctx.fillRect(left, quay - (ledge + 1) * 12, lvl.w * TILE - left, 12);
+          }
+          // A moored sailboat gives the water a readable silhouette at canvas scale.
+          const mast = ix - 3 * TILE;
+          ctx.fillStyle = '#374a56';
+          ctx.fillRect(mast, quay - 90, 2, 36);
+          ctx.fillRect(mast - 20, quay - 54, 44, 4);
+          ctx.fillRect(mast - 14, quay - 50, 32, 4);
+          ctx.fillStyle = '#fff0ce';
+          for (let strip = 0; strip < 6; strip++) ctx.fillRect(mast - 3 * (strip + 1), quay - 84 + strip * 5, 3 * (strip + 1), 5);
+          ctx.fillStyle = '#aad0c5';
+          for (let ripple = 0; ripple < 15; ripple++) {
+            ctx.fillRect(shore + 88 + ripple * 21, quay - 50 + (ripple % 3) * 12, 12, 2);
+          }
+          ctx.fillStyle = '#454a53';
+          for (let post = shore; post < lvl.w * TILE; post += 64) ctx.fillRect(post, quay - 10, 6, 10);
+          ctx.drawImage(theme.finish, ix - 72, quay - 66, 96, 66);
+          continue;
+        }
         const im = theme.finish;
         if (!drawIllustration(ctx, 'finish', ix + TILE / 2, iy + TILE, 42, 54)) W(im, ix + TILE / 2 - im.width, iy + TILE - im.height / ART);
         // Bedtime: the egg hatches into this week's pet

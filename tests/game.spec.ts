@@ -5,7 +5,7 @@ import { T } from '../src/game/tuning';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
-test('slow game artwork stays behind the loading scene until the map is ready', async({page})=>{
+test('slow game artwork stays behind the loading scene until the opening is ready', async({page})=>{
   let release!:()=>void;
   const gate=new Promise<void>(resolve=>{release=resolve;});
   await page.route('**/game/world-map.webp',async route=>{await gate;await route.continue();});
@@ -17,15 +17,14 @@ test('slow game artwork stays behind the loading scene until the map is ready', 
   release();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state','playing');
   await expect(page.locator('.game-loading')).toBeHidden();
-  await expect.poll(async()=> (await state(page)).mode).toBe('map');
+  await expect.poll(async()=> (await state(page)).mode).toBe('level');
 });
 
-// Press Play (which opens the career map), then Space to start the first world.
+// Start adventure launches the first stage directly.
 async function boot(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
-  await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
@@ -226,7 +225,7 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     // every card reports that world's mission
     await expect(card.locator('.game-mission')).toContainText('Mission');
     // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
-    if (n === 0) { expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
+    if (n === 0) { await expect(card.locator('.game-result-emblem')).toContainText('Kaohsiung waterfront'); expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
     if(n===2){await card.locator('[data-next="3"]').click();await expect(page.locator('.game-flight')).toBeVisible();await expect(page.locator('.game-flight')).toContainText('2013');await page.getByRole('button',{name:'Skip flight'}).click();await expect.poll(async()=>(await state(page)).level).toBe(3);}
     if(n===7){expect(s.wandHits).toBe(3);expect(s.weapon).toBe('starlight-wand');expect(s.boss.hp).toBe(0);expect((await state(page)).flagRaised).toBe(true);await page.reload();await page.getByRole('button',{name:'Start adventure'}).click();await page.locator('#game-world').click();await expect(page.locator('.game-stages [data-stage="7"]')).toHaveAttribute('data-completed','true');expect((await state(page)).done).toContain(7);}
   });
@@ -315,9 +314,9 @@ for (const [stage, level] of LEVELS.entries()) {
   });
 }
 
-test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
+test('World map opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await page.locator('#game-world').click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
@@ -344,10 +343,12 @@ test('stages of a world play on: the card offers the next stage, then the next w
   await expect(page.locator('.game-stages button')).toHaveCount(8);
 });
 
-test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
-  await page.goto('/?level=1#top');
+test('Start adventure opens Kaohsiung and the scooter is on the safe opening stretch', async ({ page }) => {
+  await page.goto('/');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  expect((await state(page)).mode).toBe('level');
+  expect((await state(page)).level).toBe(0);
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
   // read the speed as soon as it builds: a fixed wait could land after the
@@ -460,7 +461,7 @@ test.describe('mobile fullscreen map', () => {
     test(`map stays readable at ${viewport.width} × ${viewport.height}`, async ({ page }) => {
       await page.setViewportSize(viewport);
       await page.goto('/');
-      await page.getByRole('button', { name: 'Start adventure' }).click();
+      await page.locator('#game-world').click();
       await expect(page.locator('.game')).toHaveAttribute('data-state', 'playing');
       await expect(page.locator('.game-touch')).toBeHidden();
       const canvas = page.locator('#game');
@@ -501,7 +502,7 @@ test('the world map and a stage make no new canvases once they are running', asy
   });
   const made = () => page.evaluate(() => (window as unknown as { __canvases: { n: number } }).__canvases.n);
   await page.goto('/');
-  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await page.locator('#game-world').click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await expect.poll(async () => (await state(page)).mode).toBe('map');
   const onMap = await made();

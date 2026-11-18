@@ -2,7 +2,7 @@ import { startScore, endScore } from './leaderboard';
 import { track } from './analytics';
 // Loads the game chunk only when someone presses Play. If the chunk fails,
 // the poster stays and the rest of the page is untouched. Pressing Play opens
-// the world map; a case page's "Play this case as a level" link (?level=n)
+// Kaohsiung; a case page's "Play this case as a level" link (?level=n)
 // starts that world directly. Between worlds a card states the facts and
 // links to the case.
 const root = document.querySelector<HTMLElement>('.play .game');
@@ -41,7 +41,6 @@ function syncCompleted(){
  stageButtons.forEach(button=>{const n=Number(button.dataset.stage),complete=done.includes(n),locked=n===7&&!Array.from({length:7},(_,i)=>i).every(i=>done.includes(i));button.dataset.completed=String(complete);button.dataset.locked=String(locked);button.disabled=locked;button.setAttribute('aria-label',`${button.textContent?.trim()}${locked?', locked: complete all seven earlier stages':complete?', completed':''}`);});
 }
 const param = new URLSearchParams(location.search).get('level');
-const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
 syncStage(chosen);
 
@@ -162,9 +161,9 @@ document.addEventListener('fullscreenchange', () => { if (!document.fullscreenEl
 // in the overlay, Escape leaves too (capture phase: before the game's own pause key)
 window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape' && !timeline?.open) { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
 exitBtn?.addEventListener('click', exitFull);
-fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
+fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, false); });
 
-play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, !fromCase); });
+play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, false); });
 mapButton?.addEventListener('click',()=>{enterFull();void boot(chosen,true);});
 stageButtons.forEach(button=>button.addEventListener('click',()=>{enterFull();void boot(Number(button.dataset.stage),false);}));
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>

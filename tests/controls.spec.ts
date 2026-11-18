@@ -14,7 +14,7 @@ test('the visual stage chooser starts a stage without a native dropdown', async 
 
 test('clicking a world on the map keeps stage selection in step', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await page.locator('#game-world').click();
   await ready(page);
   // world 5 sits at (226, 214) on the 480×270 map
   const box = (await page.locator('#game').boundingBox())!;
@@ -123,7 +123,7 @@ test('Play opens the game full screen; Escape and the Exit button both leave', a
 
 test('leaving full screen on the map never leaves the next world stuck', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await page.locator('#game-world').click();
   await ready(page);
   await page.keyboard.press('Escape');
   await page.locator('#game-world').click();
@@ -147,7 +147,7 @@ test('full screen on a phone: an overlay with the touch controls and an exit', a
 
 test('map hover previews a stage, keyboard changes selection and ambient motion pauses offscreen', async ({page})=>{
   await page.goto('/');
-  await page.getByRole('button',{name:'Start adventure'}).click();await ready(page);
+  await page.locator('#game-world').click();await ready(page);
   const box=(await page.locator('#game').boundingBox())!;
   await page.mouse.move(box.x+226/480*box.width,box.y+214/270*box.height);
   await expect.poll(async()=>(await state(page)).mapHovered).toBe(4);
@@ -167,7 +167,7 @@ test('map hover previews a stage, keyboard changes selection and ambient motion 
 
 test('reduced motion keeps the interactive map still', async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.goto('/');await page.getByRole('button',{name:'Start adventure'}).click();await ready(page);
+  await page.goto('/');await page.locator('#game-world').click();await ready(page);
   const time=(await state(page)).mapTime;
   await page.locator('#game').press('ArrowDown');
   expect((await state(page)).mapSelected).toBe(1);
