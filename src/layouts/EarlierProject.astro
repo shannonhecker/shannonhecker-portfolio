@@ -8,6 +8,8 @@ import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { Picture, getImage } from 'astro:assets';
+import { resolve } from 'node:path';
+import sharp from 'sharp';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { imageWidths } from '../lib/image-widths';
@@ -44,23 +46,23 @@ const PAN = 760; // The width a wide picture keeps on a phone, in CSS pixels.
 
 /** One figure: the picture on its stage, then a quiet link to the full-size file. A picture never shows
     wider than its own pixels, and every width up to the original is offered. `alt` is already HTML-safe. */
-async function figure(meta: ImageMetadata, alt: string, opts: { cover?: boolean } = {}) {
+async function figure(meta: ImageMetadata, alt: string, coverPreview?: string) {
   const widths = imageWidths(meta.width);
   const set = async (format: 'avif' | 'webp') =>
     (await Promise.all(widths.map(async (w) => { const i = await getImage({ src: meta, width: w, format, quality: 85 }); return `${i.src} ${w}w`; }))).join(', ');
   const wide = isWide(meta);
   const sizes = [
     wide ? `(max-width: 640px) min(${meta.width}px, ${PAN}px)` : '',
-    opts.cover ? '(min-width: 1500px) 1376px' : `(min-width: 901px) min(${meta.width}px, calc(75vw - 24px))`,
-    opts.cover ? 'calc(100vw - 48px)' : `min(${meta.width}px, calc(100vw - 48px))`,
+    coverPreview ? '(min-width: 1500px) 1376px' : `(min-width: 901px) min(${meta.width}px, calc(75vw - 24px))`,
+    coverPreview ? 'calc(100vw - 48px)' : `min(${meta.width}px, calc(100vw - 48px))`,
   ].filter(Boolean).join(', ');
   const big = await getImage({ src: meta, width: meta.width, format: 'webp', quality: 85 });
   const light = matte.includes(nameOf(meta));
-  const load = opts.cover ? 'loading="eager" decoding="async" fetchpriority="high"' : 'loading="lazy" decoding="async"';
-  const classes = ['earlier-fig', opts.cover ? 'earlier-cover' : '', light ? 'is-matte' : '', wide ? 'is-wide' : ''].filter(Boolean).join(' ');
+  const load = coverPreview ? 'loading="eager" decoding="async" fetchpriority="high"' : 'loading="lazy" decoding="async"';
+  const classes = ['earlier-fig', coverPreview ? 'earlier-cover' : '', light ? 'is-matte' : '', wide ? 'is-wide' : ''].filter(Boolean).join(' ');
   const pan = wide ? ' tabindex="0" role="group" aria-label="Wide image, scroll sideways to see all of it"' : '';
   const picture = `<picture><source type="image/avif" srcset="${await set('avif')}" sizes="${sizes}"><img src="${big.src}" srcset="${await set('webp')}" sizes="${sizes}" alt="${alt}" width="${meta.width}" height="${meta.height}" ${load}></picture>`;
-  return `<figure class="${classes}" style="--w:${meta.width}px;--pan:${PAN}px"><div class="earlier-stage"><div class="earlier-pan"${pan}>${picture}</div></div><a class="earlier-fig-open" href="${big.src}" target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a></figure>`;
+  return `<figure class="${classes}" style="--w:${meta.width}px;--pan:${PAN}px${coverPreview ? `;--cover-preview:url(data:image/webp;base64,${coverPreview})` : ''}"><div class="earlier-stage"><div class="earlier-pan"${pan}>${picture}</div></div><a class="earlier-fig-open" href="${big.src}" target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a></figure>`;
 }
 async function bodyFigure(tag: string) {
   const file = attr(tag, 'src').split('/').pop()!.split('.')[0];
@@ -68,7 +70,11 @@ async function bodyFigure(tag: string) {
   if (!meta) return `<figure class="earlier-fig">${tag}</figure>`;
   return figure(meta, attr(tag, 'alt'));
 }
-const coverHtml = await figure(cover, esc(coverAlt), { cover: true });
+// Include the cover's first paint in the HTML so a slow image response never leaves an empty stage.
+const coverPath = Object.keys(assets).find(path => assets[path].default.src === cover.src);
+if (!coverPath) throw new Error(`Missing cover source for ${entry.id}`);
+const preview = await sharp(resolve('src/layouts', coverPath)).resize({ width: 144, withoutEnlargement: true }).webp({ quality: 55 }).toBuffer();
+const coverHtml = await figure(cover, esc(coverAlt), preview.toString('base64'));
 
 // The body is a flat run of headings, paragraphs and pictures. Cut it into sections at
 // each h2 so a label can stay beside its own section as the text scrolls.

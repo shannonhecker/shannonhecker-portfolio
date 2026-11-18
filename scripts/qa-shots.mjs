@@ -43,12 +43,15 @@ try {
         for (let y = 0; y < document.documentElement.scrollHeight; y += Math.round(innerHeight / 2)) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 80)); }
         scrollTo(0, document.documentElement.scrollHeight);
       });
-      await page.waitForFunction(() => [...document.images].every((img) => img.complete && img.naturalWidth > 0), null, { timeout: 20000 }).catch(() => {
-        console.warn(`images still missing on ${path}`);
-      });
-      // Artwork far below the window is skipped by content-visibility until it is near; a full-page capture
-      // would show it empty. Paint everything for the capture.
+      // Content outside the viewport still needs to paint in a full-page capture.
       await page.addStyleTag({ content: '*{content-visibility:visible!important}' });
+      await page.evaluate(async () => {
+        const rendered = [...document.images].filter(img => img.getBoundingClientRect().width > 0);
+        await Promise.all(rendered.map(async img => {
+          try { await img.decode(); }
+          catch { throw new Error(`Could not decode ${img.currentSrc || img.src} on ${location.pathname}`); }
+        }));
+      });
       await page.evaluate(() => scrollTo(0, 0));
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(400);

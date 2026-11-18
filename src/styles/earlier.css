@@ -84,7 +84,7 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 
 /* Cover: straight after the head, so it starts at about y=440 or higher at 1440x900. */
 .earlier-cover{margin-top:clamp(24px,1.7vw,28px);max-width:none}
-.earlier-cover .earlier-pan picture{max-width:var(--w)}
+.earlier-cover .earlier-pan picture{max-width:var(--w);background:var(--cover-preview) center / contain no-repeat}
 
 /* Outcomes: figures first, each with its label. A value that is a word or a short phrase is set large
    too, so the row keeps its weight; a numeral is larger still. */
