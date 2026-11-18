@@ -5,7 +5,7 @@ import { T } from '../src/game/tuning';
 
 const state = (page: Page) => page.evaluate(() => (window as unknown as { __game: () => any }).__game());
 
-test('slow game artwork stays behind the loading scene until the opening is ready', async({page})=>{
+test('slow game artwork stays behind the loading scene until the map is ready', async({page})=>{
   let release!:()=>void;
   const gate=new Promise<void>(resolve=>{release=resolve;});
   await page.route('**/game/world-map.webp',async route=>{await gate;await route.continue();});
@@ -17,14 +17,31 @@ test('slow game artwork stays behind the loading scene until the opening is read
   release();
   await expect(page.locator('.play .game')).toHaveAttribute('data-state','playing');
   await expect(page.locator('.game-loading')).toBeHidden();
-  await expect.poll(async()=> (await state(page)).mode).toBe('level');
+  await expect.poll(async()=> (await state(page)).mode).toBe('map');
 });
 
-// Start adventure launches the first stage directly.
+test('leaving during the first load returns to the silent poster', async ({ page }) => {
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/game/world-map.webp', async route => { await gate; await route.continue(); });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await expect(page.locator('.game-loading')).toBeVisible();
+  await page.locator('#game-exit').click();
+  release();
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
+  expect(await page.evaluate(() => typeof (window as any).__game)).toBe('undefined');
+  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'playing');
+  expect((await state(page)).audio.playing).toBe(true);
+});
+
+// Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  await page.keyboard.press('Space');
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
@@ -314,11 +331,12 @@ for (const [stage, level] of LEVELS.entries()) {
   });
 }
 
-test('World map opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
+test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
-  await page.locator('#game-world').click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
+  expect((await state(page)).mapSelected).toBe(0);
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('#game-world')).toHaveAttribute('data-stage','3');
@@ -343,12 +361,10 @@ test('stages of a world play on: the card offers the next stage, then the next w
   await expect(page.locator('.game-stages button')).toHaveCount(8);
 });
 
-test('Start adventure opens Kaohsiung and the scooter is on the safe opening stretch', async ({ page }) => {
-  await page.goto('/');
+test('Kaohsiung: the scooter makes you faster', async ({ page }) => {
+  await page.goto('/?level=1#top');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
-  expect((await state(page)).mode).toBe('level');
-  expect((await state(page)).level).toBe(0);
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await state(page)).riding, { timeout: 6000 }).toBe(true);
   // read the speed as soon as it builds: a fixed wait could land after the
@@ -404,14 +420,16 @@ test.describe('JavaScript off', () => {
   });
 });
 
-test('sound is off by default and has one toggle', async ({ page }) => {
+test('sound starts enabled and remembers a mute across visits', async ({ page }) => {
   await page.goto('/');
   const btn = page.getByRole('button', { name: 'Sound' });
-  await expect(btn).toHaveAttribute('aria-pressed', 'false');
-  await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
+  await btn.click();
+  await page.reload();
+  await expect(btn).toHaveAttribute('aria-pressed', 'false');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  expect((await state(page)).audio.enabled).toBe(false);
 });
 
 
@@ -461,16 +479,18 @@ test.describe('mobile fullscreen map', () => {
     test(`map stays readable at ${viewport.width} × ${viewport.height}`, async ({ page }) => {
       await page.setViewportSize(viewport);
       await page.goto('/');
-      await page.locator('#game-world').click();
+      await page.getByRole('button', { name: 'Start adventure' }).click();
       await expect(page.locator('.game')).toHaveAttribute('data-state', 'playing');
       await expect(page.locator('.game-touch')).toBeHidden();
       const canvas = page.locator('#game');
       const bounds = await canvas.boundingBox();
-      expect(bounds!.height).toBeGreaterThan(viewport.width < viewport.height ? 400 : 290);
+      expect(bounds!.height).toBeGreaterThan(viewport.width < viewport.height ? 175 : 290);
       expect(bounds!.width / bounds!.height).toBeCloseTo(16 / 9, 1);
       if (viewport.width < viewport.height) {
         await expect(page.locator('.game-map-hint')).toBeVisible();
-        expect(await page.locator('.game').evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+        expect(await page.locator('.game').evaluate(el => el.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+        expect(bounds!.x).toBeGreaterThanOrEqual(0);
+        expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
         // A drag beginning on a marker must not start a level.
         const x = bounds!.x + NODES[0][0] / 480 * bounds!.width;
         const y = bounds!.y + NODES[0][1] / 270 * bounds!.height;
@@ -502,7 +522,7 @@ test('the world map and a stage make no new canvases once they are running', asy
   });
   const made = () => page.evaluate(() => (window as unknown as { __canvases: { n: number } }).__canvases.n);
   await page.goto('/');
-  await page.locator('#game-world').click();
+  await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await expect.poll(async () => (await state(page)).mode).toBe('map');
   const onMap = await made();

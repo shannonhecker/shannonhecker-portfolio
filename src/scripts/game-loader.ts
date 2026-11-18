@@ -1,8 +1,9 @@
 import { startScore, endScore } from './leaderboard';
 import { track } from './analytics';
+import { activateGameAudio } from '../game/audio-context';
 // Loads the game chunk only when someone presses Play. If the chunk fails,
 // the poster stays and the rest of the page is untouched. Pressing Play opens
-// Kaohsiung; a case page's "Play this case as a level" link (?level=n)
+// the world map; a case page's "Play this case as a level" link (?level=n)
 // starts that world directly. Between worlds a card states the facts and
 // links to the case.
 const root = document.querySelector<HTMLElement>('.play .game');
@@ -24,7 +25,9 @@ type Game = ReturnType<typeof import('../game/main').start>;
 let game: Game | null = null;
 let musicControl: ((on:boolean)=>void) | undefined;
 let bootSequence = 0;
-let soundOn = false;
+const soundKey = 'working-order-sound';
+let soundOn = true;
+try { soundOn = localStorage.getItem(soundKey) !== 'off'; } catch {}
 const flight=document.querySelector<HTMLElement>('.game-flight');
 let cancelFlight:(()=>void)|undefined;
 function flyToUK(){
@@ -41,6 +44,7 @@ function syncCompleted(){
  stageButtons.forEach(button=>{const n=Number(button.dataset.stage),complete=done.includes(n),locked=n===7&&!Array.from({length:7},(_,i)=>i).every(i=>done.includes(i));button.dataset.completed=String(complete);button.dataset.locked=String(locked);button.disabled=locked;button.setAttribute('aria-label',`${button.textContent?.trim()}${locked?', locked: complete all seven earlier stages':complete?', completed':''}`);});
 }
 const param = new URLSearchParams(location.search).get('level');
+const fromCase = param !== null;
 let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
 syncStage(chosen);
 
@@ -79,6 +83,7 @@ async function boot(level: number, toMap: boolean) {
     if (statusEl) statusEl.textContent = 'Preparing your adventure…';
     await mod.prepareArt();
     if (sequence !== bootSequence) return;
+    if (!game && !full) { root.dataset.state = 'poster'; return; }
     showEnd(null);
     if(crossingToUK){await flyToUK();if(sequence!==bootSequence)return;}
     if(stageNav)stageNav.hidden=!toMap;
@@ -141,6 +146,7 @@ function setFull(on: boolean, deferLook = false) {
 }
 function enterFull() {
   if (!box || full) return;
+  if (soundOn) activateGameAudio();
   setFull(true);
   // must run inside the click that asked for it; a refusal keeps the overlay
   if (document.fullscreenEnabled) changeNativeFullscreen(async()=>{if(!document.fullscreenElement && full) await box.requestFullscreen?.();});
@@ -161,9 +167,9 @@ document.addEventListener('fullscreenchange', () => { if (!document.fullscreenEl
 // in the overlay, Escape leaves too (capture phase: before the game's own pause key)
 window.addEventListener('keydown', (e) => { if (full && e.key === 'Escape' && !timeline?.open) { e.preventDefault(); e.stopPropagation(); exitFull(); } }, true);
 exitBtn?.addEventListener('click', exitFull);
-fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, false); });
+fullBtn?.addEventListener('click', () => { enterFull(); if (!game) boot(chosen, !fromCase); });
 
-play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, false); });
+play?.addEventListener('click', () => { track('game_start'); enterFull(); boot(chosen, !fromCase); });
 mapButton?.addEventListener('click',()=>{enterFull();void boot(chosen,true);});
 stageButtons.forEach(button=>button.addEventListener('click',()=>{enterFull();void boot(Number(button.dataset.stage),false);}));
 document.querySelectorAll<HTMLButtonElement>('.game-end [data-next]').forEach((b) =>
@@ -173,11 +179,13 @@ document.querySelectorAll<HTMLButtonElement>('.game-end [data-map]').forEach((b)
   b.addEventListener('click', () => boot(Math.min(ends.length - 1, chosen + 1), true)),
 );
 
-// Sound: off by default, one toggle (brief).
+// Sound follows the visitor’s preference across visits.
 const soundBtn = document.getElementById('game-sound') as HTMLButtonElement | null;
+soundBtn?.setAttribute('aria-pressed', String(soundOn));
 let setGameSound: ((on: boolean) => void) | undefined;
 soundBtn?.addEventListener('click', () => {
   soundOn = !soundOn;
+  try { localStorage.setItem(soundKey, soundOn ? 'on' : 'off'); } catch {}
   soundBtn.setAttribute('aria-pressed', String(soundOn));
   // Called straight from the tap, with no await in between, so iPhone Safari
   // lets the audio start.

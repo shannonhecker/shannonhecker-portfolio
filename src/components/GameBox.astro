@@ -100,13 +100,13 @@ import { CASES } from '../lib/cases';
     <button type="button" tabindex="-1" data-k="jump" aria-label="Jump"><Icon name="arrow-up" /></button>
     <button type="button" tabindex="-1" data-k="cast" aria-label="Cast starlight wand" hidden>Cast</button>
   </div>
-  <p class="game-map-hint">Swipe across the map · Tap a marker to play</p>
+  <p class="game-map-hint">Tap a marker or choose a stage below</p>
   <div class="game-bar">
     <button type="button" class="game-sound" id="game-world">World map</button>
     <span class="game-tools">
       <button type="button" class="game-sound" id="game-timeline-open" aria-haspopup="dialog" aria-controls="game-timeline">Timeline</button>
       <button type="button" class="game-sound" id="game-full">Full screen</button>
-      <button type="button" class="game-sound" id="game-sound" aria-pressed="false">Sound</button>
+      <button type="button" class="game-sound" id="game-sound" aria-pressed="true">Sound</button>
     </span>
   </div>
   <GameTimeline />
@@ -114,6 +114,6 @@ import { CASES } from '../lib/cases';
     {JOURNEY.map((stage,i)=><button type="button" data-stage={i}><span>{stageCode(i)}</span>{stage.place}</button>)}
   </nav>
   <p class="game-caption">Working Order · from Kaohsiung to London to what's next</p>
-  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Start adventure opens Kaohsiung full screen, or the selected stage from a project link. World map lets you choose a stage; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. In the final stage, face the boss and press X or J, gamepad X, or tap Cast to fire your starlight wand. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
+  <p id="game-desc" class="vh">An optional pixel-art platformer that tells Shannon's career as a world map, in three worlds and a bonus: Taiwan (Kaohsiung, Ling Tung University, web design at Genuine C&C Inc.), London (London Met, J.P. Morgan, Barclays), Next: AI, and a bonus world for Winking Star. A world's stages play one after another. Collect a power star for eight seconds of extra speed and protection. Each stage has a small enemy you can jump on and an optional mission for a gold star. Start adventure opens the world map with Kaohsiung selected. Tap its marker or press Space to ride. A project link starts its own stage; Escape or the Exit full screen button returns to the page. Arrow keys or WASD to move, Space or Up to jump, Escape to pause when not full screen. In the final stage, face the boss and press X or J, gamepad X, or tap Cast to fire your starlight wand. On the map, Left and Right choose a world, Up and Down choose a stage, and Space starts it. Hover a marker to preview it, or click or tap it to play.</p>
   <p id="game-status" class="vh" aria-live="polite"></p>
 </div>

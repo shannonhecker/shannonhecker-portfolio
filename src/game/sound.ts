@@ -1,7 +1,6 @@
 import {scores as tracks, melodySteps} from './music-score';
-// Original synthesised sounds (no samples, no borrowed tunes). Off by default;
-// the page's Sound toggle switches it on. One shared AudioContext, created on
-// the first user gesture as browsers require.
+import { activateGameAudio } from './audio-context';
+// Original synthesised sounds share the context activated by the Play gesture.
 let ac: AudioContext | null = null;
 export let soundOn = false;
 const effects=new Set<OscillatorNode>();
@@ -10,14 +9,11 @@ function stopEffects(){effects.forEach(voice=>{try{voice.stop();}catch{}});effec
 // iPhone Safari only starts audio inside a tap, and the first setSound() often
 // runs just after one (the game module loads asynchronously). Any later tap or
 // key press finishes the job, so sound never stays silently suspended.
-function unlock() { if (soundOn && ac && ac.state !== 'running') void ac.resume(); }
+function unlock() { if (soundOn && ac && ac.state !== 'running') void ac.resume().catch(() => {}); }
 if (typeof window !== 'undefined') for (const type of ['pointerdown', 'touchend', 'keydown'] as const) window.addEventListener(type, unlock, { capture: true, passive: true });
 export function setSound(v: boolean) {
   soundOn = v;
-  if (v && !ac) ac = new AudioContext();
-  // Without this, an iPhone with its ringer switch on silent mutes Web Audio.
-  if (v) { try { const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession; if (session) session.type = 'playback'; } catch {} }
-  if (v) void ac?.resume();
+  if (v) ac = activateGameAudio();
   if(!v)stopEffects();
   syncMusic();
 }

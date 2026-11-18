@@ -10,7 +10,8 @@ test('a power star must be collected, protects against an enemy, then expires',a
  await expect.poll(async()=>(await state(page)).powerSeconds,{timeout:9500}).toBe(0);expect((await state(page)).audio.power).toBe(false);
 });
 test('background music follows the sound toggle and stops on leaving both level and map',async({page})=>{
- await start(page);expect((await state(page)).audio.playing).toBe(false);
+ await start(page);expect((await state(page)).audio.playing).toBe(true);
+ await page.getByRole('button',{name:'Sound'}).click();expect((await state(page)).audio.playing).toBe(false);
  await page.getByRole('button',{name:'Sound'}).click();await expect.poll(async()=>(await state(page)).audio.playing).toBe(true);
  await page.getByRole('button',{name:'Exit full screen'}).click();expect((await state(page)).audio.playing).toBe(false);
  await page.locator('#game-world').click();await expect.poll(async()=>(await state(page)).mode).toBe('map');expect((await state(page)).audio.playing).toBe(true);
@@ -35,7 +36,7 @@ test('stage changes play different note sequences and stop the previous song',as
   };
  });
  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
- await start(page);await page.getByRole('button',{name:'Sound',exact:true}).click();
+ await start(page);
  const tunes=new Set<string>(),sequences=new Set<string>();
  for(let stage=0;stage<8;stage++){
   await page.locator('#game-world').click();
@@ -58,7 +59,6 @@ test('stage changes play different note sequences and stop the previous song',as
 test('falling plays the death cue and muting clears all voices',async({page})=>{
  await page.goto('/?level=1');await page.getByRole('button',{name:'Start adventure'}).click();
  await page.waitForFunction(()=>(window as any).__game?.()?.grounded);
- await page.getByRole('button',{name:'Sound',exact:true}).click();
  await expect(page.locator('#game')).toBeFocused();await expect.poll(async()=>(await state(page)).audio.enabled).toBe(true);
  await page.keyboard.down('ArrowRight');
  await expect.poll(async()=>(await state(page)).audio.deaths,{timeout:12000,intervals:[30]}).toBeGreaterThan(0);
@@ -69,7 +69,7 @@ test('falling plays the death cue and muting clears all voices',async({page})=>{
 });
 
 test('timeline contains life and world milestones and pauses play until closed',async({page})=>{
- await start(page);await page.getByRole('button',{name:'Sound',exact:true}).click();
+ await start(page);
  await page.getByRole('button',{name:'Timeline',exact:true}).click();
  const journal=page.getByRole('dialog',{name:'Life along the way'});
  await expect(journal).toBeVisible();expect((await state(page)).paused).toBe(true);expect((await state(page)).audio.playing).toBe(false);
