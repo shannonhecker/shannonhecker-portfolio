@@ -3,7 +3,7 @@
 :root { --display:'Inter Tight','Inter',sans-serif; --space-section:clamp(88px,9vw,144px); }
 .case-page[data-project=winking-star] { --display:'Inter Tight','Inter',sans-serif; }
 h1,h2,h3,h4,.h-giant,.hero .h-giant,.h-chapter,.h-section,.h-sub,
-.case-page .beat .body>.h-sub,#work .row h3,.principle h3,#links .big h2,
+.case-page .beat .body>.h-sub,#work .row :is(h2,h3),.principle h3,#links .big h2,
 .case-page .dec h3,.ws .dec h3,.process-heading h3,
 .persona-roles h4,.process-journey h4,.decision-map h4,
 .ws .chapter-head h1,.next-case .row h3,.build-log h1 {

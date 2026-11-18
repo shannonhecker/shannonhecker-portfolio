@@ -16,7 +16,7 @@
 #work .row { display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 12px;align-content:start;align-items:center;padding:0;border:0; }
 #work .row .n { grid-column:1;grid-row:2;align-self:center;margin:0;font-size:13px;gap:6px; }
 #work .row .n .pixel-object { width:24px;height:24px; }
-#work .row h3 { grid-column:2;grid-row:2;font-size:clamp(25px,2.3vw,38px);line-height:1.12;letter-spacing:-.035em;align-self:center; }
+#work .row :is(h2,h3) { grid-column:2;grid-row:2;font-size:clamp(25px,2.3vw,38px);line-height:1.12;letter-spacing:-.035em;align-self:center; }
 #work .row .meta { grid-column:2/-1;grid-row:3;max-width:58ch;font-size:15px;line-height:1.65;padding-right:24px; }
 #work .row .arrow { grid-column:3;grid-row:2;align-self:center;justify-self:end;font-size:14px;padding-right:12px; }
 #work .row>picture,#work .row>.project-preview { grid-column:1/-1;grid-row:1;display:flex;align-items:center;justify-content:center;aspect-ratio:1.3;padding:clamp(20px,3.2vw,60px);background:var(--work-surface);border-radius:var(--radius);overflow:hidden; }
@@ -81,7 +81,7 @@ html[data-theme=dark] #work .row[data-chapter=ai] { --work-surface:#302940; }
  #work .row { grid-template-columns:auto minmax(0,1fr) auto;gap:18px 10px; }
  #work .row>picture,#work .row>.project-preview { grid-column:1/-1;grid-row:1;padding:18px; }
  #work .row .n { grid-column:1;grid-row:2;margin:0;align-self:center; }
- #work .row h3 { grid-column:2;grid-row:2;font-size:clamp(22px,5.7vw,34px);align-self:center; }
+ #work .row :is(h2,h3) { grid-column:2;grid-row:2;font-size:clamp(22px,5.7vw,34px);align-self:center; }
  #work .row .arrow { grid-column:3;grid-row:2;align-self:center;font-size:13px; }
  #work .row .meta { grid-column:1/-1;grid-row:3;font-size:15px;max-width:none; }
  #work .row>.appstore-preview { gap:6px;padding:12px; }
@@ -181,10 +181,10 @@ html:not(.has-js) .case-contents { display:none; }
 .case-page .dg-i,.case-page .process-step,.case-page .decision-map .decision-number { font-family:var(--body); }
 
 /* The project arrow belongs to its title, with room reserved before hover. */
-.row h3 .arrow,#work .row h3 .arrow { display:inline-block;min-height:0;padding:0;margin-left:.4em;font:inherit;line-height:inherit;color:inherit;vertical-align:-.125em;opacity:0;transform:translateX(-6px);translate:none;transition:opacity .2s ease,transform .3s cubic-bezier(.16,1,.3,1); }
-.row:hover h3 .arrow,.row:focus-visible h3 .arrow,#work .row:hover h3 .arrow,#work .row:focus-visible h3 .arrow { opacity:1;transform:translateX(0);translate:none; }
-@media(hover:none),(pointer:coarse){.row h3 .arrow,#work .row h3 .arrow{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.row h3 .arrow,#work .row h3 .arrow{transition:none}}
+.row :is(h2,h3) .arrow,#work .row :is(h2,h3) .arrow { display:inline-block;min-height:0;padding:0;margin-left:.4em;font:inherit;line-height:inherit;color:inherit;vertical-align:-.125em;opacity:0;transform:translateX(-6px);translate:none;transition:opacity .2s ease,transform .3s cubic-bezier(.16,1,.3,1); }
+.row:hover :is(h2,h3) .arrow,.row:focus-visible :is(h2,h3) .arrow,#work .row:hover :is(h2,h3) .arrow,#work .row:focus-visible :is(h2,h3) .arrow { opacity:1;transform:translateX(0);translate:none; }
+@media(hover:none),(pointer:coarse){.row :is(h2,h3) .arrow,#work .row :is(h2,h3) .arrow{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.row :is(h2,h3) .arrow,#work .row :is(h2,h3) .arrow{transition:none}}
 
 .avatar-cursor { position:fixed;inset:0;pointer-events:none;z-index:10000;visibility:hidden;contain:layout style; }
 .avatar-cursor[data-visible=true] { visibility:visible; }
@@ -215,13 +215,6 @@ html:not(.has-js) .case-contents { display:none; }
 .landing-companion[data-pose=wave] .idle-smile{opacity:1;animation:none!important}
 @keyframes companion-arrive{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
 @media(prefers-reduced-motion:reduce){.greeting-frame{visibility:hidden!important}.idle-open{visibility:visible!important}.companion-avatar{animation:none!important;opacity:1!important}}
-@media(prefers-reduced-motion:no-preference){
- .has-js .hero-story>h1{animation:hero-copy-enter .55s .08s cubic-bezier(.16,1,.3,1) both}
- .has-js .hero-story>.hero-top{animation:hero-copy-enter .45s .16s cubic-bezier(.16,1,.3,1) both}
- .has-js .hero-story>.status-row{animation:hero-copy-enter .4s .22s cubic-bezier(.16,1,.3,1) both}
- .has-js .hero-story>.explore-work{animation:hero-copy-enter .4s .28s cubic-bezier(.16,1,.3,1) both}
- @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-}
 @media print{.hero-story>*{animation:none!important;opacity:1!important;clip-path:none!important}.companion-avatar{animation:none!important;opacity:1!important}}
 
 /* The scene arrives between the finished copy and the character greeting. */
@@ -277,7 +270,7 @@ html:not(.has-js) .case-contents { display:none; }
 @media(prefers-reduced-motion:reduce){.title-pointer,.play .title-traveller{animation:none}}
 
 /* Exact Figma cover compositions include their authored crop and framing. */
-.hero-story .h-giant,#work .work-title,#work .row h3{font-family:var(--body)}
+.hero-story .h-giant,#work .work-title,#work .row :is(h2,h3){font-family:var(--body)}
 #work .row>.home-artwork{position:relative;padding:0;display:block;aspect-ratio:681/523.844;border-radius:var(--radius);background:transparent}
 #work .home-artwork picture{display:block;position:absolute;inset:0}
 #work .home-artwork img{display:block;width:100%;height:100%;max-height:none;margin:0;border-radius:0;object-fit:cover}
@@ -310,22 +303,8 @@ html.game-is-full :is(.nav,.progress,.avatar-cursor){visibility:hidden!important
 .split[data-scroll-motion] .wd{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
 .hero-word-window{display:inline-block;vertical-align:top;padding-block:.08em;margin-block:-.08em}
 .hero-word,.hero-copy-depth{display:inline-block}
-/* Keep a single accessible sentence and natural line wrapping. Cropped words
-   return to their complete position when the reader scrolls back to the top. */
-@media(prefers-reduced-motion:no-preference) and (hover:hover){
- .has-js .hero-word-window{animation:hero-word-arrive .45s calc(.08s + var(--word-index,0)*.02s) cubic-bezier(.16,1,.3,1) backwards}
- @keyframes hero-word-arrive{from{clip-path:inset(0 0 100% 0);translate:0 18px}to{clip-path:inset(0);translate:0 0}}
-}
-.has-js .hero-story>:is(.hero-top,.status-row,.explore-work){animation-fill-mode:backwards}
 @media(prefers-reduced-motion:reduce),print{.hero-word,.hero-copy-depth,.hero-story .status-row>span{transform:none!important}.hero-word-window{animation:none!important;overflow:visible}}
-@media(prefers-reduced-motion:no-preference){
- @keyframes hero-copy-enter{from{opacity:0;transform:translateY(24px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
- @keyframes case-title-enter{from{opacity:0;translate:0 28px;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0 0;clip-path:inset(0 0 0 0)}}
- .case-page .chapter-head .eyebrow{animation:case-copy-enter .6s .1s cubic-bezier(.16,1,.3,1) both}
- .case-page .chapter-head .meta{animation:case-copy-enter .65s .18s cubic-bezier(.16,1,.3,1) both}
- .case-page .chapter-head .lead{animation:case-copy-enter .7s .26s cubic-bezier(.16,1,.3,1) both}
- @keyframes case-copy-enter{from{opacity:0;translate:0 20px}to{opacity:1;translate:0 0}}
-}
+
 @media(prefers-reduced-motion:reduce){.split .wd,.work-title,.process-heading h3{clip-path:none!important;transform:none!important;opacity:1!important}.case-page .chapter-head :is(.eyebrow,.meta,.lead){animation:none!important}}
 
 /* Decorative rules sit quietly between sections in either theme. Controls,
@@ -362,16 +341,8 @@ html.has-js .nav:not(.solid):not([data-menu-open]),html.has-js[data-theme=dark] 
 }
 @media(prefers-reduced-motion:reduce){html .nav{transition:none}}
 
-/* Keep phone entrances on opacity/transform compositor layers. Scroll masks
-   remain available once the reader moves through the page. */
 @media(max-width:760px) and (hover:none) and (prefers-reduced-motion:no-preference){
- .has-js .hero-story>:is(h1,.hero-top,.status-row,.explore-work){animation-name:hero-phone-enter}
- /* Settle the reading copy promptly on phones while the remaining intro
-    continues. This paragraph is the largest initial content on narrow screens. */
- .has-js .hero-story>.hero-top{animation:none}
- .has-js .hero-word-window{animation:none}
  .landing-companion[data-intro=true] .companion-avatar{animation-duration:.35s}
- @keyframes hero-phone-enter{from{transform:translateY(12px)}to{transform:none}}
 }
 
 /* Pair foreground and surface in every interactive state and both themes. */

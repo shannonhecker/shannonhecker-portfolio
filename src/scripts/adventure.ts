@@ -82,11 +82,8 @@ if(companion){
   await Promise.all(Array.from(companion.querySelectorAll<HTMLImageElement>('.greeting-frame')).map(image=>image.decode().catch(()=>{})));
   if(!enabled()){greetingActive=false;return;}
   const first=!greeted;greeted=true;
-  const copyAnimation=document.querySelector('.hero-story>h1')?.getAnimations()[0];
-  // Animation.currentTime stops at the final keyframe. Timeline time keeps
-  // advancing, so slow image decoding cannot replay a delay after the copy.
-  const elapsed=first&&copyAnimation?.startTime!=null
-    ?Math.max(0,Number(document.timeline.currentTime??0)-Number(copyAnimation.startTime)):0;
+  // Count the welcome delay from navigation, including time spent decoding the artwork.
+  const elapsed=first?performance.now():0;
   companion.style.setProperty('--intro-elapsed',`${elapsed}ms`);
   companion.dataset.entered='true';
   if(first)companion.dataset.intro='true';

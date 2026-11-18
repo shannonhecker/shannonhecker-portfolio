@@ -94,6 +94,7 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 }
 .wave-field.is-measured .wave-field__glow { opacity: var(--wf-glow); }
 .wave-field__canvas.is-ready { opacity: 1; }
+.wave-field[data-variant="hero"] .wave-field__canvas.is-ready { opacity: .55; }
 .wave-field[data-variant="ask"] .wave-field__canvas.is-ready { opacity: .75; }
 
 @media (max-width: 900px) {

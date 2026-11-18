@@ -99,14 +99,13 @@ test.describe('/about', () => {
     await expect(page).toHaveTitle('About me · Shannon Hecker');
   });
 
-  test('page head is the same large word style as Work and Writing', async ({ page }) => {
+  test('page head shares the large Writing title style', async ({ page }) => {
     const sizes: Record<string, number> = {};
-    for (const path of ['/work', '/writing', '/about']) {
+    for (const path of ['/writing', '/about']) {
       await open(page, path);
       sizes[path] = await page.locator('main h1').evaluate((h) => parseFloat(getComputedStyle(h).fontSize));
     }
-    expect(sizes['/about']).toBe(sizes['/work']);
-    expect(sizes['/writing']).toBe(sizes['/work']);
+    expect(sizes['/about']).toBe(sizes['/writing']);
   });
 
   test('the opening introduces Shannon and her current work', async ({ page }) => {

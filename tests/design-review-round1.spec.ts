@@ -198,7 +198,7 @@ test.describe('Privacy, finding 6', () => {
 
 test('Work, finding 7: the number sits level with the first line of every title', async ({ page }) => {
   await open(page, '/work', 1440);
-  const offsets = await page.locator('#work .row').evaluateAll((rows) => rows.map((r) => Math.round(r.querySelector('.n')!.getBoundingClientRect().top - r.querySelector('h3')!.getBoundingClientRect().top)));
+  const offsets = await page.locator('#work .row').evaluateAll((rows) => rows.map((r) => Math.round(r.querySelector('.n')!.getBoundingClientRect().top - r.querySelector('h2')!.getBoundingClientRect().top)));
   expect(offsets).toHaveLength(5);
   for (const o of offsets) expect(o).toBe(offsets[0]);
 });

@@ -28,14 +28,14 @@ test('home artwork and captions follow scroll in both directions',async({page})=
  const position=async(fraction:number)=>row.evaluate((el,f)=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*f),fraction);
  const artwork=row.locator('.home-artwork');const title=row.locator('h3');
  const y=async(locator:typeof artwork)=>locator.evaluate(el=>new DOMMatrix(getComputedStyle(el).transform).m42);
- await position(.93);await expect(row).toHaveAttribute('data-scroll-motion','true');await page.waitForTimeout(900);
+ await position(.90);await expect(row).toHaveAttribute('data-scroll-motion','true');await page.waitForTimeout(900);
  expect(await y(artwork)).toBeGreaterThan(20);expect(await y(title)).toBeGreaterThan(10);
  await title.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*.4));await page.waitForTimeout(900);
  await expect.poll(async()=>Math.abs(await y(artwork)),{timeout:2000}).toBeLessThan(1);await expect.poll(async()=>Math.abs(await y(title)),{timeout:2000}).toBeLessThan(1);
- await position(.93);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
+ await position(.90);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
  await row.focus();expect(Math.abs(await y(artwork))).toBeLessThan(1);
  await page.waitForTimeout(600);expect(Math.abs(await y(artwork))).toBeLessThan(1);
- await row.blur();await position(.93);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
+ await row.blur();await position(.90);await page.waitForTimeout(900);expect(await y(artwork)).toBeGreaterThan(20);
  await page.emulateMedia({reducedMotion:'reduce'});await expect.poll(()=>y(artwork),{timeout:1000}).toBe(0);
 });
 

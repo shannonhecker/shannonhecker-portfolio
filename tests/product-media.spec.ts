@@ -83,3 +83,50 @@ test('next-project previews fill their media column and retain native proportion
   }
  }
 });
+
+test('FX chart detail opens from the keyboard, pans on a phone, and restores focus', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/fx');
+  const trigger = page.getByRole('link', { name: 'View chart detail' });
+  await trigger.focus();
+  await page.keyboard.press('Enter');
+  const dialog = page.getByRole('dialog', { name: 'Repricing an order' });
+  await expect(dialog).toBeVisible();
+  const close = dialog.getByRole('button', { name: 'Close chart detail' });
+  await expect(close).toBeFocused();
+  const chart = dialog.getByRole('region', { name: 'Enlarged execution chart' });
+  await chart.locator('img').evaluate((img: HTMLImageElement) => img.decode());
+  const position = await chart.evaluate(el => ({ left: el.scrollLeft, top: el.scrollTop, max: el.scrollWidth - el.clientWidth }));
+  expect(position.left).toBeGreaterThan(0);
+  expect(position.top).toBeGreaterThan(0);
+  expect(position.left).toBeLessThan(position.max);
+  await chart.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect.poll(() => chart.evaluate(el => el.scrollLeft)).toBeGreaterThan(position.left);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await close.click();
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+});
+
+test('FX chart detail links directly to the complete image with JavaScript disabled', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+  try {
+    const page = await context.newPage();
+    await page.goto('/fx');
+    const trigger = page.getByRole('link', { name: 'View chart detail' });
+    const asset = await trigger.getAttribute('href');
+    expect(asset).toBeTruthy();
+    const response = await context.request.get(asset!);
+    expect(response.ok()).toBe(true);
+    expect(response.headers()['content-type']).toMatch(/^image\//);
+    await trigger.click();
+    expect(new URL(page.url()).pathname).toBe(asset);
+  } finally {
+    await context.close();
+  }
+});
