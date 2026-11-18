@@ -8,6 +8,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import WaveField from '../components/WaveField.astro';
 import CaseRowLink from '../components/CaseRowLink.astro';
+import { projectOverviews } from '../lib/project-overviews';
 import { CASES } from '../lib/cases';
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -34,11 +35,10 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
     <section id="work" class="band work-selected" data-tone="light" aria-labelledby="selected-title">
       <div class="wrap">
         <div class="g" style="row-gap:40px;margin-bottom:clamp(48px,6vw,96px)">
-          <h2 id="selected-title" class="work-title">Selected</h2><p class="eyebrow work-method">Five cases, one method</p>
-          <p class="work-description">Trading, analytics, deal pricing and two products I built myself.</p>
+          <h2 id="selected-title" class="work-title">Selected</h2>
         </div>
         <div class="index">
-          {CASES.map((c) => <CaseRowLink c={c} homeArtwork />)}
+          {CASES.map((c) => <CaseRowLink c={c} homeArtwork description={projectOverviews[c.href].card} />)}
         </div>
       </div>
     </section>

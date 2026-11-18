@@ -1,6 +1,7 @@
 ---
 title: "Stock dashboard design task"
 summary: "Stock performance dashboard design task. Six companies, two sectors, clear visualisations, and desktop-to-iPad layouts."
+contribution: "I organised the raw data, chose the charts and designed the desktop and iPad layouts."
 role: "Product Designer"
 dates: "2025"
 order: 1

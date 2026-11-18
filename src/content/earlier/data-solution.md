@@ -1,6 +1,8 @@
 ---
+confidential: true
 title: "Fusion Data Solution"
 summary: "Enterprise data workflows turned into guided journeys. 40+ screens, five reusable frameworks, WCAG AA."
+contribution: "I led the design from stakeholder workshops and user research through developer handoff."
 role: "Product Designer"
 dates: "2023 to 2025"
 order: 4

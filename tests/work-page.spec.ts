@@ -143,7 +143,7 @@ test.describe('links back to /work resolve', () => {
   for (const c of CASES) {
     test(`${c.href} "All projects" resolves to /work`, async ({ page, request }) => {
       await open(page, c.href);
-      const link = page.locator('a.all-projects');
+      const link = page.getByRole('link', {name: 'All projects', exact: true});
       await expect(link).toHaveAttribute('href', '/work');
       expect((await request.get('/work')).status()).toBe(200);
     });

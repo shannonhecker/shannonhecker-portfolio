@@ -1,6 +1,7 @@
 ---
 title: "Fusion Design System"
 summary: "Token-based design system for J.P. Morgan Fusion. Salt foundation, WCAG AA, dev-ready Figma specs, and reusable patterns for Markets UX."
+contribution: "I built the Figma pattern library on Salt and owned the accessibility standards."
 role: "Product Designer"
 dates: "2022 to 2024"
 order: 3

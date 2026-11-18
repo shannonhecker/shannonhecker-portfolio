@@ -1,5 +1,4 @@
 ---
-import { render } from 'astro:content';
 import EarlierProject from '../../layouts/EarlierProject.astro';
 import { EARLIER_SLUGS, earlierProjects } from '../../lib/earlier';
 
@@ -16,6 +15,5 @@ export async function getStaticPaths() {
 }
 
 const { entry, next } = Astro.props;
-const { Content } = await render(entry);
 ---
-<EarlierProject entry={entry} next={next}><Content /></EarlierProject>
+<EarlierProject entry={entry} next={next} />

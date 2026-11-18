@@ -1,6 +1,7 @@
 ---
 title: "JPMM Research Platform"
 summary: "Research discovery platform for institutional analysts at J.P. Morgan Markets. IA-first redesign, clearer paths, faster relevance."
+contribution: "I led the visual and interaction design, giving analysts layouts they could scan quickly."
 role: "UI Designer"
 dates: "2018 to 2019"
 order: 8

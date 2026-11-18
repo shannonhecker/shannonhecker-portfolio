@@ -13,6 +13,8 @@ const earlier = defineCollection({
       // The old page's lead sentence, also the page description.
       summary: z.string(),
       role: z.string(),
+      contribution: z.string().optional(),
+      confidential: z.boolean().default(false),
       dates: z.string(),
       // 1 to 10: the order projects are listed in, and the next-project loop.
       order: z.number().int().positive(),

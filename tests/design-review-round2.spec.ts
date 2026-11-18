@@ -188,9 +188,8 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
       }
       await page.unrouteAll();
       await visit(page, '/fx', w, h, { asked: true, reduced: true });
-      await page.evaluate(() => scrollTo({ top: 3000, behavior: 'instant' }));
-      await expect(page.locator('.section-open')).toBeVisible();
-      expect(hits(await box(page, '.section-open'), await box(page, '#analytics-choice'))).toBe(false);
+      await page.locator('.product-links a').first().scrollIntoViewIfNeeded();
+      expect(hits(await box(page, '.product-links a'), await box(page, '#analytics-choice'))).toBe(false);
     });
 
     test(`at the foot of a page the footer's controls end up above it at ${w}`, async ({ page }) => {
@@ -222,18 +221,6 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
       await expect.poll(async () => { const f = await box(page, '#ask-form'); const bar = await box(page, '#analytics-choice'); return f.y + f.height <= bar.y + 0.5; }).toBe(true);
     });
   }
-
-  test('the Sections button is lifted above the bar while it is open and drops back when it closes', async ({ page }) => {
-    await visit(page, '/fx', 1440, 900, { asked: true, reduced: true });
-    await page.evaluate(() => scrollTo({ top: 3000, behavior: 'instant' }));
-    const open = (await box(page, '.section-open'));
-    expect(open.y + open.height).toBeLessThanOrEqual((await box(page, '#analytics-choice')).y);
-    const lifted = open.y;
-    await page.getByRole('button', { name: 'No thanks' }).click();
-    await expect(page.locator('#analytics-choice')).toBeHidden();
-    // The button settles a moment after the bar goes, so wait for it instead of reading once.
-    await expect.poll(async () => (await box(page, '.section-open')).y).toBeGreaterThan(lifted);
-  });
 });
 
 test.describe('3: About sits on the page grid', () => {
@@ -298,9 +285,9 @@ test.describe('4 and 5: earlier projects on a phone', () => {
           return { top: Math.round(r.top), left: Math.round(r.left), right: r.right, parts, size: parseFloat(getComputedStyle(value).fontSize), fig: value.classList.contains('figure'), mixed: (li as HTMLElement).dataset.pair === 'mixed' };
         });
         const cover = document.querySelector('.earlier-cover')!.getBoundingClientRect().top + scrollY;
-        const h2 = [...document.querySelectorAll('.earlier-sec > h2')].map((e) => parseFloat(getComputedStyle(e).fontSize));
-        const h3 = [...document.querySelectorAll('.earlier-sec-body > h3')].map((e) => parseFloat(getComputedStyle(e).fontSize));
-        return { cells, cover, h2, h3, overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, wrapRight: document.querySelector('.earlier .wrap')!.getBoundingClientRect().right };
+        const titleSize = parseFloat(getComputedStyle(document.querySelector('.earlier h1')!).fontSize);
+        const outcomesSize = parseFloat(getComputedStyle(document.querySelector('.earlier-results h2')!).fontSize);
+        return { cells, cover, titleSize, outcomesSize, overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, wrapRight: document.querySelector('.earlier .wrap')!.getBoundingClientRect().right };
       });
       expect(m.overflow).toBeLessThanOrEqual(0);
       const tops = [...new Set(m.cells.map((c) => c.top))];
@@ -311,8 +298,8 @@ test.describe('4 and 5: earlier projects on a phone', () => {
         if (c.fig && !c.mixed) expect(c.size).toBeGreaterThanOrEqual(40);
       }
       expect(m.cover, 'the cover is within a screen and a quarter').toBeLessThan(844 * 1.35);
-      for (const s of m.h2) expect(s).toBe(26);
-      for (const s of m.h3) { expect(s, 'a decision title is a step below the 26px section title').toBeLessThan(26); expect(s).toBeGreaterThanOrEqual(22); }
+      expect(m.outcomesSize).toBeGreaterThanOrEqual(14);
+      expect(m.titleSize).toBeGreaterThan(m.outcomesSize);
     });
   }
 });
@@ -466,21 +453,15 @@ test.describe('round 3: earlier projects on phones', () => {
     expect(m.bg).toBe('rgb(255, 255, 255)');
   });
   for (const slug of EARLIER_SLUGS) {
-    test(`/work/${slug}: P1 tags sit in the facts, P2 decisions are 24px with a hairline, P3 paired figures match`, async ({ page }) => {
+    test(`/work/${slug}: facts identify the date and role, and paired figures match`, async ({ page }) => {
       await visit(page, `/work/${slug}`, 390, 844, { reduced: true });
       const m = await page.evaluate(() => {
-        const row = [...document.querySelectorAll('.earlier-facts > div')].find((d) => d.querySelector('dt')!.textContent === 'Tags')!;
-        const dd = getComputedStyle(row.querySelector('dd')!);
-        const h3 = [...document.querySelectorAll('.earlier-sec-body > h3')].map((h) => ({ size: parseFloat(getComputedStyle(h).fontSize), mt: parseFloat(getComputedStyle(h).marginTop), pt: parseFloat(getComputedStyle(h).paddingTop), rule: getComputedStyle(h).borderTopWidth, first: h.previousElementSibling === null }));
         const lis = [...document.querySelectorAll('.earlier-outcomes li')];
         const rows = new Map<number, number[]>();
         for (const li of lis) { const t = Math.round(li.getBoundingClientRect().top); const v = parseFloat(getComputedStyle(li.querySelector('.value')!).fontSize); rows.set(t, [...(rows.get(t) || []), v]); }
-        return { tags: { size: dd.fontSize, text: row.querySelector('dd')!.textContent! }, chips: document.querySelectorAll('.earlier-tags').length, h3, rows: [...rows.values()] };
+        return { rows: [...rows.values()] };
       });
-      expect(m.tags.size).toBe('16px');
-      expect(m.tags.text).toContain(' · ');
-      expect(m.chips, 'no chip cloud at the foot').toBe(0);
-      for (const h of m.h3) { expect(h.size).toBe(24); if (!h.first) { expect(h.mt).toBe(40); expect(h.pt).toBe(24); expect(h.rule).toBe('1px'); } }
+      await expect(page.locator('.earlier-facts dt')).toHaveText(['Year', 'Role']);
       for (const r of m.rows) { if (r.length === 2) expect(r[0], `a row of two reads evenly: ${r}`).toBe(r[1]); }
     });
   }

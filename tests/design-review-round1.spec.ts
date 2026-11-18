@@ -15,30 +15,6 @@ async function loadImages(page: Page) {
 }
 const flat = (s: string) => s.replace(/\s+/g, ' ').trim();
 
-test.describe('earlier projects: one rhythm for every section', () => {
-  for (const slug of EARLIER_SLUGS) {
-    test(`/work/${slug}: the gap under every section heading is the same at 390`, async ({ page }) => {
-      await open(page, `/work/${slug}`, 390);
-      const gaps = await page.evaluate(() => [...document.querySelectorAll('.earlier-sec')].map((sec) => {
-        const h = sec.querySelector('h2')!.getBoundingClientRect();
-        const first = sec.querySelector('.earlier-sec-body')!.firstElementChild!.getBoundingClientRect();
-        return Math.round((first.top - h.bottom) * 10) / 10;
-      }));
-      expect(gaps.length).toBeGreaterThanOrEqual(2);
-      for (const g of gaps) { expect(g).toBeGreaterThanOrEqual(12); expect(g).toBe(gaps[0]); }
-    });
-    test(`/work/${slug}: every section starts the same distance below its hairline at 1440`, async ({ page }) => {
-      await open(page, `/work/${slug}`, 1440);
-      const offs = await page.evaluate(() => [...document.querySelectorAll('.earlier-sec')].map((sec) => {
-        const h = sec.querySelector('h2')!.getBoundingClientRect();
-        const p = sec.querySelector('.earlier-sec-body')!.firstElementChild!.getBoundingClientRect();
-        return [Math.round((h.top - sec.getBoundingClientRect().top) * 10) / 10, Math.round((p.top - sec.getBoundingClientRect().top) * 10) / 10];
-      }));
-      for (const o of offs) expect(o).toEqual(offs[0]);
-    });
-  }
-});
-
 test.describe('images are never shown wider than their own pixels', () => {
   const pages = [...EARLIER_SLUGS.map((s) => `/work/${s}`), '/about'];
   for (const path of pages) {
@@ -72,12 +48,10 @@ test('the text column starts on one line on an earlier project, an essay and Abo
     await open(page, path, 1440);
     return page.locator(selector).first().evaluate((el) => el.getBoundingClientRect().left);
   };
-  const a = await left('/work/tripup', '.earlier-sec-body > p');
   const b = await left('/writing/trust-surfaces-in-ai', '.essay-flow > p');
   const c = await left('/about', '.about-approach .about-prose');
   const d = await left('/privacy', '.privacy-text > p');
   const e = await left('/writing', '.writing-list .title');
-  expect(Math.abs(a - b), `earlier ${a} vs essay ${b}`).toBeLessThanOrEqual(1);
   expect(Math.abs(c - b), `about ${c} vs essay ${b}`).toBeLessThanOrEqual(1);
   expect(Math.abs(d - b), `privacy ${d} vs essay ${b}`).toBeLessThanOrEqual(1);
   expect(Math.abs(e - b), `writing index ${e} vs essay ${b}`).toBeLessThanOrEqual(1);
@@ -98,20 +72,6 @@ test.describe('earlier-project template, finding 4', () => {
       expect(sizes.next).toBeLessThanOrEqual(sizes.h1 * 0.75);
     });
   }
-  test('on desktop each section label stays beside its section while the text scrolls', async ({ page }) => {
-    await open(page, '/work/design-system', 1440);
-    expect(await page.locator('.earlier-sec > h2').first().evaluate((h) => getComputedStyle(h).position)).toBe('sticky');
-    const section = page.locator('.earlier-sec', { has: page.locator('h2', { hasText: 'Design Process' }) });
-    const box = (await section.boundingBox())!;
-    await page.evaluate((y) => window.scrollTo(0, y), box.y + 300);
-    const h = (await section.locator('h2').boundingBox())!;
-    expect(h.y, 'label is held below the fixed nav').toBeGreaterThanOrEqual(90);
-    expect(h.y, 'label is still in view').toBeLessThan(200);
-  });
-  test('on a phone the labels do not stick', async ({ page }) => {
-    await open(page, '/work/tripup', 390);
-    expect(await page.locator('.earlier-sec > h2').first().evaluate((h) => getComputedStyle(h).position)).toBe('static');
-  });
   test('outcome labels keep a hyphenated word on one line', async ({ page }) => {
     for (const width of [390, 768, 1024, 1440]) {
       await open(page, '/work/tripup', width);
@@ -119,18 +79,6 @@ test.describe('earlier-project template, finding 4', () => {
       expect(lines.length).toBeGreaterThan(0);
       for (const n of lines) expect(n, `at ${width}`).toBe(1);
     }
-  });
-  test('figures run from the text column to the right edge, not wider than their pixels', async ({ page }) => {
-    await open(page, '/work/tripup', 1440);
-    await loadImages(page);
-    const m = await page.evaluate(() => {
-      const fig = document.querySelector('.earlier-sec .earlier-fig')!.getBoundingClientRect();
-      const text = document.querySelector('.earlier-sec-body > p')!.getBoundingClientRect();
-      const wrap = document.querySelector('.earlier .wrap')!.getBoundingClientRect();
-      return { figLeft: fig.left, textLeft: text.left, figRight: fig.right, wrapRight: wrap.right };
-    });
-    expect(Math.abs(m.figLeft - m.textLeft)).toBeLessThanOrEqual(1);
-    expect(m.figRight).toBeLessThanOrEqual(m.wrapRight + 1);
   });
 });
 
@@ -272,6 +220,6 @@ test.describe('Essays, findings 8 and 9', () => {
     await open(page, '/writing/trust-surfaces-in-ai', 1440);
     expect(await page.locator('.essay-flow > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
     await open(page, '/work/tripup', 1440);
-    expect(await page.locator('.earlier-sec-body > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
+    expect(await page.locator('.earlier-lead p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
   });
 });

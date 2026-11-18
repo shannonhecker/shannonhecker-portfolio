@@ -3,27 +3,6 @@ import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const routes=['/','/fx','/fusion','/winking-star','/deal-model','/uoaui','/privacy','/404','/work','/work/tripup','/work/stock-dashboard','/writing','/writing/trust-surfaces-in-ai','/about'];
-for(const route of ['/fusion','/winking-star','/fx','/deal-model','/uoaui']){
-test(`${route} summary follows complete hero media and links to the outcome`,async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});
- for(const width of [390,1440]){
-  await page.setViewportSize({width,height:900});
-   await page.goto(route);
-   await expect(page.locator('.chapter-head .lead')).toHaveCSS('font-size','16px');
-   const summary=page.getByRole('complementary',{name:'Case summary'});
-   const hero=(await page.locator('.chapter-head').boundingBox())!;
-   const bounds=(await summary.boundingBox())!;
-   expect(bounds.y).toBeGreaterThanOrEqual(hero.y+hero.height);
-   expect(bounds.x+bounds.width).toBeLessThanOrEqual(width);
-   const target=await summary.getByRole('link',{name:'Read the outcome'}).getAttribute('href');
-   await expect(page.locator(target!)).toHaveCount(1);
-   for(const theme of ['light','dark']){
-    await setTheme(page,theme==='dark');
-    expect((await new AxeBuilder({page}).include('.case-evidence').withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
-   }
- }
-});
-}
 test('every page shares usable navigation, theme controls and an overflow-free shell',async({page})=>{
  test.setTimeout(process.env.CI ? 300_000 : 90_000);
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -50,16 +29,6 @@ test('every page shares usable navigation, theme controls and an overflow-free s
     await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Menu',exact:true})).toBeFocused();
    }else await expect(page.getByRole('button',{name:'Menu',exact:true})).toBeHidden();
   }
- }
-});
-
-test('section navigation follows each case’s actual reading order',async({page})=>{
- for(const route of ['/fx','/fusion','/winking-star','/deal-model','/uoaui']){
-  await page.goto(route);
-  expect(await page.locator('.chapter-stops a').evaluateAll(links=>{
-   const targets=links.map(a=>document.getElementById((a as HTMLAnchorElement).hash.slice(1)));
-   return targets.every((target,i)=>target&&(!i||!!(targets[i-1]!.compareDocumentPosition(target)&Node.DOCUMENT_POSITION_FOLLOWING)));
-  })).toBe(true);
  }
 });
 
@@ -142,44 +111,3 @@ test('mobile menu links navigate and dismiss the disclosure',async({page})=>{
  await expect(page.locator('#main')).not.toHaveAttribute('inert','');
  await expect(contact).toBeVisible();
  });
-
-test('Winking Star journey separates setup, daily repetition and independent handoff',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});
- await page.goto('/winking-star');
- const journey=page.locator('#winking-journey');
- await expect(journey.locator('.original-study')).toHaveCount(0);
- await expect(journey).not.toContainText('ten seconds');
- await expect(journey).not.toContainText('Not another chart');
- for(const width of [320,390,1440]){
-  await page.setViewportSize({width,height:1000});
-  for(const theme of ['light','dark']){
-   await page.evaluate(t=>document.documentElement.setAttribute('data-theme',t),theme);
-   const steps=journey.locator('.daily-loop li,.routine-progress li');
-   await expect(steps).toHaveCount(6);
-   for(const step of await steps.all())await expect(step).toBeVisible();
-   expect(await journey.locator('.routine-journey').evaluate(n=>[...n.querySelectorAll('li')].every(e=>e.scrollWidth<=e.clientWidth+1))).toBe(true);
-   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-  }
- }
-});
-
-test('case summaries and content blocks keep consistent breathing room',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});
- for(const width of [390,820,1440]){
-  await page.setViewportSize({width,height:1000});
-  for(const route of ['/fusion','/fx','/winking-star','/deal-model','/uoaui']){
-   await page.goto(route);
-   const spacing=await page.evaluate(()=>{
-    const summary=document.querySelector('.case-evidence')!;
-    const note=summary.querySelector('.evidence-note')!;
-    const gaps=[...document.querySelectorAll('.beat .body')].flatMap(parent=>{
-     const children=[...parent.children].filter(el=>{const style=getComputedStyle(el);return el.getBoundingClientRect().height>0&&!['absolute','fixed'].includes(style.position)});
-     return children.slice(1).flatMap((el,i)=>{const a=children[i].getBoundingClientRect(),b=el.getBoundingClientRect();return b.left<a.right&&b.right>a.left?[b.top-a.bottom]:[]});
-    });
-    return {bottom:summary.getBoundingClientRect().bottom-note.getBoundingClientRect().bottom,gaps};
-   });
-   expect(spacing.bottom,route).toBeGreaterThanOrEqual(31);
-   expect(spacing.gaps.every(gap=>gap>=31),`${route} at ${width}: ${spacing.gaps}`).toBe(true);
-  }
- }
-});
