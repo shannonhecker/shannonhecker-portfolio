@@ -1,0 +1,107 @@
+/* Home page: more air, one gallery move.
+   Everything here is scoped to the home page (main.home-main, section.home-work, the home hero), so
+   /work, the case pages and the rest keep their own layout. It loads last, so it wins over the older
+   layers without adding !important, except where an older rule already uses it.
+   Palette and type are untouched: tokens only. */
+
+/* ---- 1. One rhythm between the home sections ----
+   Every band reads --space-section for its block padding, so one value sets the lot. Phones get 96px
+   (today 80px), desktop grows to 200px. */
+.home-main { --space-section: clamp(96px, 14vw, 200px); }
+.home-main #work.band { padding-top: var(--space-section); }
+
+/* Sections separate by space alone: no hairlines between them. */
+.home-main #how { border-block: 0; }
+.home-main section#adventure { border-top: 0; }
+.home-main #ask.ask-shannon { border-bottom: 0; }
+
+/* ---- 2. Hero: fills the first screen, content balanced in it ---- */
+.home-main header.hero.adventure-hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(104px, 10vw, 152px);
+  padding-bottom: clamp(40px, 4.5vw, 80px);
+}
+.home-main header.hero.adventure-hero > .wrap { width: 100%; row-gap: clamp(56px, 9vw, 104px); }
+.home-main .adventure-hero .hero-top { margin-top: clamp(32px, 4vw, 64px); }
+.home-main .adventure-hero .explore-work { margin-top: clamp(32px, 4vw, 60px); }
+
+/* The wave lines run up behind the transparent header: no fade-in at the top edge of the field. */
+.wave-field[data-variant="hero"] .wave-field__canvas {
+  -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, #000 0, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, #000 0, #000 86%, transparent 100%);
+}
+.wave-field[data-variant="hero"][data-avoid] .wave-field__canvas {
+  -webkit-mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 30%, #000 85%), linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, #000 0, #000 86%, transparent 100%);
+  mask-image: radial-gradient(ellipse var(--hw) var(--hh) at var(--hx) var(--hy), transparent 0, transparent 30%, #000 85%), linear-gradient(to right, rgb(0 0 0 / .4) 0, #000 40%), linear-gradient(to bottom, #000 0, #000 86%, transparent 100%);
+}
+
+/* ---- 3. Selected work: a gallery, one case at a time ---- */
+#work.home-work > .wrap > .g { margin-bottom: clamp(72px, 9vw, 144px) !important; }
+#work.home-work .more-work { margin-top: clamp(72px, 9vw, 136px); }
+
+/* Phone and tablet: one column, cover first, the words under it. */
+#work.home-work .index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(96px, 12vw, 180px) 0;
+  border: 0;
+}
+#work.home-work .index > a.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: none;
+  gap: 0;
+  align-items: start;
+  align-content: start;
+  padding: 0;
+  border: 0;
+}
+#work.home-work .index > a.row > .home-artwork { grid-area: 1 / 1; width: 100%; min-width: 0; }
+#work.home-work .index > a.row > .n { grid-area: 2 / 1; align-self: start; display: block; min-height: 0; margin: clamp(28px, 6vw, 40px) 0 0; padding: 0; font: 500 14px/1 var(--body); font-variant-numeric: tabular-nums; letter-spacing: .04em; color: var(--fg-2); }
+#work.home-work .index > a.row > h3 { grid-area: 3 / 1; align-self: start; margin: 14px 0 0; font-size: clamp(32px, 8.4vw, 40px); line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+#work.home-work .index > a.row > .meta { grid-area: 4 / 1; margin: clamp(16px, 4vw, 24px) 0 0; padding: 0; max-width: 46ch; font-size: 16px; line-height: 1.65; text-wrap: pretty; }
+
+/* Every cover sits in a quiet frame, so it is never an empty hole while the picture loads. The covers
+   with their own tone (Winking Star, Deal Model) keep it. Nothing is cropped: the frame has the
+   cover's own proportions and the picture is contained. */
+#work.home-work .index .home-artwork.exact-composition:not(.home-artwork-winking):not(.home-artwork-deal) { background: var(--bg-2); }
+#work.home-work .index .home-artwork { border-radius: var(--radius); overflow: hidden; }
+
+/* Desktop: cover 8 of 12 columns, the words beside it in the other four, alternating sides. */
+@media (min-width: 901px) {
+  #work.home-work .index > a.row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr) auto auto auto minmax(0, 1fr);
+    column-gap: clamp(16px, 2vw, 32px);
+  }
+  #work.home-work .index > a.row > .home-artwork { grid-area: 1 / 1 / -1 / 9; }
+  #work.home-work .index > a.row > .n { grid-area: 2 / 9 / 3 / 13; margin: 0 0 clamp(20px, 2vw, 28px); padding-left: clamp(0px, 1.5vw, 24px); }
+  #work.home-work .index > a.row > h3 { grid-area: 3 / 9 / 4 / 13; margin: 0; padding-left: clamp(0px, 1.5vw, 24px); font-size: clamp(32px, 3.4vw, 52px); }
+  #work.home-work .index > a.row > .meta { grid-area: 4 / 9 / 5 / 13; margin: clamp(20px, 2vw, 32px) 0 0; padding-left: clamp(0px, 1.5vw, 24px); max-width: 42ch; font-size: clamp(15px, 1.15vw, 17px); }
+
+  #work.home-work .index > a.row:nth-child(even) > .home-artwork { grid-area: 1 / 5 / -1 / 13; }
+  #work.home-work .index > a.row:nth-child(even) > .n { grid-area: 2 / 1 / 3 / 5; padding-left: 0; padding-right: clamp(0px, 1.5vw, 24px); }
+  #work.home-work .index > a.row:nth-child(even) > h3 { grid-area: 3 / 1 / 4 / 5; padding-left: 0; padding-right: clamp(0px, 1.5vw, 24px); }
+  #work.home-work .index > a.row:nth-child(even) > .meta { grid-area: 4 / 1 / 5 / 5; padding-left: 0; padding-right: clamp(0px, 1.5vw, 24px); }
+}
+
+/* ---- 4. How I work: a roomier two-column list ---- */
+/* The header-to-body gap is the same in How I work and Ask Shannon. */
+#how > .wrap > .g { margin-bottom: clamp(48px, 6vw, 96px) !important; }
+.home-main #ask .ask-head { margin-bottom: clamp(48px, 6vw, 96px); }
+.home-main .principles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(48px, 7vw, 128px);
+  row-gap: clamp(64px, 7vw, 120px);
+  border: 0;
+}
+.home-main .principle { grid-column: auto; padding: 0; border: 0; gap: clamp(16px, 1.5vw, 24px); }
+.home-main .principle h3 { font-size: clamp(24px, 2.3vw, 34px); line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
+.home-main .principle p { max-width: 46ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.75; }
+@media (max-width: 760px) {
+  .home-main .principles { grid-template-columns: minmax(0, 1fr); row-gap: 56px; }
+}
