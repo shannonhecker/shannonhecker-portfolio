@@ -211,12 +211,22 @@ function trimConversationHistory() {
   rebuildVisitorMap();
 }
 
+let pendingWrite = Promise.resolve();
 function persistConversationLog() {
-  const body = conversations.map(entry => JSON.stringify(entry)).join('\n');
-  fs.writeFile(LOG_FILE, body ? body + '\n' : '', err => {
-    if (err) console.error('Failed to write conversations log:', err.message);
-  });
+  pendingWrite = pendingWrite.then(async () => {
+    const body = conversations.map(entry => JSON.stringify(entry)).join('\n');
+    const temporary = LOG_FILE + '.tmp';
+    await fs.promises.writeFile(temporary, body ? body + '\n' : '', { mode: 0o600 });
+    await fs.promises.rename(temporary, LOG_FILE);
+  }).catch(err => console.error('Failed to save conversation history:', err.message));
 }
+
+function expireConversations() {
+  const previousCount = conversations.length;
+  trimConversationHistory();
+  if (conversations.length !== previousCount) persistConversationLog();
+}
+setInterval(expireConversations, 60_000).unref();
 
 /* Load existing conversations from log file on startup */
 (function loadHistory() {
@@ -519,8 +529,9 @@ function safeEqual(a, b) {
   return aBuf.length === bBuf.length && crypto.timingSafeEqual(aBuf, bBuf);
 }
 
-function adminCookieValue(token) {
-  return crypto.createHmac('sha256', token).update('ask-shannon-admin').digest('hex');
+const adminSessions = new Map();
+function activeSession(id) {
+  return (adminSessions.get(id) || 0) > Date.now();
 }
 
 function parseCookies(header) {
@@ -545,23 +556,22 @@ function bearerToken(req) {
 
 function hasAdminAccess(req, token) {
   const cookies = parseCookies(req.headers.cookie);
-  return safeEqual(bearerToken(req), token) || safeEqual(cookies[ADMIN_COOKIE], adminCookieValue(token));
+  return safeEqual(bearerToken(req), token) || activeSession(cookies[ADMIN_COOKIE]);
 }
 
-function setAdminCookie(res, token) {
+function setAdminCookie(res) {
+  for (const id of adminSessions.keys()) {
+    if (!activeSession(id)) adminSessions.delete(id);
+  }
+  const session = crypto.randomBytes(32).toString('hex');
+  adminSessions.set(session, Date.now() + ADMIN_SESSION_MAX_AGE_SECONDS * 1000);
   const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
-  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=${encodeURIComponent(adminCookieValue(token))}; HttpOnly${secure}; SameSite=Strict; Path=/; Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
+  res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=${session}; HttpOnly${secure}; SameSite=Strict; Path=/; Max-Age=${ADMIN_SESSION_MAX_AGE_SECONDS}`);
 }
 
 function clearAdminCookie(res) {
   const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
   res.setHeader('Set-Cookie', `${ADMIN_COOKIE}=; HttpOnly${secure}; SameSite=Strict; Path=/; Max-Age=0`);
-}
-
-function stripQueryToken(req) {
-  const url = new URL(req.originalUrl, 'https://ask-shannon.local');
-  url.searchParams.delete('token');
-  return url.pathname + (url.search ? url.search : '');
 }
 
 function escHtml(value) {
@@ -1495,7 +1505,16 @@ html[data-theme="dark"] .toolbar { background: rgba(20,20,18,0.94); }
 </html>`;
 }
 
+const loginPage = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard login</title><main><h1>Conversation dashboard</h1><form method="post" action="/api/conversations/login"><label>Admin token <input type="password" name="token" required autocomplete="current-password"></label> <button>Sign in</button></form></main></html>`;
+app.post('/api/conversations/login', express.urlencoded({ extended: false, limit: '2kb' }), (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  if (!safeEqual(req.body?.token, process.env.ADMIN_TOKEN)) return res.status(401).send('Sign-in failed.');
+  setAdminCookie(res);
+  res.redirect(303, '/api/conversations');
+});
+
 app.get('/api/conversations/logout', (req, res) => {
+  adminSessions.delete(parseCookies(req.headers.cookie)[ADMIN_COOKIE]);
   clearAdminCookie(res);
   res.redirect(303, '/api/conversations');
 });
@@ -1507,19 +1526,19 @@ app.get('/api/conversations', (req, res) => {
   }
 
   const wantsHtml = req.headers.accept && req.headers.accept.includes('text/html');
-  const queryToken = typeof req.query.token === 'string' ? req.query.token : '';
-  if (safeEqual(queryToken, token) && wantsHtml) {
-    setAdminCookie(res, token);
-    return res.redirect(303, stripQueryToken(req));
-  }
-
+  res.setHeader('Cache-Control', 'no-store');
   if (!hasAdminAccess(req, token)) {
+    if (wantsHtml) {
+      res.setHeader('Content-Security-Policy', "default-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+      return res.status(401).type('html').send(loginPage);
+    }
     res.setHeader('WWW-Authenticate', 'Bearer realm="Ask Shannon"');
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
+  expireConversations();
   const limit = Math.min(parseInt(req.query.limit) || 200, 500);
   const recent = conversations.slice(-limit).reverse();
 

@@ -27,12 +27,14 @@ export async function endScore(state: GameState, end: HTMLElement) {
   section.querySelector<HTMLElement>('[data-score]')!.textContent = String(score);
   input.value = ''; button.disabled = true; button.textContent = 'Share my score';
   status.textContent = ''; list.replaceChildren();
+  let latestRead = 0;
   async function refresh() {
+    const read = ++latestRead;
     try {
       const response = await fetch(`/api/leaderboard?stage=${state.level}`, { signal: AbortSignal.timeout(8000) });
       if (!response.ok) throw new Error();
       const data = await response.json();
-      if (current !== attempt) return;
+      if (current !== attempt || read !== latestRead) return;
       list.replaceChildren();
       for (const entry of data.entries) {
         const item = document.createElement('li');
@@ -41,7 +43,7 @@ export async function endScore(state: GameState, end: HTMLElement) {
         item.append(name, points); list.append(item);
       }
       if (!data.entries.length) { const item = document.createElement('li'); item.textContent = 'A fresh trail. Share the first score.'; list.append(item); }
-    } catch { if (current === attempt) list.textContent = 'The scoreboard is resting. Your game still counts.'; }
+    } catch { if (current === attempt && read === latestRead) list.textContent = 'The scoreboard is resting. Your game still counts.'; }
   }
   void refresh();
   const run = await token;

@@ -22,6 +22,7 @@
 .earlier h1{font-size:clamp(44px,4.8vw,72px);line-height:1.08;letter-spacing:-.035em;max-width:20ch;text-wrap:balance}
 .earlier-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:32px;align-items:start;margin-top:clamp(0px,.6vw,8px)}
 .earlier-lead{grid-column:1/6;font-size:clamp(18px,1.7vw,24px);line-height:1.55;max-width:40ch;text-wrap:pretty}
+.earlier-contribution{margin-top:12px;font:400 16px/1.6 var(--body);color:var(--fg-2)}
 .earlier-facts{grid-column:6/13;margin:0;border-bottom:1px solid var(--hair)}
 .earlier-facts>div{display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,1.6fr);gap:16px;padding:10px 0;border-top:1px solid var(--hair)}
 .earlier-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
@@ -37,13 +38,11 @@
   .earlier-facts{display:flex;flex-wrap:wrap;column-gap:var(--g)}
   .earlier-facts>div{flex:1 1 260px;min-width:0;grid-template-columns:minmax(0,1fr);gap:0;align-content:start;padding:6px 0 8px}
   .earlier-facts dt{font-size:13px;line-height:1.5}
-  .earlier-facts>div:last-child{flex-basis:100%}
 }
 @media(min-width:1280px){
   .earlier-lead{grid-column:1/5;font-size:clamp(19px,1.5vw,22px);line-height:1.5}
   .earlier-facts{grid-column:5/13}
   .earlier-facts>div{flex-basis:180px}
-  .earlier-facts>div:last-child{flex-basis:100%}
 }
 
 /* Figures and the cover share one build: a stage (the frame), a pan (the scroller that only
@@ -84,7 +83,7 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 
 /* Cover: straight after the head, so it starts at about y=440 or higher at 1440x900. */
 .earlier-cover{margin-top:clamp(24px,1.7vw,28px);max-width:none}
-.earlier-cover .earlier-pan picture{max-width:var(--w)}
+.earlier-cover .earlier-pan picture{max-width:var(--w);background:var(--cover-preview) center / contain no-repeat}
 
 /* Outcomes: figures first, each with its label. A value that is a word or a short phrase is set large
    too, so the row keeps its weight; a numeral is larger still. */

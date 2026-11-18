@@ -1,6 +1,7 @@
 ---
 title: "TripUp"
 summary: "Group travel app redesign. Polls, shared expenses, itinerary updates, and one mobile flow for Bending Spoons."
+contribution: "I led the research and designed the mobile flows, from planning a trip to splitting its costs."
 role: "Product Designer"
 dates: "2025"
 order: 2

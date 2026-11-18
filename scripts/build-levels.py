@@ -25,9 +25,9 @@ def lvl_kaohsiung():
     # The park, then the scooter, then the city streets down to the sea.
     W = 150; g = new(W); put, ground, plat = tools(g)
     ground(0, 26); put(2, 13, 'P')
-    for x in (6, 9): put(x, 13, 'o')
-    plat(11, 15, 11); put(13, 10, 'o')
-    put(19, 13, 'B')   # hop on the scooter
+    put(3, 13, 'o'); put(9, 12, 'o')
+    plat(11, 15, 11); put(11, 10, 'o')
+    put(5, 13, 'B')   # hop on the scooter
     ground(29, 60); ground(64, 92); ground(97, 120); ground(125, W)
     for x in (32, 38, 44): put(x, 13, 'o')
     put(50, 13, '^'); put(51, 13, '^')

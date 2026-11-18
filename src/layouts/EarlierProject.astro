@@ -1,12 +1,12 @@
 ---
-// One earlier project: a simpler page in the same language as the case pages
-// (white or dark page, one grotesk, hairlines, air). The Markdown body arrives in
-// the default slot; everything else comes from the entry's front matter.
-// Order: the head (title, lead, facts), the cover, the outcomes, the sections, the next project.
+import Icon from '../components/Icon.astro';
+// Public project summary, original cover and recorded outcomes.
 import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { Picture, getImage } from 'astro:assets';
+import { resolve } from 'node:path';
+import sharp from 'sharp';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { imageWidths } from '../lib/image-widths';
@@ -17,7 +17,7 @@ interface Props {
   next: CollectionEntry<'earlier'>;
 }
 const { entry, next } = Astro.props;
-const { title, summary, role, dates, details, outcomes, tags, cover, coverAlt, matte } = entry.data;
+const { title, summary, role, dates, outcomes, tags, cover, coverAlt, matte } = entry.data;
 
 const page = new URL(`/work/${entry.id}`, Astro.site).href;
 const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
@@ -27,64 +27,19 @@ const isFigure = (value: string) => value.length <= 5;
 // evenly (CSS: [data-pair=mixed]), so "4x" is not 56px beside a 26px phrase.
 const pairOf = (i: number) => { const j = i % 2 === 0 ? i + 1 : i - 1; return j < outcomes.length && isFigure(outcomes[i].value) !== isFigure(outcomes[j].value) ? 'mixed' : 'even'; };
 
-// Every picture the Markdown body uses, by file name, so the body's plain <img> tags
-// can be rebuilt below with a full srcset (the Markdown pipeline emits one source only).
 const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/earlier/**/*.webp', { eager: true });
-const byName = new Map<string, ImageMetadata>();
-for (const [path, mod] of Object.entries(assets)) byName.set(path.split('/').pop()!.replace(/\.webp$/, ''), mod.default);
-const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const attr = (tag: string, name: string) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1] ?? '';
-
-/** The file name (no extension) a picture goes by in the front matter's `matte` list. */
-const nameOf = (meta: ImageMetadata) => [...byName.entries()].find(([, m]) => m.src === meta.src)?.[0] ?? '';
-/** A picture whose own pixels are 2:1 or wider. On a phone it pans inside its frame instead of shrinking. */
-const isWide = (meta: ImageMetadata) => meta.width / meta.height >= 2;
-const PAN = 760; // The width a wide picture keeps on a phone, in CSS pixels.
-
-/** One figure: the picture on its stage, then a quiet link to the full-size file. A picture never shows
-    wider than its own pixels, and every width up to the original is offered. `alt` is already HTML-safe. */
-async function figure(meta: ImageMetadata, alt: string, opts: { cover?: boolean } = {}) {
-  const widths = imageWidths(meta.width);
-  const set = async (format: 'avif' | 'webp') =>
-    (await Promise.all(widths.map(async (w) => { const i = await getImage({ src: meta, width: w, format, quality: 85 }); return `${i.src} ${w}w`; }))).join(', ');
-  const wide = isWide(meta);
-  const sizes = [
-    wide ? `(max-width: 640px) min(${meta.width}px, ${PAN}px)` : '',
-    opts.cover ? '(min-width: 1500px) 1376px' : `(min-width: 901px) min(${meta.width}px, calc(75vw - 24px))`,
-    opts.cover ? 'calc(100vw - 48px)' : `min(${meta.width}px, calc(100vw - 48px))`,
-  ].filter(Boolean).join(', ');
-  const big = await getImage({ src: meta, width: meta.width, format: 'webp', quality: 85 });
-  const light = matte.includes(nameOf(meta));
-  const load = opts.cover ? 'loading="eager" decoding="async" fetchpriority="high"' : 'loading="lazy" decoding="async"';
-  const classes = ['earlier-fig', opts.cover ? 'earlier-cover' : '', light ? 'is-matte' : '', wide ? 'is-wide' : ''].filter(Boolean).join(' ');
-  const pan = wide ? ' tabindex="0" role="group" aria-label="Wide image, scroll sideways to see all of it"' : '';
-  const picture = `<picture><source type="image/avif" srcset="${await set('avif')}" sizes="${sizes}"><img src="${big.src}" srcset="${await set('webp')}" sizes="${sizes}" alt="${alt}" width="${meta.width}" height="${meta.height}" ${load}></picture>`;
-  return `<figure class="${classes}" style="--w:${meta.width}px;--pan:${PAN}px"><div class="earlier-stage"><div class="earlier-pan"${pan}>${picture}</div></div><a class="earlier-fig-open" href="${big.src}" target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a></figure>`;
-}
-async function bodyFigure(tag: string) {
-  const file = attr(tag, 'src').split('/').pop()!.split('.')[0];
-  const meta = byName.get(file) ?? [...byName.entries()].find(([k]) => file.startsWith(k))?.[1];
-  if (!meta) return `<figure class="earlier-fig">${tag}</figure>`;
-  return figure(meta, attr(tag, 'alt'));
-}
-const coverHtml = await figure(cover, esc(coverAlt), { cover: true });
-
-// The body is a flat run of headings, paragraphs and pictures. Cut it into sections at
-// each h2 so a label can stay beside its own section as the text scrolls.
-let body = await Astro.slots.render('default');
-const noteMatch = body.match(/<aside class="earlier-note"[\s\S]*?<\/aside>/);
-const note = noteMatch ? noteMatch[0] : '';
-if (noteMatch) body = body.replace(noteMatch[0], () => '');
-for (const m of [...body.matchAll(/<p>\s*(<img\b[^>]*>)\s*<\/p>/g)]) { const html = await bodyFigure(m[1]); body = body.replace(m[0], () => html); }
-const sections = body.split(/(?=<h2\b)/).map((chunk) => chunk.trim()).filter(Boolean).map((chunk) => {
-  const m = chunk.match(/^<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*)$/);
-  if (!m) return `<div class="earlier-sec-body">${chunk}</div>`;
-  const id = m[1].match(/id="([^"]+)"/)?.[1];
-  return `<section class="earlier-sec"${id ? ` aria-labelledby="${id}"` : ''}><h2${m[1]}>${m[2]}</h2><div class="earlier-sec-body">${m[3]}</div></section>`;
-}).join('\n');
+const sourcePath = (image: ImageMetadata) => Object.keys(assets).find(path => assets[path].default.src === image.src);
+const nameOf = (image: ImageMetadata) => sourcePath(image)?.split('/').pop()?.replace(/\.webp$/, '') ?? '';
+const wide = cover.width / cover.height >= 2;
+const sizes = [wide && `(max-width: 640px) min(${cover.width}px, 760px)`, '(min-width: 1500px) 1376px', 'calc(100vw - 48px)'].filter(Boolean).join(', ');
+const fullSize = await getImage({ src: cover, width: cover.width, format: 'webp', quality: 85 });
+// The cover preview paints before the network image arrives.
+const coverPath = sourcePath(cover);
+if (!coverPath) throw new Error(`Missing cover source for ${entry.id}`);
+const preview = await sharp(resolve('src/layouts', coverPath)).resize({ width: 144, withoutEnlargement: true }).webp({ quality: 55 }).toBuffer();
 
 // An outcome label keeps a hyphenated word whole ("end-to-end"), so it never breaks mid-word.
-const keepWords = (t: string) => esc(t).replace(/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g, (w) => `<span class="nb">${w}</span>`);
+const keepWords = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g, (w) => `<span class="nb">${w}</span>`);
 
 const ld = [
   {
@@ -116,20 +71,25 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
   <main id="main" class="earlier">
     <div class="wrap">
       <header class="earlier-head">
-        <p class="earlier-eyebrow"><a href="/work">Earlier work</a></p>
+        <p class="earlier-eyebrow"><a href="/work#earlier-title">Earlier work</a></p>
         <h1>{title}</h1>
         <div class="earlier-intro">
-          <p class="earlier-lead">{summary}</p>
+          <div class="earlier-lead"><p>{summary}</p>{entry.data.contribution && <p class="earlier-contribution">{entry.data.contribution}</p>}</div>
           <dl class="earlier-facts">
-            {details.map((d) => <div><dt>{d.label}</dt><dd>{d.value}</dd></div>)}
             <div><dt>Year</dt><dd>{dates}</dd></div>
             <div><dt>Role</dt><dd>{role}</dd></div>
-            <div><dt>Tags</dt><dd>{tags.join(' · ')}</dd></div>
           </dl>
         </div>
       </header>
 
-      <Fragment set:html={coverHtml} />
+      <figure class:list={['earlier-fig', 'earlier-cover', { 'is-wide': wide, 'is-matte': matte.includes(nameOf(cover)) }]} style={`--w:${cover.width}px;--pan:760px;--cover-preview:url(data:image/webp;base64,${preview.toString('base64')})`}>
+        <div class="earlier-stage">
+          <div class="earlier-pan" role={wide ? 'group' : undefined} tabindex={wide ? 0 : undefined} aria-label={wide ? 'Wide image, scroll sideways to see all of it' : undefined}>
+            <Picture src={cover} alt={coverAlt} formats={['avif']} fallbackFormat="webp" widths={imageWidths(cover.width)} sizes={sizes} quality={85} loading="eager" decoding="async" fetchpriority="high" />
+          </div>
+        </div>
+        <a class="earlier-fig-open" href={fullSize.src} target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a>
+      </figure>
 
       <section class="earlier-results" aria-labelledby="earlier-results-title">
         <h2 id="earlier-results-title" class="earlier-label">Outcomes</h2>
@@ -143,10 +103,7 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
         </ul>
       </section>
 
-      <div class="earlier-body">
-        <Fragment set:html={sections} />
-        {note && <Fragment set:html={note} />}
-      </div>
+      {entry.data.confidential && <p>This project is under NDA.</p>}
     </div>
 
     <section class="band next-case" aria-label="Next project">
@@ -157,7 +114,7 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
             <span class:list={['thumb', { 'is-matte': nextMatte }]} aria-hidden="true">
               <Picture src={next.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[240, 480]} sizes="240px" quality={80} loading="lazy" decoding="async" />
             </span>
-            <h3>{next.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
+            <h3>{next.data.title}<Icon name="arrow-right" class="arrow" /></h3>
             <span class="meta">{next.data.summary}</span>
           </a>
         </div>

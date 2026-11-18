@@ -139,6 +139,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function loadLevel(n: number) {
     if(isLocked(n)){showMap(n);opts.onStatus(`Final level locked. Complete all seven earlier stages first. ${s.done.filter(i=>i<7).length} of 7 complete.`);return;}
     runSequence++;
+    taps.clear();
     bolts.length=0;castCooldown=0;castPose=0;wandHits=0;
     s.elapsed = 0; s.jumps = 0; s.achievements=[]; achievementToast=0; s.powerSeconds=0; s.powerStars=0; setPowerMusic(false);
     opts.onLevelStart?.(n);
@@ -175,6 +176,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   function showMap(sel = mapSel) {
     runSequence++;
+    taps.clear();
     s.mode = 'map';bolts.length=0;touch.cast=false;
     setMusicStage(null);
     s.paused=false;mapHover=-1;canvas.style.cursor='default';
@@ -184,7 +186,6 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     const ch = CHAPTERS[chapterOf(sel)];
     opts.onStatus(`World map. ${ch.name}, ${ch.stages.length === 1 ? 'one stage' : `${ch.stages.length} stages`}, selected. Left and right to choose a world, Space to start.`);
     draw();resume();
-    requestAnimationFrame(centerMap);
   }
 
   // ---- juice (off under reduced motion)
@@ -204,6 +205,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   // its arrow keys and space bar, and Tab always leaves (no focus trap).
   const keys = new Set<string>();
   const touch = { left: false, right: false, jump: false, cast: false };
+  // A tap may press and release between physics steps. Sample its leading edge once.
+  const taps = new Set<keyof typeof touch>();
   const GAME_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter', 'a', 'd', 'w', 'A', 'D', 'W', 'x', 'X', 'j', 'J']);
   const isJumpKey = (k: string) => k === ' ' || k === 'ArrowUp' || k === 'w' || k === 'W';
   const onKey = (e: KeyboardEvent, down: boolean) => {
@@ -277,15 +280,8 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     draw();
   };
   const leaveMap=()=>{mapHover=-1;canvas.style.cursor='default';if(s.mode==='map')draw();};
-  // A swipe pans the enlarged phone map; only a tap enters a stage.
+  // Only a tap enters a stage.
   let mapPress: { x: number; y: number; id: number } | null = null;
-  const centerMap = () => {
-    if (s.mode !== 'map' || !canvas.parentElement) return;
-    const viewport = canvas.parentElement;
-    viewport.scrollLeft = NODES[mapSel][0] / HUD_W * canvas.clientWidth - viewport.clientWidth / 2;
-  };
-  const mapResize = new ResizeObserver(centerMap);
-  mapResize.observe(canvas);
   const wake = (e: PointerEvent) => {
     canvas.focus({ preventScroll: true });
     if (s.mode === 'map') {
@@ -313,16 +309,18 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
   function setPaused(v: boolean) {
     pausedOffscreen = false;
     if (s.finished || s.paused === v) return;
+    if (v) taps.clear();
     s.paused = v;setMusicPlaying(!v);
     opts.onStatus(v ? 'Paused. Press Escape or click the game to carry on.' : 'Playing.');
     if (!v) resume(); else draw();
   }
 
   function input() {
-    let left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A') || touch.left;
-    let right = keys.has('ArrowRight') || keys.has('d') || keys.has('D') || touch.right;
-    let jump = keys.has(' ') || keys.has('ArrowUp') || keys.has('w') || keys.has('W') || touch.jump;
-    let cast=keys.has('x')||keys.has('X')||keys.has('j')||keys.has('J')||touch.cast;
+    let left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A') || touch.left || taps.has('left');
+    let right = keys.has('ArrowRight') || keys.has('d') || keys.has('D') || touch.right || taps.has('right');
+    let jump = keys.has(' ') || keys.has('ArrowUp') || keys.has('w') || keys.has('W') || touch.jump || taps.has('jump');
+    let cast=keys.has('x')||keys.has('X')||keys.has('j')||keys.has('J')||touch.cast || taps.has('cast');
+    taps.clear();
     const pad = navigator.getGamepads?.().find(Boolean);
     if (pad) {
       left ||= pad.axes[0] < -0.4 || !!pad.buttons[14]?.pressed;
@@ -379,7 +377,17 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
     clock += dt;
     achievementToast=Math.max(0,achievementToast-dt);
     if (!s.finished) s.elapsed += dt * 1000;
-    if (s.finished) { endT += dt; p.vx = 0; return; }
+    if (s.finished) {
+      endT += dt;
+      if (s.level === 0 && p.ride && !opts.reduceMotion) {
+        p.vx *= Math.exp(-6 * dt);
+        if (Math.abs(p.vx) < 1) p.vx = 0;
+        p.x = Math.min(lvl.w * TILE - PW, Math.max(0, p.x + p.vx * dt));
+        s.x = p.x;
+      } else p.vx = 0;
+      s.vx = p.vx;
+      return;
+    }
     for (const m of movers) { m.prevY = m.y; m.y = m.baseY * TILE - AMP * price(clock + m.i * 0.7); }
     if (riding && p.vy >= 0 && p.x + PW > riding.px && p.x < riding.px + riding.pw) p.y = riding.y - PH;
     else riding = null;
@@ -490,6 +498,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'F' && !s.finished) {
         if(boss?.hp){if(!finaleHint){opts.onStatus('Defeat the Scrollkeeper first. Face it and cast your wand with X or J, or tap Cast.');finaleHint=true;}continue;}
         if(boss&&!jump){if(!finaleHint){opts.onStatus('The castle is open! Press Up or Space beside the flag to raise it.');finaleHint=true;}continue;}
+        if (s.level === 0 && p.ride) { p.y = iy + TILE - PH; p.vy = 0; p.grounded = true; }
         if(boss){p.y=iy+TILE-PH;p.vx=0;p.vy=0;p.grounded=true;}
         s.finished = true; endT = 0; s.powerSeconds=0; setPowerMusic(false); sfx.finish(); unlockAchievements(true);
         if (MISSIONS[s.level].kind === 'ride' && p.ride) progress(1);
@@ -755,6 +764,31 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       else if (it.kind === 'C') { if (!drawIllustration(ctx, 'flag', ix + TILE / 2, iy + TILE, 26, 38)) W(theme.check, ix + TILE / 2 - theme.check.width, iy + TILE - theme.check.height / ART); }
       else if (it.kind === 'F') {
         if(boss){drawBedtimeCastle(ctx,ix,iy+TILE,s.finished?(opts.reduceMotion?1:Math.min(1,endT/1.6)):0,clock+endT,opts.reduceMotion);continue;}
+        if (theme.id === 'kaohsiung') {
+          // The last stretch opens onto the harbour. Keep the quay level with the road.
+          const shore = ix - 9 * TILE, quay = iy + TILE;
+          ctx.fillStyle = '#518fa0';
+          for (let ledge = 0; ledge < 5; ledge++) {
+            const left = shore + ledge * 36;
+            ctx.fillRect(left, quay - (ledge + 1) * 12, lvl.w * TILE - left, 12);
+          }
+          // A moored sailboat gives the water a readable silhouette at canvas scale.
+          const mast = ix - 3 * TILE;
+          ctx.fillStyle = '#374a56';
+          ctx.fillRect(mast, quay - 90, 2, 36);
+          ctx.fillRect(mast - 20, quay - 54, 44, 4);
+          ctx.fillRect(mast - 14, quay - 50, 32, 4);
+          ctx.fillStyle = '#fff0ce';
+          for (let strip = 0; strip < 6; strip++) ctx.fillRect(mast - 3 * (strip + 1), quay - 84 + strip * 5, 3 * (strip + 1), 5);
+          ctx.fillStyle = '#aad0c5';
+          for (let ripple = 0; ripple < 15; ripple++) {
+            ctx.fillRect(shore + 88 + ripple * 21, quay - 50 + (ripple % 3) * 12, 12, 2);
+          }
+          ctx.fillStyle = '#454a53';
+          for (let post = shore; post < lvl.w * TILE; post += 64) ctx.fillRect(post, quay - 10, 6, 10);
+          ctx.drawImage(theme.finish, ix - 72, quay - 66, 96, 66);
+          continue;
+        }
         const im = theme.finish;
         if (!drawIllustration(ctx, 'finish', ix + TILE / 2, iy + TILE, 42, 54)) W(im, ix + TILE / 2 - im.width, iy + TILE - im.height / ART);
         // Bedtime: the egg hatches into this week's pet
@@ -877,7 +911,10 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
 
   return {
     state: () => ({ ...s,weapon:boss?'starlight-wand':null,wandHits,castCooldown,bolts:bolts.map(b=>({...b})),boss:boss?{...boss}:null,flagRaised:!!boss&&s.finished&&(opts.reduceMotion||endT>=1.6),mapSelected:mapSel,mapHovered:mapHover,mapTime:mapClock, audio:audioState(), powerItems:items.filter(i=>i.kind==='*'&&!i.taken).map(i=>({x:i.x*TILE,y:i.y*TILE})), done: [...s.done], missions: [...s.missions], mission: { ...s.mission }, enemies: foes.filter((e) => e.alive).map(({ x, y }) => ({ x, y })) }),
-    touch,
+    setTouch(key: keyof typeof touch, down: boolean) {
+      if (down && !touch[key]) taps.add(key);
+      touch[key] = down;
+    },
     levels: LEVELS.length,
     loadLevel: (n: number) => { canvas.focus(); mapSel = n; loadLevel(n); },
     showMap: (n?: number) => { canvas.focus(); cancelAnimationFrame(raf); raf = 0; showMap(n ?? mapSel); },
@@ -888,7 +925,7 @@ export function start(canvas: HTMLCanvasElement, opts: Opts) {
       cancelAnimationFrame(raf); raf = 0;
       canvas.removeEventListener('keydown', kd); canvas.removeEventListener('keyup', ku);
       canvas.removeEventListener('blur', blur); canvas.removeEventListener('pointerdown', wake);
-      canvas.removeEventListener('pointerup', releaseMap);canvas.removeEventListener('pointercancel', cancelMapPress);mapResize.disconnect();
+      canvas.removeEventListener('pointerup', releaseMap);canvas.removeEventListener('pointercancel', cancelMapPress);
       canvas.removeEventListener('focus', onFocus);
       canvas.removeEventListener('pointermove',hoverMap);canvas.removeEventListener('pointerleave',leaveMap);canvas.style.cursor='';
       document.removeEventListener('visibilitychange', vis);

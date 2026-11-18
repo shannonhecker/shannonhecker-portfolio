@@ -5,7 +5,7 @@ export async function GET(req: Request) {
   if (!validStage(stage)) return json({ error: 'Invalid stage' }, 400);
   try {
     const rows = await redis(['ZREVRANGE', `${namespace()}:board:${stage}`, 0, 9]);
-    return json({ entries: rows.map((row: string) => { const item = JSON.parse(row); return { nickname: item.nickname, score: item.score }; }) }, 200, 'public, max-age=0, s-maxage=30');
+    return json({ entries: rows.map((row: string) => { const item = JSON.parse(row); return { nickname: item.nickname, score: item.score }; }) });
   } catch { return json({ error: 'Scoreboard is resting. Try again shortly.' }, 503); }
 }
 export async function POST(req: Request) {

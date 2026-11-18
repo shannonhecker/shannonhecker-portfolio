@@ -60,8 +60,8 @@ test('section headings keep words aligned throughout their one-time entrance',as
 
 test('touch scroll settles every heading without horizontal overflow',async({browser})=>{
  const context=await browser.newContext({baseURL:'http://localhost:4329',viewport:{width:390,height:844},isMobile:true,hasTouch:true});
- const page=await context.newPage();await page.goto('/fx');
- const heading=page.locator('#fx-problem .h-sub');
+ const page=await context.newPage();await page.goto('/');
+ const heading=page.locator('#how .split');
  await heading.scrollIntoViewIfNeeded();
  await expect(heading).toHaveAttribute('data-scroll-motion','true');
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-180));

@@ -1,6 +1,7 @@
 ---
 title: "UI Toolkit"
 summary: "Trading UI toolkit for multi-asset workflows. Reusable components, order entry patterns, price tiles, and WCAG AA foundations."
+contribution: "I designed trading flows with product and engineering and kept the components aligned with Market UI."
 role: "UI Designer"
 dates: "2016 to 2018"
 order: 5

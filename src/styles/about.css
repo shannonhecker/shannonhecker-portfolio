@@ -7,7 +7,7 @@
    after it uses the essays' column structure: a label column of three of twelve columns
    (sized as (100% + g) / 4 so it ends where column 3 of the head grid ends), then the
    text. The close mirrors the head: a very large line, the way in at its foot. */
-.about-page{--g:clamp(16px,2vw,32px);--rule:24px;--measure:54ch;--lead:calc((100% - 2 * var(--g)) / 3);--rail:var(--g);--jpad:clamp(24px,3vw,40px);padding-top:clamp(112px,10vw,160px)}
+.about-page{--g:clamp(16px,2vw,32px);--rule:28px;--measure:54ch;--lead:calc((100% - 2 * var(--g)) / 3);--rail:var(--g);--jpad:clamp(32px,4vw,56px);--section-gap:clamp(76px,8vw,120px);padding-top:clamp(112px,10vw,160px)}
 .about-page .wrap{max-width:1440px}
 
 /* ------------------------------------------------------------------ head */
@@ -18,20 +18,19 @@
 
 /* ------------------------------------------------------------------ intro */
 .about-intro .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:stretch;padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(8px,2vw,32px)}
-.about-photo{grid-column:1/6;grid-row:1;margin:0}
+.about-photo{grid-column:1/6;grid-row:1 / span 2;margin:0}
 /* The portrait keeps its own proportions: height follows width, never cropped. */
 .about-photo img{display:block;width:100%;max-width:var(--w);height:auto;border-radius:var(--radius);background:var(--bg-2)}
 .about-who{grid-column:7/13;grid-row:1;min-width:0;display:flex;flex-direction:column}
 .about-kicker{margin:0;font:400 14px/1.6 var(--body);letter-spacing:0;color:var(--fg-2)}
-.about-who .about-kicker{margin-bottom:clamp(20px,2.4vw,32px)}
-.about-lede{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(24px,2.5vw,38px);line-height:1.2;letter-spacing:-.03em;text-wrap:pretty;max-width:26ch}
+.about-who .about-kicker{margin-bottom:clamp(24px,2.4vw,36px)}
+.about-lede{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(23px,2.25vw,34px);line-height:1.4;letter-spacing:-.018em;text-wrap:pretty;max-width:36ch}
 .about-prose{margin:0;font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2);max-width:var(--measure)}
 .about-prose strong{font-weight:600;color:var(--fg)}
-.about-who .about-prose{margin-top:clamp(24px,3vw,40px)}
 
-.about-links{display:flex;flex-wrap:wrap;gap:0 clamp(20px,2.4vw,36px);margin:auto 0 0;padding:clamp(16px,2vw,24px) 0 0;list-style:none}
+.about-links{display:flex;flex-wrap:wrap;gap:4px clamp(20px,2.4vw,36px);margin:clamp(20px,2.4vw,32px) 0 0;padding:0;list-style:none}
 .about-links a,.about-rows a{color:var(--fg);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
-.about-links a{display:inline-flex;align-items:center;min-height:44px;font-size:17px;font-weight:500}
+.about-links a{display:inline-flex;align-items:center;gap:7px;min-height:44px;font-size:17px;font-weight:500}
 .about-links a:hover,.about-rows a:hover{text-decoration-thickness:2px}
 
 /* The three figures from the old page: one ruled row under the portrait and the opening. They run
@@ -45,21 +44,21 @@
 .about-facts dd{margin:0;font-size:16px;line-height:1.6;color:var(--fg-2);max-width:30ch}
 
 /* ------------------------------------------------------------------ sections */
-.about-section{padding-top:clamp(48px,5.5vw,88px)}
-.about-outside{padding-bottom:clamp(72px,9vw,144px)}
+.about-section{padding-top:var(--section-gap)}
+.about-outside{padding-bottom:var(--section-gap)}
 .about-section .wrap{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:start}
 .about-label,.about-content{min-width:0;margin:0;padding:0;list-style:none}
 .about-label{padding:var(--rule) var(--g) 0 0;border-top:1px solid var(--hair)}
 .about-label h2{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.3;letter-spacing:-.02em;text-wrap:balance}
 /* One pattern for every label: the heading first, level with the section's first line, and
    where there is a descriptor it sits quietly under the heading. */
-.about-label .about-kicker{margin-top:6px}
+.about-label .about-kicker{margin-top:8px}
 .about-content{padding-top:var(--rule);border-top:1px solid var(--hair)}
 /* Row lists draw their own hairlines, one above every row, so the first one is the
    section's rule; the label's rule continues it on the left. */
 .about-rows,.about-jobs,.about-schools,.about-list{padding-top:0;border-top:0}
 
-.about-statement{margin:0 0 clamp(28px,3.4vw,48px);font-family:var(--display,var(--body));font-weight:500;font-size:clamp(30px,3.7vw,56px);line-height:1.1;letter-spacing:-.04em;max-width:19ch;text-wrap:balance}
+.about-statement{margin:0 0 clamp(28px,3.4vw,48px);font-family:var(--display,var(--body));font-weight:500;font-size:clamp(30px,3.7vw,56px);line-height:1.2;letter-spacing:-.025em;max-width:19ch;text-wrap:balance}
 .about-content>.about-prose+.about-prose{margin-top:1.25rem}
 
 /* Now: the verb, then what it is. */
@@ -86,7 +85,7 @@
 .about-dates.is-current{color:var(--fg)}
 .about-job-main{min-width:0}
 .about-job h3,.about-schools h3{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(22px,2vw,30px);line-height:1.2;letter-spacing:-.03em;text-wrap:balance}
-.about-role{margin:6px 0 0;font-size:17px;line-height:1.5;font-weight:500;color:var(--fg)}
+.about-role{margin:8px 0 0;font-size:17px;line-height:1.5;font-weight:500;color:var(--fg)}
 .about-roles{margin:10px 0 0;padding:0;list-style:none}
 .about-roles li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 24px;padding-block:8px;border-top:1px solid var(--hair)}
 .about-roles li:last-child{border-bottom:1px solid var(--hair)}
@@ -107,13 +106,12 @@
 /* ------------------------------------------------------------------ narrower */
 @media(max-width:900px){
   .about-page{--lead:minmax(8rem,.3fr);--rail:40px}
-  .about-intro .wrap{grid-template-columns:minmax(0,1fr);row-gap:clamp(32px,6vw,48px)}
+  .about-intro .wrap{grid-template-columns:minmax(0,1fr);row-gap:clamp(48px,7vw,64px)}
   .about-photo,.about-who,.about-facts{grid-column:1;grid-row:auto}
   .about-facts{margin-top:0}
   .about-photo{position:static;max-width:min(100%,480px)}
-  .about-lede{max-width:none}
   .about-section .wrap{grid-template-columns:minmax(0,1fr)}
-  .about-label{padding:var(--rule) 0 14px}
+  .about-label{padding:var(--rule) 0 24px}
   .about-content{padding-top:0;border-top:0}
   .about-rows>:first-child,.about-jobs>:first-child,.about-schools>:first-child,.about-list>:first-child{border-top:0;padding-top:0}
   .about-jobs>:first-child::before{display:none}
@@ -123,7 +121,7 @@
 @media(max-width:760px){
   .about-head .wrap{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
   .about-schools>li{grid-template-columns:minmax(0,1fr)}
-  .about-job{grid-template-columns:28px minmax(0,1fr);column-gap:0;row-gap:4px}
+  .about-job{grid-template-columns:28px minmax(0,1fr);column-gap:0;row-gap:8px}
   .about-job .about-dates{grid-column:2;grid-row:1}
   .about-job .about-rail{grid-column:1;grid-row:1/3;font-size:24px}
   .about-job .about-job-main{grid-column:2;grid-row:2}

@@ -14,23 +14,20 @@ async function open(page: Page, path: string, theme: 'dark' | 'light' | null = '
 const flat = (s: string) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
 const mainText = async (page: Page) => flat(await page.locator('main').innerText());
 
-// The words the old site shows, exactly as written there. The few places where the
-// page differs on purpose (job titles, dates, the opening line) are in
-// docs/superpowers/review/about-changes.md, and the tests below name them.
-const LEGACY_WORDS = [
+// Public biography, job titles and personal details kept in this edition.
+const ABOUT_COPY = [
   // My approach
   'My approach',
-  'I design what traders and analysts use every day. Trading floors. AI tools.',
-  'Ten years designing for engineering, quant, and ops audiences inside banks, plus the clients who use the same data. I prototype early, run quick research loops, and pressure-test decisions with product and engineering before the pixels harden.',
-  'Design systems and modern tooling, including AI where it helps, speed delivery without losing clarity. The goal is simple: accessible interfaces teams can ship and keep iterating on.',
+  'I build what I design.',
+  'I put early prototypes in front of the people who use them. Then I work through their feedback with product and engineering.',
   // Experience
   'Career', 'Experience',
   'uoaui.ai', 'Designer + Builder', '2026 to present',
-  'Started, designed, and built an AI design-system builder. UI Kit plus private-preview Builder across Salt, Material 3, Fluent 2, Carbon, and the uoaui system. In private alpha. I own product strategy, research, interaction design, brand, and front-end build.',
+  'I designed and built a visual web builder for designers. Its UI Kit and private-preview Builder support Salt, Material 3, Fluent 2, Carbon and the uoaui system.',
   'Barclays, London',
   'Sole designer on FX, covering trader, sales, ops, institutional and corporate-client surfaces. Leading a design system refactor across the platform. Most visual work is under NDA; happy to walk through it in an interview.',
   'J.P. Morgan, London',
-  'User Experience Designer from 2016, then Digital Product Designer VP on Fusion from 2023. Led UI for Fusion Analytics, defining component structure and Salt accessibility patterns. Before Fusion, led UI on Deal Model in Securities Services, with two UX designers and teams across custody ops, sales, legal and product. Contributed to the Fusion Design System.',
+  'I led UI for Fusion Analytics, defining components and accessibility patterns in Salt. Before Fusion, I led UI on Deal Model with two UX designers and teams across custody operations, sales, legal and product.',
   'Pegasus Global Travel, London', 'Graphic Designer', '2015',
   'Designed the company website end to end, plus promotional assets and video content. Brought the brand into one system across channels.',
   'Genuine C&C Inc, Taiwan', 'Visual Designer & Web Developer', '2011 to 2015',
@@ -47,9 +44,6 @@ const LEGACY_WORDS = [
   // The old home page's About section
   'Who I am',
   'Designing what traders and analysts use every day.',
-  'Building uoaui.ai on the side, in private alpha.',
-  'Nine years at J.P. Morgan, ending on Fusion.',
-  'I run the design system across FX and MarketsOne: tokens, components, and accessibility.',
   '15 yrs', 'In design, ten of them in fintech',
   '9 yrs', 'At J.P. Morgan, ending as Digital Product Designer VP',
   'AA WCAG', 'The standard I design to',
@@ -65,8 +59,7 @@ const LEGACY_WORDS = [
   // The "Let's Talk." block moved to the shared footer (tests/contact.spec.ts covers it).
 ].map(flat);
 
-// The panel hero's intro paragraph (src/components/Hero.astro): the opening line.
-const HERO_INTRO = flat("Hi, I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. Before that, I was Digital Product Designer VP at J.P. Morgan. I build what I design.");
+const ABOUT_INTRO = flat("I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.");
 
 // Real characters (spaces included) per full line of the long paragraphs on the page.
 // Every character is placed by its own client rect; lines are the distinct vertical
@@ -116,9 +109,9 @@ test.describe('/about', () => {
     expect(sizes['/writing']).toBe(sizes['/work']);
   });
 
-  test('the opening line follows the home hero intro paragraph', async ({ page }) => {
+  test('the opening introduces Shannon and her current work', async ({ page }) => {
     await open(page, '/about');
-    expect(await mainText(page)).toContain(HERO_INTRO);
+    expect(await mainText(page)).toContain(ABOUT_INTRO);
   });
 
   test('states the corrected titles and dates', async ({ page }) => {
@@ -154,10 +147,10 @@ test.describe('/about', () => {
     }
   });
 
-  test('carries every line of the old About, word for word', async ({ page }) => {
+  test('preserves the edited biography and career details', async ({ page }) => {
     await open(page, '/about');
     const text = await mainText(page);
-    const missing = LEGACY_WORDS.filter((w) => !text.includes(w));
+    const missing = ABOUT_COPY.filter((w) => !text.includes(w));
     expect(missing).toEqual([]);
   });
 
@@ -187,10 +180,16 @@ test.describe('/about', () => {
   });
 
   test('contact links: LinkedIn, email, and the close', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await open(page, '/about');
     await expect(page.locator('main a[href="https://www.linkedin.com/in/shannonhecker"]').first()).toBeVisible();
     // The intro's own Email link stays in main; the "Let's Talk." block is the footer's.
     await expect(page.locator('main a[href="mailto:shannonheckerchen@gmail.com"]')).toHaveCount(1);
+    const contactLinks = page.locator('.about-links a');
+    await expect(contactLinks.locator('svg[aria-hidden="true"]:visible')).toHaveCount(3);
+    for (const link of await contactLinks.all()) {
+      expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    }
     const close = page.locator('footer #contact');
     await expect(close).toHaveCount(1);
     await expect(close.getByRole('heading', { name: 'Let’s Talk.' })).toBeVisible();

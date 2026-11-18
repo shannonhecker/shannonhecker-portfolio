@@ -1,18 +1,21 @@
 ---
+import Icon from '../components/Icon.astro';
 import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CaseRowLink from '../components/CaseRowLink.astro';
+import { projectOverviews } from '../lib/project-overviews';
 import { CASES } from '../lib/cases';
 import { CASE_WORLD } from '../lib/journey';
 
-interface Props { title: string; href: string }
+interface Props { title: string; href: keyof typeof projectOverviews }
 const { title, href } = Astro.props;
 const i = CASES.findIndex((c) => c.href === href);
 // Description is the case's own index-row text: no new copy.
 const description = CASES[i].meta;
 // Each case with a world in the game links to it (World map in the hero).
 const level = href in CASE_WORLD ? CASE_WORLD[href] + 1 : 0;
+const overview = projectOverviews[href];
 const next = CASES[(i + 1) % CASES.length];
 ---
 <Base title={`${title} · Shannon Hecker`} description={description}>
@@ -20,18 +23,43 @@ const next = CASES[(i + 1) % CASES.length];
   <a class="skip" href="#main">Skip to content</a>
   <Nav />
   <main id="main" class="case-page" data-project={href.slice(1)}>
-    <slot />
+    <article class="wrap project-overview">
+      <a class="work-back" href="/work">All projects</a>
+      <header>
+        <p class="project-context">{overview.context}</p>
+        <h1 style={`view-transition-name:t-${CASES[i].vt}`}>{title}</h1>
+        <p class="project-intro">{overview.lead}</p>
+        <p class="project-contribution">{overview.contribution}</p>
+      </header>
+      <div class="overview-art"><slot /></div>
+      <section class="project-outcome" aria-labelledby="outcome">
+        <h2 id="outcome">Outcome</h2>
+        <p>{overview.outcome}</p>
+        {overview.links.length > 0 && <div class="product-links">{overview.links.map(link => <a href={link.href} target="_blank" rel="noopener">{link.label}<Icon name="external" /><span class="vh"> (opens in new tab)</span></a>)}</div>}
+      </section>
+    </article>
     {level > 0 && (
-      <p class="wrap play-link"><a href={`/?level=${level}#adventure`}>Play this chapter in the game →</a></p>
+      <p class="wrap play-link"><a href={`/?level=${level}#adventure`}>Play this chapter in the game <Icon name="arrow-right" /></a></p>
     )}
     <section class="band next-case" aria-label="Next case">
-      <div class="wrap"><div class="index"><CaseRowLink c={next} /></div></div>
+      <div class="wrap"><div class="index"><CaseRowLink c={next} description={projectOverviews[next.href].context} /></div></div>
     </section>
   </main>
   <Footer />
 </Base>
+<style>
+.project-overview{padding-top:clamp(100px,10vw,160px);padding-bottom:clamp(40px,5vw,80px)}
+.work-back,.product-links a{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--fg);text-underline-offset:4px}
+.project-context{margin:clamp(24px,4vw,64px) 0 16px;color:var(--fg-2);font-size:15px}
+.project-overview h1{max-width:19ch;font:500 clamp(44px,7vw,108px)/1.02 var(--display,var(--body));letter-spacing:-.045em;margin:0}
+.project-intro{max-width:48ch;margin:24px 0 0;font:400 clamp(20px,2.2vw,32px)/1.35 var(--body);color:var(--fg)}
+.project-contribution,.project-outcome p{max-width:61ch;font:400 17px/1.6 var(--body);color:var(--fg-2);margin:16px 0 0}
+.overview-art{margin:clamp(32px,5vw,72px) auto;max-width:1040px}
+.overview-art :global(.project-hero){margin:0 auto;width:100%}
+.project-outcome{border-top:1px solid var(--hair);padding-top:clamp(24px,3vw,48px)}
+.project-outcome h2{margin:0;font:500 clamp(26px,3vw,42px)/1.2 var(--body);letter-spacing:-.03em}
+.product-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px}
+</style>
 <script>
   import '../scripts/motion.ts';
-  import '../scripts/demo.ts';
-  import '../scripts/marquee.ts';
 </script>

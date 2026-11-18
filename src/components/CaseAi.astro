@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 interface Props { top?: boolean }
 // On its own page the case title is the h1 and each beat label an h2; inside
 // the one-page version they sit one level lower. Beat labels are headings so
@@ -31,7 +32,7 @@ import VisualExplanation from './dg/VisualExplanation.astro';
           <HT class="h-chapter" style="view-transition-name:t-ai">uoaui.ai</HT>
         </div>
         <div class="avatar-practice" style="grid-column:1/13"><p class="lead muted">A design platform I'm building on Claude. It turns a prompt into a working screen built from real design systems, Salt, Material, Fluent and Carbon among them, using native components where the mapping supports them, with explicit fallbacks for missing equivalents. Switch system, density or theme and the screen rebuilds.</p></div>
-        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha. Landing, comparison and UI Kit are public; the builder needs an invited sign-in.</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> →</a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> →</a></span></div>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Designed and built it, solo</span><span><b>Status</b> · Private alpha. Landing, comparison and UI Kit are public; the builder needs an invited sign-in.</span><span><b>Live</b> · <a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span><span><b>UI Kit</b> · <a href="https://uoaui.ai/ui-kit?ds=salt" target="_blank" rel="noopener">Salt component library<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span></div>
       </div>
       <div class="project-hero">
 <ProductCapture name="/art/ai-hero-builder-composition.svg" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />

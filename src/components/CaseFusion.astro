@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 interface Props { top?: boolean }
 // On its own page the case title is the h1 and each beat label an h2; inside
 // the one-page version they sit one level lower. Beat labels are headings so
@@ -29,7 +30,7 @@ import VisualExplanation from './dg/VisualExplanation.astro';
           <HT class="h-chapter" style="view-transition-name:t-fusion">Fusion analytics dashboard</HT>
         </div>
         <p class="lead muted" style="grid-column:1/9">Portfolio managers and analysts were drowning in fragmented data. Their real need was trust in the numbers, not more features. Performance, attribution and risk they could take into a board meeting.</p>
-        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Digital Product Designer VP. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> →</a></span></div>
+        <div class="meta" style="grid-column:1/13"><span><b>Role</b> · Digital Product Designer VP. Led the design</span><span><b>System</b> · Salt, plus a Fusion layer I built</span><span><b>Status</b> · Shipped, opened to clients</span><span><b>Live</b> · <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener">My public rebuild<span class="vh"> (opens in new tab)</span> <Icon name="external" /></a></span></div>
       </div>
       <FusionHero />
     </header>

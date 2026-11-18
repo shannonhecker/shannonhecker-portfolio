@@ -56,6 +56,15 @@ test('touch buttons move without pausing', async ({ browser }) => {
   await expect.poll(async () => (await state(page)).mode).toBe('level');
   const right = page.locator('.game-touch [data-k="right"]');
   await expect(right).toBeVisible();
+  await expect.poll(async () => (await state(page)).grounded).toBe(true);
+  const jump = page.locator('.game-touch [data-k="jump"]');
+  await jump.evaluate(button => {
+    // A quick tap can release before the next physics step.
+    for (const type of ['pointerdown', 'pointerup']) {
+      button.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerType: 'touch' }));
+    }
+  });
+  await expect.poll(async () => (await state(page)).grounded, { intervals: [16] }).toBe(false);
   const x0 = (await state(page)).x;
   // hold the button like a thumb would, then let go
   await right.dispatchEvent('pointerdown', { pointerType: 'touch' });
@@ -66,6 +75,27 @@ test('touch buttons move without pausing', async ({ browser }) => {
   expect(s.paused).toBe(false);
   expect(s.x).toBeGreaterThan(x0);
   await ctx.close();
+});
+
+test('a quick wand tap fires in the bonus stage', async ({ browser }) => {
+  const context = await browser.newContext({ hasTouch: true, isMobile: true, viewport: { width: 844, height: 390 } });
+  try {
+    await context.addInitScript(() => localStorage.setItem('working-order-progress-v2', JSON.stringify({ done: [0, 1, 2, 3, 4, 5, 6], missions: [] })));
+    const page = await context.newPage();
+    await page.goto('/?level=8');
+    await page.getByRole('button', { name: 'Start adventure' }).tap();
+    await ready(page);
+    const cast = page.locator('.game-touch [data-k="cast"]');
+    await expect(cast).toBeVisible();
+    await cast.evaluate(button => {
+      for (const type of ['pointerdown', 'pointerup']) {
+        button.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerType: 'touch' }));
+      }
+    });
+    await expect.poll(async () => (await state(page)).castCooldown, { intervals: [16] }).toBeGreaterThan(0);
+  } finally {
+    await context.close();
+  }
 });
 
 test('Play opens the game full screen; Escape and the Exit button both leave', async ({ page }) => {

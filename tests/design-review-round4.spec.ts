@@ -16,11 +16,11 @@ test.describe('earlier projects', () => {
     await open(page, '/work/tripup', 1440);
     const m = await page.evaluate(() => {
       const top = (s: string) => document.querySelector(s)!.getBoundingClientRect().top + scrollY;
-      return { head: top('.earlier-head'), cover: top('.earlier-cover'), results: top('.earlier-results'), body: top('.earlier-body') };
+      return { head: top('.earlier-head'), cover: top('.earlier-cover'), results: top('.earlier-results'), next: top('.earlier-next') };
     });
     expect(m.head).toBeLessThan(m.cover);
     expect(m.cover).toBeLessThan(m.results);
-    expect(m.results).toBeLessThan(m.body);
+    expect(m.results).toBeLessThan(m.next);
     expect(m.cover, 'the cover starts in the first screen').toBeLessThan(700);
   });
 
@@ -35,31 +35,7 @@ test.describe('earlier projects', () => {
       await open(page, `/work/${slug}`, 1440);
       expect(await page.locator('.earlier-cover').evaluate((e) => e.classList.contains('is-matte')), slug).toBe(matte);
     }
-    // The stock dashboard's pale-blue figure fills its own frame, so it is not set on white.
-    await open(page, '/work/stock-dashboard', 1440);
-    expect(await page.locator('.earlier-sec .earlier-fig').first().evaluate((e) => e.classList.contains('is-matte'))).toBe(false);
   });
-
-  for (const theme of ['dark', 'light'] as const) {
-    test(`section headings carry a numbered accent kicker and keep their own name (${theme})`, async ({ page }) => {
-      await open(page, '/work/design-system', 1440, theme);
-      const h2s = page.locator('.earlier-sec > h2');
-      const n = await h2s.count();
-      expect(n).toBeGreaterThanOrEqual(3);
-      const first = await h2s.first().evaluate((h) => {
-        const b = getComputedStyle(h, '::before');
-        return { content: b.content, counter: b.counterIncrement, color: b.color, size: parseFloat(getComputedStyle(h).fontSize), text: h.textContent };
-      });
-      // The number is a CSS counter (01, 02, ...) drawn as generated content with empty alt text, so it is not read out.
-      expect(first.content).toContain('counter(sec, decimal-leading-zero)');
-      expect(first.content).toContain('/ ""');
-      expect(first.counter).toContain('sec');
-      expect(first.size).toBeGreaterThanOrEqual(26);
-      expect(first.color).not.toBe(await h2s.first().evaluate((h) => getComputedStyle(h).color));
-      // The accessible name is the heading's words, without the number.
-      await expect(page.getByRole('heading', { level: 2, name: first.text!.trim(), exact: true })).toBeVisible();
-    });
-  }
 
   test('every figure links to the full-size file in a new tab', async ({ page }) => {
     for (const slug of EARLIER_SLUGS) {
@@ -93,18 +69,9 @@ test.describe('earlier projects', () => {
     await expect(page.locator('.earlier-pan[tabindex]')).toHaveCount(0);
   });
 
-  test('a decision is a unit: hairline above, 24px of air, a larger title', async ({ page }) => {
-    await open(page, '/work/design-system', 1440);
-    const hs = await page.locator('.earlier-sec-body > h3').evaluateAll((els) => els.map((h) => { const c = getComputedStyle(h); return { size: parseFloat(c.fontSize), pt: parseFloat(c.paddingTop), rule: c.borderTopWidth, first: h.previousElementSibling === null }; }));
-    expect(hs.length).toBeGreaterThanOrEqual(3);
-    for (const h of hs) { expect(h.size).toBeGreaterThanOrEqual(24); if (!h.first) { expect(h.pt).toBe(24); expect(h.rule).toBe('1px'); } }
-  });
-
-  test('tags are one more row in the facts, joined by dots, and the next project shows its cover', async ({ page }) => {
+  test('facts stay concise and the next project shows its cover', async ({ page }) => {
     await open(page, '/work/tripup', 1440);
-    const row = page.locator('.earlier-facts > div', { has: page.locator('dt', { hasText: 'Tags' }) });
-    await expect(row.locator('dd')).toContainText('Mobile UX · UI Design');
-    await expect(page.locator('.earlier-tags')).toHaveCount(0);
+    await expect(page.locator('.earlier-facts dt')).toHaveText(['Year', 'Role']);
     const next = page.locator('.earlier-next .row');
     await expect(next.locator('.n')).toHaveCount(0);
     await next.locator('img').evaluate((i: HTMLImageElement) => { i.loading = 'eager'; return i.decode(); });

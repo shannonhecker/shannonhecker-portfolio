@@ -1,5 +1,6 @@
 import { startScore, endScore } from './leaderboard';
 import { track } from './analytics';
+import { activateGameAudio } from '../game/audio-context';
 // Loads the game chunk only when someone presses Play. If the chunk fails,
 // the poster stays and the rest of the page is untouched. Pressing Play opens
 // the world map; a case page's "Play this case as a level" link (?level=n)
@@ -24,7 +25,9 @@ type Game = ReturnType<typeof import('../game/main').start>;
 let game: Game | null = null;
 let musicControl: ((on:boolean)=>void) | undefined;
 let bootSequence = 0;
-let soundOn = false;
+const soundKey = 'working-order-sound';
+let soundOn = true;
+try { soundOn = localStorage.getItem(soundKey) !== 'off'; } catch {}
 const flight=document.querySelector<HTMLElement>('.game-flight');
 let cancelFlight:(()=>void)|undefined;
 function flyToUK(){
@@ -56,7 +59,7 @@ function showEnd(n: number | null, shipped = false, mission?: Mission) {
     if (m && i === n && mission) {
       m.hidden = false;
       m.dataset.done = String(mission.done);
-      m.textContent = mission.done ? `★ Mission complete: ${mission.text}.` : `Mission: ${mission.text}. ${mission.need > 1 ? `${mission.have} of ${mission.need} this time.` : 'Not this time.'}`;
+      m.textContent = mission.done ? `Mission complete: ${mission.text}.` : `Mission: ${mission.text}. ${mission.need > 1 ? `${mission.have} of ${mission.need} this time.` : 'Not this time.'}`;
     }
   });
   if (n !== null) ends[n]?.querySelector<HTMLElement>('[data-next]')?.focus();
@@ -80,6 +83,7 @@ async function boot(level: number, toMap: boolean) {
     if (statusEl) statusEl.textContent = 'Preparing your adventure…';
     await mod.prepareArt();
     if (sequence !== bootSequence) return;
+    if (!game && !full) { root.dataset.state = 'poster'; return; }
     showEnd(null);
     if(crossingToUK){await flyToUK();if(sequence!==bootSequence)return;}
     if(stageNav)stageNav.hidden=!toMap;
@@ -142,6 +146,7 @@ function setFull(on: boolean, deferLook = false) {
 }
 function enterFull() {
   if (!box || full) return;
+  if (soundOn) activateGameAudio();
   setFull(true);
   // must run inside the click that asked for it; a refusal keeps the overlay
   if (document.fullscreenEnabled) changeNativeFullscreen(async()=>{if(!document.fullscreenElement && full) await box.requestFullscreen?.();});
@@ -174,11 +179,13 @@ document.querySelectorAll<HTMLButtonElement>('.game-end [data-map]').forEach((b)
   b.addEventListener('click', () => boot(Math.min(ends.length - 1, chosen + 1), true)),
 );
 
-// Sound: off by default, one toggle (brief).
+// Sound follows the visitor’s preference across visits.
 const soundBtn = document.getElementById('game-sound') as HTMLButtonElement | null;
+soundBtn?.setAttribute('aria-pressed', String(soundOn));
 let setGameSound: ((on: boolean) => void) | undefined;
 soundBtn?.addEventListener('click', () => {
   soundOn = !soundOn;
+  try { localStorage.setItem(soundKey, soundOn ? 'on' : 'off'); } catch {}
   soundBtn.setAttribute('aria-pressed', String(soundOn));
   // Called straight from the tap, with no await in between, so iPhone Safari
   // lets the audio start.
@@ -207,7 +214,7 @@ document.querySelectorAll<HTMLButtonElement>('.game-touch button').forEach((b) =
   // keep focus on the canvas, so a tap never reads as leaving the game
   const set = (v: boolean) => (e: Event) => {
     e.preventDefault();
-    if (game) game.touch[k] = v;
+    game?.setTouch(k, v);
     if (v) {
       canvas?.focus({ preventScroll: true });
       game?.resume();

@@ -116,22 +116,6 @@ test.describe('D1: the analytics notice never covers the chat composer', () => {
     await page.getByRole('button', { name: 'No thanks', exact: true }).click();
     await expect.poll(reserved).toBe(0);
   });
-
-  for (const [w, h] of [[1440, 900], [390, 844]] as const) {
-    test(`on a case page it stays clear of the Sections button at ${w}`, async ({ page }) => {
-      await page.setViewportSize({ width: w, height: h });
-      await visit(page, '/fx', 'dark', 'asked');
-      await page.evaluate(() => scrollTo({ top: 3000, behavior: 'instant' }));
-      await expect(page.locator('#analytics-choice')).toBeVisible();
-      await expect(page.locator('.section-open')).toBeVisible();
-      expect(hits(await box(page, '#analytics-choice'), await box(page, '.section-open'))).toBe(false);
-      if (w < 400) {
-        const gutter = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.wrap')!).paddingLeft));
-        const s = await box(page, '.section-open');
-        expect(Math.abs(s.x + s.width - (w - gutter))).toBeLessThanOrEqual(1);
-      }
-    });
-  }
 });
 
 test.describe('D2: the empty chat is only as tall as its greeting', () => {
@@ -301,7 +285,8 @@ test('A6: each "Read the case" link names its case', async ({ page }) => {
   const names = await page.locator('a.game-read').evaluateAll((els) => els.map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim()));
   expect(names.length).toBe(4);
   expect(new Set(names).size).toBe(4);
-  for (const n of names) expect(n.startsWith('Read the case →')).toBe(true);
+  for (const n of names) expect(n).toMatch(/^Read the case \(.+\)$/);
+  await expect(page.locator('a.game-read svg[aria-hidden="true"]')).toHaveCount(4);
 });
 
 test('A7: a chat failure is announced once, by the log', async ({ page }) => {

@@ -1,6 +1,7 @@
 ---
 title: "Digital & Platform Services Brand Identity"
 summary: "Visual identity for J.P. Morgan Digital & Platform Services. One system for internal communications, digital channels, and executive presentations."
+contribution: "I worked with the design lead to carry one visual identity across presentations, digital channels and internal communications."
 role: "Visual Designer"
 dates: "2020"
 order: 10

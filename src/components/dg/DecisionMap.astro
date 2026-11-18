@@ -1,5 +1,5 @@
 ---
-import FlatArrow from "../FlatArrow.astro";
+import Icon from '../Icon.astro';
 import { decisions, type Project } from '../../lib/process';
 import DecisionFlow from './DecisionFlow.astro';
 import Schematic from './Schematic.astro';
@@ -24,8 +24,8 @@ const fxDescriptions = [
   <ol class="visual-decisions">{decisions[project].map((d,i) => <li>
     <div class="choice-origin"><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><h4>{d.question}</h4></div>
     <div class="choice-fork">
-      <div class="choice-path selected"><div class="choice-status"><span aria-hidden="true">✓</span> I chose</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-chosen.png`} alt={fxDescriptions[i][0]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][0]} />}<p>{d.chosen}</p></div>
-      <div class="choice-path alternative"><div class="choice-status"><FlatArrow /> Alternative</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-alternative.png`} alt={fxDescriptions[i][1]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][1]} />}<p>{d.alternative}</p></div>
+      <div class="choice-path selected"><div class="choice-status"><Icon name="check" /> I chose</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-chosen.png`} alt={fxDescriptions[i][0]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][0]} />}<p>{d.chosen}</p></div>
+      <div class="choice-path alternative"><div class="choice-status"><Icon name="arrow-right" /> Alternative</div>{project === 'fx' ? <AuthoredImage name={`fx-decision-${i+1}-alternative.png`} alt={fxDescriptions[i][1]} sizes="(max-width:760px) 90vw, 43vw" /> : <Schematic kind={sketches[project][i][1]} />}<p>{d.alternative}</p></div>
     </div>
     {project==='fx'?<div class="choice-narrative"><h5>{fxNarrative[i].title}</h5><p>{fxNarrative[i].body}</p><p class="verdict">{fxNarrative[i].verdict}</p></div>:<p class="choice-consequence">{d.reason}</p>}
   </li>)}</ol>

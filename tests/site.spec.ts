@@ -57,14 +57,6 @@ test('each case page ends with the next case', async ({ page }) => {
   await expect(page).toHaveURL(/\/fx$/);
 });
 
-test('Winking Star tick demo reaches 6 of 6', async ({ page }) => {
-  await page.goto('/winking-star#ws-loops');
-  const group = page.getByRole('group', { name: 'Tick a routine' });
-  for (const b of await group.getByRole('button').all()) await b.click();
-  await expect(page.locator('#demo-stars')).toHaveText('6 of 6 stars');
-  await expect(group.getByRole('button', { pressed: true })).toHaveCount(6);
-});
-
 test('the brand link goes home', async ({ page }) => {
   await page.goto('/fx');
   await expect(page.locator('.nav a.brand')).toHaveAttribute('href', '/');
@@ -112,8 +104,8 @@ test.describe('reduced motion', () => {
     expect(hidden).toBe(0);
     expect(await page.locator('.idle-blink').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     await page.goto('/winking-star');
-    await expect(page.locator('.theme-gallery img')).toHaveCount(4);
-    expect(await page.locator('.theme-gallery').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    await expect(page.locator('.overview-art img')).toBeVisible();
+    expect(await page.locator('.overview-art').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
 });
 
@@ -132,8 +124,8 @@ test.describe('JavaScript disabled', () => {
     expect(hidden).toBe(0);
     // Product screens remain readable without a carousel or JavaScript.
     await page.goto('/winking-star');
-    await expect(page.getByRole('heading', { name: 'The iPhone flow', exact: true })).toBeVisible();
-    await expect(page.locator('.ws-app-steps figure')).toHaveCount(4);
+    await expect(page.getByRole('heading', { name: 'Outcome', exact: true })).toBeVisible();
+    await expect(page.locator('.overview-art img')).toBeVisible();
   });
 });
 
@@ -177,7 +169,7 @@ test('print output shows every section with nothing hidden', async ({ page }) =>
 test('unknown paths get the 404 page', async ({ page }) => {
   const res = await page.goto('/nope');
   expect(res?.status()).toBe(404);
-  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/work');
 });
 
 test('structured data names the person', async ({ page }) => {

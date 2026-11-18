@@ -8,12 +8,11 @@ if (demo) {
   const stars = document.getElementById('demo-stars')!;
   const egg = document.getElementById('egg')!;
   const fill = document.getElementById('egg-fill')!;
-  const pet = document.getElementById('egg-pet')!;
+  const petStages = demo.querySelectorAll<HTMLSpanElement>('#egg-pet > span');
   const msg = document.getElementById('demo-msg')!;
   const stg = Array.from(document.querySelectorAll<HTMLElement>('#stages span'));
   // The app's own palette, as in the prototype.
   const colors = ['#f3a414', '#a9d5b2', '#ffe0d2', '#12351f', '#b9cee3'];
-  const faces = ['🥚', '🐣', '🐱', '😺'];
   let lastStage = 0;
 
   const burst = (btn: HTMLElement) => {
@@ -39,7 +38,9 @@ if (demo) {
     stars.textContent = n + ' of 6 stars';
     fill.style.height = (n / 6) * 100 + '%';
     const stage = n === 0 ? 0 : n < 3 ? 1 : n < 6 ? 2 : 3;
-    pet.textContent = faces[stage];
+    petStages.forEach((pet, i) => {
+      pet.hidden = i !== stage;
+    });
     stg.forEach((s, i) => s.classList.toggle('on', i === stage));
     if (stage !== lastStage) {
       egg.classList.remove('grow');

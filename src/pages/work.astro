@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 // The index of everything: the five cases, then the ten earlier projects.
 // The page head, the Selected header and the rows use the home page's own
 // markup, classes and scale, so the two read as one hand.
@@ -7,6 +8,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import WaveField from '../components/WaveField.astro';
 import CaseRowLink from '../components/CaseRowLink.astro';
+import { projectOverviews } from '../lib/project-overviews';
 import { CASES } from '../lib/cases';
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -33,11 +35,10 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
     <section id="work" class="band work-selected" data-tone="light" aria-labelledby="selected-title">
       <div class="wrap">
         <div class="g" style="row-gap:40px;margin-bottom:clamp(48px,6vw,96px)">
-          <h2 id="selected-title" class="work-title">Selected</h2><p class="eyebrow work-method">Five cases, one method</p>
-          <p class="work-description">Trading, analytics, deal pricing and the products I build myself. These are the decisions I made, the alternatives I tried and what happened next.</p>
+          <h2 id="selected-title" class="work-title">Selected</h2>
         </div>
         <div class="index">
-          {CASES.map((c) => <CaseRowLink c={c} homeArtwork />)}
+          {CASES.map((c) => <CaseRowLink c={c} homeArtwork description={projectOverviews[c.href].card} />)}
         </div>
       </div>
     </section>
@@ -52,7 +53,7 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
           {earlier.map((p) => (
             <li>
               <a href={`/work/${p.id}`} data-cursor="big">
-                <h3>{p.data.title}<span class="arrow" aria-hidden="true">→</span></h3>
+                <h3>{p.data.title}<Icon name="arrow-right" class="arrow" /></h3>
                 <p class="summary">{p.data.summary}</p>
                 <span class="dates">{p.data.dates}</span>
                 <span class:list={['row-cover', { 'is-matte': p.data.matte.includes(nameOf(p.data.cover)) }]} aria-hidden="true">
@@ -119,7 +120,7 @@ const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m
    size, weight and tracking. */
 .work-index .work-earlier{padding-top:clamp(96px,12vw,192px);padding-bottom:clamp(72px,9vw,144px)}
 .work-earlier-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(32px,4vw,64px)}
-.work-earlier-head h2{margin:0;font:500 clamp(42px,4.8vw,80px)/1.05 var(--body);letter-spacing:-.045em}
+.work-earlier-head h2{scroll-margin-top:calc(var(--global-nav-height,78px) + 24px);margin:0;font:500 clamp(42px,4.8vw,80px)/1.05 var(--body);letter-spacing:-.045em}
 .earlier-list{border-top:1px solid var(--hair)}
 .earlier-list li{position:relative}
 .earlier-list a{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 7.5rem;gap:8px clamp(16px,3vw,48px);align-items:baseline;padding-block:clamp(22px,2.6vw,36px);border-bottom:1px solid var(--hair);text-decoration:none;transition:background-color .2s}

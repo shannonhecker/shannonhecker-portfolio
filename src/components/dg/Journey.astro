@@ -1,4 +1,5 @@
 ---
+import Icon from '../Icon.astro';
 import { journeys, type Project } from '../../lib/process';
 import Schematic from './Schematic.astro';
 interface Props { project: Project }
@@ -13,7 +14,7 @@ const pictures = { fx:['chart','dual','ticket','compare'],fusion:['cube','filter
     <div class="route-resolution">
       <div class="route-obstacle"><span class="route-label"><span aria-hidden="true">◇</span> Friction</span><p>{s.friction}</p></div>
       <svg class="route-bend" viewBox="0 0 200 32" aria-hidden="true"><path d="M1 1V16H188m-7-6 7 6-7 6"/></svg>
-      <div class="route-answer"><span class="route-label"><span aria-hidden="true">✓</span> Design response</span><p>{s.response}</p></div>
+      <div class="route-answer"><span class="route-label"><Icon name="check" /> Design response</span><p>{s.response}</p></div>
     </div>
   </li>)}</ol>
 </section>

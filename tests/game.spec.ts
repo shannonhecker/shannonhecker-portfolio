@@ -20,6 +20,22 @@ test('slow game artwork stays behind the loading scene until the map is ready', 
   await expect.poll(async()=> (await state(page)).mode).toBe('map');
 });
 
+test('leaving during the first load returns to the silent poster', async ({ page }) => {
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/game/world-map.webp', async route => { await gate; await route.continue(); });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await expect(page.locator('.game-loading')).toBeVisible();
+  await page.locator('#game-exit').click();
+  release();
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
+  expect(await page.evaluate(() => typeof (window as any).__game)).toBe('undefined');
+  await page.getByRole('button', { name: 'Start adventure' }).click();
+  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'playing');
+  expect((await state(page)).audio.playing).toBe(true);
+});
+
 // Press Play (which opens the career map), then Space to start the first world.
 async function boot(page: Page) {
   await page.goto('/');
@@ -222,11 +238,11 @@ for (const n of [0, 1, 2, 3, 4, 5, 6, 7]) {
     // the card states the facts and, where there is one, links to the case
     const card = page.locator(`.game-end[data-end="${n}"]`);
     await expect(card).toBeVisible({ timeout: 5000 });
-    if (CASE_LINK[n]) await expect(card.getByRole('link', { name: 'Read the case →' })).toHaveAttribute('href', CASE_LINK[n]);
+    if (CASE_LINK[n]) await expect(card.getByRole('link', { name: /^Read the case \(/ })).toHaveAttribute('href', CASE_LINK[n]);
     // every card reports that world's mission
     await expect(card.locator('.game-mission')).toContainText('Mission');
     // the bot picks up the scooter and rides it to the sea: Kaohsiung's mission
-    if (n === 0) { expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
+    if (n === 0) { await expect(card.locator('.game-result-emblem')).toContainText('Kaohsiung waterfront'); expect(s.missions).toContain(0); await expect(card.locator('.game-mission')).toContainText('Mission complete'); }
     if(n===2){await card.locator('[data-next="3"]').click();await expect(page.locator('.game-flight')).toBeVisible();await expect(page.locator('.game-flight')).toContainText('2013');await page.getByRole('button',{name:'Skip flight'}).click();await expect.poll(async()=>(await state(page)).level).toBe(3);}
     if(n===7){expect(s.wandHits).toBe(3);expect(s.weapon).toBe('starlight-wand');expect(s.boss.hp).toBe(0);expect((await state(page)).flagRaised).toBe(true);await page.reload();await page.getByRole('button',{name:'Start adventure'}).click();await page.locator('#game-world').click();await expect(page.locator('.game-stages [data-stage="7"]')).toHaveAttribute('data-completed','true');expect((await state(page)).done).toContain(7);}
   });
@@ -239,6 +255,36 @@ async function startWorld(page: Page, n: number, invuln = false) {
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   await expect.poll(async () => (await state(page)).grounded).toBe(true);
 }
+
+test('sharing a score refreshes the board even if the opening read finishes last', async ({ page }) => {
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  let reads = 0;
+  await page.route('**/api/game-run', route => route.fulfill({ json: { token: 'local-test' } }));
+  await page.route('**/api/leaderboard', route => route.fulfill({ json: { saved: true, score: 390 } }));
+  await page.route('**/api/leaderboard?stage=0', async route => {
+    const first = ++reads === 1;
+    if (first) await gate;
+    await route.fulfill({ json: { entries: first ? [] : [{ nickname: 'Test player', score: 390 }] } });
+  });
+  try {
+    await startWorld(page, 0, true);
+    expect((await runLevel(page, 0)).finished).toBe(true);
+    const board = page.locator('.game-end[data-end="0"] .scoreboard');
+    await board.locator('summary').click();
+    await expect.poll(() => reads).toBe(1);
+    await board.getByRole('textbox').fill('Test player');
+    await board.getByRole('button', { name: 'Share my score' }).click();
+    await expect(board.locator('ol')).toContainText('Test player390 pts');
+    const settled = page.waitForEvent('requestfinished', req => req.url().endsWith('/api/leaderboard?stage=0'));
+    release();
+    await settled;
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await expect(board.locator('ol')).toContainText('Test player390 pts');
+  } finally {
+    release();
+  }
+});
 
 test('small enemies: landing on one clears it and counts toward the mission', async ({ page }) => {
   await startWorld(page, 2, true); // 捷元電腦: squash 4 bugs
@@ -271,22 +317,26 @@ test('small enemies: walking into one from the side is a hit', async ({ page }) 
   expect(s.stomped).toBe(0);
 });
 
-test('every world has a mission, shown in the HUD state', async ({ page }) => {
-  await page.addInitScript(()=>localStorage.setItem('working-order-progress-v2',JSON.stringify({done:[0,1,2,3,4,5,6],missions:[]})));
-  for (const n of [1, 3, 4, 5, 6, 7]) {
-    await startWorld(page, n);
+for (const [stage, level] of LEVELS.entries()) {
+  test(`mission appears in the HUD for ${level.theme}`, async ({ page }) => {
+    if (stage === 7) {
+      await page.addInitScript(() => localStorage.setItem('working-order-progress-v2', JSON.stringify({ done: [0, 1, 2, 3, 4, 5, 6], missions: [] })));
+    }
+    await startWorld(page, stage);
     const s = await state(page);
+    expect(s.level).toBe(stage);
     expect(s.mission.text.length).toBeGreaterThan(5);
     expect(s.mission.need).toBeGreaterThan(0);
     expect(s.mission.done).toBe(false);
-  }
-});
+  });
+}
 
 test('Play opens the career map; arrows step world by world and Space starts it', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
   expect((await state(page)).mode).toBe('map');
+  expect((await state(page)).mapSelected).toBe(0);
   // four choices: Taiwan, London, Next: AI, Bonus. One step lands on London's first stage.
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('#game-world')).toHaveAttribute('data-stage','3');
@@ -370,14 +420,16 @@ test.describe('JavaScript off', () => {
   });
 });
 
-test('sound is off by default and has one toggle', async ({ page }) => {
+test('sound starts enabled and remembers a mute across visits', async ({ page }) => {
   await page.goto('/');
   const btn = page.getByRole('button', { name: 'Sound' });
-  await expect(btn).toHaveAttribute('aria-pressed', 'false');
-  await btn.click();
   await expect(btn).toHaveAttribute('aria-pressed', 'true');
+  await btn.click();
+  await page.reload();
+  await expect(btn).toHaveAttribute('aria-pressed', 'false');
   await page.getByRole('button', { name: 'Start adventure' }).click();
   await page.waitForFunction(() => (window as unknown as { __game?: () => unknown }).__game?.());
+  expect((await state(page)).audio.enabled).toBe(false);
 });
 
 
@@ -432,11 +484,13 @@ test.describe('mobile fullscreen map', () => {
       await expect(page.locator('.game-touch')).toBeHidden();
       const canvas = page.locator('#game');
       const bounds = await canvas.boundingBox();
-      expect(bounds!.height).toBeGreaterThan(viewport.width < viewport.height ? 400 : 290);
+      expect(bounds!.height).toBeGreaterThan(viewport.width < viewport.height ? 175 : 290);
       expect(bounds!.width / bounds!.height).toBeCloseTo(16 / 9, 1);
       if (viewport.width < viewport.height) {
         await expect(page.locator('.game-map-hint')).toBeVisible();
-        expect(await page.locator('.game').evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+        expect(await page.locator('.game').evaluate(el => el.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+        expect(bounds!.x).toBeGreaterThanOrEqual(0);
+        expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
         // A drag beginning on a marker must not start a level.
         const x = bounds!.x + NODES[0][0] / 480 * bounds!.width;
         const y = bounds!.y + NODES[0][1] / 270 * bounds!.height;

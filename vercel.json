@@ -53,7 +53,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.clarity.ms; font-src 'self'; connect-src 'self' https://ask-shannon-api.onrender.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+          "value": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-Og4Apbf3EGgJNM9wr03QXN79+vm7/JnjItGVIsTDkAQ=' 'sha256-kmbxBzSD/veZ0zTQ42m/Rktp2JaseYFjofNhvAvORFI=' 'sha256-xSJjwJi4sBgGe0DVAyk1QvH1qpIuCt1MyTZuDKWXjL0=' https://www.googletagmanager.com https://*.clarity.ms; font-src 'self'; connect-src 'self' https://ask-shannon-api.onrender.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
         }
       ]
     },

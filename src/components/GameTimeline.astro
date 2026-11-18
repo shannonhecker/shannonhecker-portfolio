@@ -1,11 +1,11 @@
 ---
-import FlatArrow from "./FlatArrow.astro";
+import Icon from './Icon.astro';
 import { GAME_TIMELINE } from '../lib/game-timeline';
 ---
 <dialog id="game-timeline" class="game-timeline" aria-labelledby="game-timeline-title">
- <header><div><p class="timeline-kicker">Working Order · My story</p><h2 id="game-timeline-title">Life along the way</h2></div><button type="button" data-timeline-close aria-label="Close timeline">×</button></header>
+ <header><div><p class="timeline-kicker">Working Order · My story</p><h2 id="game-timeline-title">Life along the way</h2></div><button type="button" data-timeline-close aria-label="Close timeline"><Icon name="close" /></button></header>
  <p class="timeline-intro">My career, my family and a few moments from the world around us.</p>
- <ol>{GAME_TIMELINE.map(moment=><li data-kind={moment.kind}><span class="timeline-year">{moment.year}</span><div><span class="timeline-kind">{moment.kind}</span><h3>{moment.title}</h3><p>{moment.detail}</p>{moment.source&&<a href={moment.source} target="_blank" rel="noopener">Source<span class="vh"> for {moment.title}, opens in a new tab</span> <FlatArrow /></a>}</div></li>)}</ol>
+ <ol>{GAME_TIMELINE.map(moment=><li data-kind={moment.kind}><span class="timeline-year">{moment.year}</span><div><span class="timeline-kind">{moment.kind}</span><h3>{moment.title}</h3><p>{moment.detail}</p>{moment.source&&<a href={moment.source} target="_blank" rel="noopener">Source<span class="vh"> for {moment.title}, opens in a new tab</span> <Icon name="external" /></a>}</div></li>)}</ol>
 </dialog>
 <style>
  .game-timeline{width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:clamp(20px,4vw,40px);margin:auto;border:2px solid #90dce8;border-radius:var(--radius);background:#172b3b;color:#f4f7ea;box-shadow:6px 6px 0 #081823;overflow:auto;overscroll-behavior:contain}

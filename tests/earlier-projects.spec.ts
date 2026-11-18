@@ -34,6 +34,16 @@ for (const slug of EARLIER_SLUGS) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.getByRole('heading', { level: 2, name: 'Outcomes', exact: true })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Outcomes' }).locator('li').first()).toBeVisible();
+      const previewWidth = await page.locator('.earlier-cover picture').evaluate(async picture => {
+        const background = getComputedStyle(picture).backgroundImage;
+        const source = background.match(/url\("(data:image\/webp;base64,[^"]+)"\)/)?.[1];
+        if (!source) return 0;
+        const preview = new Image();
+        preview.src = source;
+        await preview.decode();
+        return preview.naturalWidth;
+      });
+      expect(previewWidth, 'cover artwork available before the network image loads').toBeGreaterThan(0);
       await loadImages(page);
       // The small cover beside "Next project" is decorative (aria-hidden, empty alt) and not counted here.
       const images = await page.evaluate(() => [...document.images].filter((img) => !img.closest('[aria-hidden="true"]')).map((img) => ({
