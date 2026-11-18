@@ -128,13 +128,15 @@ test.describe('nav current state on work pages', () => {
 });
 
 test.describe('links back to /work resolve', () => {
-  test('earlier project eyebrow and breadcrumb point at /work', async ({ page, request }) => {
+  test('earlier projects return to the archive and keep Work as their breadcrumb', async ({ page, request }) => {
     for (const slug of EARLIER_SLUGS) {
       await open(page, `/work/${slug}`);
-      await expect(page.locator('.earlier-eyebrow a').first()).toHaveAttribute('href', '/work');
+      await expect(page.locator('.earlier-eyebrow a').first()).toHaveAttribute('href', '/work#earlier-title');
       const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
       expect(ld.join('')).toContain('https://shannonhecker.com/work"');
     }
+    await page.getByRole('link', {name: 'Earlier work', exact: true}).click();
+    await expect(page.getByRole('heading', {name: 'Earlier work', exact: true})).toBeInViewport();
     expect((await request.get('/work')).status()).toBe(200);
   });
 

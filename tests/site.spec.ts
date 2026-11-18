@@ -198,7 +198,7 @@ test('print output shows every section with nothing hidden', async ({ page }) =>
 test('unknown paths get the 404 page', async ({ page }) => {
   const res = await page.goto('/nope');
   expect(res?.status()).toBe(404);
-  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: /Back to the work/ })).toHaveAttribute('href', '/work');
 });
 
 test('structured data names the person', async ({ page }) => {
