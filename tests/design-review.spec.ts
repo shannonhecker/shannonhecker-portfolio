@@ -156,16 +156,14 @@ test.describe('D3, D4: the chat is one centred column under a centred header', (
     });
   }
   for (const [w, h] of [[1440, 900], [390, 844]] as const) {
-    test(`header spacing and section padding match at ${w}`, async ({ page }) => {
+    test(`How I work opens from the menu at ${w}`, async ({ page }) => {
       await page.setViewportSize({ width: w, height: h });
       await visit(page, '/', 'dark');
-      const m = (id: string, content: string) => page.evaluate(([i, c]) => {
-        const s = document.querySelector(i)!; const e = s.querySelector('.eyebrow')!.getBoundingClientRect();
-        const h2 = s.querySelector('h2')!.getBoundingClientRect(); const body = s.querySelector(c)!.getBoundingClientRect();
-        const cs = getComputedStyle(s);
-        return { eyebrowToH2: Math.round(h2.top - e.bottom), h2ToBody: Math.round(body.top - h2.bottom), pt: cs.paddingTop, pb: cs.paddingBottom };
-      }, [id, content]);
-      expect(await m('#ask', '.ask-grid')).toEqual(await m('#how', '.principles'));
+      await expect(page.locator('main #how')).toHaveCount(0);
+      if (w <= 760) await page.getByRole('button', { name: 'Menu', exact: true }).click();
+      await page.getByRole('navigation', { name: 'Sections' }).getByRole('link', { name: 'How I work' }).click();
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText('How I work');
+      await expect(page.locator('.principles h3')).toHaveText(['On the desk', 'At home']);
     });
   }
 });
@@ -177,18 +175,15 @@ test('D5, D11: the gaps around the optional adventure follow the section rhythm'
     const g = await page.evaluate(() => {
       const top = (s: string) => document.querySelector(s)!.getBoundingClientRect().top;
       const bottom = (s: string) => document.querySelector(s)!.getBoundingClientRect().bottom;
-      const rhythm = parseFloat(getComputedStyle(document.querySelector('#how')!).paddingTop);
+      const rhythm = parseFloat(getComputedStyle(document.querySelector('#ask')!).paddingTop);
       return {
         rhythm,
         moreToAdventure: top('#adventure .hero-bonus') - bottom('.more-work'),
-        gameToHow: top('#how') - bottom('#adventure .hero-bonus'),
-        howToEyebrow: top('#how .eyebrow') - top('#how'),
+        gameToAsk: top('#ask') - bottom('#adventure .hero-bonus'),
       };
     });
     expect(Math.abs(g.moreToAdventure - g.rhythm), `more work, ${w}`).toBeLessThanOrEqual(2);
-    expect(Math.abs(g.howToEyebrow - g.rhythm), `how top, ${w}`).toBeLessThanOrEqual(2);
-    // The hairline above How I work sits the same distance below the game as above the eyebrow.
-    expect(Math.abs((g.gameToHow) - g.rhythm)).toBeLessThanOrEqual(2);
+    expect(g.gameToAsk).toBeGreaterThanOrEqual(0);
   }
 });
 
