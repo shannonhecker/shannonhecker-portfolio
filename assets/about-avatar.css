@@ -1,10 +1,8 @@
-.about-story {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 80px);
+.about-avatar {
+  width: min(calc(100% - 2 * var(--page-gutter)), 360px);
+  margin: 0 auto var(--space-64);
+  scroll-margin-top: calc(var(--nav) + 24px);
 }
-.about-avatar { width: min(100%, 360px); justify-self: center; scroll-margin-top: calc(var(--nav) + 24px); }
 .avatar-scene { position: relative; isolation: isolate; aspect-ratio: 360 / 285; }
 .avatar-scene::before, .avatar-scene::after { content: ''; position: absolute; z-index: -1; }
 .avatar-scene::before {
@@ -29,7 +27,6 @@ html[data-theme="dark"] .avatar-scene::before { --arch-tint: 160 114 143; }
 .about-avatar figcaption { display: grid; justify-items: center; gap: 10px; margin-top: 8px; font: 400 var(--t-sm)/1.5 var(--font); }
 .about-avatar a { color: var(--c-ink); text-decoration: underline; text-underline-offset: .22em; text-align: center; }
 .avatar-motion { min-height: 44px; padding: 8px 16px; color: var(--c-ink); background: var(--c-surface); border: 1px solid var(--c-stroke); border-radius: 6px; font: inherit; cursor: pointer; }
-@media (max-width: 760px) { .about-story { grid-template-columns: 1fr; gap: 28px; } }
 @media (prefers-reduced-motion: no-preference) {
   .about-avatar[data-ready] .avatar-poses { animation: avatar-sway 6s ease-in-out infinite; }
   .about-avatar[data-ready] .pose-idle { animation: avatar-rest 12s step-end infinite; }
