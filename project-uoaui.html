@@ -194,10 +194,6 @@
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
     .img-shield { pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
 
-    /* uoaui cover — live demo capture, theme-aware Design-Hub backdrop, 36px breathing room.
-       Two <video> elements: light + dark; we show the matching one per theme.
-       Dark gradient matches uoaui.ai/Design-Hub `.hero` (hero.css:30 + .hero::before aurora layers).
-       `!important` on background overrides dark-mode.css:370 (`html[data-theme="dark"] .proj-cover { background:#fff !important }`). */
     .proj-cover--demo {
       background:
         radial-gradient(ellipse at 80% 10%, rgba(180, 144, 245, 0.10), transparent 60%),
@@ -207,10 +203,11 @@
       box-sizing: border-box;
     }
     .proj-cover--demo > video { border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block; }
-    /* Show only the matching video per theme; the inactive one stays in DOM for swap-without-flicker */
-    .proj-cover--demo > video.demo-dark { display: none; }
-    html[data-theme="dark"] .proj-cover--demo > video.demo-light { display: none; }
-    html[data-theme="dark"] .proj-cover--demo > video.demo-dark { display: block; }
+    .system-example { margin:var(--space-24) 0 0; }
+    .system-example a, .system-example img { display:block; }
+    .system-example img { width:100%;height:auto; }
+    .system-example figcaption { margin-top:var(--space-8);color:var(--c-mid); }
+    #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
     html[data-theme="dark"] .proj-cover--demo {
       background:
         radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
@@ -300,23 +297,10 @@
         </div>
       </div>
 
-      <!-- Cover: live demo capture (Salt → M3 → Fluent → Carbon → uoaui), separate light + dark mp4 -->
-      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/7;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-        <video
-          class="demo-light"
-          src="assets/uoaui-demo-light.mp4"
-          poster="assets/uoaui-banner.webp"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="uoaui.ai product demo (light) cycling through Salt, Material 3, Fluent, Carbon, and uoaui design systems"
-        ></video>
-        <video
-          class="demo-dark"
-          src="assets/uoaui-demo.mp4"
-          poster="assets/uoaui-banner.webp"
-          autoplay muted loop playsinline preload="metadata"
-          aria-hidden="true"
-        ></video>
-        <div class="img-shield"></div>
+      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/10;">
+        <video src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp"
+          width="1280" height="800" controls muted playsinline preload="none"
+          aria-label="Silent builder walkthrough showing template selection, a card edit and the same screen in five design systems"></video>
       </div>
 
       <h1 class="proj-title-post rv" data-d="2">uoaui.ai</h1>
@@ -340,7 +324,7 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design process</h3>
-          <div class="proj-body"><p>I replaced free-form generation with a catalogue of blocks and actions. A designer can now start from a template or brief, edit one card and compare that same screen across libraries.</p></div>
+          <div class="proj-body"><p>My first approach gave the model freedom to draw a layout. The hard part came at handover, when I had to match its choices to components a team actually used. I gave the builder a catalogue of blocks and a set of edits it can make. Now I can change one card and keep the rest of the screen intact.</p></div>
         </div>
 
         <div class="proj-about-block rv">
@@ -358,10 +342,17 @@
           </div>
         </div>
 
-        <div class="proj-about-block rv">
+        <div id="system-comparison" class="proj-about-block rv">
           <h3 class="proj-about-h3">Comparing the same screen</h3>
-          <div class="proj-body"><p>With the layout fixed, I can see how each library’s spacing changes the prominence of a table. Missing components use an explicit fallback in both the preview and React export.</p></div>
-          <img class="proj-img-full rv" src="assets/uoaui03.webp" alt="uoaui Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:var(--space-48);border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
+          <div class="proj-body"><p>I kept the dashboard content fixed so I could judge the components themselves. Look at the search button in these two captures. Salt gives it a blue rectangular shape. The uoaui version has a violet pill. The filters and report rows stay in place, so I can decide which treatment gives the search action the right emphasis.</p></div>
+          <figure class="system-example">
+            <a href="assets/uoaui-compare-salt.webp" aria-label="Open the Salt dashboard detail at full size"><img src="assets/uoaui-compare-salt.webp" width="1420" height="528" loading="lazy" decoding="async" alt="Salt dashboard detail with blue rectangular search buttons, filters and the first rows of a reports table."></a>
+            <figcaption class="proj-media-cap-text">Salt Design System</figcaption>
+          </figure>
+          <figure class="system-example">
+            <a href="assets/uoaui-compare-uoaui.webp" aria-label="Open the uoaui dashboard detail at full size"><img src="assets/uoaui-compare-uoaui.webp" width="1420" height="528" loading="lazy" decoding="async" alt="The same dashboard detail in uoaui with violet rounded search buttons above the same report names."></a>
+            <figcaption class="proj-media-cap-text">uoaui design system</figcaption>
+          </figure>
         </div>
 
         <div class="proj-nda rv">
@@ -371,28 +362,23 @@
             <p class="proj-nda-lead">In private alpha</p>
             <p class="proj-nda-body">The Builder is in private alpha. The design-system comparison and Salt UI Kit are public.</p>
             <a class="uoaui-strip-cta primary" href="https://uoaui.ai/" target="_blank" rel="noopener noreferrer">Explore uoaui.ai <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
-            <!-- Phase 4 · when the silent walkthrough video is ready, drop it at assets/uoaui-walkthrough.mp4 and uncomment the block below.
-            <video class="uoaui-walkthrough" autoplay muted loop playsinline preload="metadata" poster="assets/uoaui-card.png" style="width:100%;margin-top:var(--space-32);border-radius:12px;">
-              <source src="assets/uoaui-walkthrough.mp4" type="video/mp4" />
-            </video>
-            -->
           </div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">What a developer can inspect</h3>
-          <div class="proj-body"><p>In the public <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a>, a form brings name, email and department fields together with the submit and cancel actions.</p><p>React export reads the canvas directly. Only the Figma SVG export needs a preview to measure the rendered layout.</p></div>
+          <div class="proj-body"><p>In the public <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a>, a form brings name, email and department fields together with the submit and cancel actions.</p><p>I wanted a developer to recognise the same choices at handover. On a Salt screen, the React export imports Salt components for the controls. If a block has no equivalent in a library, the preview and the export use the same fallback.</p></div>
           <figure class="proj-media"><a href="assets/uoaui-public-salt-form.webp" aria-label="Open full-size image: A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions."><img class="proj-img-full" src="assets/uoaui-public-salt-form.webp" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The Salt UI Kit puts the fields and actions together so a designer can review spacing, grouping and emphasis in context.</span></figcaption></figure>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-body"><p>The Builder is in private alpha. The public comparison and Salt UI Kit let visitors inspect foundations, forms and charts. I have yet to measure whether another designer can produce an inspectable screen without my help.</p></div>
+          <div class="proj-body"><p>The first working prototype took three days. The public comparison now lets anyone inspect the same dashboard across five systems. My next question for the private alpha is whether another designer can take a brief through to an export without my help.</p></div>
           <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Design systems</span></div><div class="proj-outcome"><span class="proj-outcome-num">3 days</span><span class="proj-outcome-label">To the first working prototype</span></div></div>
         </div>
         <div class="proj-about-block rv"><p class="proj-body"><a href="game.html?level=7#adventure">Play this chapter in Working Order</a></p></div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Side Project · Design Systems · Component Library · AI-Assisted Build · Brand Identity · Design Thinking · Prototyping · React · Angular</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Design Systems · Design Engineering · AI-Assisted Prototyping · React</span></div>
 
         </div>
         </div>
@@ -545,15 +531,6 @@
       shield.className = 'img-shield';
       parent.insertBefore(shield, img.nextSibling);
     });
-  </script>
-  <script>
-    /* Respect prefers-reduced-motion: stop the autoplay/loop demo videos */
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('video.demo-light, video.demo-dark').forEach(function (v) {
-        v.removeAttribute('autoplay');
-        v.pause();
-      });
-    }
   </script>
 </body>
 </html>

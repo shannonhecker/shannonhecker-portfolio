@@ -2551,16 +2551,16 @@
         <div class="uoaui-strip-copy">
           <span class="uoaui-strip-eyebrow rv" data-d="1">
             <span class="uoaui-strip-eyebrow-dot" aria-hidden="true"></span>
-            Now building · private alpha
+            Now building
           </span>
 
           <h2 id="uoaui-strip-heading" class="uoaui-strip-head rv" data-d="2">
             <span class="uoaui-strip-brand">uoaui.ai</span>
-            <span class="uoaui-strip-sub">A visual web builder for designers who think in systems.</span>
+            <span class="uoaui-strip-sub">Compare one finance screen across five design systems.</span>
           </h2>
 
           <p class="uoaui-strip-body rv" data-d="3">
-            I wanted to see what changes when the same screen moves from one design system to another. I built a canvas to try it. The UI Kit is public, and the builder is in private alpha.
+            I built uoaui.ai so I could try the same layout in Salt, Fluent or Carbon before choosing a library. I can edit a card once, compare how it reads in each system, then export the screen as React components.
           </p>
 
           <div class="uoaui-strip-actions rv" data-d="4">
@@ -2578,8 +2578,8 @@
               <span class="uoaui-strip-meta-val">Private alpha · 2026</span>
             </div>
             <div class="uoaui-strip-meta-item">
-              <span class="uoaui-strip-meta-label">Stack</span>
-              <span class="uoaui-strip-meta-val">Claude · Next.js · edge-rendered</span>
+              <span class="uoaui-strip-meta-label">First working prototype</span>
+              <span class="uoaui-strip-meta-val">3 days</span>
             </div>
           </div>
         </div>
@@ -2587,10 +2587,10 @@
         <!-- Right: clean product animation, no browser chrome -->
         <div class="uoaui-strip-visual rv" data-d="3">
           <div class="uoaui-strip-frame">
-            <video id="uoaui-home-demo" src="assets/uoaui-demo.mp4" poster="assets/uoaui-banner.webp"
-              aria-label="uoaui.ai builder demo across Salt, Material 3, Fluent, Carbon and uoaui"
+            <video id="uoaui-home-demo" src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp" width="1280" height="800"
+              aria-label="Silent uoaui.ai walkthrough: choose a finance template, edit a card and present the screen in five design systems"
               controls muted playsinline loop preload="none"
-              style="display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#171b22"></video>
+              style="display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;background:#171b22"></video>
             <script>
               (() => {
                 const film = document.getElementById('uoaui-home-demo');
@@ -2601,19 +2601,11 @@
                   if (visible && !document.hidden && !motion.matches && !userPaused) film.play().catch(() => {});
                   else if (!visible || document.hidden) film.pause();
                 }
-                function theme() {
-                  const src = document.documentElement.dataset.theme === 'dark'
-                    ? 'assets/uoaui-demo.mp4' : 'assets/uoaui-demo-light.mp4';
-                  if (film.getAttribute('src') !== src) film.setAttribute('src', src);
-                  sync();
-                }
                 film.addEventListener('pause', () => { if (visible && !document.hidden && film.currentTime > 0) userPaused = true; });
                 film.addEventListener('play', () => { userPaused = false; });
-                new MutationObserver(theme).observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
                 new IntersectionObserver(([entry]) => { visible = entry.intersectionRatio >= 0.4; sync(); }, {threshold:[0,0.4]}).observe(film);
                 motion.addEventListener('change', () => { if (motion.matches) film.pause(); else sync(); });
                 document.addEventListener('visibilitychange', sync);
-                theme();
               })();
             </script>
           </div>
