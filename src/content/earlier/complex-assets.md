@@ -1,7 +1,7 @@
 ---
 confidential: true
 title: "Complex Assets Derivatives Valuation"
-summary: "Derivatives valuation workspace for trading desks. Unified inputs, live charts, and scenario modelling three times faster."
+summary: "Trading desks needed to see how a change in assumptions affected a valuation. The workspace brings the inputs and the resulting charts together so traders can compare scenarios."
 contribution: "I led the interface and interaction design from the first workshops through release."
 role: "Product Designer"
 dates: "2022"

@@ -1,7 +1,7 @@
 ---
 title: "Execute Algo Center"
-summary: "Algo trading command centre for J.P. Morgan desks. Live strategy status, order management, and two-click intervention on one surface."
-contribution: "I designed the order controls and worked with engineering through release."
+summary: "A workspace where traders can monitor their running strategies and intervene when an order needs attention."
+contribution: "I designed the order controls and worked with engineering through release. I brought strategy status onto one screen so an operator could spot a change, open the affected strategy and reach its controls."
 role: "UI Designer"
 dates: "2021"
 order: 9

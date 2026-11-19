@@ -1,7 +1,7 @@
 ---
 title: "Corporate Action Manager"
-summary: "Legacy corporate actions tool redesigned for operations and trading teams. 40% faster task completion, 60% fewer navigation steps."
-contribution: "I designed the flows and keyboard navigation with a UX partner, testing them weekly with operations analysts."
+summary: "A redesigned workspace for operations and trading teams to track corporate actions and complete daily tasks."
+contribution: "I designed the flows and keyboard navigation with a UX partner, testing them weekly with operations analysts. Sessions with the operations desk showed how much of the day went into checking status. I put urgent events in a queue and placed the next action beside each event."
 role: "UI Designer, UI Lead"
 dates: "2020 to 2021"
 order: 6

@@ -1,7 +1,19 @@
 ---
+import { Image } from 'astro:assets';
+import map from '../assets/winking-star/early-map.webp';
+import tablet from '../assets/winking-star/ipad-design.webp';
 import CasePage from '../layouts/CasePage.astro';
 import ProductCapture from '../components/ProductCapture.astro';
 ---
 <CasePage title="Winking Star" href="/winking-star">
   <ProductCapture name="/art/winking-hero-composition.svg" alt="Winking Star iPhone Home, Activity and Progress screens in the original staggered three-phone composition" href="https://winkingstar.com/" label="Original Winking Star iPhone composition" eager />
+  <div slot="evidence" class="winking-evidence">
+    <figure><Image src={map} alt="Illustrated treasure map with a dotted path leading to a star" loading="lazy" /><figcaption>A map and a star give the family routine board its treasure-hunt theme.</figcaption></figure>
+    <figure><Image src={tablet} alt="Winking Star on iPad with a family overview and a child’s activity sheet" loading="lazy" /><figcaption>On iPad, a parent can see each child’s progress on the family board. The activity sheet brings one child’s next steps into focus.</figcaption></figure>
+  </div>
 </CasePage>
+<style>
+.winking-evidence{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px;margin-block:32px;align-items:start}
+figure{margin:0}figure img{display:block;width:100%;height:auto}figcaption{margin-top:12px;font-size:15px;color:var(--fg-2);line-height:1.5}
+@media(max-width:600px){.winking-evidence{grid-template-columns:1fr}.winking-evidence figure:first-child img{max-width:180px}}
+</style>

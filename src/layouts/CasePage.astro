@@ -40,10 +40,11 @@ const nextOverview = projectOverviews[next.href];
           <h2 id="project-about">About this project</h2>
           <div class="project-notes-body">
             <section><h3>My contribution</h3><p>{overview.contribution}</p></section>
-            {overview.decisions.map(decision => (
+            {overview.decisions.map((decision, index) => (
               <section>
                 <h3>{decision.title}</h3>
                 {decision.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+                {index === 0 && <slot name="evidence" />}
               </section>
             ))}
             <section class="project-outcome" aria-labelledby="outcome">

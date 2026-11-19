@@ -25,3 +25,16 @@ test('case evidence keeps its full image proportions after loading', async ({ pa
     expect(cropped).toEqual([]);
   }
 });
+
+for (const [route, src] of [['/fusion', '/media/fusion-current.webm'], ['/uoaui', '/media/uoaui-current.mp4']]) {
+  test(`${route} includes its playable recording beside the design decision`, async ({ page }) => {
+    await page.goto(route);
+    const video = page.locator('.project-notes-body video');
+    await expect(video).toHaveAttribute('controls', '');
+    await expect(video).toHaveAttribute('preload', 'none');
+    await expect(video.locator('source')).toHaveAttribute('src', src);
+    await video.scrollIntoViewIfNeeded();
+    await video.evaluate((element: HTMLVideoElement) => element.play());
+    await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime)).toBeGreaterThan(0);
+  });
+}

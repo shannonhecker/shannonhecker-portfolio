@@ -34,15 +34,11 @@ for (const slug of EARLIER_SLUGS) {
       await expect(page.locator('h1')).toHaveCount(1);
       const hasProcessFigure = ['algo-center', 'design-system', 'stock-dashboard', 'tripup'].includes(slug);
       await expect(page.locator('.earlier-process-figure picture')).toHaveCount(hasProcessFigure ? 1 : 0);
-      const narrative = page.locator('.earlier-narrative');
-      if (slug === 'complex-assets' || slug === 'data-solution') {
-        await expect(narrative).toHaveCount(0);
-        await expect(page.getByText('This project is under NDA.', { exact: true })).toBeVisible();
-      } else {
-        await expect(narrative.getByRole('heading', { name: 'Project overview', exact: true })).toBeVisible();
-        await expect(narrative.getByRole('heading', { name: 'My role', exact: true })).toBeVisible();
-        await expect(narrative.getByRole('heading', { name: slug === 'dps-brand' ? 'The identity in use' : 'Design process', exact: true })).toBeVisible();
-      }
+      const notes = page.locator('.project-notes-body');
+      await expect(notes.getByRole('heading')).toHaveText(['My contribution', 'Outcomes']);
+      await expect(notes.locator('section').first().locator('p')).toHaveCount(1);
+      await expect(page.getByText('This project is under NDA.', { exact: true }))
+        .toHaveCount(slug === 'complex-assets' || slug === 'data-solution' ? 1 : 0);
 
       await expect(page.getByRole('heading', { level: 3, name: 'Outcomes', exact: true })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Outcomes' }).locator('li').first()).toBeVisible();
