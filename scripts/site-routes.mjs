@@ -76,6 +76,8 @@ export async function siteRoutes(staticDir, environment) {
         (link, file) => styles.has(file) ? '<style>\n' + styles.get(file) + '\n</style>' : link)
       .replace(/<script src="\/?assets\/dark-mode\.js"(?: defer)?><\/script>/, () => '<script>\n' + themeJS + '\n</script>');
     if (name === 'index') {
+      const portrait = await readFile(join(assets, 'featured-portrait.jpg'), 'base64');
+      html = html.replace('src="assets/featured-portrait.jpg"', 'src="data:image/jpeg;base64,' + portrait + '"');
       // Bind the contact form even when the browser loses a separate script request.
       const chat = await readFile(join(assets, 'ask-shannon.js'), 'utf8');
       html = html.replace('<script src="assets/ask-shannon.js"></script>', () => '<script>\n' + chat + '\n</script>');
