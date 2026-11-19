@@ -2113,16 +2113,11 @@
       isolation: isolate;
       border-radius: 14px;
       overflow: hidden;
-      background: #f8fbff;
+      background: #0b0f11;
       box-shadow:
         0 1px 2px rgba(0,0,0,.03),
         0 8px 24px rgba(0,0,0,.06),
         0 24px 64px rgba(0,0,0,.08);
-      /* translate3d (was translateZ) forces a dedicated compositing layer,
-         needed on iOS WebKit so border-radius + overflow:hidden reliably
-         clip transformed grandchildren mid-animation. */
-      transform: translate3d(0, 0, 0);
-      will-change: transform;
       transition: transform var(--tb) var(--ease), box-shadow var(--tb) var(--ease);
     }
     .uoaui-strip-frame:hover {
@@ -2492,7 +2487,7 @@
             <video id="uoaui-home-demo" src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp" width="1280" height="800"
               aria-label="Silent uoaui.ai walkthrough: choose a finance template, edit a card and present the screen in five design systems"
               muted playsinline loop data-auto-preview preload="none"
-              style="display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;background:#171b22"></video>
+              style="display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;background:inherit"></video>
           </div>
           <a class="walkthrough-toggle" href="assets/uoaui-walkthrough.mp4" data-walkthrough-for="uoaui-home-demo">Play demo</a>
         </div>
