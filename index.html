@@ -2491,26 +2491,10 @@
           <div class="uoaui-strip-frame">
             <video id="uoaui-home-demo" src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp" width="1280" height="800"
               aria-label="Silent uoaui.ai walkthrough: choose a finance template, edit a card and present the screen in five design systems"
-              controls muted playsinline loop preload="none"
+              muted playsinline loop data-auto-preview preload="none"
               style="display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;background:#171b22"></video>
-            <script>
-              (() => {
-                const film = document.getElementById('uoaui-home-demo');
-                const motion = matchMedia('(prefers-reduced-motion: reduce)');
-                let visible = false;
-                let userPaused = false;
-                function sync() {
-                  if (visible && !document.hidden && !motion.matches && !userPaused) film.play().catch(() => {});
-                  else if (!visible || document.hidden) film.pause();
-                }
-                film.addEventListener('pause', () => { if (visible && !document.hidden && film.currentTime > 0) userPaused = true; });
-                film.addEventListener('play', () => { userPaused = false; });
-                new IntersectionObserver(([entry]) => { visible = entry.intersectionRatio >= 0.4; sync(); }, {threshold:[0,0.4]}).observe(film);
-                motion.addEventListener('change', () => { if (motion.matches) film.pause(); else sync(); });
-                document.addEventListener('visibilitychange', sync);
-              })();
-            </script>
           </div>
+          <a class="walkthrough-toggle" href="assets/uoaui-walkthrough.mp4" data-walkthrough-for="uoaui-home-demo">Play demo</a>
         </div>
 
       </div>
@@ -3253,5 +3237,6 @@
   <script src="assets/ask-shannon.js"></script>
 
   <script src="/assets/utility-menu.js"></script>
+<script src="assets/walkthrough.js" defer></script>
 </body>
 </html>

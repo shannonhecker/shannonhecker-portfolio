@@ -309,11 +309,12 @@
         </div>
       </div>
 
-      <div class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/10;">
-        <video src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp"
-          width="1280" height="800" controls muted playsinline preload="none"
+      <div id="uoaui-walkthrough" class="proj-cover proj-cover--demo rv" style="aspect-ratio:16/10;">
+        <video id="uoaui-project-demo" src="assets/uoaui-walkthrough.mp4" poster="assets/uoaui-walkthrough-poster.webp"
+          width="1280" height="800" muted playsinline preload="none"
           aria-label="Silent builder walkthrough showing template selection, a card edit and the same screen in five design systems"></video>
       </div>
+      <a class="walkthrough-toggle" href="assets/uoaui-walkthrough.mp4" data-walkthrough-for="uoaui-project-demo">Play demo</a>
 
       <h1 class="proj-title-post rv" data-d="2">uoaui.ai</h1>
       <p class="proj-lead rv" data-d="3">I designed uoaui to answer a question I kept coming back to in finance. How would the same dashboard feel in a different design system?</p>
@@ -538,5 +539,6 @@
     });
   </script>
   <script src="/assets/utility-menu.js"></script>
+<script src="assets/walkthrough.js" defer></script>
 </body>
 </html>

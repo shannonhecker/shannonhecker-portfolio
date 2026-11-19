@@ -233,3 +233,19 @@ body.menu-open {
   width: 100%;
   overflow: hidden;
 }
+
+.walkthrough-toggle {
+  display: table;
+  margin: 4px auto 0;
+  padding: 12px 8px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--c-ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
