@@ -1,20 +1,17 @@
 ---
-import { adaptiveArt } from '../lib/adaptive-art';
 interface Props { project:string; priority?:boolean }
 const {project,priority=false}=Astro.props;
-const desktop=adaptiveArt(`/art/home-${project}-composition-current.svg`);
-const mobile=adaptiveArt(`/art/home-${project}-composition-mobile-current.svg`);
-const mobileHeight=project==='winking'?350*524/681:project==='fx'?269:270;
-const responsive=project!=='deal';
-const extension='svg';
-const srcset=(variant:string)=>[400,800,1200,1600,2000].map(w=>`${adaptiveArt(`/art/home-responsive/${project}-${variant}-${w}.${extension}`)} ${w}w`).join(', ');
-const sizes='(max-width:760px) calc(100vw - 48px), (min-width:1680px) 780px, calc(46.6vw - 3px)';
+const mobileHeight = project === 'winking' ? 350 * 524 / 681 : project === 'fx' ? 269 : 270;
+const mobileVariant = project === 'winking' ? 'current' : 'mobile-current';
+const cover = (variant: string, width: number) => `/art/gallery/${project}-${variant}-${width}.avif`;
+const srcset = (variant: string) => [650, 1200].map(width => `${cover(variant, width)} ${width}w`).join(', ');
+const sizes = '(max-width:600px) calc(100vw - 48px), (max-width:900px) 46vw, 32vw';
 ---
 <div class={`project-preview home-artwork home-artwork-${project} exact-composition`} style={`--mobile-ratio:350/${mobileHeight}`}>
  <picture>
-   {project === 'fx' ? <img src="/art/execution-mockup-1600.avif" srcset="/art/execution-mockup-700.avif 700w, /art/execution-mockup-1600.avif 1600w" sizes={sizes} alt="" width="1600" height="1000" loading={priority?"eager":"lazy"} /> : <>
-   <source media="(max-width:760px)" srcset={responsive?srcset(project==='winking'?'current':'mobile-current'):mobile} sizes={sizes} width="350" height={mobileHeight} />
-   <img src={responsive?adaptiveArt(`/art/home-responsive/${project}-current-800.${extension}`):desktop} srcset={responsive?srcset('current'):undefined} sizes={responsive?sizes:undefined} alt="" width="681" height="524" loading={priority?"eager":"lazy"} fetchpriority={priority?"high":undefined} decoding="async" /></>}
+   {project === 'fx' ? <img src="/art/execution-mockup-1600.avif" srcset="/art/execution-mockup-700.avif 700w, /art/execution-mockup-1600.avif 1600w" sizes={sizes} alt="" width="1600" height="1000" loading={priority?"eager":"lazy"} fetchpriority={priority?"high":undefined} /> : <>
+   <source media="(max-width:760px)" srcset={srcset(mobileVariant)} sizes={sizes} width="350" height={mobileHeight} />
+   <img src={cover('current',650)} srcset={srcset('current')} sizes={sizes} alt="" width="681" height="524" loading={priority?"eager":"lazy"} fetchpriority={priority?"high":undefined} decoding="async" /></>}
  </picture>
 </div>
 <style>

@@ -6,7 +6,7 @@ import { CASES } from '../lib/cases';
 // Work is current on its index (page) and above every work page (true):
 // the earlier projects at /work/<slug> and the five case pages. Writing is the
 // same: page on /writing, true on /writing/<slug>.
-const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/$/, '') || '/';
 const workAncestor = here.startsWith('/work/') || CASES.some((c) => c.href === here);
 const writingAncestor = here.startsWith('/writing/');
 const current = (href: string) => (href === here ? 'page' : (href === '/work' && workAncestor) || (href === '/writing' && writingAncestor) ? 'true' : undefined);

@@ -25,7 +25,7 @@ const earlier = await earlierProjects();
     </header>
     <div class="wrap" id="work">
       <div class="index project-gallery all-gallery">
-        {CASES.map((c, index) => <CaseRowLink c={c} homeArtwork heading="h2" priority={index===0} description={projectOverviews[c.href].card} />)}
+        {CASES.map((c, index) => <CaseRowLink c={c} homeArtwork heading="h2" priority={index < 3} description={projectOverviews[c.href].card} />)}
         {earlier.map((project, index) => (
           <a class="archive-card" id={index===0?'earlier-title':undefined} href={`/work/${project.id}`} data-cursor="big">
             <Picture src={project.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[360,720,1080]} sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 31vw" quality={75} loading="lazy" decoding="async" />
