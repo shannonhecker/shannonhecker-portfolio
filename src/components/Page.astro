@@ -13,7 +13,10 @@ import OptionalAdventure from './OptionalAdventure.astro';
 <Nav />
 <main id="main">
   <Hero />
-  <div id="now-building" class="wrap building-note"><span>Now building</span><a href="/uoaui">uoaui.ai</a><p>A design canvas for comparing component libraries. In private alpha.</p></div>
+  <section id="now-building" class="wrap building-note" aria-labelledby="building-title">
+    <div><span>Now building</span><h2 id="building-title"><a href="/uoaui">uoaui.ai</a></h2></div>
+    <p>I wanted to see what happens to a screen when you change its design system. I built a canvas where designers can compare the same layout in Salt, Material UI and other libraries, then export it to React. The UI Kit is public. The builder is in private alpha.</p>
+  </section>
   <Work />
   <section id="adventure" class="band adventure-hero" aria-label="Optional career adventure"><div class="wrap"><OptionalAdventure /></div></section>
   <HowIWork />
@@ -27,7 +30,10 @@ import OptionalAdventure from './OptionalAdventure.astro';
 </script>
 
 <style>
-.building-note{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 20px;padding-block:24px}
+.building-note{display:grid;grid-template-columns:minmax(10rem,.6fr) minmax(0,1.4fr);align-items:baseline;gap:12px 32px;padding-block:clamp(28px,4vw,56px)}
+.building-note h2{margin:4px 0 0;font:500 clamp(23px,2.4vw,34px)/1.2 var(--display)}
+.building-note p{max-width:60ch;line-height:1.65}
+@media(max-width:640px){.building-note{grid-template-columns:1fr}}
 .building-note span,.building-note p{margin:0;color:var(--fg-2)}
 .building-note a{color:var(--fg);font-weight:500;text-underline-offset:4px}
 </style>

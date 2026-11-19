@@ -167,3 +167,9 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
   .earlier-next .row .thumb{width:min(240px,100%)}
   .earlier-next .row .meta{grid-row:auto;padding-left:0}
 }
+
+.earlier-narrative > h3:not(:first-child),.earlier-narrative + .earlier-results{margin-top:clamp(32px,4vw,56px)}
+.earlier-narrative > p + p{margin-top:1em}
+.earlier-narrative strong{color:var(--fg);font-weight:600}
+.earlier-narrative p:has(> img){max-width:none;margin-block:clamp(24px,3vw,40px)}
+.earlier-narrative img{display:block;max-width:100%;height:auto;border-radius:var(--radius)}

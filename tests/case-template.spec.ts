@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { projectOverviews } from '../src/lib/project-overviews';
 
 for (const [path, project] of Object.entries(projectOverviews)) {
-  test(`${path} presents one concise project overview`, async ({ page }) => {
+  test(`${path} presents the public project story`, async ({ page }) => {
     await page.goto(path);
     const article = page.locator('main article');
     await expect(article.getByRole('heading', { level: 1 })).toBeVisible();
@@ -18,7 +18,10 @@ for (const [path, project] of Object.entries(projectOverviews)) {
     }
     await expect(article).toContainText(project.contribution);
     await expect(article).toContainText(project.outcome);
-    expect((await article.innerText()).trim().split(/\s+/).length).toBeLessThan(120);
+    for (const decision of project.decisions) {
+      await expect(article.getByRole('heading', { name: decision.title })).toBeVisible();
+      for (const paragraph of decision.paragraphs) await expect(article).toContainText(paragraph);
+    }
     await expect(article.locator('.overview-art img').first()).toBeVisible();
     await expect(page.locator('.case-contents, .beat, .process-personas, .decision-map')).toHaveCount(0);
     for (const link of project.links) {

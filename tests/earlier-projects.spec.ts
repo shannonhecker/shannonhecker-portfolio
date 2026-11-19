@@ -32,6 +32,16 @@ for (const slug of EARLIER_SLUGS) {
       const res = await open(page, path);
       expect(res.status()).toBe(200);
       await expect(page.locator('h1')).toHaveCount(1);
+      const narrative = page.locator('.earlier-narrative');
+      if (slug === 'complex-assets' || slug === 'data-solution') {
+        await expect(narrative).toHaveCount(0);
+        await expect(page.getByText('This project is under NDA.', { exact: true })).toBeVisible();
+      } else {
+        await expect(narrative.getByRole('heading', { name: 'Project overview', exact: true })).toBeVisible();
+        await expect(narrative.getByRole('heading', { name: 'My role', exact: true })).toBeVisible();
+        await expect(narrative.getByRole('heading', { name: slug === 'dps-brand' ? 'The identity in use' : 'Design process', exact: true })).toBeVisible();
+      }
+
       await expect(page.getByRole('heading', { level: 3, name: 'Outcomes', exact: true })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Outcomes' }).locator('li').first()).toBeVisible();
       const previewWidth = await page.locator('.earlier-cover picture').evaluate(async picture => {

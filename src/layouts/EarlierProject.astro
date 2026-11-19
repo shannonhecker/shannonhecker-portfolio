@@ -1,14 +1,14 @@
 ---
 import ProjectMasthead from '../components/ProjectMasthead.astro';
 import Icon from '../components/Icon.astro';
-// Public project summary, original cover and recorded outcomes.
+// Public case studies use the imported narrative. Confidential entries use the approved summary.
 import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { Picture, getImage } from 'astro:assets';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
-import type { CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { imageWidths } from '../lib/image-widths';
 import '../styles/earlier.css';
@@ -19,6 +19,7 @@ interface Props {
   next: CollectionEntry<'earlier'>;
 }
 const { entry, next } = Astro.props;
+const Narrative = entry.data.confidential ? undefined : (await render(entry)).Content;
 const { title, summary, role, dates, outcomes, tags, cover, coverAlt, matte } = entry.data;
 
 const page = new URL(`/work/${entry.id}`, Astro.site).href;
@@ -92,7 +93,7 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
       <section class="project-notes" aria-labelledby="project-about">
         <h2 id="project-about">About this project</h2>
         <div class="project-notes-body">
-          {entry.data.contribution && <section><h3>My contribution</h3><p>{entry.data.contribution}</p></section>}
+          {Narrative ? <div class="earlier-narrative"><Narrative /></div> : (entry.data.contribution && <section><h3>My contribution</h3><p>{entry.data.contribution}</p></section>)}
           <section class="earlier-results" aria-labelledby="earlier-results-title">
             <h3 id="earlier-results-title" class="earlier-label">Outcomes</h3>
             <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>

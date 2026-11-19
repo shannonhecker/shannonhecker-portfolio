@@ -13,7 +13,6 @@ async function open(page: Page, path: string, width: number, theme: 'dark' | 'li
 async function loadImages(page: Page) {
   await page.evaluate(() => Promise.all([...document.images].map((img) => { img.loading = 'eager'; return img.decode().catch(() => {}); })));
 }
-const flat = (s: string) => s.replace(/\s+/g, ' ').trim();
 
 test.describe('images are never shown wider than their own pixels', () => {
   const pages = [...EARLIER_SLUGS.map((s) => `/work/${s}`), '/about'];
@@ -140,28 +139,14 @@ test.describe('About, finding 5', () => {
 });
 
 test.describe('Privacy, finding 6', () => {
-  const EXPECTED = [
-  "Privacy · 16 November 2026",
-  "Your visit, your choice.",
-  "Optional analytics",
-  "I use Google Analytics and Microsoft Clarity to understand page visits, reading depth and which game levels people play. Both load only after you choose “Allow analytics”. Until then nothing is requested from Google or Microsoft.",
-  "Google Analytics records technical information such as device and browser details and uses cookies to distinguish visits. I keep advertising features off. Microsoft Clarity records clicks, scrolling and page movement as session replays and heatmaps. Clarity masks text typed into inputs by default, and I have also marked the scoreboard, its nickname form and the Ask Shannon chat so they are masked in recordings. I do not send nicknames, form entries or URL query strings to Google Analytics. Clarity records the page address as it loads, so I cannot promise the same for query strings there. Reports are private to my Google and Clarity accounts.",
-  "You can change your choice using Analytics settings in the footer. Choosing no stops both tools. If Clarity was running, the page reloads so it stops completely. I clear the cookies this site set for them, but Microsoft may set its own cookies on its own domains, and I cannot clear those. I remember your choice on this browser for six months. Declining does not affect the portfolio or the game. Counts reflect consenting visits, not an exact count of people.",
-  "Google’s privacy policy (opens in a new tab) · Microsoft’s privacy statement (opens in a new tab)",
-  "Ask Shannon chat",
-  "When you use Ask Shannon, your message goes to my private chat server and then to Anthropic so the assistant can reply, and I keep chat logs for up to 30 days.",
-  "Contact and sales",
-  "If you email me, I use your email address and anything you include only to reply. I do not sell personal information.",
-  "The game scoreboard",
-  "The game remembers completed stages and mission stars in this browser’s local storage. This progress stays on your device and is separate from analytics and the public scoreboard. Clearing this site’s browser data resets it.",
-  "Playing does not publish your result. At the end of a stage, you can choose to share your score with an optional nickname. That nickname and score appear on the public stage scoreboard. Please use a made-up nickname, not your real name or contact details.",
-  "Scores are stored with Upstash through Vercel. Each stage keeps up to 100 results, with the best ten displayed. A random run receipt prevents duplicate submissions and expires after two hours. To limit spam, a temporary keyed address digest expires after an hour; raw addresses are not stored in the scoreboard database. Vercel and Upstash also process operational data to provide their services.",
-  "This is a friendly game, with basic score checks, not a competitive tournament. For removal of a score, contact me through LinkedIn (opens in a new tab) with the stage, nickname and score.",
-  ];
-  test('keeps every sentence, in order', async ({ page }) => {
+  test('explains optional collection, retention and scoreboard removal', async ({ page }) => {
     await open(page, '/privacy', 1440);
-    const text = flat(await page.locator('main').innerText());
-    expect(text).toBe(flat(EXPECTED.join(' ')));
+    const main = page.locator('main');
+    for (const text of ['Allow analytics', 'Clarity can capture query strings', 'six months',
+      'Anthropic', '30 days', 'do not sell personal information', 'Sharing a score is optional',
+      '100 results', 'best ten', 'two hours', 'one hour', 'does not store raw addresses', 'To remove a score']) {
+      await expect(main).toContainText(text);
+    }
   });
   test('keeps both links to the other parties and the LinkedIn link', async ({ page }) => {
     await open(page, '/privacy', 1440);

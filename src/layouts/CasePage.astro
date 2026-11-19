@@ -40,6 +40,12 @@ const nextOverview = projectOverviews[next.href];
           <h2 id="project-about">About this project</h2>
           <div class="project-notes-body">
             <section><h3>My contribution</h3><p>{overview.contribution}</p></section>
+            {overview.decisions.map(decision => (
+              <section>
+                <h3>{decision.title}</h3>
+                {decision.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+              </section>
+            ))}
             <section class="project-outcome" aria-labelledby="outcome">
               <h3 id="outcome">Outcome</h3>
               <p>{overview.outcome}</p>
@@ -67,6 +73,7 @@ const nextOverview = projectOverviews[next.href];
 .overview-art :global(.fusion-hero){max-width:680px}
 .overview-art :global(.nda-cover){max-width:1040px;margin-inline:auto}
 .project-overview :global(.nda-summary){margin:clamp(24px,4vw,56px) 0 0}
+.project-notes-body p + p{margin-top:1em}
 .product-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px}
 </style>
 <script>

@@ -29,17 +29,17 @@ coverAlt: "Corporate Action Manager"
 matte:
   - "copratbanner"
 ---
-## Project Summary
+### Project overview
 
 The existing corporate actions platform was a 15-year-old legacy system with no coherent visual language. Operations staff processed hundreds of time-sensitive events daily, but every action required multiple clicks, scrolls, and manual data checks.
 
-Errors were costly. Missed or misprocessed corporate actions could create direct financial penalties.
+Missing an event or processing it incorrectly could lead to a financial penalty.
 
-## My Role
+### My role
 
 I was on the design team for a year, **co-designing with a UX partner** across research, flows, and UI. Weekly sessions with ops analysts kept the redesign close to the desk. Together we delivered detailed Figma specs, keyboard-first navigation, and a WCAG-compliant interface.
 
-## Design Process
+### Design process
 
 Twelve months with the ops desk showed the real workflows, not just the documented ones. Sustained contact revealed that 60% of the time was spent on status checks and data reconciliation, not actual processing.
 

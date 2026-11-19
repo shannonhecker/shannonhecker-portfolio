@@ -11,6 +11,11 @@ import { CASES } from '../lib/cases';
 import { earlierProjects } from '../lib/earlier';
 import '../styles/project-gallery.css';
 const earlier = await earlierProjects();
+const context: Record<string, string> = {
+  'data-solution': 'Guided workflows for financial data',
+  'tripup': 'Planning a trip with friends',
+  'algo-center': 'Monitoring live trading strategies',
+};
 ---
 <Base title="Work · Shannon Hecker" description="Fifteen projects across trading, analytics, design systems and independent products by Shannon Hecker.">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,6 +26,7 @@ const earlier = await earlierProjects();
       <div class="wrap">
         <h1>All work</h1>
         <p class="work-meta">{CASES.length + earlier.length} projects</p>
+        <p class="gallery-intro">Trading tools and design systems from my work in banking, alongside independent projects for designers and families.</p>
       </div>
     </header>
     <div class="wrap" id="work">
@@ -29,7 +35,10 @@ const earlier = await earlierProjects();
         {earlier.map((project, index) => (
           <a class="archive-card" id={index===0?'earlier-title':undefined} href={`/work/${project.id}`} data-cursor="big">
             <Picture src={project.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[360,720,1080]} sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 31vw" quality={75} loading="lazy" decoding="async" />
-            <h2 class="project-title">{project.data.title}<Icon name="arrow-right" class="arrow" /></h2>
+            <div class="archive-caption">
+              <h2 class="project-title">{project.data.title}<Icon name="arrow-right" class="arrow" /></h2>
+              {context[project.id] && <span>{context[project.id]}</span>}
+            </div>
           </a>
         ))}
       </div>
@@ -37,3 +46,11 @@ const earlier = await earlierProjects();
   </main>
   <Footer />
 </Base>
+
+<style>
+.work-head .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline}
+.gallery-intro{grid-column:1/-1;max-width:60ch;margin:0;color:var(--fg-2);font-size:clamp(16px,1.2vw,18px);line-height:1.55;text-wrap:pretty}
+#work .archive-caption{position:absolute;z-index:2;inset:auto clamp(14px,1.55vw,24px) clamp(14px,1.55vw,24px)}
+#work .archive-caption .project-title{position:static}
+.archive-caption span{display:block;margin-top:4px;font-size:13px;line-height:1.4;color:white;text-shadow:0 1px 4px rgb(0 0 0 / .5)}
+</style>

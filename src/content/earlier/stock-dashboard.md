@@ -30,17 +30,17 @@ coverAlt: "Stock dashboard: desktop, tablet, and mobile views"
 matte:
   - "stock-dashboard-banner"
 ---
-## Project Overview
+### Project overview
 
-**The brief.** The project centred on raw stock price data for **six companies across two sectors**, covering end-of-day prices, daily changes, and percentage changes over five days. The dashboard needed to support **end-of-week stock performance analysis** quickly and confidently.
+The starting point was five days of stock prices for six companies across two sectors. Each record showed the closing price, daily change and percentage change. The brief was to make an end-of-week comparison possible from that data.
 
-**The core problem.** Dense financial data needs to be instantly scannable. Users should spot the biggest movers, compare sectors, and drill into company trends without losing context.
+A reader needed to spot the biggest movers, compare sectors and trace an individual company’s performance without losing the weekly context.
 
-## My Role
+### My role
 
 I owned the design from **data analysis and information architecture** through to high-fidelity UI and prototyping. That included structuring the raw data, selecting chart types, setting the visual hierarchy, and delivering responsive layouts for **desktop and iPad**.
 
-## Design Process
+### Design process
 
 **Understanding the data.** I cleaned and restructured the datasets, consolidating percentage changes, EoD prices, and daily differences into a format that could support multiple chart types.
 

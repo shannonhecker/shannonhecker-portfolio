@@ -31,15 +31,15 @@ matte:
   - "algo-banner"
   - "algo02"
 ---
-## Project Summary
+### Project overview
 
 Algo trading desk operators were monitoring live strategies across disconnected screens with no single status view. When an algorithm drifted from expected behaviour, diagnosis and intervention were slow, in markets where milliseconds matter.
 
-## My Role
+### My role
 
 As **UI Designer**, I translated algorithmic trading workflows into precise, scannable interfaces. I owned interaction design, detailed Figma specifications, and visual QA through release, working closely with product and engineering.
 
-## Design Process
+### Design process
 
 I designed a **real-time monitoring cockpit**: one screen for all running strategies, anomaly highlights, and intervention controls.
 

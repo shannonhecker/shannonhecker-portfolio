@@ -30,17 +30,15 @@ tags:
 cover: ../../assets/earlier/tripup/tripup-banner.webp
 coverAlt: "TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting"
 ---
-## Project Overview
+### Project overview
 
-**The brief.** Improve TripUp for **group decision-making and expense tracking** during trips: quick polls, live vote feedback, itinerary updates, and easier settlement.
+A group could agree on dinner in one chat, record the cost in an expense app and still need to update a separate itinerary. I wanted a vote, the resulting plan and the cost to stay connected.
 
-**The core problem.** Group travel coordination is scattered across chat, expense apps, and separate itineraries. Users need one surface for decisions, payments, and plans.
-
-## My Role
+### My role
 
 I owned the design process from **user research and competitor analysis** through to wireflows, journey mapping, visual direction, and high-fidelity mobile UI. Deliverables included personas, a complete wireflow, colour and type, and polished iPhone 16 screens.
 
-## Design Process
+### Design process
 
 **User research.** I created two personas: the Organiser, who manages logistics, and the Participant, who wants to vote, pay, and stay updated with minimal effort. Key insight: trip decisions happen mid-flow, so the interface needed a **two-tap rule**.
 

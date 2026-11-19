@@ -29,20 +29,16 @@ coverAlt: "Digital & Platform Services brand identity system"
 matte:
   - "dbs-banner"
 ---
-## Project Summary
+### Project overview
 
 Digital & Platform Services is part of J.P. Morgan’s operational and technology backbone, supporting investment services, innovation, and client platforms. The team needed a clear internal identity to unify messaging across digital channels, internal communications, and executive presentations.
 
-## My Role
+### My role
 
 As a **Visual Designer**, I worked with the design lead and team to develop the identity. The system needed to feel credible at enterprise scale and still flex across different touchpoints.
 
-## Key Contributions
+### The identity in use
 
 I helped define **typography, colour, iconography, and layout systems**, then created brand guidelines for consistent use across teams. I designed assets and templates for presentations, microsites, and internal campaigns.
 
 Stakeholder reviews kept the visual direction aligned with business goals, while the template library made the system easier to reuse.
-
-## Impact
-
-The identity made Digital & Platform Services easier to recognise across the firm. The visual system streamlined design work and became a reference for future DPS initiatives.
