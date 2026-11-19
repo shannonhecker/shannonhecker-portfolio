@@ -2014,6 +2014,26 @@
       100% { transform: translateX(120%); }
     }
 
+    .home-game {
+      scroll-margin-top: var(--nav);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(28px, 6vw, 80px);
+      margin-top: var(--space-64);
+      padding-top: var(--space-48);
+      border-top: 1px solid var(--c-rule);
+      color: var(--c-ink);
+    }
+    .home-game img { display: block; width: 100%; height: auto; border-radius: 8px; image-rendering: pixelated; }
+    .home-game h3 { font: 400 var(--t-section)/1.15 var(--font-display); }
+    .home-game p { max-width: 34ch; margin: 12px 0 16px; color: var(--c-mid); font-size: var(--t-base); }
+    .home-game-action { font-size: var(--t-sm); text-decoration: underline; text-underline-offset: .25em; }
+    .home-game:hover .home-game-action { text-decoration-thickness: 2px; }
+    @media (max-width: 700px) {
+      .home-game { grid-template-columns: 1fr; gap: 16px; padding-top: var(--space-32); }
+    }
+
     /* Responsive collapse */
     @media (max-width: 900px) {
       .featured-bento {
@@ -2719,6 +2739,15 @@
           </svg>
         </a>
       </div>
+
+      <a href="game.html" class="home-game" id="working-order" aria-labelledby="home-game-title home-game-action">
+        <img src="/game/world-map.webp" width="480" height="270" loading="lazy" decoding="async" alt="Pixel-art map of Taiwan, London and Britain">
+        <div>
+          <h3 id="home-game-title">Working Order</h3>
+          <p>A pixel-art game about my journey from Kaohsiung to London. Pick a chapter on the map and play through it.</p>
+          <span id="home-game-action" class="home-game-action">Play the game <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
     </div>
   </section>
 
