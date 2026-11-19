@@ -8,11 +8,13 @@
 .avatar-scene { position: relative; isolation: isolate; aspect-ratio: 360 / 285; }
 .avatar-scene::before, .avatar-scene::after { content: ''; position: absolute; z-index: -1; }
 .avatar-scene::before {
-  inset: 4% 0 0;
-  background: radial-gradient(ellipse closest-side at 50% 58%, rgb(var(--avatar-glow) / 24%), rgb(var(--avatar-glow) / 12%) 54%, transparent 100%);
-  --avatar-glow: 215 164 152;
+  inset: 16% 10% 5%;
+  border-radius: 50% 50% 0 0;
+  --arch-tint: 215 164 152;
+  background: linear-gradient(to bottom, rgb(var(--arch-tint) / 36%), rgb(var(--arch-tint) / 20%));
+  filter: blur(1px);
 }
-html[data-theme="dark"] .avatar-scene::before { --avatar-glow: 160 114 143; }
+html[data-theme="dark"] .avatar-scene::before { --arch-tint: 160 114 143; }
 .avatar-scene::after {
   bottom: 5%; left: 24%; right: 24%; height: 3px;
   background: repeating-linear-gradient(90deg, rgb(180 148 133 / 45%) 0 8px, transparent 8px 14px);
