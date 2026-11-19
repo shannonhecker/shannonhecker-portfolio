@@ -132,7 +132,7 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0,0,0,.12);
     }
-    .uoaui-strip-cta:focus-visible { outline: 2px solid #49D0BE; outline-offset: 3px; }
+    .uoaui-strip-cta:focus-visible { outline: 2px solid #3DDCC4; outline-offset: 3px; }
 
     .proj-breadcrumb {color:var(--c-light);margin-bottom:var(--space-32);display:flex;align-items:center;gap:var(--space-12); }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -203,11 +203,22 @@
       box-sizing: border-box;
     }
     .proj-cover--demo > video { border-radius: 8px; width: 100%; height: 100%; object-fit: contain; display: block; }
+    .brand-wordmark {
+      margin-top:var(--space-32); padding:var(--space-32);
+      background:#0a0e1a; border-radius:12px;
+      display:grid; place-items:center;
+    }
+    .brand-wordmark img { display:block; width:min(60%, 260px); height:auto; }
     .system-example { margin:var(--space-24) 0 0; }
-    .system-example a, .system-example img { display:block; }
-    .system-example img { width:100%;height:auto; }
-    .system-example figcaption { margin-top:var(--space-8);color:var(--c-mid); }
-    #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
+    .system-example a, .system-example picture, .system-example img { display:block; }
+    .system-example img { width:100%; height:auto; border-radius:8px; }
+    .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
+    .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
+    .report-comparison figure { margin:0; }
+    @media (max-width:600px) {
+      .report-comparison { grid-template-columns:1fr; }
+    }
+    #brand-identity, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
     html[data-theme="dark"] .proj-cover--demo {
       background:
         radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
@@ -327,32 +338,42 @@
           <div class="proj-body"><p>My first approach gave the model freedom to draw a layout. The hard part came at handover, when I had to match its choices to components a team actually used. I gave the builder a catalogue of blocks and a set of edits it can make. Now I can change one card and keep the rest of the screen intact.</p></div>
         </div>
 
-        <div class="proj-about-block rv">
+        <div id="brand-identity" class="proj-about-block rv">
           <h3 class="proj-about-h3">Brand identity</h3>
-          <div class="proj-body"><p>I kept the aurora colours around the canvas so each library’s controls retain their own visual identity.</p></div>
+          <div class="proj-body"><p>I designed the uoaui wordmark and its component library. The palette gives the product its own identity, while each screen in the builder takes on the colours and type of the system I choose.</p></div>
           <div style="display:flex;gap:16px;margin:32px 0 0;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#E5A999;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
-            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0B1120;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#3DDCC4;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#A78BFA;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#F0B5A4;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Peach Output</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0A0E1A;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
           </div>
-          <div class="proj-img-grid rv" style="margin-top:var(--space-48);">
-            <img src="assets/uoaui.webp" alt="uoaui logo on aurora gradient" width="1000" height="1000" loading="lazy" decoding="async" style="border-radius:12px;background:#0B1120;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
-            <img src="assets/uoaui-brand.webp" alt="uoaui dark and light mode interfaces" width="1200" height="720" loading="lazy" decoding="async" style="border-radius:12px;background:#000;aspect-ratio:1/1;object-fit:cover;display:block;width:100%;height:auto;" />
+          <div class="brand-wordmark">
+            <img src="assets/uoaui-logo-lockup.png" alt="My original uoaui symbol and wordmark" width="454" height="91" loading="lazy" decoding="async">
           </div>
+          <figure class="system-example">
+            <a href="assets/uoaui-house-library.webp" aria-label="Open the full uoaui component library image">
+              <picture>
+                <source media="(max-width:600px)" srcset="assets/uoaui-house-library-phone.webp" width="780" height="960">
+                <img src="assets/uoaui-house-library.webp" width="1728" height="1188" loading="lazy" decoding="async" alt="The uoaui library in dark mode, with its Inter typeface, core palette and four density settings.">
+              </picture>
+            </a>
+            <figcaption class="proj-media-cap-text">Inside the uoaui component library</figcaption>
+          </figure>
         </div>
 
         <div id="system-comparison" class="proj-about-block rv">
-          <h3 class="proj-about-h3">Comparing the same screen</h3>
-          <div class="proj-body"><p>I kept the dashboard content fixed to compare how each system draws attention to Search. Salt uses a blue rectangle. The uoaui version uses a violet pill.</p></div>
-          <figure class="system-example">
-            <a href="assets/uoaui-compare-salt.webp" aria-label="Open the Salt dashboard detail at full size"><img src="assets/uoaui-compare-salt.webp" width="1420" height="528" loading="lazy" decoding="async" alt="Salt dashboard detail with blue rectangular search buttons, filters and the first rows of a reports table."></a>
-            <figcaption class="proj-media-cap-text">Salt Design System</figcaption>
-          </figure>
-          <figure class="system-example">
-            <a href="assets/uoaui-compare-uoaui.webp" aria-label="Open the uoaui dashboard detail at full size"><img src="assets/uoaui-compare-uoaui.webp" width="1420" height="528" loading="lazy" decoding="async" alt="The same dashboard detail in uoaui with violet rounded search buttons above the same report names."></a>
-            <figcaption class="proj-media-cap-text">uoaui design system</figcaption>
-          </figure>
+          <h3 class="proj-about-h3">One report card, two design systems</h3>
+          <div class="proj-body"><p>I kept the report and its preview identical. Look at the Holdings label and the Open Report link to see how Salt’s blue accents and square corners change in my rounded, violet uoaui system.</p></div>
+          <div class="report-comparison">
+            <figure class="system-example">
+              <a href="assets/uoaui-report-card-salt.webp" aria-label="Open the Salt report card at full size"><img src="assets/uoaui-report-card-salt.webp" width="730" height="656" loading="lazy" decoding="async" alt="SI Portfolio Report in Salt, with a blue top edge and a rectangular Holdings label."></a>
+              <figcaption class="proj-media-cap-text">Salt Design System</figcaption>
+            </figure>
+            <figure class="system-example">
+              <a href="assets/uoaui-report-card-house.webp" aria-label="Open the uoaui report card at full size"><img src="assets/uoaui-report-card-house.webp" width="730" height="656" loading="lazy" decoding="async" alt="The same SI Portfolio Report in uoaui, with a violet top edge and pill-shaped Holdings label."></a>
+              <figcaption class="proj-media-cap-text">uoaui design system</figcaption>
+            </figure>
+          </div>
         </div>
 
         <div class="proj-nda rv">
