@@ -61,12 +61,15 @@ export async function siteRoutes(staticDir, environment) {
     if (name.startsWith('writing-')) aliases.push('/writing/' + name.slice('writing-'.length));
     const path = join(staticDir, file);
     let html = await readFile(path, 'utf8');
-    // A document opened on an old nested URL must resolve images, scripts,
-    // fragment links and project links against its canonical HTML file.
-    if (name !== 'index') {
-      html = html.replace('<head>', '<head>\n  <base href="/' + file + '">');
-      await writeFile(path, html);
+    // Directory-style aliases must resolve assets and links from the canonical page.
+    const base = name === 'index' ? '/' : '/' + file;
+    html = html.replace('<head>', '<head>\n  <base href="' + base + '">');
+    if (name === 'index') {
+      // Keep the opening layout intact even if a mobile stylesheet request fails.
+      const layout = await readFile(join(staticDir, 'assets', 'portfolio.css'), 'utf8');
+      html = html.replace(/<link rel="stylesheet" href="assets\/portfolio\.css(?:\?[^"]*)?"\s*\/?>/, () => '<style>\n' + layout + '\n</style>');
     }
+    await writeFile(path, html);
     const aliasPattern = '(?:' + aliases.filter(p => p !== '/').join('|') + ')/?';
     const root = name === 'index' ? '|/' : '';
     const source = '^(?:/' + name + '\\.html|' + aliasPattern + root + ')$';
