@@ -87,6 +87,11 @@ test('wave field is one still picture until the visitor does something, then it 
 test('the homepage hero begins moving without visitor input', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
+  const canvas = page.locator('.wave-field[data-variant="hero"] canvas.is-ready');
+  await expect(canvas).toHaveCSS('animation-name', 'hero-wave-drift');
+  const initial = await canvas.evaluate(el => getComputedStyle(el).translate);
+  await expect.poll(() => canvas.evaluate(el => getComputedStyle(el).translate)).not.toBe(initial);
+  await page.mouse.move(200, 300);
   await expect(page.locator('.wave-field[data-variant="hero"]')).toHaveClass(/is-moving/);
 });
 

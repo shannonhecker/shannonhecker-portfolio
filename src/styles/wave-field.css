@@ -96,7 +96,13 @@ html[data-theme="light"] .wave-field[data-variant="hero"] { --wf-a: 196 181 253;
 .wave-field__canvas.is-ready { opacity: 1; }
 .wave-field__still{position:absolute;inset:0 0 0 auto;width:75%;height:100%;stroke:var(--accent);stroke-width:.85;fill:none;opacity:.34;mask-image:linear-gradient(to right,transparent,#000 35%,#000 90%,transparent)}
 .wave-field:has(.wave-field__canvas.is-ready) .wave-field__still{opacity:0}
-@media(prefers-reduced-motion:no-preference){.wave-field__still{transition:opacity .25s ease-out}}
+@media(prefers-reduced-motion:no-preference){
+  .wave-field__still{transition:opacity .25s ease-out}
+  .wave-field[data-variant="hero"]:not(.is-moving):not(.is-away) :is(.wave-field__still,.wave-field__canvas.is-ready){
+    animation:hero-wave-drift 6s ease-in-out alternate infinite;
+  }
+}
+@keyframes hero-wave-drift{from{translate:0 0}to{translate:-.8% .6%}}
 @media(max-width:900px){.wave-field__still{width:94%}}
 .wave-field[data-variant="ask"] .wave-field__canvas.is-ready { opacity: .75; }
 
