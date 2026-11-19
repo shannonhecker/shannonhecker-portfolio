@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    if (location.hash === '#adventure') {
+      const level = new URLSearchParams(location.search).get('level');
+      location.replace('game.html' + (/^[1-8]$/.test(level || '') ? '?level=' + level : '') + '#adventure');
+    }
+  </script>
   <meta charset="UTF-8" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-795LXWTYWM"></script>
@@ -1862,6 +1868,7 @@
           <p class="hero-reading">
             <span class="hero-reading-label">Recently</span>
             <a href="writing-when-everyone-can-ship.html">When everyone can ship</a>
+            <a href="game.html">Play Working Order</a>
           </p>
 
           <!-- Stats row with CTA -->
@@ -2800,7 +2807,7 @@
         <span class="about-eyebrow-small">Now</span>
         <ul class="about-now-list" role="list">
           <li><strong>Designing.</strong> Trading tools for FX and MarketsOne at Barclays.</li>
-          <li><strong>Playing.</strong> <a href="https://shannonhecker.com/#adventure">Working Order</a>, the game I made about my route into design.</li>
+          <li><strong>Playing.</strong> <a href="game.html">Working Order</a>, the game I made about my route into design.</li>
           <li><strong>Writing.</strong> <a href="writing-the-design-system-is-the-contract.html">The design system is the contract</a>.</li>
           <li><strong>Experimenting.</strong> uoaui.ai in private alpha.</li>
         </ul>

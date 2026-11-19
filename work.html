@@ -223,7 +223,8 @@
       opacity:0;transition:opacity .4s cubic-bezier(.22,1,.36,1);z-index:2;}
     .pcard-body::before{content:'';position:absolute;inset:0;
       background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 100%);border-radius:inherit;}
-    .pcard:hover .pcard-body{opacity:1;}
+    .pcard:hover .pcard-body,.pcard:focus-visible .pcard-body{opacity:1;}
+    @media (hover:none){.pcard-body{opacity:1;}}
     .pcard-title{position:relative;font-family:var(--font-display);font-size:20px;font-weight:500;
       letter-spacing:-.01em;line-height:1.15;color:#fff;}
     .pcard-meta,.pcard-num,.pcard-arrow,.pcard-desc,.pcard-tags{display:none !important;}
@@ -684,10 +685,10 @@
           </a></article>
         </div>
         <div class="bc-4 rv" data-d="4">
-          <article class="pcard-article"><a href="project-fx.html" class="pcard">
+          <article class="pcard-article"><a id="fx-execution" href="project-fx.html" class="pcard">
             <div class="pcard-img">
-              <img src="assets/execution-mockup-700.avif" alt="My FX execution dashboard mockup with sample data" loading="lazy" decoding="async"
-                   width="800" height="450" />
+              <img src="assets/fx-execution-card-dark.webp" alt="My FX dashboard mockup showing sample trade prices and a venue breakdown" loading="lazy" decoding="async"
+                   width="1040" height="1040" />
               <div class="ph ph-1" style="display:none;">FX execution analytics</div>
             </div>
             <div class="pcard-body">
