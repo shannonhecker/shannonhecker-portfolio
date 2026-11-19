@@ -187,6 +187,13 @@
     .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3;background:#fff; }
     .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
+    #deal-workflow { scroll-margin-top: 6rem; }
+    #deal-workflow img { height:auto;background:transparent;filter:none; }
+    #deal-workflow .flow-dark { display:none; }
+    html[data-theme="dark"] #deal-workflow .flow-light { display:none; }
+    html[data-theme="dark"] #deal-workflow .flow-dark { display:block; }
+    #deal-workflow a { display:block; }
+
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:var(--space-48) 0; }
     /* Outcome pills */
     .proj-outcomes { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:var(--space-48) 0; }
@@ -218,7 +225,7 @@
     img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none; }
     img { -webkit-touch-callout:none; }
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
-    .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
+    .img-shield { pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -313,7 +320,10 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design process</h3>
           <div class="proj-body"><p>I met the teams separately each week and brought them together every fortnight. I watched people price their own deals, then brought three screen options to the joint review. Engineers joined these reviews so we could check validation rules with the people pricing the deal.</p><p>Sales kept its side-by-side comparison. Legal kept an iteration list. Both views read from one deal record, and the approver signed off against a specific version.</p></div>
-          <figure class="proj-media"><a href="assets/deal-setup-to-approval.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The deal owner and the approver work from the same record. The review is tied to a particular iteration.</span></figcaption></figure>
+          <figure class="proj-media" id="deal-workflow">
+            <a class="flow-light" href="assets/deal-setup-to-approval.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" /></a>
+            <a class="flow-dark" href="assets/deal-setup-to-approval-dark.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval-dark.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" /></a>
+            <figcaption class="proj-media-cap"><span class="proj-media-cap-text">The deal owner and the approver work from the same record. The review is tied to a particular iteration.</span></figcaption></figure>
         </div>
 
         <div class="proj-about-block rv">
