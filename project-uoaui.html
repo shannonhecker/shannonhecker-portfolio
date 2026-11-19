@@ -9,12 +9,12 @@
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>uoaui.ai · AI design-system builder · Shannon Hecker</title>
-  <meta name="description" content="I built uoaui so designers can turn a finance brief into a working dashboard, try it in five design systems and export the code." />
+  <meta name="description" content="I built uoaui for finance teams who need to agree on a dashboard before building it. A designer can take one brief, try the layout in five design systems and hand the chosen version to an engineer as working code." />
     <link rel="canonical" href="https://shannonhecker.com/project-uoaui.html" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://shannonhecker.com/project-uoaui.html" />
   <meta property="og:title" content="uoaui.ai · AI design-system builder · Shannon Hecker" />
-  <meta property="og:description" content="I built uoaui so designers can turn a finance brief into a working dashboard, try it in five design systems and export the code." />
+  <meta property="og:description" content="I built uoaui for finance teams who need to agree on a dashboard before building it. A designer can take one brief, try the layout in five design systems and hand the chosen version to an engineer as working code." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:alt" content="uoaui.ai · AI design-system builder · Shannon Hecker" />
   <meta property="og:image:width" content="1200" />
@@ -26,7 +26,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "headline": "uoaui.ai",
-  "description": "I built uoaui so designers can turn a finance brief into a working dashboard, try it in five design systems and export the code.",
+  "description": "I built uoaui for finance teams who need to agree on a dashboard before building it. A designer can take one brief, try the layout in five design systems and hand the chosen version to an engineer as working code.",
   "url": "https://shannonhecker.com/project-uoaui.html",
   "image": "https://shannonhecker.com/assets/og-preview.png",
   "datePublished": "2026-01-01",
@@ -239,6 +239,8 @@
     }
     .compare-systems { display:flex; justify-content:space-between; }
     .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
+    .builder-steps { padding-inline-start:1.5em; list-style:decimal; }
+    .builder-steps li + li { margin-top:var(--space-12); }
     .library-subtitle { margin-top:var(--space-32); }
     .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
     .report-comparison figure { margin:0; }
@@ -343,13 +345,24 @@
       <a class="walkthrough-toggle" href="assets/uoaui-walkthrough.mp4" data-walkthrough-for="uoaui-project-demo">Play demo</a>
 
       <h1 class="proj-title-post rv" data-d="2">uoaui.ai</h1>
-      <p class="proj-lead rv" data-d="3">I built uoaui so designers can turn a finance brief into a working dashboard, try it in five design systems and export the code.</p>
+      <p class="proj-lead rv" data-d="3">I built uoaui for finance teams who need to agree on a dashboard before building it. A designer can take one brief, try the layout in five design systems and hand the chosen version to an engineer as working code.</p>
 
       <!-- Content -->
       <div class="proj-content">
         <div class="proj-about-layout">
         <h2 class="proj-about-label rv">about<span class="proj-about-dot">.</span></h2>
         <div class="proj-about-main">
+
+        <div class="proj-about-block rv" id="builder-workflow">
+          <h3 class="proj-about-h3">How to use the builder</h3>
+          <ol class="proj-body builder-steps">
+            <li><strong>Start with a brief.</strong> Ask for a risk summary by fund, or choose a finance template to get a first layout.</li>
+            <li><strong>Edit one card.</strong> Select a card and describe the change. Drag in a table from the library or resize a chart with the keyboard.</li>
+            <li><strong>Compare the screen.</strong> Switch from Salt to uoaui, then try the phone view. Share the canvas so a colleague can review the same layout.</li>
+            <li><strong>Hand it over.</strong> Export a measured SVG to check spacing in Figma, or a Vite project that an engineer can run.</li>
+          </ol>
+          <p class="proj-body library-subtitle"><a class="proj-build-link" href="https://uoaui.ai/#workflow">Watch the builder walkthrough</a></p>
+        </div>
 
         <div id="dashboard-comparison" class="proj-about-block rv">
           <h3 class="proj-about-h3">One dashboard in two design systems</h3>
@@ -382,14 +395,6 @@
           <div class="proj-body"><p>In my first prototype, I had to match each part of a generated layout to a real component by hand. I gave the builder a catalogue of named components. A report card keeps its purpose when I switch systems, and the builder flags a fallback when a system has no matching component.</p></div>
         </div>
 
-        <div class="proj-about-block rv" id="builder-workflow">
-          <h3 class="proj-about-h3">From a brief to a design review</h3>
-          <div class="proj-body">
-            <p>For a risk review, I can describe the summary I want to see for each fund or start with one of 13 finance templates. If one card needs a change, I select it and describe the edit. I can also move or resize it with the keyboard.</p>
-            <p>In a review, I can put the same report on a phone-sized canvas and switch between Salt and uoaui. With the figures and layout held constant, we can focus on a specific question together. Which system makes the next action easier to find?</p>
-          </div>
-        </div>
-
         <div id="brand-identity" class="proj-about-block rv">
           <h3 class="proj-about-h3">Brand identity</h3>
           <div class="proj-body"><p>I designed the uoaui wordmark and its component library. The palette gives the product its own identity, while each screen in the builder takes on the colours and type of the system I choose.</p></div>
@@ -402,51 +407,13 @@
           <div class="brand-wordmark">
             <img src="assets/uoaui-logo-lockup.png" alt="uoaui" width="454" height="91">
           </div>
-          <figure class="system-example">
+          <figure id="ui-library" class="system-example">
             <picture>
               <source media="(max-width:600px)" srcset="assets/uoaui-house-library-phone.webp" width="780" height="960">
               <img src="assets/uoaui-house-library.webp" width="1728" height="1188" loading="lazy" decoding="async" alt="The uoaui library in dark mode, with its Inter typeface, core palette and four density settings.">
             </picture>
-            <figcaption class="proj-media-cap-text">Inside the uoaui component library</figcaption>
+            <figcaption class="proj-media-cap-text">Explore the <a class="proj-build-link" id="recent-projects" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=pat-dashboard">dashboard pattern</a> and <a class="proj-build-link" id="chart-library" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=charts">charts</a> in the UI kit.</figcaption>
           </figure>
-        </div>
-
-        <div id="ui-library" class="proj-about-block rv">
-          <h3 class="proj-about-h3">Inside the uoaui UI library</h3>
-          <div class="proj-body"><p>I organised the house library around two questions. Which control fits this task? How does it work as part of a whole screen? There are 20 components to inspect and 9 patterns that show how they fit together.</p></div>
-          <h4 class="proj-about-h3 library-subtitle">Text field variants</h4>
-          <div class="proj-body"><p>On a gradient, a filled field gives the value a clear surface. Inside a panel, a fine outline is enough. I put the examples beside the guidance so a designer can see when to use each one.</p></div>
-          <figure class="system-example">
-            <picture>
-              <source media="(max-width:600px)" srcset="assets/uoaui-field-options-mobile.webp" width="716" height="1028">
-              <img src="assets/uoaui-field-options.webp" width="1512" height="504" loading="lazy" decoding="async" alt="Two uoaui text fields. The filled variant has a tinted surface and violet underline. The outlined variant has a fine border.">
-            </picture>
-            <figcaption class="proj-media-cap-text"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=inputs">Try the text field and its validation states</a></figcaption>
-          </figure>
-          <div class="proj-body" style="margin-top:var(--space-32)"><p>At page level, the analytical dashboard pairs summary cards with a project table. Someone reviewing the portfolio can scan the totals first, then check an individual project’s status and revenue.</p></div>
-          <figure id="recent-projects" class="system-example">
-            <picture>
-              <source media="(max-width:600px)" srcset="assets/uoaui-recent-projects.webp" width="948" height="708">
-              <img src="assets/uoaui-dashboard-pattern.webp" width="1512" height="1106" loading="lazy" decoding="async" alt="The Recent Projects table in the uoaui dashboard pattern shows each project's status, user count and revenue.">
-            </picture>
-            <figcaption class="proj-media-cap-text"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=pat-dashboard">Explore the dashboard pattern</a></figcaption>
-          </figure>
-        </div>
-
-        <div id="chart-library" class="proj-about-block rv">
-          <h3 class="proj-about-h3">Choosing a chart for the question</h3>
-          <div class="proj-body"><p>I included 12 chart types in the library. For a portfolio review, I’d use the scatter plot to ask how much risk came with a return. Circles mark equities and diamonds mark bonds, so colour is only one way to tell them apart. When the question is where the money sits, the allocation chart labels each holding group directly.</p></div>
-          <div class="report-comparison">
-            <figure class="system-example">
-              <img src="assets/uoaui-chart-risk.webp" width="916" height="800" loading="lazy" decoding="async" alt="Risk versus return scatter plot. The sample bonds cluster at the lower left, while equities span a wider range of risk and return.">
-              <figcaption class="proj-media-cap-text">Comparing risk and return</figcaption>
-            </figure>
-            <figure class="system-example">
-              <img class="allocation-chart" src="assets/uoaui-portfolio-allocation.svg" width="458" height="400" loading="lazy" decoding="async" alt="Portfolio allocation: equities 55%, bonds 25%, alternatives 12%, cash 8%.">
-              <figcaption class="proj-media-cap-text">Reading the portfolio mix</figcaption>
-            </figure>
-          </div>
-          <p class="proj-body library-subtitle"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=charts">Explore the chart library</a></p>
         </div>
 
         <div id="system-comparison" class="proj-about-block rv">
