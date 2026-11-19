@@ -367,7 +367,7 @@ html[data-theme="dark"] .proj-next {
 }
 
 /* Project image containers — keep white bg for screenshots */
-html[data-theme="dark"] .proj-cover,
+html[data-theme="dark"] .proj-cover:where(:not(.proj-cover--execution)),
 html[data-theme="dark"] .proj-cover-ph {
   background: #fff !important;
 }
