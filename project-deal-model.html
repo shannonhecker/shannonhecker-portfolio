@@ -23,7 +23,7 @@
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Global Custody Deal Model · Shannon Hecker</title>
-  <meta name="description" content="Custody deal modelling wizard for J.P. Morgan. Deal creation down from about two hours to about 20 minutes by my estimate, with progressive disclosure and a full audit trail." />
+  <meta name="description" content="I designed four views of one custody deal so sales, legal, product and custody operations could price, compare and approve it together." />
   <script>
     gtag('config', 'G-795LXWTYWM');
   </script>
@@ -31,7 +31,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://shannonhecker.com/project-deal-model.html" />
   <meta property="og:title" content="Global Custody Deal Model · Shannon Hecker" />
-  <meta property="og:description" content="Custody deal modelling wizard for J.P. Morgan. Deal creation down from about two hours to about 20 minutes by my estimate, with progressive disclosure and a full audit trail." />
+  <meta property="og:description" content="I designed four views of one custody deal so sales, legal, product and custody operations could price, compare and approve it together." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:alt" content="Global Custody Deal Model · Shannon Hecker" />
   <meta property="og:image:width" content="1200" />
@@ -43,7 +43,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "headline": "Global Custody Deal Model",
-  "description": "Deal modelling tool for custodian teams. Multi-step flows, progressive disclosure, clear visual hierarchy. Creation time: two hours down to 20 minutes.",
+  "description": "I designed four views of one custody deal so sales, legal, product and custody operations could price, compare and approve it together.",
   "url": "https://shannonhecker.com/project-deal-model.html",
   "image": "https://shannonhecker.com/assets/og-preview.png",
   "datePublished": "2023-01-01",
@@ -292,7 +292,7 @@
       <div class="proj-cover-ph ph-2" style="display:none;"></div>
 
       <h1 class="proj-title-post rv" data-d="2">Global Custody Deal Model</h1>
-      <p class="proj-lead rv" data-d="3">Custody deal pricing, comparison, and approval. Deal creation down from about two hours to about 20 minutes by my estimate, with a full audit trail.</p>
+      <p class="proj-lead rv" data-d="3">I designed four views of one custody deal so sales, legal, product and custody operations could price, compare and approve it together.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -301,43 +301,30 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Summary</h3>
-          <div class="proj-body"><p>Custody ops, sales, legal, and product teams relied on spreadsheets and email chains to price, compare, and approve deals. The process was slow, error-prone, and left no clean audit trail.</p></div>
+          <h3 class="proj-about-h3">Where the deal history lived</h3>
+          <div class="proj-body"><p>Each team kept its own copy of the same pricing spreadsheet. Sales compared proposals, legal tracked revisions and approvers had to piece together the history from email. By the time a deal reached sign-off, it was hard to tell which version everyone had reviewed.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">My Role</h3>
-          <div class="proj-body"><p>As <strong>UI lead</strong> over a year, I worked with two UX designers, a junior designer, a BA and a researcher, and stayed in weekly contact with custody ops, sales, legal, and product teams. Detailed Figma specs and critique cycles kept design and engineering aligned through the build.</p></div>
+          <h3 class="proj-about-h3">My role</h3>
+          <div class="proj-body"><p>I was UI lead for a year in Securities Services. I worked with UX designers, a researcher, analysts and engineers on pricing, comparison and approval. I wanted an approver to be able to reconstruct the decision after the meeting, including where the price came from and who changed it.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p>I designed a <strong>five-step deal creation wizard</strong>, surfacing only the inputs needed at each stage. Real-time validation caught errors early, and an auto-generated summary supported client sign-off.</p><p>The key challenge was supporting simple and complex deals without overwhelming either. <strong>Adaptive form complexity</strong> revealed fields as deal scope increased.</p></div>
+          <h3 class="proj-about-h3">Following a proposal through review</h3>
+          <div class="proj-body"><p>I met the teams separately each week and brought them together every fortnight. In the individual sessions, people worked through their own deals. In the joint review, I usually brought three versions of a screen. Comparing alternatives helped people point out a missing step.</p><p>Sales kept its side-by-side comparison. Legal kept an iteration list. Both views read from one deal record, and the approver signed off against a specific version.</p></div>
+          <figure class="proj-media"><a href="assets/deal-setup-to-approval.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The deal owner and the approver work from the same record. The review is tied to a particular iteration.</span></figcaption></figure>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Decisions</h3>
-          <div class="proj-body">
-            <p><strong>Decision 1. Five-step wizard, not a single long form.</strong></p>
-            <p><em>Options considered:</em> single long form, a wizard with stage-gated inputs, a decision tree, spreadsheet upload.</p>
-            <p><em>What I chose:</em> five-step wizard.</p>
-            <p><em>Why:</em> Deal creation is inherently sequential and the old process was hours long. A wizard enforces the logical order, lets me hide inputs that are not yet relevant, and makes the linear progression the interface’s spine. That shape is what got us from 2 hours to 20 minutes.</p>
-
-            <p><strong>Decision 2. Adaptive complexity, not a simple-or-complex mode toggle.</strong></p>
-            <p><em>Options considered:</em> explicit simple-or-complex mode toggle, conditional field visibility tied to earlier answers, fixed form for all deals, user-selectable sections.</p>
-            <p><em>What I chose:</em> progressive reveal, where fields appear as deal scope grows.</p>
-            <p><em>Why:</em> A mode toggle forces users to classify their deal upfront, and they are often wrong. Fixed forms overwhelm simple deals. Progressive reveal lets the interface stay minimal for small deals and expand naturally for complex ones, supporting both audiences without asking them to declare which one they are.</p>
-
-            <p><strong>Decision 3. Real-time validation plus auto-generated summary.</strong></p>
-            <p><em>Options considered:</em> traditional submit-then-validate, manual summary entry, PDF-only output.</p>
-            <p><em>What I chose:</em> inline validation during entry plus an auto-generated summary for client sign-off.</p>
-            <p><em>Why:</em> Error cost climbs the longer a user has moved past the error. Catching errors in the field where they happen keeps the deal flow clean. Auto-generating the summary from the captured inputs removes a manual step that used to require a separate rewrite, and it produces the audit trail the compliance team needed anyway.</p>
-          </div>
+          <h3 class="proj-about-h3">Keeping the spreadsheet route</h3>
+          <div class="proj-body"><p>One participant showed me why the familiar spreadsheet still mattered. People knew the fields and trusted the calculations. I kept a downloadable template so they could complete it offline and upload it into the same record as a deal entered on screen.</p><p>Warnings about rate sources appeared beside the prices. When a user created a new iteration, an explicit confirmation showed whether the change had been saved.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Outcomes</h3>
-          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">100%</span><span class="proj-outcome-label">Process digitalised</span></div><div class="proj-outcome"><span class="proj-outcome-num">2hrs → 20mins</span><span class="proj-outcome-label">Deal creation time</span></div><div class="proj-outcome"><span class="proj-outcome-num">Full</span><span class="proj-outcome-label">Audit trail</span></div></div>
+          <div class="proj-body"><p>The platform went into internal use in Securities Services. Template uploads became less common as people moved to direct entry. When I left for Fusion in 2023, the smart-pricing work I had explored with the data analyst was still a proposal.</p></div>
+          <div class="proj-outcomes"><div class="proj-outcome"><span class="proj-outcome-num">4</span><span class="proj-outcome-label">Teams sharing one deal record</span></div><div class="proj-outcome"><span class="proj-outcome-num">1 year</span><span class="proj-outcome-label">Embedded with the teams</span></div></div>
         </div>
 
         <div class="proj-tags rv"><span class="proj-tags-list">Product Design · Finance · Multi-step Flows · Progressive Disclosure · Interaction Design</span></div>
@@ -391,7 +378,7 @@
           <a href="https://www.linkedin.com/in/shannonhecker" class="footer-li" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
           <a href="privacy.html" class="footer-li">Privacy</a>
         </div>
-        <span class="footer-copy">©2026 Shannon Hecker &bull; Design engineer</span>
+        <span class="footer-copy">©2026 Shannon Hecker &bull; Product designer</span>
       </div>
     </div>
   </footer>
