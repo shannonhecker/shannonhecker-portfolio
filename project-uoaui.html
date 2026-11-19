@@ -213,12 +213,13 @@
     .system-example picture, .system-example img { display:block; }
     .system-example img { width:100%; height:auto; border-radius:8px; }
     .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
+    .library-subtitle { margin-top:var(--space-32); }
     .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
     .report-comparison figure { margin:0; }
     @media (max-width:600px) {
       .report-comparison { grid-template-columns:1fr; }
     }
-    #brand-identity, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
+    #builder-workflow, #brand-identity, #ui-library, #chart-library, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
     html[data-theme="dark"] .proj-cover--demo {
       background:
         radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
@@ -344,6 +345,13 @@
             <p>For a risk review, I can describe the summary I want to see for each fund or start with one of 13 finance templates. If one card needs a change, I select it and describe the edit. I can also move or resize it with the keyboard.</p>
             <p>In a review, I can put the same report on a phone-sized canvas and switch between Salt and uoaui. With the figures and layout held constant, we can focus on a specific question together. Which system makes the next action easier to find?</p>
           </div>
+          <figure class="system-example">
+            <picture>
+              <source media="(max-width:600px)" srcset="assets/uoaui-performance-brief.webp" width="229" height="319">
+              <img src="assets/uoaui-performance-builder.webp" width="1200" height="750" loading="lazy" decoding="async" alt="The Performance Analytics builder shows the original brief and its assumed system, theme and density alongside the editable canvas.">
+            </picture>
+            <figcaption class="proj-media-cap-text">I put the builder’s assumptions next to the brief. I can check the system and density it picked before deciding whether the report needs another chart or table.</figcaption>
+          </figure>
         </div>
 
         <div id="brand-identity" class="proj-about-block rv">
@@ -356,7 +364,7 @@
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#0A0E1A;border:1px solid var(--c-rule);display:block;"></span><span style="font-size:12px;color:var(--c-light);">Midnight Canvas</span></div>
           </div>
           <div class="brand-wordmark">
-            <img src="assets/uoaui-logo-lockup.png" alt="My original uoaui symbol and wordmark" width="454" height="91" loading="lazy" decoding="async">
+            <img src="assets/uoaui-logo-lockup.png" alt="uoaui" width="454" height="91">
           </div>
           <figure class="system-example">
             <picture>
@@ -369,12 +377,13 @@
 
         <div id="ui-library" class="proj-about-block rv">
           <h3 class="proj-about-h3">Inside the uoaui UI library</h3>
-          <div class="proj-body"><p>I organised the house library around two questions. Which control fits this task? How does it work as part of a whole screen? There are 20 components to inspect and 9 patterns that show how they fit together.</p>
-            <p>Take a text field. On a gradient, a filled field gives the value a clear surface. Inside a panel, a fine outline is enough. I put those examples beside the guidance so a designer can see when to use each one.</p></div>
+          <div class="proj-body"><p>I organised the house library around two questions. Which control fits this task? How does it work as part of a whole screen? There are 20 components to inspect and 9 patterns that show how they fit together.</p></div>
+          <h4 class="proj-about-h3 library-subtitle">Text field variants</h4>
+          <div class="proj-body"><p>On a gradient, a filled field gives the value a clear surface. Inside a panel, a fine outline is enough. I put the examples beside the guidance so a designer can see when to use each one.</p></div>
           <figure class="system-example">
             <picture>
-              <source media="(max-width:600px)" srcset="assets/uoaui-input-variants-mobile.webp" width="716" height="1160">
-              <img src="assets/uoaui-input-variants.webp" width="1512" height="636" loading="lazy" decoding="async" alt="Two uoaui text fields. The filled variant has a tinted surface and violet underline. The outlined variant has a fine border.">
+              <source media="(max-width:600px)" srcset="assets/uoaui-field-options-mobile.webp" width="716" height="1028">
+              <img src="assets/uoaui-field-options.webp" width="1512" height="504" loading="lazy" decoding="async" alt="Two uoaui text fields. The filled variant has a tinted surface and violet underline. The outlined variant has a fine border.">
             </picture>
             <figcaption class="proj-media-cap-text"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=inputs">Try the text field and its validation states</a></figcaption>
           </figure>
@@ -386,6 +395,22 @@
             </picture>
             <figcaption class="proj-media-cap-text"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=pat-dashboard">Explore the dashboard pattern</a></figcaption>
           </figure>
+        </div>
+
+        <div id="chart-library" class="proj-about-block rv">
+          <h3 class="proj-about-h3">Choosing a chart for the question</h3>
+          <div class="proj-body"><p>I included 12 chart types in the library. For a portfolio review, I’d use the scatter plot to ask how much risk came with a return. Circles mark equities and diamonds mark bonds, so colour is only one way to tell them apart. When the question is where the money sits, the allocation chart labels each holding group directly.</p></div>
+          <div class="report-comparison">
+            <figure class="system-example">
+              <img src="assets/uoaui-chart-risk.webp" width="916" height="800" loading="lazy" decoding="async" alt="Risk versus return scatter plot. The sample bonds cluster at the lower left, while equities span a wider range of risk and return.">
+              <figcaption class="proj-media-cap-text">Comparing risk and return</figcaption>
+            </figure>
+            <figure class="system-example">
+              <img src="assets/uoaui-chart-allocation.webp" width="916" height="800" loading="lazy" decoding="async" alt="Portfolio allocation doughnut with direct labels for equities, bonds, alternatives and cash. Equities form the largest share.">
+              <figcaption class="proj-media-cap-text">Reading the portfolio mix</figcaption>
+            </figure>
+          </div>
+          <p class="proj-body library-subtitle"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=charts">Explore the chart library</a></p>
         </div>
 
         <div id="system-comparison" class="proj-about-block rv">

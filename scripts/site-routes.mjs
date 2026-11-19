@@ -80,6 +80,10 @@ export async function siteRoutes(staticDir, environment) {
       .replace(/<link rel="stylesheet" href="\/?assets\/([\w-]+\.css)(?:\?[^"]*)?"\s*\/?>/g,
         (link, file) => styles.has(file) ? '<style>\n' + styles.get(file) + '\n</style>' : link)
       .replace(/<script src="\/?assets\/dark-mode\.js"(?: defer)?><\/script>/, () => '<script>\n' + themeJS + '\n</script>');
+    if (name === 'project-uoaui') {
+      const wordmark = await readFile(join(assets, 'uoaui-logo-lockup.png'), 'base64');
+      html = html.replace('src="assets/uoaui-logo-lockup.png"', 'src="data:image/png;base64,' + wordmark + '"');
+    }
     if (name === 'index') {
       const portrait = await readFile(join(assets, 'featured-portrait.jpg'), 'base64');
       html = html.replace('src="assets/featured-portrait.jpg"', 'src="data:image/jpeg;base64,' + portrait + '"');

@@ -9,7 +9,7 @@ test('packaged pages carry their shared styles and resolve assets from legacy UR
   const dir = await mkdtemp(join(tmpdir(), 'homepage-routing-'));
   t.after(() => rm(dir, { recursive: true, force: true }));
   await mkdir(join(dir, 'assets'));
-  for (const file of ['index.html', 'project-fx.html', '404.html', 'assets/typography-system.css', 'assets/portfolio.css', 'assets/dark-mode.css', 'assets/dark-mode.js', 'assets/ask-shannon.js', 'assets/featured-portrait.jpg']) {
+  for (const file of ['index.html', 'project-fx.html', 'project-uoaui.html', 'assets/uoaui-logo-lockup.png', '404.html', 'assets/typography-system.css', 'assets/portfolio.css', 'assets/dark-mode.css', 'assets/dark-mode.js', 'assets/ask-shannon.js', 'assets/featured-portrait.jpg']) {
     await cp(new URL('../' + file, import.meta.url), join(dir, file));
   }
 
@@ -29,6 +29,9 @@ test('packaged pages carry their shared styles and resolve assets from legacy UR
   assert.doesNotMatch(html, /<script src="assets\/ask-shannon\.js"/);
   const portrait = await readFile(join(dir, 'assets/featured-portrait.jpg'), 'base64');
   assert.ok(html.includes('<img src="data:image/jpeg;base64,' + portrait + '"'));
+  const uoaui = await readFile(join(dir, 'project-uoaui.html'), 'utf8');
+  const wordmark = await readFile(join(dir, 'assets/uoaui-logo-lockup.png'), 'base64');
+  assert.ok(uoaui.includes('<img src="data:image/png;base64,' + wordmark + '"'));
   const base = html.match(/<base href="([^"]+)">/)[1];
   for (const path of ['/panel/', '/build/']) {
     assert.ok(routes.some(route => route.status === 308 && route.headers.Location === '/' && new RegExp(route.src).test(path)));
