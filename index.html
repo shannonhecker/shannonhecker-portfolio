@@ -2844,12 +2844,12 @@
         <div class="ask-right rv" data-d="1">
           <div class="ask-glow-wrap" data-clarity-mask="true">
             <div class="ask-panel">
-              <div class="ask-chat">
+              <form class="ask-chat" id="ask-form" autocomplete="off">
                 <div class="ask-messages" id="ask-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
-                <form class="ask-form" id="ask-form" autocomplete="off">
+                <div class="ask-form">
                   <label for="ask-input" class="sr-only">Ask Shannon a question</label>
-                  <textarea class="ask-input" id="ask-input" rows="1" maxlength="1000" placeholder="Ask about my work or projects."></textarea>
-                </form>
+                  <textarea class="ask-input" id="ask-input" required rows="1" maxlength="1000" placeholder="Ask about my work or projects."></textarea>
+                </div>
                 <div class="ask-bottom-bar">
                   <button class="ask-mic" id="ask-mic" type="button" aria-label="Speech to text" title="Speech to text">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
@@ -2859,7 +2859,7 @@
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                       Contact me
                     </a>
-                    <button class="ask-send" id="ask-send" type="submit" form="ask-form" aria-label="Send message">
+                    <button class="ask-send" id="ask-send" type="submit" aria-label="Send message">
                       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2L7 9"/>
                         <path d="M14 2L9.5 14L7 9L2 6.5L14 2Z"/>
@@ -2867,7 +2867,7 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 

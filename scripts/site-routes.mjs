@@ -75,6 +75,11 @@ export async function siteRoutes(staticDir, environment) {
       .replace(/<link rel="stylesheet" href="\/?assets\/([\w-]+\.css)(?:\?[^"]*)?"\s*\/?>/g,
         (link, file) => styles.has(file) ? '<style>\n' + styles.get(file) + '\n</style>' : link)
       .replace(/<script src="\/?assets\/dark-mode\.js"(?: defer)?><\/script>/, () => '<script>\n' + themeJS + '\n</script>');
+    if (name === 'index') {
+      // Bind the contact form even when the browser loses a separate script request.
+      const chat = await readFile(join(assets, 'ask-shannon.js'), 'utf8');
+      html = html.replace('<script src="assets/ask-shannon.js"></script>', () => '<script>\n' + chat + '\n</script>');
+    }
     await writeFile(path, html);
     const aliasPattern = '(?:' + aliases.filter(p => p !== '/').join('|') + ')/?';
     const root = name === 'index' ? '|/' : '';

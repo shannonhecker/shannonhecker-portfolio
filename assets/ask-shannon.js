@@ -11,7 +11,7 @@
 
   /* ── Config ── */
   var ASK_API_URL = window.ASK_API_URL || 'http://localhost:3001/api/chat';
-  var FETCH_TIMEOUT_MS = 30000;
+  var FETCH_TIMEOUT_MS = 75000;
   var CHUNK_TIMEOUT_MS = 15000; /* max wait between chunks */
 
   /* ── DOM refs ── */
@@ -56,9 +56,11 @@
 
   /* ── Speech to text ── */
   var recognition = null;
-  if (micBtn && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = new SpeechRecognition();
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (micBtn && SpeechRecognition) {
+    try { recognition = new SpeechRecognition(); } catch (_) { /* Voice input is optional. */ }
+  }
+  if (recognition) {
     recognition.continuous = false;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
@@ -222,13 +224,14 @@
   formEl.addEventListener('submit', function (e) {
     e.preventDefault();
     var text = inputEl.value.trim();
-    if (!text || isTyping) return;
+    if (!text) { inputEl.focus(); return; }
+    if (isTyping) return;
     sendMessage(text);
   });
 
   /* Allow Enter to submit, Shift+Enter for newline */
   inputEl.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
       e.preventDefault();
       formEl.dispatchEvent(new Event('submit'));
     }
@@ -267,11 +270,11 @@
       history = history.slice(-20);
     }
 
-    streamResponse();
+    streamResponse(text);
   }
 
   /* ── Stream from API ── */
-  function streamResponse() {
+  function streamResponse(question) {
     isTyping = true;
     sendBtn.disabled = true;
     /* Sync the follow button's visibility to the new typing state.
@@ -284,6 +287,7 @@
     var bubble = document.createElement('div');
     bubble.className = 'ask-msg ask-msg--ai streaming';
     var textNode = document.createElement('p');
+    textNode.textContent = 'Sending…';
     bubble.appendChild(textNode);
     messagesEl.appendChild(bubble);
     scrollToBottom();
@@ -301,89 +305,57 @@
 
     resetTimeout(FETCH_TIMEOUT_MS);
 
-    var recentHistory = history.slice(-10);
+    var waiting = setTimeout(function () {
+      if (!fullText) textNode.textContent = 'Still connecting. The first reply can take a minute.';
+    }, 8000);
+    var complete = false;
+    function receive(line) {
+      if (!line.startsWith('data:')) return;
+      var payload = line.slice(5).trim();
+      if (payload === '[DONE]') { complete = true; return; }
+      var data = JSON.parse(payload);
+      if (data.error) throw new Error(data.error);
+      if (typeof data.text === 'string' && data.text) {
+        fullText += data.text;
+        resetTimeout(CHUNK_TIMEOUT_MS);
+        textNode.innerHTML = formatMarkdown(fullText);
+        debouncedScroll();
+      }
+    }
 
+    // Keep complete turns within the proxy's 16 KB JSON body limit.
+    var recentHistory = history.slice(-9);
+    while (recentHistory.length > 1 && new Blob([JSON.stringify({ messages: recentHistory })]).size > 14 * 1024) {
+      recentHistory.splice(0, 2);
+    }
     fetch(ASK_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: recentHistory }),
       signal: signal
-    }).then(function (res) {
-      if (!res.ok) {
-        throw new Error('API returned ' + res.status);
-      }
-
-      /* Guard against null body (some polyfills / opaque responses) */
+    }).then(async function (res) {
+      if (!res.ok) throw new Error(res.status === 429 ? 'Please wait a minute before sending another question.' : 'The chat service is temporarily unavailable.');
       if (!res.body || typeof res.body.getReader !== 'function') {
-        return res.text().then(function (text) {
-          /* Fallback: try to parse as non-streaming response */
-          try {
-            var lines = text.split('\n');
-            for (var i = 0; i < lines.length; i++) {
-              var line = lines[i];
-              if (!line.startsWith('data: ') || line.indexOf('[DONE]') !== -1) continue;
-              var data = JSON.parse(line.slice(6).trim());
-              if (data.text) fullText += data.text;
-            }
-          } catch (e) {
-            fullText = text;
-          }
-          textNode.innerHTML = formatMarkdown(fullText);
-          bubble.classList.remove('streaming');
-          history.push({ role: 'assistant', content: fullText });
-          scrollToBottomIfFollowing();
-        });
-      }
-
-      var reader = res.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function read() {
-        return reader.read().then(function (result) {
-          if (result.done) return;
-
-          /* Reset per-chunk timeout */
-          resetTimeout(CHUNK_TIMEOUT_MS);
-
-          buffer += decoder.decode(result.value, { stream: true });
-
+        (await res.text()).split('\n').forEach(receive);
+      } else {
+        var reader = res.body.getReader();
+        var decoder = new TextDecoder();
+        var buffer = '';
+        while (!complete) {
+          var part = await reader.read();
+          if (part.done) break;
+          buffer += decoder.decode(part.value, { stream: true });
           var lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (!line.startsWith('data: ')) continue;
-            var payload = line.slice(6).trim();
-
-            if (payload === '[DONE]') continue;
-
-            try {
-              var data = JSON.parse(payload);
-              if (data.error) throw new Error(data.error);
-              if (data.text) {
-                fullText += data.text;
-                textNode.innerHTML = formatMarkdown(fullText);
-                debouncedScroll();
-              }
-            } catch (parseErr) {
-              /* Only throw if it's a real API error, not a partial JSON chunk */
-              if (parseErr.message && parseErr.message.indexOf('Unexpected') === -1) {
-                throw parseErr;
-              }
-              /* Partial chunk — will be completed in next read */
-            }
-          }
-
-          return read();
-        });
+          buffer = lines.pop();
+          lines.forEach(receive);
+        }
+        receive(buffer + decoder.decode());
       }
-
-      return read().then(function () {
-        bubble.classList.remove('streaming');
-        history.push({ role: 'assistant', content: fullText });
-      });
+      if (!complete || !fullText.trim()) throw new Error('The reply was interrupted. Please try again.');
+      bubble.classList.remove('streaming');
+      history.push({ role: 'assistant', content: fullText.slice(0, 3500) });
     }).catch(function (err) {
+      if (controller) controller.abort();
       bubble.remove();
       var msg;
       if (err.name === 'AbortError') {
@@ -394,13 +366,17 @@
         msg = err.message || 'Something went wrong. Please try again.';
       }
       showError(msg);
+      if (!inputEl.value) {
+        inputEl.value = question;
+        inputEl.dispatchEvent(new Event('input'));
+      }
 
       /* Remove the unanswered user message from history so retry works cleanly */
       if (history.length > 0 && history[history.length - 1].role === 'user') {
         history.pop();
       }
     }).then(function () {
-      /* finally — runs after success or catch */
+      clearTimeout(waiting);
       if (timeoutId) clearTimeout(timeoutId);
       if (glowWrap) glowWrap.classList.remove('thinking');
       isTyping = false;

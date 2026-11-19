@@ -626,7 +626,7 @@
   .ask-msg { max-width: 95%; padding: 12px var(--chat-text-inset); border-radius: 14px; }
   .ask-chip { font-size: 11px; padding: 8px 14px; }
   .ask-suggestions { gap: 8px; }
-  .ask-send { width: 36px; height: 36px; }
+  .ask-send { width: 44px; height: 44px; touch-action: manipulation; }
   .ask-send svg { width: 14px; height: 14px; }
   .ask-mic { width: 32px; height: 32px; }
   .ask-input { font-size: 16px; } /* 16px prevents iOS auto-zoom */
