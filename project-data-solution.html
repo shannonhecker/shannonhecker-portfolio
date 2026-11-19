@@ -136,29 +136,6 @@
     .proj-about-dot { color: var(--c-ghost); }
     .proj-about-block { margin-bottom: var(--content-stack); }
     .proj-about-h3 { color: var(--c-light); margin-bottom: var(--space-16); }
-    .proj-nda {
-      margin: var(--space-64) 0 0;
-      position: relative;
-      border-radius: 0;
-      overflow: hidden;
-      border: none;
-      background: #fff;
-      box-shadow: none;
-    }
-    .proj-nda-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: clamp(64px, 10vw, 112px) clamp(32px, 5.5vw, 64px);
-      min-height: clamp(300px, 38vw, 380px);
-    }
-    .proj-nda-title { color: var(--c-ink); margin: 0; }
-    .proj-nda-lead { color: var(--c-ink); margin: 6px 0 0; }
-    .proj-nda-body { color: var(--c-mid); max-width: 36em; margin: clamp(14px, 2.5vw, 22px) 0 0; }
 
     .proj-breadcrumb {color:var(--c-light);margin-bottom:var(--space-32);display:flex;align-items:center;gap:var(--space-12); }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -218,7 +195,7 @@
     img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none; }
     img { -webkit-touch-callout:none; }
     .proj-cover, .proj-img-full, .about-portrait-img { position:relative; }
-    .img-shield { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
+    .img-shield { pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;background:transparent; }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
 </head>
@@ -322,12 +299,12 @@
 
         <div class="proj-tags rv"><span class="proj-tags-list">UI/UX Design · Enterprise · Data Visualisation · Figma · Information Architecture · Accessibility</span></div>
 
-        <figure class="proj-nda rv" role="note" aria-label="Private project">
+        <figure id="project-notice" class="proj-nda rv" role="note" aria-label="Private project">
           <div class="proj-nda-glow" aria-hidden="true"></div>
           <div class="proj-nda-inner">
-            <h3 class="proj-nda-title">Oops!</h3>
-            <p class="proj-nda-lead">This project is under NDA.</p>
-            <p class="proj-nda-body">I can&rsquo;t share full details publicly, but I&rsquo;m happy to walk through the work in a conversation.</p>
+            <h3 class="proj-nda-title">Under NDA.</h3>
+            <p class="proj-nda-lead">The Fusion data workflows are confidential.</p>
+            <p class="proj-nda-body"><a href="mailto:shannonheckerchen@gmail.com">Contact me</a> to hear how I designed the rule builder.</p>
           </div>
         </figure>
 

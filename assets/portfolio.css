@@ -148,6 +148,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.proj-nda {
+  margin: var(--space-64) 0 0;
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  background: #fff;
+  box-shadow: none;
+}
+.proj-nda-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(64px, 10vw, 112px) clamp(32px, 5.5vw, 64px);
+  min-height: clamp(300px, 38vw, 380px);
+}
+.proj-nda-title { color: var(--c-ink); margin: 0; }
+.proj-nda-lead { color: var(--c-ink); margin: 6px 0 0; }
+.proj-nda-body { color: var(--c-mid); max-width: 36em; margin: clamp(14px, 2.5vw, 22px) 0 0; }
+
+.proj-nda[id] { scroll-margin-top: calc(var(--nav) + var(--space-24)); }
+.proj-nda-body a { color:inherit;text-decoration:underline;text-underline-offset:.15em; }
+
 /* NDA placeholder glow — the soft cyan/pale-blue radial wash behind the
    .proj-nda-title block on case studies that aren't publicly cleared. Was
    inlined identically across all 13 case studies (with two minor opacity /

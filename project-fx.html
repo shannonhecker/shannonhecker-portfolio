@@ -129,37 +129,6 @@
     .proj-about-dot { color: var(--c-ghost); }
     .proj-about-block { margin-bottom: var(--content-stack); }
     .proj-about-h3 { color: var(--c-light); margin-bottom: var(--space-16); }
-    .proj-nda {
-      margin: var(--space-64) 0 0;
-      position: relative;
-      border-radius: 0;
-      overflow: hidden;
-      border: none;
-      background: #fff;
-      box-shadow: none;
-    }
-    .proj-nda-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: clamp(64px, 10vw, 112px) clamp(32px, 5.5vw, 64px);
-      min-height: clamp(300px, 38vw, 380px);
-    }
-    .proj-nda-rule {
-      width: min(220px, 55vw);
-      height: 1px;
-      margin: 0;
-      border: none;
-      background: linear-gradient(90deg, transparent, rgba(10, 10, 10, 0.12), transparent);
-    }
-    .proj-nda-rule--spaced { margin: var(--space-32) 0; }
-    .proj-nda-title { color: var(--c-ink); margin: 0; }
-    .proj-nda-lead { color: var(--c-ink); margin: 6px 0 0; }
-    .proj-nda-body { color: var(--c-mid); max-width: 36em; margin: 0; }
 
     .proj-breadcrumb {color:var(--c-light);margin-bottom:var(--space-32);display:flex;align-items:center;gap:var(--space-12); }
     .proj-breadcrumb a { color:var(--c-light);transition:color .2s; }
@@ -305,16 +274,12 @@
 
       <img src="assets/execution-mockup-1600.avif" srcset="assets/execution-mockup-700.avif 700w, assets/execution-mockup-1600.avif 1600w" sizes="(max-width: 1100px) 92vw, 1200px" alt="My FX execution dashboard mockup with sample trading data." class="proj-cover proj-cover--execution rv" width="1600" height="1000" fetchpriority="high" decoding="async">
       <h1 class="proj-title-post rv" data-d="2">FX execution analytics</h1>
-      <p class="proj-lead rv" data-d="3">I lead product design for FX and MarketsOne at Barclays.</p>
+      <p class="proj-lead rv" data-d="3">I lead product design for FX and MarketsOne at Barclays. I built the mockup above with sample data.</p>
 
       <div class="proj-content">
         <div class="proj-about-layout">
           <h2 class="proj-about-label rv">about<span class="proj-about-dot">.</span></h2>
           <div class="proj-about-main">
-            <div class="proj-about-block rv">
-              <h3 class="proj-about-h3">This work is under NDA.</h3>
-              <div class="proj-body"><p>The Barclays screens are private, so I built my own mockup with sample data. <a href="mailto:shannonheckerchen@gmail.com">Contact me</a> if you’d like to hear more about what I designed.</p></div>
-            </div>
             <div class="proj-about-block rv">
               <h3 class="proj-about-h3">Design process</h3>
               <div class="proj-body"><p>I put the order’s limit price on the chart so a trader can compare it with the price of a fill. The venue breakdown sits alongside it, so they can see where that part of the order traded.</p></div>
@@ -327,6 +292,14 @@
               </div>
             </div>
             <div class="proj-about-block rv"><p class="proj-body"><a href="game.html?level=6#adventure">Play this chapter in Working Order</a></p></div>
+            <figure id="project-notice" class="proj-nda rv" role="note" aria-label="Private project">
+              <div class="proj-nda-glow" aria-hidden="true"></div>
+              <div class="proj-nda-inner">
+                <h3 class="proj-nda-title">Under NDA.</h3>
+                <p class="proj-nda-lead">The Barclays trading screens are private.</p>
+                <p class="proj-nda-body"><a href="mailto:shannonheckerchen@gmail.com">Contact me</a> if you’d like to hear more about what I designed.</p>
+              </div>
+            </figure>
           </div>
         </div>
       </div>
