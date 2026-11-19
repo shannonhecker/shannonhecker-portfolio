@@ -26,6 +26,9 @@ tags:
   - "Dashboard"
   - "Monitoring"
 cover: ../../assets/earlier/algo-center/algo-banner.webp
+processFigure:
+  image: ../../assets/earlier/algo-center/algo02.webp
+  alt: "Execute Algo Center order analysis and market structure view"
 coverAlt: "Execute Algo Center"
 matte:
   - "algo-banner"
@@ -44,5 +47,3 @@ As **UI Designer**, I translated algorithmic trading workflows into precise, sca
 I designed a **real-time monitoring cockpit**: one screen for all running strategies, anomaly highlights, and intervention controls.
 
 A **traffic-light status system** gave operators a quick read on portfolio health, then a clear path into the strategies needing attention. Critical actions stayed within two clicks.
-
-![Execute Algo Center order analysis and market structure view](../../assets/earlier/algo-center/algo02.webp)

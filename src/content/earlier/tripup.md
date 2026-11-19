@@ -28,6 +28,9 @@ tags:
   - "Travel"
   - "Expense Splitting"
 cover: ../../assets/earlier/tripup/tripup-banner.webp
+processFigure:
+  image: ../../assets/earlier/tripup/tripup02.webp
+  alt: "TripUp high-fidelity screens: active polls, log expenses, and trip expense hub"
 coverAlt: "TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting"
 ---
 ### Project overview
@@ -47,5 +50,3 @@ I owned the design process from **user research and competitor analysis** throug
 **User journey mapping.** I mapped the flow from adding a friend through dinner polling, group voting, itinerary sync, expense logging, and settlement.
 
 **UI solution.** The final screens focused on three interactions: **Poll Creation**, **Live Voting View**, and **Expense Split**. Smart defaults kept the experience lightweight.
-
-![TripUp high-fidelity screens: active polls, log expenses, and trip expense hub](../../assets/earlier/tripup/tripup02.webp)

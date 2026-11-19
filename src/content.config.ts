@@ -25,6 +25,7 @@ const earlier = defineCollection({
       outcomes: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
       tags: z.array(z.string()).min(1),
       cover: image(),
+      processFigure: z.object({image: image(), alt: z.string().min(1)}).optional(),
       coverAlt: z.string().min(1),
       // File names (no extension) of the pictures on this page that are slides on a white
       // ground. They sit on a deliberate white stage in both themes instead of a dark plate.

@@ -30,6 +30,9 @@ tags:
   - "Enterprise UX"
   - "Cross-team Collaboration"
 cover: ../../assets/earlier/design-system/fusion-ds-banner.webp
+processFigure:
+  image: ../../assets/earlier/design-system/fusion-d02.webp
+  alt: "Fusion platform: unified data experience, data catalog, and portfolio management"
 coverAlt: "Fusion Design System: data catalog, ESG datasets, and cloud-native data platform"
 matte:
   - "fusion-ds-banner"
@@ -54,8 +57,6 @@ As **Product Designer** on the core design team, I owned visual identity, compon
 **Accessibility.** Components were validated against **WCAG 2.1 AA** using Colour Contrast Analyser and axe DevTools.
 
 **Developer handoff.** I partnered with developers through the build, delivering dev-ready specs and documentation.
-
-![Fusion platform: unified data experience, data catalog, and portfolio management](../../assets/earlier/design-system/fusion-d02.webp)
 
 ### Design decisions
 

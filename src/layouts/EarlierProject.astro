@@ -22,6 +22,7 @@ const { entry, next } = Astro.props;
 const Narrative = entry.data.confidential ? undefined : (await render(entry)).Content;
 const { title, summary, role, dates, outcomes, tags, cover, coverAlt, matte } = entry.data;
 
+const processFigure = entry.data.confidential ? undefined : entry.data.processFigure;
 const page = new URL(`/work/${entry.id}`, Astro.site).href;
 const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
 // A value this short is a figure and is set large; a longer one is a phrase.
@@ -94,6 +95,11 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
         <h2 id="project-about">About this project</h2>
         <div class="project-notes-body">
           {Narrative ? <div class="earlier-narrative"><Narrative /></div> : (entry.data.contribution && <section><h3>My contribution</h3><p>{entry.data.contribution}</p></section>)}
+          {processFigure && <figure class="earlier-process-figure">
+            <Picture src={processFigure.image} alt={processFigure.alt} formats={['avif']} fallbackFormat="webp"
+              widths={imageWidths(processFigure.image.width)} sizes="(max-width:680px) calc(100vw - 48px), (min-width:1500px) 1068px, 72vw"
+              quality={85} loading="lazy" decoding="async" />
+          </figure>}
           <section class="earlier-results" aria-labelledby="earlier-results-title">
             <h3 id="earlier-results-title" class="earlier-label">Outcomes</h3>
             <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
