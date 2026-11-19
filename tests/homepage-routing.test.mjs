@@ -30,7 +30,10 @@ test('packaged pages carry their shared styles and resolve assets from legacy UR
   const portrait = await readFile(join(dir, 'assets/featured-portrait.jpg'), 'base64');
   assert.ok(html.includes('<img src="data:image/jpeg;base64,' + portrait + '"'));
   const base = html.match(/<base href="([^"]+)">/)[1];
-  for (const path of ['/', '/panel/', '/build/']) {
+  for (const path of ['/panel/', '/build/']) {
+    assert.ok(routes.some(route => route.status === 308 && route.headers.Location === '/' && new RegExp(route.src).test(path)));
+  }
+  for (const path of ['/', '/index']) {
     assert.ok(routes.some(route => route.dest === '/index.html' && new RegExp(route.src).test(path)));
     const url = new URL(base, 'https://shannonhecker.com' + path);
     assert.equal(new URL('assets/nav-scroll.js', url).pathname, '/assets/nav-scroll.js');

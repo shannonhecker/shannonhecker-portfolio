@@ -207,3 +207,9 @@ body {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
+
+body.menu-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}

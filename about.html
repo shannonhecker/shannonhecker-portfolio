@@ -1311,11 +1311,11 @@
   </nav>
 
   <!-- Mobile drawer -->
-  <div class="nav-drawer" id="drawer" aria-hidden="true">
+  <div class="nav-drawer" id="drawer" inert aria-hidden="true">
     <a href="index.html">Intro</a>
     <a href="about.html">About</a>
     <a href="work.html">Work</a>
-    <a href="writing.html" onclick="closeDrawer()">Writing</a>
+    <a href="writing.html">Writing</a>
     <a href="index.html#contact">Let’s Talk</a>
     <a href="assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
   
@@ -1325,7 +1325,7 @@
     </button>
   </div>
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
   <!-- ── HERO + MY APPROACH: one wave field (gradient + canvas) behind both ── -->
   <section class="hero hero--about-merged" id="hero">
     <div id="wave-bg" aria-hidden="true">
@@ -1491,70 +1491,7 @@
     const navEl = document.getElementById('nav');
 
     /* Mobile nav */
-    const burgerBtn = document.getElementById('burger');
-    const drawerEl  = document.getElementById('drawer');
-    let isOpen = false;
-    burgerBtn.addEventListener('click', () => {
-      isOpen = !isOpen;
-      burgerBtn.classList.toggle('o', isOpen);
-      drawerEl.classList.toggle('o', isOpen);
-      burgerBtn.setAttribute('aria-expanded', isOpen);
-      drawerEl.setAttribute('aria-hidden', !isOpen);
-      if(isOpen){
-        document.body.dataset.scrollY=window.scrollY;
-        document.body.style.position='fixed';
-        document.body.style.top=`-${window.scrollY}px`;
-        document.body.style.width='100%';
-        document.body.style.overflow='hidden';
-      }else{
-        const scrollY=document.body.dataset.scrollY;
-        document.body.style.position='';
-        document.body.style.top='';
-        document.body.style.width='';
-        document.body.style.overflow='';
-        window.scrollTo(0,parseInt(scrollY||'0'));
-      }
-    });
-    function closeDrawer() {
-      isOpen = false;
-      burgerBtn.classList.remove('o'); drawerEl.classList.remove('o');
-      burgerBtn.setAttribute('aria-expanded', false);
-      drawerEl.setAttribute('aria-hidden', true);
-      const scrollY=document.body.dataset.scrollY;
-      document.body.style.position='';
-      document.body.style.top='';
-      document.body.style.width='';
-      document.body.style.overflow='';
-      window.scrollTo(0,parseInt(scrollY||'0'));
-      burgerBtn.focus();
-    }
 
-    /* Escape key closes drawer */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen) { closeDrawer(); }
-    });
-
-    /* Focus trap inside open drawer — cache the NodeList once (drawer
-     * content is static, so re-querying on every Tab press was wasted work) */
-    const drawerFocusable = drawerEl.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
-    const firstFocusable = drawerFocusable[0];
-    const lastFocusable  = drawerFocusable[drawerFocusable.length - 1];
-    drawerEl.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab' || !isOpen || !drawerFocusable.length) return;
-      if (e.shiftKey && document.activeElement === firstFocusable) {
-        e.preventDefault(); lastFocusable.focus();
-      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
-        e.preventDefault(); firstFocusable.focus();
-      }
-    });
-
-    /* Move focus into drawer when opened */
-    burgerBtn.addEventListener('click', () => {
-      if (isOpen) {
-        const firstLink = drawerEl.querySelector('a[href], button');
-        if (firstLink) setTimeout(() => firstLink.focus(), 100);
-      }
-    });
 
     /* Scroll reveal */
     /* Instantly show elements already in viewport on page load */
@@ -1810,5 +1747,6 @@
       parent.insertBefore(shield, img.nextSibling);
     });
   </script>
+  <script src="/assets/utility-menu.js"></script>
 </body>
 </html>

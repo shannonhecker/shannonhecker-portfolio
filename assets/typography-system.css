@@ -535,3 +535,14 @@
   color: var(--c-ghost);
   align-self: center;
 }
+
+/* Keep the current destination identifiable while previewing another link. */
+html body #nav .nav-links a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: .38em;
+  text-decoration-thickness: 1px;
+}
+html body #nav .nav-links a:hover {
+  background: color-mix(in srgb, var(--c-ink) 7%, transparent);
+  color: var(--c-ink) !important;
+}

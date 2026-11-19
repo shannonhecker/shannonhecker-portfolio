@@ -53,11 +53,16 @@ export async function siteRoutes(staticDir, environment) {
     [file, await readFile(join(assets, file), 'utf8')]
   )));
   const themeJS = await readFile(join(assets, 'dark-mode.js'), 'utf8');
-  const routes = [{ src: '/(.*)', headers, continue: true }];
+  const routes = [
+    { src: '/(.*)', headers, continue: true },
+    { src: '^/(?:panel|build)/?$', status: 308, headers: { Location: '/' } },
+    { src: '^/assets/(?:main|game)-[A-Za-z0-9_-]{8}\\.(?:js|css)$',
+      headers: { 'Cache-Control': 'public, max-age=31536000, immutable' }, continue: true },
+  ];
   for (const file of (await readdir(staticDir)).filter(name => name.endsWith('.html')).sort()) {
     const name = file.slice(0, -5);
     const aliases = ['/' + name];
-    if (name === 'index') aliases.push('/', '/panel', '/build');
+    if (name === 'index') aliases.push('/');
     if (name.startsWith('project-')) {
       const project = name.slice('project-'.length);
       if (!['barclays-data-viz', 'ausos'].includes(project)) {
