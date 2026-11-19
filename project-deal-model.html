@@ -146,13 +146,10 @@
     .proj-img-grid img { width:100%;border-radius:0;object-fit:cover;aspect-ratio:4/3;background:#fff; }
     .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
-    .deal-feedback { margin: var(--space-32) 0 0; }
-    .deal-feedback figcaption { margin-bottom: 16px; }
-    .deal-feedback dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin: 0; }
-    .deal-feedback dl > div { padding-top: 16px; border-top: 1px solid var(--c-rule); }
-    .deal-feedback dt { color: var(--c-ink); font-weight: 600; }
-    .deal-feedback dd { margin: 8px 0 0; color: var(--c-mid); line-height: 1.55; }
-    @media (max-width: 600px) { .deal-feedback dl { grid-template-columns: 1fr; gap: 16px; } }
+    .deal-template { margin-top: var(--space-24); }
+    .deal-template a, .deal-template img { display:block; }
+    .deal-template img { width:100%; height:auto; }
+    .deal-template figcaption { margin-top:var(--space-8); color:var(--c-mid); }
     #deal-workflow { scroll-margin-top: 6rem; }
     #deal-workflow img { height:auto;background:transparent;filter:none; }
     #deal-workflow .flow-dark { display:none; }
@@ -296,13 +293,10 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Keeping the spreadsheet route</h3>
-          <div class="proj-body"><p>One participant showed me why the familiar spreadsheet still mattered. People knew the fields and trusted the calculations. I kept a downloadable template so they could complete it offline and upload it into the same record as a deal entered on screen.</p></div>
-          <figure class="deal-feedback">
-            <figcaption class="proj-media-cap-text">Illustrative examples of feedback I designed for a pricing revision</figcaption>
-            <dl>
-              <div><dt>Before saving</dt><dd>When custody and transaction rates differ, a warning beside the pricing choices lets the owner check both sources.</dd></div>
-              <div><dt>After saving</dt><dd>Confirmation shows how many revisions were created. If creation fails, the owner sees a retry message.</dd></div>
-            </dl>
+          <div class="proj-body"><p>People already trusted their spreadsheet. In one session, a user showed me how they filled it in. I worked with the business analyst on an upload template so the team could bring those figures into a deal without typing them twice.</p></div>
+          <figure class="deal-template" id="template-import">
+            <a href="assets/deal-template-mapping.webp" aria-label="Open the full-size spreadsheet import illustration"><img src="assets/deal-template-mapping.webp" width="1455" height="905" alt="An upload area beside a checklist showing how spreadsheet columns map to deal fields." loading="lazy" decoding="async"></a>
+            <figcaption class="proj-media-cap-text">Design illustration. The deal owner can check where each column goes before importing the portfolio.</figcaption>
           </figure>
         </div>
 

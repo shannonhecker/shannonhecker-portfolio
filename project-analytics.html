@@ -184,7 +184,8 @@
       height: auto;
       display: block;
     }
-    #report-walkthrough { scroll-margin-top: calc(var(--nav) + 24px); }
+    #report-walkthrough, #report-settings { scroll-margin-top: calc(var(--nav) + 24px); }
+    #report-settings .proj-media-cap a { text-decoration:underline; text-underline-offset:.2em; }
     .proj-media-cap { margin-top: 14px; max-width: 680px; }
     .proj-media-cap-label { display: block; color: var(--c-light); margin-bottom: 6px; }
     .proj-media-cap-text { color: var(--c-mid); }
@@ -333,8 +334,21 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design process</h3>
-          <div class="proj-body"><p>Watching analysts configure their own reports helped me decide which filters to show first. I removed a level of customisation they rarely used and carried the same controls across all three report areas.</p></div>
+          <div class="proj-body"><p>I watched analysts set up reports. They changed the page or an individual widget, but the settings in between rarely changed the report they made. I removed that middle level.</p></div>
         </div>
+
+        <figure class="proj-media rv" id="report-settings">
+          <a class="proj-media-frame" style="display:block" href="assets/fusion-performance-settings.webp" aria-label="Open the full-size Performance report and its settings">
+            <picture style="display:block">
+              <source media="(max-width:600px)" srcset="assets/fusion-performance-settings-small.webp" width="840" height="933">
+              <img src="assets/fusion-performance-settings.webp" width="2160" height="1500" alt="Performance Results settings for grouping holdings, choosing the reporting date and displaying fees." loading="lazy" decoding="async">
+            </picture>
+          </a>
+          <figcaption class="proj-media-cap">
+            <span class="proj-media-cap-label">Configuring a report</span>
+            <span class="proj-media-cap-text">In my public rebuild, an analyst can change how returns are grouped while the figures stay in view. <a href="assets/fusion-performance-settings.webp">View the full sample report</a>.</span>
+          </figcaption>
+        </figure>
 
         <figure class="proj-media rv" id="report-walkthrough">
           <div class="proj-media-frame">
@@ -346,16 +360,6 @@
           <figcaption id="report-caption" class="proj-media-cap">
             <span class="proj-media-cap-label">Choosing a report</span>
             <span class="proj-media-cap-text">In my public rebuild, an analyst can open a report and adjust what it shows. The recording uses sample data.</span>
-          </figcaption>
-        </figure>
-
-        <figure class="proj-media rv">
-          <div class="proj-media-frame">
-              <img src="assets/fusion-analytics-dashboard-02.webp" alt="Fusion Analytics: sustainable investment issuer report with ESG scores, rating trends, emissions data, and controversies tracking" width="1600" height="900" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="proj-media-cap">
-            <span class="proj-media-cap-label">Sustainable investment reporting</span>
-            <span class="proj-media-cap-text">A portfolio manager can see how an issuer’s sustainability rating has changed over time.</span>
           </figcaption>
         </figure>
 
