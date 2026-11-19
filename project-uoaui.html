@@ -219,7 +219,7 @@
     @media (max-width:600px) {
       .report-comparison { grid-template-columns:1fr; }
     }
-    #builder-workflow, #brand-identity, #ui-library, #recent-projects, #chart-library, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
+    #builder-workflow, #brand-identity, #ui-library, #recent-projects, #salt-form, #chart-library, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
     html[data-theme="dark"] .proj-cover--demo {
       background:
         radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
@@ -434,7 +434,10 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design handover</h3>
           <div class="proj-body"><p>I use the <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a> to review a form in context. A designer can take a measured SVG into Figma to check the spacing. An engineer can open the same screen as a Vite project or inspect its React components. In the <a href="https://uoaui.ai/#export">Salt export example</a>, the dropdown and its label come straight from the Salt library.</p></div>
-          <figure class="proj-media"><img class="proj-img-full" src="assets/uoaui-public-salt-form.webp" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async" /><figcaption class="proj-media-cap"><span class="proj-media-cap-text">Name, email and department fields together in the public Salt UI Kit.</span></figcaption></figure>
+          <figure id="salt-form" class="system-example">
+            <img src="assets/uoaui-public-salt-form.webp" width="1280" height="850" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async">
+            <figcaption class="proj-media-cap-text">Name, email and department fields together in the public Salt UI Kit.</figcaption>
+          </figure>
         </div>
 
         <div class="proj-about-block rv">
