@@ -915,7 +915,6 @@
       grid-template-columns: minmax(280px, 0.85fr) 1.2fr;
       gap: clamp(32px, 4.4vw, 64px);
       align-items: start;
-      margin-bottom: clamp(64px, 8vw, 112px);
     }
 
     .about-portrait-panel {
@@ -1008,56 +1007,6 @@
       transition: all var(--tb) var(--ease);
     }
     .about-link:hover { background:var(--c-ink); color:#fff; border-color:var(--c-ink); }
-
-    /* Now block — current activity */
-    .about-now,
-    .about-outside {
-      padding-top: clamp(40px, 5vw, 64px);
-      border-top: 1px solid var(--c-rule);
-      margin-bottom: clamp(32px, 4vw, 48px);
-    }
-    .about-eyebrow-small {
-      display: block;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--c-light);
-      margin-bottom: 24px;
-    }
-    .about-now-list,
-    .about-outside-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-16);
-      max-width: 820px;
-      margin: 0;
-      padding: 0;
-    }
-    .about-now-list li,
-    .about-outside-list li {
-      font-size: clamp(15px, 1.5vw, 17px);
-      font-weight: 300;
-      line-height: 1.6;
-      color: var(--c-mid);
-      letter-spacing: -.01em;
-    }
-    .about-now-list li strong {
-      color: var(--c-ink);
-      font-weight: 600;
-      margin-right: 6px;
-    }
-    .about-now-list li a {
-      color: var(--c-ink);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-      transition: text-decoration-color var(--tb) var(--ease);
-    }
-    .about-now-list li a:hover {
-      text-decoration-thickness: 2px;
-    }
 
     /* ============================================================
        CONTACT - two rounded panels
@@ -2801,26 +2750,6 @@
             <a href="assets/CV_ShannonH.pdf" class="about-link" target="_blank" rel="noopener noreferrer">Résumé ↗<span class="sr-only"> (opens in new tab)</span></a>
           </div>
         </div>
-      </div>
-
-      <div class="about-now rv" data-d="1">
-        <span class="about-eyebrow-small">Now</span>
-        <ul class="about-now-list" role="list">
-          <li><strong>Designing.</strong> Trading tools for FX and MarketsOne at Barclays.</li>
-          <li><strong>Playing.</strong> <a href="game.html">Working Order</a>, the game I made about my route into design.</li>
-          <li><strong>Writing.</strong> <a href="writing-the-design-system-is-the-contract.html">The design system is the contract</a>.</li>
-          <li><strong>Experimenting.</strong> uoaui.ai in private alpha.</li>
-        </ul>
-      </div>
-
-      <div class="about-outside rv" data-d="2">
-        <span class="about-eyebrow-small">Outside work</span>
-        <ul class="about-outside-list" role="list">
-          <li>Based just outside London, a 40-minute ride from King’s Cross.</li>
-          <li>Taiwan-born. English and Mandarin.</li>
-          <li>Married with two kids, plus one fluffy cat called Quorra.</li>
-          <li>Soya latte, extra shot. Strong leaf tea on design days.</li>
-        </ul>
       </div>
 
     </div>
