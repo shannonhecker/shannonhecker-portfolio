@@ -32,6 +32,8 @@ for (const slug of EARLIER_SLUGS) {
       const res = await open(page, path);
       expect(res.status()).toBe(200);
       await expect(page.locator('h1')).toHaveCount(1);
+      const hasProcessFigure = ['algo-center', 'design-system', 'stock-dashboard', 'tripup'].includes(slug);
+      await expect(page.locator('.earlier-process-figure picture')).toHaveCount(hasProcessFigure ? 1 : 0);
       const narrative = page.locator('.earlier-narrative');
       if (slug === 'complex-assets' || slug === 'data-solution') {
         await expect(narrative).toHaveCount(0);
