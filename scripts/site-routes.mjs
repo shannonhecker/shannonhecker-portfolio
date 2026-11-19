@@ -47,9 +47,12 @@ export async function siteRoutes(staticDir, environment) {
     'Permissions-Policy': 'camera=(), microphone=(self), geolocation=(), interest-cohort=()',
   };
   if (environment !== 'production') headers['X-Robots-Tag'] = 'noindex, nofollow';
-  const [themeCSS, themeJS] = await Promise.all(
-    ['dark-mode.css', 'dark-mode.js'].map(file => readFile(join(staticDir, 'assets', file), 'utf8'))
-  );
+  const assets = join(staticDir, 'assets');
+  const cssFiles = ['dark-mode.css', 'portfolio.css', 'typography-system.css'];
+  const styles = new Map(await Promise.all(cssFiles.map(async file =>
+    [file, await readFile(join(assets, file), 'utf8')]
+  )));
+  const themeJS = await readFile(join(assets, 'dark-mode.js'), 'utf8');
   const routes = [{ src: '/(.*)', headers, continue: true }];
   for (const file of (await readdir(staticDir)).filter(name => name.endsWith('.html')).sort()) {
     const name = file.slice(0, -5);
@@ -67,15 +70,11 @@ export async function siteRoutes(staticDir, environment) {
     // Directory-style aliases must resolve assets and links from the canonical page.
     const base = name === 'index' ? '/' : '/' + file;
     html = html.replace('<head>', '<head>\n  <base href="' + base + '">');
-    // Deliver the palette and its controls together, including on cold mobile visits.
+    // Preserve cascade order and deliver the common layout in the first response.
     html = html
-      .replace(/<link rel="stylesheet" href="\/?assets\/dark-mode\.css(?:\?[^"]*)?"\s*\/?>/, () => '<style>\n' + themeCSS + '\n</style>')
+      .replace(/<link rel="stylesheet" href="\/?assets\/([\w-]+\.css)(?:\?[^"]*)?"\s*\/?>/g,
+        (link, file) => styles.has(file) ? '<style>\n' + styles.get(file) + '\n</style>' : link)
       .replace(/<script src="\/?assets\/dark-mode\.js"(?: defer)?><\/script>/, () => '<script>\n' + themeJS + '\n</script>');
-    if (name === 'index') {
-      // Keep the opening layout intact even if a mobile stylesheet request fails.
-      const layout = await readFile(join(staticDir, 'assets', 'portfolio.css'), 'utf8');
-      html = html.replace(/<link rel="stylesheet" href="assets\/portfolio\.css(?:\?[^"]*)?"\s*\/?>/, () => '<style>\n' + layout + '\n</style>');
-    }
     await writeFile(path, html);
     const aliasPattern = '(?:' + aliases.filter(p => p !== '/').join('|') + ')/?';
     const root = name === 'index' ? '|/' : '';
