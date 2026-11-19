@@ -25,7 +25,7 @@ const ABOUT_COPY = [
   'uoaui.ai', 'Designer + Builder', '2026 to present',
   'I designed and built a visual web builder for designers. Its UI Kit and private-preview Builder support Salt, Material 3, Fluent 2, Carbon and the uoaui system.',
   'Barclays, London',
-  'Sole designer on FX, covering trader, sales, ops, institutional and corporate-client surfaces. Leading a design system refactor across the platform. Most visual work is under NDA; happy to walk through it in an interview.',
+  'I lead product design for FX and MarketsOne. This work is under NDA.',
   'J.P. Morgan, London',
   'I led UI for Fusion Analytics, defining components and accessibility patterns in Salt. Before Fusion, I led UI on Deal Model with two UX designers and teams across custody operations, sales, legal and product.',
   'Pegasus Global Travel, London', 'Graphic Designer', '2015',
