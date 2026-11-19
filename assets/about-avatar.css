@@ -7,11 +7,16 @@
 .about-avatar { width: min(100%, 360px); justify-self: center; scroll-margin-top: calc(var(--nav) + 24px); }
 .avatar-scene { position: relative; isolation: isolate; aspect-ratio: 360 / 285; }
 .avatar-scene::before, .avatar-scene::after { content: ''; position: absolute; z-index: -1; }
-.avatar-scene::before { inset: 16% 10% 5%; background: #f5e9e4; border-radius: 50% 50% 0 0; }
-html[data-theme="dark"] .avatar-scene::before { background: #30292f; }
+.avatar-scene::before {
+  inset: 4% 0 0;
+  background: radial-gradient(ellipse closest-side at 50% 58%, rgb(var(--avatar-glow) / 24%), rgb(var(--avatar-glow) / 12%) 54%, transparent 100%);
+  --avatar-glow: 215 164 152;
+}
+html[data-theme="dark"] .avatar-scene::before { --avatar-glow: 160 114 143; }
 .avatar-scene::after {
-  bottom: 5%; left: 8%; right: 8%; height: 5px;
-  background: repeating-linear-gradient(90deg, #d6b9a8 0 10px, transparent 10px 18px);
+  bottom: 5%; left: 24%; right: 24%; height: 3px;
+  background: repeating-linear-gradient(90deg, rgb(180 148 133 / 45%) 0 8px, transparent 8px 14px);
+  mask-image: linear-gradient(90deg, transparent, black 25% 75%, transparent);
 }
 .avatar-journal, .avatar-star { position: absolute; height: auto; }
 .avatar-journal { left: 2%; bottom: 21%; width: 12%; }
