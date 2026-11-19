@@ -179,11 +179,12 @@
       background: transparent;
       box-shadow: none;
     }
-    .proj-media-frame img {
+    .proj-media-frame img, .proj-media-frame video {
       width: 100%;
       height: auto;
       display: block;
     }
+    #report-walkthrough { scroll-margin-top: calc(var(--nav) + 24px); }
     .proj-media-cap { margin-top: 14px; max-width: 680px; }
     .proj-media-cap-label { display: block; color: var(--c-light); margin-bottom: 6px; }
     .proj-media-cap-text { color: var(--c-mid); }
@@ -320,7 +321,7 @@
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Dashboard modules</span>
-            <span class="proj-media-cap-text">Performance tables, returns charts, allocation donuts, and trend visualizations, all built as modular widgets that asset managers can configure to their workflow.</span>
+            <span class="proj-media-cap-text">Reusable charts and tables let each team build a view around its portfolio.</span>
           </figcaption>
         </figure>
 
@@ -332,29 +333,21 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design process</h3>
-          <div class="proj-body"><p>In weekly reviews, internal users configured reports for their own portfolios. I watched which filters they changed and what they left alone. That helped me choose the defaults and remove a middle level of customisation that added a decision without changing the report.</p><p>I gave all three report areas the same filters. When we opened the dashboard to clients, their permissions determined which data appeared in the familiar layout. An accessibility specialist joined our reviews, and I checked a complete flow with developer tools before handover.</p></div>
+          <div class="proj-body"><p>Watching analysts configure their own reports helped me decide which filters to show first. I removed a level of customisation they rarely used and carried the same controls across all three report areas.</p></div>
         </div>
 
-        <div class="proj-media-split rv">
-          <figure class="proj-media">
-            <div class="proj-media-frame">
-              <img src="assets/analytics-configuration.webp" alt="Configuration flow: standard grid with column and group selection for portfolio metrics" width="1200" height="900" loading="lazy" decoding="async" />
-            </div>
-            <figcaption class="proj-media-cap">
-              <span class="proj-media-cap-label">Configuration panel</span>
-              <span class="proj-media-cap-text">Column, group, and display controls built with Salt Design System components, letting analysts tailor grids and data hierarchies without leaving the analysis surface.</span>
-            </figcaption>
-          </figure>
-          <figure class="proj-media">
-            <div class="proj-media-frame">
-              <img src="assets/analytics-combination-chart.webp" alt="Combination chart with fund and benchmark bars, excess line, and supporting data table" width="1200" height="900" loading="lazy" decoding="async" />
-            </div>
-            <figcaption class="proj-media-cap">
-              <span class="proj-media-cap-label">Combination charts</span>
-              <span class="proj-media-cap-text">Fund vs benchmark bars with excess line overlays and linked data tables, designed for board-ready reporting and at-a-glance performance comparison.</span>
-            </figcaption>
-          </figure>
-        </div>
+        <figure class="proj-media rv" id="report-walkthrough">
+          <div class="proj-media-frame">
+            <video width="1600" height="1000" controls playsinline muted preload="none" poster="assets/fusion-report-catalogue.webp" aria-label="Fusion report walkthrough" aria-describedby="report-caption">
+              <source src="assets/fusion-report-walkthrough.webm" type="video/webm">
+              <a href="assets/fusion-report-catalogue.webp">View the report catalogue</a>
+            </video>
+          </div>
+          <figcaption id="report-caption" class="proj-media-cap">
+            <span class="proj-media-cap-label">Choosing a report</span>
+            <span class="proj-media-cap-text">In my public rebuild, an analyst can open a report and adjust what it shows. The recording uses sample data.</span>
+          </figcaption>
+        </figure>
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
@@ -362,7 +355,7 @@
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Sustainable investment reporting</span>
-            <span class="proj-media-cap-text">ESG scores, rating trends, emissions tracking, and controversies data, layered across issuer-level reports with configurable dashboard pages and deep data exploration.</span>
+            <span class="proj-media-cap-text">A portfolio manager can see how an issuer’s sustainability rating has changed over time.</span>
           </figcaption>
         </figure>
 

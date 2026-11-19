@@ -9,12 +9,12 @@
     <script src="assets/nav-scroll.js" defer></script>
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <title>Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker</title>
-  <meta name="description" content="I built Winking Star so two parents could see which evening routines had been finished, and a child could mark each one with a tap." />
+  <meta name="description" content="I designed Winking Star so either parent could see what was left at bedtime and each child could mark a routine as done." />
     <link rel="canonical" href="https://shannonhecker.com/project-winkingstar.html" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://shannonhecker.com/project-winkingstar.html" />
   <meta property="og:title" content="Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker" />
-  <meta property="og:description" content="I built Winking Star so two parents could see which evening routines had been finished, and a child could mark each one with a tap." />
+  <meta property="og:description" content="I designed Winking Star so either parent could see what was left at bedtime and each child could mark a routine as done." />
   <meta property="og:image" content="https://shannonhecker.com/assets/winkingstar-card.webp" />
   <meta property="og:image:alt" content="Winking Star · Native iOS + iPad + Web habit tracker for families · Shannon Hecker" />
   <meta property="og:image:width" content="1200" />
@@ -26,7 +26,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "headline": "Winking Star",
-  "description": "I built Winking Star so two parents could see which evening routines had been finished, and a child could mark each one with a tap.",
+  "description": "I designed Winking Star so either parent could see what was left at bedtime and each child could mark a routine as done.",
   "url": "https://shannonhecker.com/project-winkingstar.html",
   "image": "https://shannonhecker.com/assets/winkingstar-card.webp",
   "datePublished": "2026-05-17",
@@ -249,27 +249,19 @@
       display: block;
       object-fit: cover;
     }
-    .winkingstar-zoom-pair {
+    .native-screens {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 32px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      margin-block: var(--space-48);
     }
-    .winkingstar-zoom-panel {
-      position: relative;
-      aspect-ratio: 760 / 620;
-      overflow: hidden;
-      border-radius: 12px;
-      background: #F8F1E4;
-      box-sizing: border-box;
-    }
-    .winkingstar-panel-img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: top center;
-    }
+    .native-screens figure { margin: 0; min-width: 0; }
+    .native-screens a { display: block; width: min(100%, 240px); margin-inline: auto; }
+    .native-screens img { display: block; width: 100%; height: auto; border-radius: 18px; filter: none; }
+    .native-screens figcaption { margin: 20px auto 0; max-width: 240px; }
+    .routine-film { margin: var(--space-32) 0 0; }
+    .routine-film video { display: block; width: 100%; height: auto; background: #f8f1e4; }
+    .routine-film figcaption { margin-top: 12px; }
     html[data-theme="dark"] .proj-cover--winkingstar {
       background: #F8F1E4 !important;
       filter: none;
@@ -277,19 +269,8 @@
     html[data-theme="dark"] .proj-cover--winkingstar > img {
       filter: none;
     }
-    html[data-theme="dark"] .winkingstar-zoom-panel {
-      filter: none;
-    }
-    @media (max-width: 720px) {
-      .proj-cover--winkingstar {
-        aspect-ratio: 16 / 7 !important;
-      }
-      .winkingstar-zoom-pair {
-        grid-template-columns: 1fr;
-      }
-      .winkingstar-zoom-panel {
-        min-height: 0;
-      }
+    @media (max-width: 600px) {
+      .native-screens { grid-template-columns: 1fr; }
     }
   </style>
   <link rel="stylesheet" href="assets/typography-system.css" />
@@ -363,7 +344,7 @@
           <div class="proj-meta-item"><span class="proj-meta-label">Project</span><span class="proj-meta-value">Winking Star</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Project Type</span><span class="proj-meta-value">Family Product · iOS + iPad + Web · Side Project</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-value">2026</span></div>
-          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Designer + Builder · solo</span></div>
+          <div class="proj-meta-item"><span class="proj-meta-label">Role</span><span class="proj-meta-value">Product designer · solo</span></div>
           <div class="proj-meta-item"><span class="proj-meta-label">Site</span><span class="proj-meta-value"><a href="https://winkingstar.com/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;">winkingstar.com <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></span></div>
         </div>
       </div>
@@ -380,7 +361,7 @@
       </div>
 
       <h1 class="proj-title-post rv" data-d="2">Winking Star</h1>
-      <p class="proj-lead rv" data-d="3">I built Winking Star so two parents could see which evening routines had been finished, and a child could mark each one with a tap.</p>
+      <p class="proj-lead rv" data-d="3">I designed Winking Star so either parent could see what was left at bedtime and each child could mark a routine as done.</p>
 
       <!-- Content -->
       <div class="proj-content">
@@ -395,12 +376,16 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My role</h3>
-          <div class="proj-body"><p>I designed and built the app outside work. My two children were its first users, and I watched what they did just after finishing a routine.</p></div>
+          <div class="proj-body"><p>I designed the app for my family outside work. My two children were its first users, and I watched what they did just after finishing a routine.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design process</h3>
           <div class="proj-body"><p>I tried large icons, stickers and small celebrations. One tap now earns a star. Over the week, the stars grow a Mystery Pet. A missed evening leaves the stars already earned in place.</p></div>
+          <figure class="routine-film">
+            <video width="1600" height="700" controls playsinline preload="none" poster="assets/winkingstar-poster.webp" aria-label="Winking Star product film"><source src="assets/winkingstar-hero.mp4" type="video/mp4"><a href="assets/winkingstar-hero.mp4">Watch the product film</a></video>
+            <figcaption class="proj-media-cap-text">Winking Star in motion · 12 seconds</figcaption>
+          </figure>
         </div>
 
         <div class="proj-about-block rv">
@@ -421,13 +406,15 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">One family across screens</h3>
           <div class="proj-body"><p>On the web, I kept the week together. On iPhone, Home, Activity, Treasure and Progress have separate tabs, so a child can mark an activity without navigating a full week. The same family data carries across devices. A second adult joins the existing board and sees where the first left off.</p></div>
-          <figure class="proj-media"><a href="assets/winkingstar-sample-family-web.webp" aria-label="Open full-size image: The Sample Family’s web board, showing a child’s stars, weekly progress, treasure box and pet family."><img class="proj-img-full" src="assets/winkingstar-sample-family-web.webp" alt="The Sample Family’s web board, showing a child’s stars, weekly progress, treasure box and pet family." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The Sample Family shows how one child’s stars contribute to a weekly goal before a parent sets up the family’s own board.</span></figcaption></figure>
-          <div class="winkingstar-zoom-pair rv">
-            <figure class="winkingstar-zoom-panel winkingstar-zoom-panel--phone">
-              <img class="winkingstar-panel-img" src="assets/winkingstar-figma-iphone-panel.webp" alt="Winking Star overlapping iPhone mockups showing Treasure and today's star spots" width="760" height="620" loading="lazy" decoding="async" />
+          <figure class="proj-media"><a href="assets/winkingstar-sample-family-web.webp" aria-label="Open full-size image: The Sample Family’s web board, showing a child’s stars, weekly progress, treasure box and pet family."><img class="proj-img-full" src="assets/winkingstar-sample-family-web.webp" alt="The Sample Family’s web board, showing a child’s stars, weekly progress, treasure box and pet family." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">On the web board, an adult can scan a whole week with the reward goal in view. This example uses fictional Sample Family data.</span></figcaption></figure>
+          <div class="native-screens">
+            <figure>
+              <a href="assets/winkingstar-native-home.webp" aria-label="Open full-size iPhone Home screen"><img src="assets/winkingstar-native-home.webp" alt="Sample Family Home shows two children’s mission counts and a card for Leo." width="800" height="1734" loading="lazy" decoding="async"></a>
+              <figcaption class="proj-media-cap-text"><strong>Home.</strong> A parent can compare both children’s progress before choosing whose board to open.</figcaption>
             </figure>
-            <figure class="winkingstar-zoom-panel winkingstar-zoom-panel--ipad">
-              <img class="winkingstar-panel-img" src="assets/winkingstar-figma-ipad-panel.webp" alt="Winking Star iPad mockup showing the Activity page and today's star spots" width="760" height="620" loading="lazy" decoding="async" />
+            <figure>
+              <a href="assets/winkingstar-native-activity.webp" aria-label="Open full-size iPhone Activity screen"><img src="assets/winkingstar-native-activity.webp" alt="Leo’s Activity tab shows his weekly stars, treasure buddy and today’s star spots." width="800" height="1734" loading="lazy" decoding="async"></a>
+              <figcaption class="proj-media-cap-text"><strong>Activity.</strong> A child gets a view of their own day. The weekly total stays visible as they mark routines complete.</figcaption>
             </figure>
           </div>
           <div style="margin-top:var(--space-48);text-align:center;">
@@ -437,7 +424,7 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Handing a child the phone</h3>
-          <div class="proj-body"><p>Kid Mode keeps the routine actions within reach. A parent can hand over the phone for a child to mark reading as done, then unlock adult actions with a short addition challenge. A recent unlock carries over for lighter actions. I require a fresh check before a destructive change.</p><p>I put the one-off lifetime purchase behind the parental gate. Parents can try the Sample Family before setting up their own board.</p></div>
+          <div class="proj-body"><p>Kid Mode lets a child tick off reading on their own. Purchases and changes to the family board sit behind a parental check.</p></div>
         </div>
 
         <div class="proj-about-block rv">
@@ -447,7 +434,7 @@
         </div>
         <div class="proj-about-block rv"><p class="proj-body"><a href="game.html?level=8#adventure">Play this chapter in Working Order</a></p></div>
 
-        <div class="proj-tags rv"><span class="proj-tags-list">Mobile · iOS · iPad · React Native · Expo · Firebase · Family Product · Side Project · Design Engineering</span></div>
+        <div class="proj-tags rv"><span class="proj-tags-list">Product Design · Mobile UX · Accessibility · Independent Project</span></div>
 
         </div>
         </div>

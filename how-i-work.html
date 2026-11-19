@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>How I work · Shannon Hecker</title>
-  <meta name="description" content="How I design and build products, from portfolio analytics at work to a shared routine board at home.">
+  <meta name="description" content="My approach to product design, from portfolio analytics at work to a shared routine board at home.">
   <link rel="canonical" href="https://shannonhecker.com/how-i-work.html">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>/* theme init: inline, pre-paint, no render-blocking round-trip */(function(){var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light")t="dark";document.documentElement.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#121212":"#ffffff");})();</script>
@@ -20,7 +20,8 @@
     .method h3 { margin-bottom: 12px; font-size: var(--t-lg); }
     .method p { max-width: 62ch; color: var(--c-mid); }
     .method a { display: inline-block; color: var(--c-ink); text-decoration: underline; text-underline-offset: .22em; }
-    .method-grid a { margin-top: 12px; }
+    .method-grid a { display: block; margin-top: 16px; }
+    .method-grid img { display: block; width: 100%; height: auto; margin-bottom: 12px; }
     .method-note { margin-top: 36px; }
     @media (max-width: 680px) { .method-grid { grid-template-columns: 1fr; } }
   </style>
@@ -79,20 +80,20 @@
 
   <main id="main-content" class="method wrap">
     <h1>How I work</h1>
-    <h2>I build what I design.</h2>
+    <h2>I start by watching how people work.</h2>
     <div class="method-grid">
       <section>
         <h3>On the desk</h3>
-        <p>On Fusion, portfolio managers needed to explain their numbers to other people. Knowing where a figure came from mattered as much as reading it quickly. I test ideas with the people doing the work, then use prototypes to work through the details with product and engineering.</p>
-        <a href="about.html">About me</a>
+        <p>On Fusion, I sat with portfolio managers to understand which numbers they had to explain. I kept the figures behind each chart close enough to check in a meeting.</p>
+        <a href="project-analytics.html"><img src="assets/analytics-combination-chart.webp" width="1024" height="536" alt="Fund and benchmark returns with the underlying figures directly below the chart" loading="lazy" decoding="async">Explore Fusion Analytics</a>
       </section>
       <section>
         <h3>At home</h3>
-        <p>Winking Star started at bedtime. Two adults were trying to remember which routines our two children had finished. I built a shared board where the children earn stars and help a pet grow. We use it at home, and other families can use it on the web or iOS.</p>
-        <a href="project-winkingstar.html">Winking Star</a>
+        <p>Winking Star started at bedtime. My partner and I kept asking each other which routines the children had finished. I built a shared board so any of us could see what was left.</p>
+        <a href="project-winkingstar.html"><img src="assets/winkingstar-sample-family-web.webp" width="1280" height="900" alt="A sample family board showing Leo’s routines, stars and growing pet" loading="lazy" decoding="async">Explore Winking Star</a>
       </section>
     </div>
-    <p class="method-note">Writing code with AI changed what I could try for myself and what I needed to learn from engineers. I wrote about those first two months in <a href="writing-when-everyone-can-ship.html">When everyone can ship</a>.</p>
+    <p class="method-note">Using AI to prototype changed what I could test before bringing a design to an engineer. I wrote about those first two months in <a href="writing-when-everyone-can-ship.html">When everyone can ship</a>.</p>
   </main>
   <footer class="footer">
     <div class="wrap">
@@ -108,33 +109,6 @@
       </div>
     </div>
   </footer>
-  <script>
-    document.documentElement.classList.add('has-js');
-    const menu = document.getElementById('burger');
-    const drawer = document.getElementById('drawer');
-    function setMenu(open) {
-      menu.classList.toggle('o', open);
-      menu.setAttribute('aria-expanded', String(open));
-      drawer.classList.toggle('o', open);
-      drawer.inert = !open;
-      drawer.setAttribute('aria-hidden', String(!open));
-      if (open) drawer.querySelector('a').focus();
-      else menu.focus();
-    }
-    menu.setAttribute('aria-controls', 'drawer');
-    menu.addEventListener('click', () => setMenu(drawer.inert));
-    document.addEventListener('keydown', event => {
-      if (drawer.inert) return;
-      if (event.key === 'Escape') setMenu(false);
-      if (event.key !== 'Tab') return;
-      const controls = [menu, ...drawer.querySelectorAll('a,button')];
-      const index = controls.indexOf(document.activeElement);
-      event.preventDefault();
-      controls[(index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();
-    });
-    matchMedia('(min-width: 901px)').addEventListener('change', event => {
-      if (event.matches && !drawer.inert) setMenu(false);
-    });
-  </script>
+  <script src="/assets/utility-menu.js"></script>
 </body>
 </html>

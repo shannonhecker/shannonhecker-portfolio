@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="assets/dark-mode.css" />
   <link rel="stylesheet" href="assets/portfolio.css?v=2026-05-20-spacing" />
   <title>Work · Shannon Hecker</title>
-  <meta name="description" content="Fifteen projects across trading, data visualisation and design systems, alongside products I’ve built for designers and families." />
+  <meta name="description" content="Fifteen projects across trading, data visualisation and design systems, alongside independent projects for designers and families." />
     <link rel="canonical" href="https://shannonhecker.com/work.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shannonhecker.com/work.html" />
   <meta property="og:title" content="Work · Shannon Hecker · Product designer" />
-  <meta property="og:description" content="Fifteen projects across trading, data visualisation and design systems, alongside products I’ve built for designers and families." />
+  <meta property="og:description" content="Fifteen projects across trading, data visualisation and design systems, alongside independent projects for designers and families." />
   <meta property="og:image" content="https://shannonhecker.com/assets/og-preview.png" />
   <meta property="og:image:alt" content="Work · Shannon Hecker · Product designer" />
   <meta property="og:image:width" content="1200" />
@@ -190,6 +190,10 @@
     }
     .pcard:hover .pcard-img.pcard-img--winkingstar-work img {
       transform:translateZ(0) scale(1);
+    }
+    .pcard-img.pcard-img--builder img {
+      box-sizing:border-box; padding:5%; object-fit:contain; object-position:center;
+      background:radial-gradient(ellipse at 65% 28%, #373745, #171922 80%) !important;
     }
     .pcard-overlay{display:none;}
     .ph{display:flex;align-items:flex-end;padding:18px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;min-height:100%;}
@@ -401,7 +405,7 @@
         <div class="work-hero rv">
           <span class="work-hero-eyebrow">Portfolio</span>
           <h1 class="work-hero-title">All work.</h1>
-          <p class="work-hero-sub">Fifteen projects across trading, data visualisation and design systems, alongside products I’ve built for designers and families.</p>
+          <p class="work-hero-sub">Fifteen projects across trading, data visualisation and design systems, alongside independent projects for designers and families.</p>
         </div>
       </div>
     </header>
@@ -409,8 +413,8 @@
       <div class="bento">
         <div class="bc-6 rv" data-d="1">
           <article class="pcard-article"><a href="project-uoaui.html" class="pcard">
-            <div class="pcard-img">
-              <img src="assets/uoaui-card.webp" alt="uoaui.ai" width="1200" height="720" loading="lazy" decoding="async" />
+            <div class="pcard-img pcard-img--builder">
+              <img src="assets/uoaui-walkthrough-poster.webp" alt="The uoaui builder comparing dashboard components" width="1280" height="800" loading="lazy" decoding="async" />
               <div class="pcard-overlay"><span class="pcard-overlay-title">uoaui.ai</span></div>
             </div>
             <div class="pcard-body">
@@ -419,7 +423,7 @@
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title" role="heading" aria-level="2">uoaui.ai</div>
-              <p class="pcard-desc">A canvas I built to compare the same screen across five design systems and export it to React.</p>
+              <p class="pcard-desc">A tool I designed to compare the same screen across five design systems.</p>
               <div class="pcard-tags"><span class="chip chip-default">Side Project</span><span class="chip chip-default">Design Systems</span><span class="chip chip-default">Brand Identity</span></div>
             </div>
           </a></article>
@@ -436,7 +440,7 @@
                 <div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
               </div>
               <div class="pcard-title" role="heading" aria-level="2">Winking Star</div>
-              <p class="pcard-desc">A shared routine board I designed and built for families. Children earn stars and grow a pet as they go.</p>
+              <p class="pcard-desc">A shared routine board I designed for families. Children earn stars and grow a pet as they go.</p>
               <div class="pcard-tags"><span class="chip chip-default">Mobile</span><span class="chip chip-default">iOS</span><span class="chip chip-default">iPad</span><span class="chip chip-default">Side Project</span></div>
             </div>
           </a></article>
