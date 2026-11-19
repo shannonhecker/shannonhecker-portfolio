@@ -210,7 +210,7 @@
     }
     .brand-wordmark img { display:block; width:min(60%, 260px); height:auto; }
     .system-example { margin:var(--space-24) 0 0; }
-    .system-example a, .system-example picture, .system-example img { display:block; }
+    .system-example picture, .system-example img { display:block; }
     .system-example img { width:100%; height:auto; border-radius:8px; }
     .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
     .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
@@ -359,12 +359,10 @@
             <img src="assets/uoaui-logo-lockup.png" alt="My original uoaui symbol and wordmark" width="454" height="91" loading="lazy" decoding="async">
           </div>
           <figure class="system-example">
-            <a href="assets/uoaui-house-library.webp" aria-label="Open the full uoaui component library image">
-              <picture>
-                <source media="(max-width:600px)" srcset="assets/uoaui-house-library-phone.webp" width="780" height="960">
-                <img src="assets/uoaui-house-library.webp" width="1728" height="1188" loading="lazy" decoding="async" alt="The uoaui library in dark mode, with its Inter typeface, core palette and four density settings.">
-              </picture>
-            </a>
+            <picture>
+              <source media="(max-width:600px)" srcset="assets/uoaui-house-library-phone.webp" width="780" height="960">
+              <img src="assets/uoaui-house-library.webp" width="1728" height="1188" loading="lazy" decoding="async" alt="The uoaui library in dark mode, with its Inter typeface, core palette and four density settings.">
+            </picture>
             <figcaption class="proj-media-cap-text">Inside the uoaui component library</figcaption>
           </figure>
         </div>
@@ -374,11 +372,11 @@
           <div class="proj-body"><p>I kept the report and its preview identical. Look at the Holdings label and the Open Report link to see how Salt’s blue accents and square corners change in my rounded, violet uoaui system.</p></div>
           <div class="report-comparison">
             <figure class="system-example">
-              <a href="assets/uoaui-report-card-salt.webp" aria-label="Open the Salt report card at full size"><img src="assets/uoaui-report-card-salt.webp" width="730" height="656" loading="lazy" decoding="async" alt="SI Portfolio Report in Salt, with a blue top edge and a rectangular Holdings label."></a>
+              <img src="assets/uoaui-report-card-salt.webp" width="730" height="656" loading="lazy" decoding="async" alt="SI Portfolio Report in Salt, with a blue top edge and a rectangular Holdings label.">
               <figcaption class="proj-media-cap-text">Salt Design System</figcaption>
             </figure>
             <figure class="system-example">
-              <a href="assets/uoaui-report-card-house.webp" aria-label="Open the uoaui report card at full size"><img src="assets/uoaui-report-card-house.webp" width="730" height="656" loading="lazy" decoding="async" alt="The same SI Portfolio Report in uoaui, with a violet top edge and pill-shaped Holdings label."></a>
+              <img src="assets/uoaui-report-card-house.webp" width="730" height="656" loading="lazy" decoding="async" alt="The same SI Portfolio Report in uoaui, with a violet top edge and pill-shaped Holdings label.">
               <figcaption class="proj-media-cap-text">uoaui design system</figcaption>
             </figure>
           </div>
@@ -397,7 +395,7 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Design handover</h3>
           <div class="proj-body"><p>I use the <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a> to review a form in context. A designer can take a measured SVG into Figma to check the spacing. An engineer can open the same screen as a Vite project or inspect its React components. In the <a href="https://uoaui.ai/#export">Salt export example</a>, the dropdown and its label come straight from the Salt library.</p></div>
-          <figure class="proj-media"><a href="assets/uoaui-public-salt-form.webp" aria-label="Open full-size image: A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions."><img class="proj-img-full" src="assets/uoaui-public-salt-form.webp" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">Name, email and department fields together in the public Salt UI Kit.</span></figcaption></figure>
+          <figure class="proj-media"><img class="proj-img-full" src="assets/uoaui-public-salt-form.webp" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async" /><figcaption class="proj-media-cap"><span class="proj-media-cap-text">Name, email and department fields together in the public Salt UI Kit.</span></figcaption></figure>
         </div>
 
         <div class="proj-about-block rv">

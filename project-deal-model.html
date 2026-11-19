@@ -147,23 +147,23 @@
     .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
     .deal-template { margin-top: var(--space-24); }
-    .deal-template a, .deal-template img { display:block; }
+    .deal-template img { display:block; }
     .deal-template img { width:100%; height:auto; }
     .deal-template figcaption { margin-top:var(--space-8); color:var(--c-mid); }
     #deal-workflow { scroll-margin-top: 6rem; }
     #deal-workflow img { height:auto;background:transparent;filter:none; }
     #deal-workflow .flow-dark { display:none; }
     html[data-theme="dark"] #deal-workflow .flow-light { display:none; }
-    html[data-theme="dark"] #deal-workflow .flow-dark { display:block; }
-    #deal-workflow a { display:block; }
-    .deal-mobile-flow, #deal-workflow a span { display:none; }
+    @media (min-width:761px) {
+      html[data-theme="dark"] #deal-workflow .flow-dark { display:block; }
+    }
+    .deal-mobile-flow { display:none; }
     @media (max-width:760px) {
       .deal-mobile-flow { display:grid; list-style:none; margin:var(--space-32) 0 0; padding:0; }
       .deal-mobile-flow li { position:relative; margin-left:4px; padding:0 0 14px 20px; border-left:1px solid var(--c-rule); color:var(--c-ink); }
       .deal-mobile-flow li:last-child { border-color:transparent; padding-bottom:0; }
       .deal-mobile-flow li::before { content:''; position:absolute; left:-4px; top:.6em; width:7px; height:7px; border-radius:50%; background:var(--c-mid); }
-      #deal-workflow a img { display:none; }
-      #deal-workflow a span { display:inline-flex; align-items:center; min-height:44px; font-size:var(--t-sm); text-decoration:underline; text-underline-offset:.22em; }
+      #deal-workflow img.proj-img-full { display:none; }
     }
 
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:var(--space-48) 0; }
@@ -272,7 +272,6 @@
       <img src="assets/deal-banner.webp" alt="Global Custody Deal Model" class="proj-cover rv" width="1600" height="525" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-2" style="display:none;"></div>
 
-      <a class="project-mobile-link" href="assets/deal-banner.webp">View full-size cover</a>
       <h1 class="proj-title-post rv" data-d="2">Global Custody Deal Model</h1>
       <p class="proj-lead rv" data-d="3">I designed four views of one custody deal so sales, legal, product and custody operations could price, compare and approve it together.</p>
 
@@ -302,8 +301,8 @@
               <li>Publish the chosen proposal and record the reason.</li>
               <li>The approver reviews that version and signs off.</li>
             </ol>
-            <a class="flow-light" href="assets/deal-setup-to-approval.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" /><span>View the full diagram</span></a>
-            <a class="flow-dark" href="assets/deal-setup-to-approval-dark.svg" aria-label="Open full-size image: Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version."><img class="proj-img-full" src="assets/deal-setup-to-approval-dark.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" /><span>View the full diagram</span></a>
+            <img class="proj-img-full flow-light" src="assets/deal-setup-to-approval.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" />
+            <img class="proj-img-full flow-dark" src="assets/deal-setup-to-approval-dark.svg" alt="Diagram of the deal owner pricing and comparing proposals before an approver reviews a particular version." width="1120" height="1528" loading="lazy" decoding="async" />
             <figcaption class="proj-media-cap"><span class="proj-media-cap-text">The owner publishes a version with a written reason for the winning bid. The approver can review that version alongside the comparison and comments.</span></figcaption></figure>
         </div>
 
@@ -311,7 +310,7 @@
           <h3 class="proj-about-h3">Keeping the spreadsheet route</h3>
           <div class="proj-body"><p>People already trusted their spreadsheet. In one session, a user showed me how they filled it in. I worked with the business analyst on an upload template so the team could bring those figures into a deal without typing them twice.</p></div>
           <figure class="deal-template" id="template-import">
-            <a href="assets/deal-template-mapping.webp" aria-label="Open the full-size spreadsheet import illustration"><img src="assets/deal-template-mapping.webp" width="1455" height="905" alt="An upload area beside a checklist showing how spreadsheet columns map to deal fields." loading="lazy" decoding="async"></a>
+            <img src="assets/deal-template-mapping.webp" width="1455" height="905" alt="An upload area beside a checklist showing how spreadsheet columns map to deal fields." loading="lazy" decoding="async">
             <figcaption class="proj-media-cap-text">Design illustration. The deal owner can check where each column goes before importing the portfolio.</figcaption>
           </figure>
         </div>

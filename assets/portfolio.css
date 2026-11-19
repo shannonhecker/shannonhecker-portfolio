@@ -197,14 +197,6 @@ body {
 
 /* Phone layouts use the source proportions of project artwork. */
 .proj-page .img-shield { pointer-events:none; }
-.project-media-link { display:block; }
-.project-media-link > span, .project-mobile-link { display:none; }
 @media (max-width: 760px) {
   .proj-page img.proj-cover { width:100%; height:auto; aspect-ratio:auto; object-fit:contain; }
-  .project-media-link > span, .project-mobile-link {
-    display:inline-flex; align-items:center; min-height:44px;
-    font: inherit; font-size:var(--t-sm); color:var(--c-mid);
-    text-decoration:underline; text-underline-offset:.22em;
-  }
-  .project-media-link > img.proj-img-full { margin-bottom:0; }
 }

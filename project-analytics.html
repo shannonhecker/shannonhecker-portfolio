@@ -185,7 +185,6 @@
       display: block;
     }
     #report-walkthrough, #report-settings { scroll-margin-top: calc(var(--nav) + 24px); }
-    #report-settings .proj-media-cap a { text-decoration:underline; text-underline-offset:.2em; }
     .proj-media-cap { margin-top: 14px; max-width: 680px; }
     .proj-media-cap-label { display: block; color: var(--c-light); margin-bottom: 6px; }
     .proj-media-cap-text { color: var(--c-mid); }
@@ -302,7 +301,6 @@
       <img src="assets/fusion-analytics-dashboard-banner.webp" alt="Fusion analytics dashboard: combination charts, returns tables, allocation donut, and performance modules" class="proj-cover rv" width="1600" height="525" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='block';" />
       <div class="proj-cover-ph ph-1" style="display:none;"></div>
 
-      <a class="project-mobile-link" href="assets/fusion-analytics-dashboard-banner.webp">View full-size cover</a>
       <h1 class="proj-title-post rv" data-d="2">Fusion Analytics Dashboard</h1>
       <p class="proj-lead rv" data-d="3">I designed a dashboard for portfolio managers to present performance, attribution and risk in a board meeting.</p>
 
@@ -319,10 +317,7 @@
 
         <figure class="proj-media rv">
           <div class="proj-media-frame">
-              <a class="project-media-link" href="assets/analytics-widgets-grid.webp" aria-label="Open the dashboard widgets at full size">
-                <img src="assets/analytics-widgets-grid.webp" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
-                <span>View full size</span>
-              </a>
+              <img src="assets/analytics-widgets-grid.webp" alt="Dashboard widgets showing performance table, returns bars, allocation donut, history area chart, and trend combination chart" width="1600" height="900" loading="lazy" decoding="async" />
           </div>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Dashboard modules</span>
@@ -333,7 +328,7 @@
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My role</h3>
           <div class="proj-body"><p>As Digital Product Designer VP, I led the dashboard design. I worked with the product owner, a UX designer and engineers to turn the analytics partner’s data cubes into reports. Each widget had to work with the data the calculation engine could return.</p></div>
-          <figure class="proj-media"><a href="assets/fusion-public-risk-report.webp" aria-label="Open full-size image: Risk report from the public Fusion rebuild, with an exposure table and a series of risk breakdowns."><img class="proj-img-full" src="assets/fusion-public-risk-report.webp" alt="Risk report from the public Fusion rebuild, with an exposure table and a series of risk breakdowns." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The public rebuild uses example data. The risk report keeps the same table and filtering conventions as the performance report.</span></figcaption></figure>
+          <figure class="proj-media"><img class="proj-img-full" src="assets/fusion-public-risk-report.webp" alt="Risk report from the public Fusion rebuild, with an exposure table and a series of risk breakdowns." loading="lazy" decoding="async" /><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The public rebuild uses example data. The risk report keeps the same table and filtering conventions as the performance report.</span></figcaption></figure>
         </div>
 
         <div class="proj-about-block rv">
@@ -342,15 +337,13 @@
         </div>
 
         <figure class="proj-media rv" id="report-settings">
-          <a class="proj-media-frame" style="display:block" href="assets/fusion-performance-settings.webp" aria-label="Open the full-size Performance report and its settings">
-            <picture style="display:block">
-              <source media="(max-width:600px)" srcset="assets/fusion-performance-settings-small.webp" width="840" height="933">
-              <img src="assets/fusion-performance-settings.webp" width="2160" height="1500" alt="Performance Results settings for grouping holdings, choosing the reporting date and displaying fees." loading="lazy" decoding="async">
-            </picture>
-          </a>
+          <picture class="proj-media-frame" style="display:block">
+            <source media="(max-width:600px)" srcset="assets/fusion-performance-settings-small.webp" width="840" height="933">
+            <img src="assets/fusion-performance-settings.webp" width="2160" height="1500" alt="Performance Results settings for grouping holdings, choosing the reporting date and displaying fees." loading="lazy" decoding="async">
+          </picture>
           <figcaption class="proj-media-cap">
             <span class="proj-media-cap-label">Configuring a report</span>
-            <span class="proj-media-cap-text">In my public rebuild, an analyst can change how returns are grouped while the figures stay in view. <a href="assets/fusion-performance-settings.webp">View the full sample report</a>.</span>
+            <span class="proj-media-cap-text">In my public rebuild, an analyst can change how returns are grouped while the figures stay in view.</span>
           </figcaption>
         </figure>
 
@@ -358,7 +351,7 @@
           <div class="proj-media-frame">
             <video width="1600" height="1000" controls playsinline muted preload="none" poster="assets/fusion-report-catalogue.webp" aria-label="Fusion report walkthrough" aria-describedby="report-caption">
               <source src="assets/fusion-report-walkthrough.webm" type="video/webm">
-              <a href="assets/fusion-report-catalogue.webp">View the report catalogue</a>
+              <img src="assets/fusion-report-catalogue.webp" alt="Fusion report catalogue" width="1600" height="1000">
             </video>
           </div>
           <figcaption id="report-caption" class="proj-media-cap">
