@@ -56,7 +56,7 @@ const nextOverview = projectOverviews[next.href];
       </>}
       <slot name="notice" />
     </article>
-    {level > 0 && !('nda' in overview) && (
+    {level > 0 && (
       <p class="wrap play-link"><a href={`/?level=${level}#adventure`}>Play this chapter in the game <Icon name="arrow-right" /></a></p>
     )}
     <section class="band next-case" aria-label="Next case">

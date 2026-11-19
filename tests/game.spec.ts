@@ -393,14 +393,20 @@ test('hazards hurt (three hits restart the level)', async ({ page }) => {
   await expect.poll(async () => (await state(page)).hits, { timeout: 8000 }).toBeGreaterThan(0);
 });
 
-test('a case page links to its chapter of the game without starting it', async ({ page }) => {
-  await page.goto('/fusion');
-  const link = page.getByRole('link', { name: /Play this chapter in the game/ });
-  await expect(link).toHaveAttribute('href', '/?level=5#adventure');
-  await link.click();
-  await expect(page.locator('#game-world')).toHaveAttribute('data-stage','4');
-  await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'poster');
-});
+for (const [path, chapter] of [['/fx', 6], ['/fusion', 5]] as const) {
+  test(`${path} opens its playable chapter directly from the project page`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path);
+    const link = page.getByRole('link', { name: /Play this chapter in the game/ });
+    await expect(link).toHaveAttribute('href', `/?level=${chapter}#adventure`);
+    await link.click();
+    await expect(page.locator('.play .game')).toHaveAttribute('data-state', 'playing');
+    expect((await state(page)).mode).toBe('level');
+    expect((await state(page)).level).toBe(chapter - 1);
+    await page.locator('#game-exit').click();
+    await expect(page.locator('.play')).not.toHaveClass(/is-full/);
+  });
+}
 
 test('the site still works if the game chunk fails to load', async ({ page }) => {
   await page.route(/\/_astro\/main\.[^/]+\.js$/, (r) => r.abort());
