@@ -168,6 +168,11 @@
     .proj-img-full { width:100%;border-radius:0;margin:var(--space-48) 0;display:block;background:#fff; }
     .proj-img-ph { border-radius:0;aspect-ratio:4/3; }
     .proj-img-full-ph { border-radius:0;aspect-ratio:21/7;margin:var(--space-48) 0; }
+    .fx-chart-detail { max-width: 680px; margin: var(--space-32) 0 0; }
+    .fx-chart-detail a, .fx-chart-detail img { display:block; }
+    .fx-chart-detail img { width:100%;height:auto; }
+    .fx-chart-detail figcaption { margin-top:var(--space-12);color:var(--c-mid); }
+
     /* Outcome pills */
     .proj-outcomes { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:var(--space-48) 0; }
     .proj-outcome { display:flex;flex-direction:column;gap:var(--space-8);min-width:0;padding:0 clamp(16px,2.2vw,28px);border-left:1px solid var(--c-rule); }
@@ -274,21 +279,33 @@
 
       <img src="assets/execution-mockup-1600.avif" srcset="assets/execution-mockup-700.avif 700w, assets/execution-mockup-1600.avif 1600w" sizes="(max-width: 1100px) 92vw, 1200px" alt="My FX execution dashboard mockup with sample trading data." class="proj-cover proj-cover--execution rv" width="1600" height="1000" fetchpriority="high" decoding="async">
       <h1 class="proj-title-post rv" data-d="2">FX execution analytics</h1>
-      <p class="proj-lead rv" data-d="3">I lead product design for FX and MarketsOne at Barclays. I built the mockup above with sample data.</p>
+      <p class="proj-lead rv" data-d="3">I lead product design for FX and MarketsOne at Barclays. I built this separate mockup with sample data to show how I design for traders.</p>
 
       <div class="proj-content">
         <div class="proj-about-layout">
           <h2 class="proj-about-label rv">about<span class="proj-about-dot">.</span></h2>
           <div class="proj-about-main">
             <div class="proj-about-block rv">
+              <h3 class="proj-about-h3">Overview</h3>
+              <div class="proj-body"><p>A large currency order can take hours to fill. While it’s running, a trader needs to know how much has traded and at what price. Together, those answers help them decide whether to change the order or let it run.</p></div>
+            </div>
+            <div class="proj-about-block rv">
+              <h3 class="proj-about-h3">My role</h3>
+              <div class="proj-body"><p>I watched traders monitor orders and asked what made them step in. I put progress and price on the same timeline so the trader could see exactly where the market stood when part of the order filled.</p></div>
+            </div>
+            <div class="proj-about-block rv">
               <h3 class="proj-about-h3">Design process</h3>
-              <div class="proj-body"><p>I put the order’s limit price on the chart so a trader can compare it with the price of a fill. The venue breakdown sits alongside it, so they can see where that part of the order traded.</p></div>
+              <div class="proj-body"><p>In my mockup, the blue area grows as the order fills. The limit price moves in steps, so each change stays visible after the trader makes it. I kept the venue breakdown beside the chart. Selecting a venue highlights its trades in place, keeping the surrounding market prices in view.</p></div>
+              <figure class="fx-chart-detail">
+                <a href="assets/fx-sample-chart-detail.webp" aria-label="Open the full-size sample chart detail"><img src="assets/fx-sample-chart-detail.webp" alt="The mockup’s chart at 12:04, with market prices, the order limit and progress aligned to one point in time." width="757" height="499" loading="lazy" decoding="async"></a>
+                <figcaption class="proj-media-cap-text">At 12:04 the sample order was 49.2% complete. The trader can check the bid, ask and their own limit at that instant.</figcaption>
+              </figure>
             </div>
             <div class="proj-about-block rv">
               <h3 class="proj-about-h3">In the mockup</h3>
               <div class="proj-outcomes">
-                <div class="proj-outcome"><span class="proj-outcome-num">3</span><span class="proj-outcome-label">Time intervals for viewing the order</span></div>
-                <div class="proj-outcome"><span class="proj-outcome-num">6</span><span class="proj-outcome-label">Venues in the sample breakdown</span></div>
+                <div class="proj-outcome"><span class="proj-outcome-num">4</span><span class="proj-outcome-label">Chart layers covering the market, order, fills and benchmarks</span></div>
+                <div class="proj-outcome"><span class="proj-outcome-num">5</span><span class="proj-outcome-label">Trading venues in the sample order</span></div>
               </div>
             </div>
             <div class="proj-about-block rv"><p class="proj-body"><a href="game.html?level=6#adventure">Play this chapter in Working Order</a></p></div>
