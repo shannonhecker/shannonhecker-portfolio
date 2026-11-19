@@ -219,7 +219,7 @@
     @media (max-width:600px) {
       .report-comparison { grid-template-columns:1fr; }
     }
-    #builder-workflow, #brand-identity, #ui-library, #chart-library, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
+    #builder-workflow, #brand-identity, #ui-library, #recent-projects, #chart-library, #system-comparison { scroll-margin-top:calc(var(--nav) + var(--space-24)); }
     html[data-theme="dark"] .proj-cover--demo {
       background:
         radial-gradient(ellipse at 84% 5%, rgba(213, 230, 216, 0.18), transparent 60%),
@@ -381,7 +381,7 @@
             <figcaption class="proj-media-cap-text"><a class="proj-build-link" href="https://uoaui.ai/ui-kit?ds=uoaui&amp;c=inputs">Try the text field and its validation states</a></figcaption>
           </figure>
           <div class="proj-body" style="margin-top:var(--space-32)"><p>At page level, the analytical dashboard pairs summary cards with a project table. Someone reviewing the portfolio can scan the totals first, then check an individual project’s status and revenue.</p></div>
-          <figure class="system-example">
+          <figure id="recent-projects" class="system-example">
             <picture>
               <source media="(max-width:600px)" srcset="assets/uoaui-recent-projects.webp" width="948" height="708">
               <img src="assets/uoaui-dashboard-pattern.webp" width="1512" height="1106" loading="lazy" decoding="async" alt="The Recent Projects table in the uoaui dashboard pattern shows each project's status, user count and revenue.">
