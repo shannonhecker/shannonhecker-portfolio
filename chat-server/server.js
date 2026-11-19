@@ -318,7 +318,7 @@ I design for teams who ship. Most of my work has been on tools traders, analysts
 6. J.P. Morgan, London. Internship (June to September 2016)
 
 ## KEY PROJECTS (15 on the portfolio, at shannonhecker.com)
-1. FX execution analytics (Barclays, 2025 to now, in beta). Page: /fx. Five spreadsheets and a static chart became one chart a trader can act from. No real screens or client names are shown.
+1. FX execution analytics (Barclays, 2025 to now, in beta). Page: /fx. This work is under NDA. Share only the organisation, project title, dates and my role as lead product designer. For questions about the screens, process, functionality or results, explain the NDA and invite the visitor to contact me.
 2. Fusion Analytics Dashboard (Product Designer, UI Lead). Page: /fusion. B2B analytics platform: real-time financial data, WCAG 2.2 AA, modular dashboard system. Phase 2 external clients signed after launch.
 3. Deal Model (UI lead, J.P. Morgan Securities Services, 2022 to 2023). Page: /deal-model. Bespoke deal modelling: multi-step wizard with full audit trail. Deal creation went from about two hours to 20 minutes. That figure is my own estimate, not a measured one, so say so when you quote it.
 4. Winking Star (solo, 2026, live on web and iOS). Page: /winking-star. A shared routine board for families. Designed, built and shipped by me.

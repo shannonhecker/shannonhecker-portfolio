@@ -185,8 +185,8 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
       }
       await page.unrouteAll();
       await visit(page, '/fx', w, h, { asked: true, reduced: true });
-      await page.locator('.product-links a').first().scrollIntoViewIfNeeded();
-      expect(hits(await box(page, '.product-links a'), await box(page, '#analytics-choice'))).toBe(false);
+      await page.locator('.nda-summary a').first().scrollIntoViewIfNeeded();
+      expect(hits(await box(page, '.nda-summary a'), await box(page, '#analytics-choice'))).toBe(false);
     });
 
     test(`at the foot of a page the footer's controls end up above it at ${w}`, async ({ page }) => {

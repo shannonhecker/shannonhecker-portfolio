@@ -15,7 +15,7 @@ for(const route of ['/fx','/fusion','/winking-star','/deal-model','/uoaui']){
 
 
 test('section heading reveal stays within the page when resizing to mobile mid-scroll',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/fx');
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/fusion');
  const heading=page.locator('.project-outcome h2');
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+window.scrollY-window.innerHeight*.85));
  await page.waitForTimeout(800);await page.setViewportSize({width:390,height:844});await page.waitForTimeout(300);

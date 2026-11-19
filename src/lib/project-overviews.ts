@@ -2,11 +2,9 @@
 export const projectOverviews = {
   '/fx': {
     context: 'Barclays · 2025 to now',
-    card: 'One chart for traders to track and reprice a live FX order.',
-    lead: 'Traders were managing a single FX order across five spreadsheets, a static chart and an execution tool.',
-    contribution: 'As lead designer, I brought market context, order progress and repricing into one view. The trader decides when to act.',
-    outcome: 'In beta with internal users. My public rebuild uses sample data.',
-    links: [{ label: 'Try the public rebuild', href: 'https://shannonhecker.github.io/fx-execution-analytics/' }],
+    card: 'FX trading platform · Under NDA.',
+    nda: true,
+
   },
   '/fusion': {
     context: 'J.P. Morgan · 2023 to 2025',

@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const content=JSON.parse(readFileSync(new URL('../src/data/user-flow-content.json',import.meta.url),'utf8')) as typeof import('../src/data/user-flow-content.json'); 
 
-for(const project of ['fx','fusion','ai','winking','deal'] as const){
+for(const project of ['fusion','ai','winking','deal'] as const){
  test(`${project} user-flow labels fit and connectors attach to the correct nodes`,async({page})=>{
   const graph=content[project];
   for(const edge of graph.edges){

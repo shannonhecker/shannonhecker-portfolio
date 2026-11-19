@@ -6,7 +6,7 @@ export const CASES = [
     "n": "01",
     "vt": "fx",
     "title": "FX execution analytics",
-    "meta": "Barclays · 2025 to now · in beta. Five spreadsheets and a static chart became one chart a trader can act from.",
+    "meta": "Barclays · Lead product designer · Under NDA.",
     "img": "live-fx.png"
   },
   {

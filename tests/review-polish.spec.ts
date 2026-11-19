@@ -38,22 +38,3 @@ test('home artwork covers its frame and follows the hero alignment',async({page}
   for(const edges of geometry){expect(edges.top).toBeLessThanOrEqual(.1);expect(edges.left).toBeLessThanOrEqual(.1);expect(edges.right).toBeGreaterThanOrEqual(-.1);expect(edges.bottom).toBeGreaterThanOrEqual(-.1);}
  }
 });
-
-test('FX vector panels stay sharp inside the overlapping hero',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});
- for(const width of [390,1440,1920]){
-  await page.setViewportSize({width,height:1000});await page.goto('/fx');
-  const overview=(await page.locator('.fx-hero-overview').boundingBox())!;
-  const composition=(await page.locator('.fx-hero-composition').boundingBox())!;
-  const comparison=(await page.locator('.fx-hero-compare').boundingBox())!;
-  expect(comparison.y).toBeLessThan(overview.y+overview.height);
-  for(const selector of ['.fx-hero-ticket','.fx-hero-compare']){
-   const panel=page.locator(selector);const rect=(await panel.boundingBox())!;
-   expect(rect.x).toBeGreaterThanOrEqual(composition.x);
-   expect(rect.x+rect.width).toBeLessThanOrEqual(composition.x+composition.width+1);
-   expect(rect.y+rect.height).toBeLessThanOrEqual(composition.y+composition.height+1);
-   await expect(panel.locator('img')).toHaveAttribute('src',/\.svg$/);
-   expect(await panel.locator('img').evaluate(el=>(el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth>0)).toBeTruthy();
-  }
- }
-});

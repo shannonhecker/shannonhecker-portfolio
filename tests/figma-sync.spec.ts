@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('selected projects show the authored artwork and let visitors open it at full size', async ({ page }) => {
-  for (const path of ['/fx', '/fusion', '/deal-model', '/winking-star', '/uoaui']) {
+  for (const path of ['/fusion', '/deal-model', '/winking-star', '/uoaui']) {
     await page.goto(path);
     const images = page.locator('.overview-art figure img');
     expect(await images.count()).toBeGreaterThan(0);

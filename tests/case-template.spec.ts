@@ -6,6 +6,10 @@ for (const [path, project] of Object.entries(projectOverviews)) {
     await page.goto(path);
     const article = page.locator('main article');
     await expect(article.getByRole('heading', { level: 1 })).toBeVisible();
+    if ('nda' in project) {
+      await expect(article).toContainText('This work is under NDA.');
+      return;
+    }
     await expect(article).toContainText(project.contribution);
     await expect(article).toContainText(project.outcome);
     expect((await article.innerText()).trim().split(/\s+/).length).toBeLessThan(120);

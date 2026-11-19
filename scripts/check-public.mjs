@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
-const forbiddenInDist = ['shannonhecker-work', 'noindex', 'Revolut'];
+const forbiddenInDist = ['shannonhecker-work', 'noindex', 'Revolut', 'github.io/fx-execution-analytics'];
 const forbiddenInVercel = ['X-Robots-Tag', 'includeSubDomains', 'preload'];
 const textExt = /\.(html|css|js|mjs|json|xml|txt|svg|webmanifest|map)$/i;
 
@@ -19,6 +19,10 @@ function walk(dir) {
   for (const name of readdirSync(dir)) {
     const file = join(dir, name);
     if (statSync(file).isDirectory()) { walk(file); continue; }
+    const publishedPath = relative(dist, file);
+    if (publishedPath !== 'fx.html' && /(?:^|[/_.-])(?:fx|reprice|staged-ticket|compare-detail|ticket-detail)(?:[/_.-]|$)/i.test(publishedPath)) {
+      problems.push(`NDA artwork in public build: ${publishedPath}`);
+    }
     if (!textExt.test(name)) continue;
     const text = readFileSync(file, 'utf8');
     if (name.endsWith('.html')) {

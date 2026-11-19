@@ -84,60 +84,15 @@ test('next-project previews fill their media column and retain native proportion
  }
 });
 
-test('FX chart detail opens from the keyboard, pans on a phone, and restores focus', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
+test('FX offers an NDA overview and a contact link', async ({ page }) => {
   await page.goto('/fx');
-  const trigger = page.getByRole('link', { name: 'View chart detail' });
-  await trigger.focus();
-  await page.keyboard.press('Enter');
-  const dialog = page.getByRole('dialog', { name: 'Repricing an order' });
-  await expect(dialog).toBeVisible();
-  const close = dialog.getByRole('button', { name: 'Close chart detail' });
-  await expect(close).toBeFocused();
-  const chart = dialog.getByRole('region', { name: 'Enlarged execution chart' });
-  await chart.locator('img').evaluate((img: HTMLImageElement) => img.decode());
-  const overview = await chart.evaluate(el => {
-    const image = el.querySelector('img')!;
-    return { left: el.scrollLeft / image.clientWidth, right: (el.scrollLeft + el.clientWidth) / image.clientWidth,
-      top: el.scrollTop / image.clientHeight, bottom: (el.scrollTop + el.clientHeight) / image.clientHeight };
-  });
-  expect(overview.left).toBeLessThan(.098);
-  expect(overview.right).toBeGreaterThan(.716);
-  expect(overview.top).toBeLessThan(.32);
-  expect(overview.bottom).toBeGreaterThan(.74);
-  await dialog.getByRole('button', { name: 'Enlarge chart' }).click();
-  await expect(dialog.getByRole('button', { name: 'Show chart overview' })).toBeVisible();
-  const position = await chart.evaluate(el => ({ left: el.scrollLeft, top: el.scrollTop, max: el.scrollWidth - el.clientWidth }));
-  expect(position.left).toBeGreaterThan(0);
-  expect(position.top).toBeGreaterThan(0);
-  expect(position.left).toBeLessThan(position.max);
-  await chart.focus();
-  await page.keyboard.press('ArrowRight');
-  await expect.poll(() => chart.evaluate(el => el.scrollLeft)).toBeGreaterThan(position.left);
-  await page.keyboard.press('Escape');
-  await expect(dialog).toBeHidden();
-  await expect(trigger).toBeFocused();
-  await trigger.click();
-  await close.click();
-  await expect(dialog).toBeHidden();
-  await expect(trigger).toBeFocused();
-});
-
-test('FX chart detail links directly to the complete image with JavaScript disabled', async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
-  try {
-    const page = await context.newPage();
-    await page.goto('/fx');
-    const trigger = page.getByRole('link', { name: 'View chart detail' });
-    const asset = await trigger.getAttribute('href');
-    expect(asset).toBeTruthy();
-    const response = await context.request.get(asset!);
-    expect(response.ok()).toBe(true);
-    expect(response.headers()['content-type']).toMatch(/^image\//);
-    await trigger.click();
-    expect(new URL(page.url()).pathname).toBe(asset);
-  } finally {
-    await context.close();
+  const article = page.locator('main article');
+  await expect(article.getByRole('heading', { name: 'This work is under NDA.' })).toBeVisible();
+  await expect(article.getByRole('link', { name: 'on a call' })).toHaveAttribute('href', /^mailto:/);
+  await expect(article.getByRole('img')).toHaveCount(1);
+  await expect(article.locator('dialog, a[target="_blank"]')).toHaveCount(0);
+  await expect(page.locator('a[href*="fx-execution-analytics"]')).toHaveCount(0);
+  for (const asset of ['/art/fx-hero-overview.svg', '/media/fx-current.webm', '/art/themes/dark/fx-data-layers.svg']) {
+    expect((await page.request.get(asset)).status()).toBe(404);
   }
 });

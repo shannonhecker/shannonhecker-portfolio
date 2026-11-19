@@ -28,17 +28,18 @@ const next = CASES[(i + 1) % CASES.length];
       <header>
         <p class="project-context">{overview.context}</p>
         <h1 style={`view-transition-name:t-${CASES[i].vt}`}>{title}</h1>
-        <p class="project-intro">{overview.lead}</p>
-        <p class="project-contribution">{overview.contribution}</p>
+        {!('nda' in overview) && <><p class="project-intro">{overview.lead}</p>
+        <p class="project-contribution">{overview.contribution}</p></>}
       </header>
       <div class="overview-art"><slot /></div>
-      <section class="project-outcome" aria-labelledby="outcome">
+      {!('nda' in overview) && <section class="project-outcome" aria-labelledby="outcome">
         <h2 id="outcome">Outcome</h2>
         <p>{overview.outcome}</p>
         {overview.links.length > 0 && <div class="product-links">{overview.links.map(link => <a href={link.href} target="_blank" rel="noopener">{link.label}<Icon name="external" /><span class="vh"> (opens in new tab)</span></a>)}</div>}
-      </section>
+      </section>}
+      <slot name="notice" />
     </article>
-    {level > 0 && (
+    {level > 0 && !('nda' in overview) && (
       <p class="wrap play-link"><a href={`/?level=${level}#adventure`}>Play this chapter in the game <Icon name="arrow-right" /></a></p>
     )}
     <section class="band next-case" aria-label="Next case">

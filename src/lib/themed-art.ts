@@ -1,6 +1,5 @@
 export const themedNames = ['fusion', 'ai', 'winking', 'deal'].flatMap(project =>
-  ['experience', 'approach'].map(part => `${project}-${part}`)).concat(
-  ['fx-states-today', 'fx-states-designed', 'fx-fills-today', 'fx-fills-designed', 'fx-data-layers']);
+  ['experience', 'approach'].map(part => `${project}-${part}`));
 const darkPaints = `
 @media (prefers-color-scheme: dark) {
   [fill="#272B32"] { fill:#edf1f5 }
