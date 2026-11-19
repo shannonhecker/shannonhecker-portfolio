@@ -128,7 +128,8 @@
     .proj-cover-ph { width:100%;aspect-ratio:16/7;border-radius:0;margin-bottom:0; }
     /* Preserve the full sample-data mockup. */
     .proj-cover--execution {
-      aspect-ratio: auto;
+      aspect-ratio: 16 / 10;
+      scroll-margin-top: calc(var(--nav) + var(--space-16));
       width: 100%;
       height: auto;
       max-height: min(70vh, 880px);
@@ -262,7 +263,10 @@
         </div>
       </div>
 
-      <img src="assets/execution-mockup-1600.avif" srcset="assets/execution-mockup-700.avif 700w, assets/execution-mockup-1600.avif 1600w" sizes="(max-width: 1100px) 92vw, 1200px" alt="My FX execution dashboard mockup with sample trading data." class="proj-cover proj-cover--execution rv" width="1600" height="1000" fetchpriority="high" decoding="async">
+      <video id="fx-walkthrough" class="proj-cover proj-cover--execution rv" width="1600" height="1000"
+        src="assets/fx-execution-walkthrough.webm" poster="assets/execution-mockup-1600.avif" preload="none" muted playsinline
+        aria-label="Simulated FX execution walkthrough showing filters, order comparison and the order ticket"></video>
+      <a class="walkthrough-toggle" href="assets/fx-execution-walkthrough.webm" data-walkthrough-for="fx-walkthrough">Play demo</a>
       <h1 class="proj-title-post rv" data-d="2">FX execution analytics</h1>
       <p class="proj-lead rv" data-d="3">I lead product design for FX and MarketsOne at Barclays. I built this separate mockup with sample data to show how I design for traders.</p>
 
@@ -407,5 +411,6 @@
     });
   </script>
   <script src="/assets/utility-menu.js"></script>
+<script src="assets/walkthrough.js" defer></script>
 </body>
 </html>
