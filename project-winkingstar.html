@@ -243,12 +243,13 @@
       padding: 0;
       box-sizing: border-box;
     }
-    .proj-cover--winkingstar > img {
+    .proj-cover--winkingstar img {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: cover;
     }
+    .proj-cover--winkingstar picture { display:block; height:100%; }
     .native-screens {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -266,10 +267,11 @@
       background: #F8F1E4 !important;
       filter: none;
     }
-    html[data-theme="dark"] .proj-cover--winkingstar > img {
+    html[data-theme="dark"] .proj-cover--winkingstar img {
       filter: none;
     }
     @media (max-width: 600px) {
+      .proj-cover.proj-cover--winkingstar { aspect-ratio:840 / 646; }
       .native-screens { grid-template-columns: 1fr; }
     }
   </style>
@@ -350,13 +352,11 @@
       </div>
 
       <!-- Cover: Figma-exported mockup asset. -->
-      <div class="proj-cover proj-cover--winkingstar rv" style="aspect-ratio:16/7;">
-        <img
-          src="assets/winkingstar-figma-hero.webp"
-          alt="Winking Star iOS app shown across four framed iPhone mockups."
-          width="1600" height="700"
-          decoding="async"
-        />
+      <div class="proj-cover proj-cover--winkingstar rv">
+        <picture>
+          <source media="(max-width:600px)" srcset="assets/winkingstar-cover-phone.webp" width="840" height="646">
+          <img src="assets/winkingstar-figma-hero.webp" alt="Winking Star’s family board and activity screens shown on iPhones." width="1600" height="700" decoding="async">
+        </picture>
         <div class="img-shield"></div>
       </div>
 
