@@ -200,3 +200,10 @@ body {
 @media (max-width: 760px) {
   .proj-page img.proj-cover { width:100%; height:auto; aspect-ratio:auto; object-fit:contain; }
 }
+
+.proj-build-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
