@@ -301,18 +301,18 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Project Overview</h3>
-          <div class="proj-body"><p><strong>The problem.</strong> Product teams were rebuilding the same components, creating visual drift, duplicated effort, and slower delivery. There was no shared source of truth for design or code.</p><p><strong>The goal.</strong> Build a <strong>scalable design system</strong> for enterprise products, from analytics dashboards to data management tools. It had to support data-dense interfaces without becoming a bottleneck.</p></div>
+          <h3 class="proj-about-h3">Overview</h3>
+          <div class="proj-body"><p>Fusion teams were rebuilding controls for dashboards and data management tools. Small differences accumulated between products, and each team had to maintain its own version.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">My Role</h3>
+          <h3 class="proj-about-h3">My role</h3>
           <div class="proj-body"><p>I built the <strong>Figma pattern library</strong> on Salt and owned the accessibility standards. I used Figma variants and shared tokens so a change to a control could reach the screens that used it. I reviewed those patterns with development and an accessibility specialist.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Design Process</h3>
-          <div class="proj-body"><p><strong>Requirements.</strong> I worked with the product owner, UX, development, and an ADA specialist to define the system goals and review patterns against real product needs.</p><p><strong>Component architecture.</strong> I built the system with <strong>design tokens, auto layout, and variants</strong> in Figma. The library covered headers, navigation, data grids, progress tracking, drawers, forms, date selectors, tabs, cards, and data visualisation patterns.</p><p><strong>Accessibility.</strong> Components were validated against <strong>WCAG 2.1 AA</strong> using Colour Contrast Analyser and axe DevTools.</p><p><strong>Developer handoff.</strong> I partnered with developers through the build, delivering dev-ready specs and documentation.</p></div>
+          <h3 class="proj-about-h3">Design process</h3>
+          <div class="proj-body"><p>I worked with product and engineering to test shared patterns against real screens. Each component page linked the Figma specifications to the code so both teams could review a change together.</p></div>
         </div>
 
         <figure class="rv">
@@ -321,22 +321,7 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Decisions</h3>
-          <div class="proj-body">
-            <p><strong>Decision 1. Extend Salt, not greenfield.</strong></p>
-            <p><em>Options considered:</em> extend Salt (JPM’s internal foundation), fork Salt and diverge, build a parallel custom foundation.</p>
-            <p><em>What I chose:</em> build Fusion as an extension of Salt, inheriting tokens and primitives while layering Fusion-specific enterprise data patterns on top.</p>
-            <p><em>Why:</em> Salt already had governance, accessibility tooling, and developer adoption inside J.P. Morgan. Extending it let Fusion focus on domain-specific data patterns, not re-solving button states.</p>
-
-            <p><strong>Decision 2. Both atoms and compounds, governed.</strong></p>
-            <p><em>Options considered:</em> atomic only (small, composable), compound only (large opinionated blocks), both layers.</p>
-            <p><em>What I chose:</em> both tiers with clear naming conventions separating them.</p>
-            <p><em>Why:</em> A pure atomic system asks every product to compose its own complex surfaces, which inevitably drifts. A pure compound library is rigid and unloved. Both tiers, with clear naming conventions, let the system govern the shared surfaces while staying out of the way on novel ones.</p>
-
-            <p><strong>Decision 3. Figma-first spec, code as implementation truth.</strong></p>
-            <p><em>Options considered:</em> Figma-first with code as output, code-first with Figma mirrored, dual source with tooling to sync.</p>
-            <p><em>What I chose:</em> Figma-first for visual and interaction spec; code repo as the source of truth for implementation; a spec column in each component page showing both.</p>
-            <p><em>Why:</em> Figma is where design review happens, so Figma-first kept design and review in one tool. Code is where runtime behaviour actually lives, so code-as-source for implementation avoided designer-engineer drift. Publishing both in the same component page meant a designer or engineer could start on either side and find the answer they needed.</p>
-          </div>
+          <div class="proj-body"><p>A data grid needs several controls to work together. I made both the complete grid pattern and its individual controls available in Figma so teams could choose the right starting point.</p></div>
         </div>
 
         <div class="proj-about-block rv">
@@ -346,24 +331,22 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Accessibility in practice</h3>
-          <div class="proj-body">
-            <p>WCAG 2.1 AA compliance is a claim that hiring managers rightly push on. Three checks ran against every component before it merged into the library.</p>
-          </div>
+          <div class="proj-body"><p>We kept the results of three checks with each component.</p></div>
           <ol class="proj-a11y-list" role="list" style="list-style:none;padding:0;margin:var(--space-24) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-24);">
             <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:var(--space-24);border-radius:0 8px 8px 0;">
               <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:var(--space-12);font-weight:600;">01 &middot; Automated</span>
-              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Colour contrast analysed against 4.5:1 and 3:1 thresholds with Colour Contrast Analyser. DOM structure validated with axe DevTools for landmarks, headings, ARIA roles, and focus-trap integrity.</p>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">I checked text and control contrast and used axe DevTools to review page structure.</p>
             </li>
             <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:var(--space-24);border-radius:0 8px 8px 0;">
               <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:var(--space-12);font-weight:600;">02 &middot; Keyboard only</span>
-              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Every interactive surface tested end-to-end without a mouse. Documented tab order, 2px focus outline token, reversible Escape and Cancel paths. Modal dialogs trap focus on open and return it to the trigger on close.</p>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">I checked tab order, visible focus and whether closing a dialog returned focus to its trigger.</p>
             </li>
             <li style="background:var(--c-panel);border-left:3px solid var(--c-ink);padding:var(--space-24);border-radius:0 8px 8px 0;">
               <span style="display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-light);margin-bottom:var(--space-12);font-weight:600;">03 &middot; Screen reader</span>
-              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">Components with non-trivial state (Progress Tracker, Data Grid sort and filter, Year/Week Picker) reviewed with VoiceOver and NVDA. Announcements written for clarity: "Column 3, sorted ascending, 47 results" instead of raw ARIA attributes.</p>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:var(--c-mid);">In VoiceOver and NVDA, I checked that sorting a grid announced the column, sort order and result count.</p>
             </li>
           </ol>
-          <p style="margin-top:var(--space-24);font-size:13px;color:var(--c-light);">Each check produced a per-component record. <a href="mailto:shannonheckerchen@gmail.com">Contact me</a> if you’d like to hear how I reviewed the components.</p>
+          <p style="margin-top:var(--space-24);font-size:13px;color:var(--c-light);"><a href="mailto:shannonheckerchen@gmail.com">Contact me</a> if you’d like to hear how I reviewed the components.</p>
         </div>
 
         <div class="proj-tags rv"><span class="proj-tags-list">Design System · Figma · Salt Design System · Design Tokens · Component Library · Accessibility (ADA/WCAG) · Enterprise UX · Cross-team Collaboration</span></div>

@@ -368,23 +368,23 @@
         <div class="proj-about-main">
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">From a brief to an editable screen</h3>
+          <h3 class="proj-about-h3">Overview</h3>
           <div class="proj-body"><p>A generated interface could look convincing in a review and still leave a developer guessing which components to use. I wanted to take one brief through to a working screen and inspect the choices along the way.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">My role</h3>
-          <div class="proj-body"><p>I own the design, implementation and visual identity. I use Figma to establish the component foundations and names, then try the controls at their actual sizes in code.</p></div>
+          <div class="proj-body"><p>I designed and built the product. I matched component names in Figma and code so a developer could trace a control back to its design.</p></div>
         </div>
 
         <div class="proj-about-block rv">
-          <h3 class="proj-about-h3">Giving the model a set of parts</h3>
-          <div class="proj-body"><p>I first tried letting the model generate a layout freely. Connecting its output to a maintained component library was the harder problem. In the Builder, Claude now composes from a catalogue of blocks and actions. I can edit an individual card after the first draft.</p></div>
+          <h3 class="proj-about-h3">Design process</h3>
+          <div class="proj-body"><p>I replaced free-form generation with a catalogue of blocks and actions. A designer can now start from a template or brief, edit one card and compare that same screen across libraries.</p></div>
         </div>
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Brand identity</h3>
-          <div class="proj-body"><p>The aurora colours and the uoaui mark carry across the product. They identify the tool around the canvas while the components inside the preview take on the design system being compared.</p></div>
+          <div class="proj-body"><p>I kept the aurora colours around the canvas so each library’s controls retain their own visual identity.</p></div>
           <div style="display:flex;gap:16px;margin:32px 0 0;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#49D0BE;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Teal Input</span></div>
             <div style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border-radius:50%;background:#8A58C9;display:block;"></span><span style="font-size:12px;color:var(--c-light);">Purple Compute</span></div>
@@ -399,7 +399,7 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">Comparing the same screen</h3>
-          <div class="proj-body"><p>I keep the underlying layout fixed when switching systems. A table that dominates the screen in one library makes a useful comparison: I can inspect its spacing, controls and density before editing the layout. Where a component mapping is missing, the renderer and React export use an explicit fallback.</p></div>
+          <div class="proj-body"><p>With the layout fixed, I can see how each library’s spacing changes the prominence of a table. Missing components use an explicit fallback in both the preview and React export.</p></div>
           <img class="proj-img-full rv" src="assets/uoaui03.webp" alt="uoaui Design Hub with component library and data visualisation" width="1200" height="720" loading="lazy" decoding="async" style="margin-top:var(--space-48);border-radius:12px;background:#000;aspect-ratio:1200/720;width:100%;height:auto;object-fit:contain;display:block;" />
         </div>
 
@@ -420,7 +420,7 @@
 
         <div class="proj-about-block rv">
           <h3 class="proj-about-h3">What a developer can inspect</h3>
-          <div class="proj-body"><p>In the public <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a>, a form brings name, email and department fields together with the submit and cancel actions. That gives a designer and a developer a concrete screen to discuss.</p><p>React export reads the current canvas and generates its files directly. The Figma SVG export measures the rendered result, so it needs a preview first. I kept the extra step with the format that requires it.</p></div>
+          <div class="proj-body"><p>In the public <a href="https://uoaui.ai/ui-kit?ds=salt">Salt UI Kit</a>, a form brings name, email and department fields together with the submit and cancel actions.</p><p>React export reads the canvas directly. Only the Figma SVG export needs a preview to measure the rendered layout.</p></div>
           <figure class="proj-media"><a href="assets/uoaui-public-salt-form.webp" aria-label="Open full-size image: A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions."><img class="proj-img-full" src="assets/uoaui-public-salt-form.webp" alt="A composed form in the public Salt UI Kit with name, email and department fields and submit and cancel actions." loading="lazy" decoding="async" /></a><figcaption class="proj-media-cap"><span class="proj-media-cap-text">The Salt UI Kit puts the fields and actions together so a designer can review spacing, grouping and emphasis in context.</span></figcaption></figure>
         </div>
 
