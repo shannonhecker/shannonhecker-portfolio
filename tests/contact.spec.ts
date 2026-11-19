@@ -6,6 +6,7 @@ import { test, expect } from '@playwright/test';
 const MAIL = 'mailto:shannonheckerchen@gmail.com';
 const PAGES = [
   { path: '/', type: 'home' },
+  { path: '/how-i-work', type: 'approach' },
   { path: '/fx', type: 'case' },
   { path: '/work', type: 'work index' },
   { path: '/work/tripup', type: 'earlier project' },
@@ -29,25 +30,11 @@ for (const p of PAGES) {
       await expect(mail).toContainText('Email me directly');
     });
 
-    test('the block sits above Live links and the nav Contact button targets it', async ({ page }) => {
+    test('the footer keeps contact and privacy controls without the Live links directory', async ({ page }) => {
       await page.goto(p.path);
-      const order = await page.evaluate(() => {
-        const c = document.querySelector('#contact')!;
-        const l = document.querySelector('#links .foot')!;
-        return !!(c.compareDocumentPosition(l) & Node.DOCUMENT_POSITION_FOLLOWING);
-      });
-      expect(order).toBe(true);
-      await expect(page.locator('.nav a[href="#contact"]')).toHaveAttribute('href', '#contact');
-    });
-
-    test('Live links has an Email row with the same mailto, and the address is not shown as text', async ({ page }) => {
-      await page.goto(p.path);
-      const row = page.locator('#links .links a[href^="mailto:"]');
-      await expect(row).toHaveCount(1);
-      await expect(row).toHaveAttribute('href', MAIL);
-      await expect(row).toContainText('Email');
-      const text = await page.locator('footer#links').innerText();
-      expect(text).not.toContain('gmail');
+      await expect(page.locator('.nav a[href="#contact"]')).toHaveCount(1);
+      await expect(page.locator('footer .links, footer .foot')).toHaveCount(0);
+      await expect(page.locator('footer a[href="/privacy"]')).toBeVisible();
     });
   });
 }
@@ -68,13 +55,7 @@ test('the title is no larger than the page heads', async ({ page }) => {
   expect(await size('#contact h2')).toBeLessThanOrEqual(await size('main h1'));
 });
 
-test('the footer statement sits clearly second under "Let’s Talk."', async ({ page }) => {
-  for (const [w, minRatio] of [[1440, 1.8], [390, 1.4]] as const) {
-    await page.setViewportSize({ width: w, height: 900 });
-    await page.goto('/about');
-    const size = (sel: string) => page.locator(sel).evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
-    const second = await size('#links .big h2');
-    expect(await size('#contact h2') / second, `at ${w}`).toBeGreaterThanOrEqual(minRatio);
-    if (w === 1440) { expect(second).toBeGreaterThanOrEqual(30); expect(second).toBeLessThanOrEqual(36); }
-  }
+test('contact is the only heading in the shared footer', async ({ page }) => {
+  await page.goto('/how-i-work');
+  await expect(page.locator('footer').getByRole('heading')).toHaveText(['Let’s Talk.']);
 });

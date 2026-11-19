@@ -8,26 +8,12 @@ import Logo from './Logo.astro';
       <h2 id="contact-title" tabindex="-1">Let’s Talk.</h2>
       <a class="foot-mail" href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email me directly <span><Icon name="mail" /></span></a>
     </section>
-    <div class="foot">
-      <div class="big">
-        <h2>Live links</h2>
-      </div>
-      <div class="links">
-        <a href="https://apps.apple.com/app/id6765767262" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star<span class="vh"> (opens in new tab)</span></span><span>App Store <Icon name="external" /></span></a>
-        <a href="https://winkingstar.com" target="_blank" rel="noopener" data-cursor="big"><span>Winking Star site<span class="vh"> (opens in new tab)</span></span><span>winkingstar.com <Icon name="external" /></span></a>
-        <a href="https://jpm-analytics-dashboard-shannon-h.vercel.app/" target="_blank" rel="noopener" data-cursor="big"><span>Fusion analytics, rebuild<span class="vh"> (opens in new tab)</span></span><span>Vercel <Icon name="external" /></span></a>
-        <a href="https://www.linkedin.com/in/shannonhecker/" target="_blank" rel="noopener" data-cursor="big"><span>LinkedIn<span class="vh"> (opens in new tab)</span></span><span>in/shannonhecker <Icon name="external" /></span></a>
-        <a href="mailto:shannonheckerchen@gmail.com" data-cursor="big"><span>Email</span><span><Icon name="mail" /></span></a>
-      </div>
-    </div>
-    <p class="copyright"><span class="sig"><Logo size={22} />Shannon Hecker · Product Designer · London</span><span><a href="https://uoaui.ai/" target="_blank" rel="noopener">uoaui.ai<span class="vh"> (opens in new tab)</span></a> · private alpha</span></p>
+    <p class="copyright"><span class="sig"><Logo size={22} />Shannon Hecker · Product Designer · London</span></p>
     <p class="copyright legal"><span class="legal-links"><a href="/privacy">Privacy</a><button type="button" data-analytics-settings>Analytics settings</button><button type="button" data-avatar-cursor-toggle hidden aria-pressed="true">Avatar cursor on</button></span><span id="analytics-status" role="status"></span></p>
   </div>
 </footer>
 
 <style>
-/* The footer's opening line: a ruled row, then the live links below it. The title is
-   set no larger than the page heads, so it reads as the start of the footer, not a second ending. */
 .foot-contact{display:flex;align-items:baseline;justify-content:space-between;gap:12px 48px;scroll-margin-top:96px;padding-bottom:clamp(32px,4vw,56px);margin-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--hair)}
 /* The serif is used here and on the chat heading. Its font file must not be fetched with the page's first
    requests, so the face is applied (by the script below) once the chat or the footer nears the window.
@@ -49,10 +35,9 @@ import Logo from './Logo.astro';
 @media(max-width:760px){.legal-links a,.legal-links button,.copyright a{min-height:44px;margin-block:-10px}}
 /* Room for the analytics notice while it is open (see AnalyticsConsent). */
 #links{padding-bottom:calc(var(--space-section) + var(--consent-h,0px))}
-/* Phones: the footer's link rows are 52px, not 68, and it ends 48px under its last line. */
+/* Keep the footer controls above the mobile analytics notice. */
 @media(max-width:760px){
   #links{padding-bottom:calc(48px + var(--consent-h,0px))}
-  #links .links a{padding-block:12px}
 }
 </style>
 

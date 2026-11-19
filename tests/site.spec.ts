@@ -114,7 +114,7 @@ test.describe('JavaScript disabled', () => {
   test('all content is readable', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    for (const id of ['work', 'how', 'links']) {
+    for (const id of ['work', 'ask', 'links']) {
       await page.locator(`#${id}`).scrollIntoViewIfNeeded();
       await expect(page.locator(`#${id} h2`).first()).toBeVisible();
     }
@@ -122,6 +122,9 @@ test.describe('JavaScript disabled', () => {
       [...document.querySelectorAll('.rv, .split .wd')].filter((el) => getComputedStyle(el).opacity !== '1').length,
     );
     expect(hidden).toBe(0);
+    await page.locator('.nav a[href="/how-i-work"]').click();
+    await expect(page.locator('h1')).toHaveText('How I work');
+    await expect(page.locator('.principles h3').first()).toBeVisible();
     // Product screens remain readable without a carousel or JavaScript.
     await page.goto('/winking-star');
     await expect(page.getByRole('heading', { name: 'Outcome', exact: true })).toBeVisible();

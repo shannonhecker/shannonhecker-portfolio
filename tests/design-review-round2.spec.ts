@@ -447,14 +447,15 @@ test.describe('round 3: earlier projects on phones', () => {
 });
 
 test.describe('round 3: footer, About, 404, nav, menu', () => {
-  test('S2: the footer rows are about 52px with 44px targets, and it ends 48px under its last line (plus the bar)', async ({ page }) => {
+  test('S2: the mobile footer controls have 44px targets and clear the analytics bar', async ({ page }) => {
     await visit(page, '/', 390, 844, { reduced: true });
     const m = await page.evaluate(() => {
-      const rows = [...document.querySelectorAll('#links .links a')].map((a) => a.getBoundingClientRect().height);
+      const rows = [...document.querySelectorAll('#links .legal-links :is(a,button):not([hidden])')].map((a) => a.getBoundingClientRect().height);
       const f = document.getElementById('links')!;
       return { rows, pad: parseFloat(getComputedStyle(f).paddingBottom) };
     });
-    for (const r of m.rows) { expect(r).toBeGreaterThanOrEqual(44); expect(r).toBeLessThanOrEqual(54); }
+    expect(m.rows.length).toBeGreaterThan(0);
+    for (const r of m.rows) expect(r).toBeGreaterThanOrEqual(44);
     expect(m.pad).toBe(48);
     await page.unrouteAll();
     await visit(page, '/', 390, 844, { asked: true, reduced: true });

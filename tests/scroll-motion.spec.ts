@@ -18,7 +18,7 @@ test('home hero text and scene have distinct reversible scroll depth',async({pag
  await page.evaluate(()=>window.scrollTo(0,220));await page.waitForTimeout(1000);
  expect(await y(word)).toBeCloseTo(down.word,0);
  await page.emulateMedia({reducedMotion:'reduce'});
- await expect.poll(()=>y(word)).toBe(0);expect(await y(copy)).toBe(0);expect(await y(scene)).toBe(0);
+ await expect.poll(()=>y(word)).toBe(0);expect(await y(copy)).toBe(0);await expect.poll(()=>y(scene)).toBe(0);
  await expect(page.locator('h1')).toHaveText('Shannon Hecker');
 });
 
@@ -36,8 +36,9 @@ test('scrolling keeps the featured artwork and caption inside their tile', async
 });
 
 test('section headings keep words aligned throughout their one-time entrance',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.goto('/');
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/how-i-work');
  const heading=page.locator('#how .split');
+ await page.evaluate(()=>window.scrollTo(0,120));
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*.8));
  await expect(heading).toHaveAttribute('data-scroll-motion','true');
  const aligned=await heading.evaluate(async el=>{
@@ -56,8 +57,9 @@ test('section headings keep words aligned throughout their one-time entrance',as
 
 test('touch scroll settles every heading without horizontal overflow',async({browser})=>{
  const context=await browser.newContext({baseURL:'http://localhost:4329',viewport:{width:390,height:844},isMobile:true,hasTouch:true});
- const page=await context.newPage();await page.goto('/');
+ const page=await context.newPage();await page.goto('/how-i-work');
  const heading=page.locator('#how .split');
+ await page.evaluate(()=>window.scrollTo(0,120));
  await heading.scrollIntoViewIfNeeded();
  await expect(heading).toHaveAttribute('data-scroll-motion','true');
  await heading.evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-180));

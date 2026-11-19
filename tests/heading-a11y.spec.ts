@@ -12,7 +12,7 @@ for (const path of PAGES) {
     await page.goto(path);
     const heads = page.locator('h1:has(.hero-word-window), :is(h2,h3).split');
     const n = await heads.count();
-    if (path === '/') expect(n).toBeGreaterThan(1); // the hero h1 and the "How I work" heading
+    if (path === '/') expect(n).toBeGreaterThan(0); // the hero h1
     for (let i = 0; i < n; i++) {
       const h = heads.nth(i);
       const visible = norm(await h.evaluate((el) => el.textContent || ''));

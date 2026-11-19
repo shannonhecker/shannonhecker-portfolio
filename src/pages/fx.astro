@@ -10,6 +10,12 @@ import Icon from '../components/Icon.astro';
       <h2 id="nda-heading">This work is under NDA.</h2>
       <p>I built this mockup with sample data for my portfolio. The Barclays interface is confidential. I’m happy to discuss my role <a href="mailto:shannonheckerchen@gmail.com">on a call</a>.</p>
     </aside>
+    <section class="fx-remit" aria-labelledby="fx-remit-title">
+      <h2 id="fx-remit-title">My role</h2>
+      <p>I lead product design for FX and MarketsOne at Barclays. For this portfolio I built a separate execution dashboard to show how I organise dense trading information.</p>
+      <h3>Reading the mockup</h3>
+      <p>Start with the price chart. The horizontal markers let you compare prices at a particular moment. Alongside it, one gauge shows the share of passive and aggressive fills. Another shows where the order traded. Keeping those views together lets you move from one point in time to the order as a whole.</p>
+    </section>
     <dl>
       <div><dt>Organisation</dt><dd>Barclays</dd></div>
       <div><dt>Period</dt><dd>2025 to now</dd></div>
@@ -21,6 +27,7 @@ import Icon from '../components/Icon.astro';
 .nda-cover{display:block;width:100%;height:auto;border-radius:var(--radius)}
 .nda-summary{max-width:1040px;margin:auto}
 aside{padding:clamp(20px,3vw,36px);border:1px solid var(--hair);border-radius:12px;background:var(--bg-2)}
+.fx-remit{margin-block:32px}.fx-remit h3{margin:24px 0 0;font:500 18px/1.4 var(--body)}
 .lock{display:grid;place-items:center;width:36px;height:36px;margin-bottom:16px;border-radius:8px;background:var(--fg);color:var(--bg)}
 h2,dd{font:500 clamp(18px,2vw,24px)/1.35 var(--body);letter-spacing:-.025em}
 h2,p,dd,dl{margin:0}

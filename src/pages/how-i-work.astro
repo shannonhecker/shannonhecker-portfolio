@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import HowIWork from '../components/HowIWork.astro';
+---
+<Base title="How I work · Shannon Hecker" description="How I test design decisions with people, from portfolio managers using Fusion to families using Winking Star.">
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav />
+  <main id="main"><HowIWork /></main>
+  <Footer />
+</Base>
+<script>
+  import '../scripts/motion.ts';
+</script>

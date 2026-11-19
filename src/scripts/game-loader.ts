@@ -44,8 +44,9 @@ function syncCompleted(){
  stageButtons.forEach(button=>{const n=Number(button.dataset.stage),complete=done.includes(n),locked=n===7&&!Array.from({length:7},(_,i)=>i).every(i=>done.includes(i));button.dataset.completed=String(complete);button.dataset.locked=String(locked);button.disabled=locked;button.setAttribute('aria-label',`${button.textContent?.trim()}${locked?', locked: complete all seven earlier stages':complete?', completed':''}`);});
 }
 const param = new URLSearchParams(location.search).get('level');
-const fromCase = param !== null;
-let chosen = Math.max(0, Math.min(ends.length - 1, (Number(param ?? '1') || 1) - 1));
+const chapter = Number(param);
+const fromCase = Number.isInteger(chapter) && chapter >= 1 && chapter <= ends.length;
+let chosen = fromCase ? chapter - 1 : 0;
 syncStage(chosen);
 
 type Mission = { text: string; have: number; need: number; done: boolean };
@@ -237,5 +238,24 @@ if (poster) {
 }
 // The title screen becomes actionable only after its handlers are attached.
 if (play) play.disabled = false;
+
+// A chapter link is already a request to play. Native fullscreen requires a
+// gesture in this document, so open the same in-page overlay used on iPhone.
+if (fromCase && location.hash === '#adventure' && box && root && canvas) {
+  setFull(true);
+  track('game_start');
+  // The navigation tap occurred on the previous page. Unlock audio with the
+  // first input in this document if the browser suspended it during loading.
+  const unlockAudio = () => {
+    box.removeEventListener('pointerdown', unlockAudio, true);
+    box.removeEventListener('keydown', unlockAudio, true);
+    if (soundOn) activateGameAudio();
+  };
+  box.addEventListener('pointerdown', unlockAudio, true);
+  box.addEventListener('keydown', unlockAudio, true);
+  void boot(chosen, false).then(() => {
+    if (full && root.dataset.state === 'poster') exitFull();
+  });
+}
 
 export {};

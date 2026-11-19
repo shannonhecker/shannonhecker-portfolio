@@ -1,5 +1,8 @@
 ---
+import Demo from '../components/Demo.astro';
 import CasePage from '../layouts/CasePage.astro';
 import FusionHero from '../components/FusionHero.astro';
 ---
-<CasePage title="Fusion analytics dashboard" href="/fusion"><FusionHero /></CasePage>
+<CasePage title="Fusion analytics dashboard" href="/fusion"><FusionHero />
+  <Demo slot="evidence" src="/media/fusion-current.webm" poster="live-fusion.png" width={1600} height={1000} label="Report discovery, Performance, its configuration panel and Sustainable Investment." description="In my public rebuild, watch how the configuration panel opens beside the Performance report. The figures stay visible while the analyst changes the view." />
+</CasePage>

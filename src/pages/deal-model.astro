@@ -1,7 +1,9 @@
 ---
+import FigmaUserFlow from '../components/dg/FigmaUserFlow.astro';
 import CasePage from '../layouts/CasePage.astro';
 import ProductCapture from '../components/ProductCapture.astro';
 ---
 <CasePage title="Deal Model" href="/deal-model">
   <ProductCapture name="/art/deal-hero-composition.svg" href="/art/deal-hero-composition.svg" alt="Original Deal Model composition with overlapping market pricing comparison and deal approval overview screens" label="Original Deal Model design composition" eager />
+  <FigmaUserFlow slot="evidence" project="deal" />
 </CasePage>

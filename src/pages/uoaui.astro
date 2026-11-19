@@ -1,7 +1,10 @@
 ---
+import Demo from '../components/Demo.astro';
 import CasePage from '../layouts/CasePage.astro';
 import ProductCapture from '../components/ProductCapture.astro';
 ---
 <CasePage title="uoaui.ai" href="/uoaui">
   <ProductCapture name="/art/ai-hero-builder-composition.svg" alt="The current authenticated uoaui builder showing the Salt Performance Analytics canvas, chat and component library" href="https://uoaui.ai/builder" eager label="uoaui.ai · Current builder · Private alpha" />
+
+  <Demo slot="evidence" src="/media/uoaui-current.mp4" poster="/media/uoaui-current-poster.webp" width={1280} height={800} label="The current uoaui walkthrough: choose a template, edit a card and present the screen across five systems." description="Silent recording. It picks a template, edits one card, then presents the same screen across the five design systems." />
 </CasePage>

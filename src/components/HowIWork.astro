@@ -3,8 +3,9 @@ import Split from './Split.astro';
 ---
 <section id="how" data-tone="light" class="band">
   <div class="wrap">
+    <h1>How I work</h1>
     <div class="g" style="row-gap:40px;margin-bottom:clamp(40px,5vw,72px)">
-      <p class="eyebrow" style="grid-column:1/4">About me</p>
+      <p class="eyebrow" style="grid-column:1/4">My approach</p>
       <Split as="h2" class="h-section" style="grid-column:4/12" text="I build what I design." />
     </div>
     <div class="principles">
@@ -16,6 +17,9 @@ import Split from './Split.astro';
 </section>
 
 <style>
+#how{padding-top:clamp(112px,12vw,172px)}
+#how h1{margin:0 0 clamp(40px,6vw,88px);font:500 clamp(52px,7vw,104px)/1.04 var(--display);letter-spacing:-.035em}
+@media(min-width:761px){.principles{grid-template-columns:repeat(2,minmax(0,1fr));max-width:68rem}.principle{grid-column:auto}}
 .writing-note{max-width:62ch;margin:clamp(28px,4vw,48px) 0 0;color:var(--fg-2);line-height:1.65;text-wrap:pretty}
 .writing-note a{color:var(--fg);text-underline-offset:3px}
 </style>
