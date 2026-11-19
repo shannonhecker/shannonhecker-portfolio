@@ -239,8 +239,21 @@
     }
     .compare-systems { display:flex; justify-content:space-between; }
     .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
-    .builder-steps { padding-inline-start:1.5em; list-style:decimal; }
-    .builder-steps li + li { margin-top:var(--space-12); }
+    .step-gallery { max-width:680px; }
+    .step-tabs:not([hidden]) {
+      display:flex; border-bottom:1px solid var(--c-rule); margin-bottom:var(--space-16);
+    }
+    .step-tabs button {
+      flex:1; min-height:44px; padding:6px 4px; background:transparent; color:var(--c-mid);
+      border:0; border-bottom:2px solid transparent; font:inherit; cursor:pointer;
+    }
+    .step-tabs [aria-selected="true"] { border-bottom-color:currentColor; color:var(--c-ink); font-weight:600; }
+    .step-panel { margin:0 0 var(--space-16); }
+    .step-panel:not([hidden]) { display:grid; grid-template-columns:1.35fr 1fr; align-items:center; gap:var(--space-24); }
+    .step-panel img { display:block; width:100%; height:auto; }
+    @media (max-width:600px) {
+      .step-panel:not([hidden]) { grid-template-columns:1fr; gap:var(--space-12); }
+    }
     .library-subtitle { margin-top:var(--space-32); }
     .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
     .report-comparison figure { margin:0; }
@@ -355,12 +368,30 @@
 
         <div class="proj-about-block rv" id="builder-workflow">
           <h3 class="proj-about-h3">How to use the builder</h3>
-          <ol class="proj-body builder-steps">
-            <li><strong>Start with a brief.</strong> Ask for a risk summary by fund, or choose a finance template to get a first layout.</li>
-            <li><strong>Edit one card.</strong> Select a card and describe the change. Drag in a table from the library or resize a chart with the keyboard.</li>
-            <li><strong>Compare the screen.</strong> Switch from Salt to uoaui, then try the phone view. Share the canvas so a colleague can review the same layout.</li>
-            <li><strong>Hand it over.</strong> Export a measured SVG to check spacing in Figma, or a Vite project that an engineer can run.</li>
-          </ol>
+          <div class="step-gallery">
+            <div class="step-tabs" role="tablist" aria-label="Builder steps" hidden>
+              <button type="button" role="tab" id="tab-brief" aria-controls="step-brief">Brief</button>
+              <button type="button" role="tab" id="tab-edit" aria-controls="step-edit">Edit</button>
+              <button type="button" role="tab" id="tab-compare" aria-controls="step-compare">Compare</button>
+              <button type="button" role="tab" id="tab-export" aria-controls="step-export">Export</button>
+            </div>
+            <figure class="step-panel" id="step-brief">
+              <img src="assets/uoaui-step-brief.webp" width="458" height="291" loading="lazy" decoding="async" alt="Analytics Dashboard and Settings Page templates, each with Use this and Customize actions.">
+              <figcaption class="proj-body"><strong>Start with a brief.</strong> Describe the screen you need, or choose “Use this” on the Analytics Dashboard template to get a first layout.</figcaption>
+            </figure>
+            <figure class="step-panel" id="step-edit">
+              <img src="assets/uoaui-step-edit.webp" width="405" height="284" loading="lazy" decoding="async" alt="The Portfolio report card is selected on the canvas. Its blue outline shows resize handles.">
+              <figcaption class="proj-body"><strong>Edit one card.</strong> Select the Portfolio report card to change its contents. The blue outline shows which card you’re editing.</figcaption>
+            </figure>
+            <figure class="step-panel" id="step-compare">
+              <img src="assets/uoaui-step-compare.webp" width="505" height="250" loading="lazy" decoding="async" alt="The presentation toolbar shows the five design systems, with Carbon selected.">
+              <figcaption class="proj-body"><strong>Compare the screen.</strong> In Present mode, choose another design system from the menu. Use the phone preview to review the same layout at a smaller size.</figcaption>
+            </figure>
+            <figure class="step-panel" id="step-export">
+              <img src="assets/uoaui-step-export.webp" width="940" height="554" loading="lazy" decoding="async" alt="The dashboard.tsx export imports React and Salt components. A second tab offers dashboard.html.">
+              <figcaption class="proj-body"><strong>Hand it over.</strong> Export the dashboard as React to see which Salt components it uses. For a spacing review in Figma, choose a measured SVG.</figcaption>
+            </figure>
+          </div>
           <p class="proj-body library-subtitle"><a class="proj-build-link" href="https://uoaui.ai/#workflow">Watch the builder walkthrough</a></p>
         </div>
 
@@ -559,6 +590,37 @@
     slider.addEventListener('input', updateSplit);
     updateSplit();
     slider.hidden = false;
+  })();
+</script>
+<script>
+  (() => {
+    const tablist = document.querySelector('.step-tabs');
+    const tabs = Array.from(tablist.querySelectorAll('button'));
+    function selectTab(active) {
+      for (const tab of tabs) {
+        const selected = tab === active;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+      }
+    }
+    for (const [index, tab] of tabs.entries()) {
+      const panel = document.getElementById(tab.getAttribute('aria-controls'));
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.tabIndex = 0;
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', event => {
+        const destinations = {ArrowRight:(index + 1) % tabs.length, ArrowLeft:(index + tabs.length - 1) % tabs.length, Home:0, End:tabs.length - 1};
+        if (!(event.key in destinations)) return;
+        event.preventDefault();
+        const next = tabs[destinations[event.key]];
+        selectTab(next);
+        next.focus();
+      });
+    }
+    selectTab(tabs[0]);
+    tablist.hidden = false;
   })();
 </script>
 <script src="assets/walkthrough.js" defer></script>
