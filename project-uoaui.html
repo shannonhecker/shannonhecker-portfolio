@@ -212,6 +212,7 @@
     .system-example { margin:var(--space-24) 0 0; }
     .system-example picture, .system-example img { display:block; }
     .system-example img { width:100%; height:auto; border-radius:8px; }
+    .system-example .allocation-chart { border-radius:0; }
     .system-example figcaption { margin-top:var(--space-8); color:var(--c-mid); }
     .library-subtitle { margin-top:var(--space-32); }
     .report-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-24); margin-top:var(--space-24); }
@@ -399,7 +400,7 @@
               <figcaption class="proj-media-cap-text">Comparing risk and return</figcaption>
             </figure>
             <figure class="system-example">
-              <img src="assets/uoaui-chart-allocation.webp" width="916" height="800" loading="lazy" decoding="async" alt="Portfolio allocation doughnut with direct labels for equities, bonds, alternatives and cash. Equities form the largest share.">
+              <img class="allocation-chart" src="assets/uoaui-portfolio-allocation.svg" width="458" height="400" loading="lazy" decoding="async" alt="Portfolio allocation: equities 55%, bonds 25%, alternatives 12%, cash 8%.">
               <figcaption class="proj-media-cap-text">Reading the portfolio mix</figcaption>
             </figure>
           </div>

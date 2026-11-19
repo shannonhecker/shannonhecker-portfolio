@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 458 400" role="img" aria-labelledby="title description">
+  <title id="title">Portfolio Allocation</title>
+  <desc id="description">Equities 55%, bonds 25%, alternatives 12%, cash 8%.</desc>
+  <defs>
+    <linearGradient id="surface" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#192935"/>
+      <stop offset="1" stop-color="#281c40"/>
+    </linearGradient>
+    <mask id="separators" maskUnits="userSpaceOnUse" x="0" y="0" width="458" height="400">
+      <rect width="458" height="400" fill="white"/>
+      <!-- Cut a two-CSS-pixel channel at each boundary, at any rendered size. -->
+      <path d="M220 135V83 M195.28 291.08L179.21 340.54 M143.92 190.28L94.46 174.21 M181.46 144.9L156.41 99.33"
+            fill="none" stroke="black" stroke-width="2" stroke-linecap="square" vector-effect="non-scaling-stroke"/>
+    </mask>
+  </defs>
+  <rect width="458" height="400" fill="url(#surface)"/>
+  <g mask="url(#separators)">
+    <path fill="#9575f0" d="M220 83A132 132 0 1 1 179.21 340.54L195.28 291.08A80 80 0 1 0 220 135Z"/>
+    <path fill="#f46a9b" d="M179.21 340.54A132 132 0 0 1 94.46 174.21L143.92 190.28A80 80 0 0 0 195.28 291.08Z"/>
+    <path fill="#27aeef" d="M94.46 174.21A132 132 0 0 1 156.41 99.33L181.46 144.9A80 80 0 0 0 143.92 190.28Z"/>
+    <path fill="#87bc45" d="M156.41 99.33A132 132 0 0 1 220 83L220 135A80 80 0 0 0 181.46 144.9Z"/>
+  </g>
+  <g fill="none">
+    <path stroke="#9575f0" d="M350.37 235.65L376 240H386"/>
+    <path stroke="#f46a9b" d="M102.39 274.93L74 290H65"/>
+    <path stroke="#27aeef" d="M118.29 130.86L93 109H83"/>
+    <path stroke="#87bc45" d="M187.17 87.15L180 61H172"/>
+  </g>
+  <g fill="#e8eaed" font-family="Arial, sans-serif">
+    <text x="229" y="24" text-anchor="middle" font-size="15" font-weight="600">Portfolio Allocation</text>
+    <g font-size="13">
+      <text x="392" y="244">Equities</text>
+      <g text-anchor="end">
+        <text x="59" y="294">Bonds</text>
+        <text x="78" y="113">Alternatives</text>
+        <text x="166" y="65">Cash</text>
+      </g>
+    </g>
+  </g>
+</svg>
