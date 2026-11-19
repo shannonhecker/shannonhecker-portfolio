@@ -204,6 +204,17 @@ body {
     radial-gradient(ellipse 55% 50% at 50% 52%, var(--nda-glow-pale) 0%, transparent 52%);
 }
 
+/* Use the same outer frame for project artwork in every media format. */
+.proj-page {
+  --project-media-radius: 8px;
+}
+.proj-page .wrap :where(img:not(.brand-wordmark img), video, figure > svg[role="img"], .proj-cover, .proj-media-frame, .brand-wordmark) {
+  border-radius: var(--project-media-radius);
+}
+.proj-page .wrap :where(div.proj-cover, .proj-media-frame, figure > svg[role="img"]) {
+  overflow: hidden;
+}
+
 /* Phone layouts use the source proportions of project artwork. */
 .proj-page .img-shield { pointer-events:none; }
 @media (max-width: 760px) {
