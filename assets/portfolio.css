@@ -138,7 +138,16 @@
     .proj-nav-link svg { flex-shrink:0;width:20px;height:20px;transition:transform var(--tb) var(--spring); }
     .proj-nav-item--prev .proj-nav-link:hover svg { transform:translateX(-3px); }
     .proj-nav-item--next .proj-nav-link:hover svg { transform:translateX(3px); }
-    @media(max-width:600px){ .proj-nav-link{font-size:16px;} }
+    @media (max-width: 600px) {
+      .proj-nav {
+        flex-wrap: wrap;
+        gap: var(--space-24) var(--space-16);
+      }
+      .proj-nav-item {
+        flex: 0 0 auto;
+        max-width: 100%;
+      }
+    }
     @media(max-width:900px){.nav-links,.nav-cta,.nav-right{display:none;}.nav-burger{display:flex;margin-left:auto;}}
 
 /* Global typography rendering — kerning + ligatures + optimized legibility */

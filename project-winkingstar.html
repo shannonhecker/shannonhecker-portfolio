@@ -220,6 +220,9 @@
       .proj-meta-item:nth-child(4){grid-column:1;grid-row:3;}
       .proj-meta-item:nth-child(5){grid-column:2;grid-row:3;}
     }
+    @media (max-width: 520px) {
+      .proj-meta-item:nth-child(n+4) { grid-column:1 / -1; grid-row:auto; }
+    }
     /* Difference-blend circle cursor */
     #img-cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:70px;height:70px;border-radius:50%;background:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .25s ease,transform .4s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
     #img-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1);}
