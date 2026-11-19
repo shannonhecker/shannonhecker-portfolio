@@ -68,10 +68,8 @@ test('project arrows sit beside the title and appear on hover and focus',async({
   await page.goto('/');
   for(const row of await page.locator('#work .row').all()){
     await page.locator('.nav .brand').focus();
-    const number=(await row.locator('.n').boundingBox())!;
     await expect(row.locator('.pixel-object')).toHaveCount(0);
-    const title=(await row.locator('h3').boundingBox())!;
-    expect(Math.abs(number.y+number.height/2-title.y-title.height/2)).toBeLessThan(1);
+    await expect(row.locator('h3')).toBeVisible();
     await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','0');
     await row.hover();
     await expect(row.locator('h3 .arrow')).toHaveCSS('opacity','1');

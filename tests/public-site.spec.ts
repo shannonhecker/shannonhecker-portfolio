@@ -30,7 +30,7 @@ test('local preview does not apply legacy redirects', async ({ request }) => {
 
 test('hero has no panel line', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/I design tools\s*where mistakes\s*cost money\./);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Shannon Hecker');
   expect(await page.locator('body').innerText()).not.toContain('Revolut');
 });
 

@@ -17,34 +17,6 @@
 .earlier-eyebrow a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none}
 .earlier-eyebrow a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
 
-/* Head: title, then the lead beside the facts. */
-.earlier-head{display:grid;gap:clamp(12px,1.6vw,20px)}
-.earlier h1{font-size:clamp(44px,4.8vw,72px);line-height:1.08;letter-spacing:-.035em;max-width:20ch;text-wrap:balance}
-.earlier-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:32px;align-items:start;margin-top:clamp(0px,.6vw,8px)}
-.earlier-lead{grid-column:1/6;font-size:clamp(18px,1.7vw,24px);line-height:1.55;max-width:40ch;text-wrap:pretty}
-.earlier-contribution{margin-top:12px;font:400 16px/1.6 var(--body);color:var(--fg-2)}
-.earlier-facts{grid-column:6/13;margin:0;border-bottom:1px solid var(--hair)}
-.earlier-facts>div{display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,1.6fr);gap:16px;padding:10px 0;border-top:1px solid var(--hair)}
-.earlier-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
-.earlier-facts dd{margin:0;font-size:16px;line-height:1.6;text-wrap:pretty}
-/* Wide screens: the facts are label-over-value pairs that wrap and fill the row (each takes at least 260px, 180px from 1280px,
-   and the rest is shared, so three facts fill three cells and four fill four, never leaving a cell empty),
-   and the Tags row spans the full width. From 1280px the lead gives up a column so the facts get more room. */
-@media(min-width:1100px){
-  .earlier h1{font-size:clamp(40px,4.4vw,64px);max-width:none}
-  .earlier-eyebrow a{min-height:28px}
-  .earlier-head{gap:clamp(8px,.9vw,12px)}
-  .earlier-intro{row-gap:0;margin-top:0}
-  .earlier-facts{display:flex;flex-wrap:wrap;column-gap:var(--g)}
-  .earlier-facts>div{flex:1 1 260px;min-width:0;grid-template-columns:minmax(0,1fr);gap:0;align-content:start;padding:6px 0 8px}
-  .earlier-facts dt{font-size:13px;line-height:1.5}
-}
-@media(min-width:1280px){
-  .earlier-lead{grid-column:1/5;font-size:clamp(19px,1.5vw,22px);line-height:1.5}
-  .earlier-facts{grid-column:5/13}
-  .earlier-facts>div{flex-basis:180px}
-}
-
 /* Figures and the cover share one build: a stage (the frame), a pan (the scroller that only
    scrolls on a phone) and the picture. A picture is never cropped and never shown wider than its
    own pixels. A slide on a white ground (the front matter's `matte` list) sits on a deliberate
@@ -82,16 +54,17 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 @media(prefers-reduced-motion:reduce){.earlier-fig-open{transition:none}}
 
 /* Cover: straight after the head, so it starts at about y=440 or higher at 1440x900. */
-.earlier-cover{margin-top:clamp(24px,1.7vw,28px);max-width:none}
+.earlier-cover{margin:0;max-width:none}
 .earlier-cover .earlier-pan picture{max-width:var(--w);background:var(--cover-preview) center / contain no-repeat}
 
 /* Outcomes: figures first, each with its label. A value that is a word or a short phrase is set large
    too, so the row keeps its weight; a numeral is larger still. */
-.earlier-results{margin-top:clamp(40px,5vw,72px)}
-.earlier .earlier-label{margin:0 0 16px;font-family:var(--body);font-size:14px;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--fg-2)}
+
+
+.earlier-results{container-type:inline-size}
 .earlier-outcomes{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));column-gap:clamp(24px,3vw,48px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .earlier-outcomes li{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px;padding-block:clamp(28px,3vw,40px)}
-.earlier-outcomes .value{align-self:end;font-family:var(--display);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.12;letter-spacing:-.03em;overflow-wrap:anywhere;text-wrap:balance}
+.earlier-outcomes .value{align-self:end;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.55cqi,36px);line-height:1.12;letter-spacing:-.03em;overflow-wrap:anywhere;text-wrap:balance}
 .earlier-outcomes .value.figure{font-size:clamp(48px,5.6vw,88px);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 /* A hyphenated word (end-to-end) stays whole; the rest of the line balances around it. */
 .earlier-outcomes .label{font-size:15px;line-height:1.55;color:var(--fg-2);max-width:32ch;text-wrap:balance}
@@ -159,9 +132,6 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
 @media(prefers-reduced-motion:reduce){.earlier-next .row{transition:none}}
 
 @media(max-width:900px){
-  .earlier-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
-  .earlier-lead,.earlier-facts{grid-column:1}
-  .earlier-results{margin-top:clamp(40px,8vw,72px)}
   /* Two columns, so the next thing is never a screen and a half away. There is no column gap, so each rule
      is one unbroken line; every cell pads its own inner edge by 10px (20px between the columns). The
      rows still share their value line and label line (subgrid), and an odd last item runs across. */
@@ -190,9 +160,6 @@ html:not([data-theme=dark]) .earlier-fig.is-matte .earlier-stage::after{box-shad
   .earlier-fig.is-wide .earlier-pan picture{width:min(var(--pan),var(--w));max-width:none}
   .earlier-fig-open{min-height:44px}
   /* A tighter head, so the cover shows in the first screen. */
-  .earlier-lead{font-size:17px;line-height:1.5}
-  .earlier-intro{row-gap:24px}
-  .earlier-facts>div{grid-template-columns:minmax(0,.32fr) minmax(0,.68fr);gap:12px;padding:8px 0}
 }
 @media(max-width:760px){
   .earlier-next .row{grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}

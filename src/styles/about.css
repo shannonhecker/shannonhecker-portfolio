@@ -1,19 +1,11 @@
-/* About (src/pages/about.astro). Same language as the case, Work and Writing pages:
-   the page tokens, one grotesk, hairlines, air. No serif, no shadows, no gradients.
-   Every selector hangs off .about-page so nothing reaches other pages.
-
-   Structure: the head is the Work and Writing head (a very large title, a small line
-   at its foot, a hairline). The intro is a portrait beside the opening. Every section
-   after it uses the essays' column structure: a label column of three of twelve columns
-   (sized as (100% + g) / 4 so it ends where column 3 of the head grid ends), then the
-   text. The close mirrors the head: a very large line, the way in at its foot. */
+/* About combines the original approach hero and career timeline with the current profile. */
 .about-page{--g:clamp(16px,2vw,32px);--rule:28px;--measure:54ch;--lead:calc((100% - 2 * var(--g)) / 3);--rail:var(--g);--jpad:clamp(32px,4vw,56px);--section-gap:clamp(76px,8vw,120px);padding-top:clamp(112px,10vw,160px)}
 .about-page .wrap{max-width:1440px}
 
 /* ------------------------------------------------------------------ head */
 .about-head .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end;padding-bottom:clamp(32px,4vw,56px)}
-.about-page h1{grid-column:1/10;margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(min(88px,20vw),15vw,224px);line-height:.86;letter-spacing:var(--track-head)}
-.about-meta{grid-column:10/13;margin:0;font:14px/1.6 var(--body);color:var(--fg-2);text-wrap:balance;text-align:right}
+.about-page h1{grid-column:1/10;margin:0;font-family:var(--display,var(--body));font-weight:600;font-size:clamp(40px,6vw,80px);line-height:.9;letter-spacing:var(--track-head)}
+.about-meta{grid-column:10/13;margin:0;font:14px/1.6 var(--body);color:var(--fg-2);text-wrap:balance;text-align:left}
 .about-head .about-meta{padding-bottom:clamp(6px,1vw,14px)}
 
 /* ------------------------------------------------------------------ intro */
@@ -137,3 +129,16 @@
   .about-facts dt{font-size:clamp(40px,11vw,56px);line-height:1;letter-spacing:-.04em}
   .about-facts dd{font-size:14px;max-width:none}
 }
+
+/* The original About hero keeps its approach in the same uninterrupted wave field. */
+.about-head .wrap{display:block;padding-bottom:clamp(40px,6vw,80px)}
+.about-head h1{margin-bottom:clamp(44px,6vw,88px)}
+.about-approach{max-width:720px}
+.about-approach h2,.about-experience .about-label h2,.about-expertise .about-label h2{margin:0 0 24px;font:500 clamp(26px,3vw,40px)/1.15 var(--display);letter-spacing:-.035em}
+.about-head .about-meta{padding:0;margin:0 0 24px;max-width:24ch;color:var(--fg);font:600 clamp(28px,3.2vw,40px)/1.12 var(--body);letter-spacing:-.03em;text-wrap:balance}
+.about-approach .about-prose{max-width:65ch}
+.about-experience .wrap,.about-expertise .wrap{display:block}
+.about-experience .about-label,.about-expertise .about-label{border:0;padding:0}
+.about-expertise .about-list{display:flex;flex-wrap:wrap;gap:10px}
+.about-expertise .about-list>li{padding:8px 16px;border:1px solid var(--hair);border-radius:2em;background:var(--bg-2);font-size:15px;line-height:1.4}
+.about-intro{padding-top:var(--section-gap)}

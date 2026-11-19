@@ -84,6 +84,12 @@ test('wave field is one still picture until the visitor does something, then it 
   expect((await frames(page))[0]).not.toEqual(a[0]);
 });
 
+test('the homepage hero begins moving without visitor input', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await expect(page.locator('.wave-field[data-variant="hero"]')).toHaveClass(/is-moving/);
+});
+
 test('wave field does not cover or block the content', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

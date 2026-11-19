@@ -20,6 +20,10 @@ interface Props {
 const { variant, avoid } = Astro.props;
 ---
 <div class="wave-field" data-variant={variant} data-avoid={avoid} aria-hidden="true">
+  {variant === 'hero' && <svg class="wave-field__still" viewBox="0 0 800 600" preserveAspectRatio="none" aria-hidden="true">
+    <defs><path id="hero-wave-strand" d="M-100 0 C60 -95 130 95 280 8 S500 -104 630 -9 S800 58 900 -16" /></defs>
+    {Array.from({ length: 42 }, (_, i) => <use href="#hero-wave-strand" transform={`translate(${Math.sin(i * .15) * 46} ${i * 14 + 8})`} />)}
+  </svg>}
   <div class="wave-field__stage">
     <div class="wave-field__glow"><span></span><span></span><span></span><span></span></div>
     <canvas class="wave-field__canvas"></canvas>

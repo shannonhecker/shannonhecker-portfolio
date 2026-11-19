@@ -19,28 +19,20 @@ const entries = await writingEntries();
     <header class="writing-head has-wave-field">
       <WaveField variant="writing" />
       <div class="wrap">
-        <h1>Writing</h1>
-        <p class="writing-meta">{entries.length} essays</p>
+        <p class="writing-meta">Writing</p>
+        <h1>{intro.title}</h1>
+        <p class="writing-dek">{intro.dek}</p>
       </div>
     </header>
 
-    <div class="writing-intro">
+    <section class="writing-listing" aria-label="Essays">
       <div class="wrap">
-        <p class="writing-statement">{intro.title}</p>
-        <p class="writing-dek">{intro.dek}</p>
-      </div>
-    </div>
-
-    <section class="writing-listing" aria-labelledby="essays-title">
-      <div class="wrap">
-        <h2 id="essays-title" class="vh">Essays</h2>
         <ol class="writing-list">
           {entries.map((e) => (
             <li>
               <a href={`/writing/${e.id}`} data-cursor="big">
-                <time class="date" datetime={isoDate(e.data.published)}>{displayDate(e.data.published)}</time>
-                <h3 class="title">{e.data.title}.</h3>
-                <span class="read-time">{bodyStats(e).minutes} min</span>
+                <h2 class="title">{e.data.title}.</h2>
+                <span class="writing-row-meta"><time class="date" datetime={isoDate(e.data.published)}>{displayDate(e.data.published)}</time> <span aria-hidden="true">·</span> <span class="read-time">{bodyStats(e).minutes} min</span></span>
                 <p class="blurb">{e.data.blurb}</p>
                 <span class="read">Read essay <Icon name="arrow-right" class="arrow" /></span>
               </a>

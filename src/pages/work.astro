@@ -1,174 +1,39 @@
 ---
-import Icon from '../components/Icon.astro';
-// The index of everything: the five cases, then the ten earlier projects.
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import WaveField from '../components/WaveField.astro';
 import CaseRowLink from '../components/CaseRowLink.astro';
+import Icon from '../components/Icon.astro';
 import { projectOverviews } from '../lib/project-overviews';
 import { CASES } from '../lib/cases';
-import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import { earlierProjects } from '../lib/earlier';
-
+import '../styles/project-gallery.css';
 const earlier = await earlierProjects();
-// A cover that is a slide on a white ground (the front matter's `matte` list) sits on a white
-// stage in its row on a phone, as it does on its own page.
-const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/earlier/**/*.webp', { eager: true });
-const nameOf = (meta: ImageMetadata) => Object.entries(assets).find(([, m]) => m.default.src === meta.src)?.[0].split('/').pop()!.replace(/\.webp$/, '') ?? '';
 ---
-<Base title="Work · Shannon Hecker" description="Fifteen projects by Shannon Hecker: five selected cases in trading, analytics, deal pricing and products I built myself, then ten earlier projects.">
+<Base title="Work · Shannon Hecker" description="Fifteen projects across trading, analytics, design systems and independent products by Shannon Hecker.">
   <a class="skip" href="#main">Skip to content</a>
   <Nav />
   <main id="main" class="work-index">
     <header class="work-head has-wave-field">
       <WaveField variant="work" />
       <div class="wrap">
-        <h1 id="selected-title">Selected work</h1>
-        <p class="work-meta">{CASES.length} of {CASES.length + earlier.length} projects</p>
+        <h1>All work</h1>
+        <p class="work-meta">{CASES.length + earlier.length} projects</p>
       </div>
     </header>
-
-    <section id="work" class="band work-selected" data-tone="light" aria-labelledby="selected-title">
-      <div class="wrap">
-        <div class="index">
-          {CASES.map((c) => <CaseRowLink c={c} homeArtwork heading="h2" priority={c === CASES[0]} description={projectOverviews[c.href].card} />)}
-        </div>
+    <div class="wrap" id="work">
+      <div class="index project-gallery all-gallery">
+        {CASES.map((c, index) => <CaseRowLink c={c} homeArtwork heading="h2" priority={index===0} description={projectOverviews[c.href].card} />)}
+        {earlier.map((project, index) => (
+          <a class="archive-card" id={index===0?'earlier-title':undefined} href={`/work/${project.id}`} data-cursor="big">
+            <Picture src={project.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[360,720,1080]} sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 31vw" quality={75} loading="lazy" decoding="async" />
+            <h2 class="project-title">{project.data.title}<Icon name="arrow-right" class="arrow" /></h2>
+          </a>
+        ))}
       </div>
-    </section>
-
-    <section class="band work-earlier" aria-labelledby="earlier-title">
-      <div class="wrap">
-        <div class="work-earlier-head">
-          <h2 id="earlier-title">Earlier work</h2>
-          <p class="work-meta">{earlier.length} projects</p>
-        </div>
-        <ul class="earlier-list">
-          {earlier.map((p) => (
-            <li>
-              <a href={`/work/${p.id}`} data-cursor="big">
-                <h3>{p.data.title}<Icon name="arrow-right" class="arrow" /></h3>
-                <p class="summary">{p.data.summary}</p>
-                <span class="dates">{p.data.dates}</span>
-                <span class:list={['row-cover', { 'is-matte': p.data.matte.includes(nameOf(p.data.cover)) }]} aria-hidden="true">
-                  <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[360, 720, 1080]} sizes="(max-width: 760px) calc(100vw - 32px)" quality={75} loading="lazy" decoding="async" />
-                </span>
-              </a>
-              <span class="row-preview" aria-hidden="true">
-                <Picture src={p.data.cover} alt="" formats={['avif']} fallbackFormat="webp" widths={[280, 560]} sizes="280px" quality={75} loading="lazy" decoding="async" />
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    </div>
   </main>
   <Footer />
 </Base>
-
-<style is:global>
-.work-index{padding-top:clamp(112px,10vw,160px)}
-.work-index .wrap{max-width:1440px}
-
-/* Head: a very large title with its count at the foot, then a hairline. */
-.work-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(16px,2vw,32px)}
-.work-index h1{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(38px,8.3vw,128px);line-height:.86;letter-spacing:var(--track-head)}
-.work-meta{margin:0;font:14px/1.6 var(--body);color:var(--fg-2)}
-.work-head .work-meta{padding-bottom:clamp(6px,1vw,14px)}
-
-/* Selected: two large tiles, then three, so no row is left with a hole.
-   Tablet widths (761 to 900): the first tile runs full width, then two pairs. Phone: one column. */
-.work-index .work-selected{padding-top:clamp(20px,3vw,48px);padding-bottom:0}
-.work-index #work .index{grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(48px,5vw,80px) clamp(24px,3vw,48px)}
-.work-index #work .index>.row{grid-column:span 2}
-.work-index #work .index>.row:nth-child(-n+2){grid-column:span 3}
-/* The number, the title and the arrow share a first baseline, so "05" sits level with the
-   first line of a two-line title instead of floating to the middle of it. */
-.work-index #work .row .n,.work-index #work .row :is(h2,h3),.work-index #work .row .arrow{align-self:baseline}
-/* Tiles in a row share their tracks (picture, title, description), so when one title wraps to two lines the
-   descriptions still start on one line. Each tile keeps its own 16px between its three tracks. */
-@media(min-width:761px){
-  .work-index #work .index{row-gap:16px}
-  .work-index #work .index>.row{grid-row:span 3;grid-template-rows:subgrid;row-gap:16px;margin-bottom:calc(clamp(48px,5vw,80px) - 16px)}
-  .work-index #work .index>.row .meta{align-self:start}
-}
-/* The artwork is a product composition: it is never cropped, whatever the tile. */
-.work-index #work .home-artwork.exact-composition{content-visibility:visible}
-@media(max-width:1100px) and (min-width:901px){
-  .work-index #work .row :is(h2,h3){font-size:clamp(22px,2.4vw,26px)}
-}
-@media(max-width:900px) and (min-width:761px){
-  .work-index #work .index{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .work-index #work .index>.row,.work-index #work .index>.row:nth-child(-n+2){grid-column:span 1}
-  .work-index #work .index>.row:first-child{grid-column:1/-1}
-}
-@media(max-width:900px) and (min-width:761px){
-  .work-index #work .row :is(h2,h3){font-size:clamp(24px,3vw,30px)}
-}
-@media(max-width:760px){
-  .work-index #work .index{grid-template-columns:minmax(0,1fr)}
-  .work-index #work .index>.row,.work-index #work .index>.row:nth-child(-n+2){grid-column:auto}
-}
-
-/* The archive pairs its heading and count above the project list. */
-.work-index .work-earlier{padding-top:clamp(96px,12vw,192px);padding-bottom:clamp(72px,9vw,144px)}
-.work-earlier-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(32px,4vw,64px)}
-.work-earlier-head h2{scroll-margin-top:calc(var(--global-nav-height,78px) + 24px);margin:0;font:500 clamp(42px,4.8vw,80px)/1.05 var(--body);letter-spacing:-.045em}
-.earlier-list{border-top:1px solid var(--hair)}
-.earlier-list li{position:relative}
-.earlier-list a{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 7.5rem;gap:8px clamp(16px,3vw,48px);align-items:baseline;padding-block:clamp(22px,2.6vw,36px);border-bottom:1px solid var(--hair);text-decoration:none;transition:background-color .2s}
-.earlier-list h3{margin:0;font-size:clamp(20px,1.9vw,26px);font-weight:500;line-height:1.3;letter-spacing:-.025em}
-.earlier-list .arrow{display:inline-block;margin-left:.4em;opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
-.earlier-list a:hover .arrow,.earlier-list a:focus-visible .arrow{opacity:1;transform:none}
-.earlier-list .summary{margin:0;font-size:15px;line-height:1.7;color:var(--fg-2);max-width:60ch}
-.earlier-list .dates{font-size:14px;line-height:1.7;color:var(--fg-2);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-/* The same 3px ring in the same colour as the nav and the case rows (the site's --accent). */
-.earlier-list a:focus-visible{outline:3px solid var(--focus);outline-offset:-3px}
-.earlier-list .row-preview,.earlier-list .row-cover{display:none}
-@media(max-width:1100px){
-  .earlier-list a{grid-template-columns:minmax(0,1fr) 7.5rem;row-gap:10px}
-  .earlier-list .summary{grid-column:1;grid-row:2}
-  .earlier-list h3{grid-column:1}
-  .earlier-list .dates{grid-column:2;grid-row:1}
-}
-/* Wide screens: the row takes a quiet tint, and that project's cover appears at the right (280px, whole,
-   never cropped). It is out of the flow, so nothing moves. Until a row is hovered or focused the preview is
-   display:none, so its lazy image is not requested at all; the fade runs from @starting-style. */
-@media(min-width:1101px){
-  /* The row's tint and focus ring bleed 16px past the text on both sides, so neither sits flush against
-     the first letter or the last digit. The hairline is drawn inside that bleed, so it still lines up
-     with the list above it. */
-  .earlier-list a{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) 7.5rem;margin-inline:-16px;padding-inline:16px;border-bottom:0;border-radius:var(--radius)}
-  .earlier-list a::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--hair)}
-  .earlier-list a:hover,.earlier-list a:focus-visible{background:var(--bg-2)}
-  /* The summary stops short of the card, which sits left of the dates column at every width from here up. */
-  .earlier-list .summary{max-width:30ch}
-  .earlier-list .row-preview{position:absolute;z-index:2;right:calc(7.5rem + clamp(16px,3vw,48px));top:50%;width:clamp(200px,18vw,280px);margin-top:-3.25rem;pointer-events:none;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair);opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,display .2s allow-discrete}
-  .earlier-list .row-preview picture{display:block}
-  .earlier-list .row-preview img{display:block;width:100%;height:auto;object-fit:contain}
-  .earlier-list a:hover~.row-preview,.earlier-list a:focus-visible~.row-preview{display:block;opacity:1;transform:none}
-  @starting-style{.earlier-list a:hover~.row-preview,.earlier-list a:focus-visible~.row-preview{opacity:0;transform:translateY(8px)}}
-}
-@media(max-width:760px){
-  .work-head .wrap{flex-wrap:wrap;align-items:baseline;gap:6px 12px}
-  .work-head .work-meta{padding:0}
-  .work-earlier-head{flex-direction:column;align-items:flex-start;gap:12px}
-  .earlier-list a{grid-template-columns:minmax(0,1fr)}
-  .earlier-list .dates{grid-column:1;grid-row:2;text-align:left}
-  .earlier-list .summary{grid-row:3}
-  .earlier-list .arrow{display:none}
-  /* A phone has no hover, so each row carries its own project's cover: whole, never cropped, on a white
-     stage when it is a slide on a white ground. It sits inside the link, so it is part of the tap target. */
-  .earlier-list .row-cover{display:block;box-sizing:border-box;grid-column:1;grid-row:4;width:100%;margin-top:6px;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);box-shadow:0 0 0 1px var(--hair)}
-  .earlier-list .row-cover.is-matte{padding:8px;background:#fff}
-  .earlier-list .row-cover picture{display:block}
-  .earlier-list .row-cover img{display:block;width:100%;height:auto;object-fit:contain}
-}
-/* From 1400px the summary has room for a longer line before the card. */
-@media(min-width:1400px){.earlier-list .summary{max-width:38ch}}
-@media(prefers-reduced-motion:reduce){
-  .earlier-list .arrow,.earlier-list a{transition:none}
-  .earlier-list .row-preview{transform:none!important;transition:opacity .2s ease,display .2s allow-discrete}
-}
-</style>

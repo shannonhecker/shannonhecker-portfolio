@@ -13,13 +13,13 @@ const description = 'Product designer in London. Fifteen years in design, 10+ in
 type Job = { company: string; dates: string; current?: boolean; role?: string; roles?: { title: string; dates: string }[]; summary: string };
 // Newest first, as the old page listed them.
 const jobs: Job[] = [
-  { company: 'uoaui.ai', dates: '2026 to present', current: true, role: 'Designer + Builder', summary: 'I designed and built a visual web builder for designers. Its UI Kit and private-preview Builder support Salt, Material 3, Fluent 2, Carbon and the uoaui system.' },
+  { company: 'uoaui.ai', dates: '2026 to present', current: true, role: 'Designer + Builder', summary: 'I built a canvas for comparing design systems. The UI Kit is public and the builder is in private alpha.' },
   { company: 'Barclays, London', dates: 'Sep 2025 to present', current: true, role: 'Lead Product Designer', summary: 'I lead product design for FX and MarketsOne. This work is under NDA.' },
-  { company: 'J.P. Morgan, London', dates: 'Aug 2016 to Sep 2025', roles: [{ title: 'Digital Product Designer VP', dates: 'Feb 2023 to Sep 2025' }, { title: 'User Experience Designer', dates: 'Aug 2016 to Jan 2023' }], summary: 'I led UI for Fusion Analytics, defining components and accessibility patterns in Salt. Before Fusion, I led UI on Deal Model with two UX designers and teams across custody operations, sales, legal and product.' },
-  { company: 'Pegasus Global Travel, London', dates: '2015', role: 'Graphic Designer', summary: 'Designed the company website end to end, plus promotional assets and video content. Brought the brand into one system across channels.' },
-  { company: 'Genuine C&C Inc, Taiwan', dates: '2011 to 2015', role: 'Visual Designer & Web Developer', summary: 'Designed and maintained the B2B platform. Built the corporate website front-end. Led UI/UX direction for a client-facing network platform.' },
-  { company: 'Eastern Shine Production Co., Ltd.', dates: '2011', role: 'Website Designer, Graphic Designer', summary: 'Designed web platforms with a usability focus. Art-directed a government video project from concept to delivery.' },
-  { company: 'Reeborn Information Co., Ltd.', dates: '2008 to 2010', role: 'Website Designer', summary: 'Designed corporate visual identity and web platform interfaces. Produced digital content and product photography for e-commerce.' },
+  { company: 'J.P. Morgan, London', dates: 'Aug 2016 to Sep 2025', roles: [{ title: 'Digital Product Designer VP', dates: 'Feb 2023 to Sep 2025' }, { title: 'User Experience Designer', dates: 'Aug 2016 to Jan 2023' }], summary: 'I led UI for Deal Model, then Fusion Analytics, where I built dashboard components and accessibility patterns on Salt.' },
+  { company: 'Pegasus Global Travel, London', dates: '2015', role: 'Graphic Designer', summary: 'I designed the website and brought the company’s print, digital and video work into one identity.' },
+  { company: 'Genuine C&C Inc, Taiwan', dates: '2011 to 2015', role: 'Visual Designer & Web Developer', summary: 'I designed the B2B platform and built the corporate website.' },
+  { company: 'Eastern Shine Production Co., Ltd.', dates: '2011', role: 'Website Designer, Graphic Designer', summary: 'I designed websites and art-directed a government video project.' },
+  { company: 'Reeborn Information Co., Ltd.', dates: '2008 to 2010', role: 'Website Designer', summary: 'I designed brand identities and web interfaces, and photographed products for e-commerce.' },
 ];
 
 const expertise = [
@@ -59,57 +59,17 @@ const ld = {
       <WaveField variant="about" />
       <div class="wrap">
         <h1>About me</h1>
-        <p class="about-meta">Designing what traders and analysts use every day.</p>
+        <section class="about-approach" aria-labelledby="approach-title">
+          <h2 id="approach-title">My approach</h2>
+          <p class="about-meta">Designing what traders and analysts use every day.</p>
+          <p class="about-prose">I build what I design. I put early prototypes in front of the people who use them. Then I work through their feedback with product and engineering.</p>
+        </section>
       </div>
     </header>
 
-    <section class="about-intro" aria-labelledby="who-title">
-      <div class="wrap">
-        <figure class="about-photo" style={`--w:${photo.width}px`}>
-          <Picture src={photo} alt="Shannon Hecker in a gallery" formats={['webp']} fallbackFormat="webp" widths={[448, 640, 896]} sizes="(max-width: 900px) 100vw, 40vw" quality={90} loading="eager" decoding="async" />
-        </figure>
-        <div class="about-who">
-          <h2 id="who-title" class="about-kicker">Who I am</h2>
-          <p class="about-lede">I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.</p>
-          <ul class="about-links">
-            <li><a href="https://www.linkedin.com/in/shannonhecker" target="_blank" rel="noopener noreferrer" data-cursor="big">LinkedIn<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
-            <li><a href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email<Icon name="mail" /></a></li>
-            <li><a href="/assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer" data-cursor="big">Résumé<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
-          </ul>
-        </div>
-        <dl class="about-facts">
-          <div><dt>15 yrs</dt><dd>In design, ten of them in fintech</dd></div>
-          <div><dt>9 yrs</dt><dd>At J.P.&nbsp;Morgan, ending as Digital Product Designer VP</dd></div>
-          <div><dt>AA WCAG</dt><dd>The standard I design to</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <section class="about-section about-approach" aria-labelledby="approach-title">
-      <div class="wrap">
-        <div class="about-label"><h2 id="approach-title">My approach</h2></div>
-        <div class="about-content">
-          <p class="about-statement">I build what I design.</p>
-          <p class="about-prose">I put early prototypes in front of the people who use them. Then I work through their feedback with product and engineering.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-section about-now" aria-labelledby="now-title">
-      <div class="wrap">
-        <div class="about-label"><h2 id="now-title">Now</h2></div>
-        <dl class="about-content about-rows">
-          <div><dt>Shipping.</dt><dd>Design system at Barclays across FX and MarketsOne.</dd></div>
-          <div><dt>Reading.</dt><dd><em>Designing Machine Learning Systems</em> by Chip Huyen.</dd></div>
-          <div><dt>Writing.</dt><dd><a href="/writing/the-design-system-is-the-contract" data-cursor="big">The design system is the contract</a>.</dd></div>
-          <div><dt>Experimenting.</dt><dd>uoaui.ai in private alpha.</dd></div>
-        </dl>
-      </div>
-    </section>
-
     <section class="about-section about-experience" aria-labelledby="experience-title">
       <div class="wrap">
-        <div class="about-label"><h2 id="experience-title">Experience</h2><p class="about-kicker">Career</p></div>
+        <div class="about-label"><h2 id="experience-title">Experience</h2></div>
         <ol class="about-content about-jobs">
           {jobs.map((job) => (
             <li class="about-job">
@@ -133,10 +93,32 @@ const ld = {
 
     <section class="about-section about-expertise" aria-labelledby="expertise-title">
       <div class="wrap">
-        <div class="about-label"><h2 id="expertise-title">Expertise</h2><p class="about-kicker">Capabilities</p></div>
+        <div class="about-label"><h2 id="expertise-title">Expertise</h2></div>
         <ul class="about-content about-list about-list--two">
           {expertise.map((e) => <li>{e}</li>)}
         </ul>
+      </div>
+    </section>
+
+    <section class="about-intro" aria-labelledby="who-title">
+      <div class="wrap">
+        <figure class="about-photo" style={`--w:${photo.width}px`}>
+          <Picture src={photo} alt="Shannon Hecker in a gallery" formats={['webp']} fallbackFormat="webp" widths={[448, 640, 896]} sizes="(max-width: 900px) 100vw, 40vw" quality={90} loading="eager" decoding="async" />
+        </figure>
+        <div class="about-who">
+          <h2 id="who-title" class="about-kicker">Who I am</h2>
+          <p class="about-lede">I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays.</p>
+          <ul class="about-links">
+            <li><a href="https://www.linkedin.com/in/shannonhecker" target="_blank" rel="noopener noreferrer" data-cursor="big">LinkedIn<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
+            <li><a href="mailto:shannonheckerchen@gmail.com" data-cursor="big">Email<Icon name="mail" /></a></li>
+            <li><a href="/assets/CV_ShannonH.pdf" target="_blank" rel="noopener noreferrer" data-cursor="big">Résumé<Icon name="external" /><span class="vh"> (opens in new tab)</span></a></li>
+          </ul>
+        </div>
+        <dl class="about-facts">
+          <div><dt>15 yrs</dt><dd>In design, ten of them in fintech</dd></div>
+          <div><dt>9 yrs</dt><dd>At J.P.&nbsp;Morgan, ending as Digital Product Designer VP</dd></div>
+          <div><dt>AA WCAG</dt><dd>The standard I design to</dd></div>
+        </dl>
       </div>
     </section>
 
@@ -154,6 +136,18 @@ const ld = {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+
+    <section class="about-section about-now" aria-labelledby="now-title">
+      <div class="wrap">
+        <div class="about-label"><h2 id="now-title">Now</h2></div>
+        <dl class="about-content about-rows">
+          <div><dt>Shipping.</dt><dd>Design system at Barclays across FX and MarketsOne.</dd></div>
+          <div><dt>Reading.</dt><dd><em>Designing Machine Learning Systems</em> by Chip Huyen.</dd></div>
+          <div><dt>Writing.</dt><dd><a href="/writing/the-design-system-is-the-contract" data-cursor="big">The design system is the contract</a>.</dd></div>
+          <div><dt>Experimenting.</dt><dd>uoaui.ai in private alpha.</dd></div>
+        </dl>
       </div>
     </section>
 

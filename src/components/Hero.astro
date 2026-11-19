@@ -2,17 +2,25 @@
 import Icon from './Icon.astro';
 import LandingCompanion from './LandingCompanion.astro';
 import WaveField from './WaveField.astro';
-// Named by the whole sentence; the word windows are hidden from assistive tech.
-const heading = ['I', 'design', 'tools', 'where', 'mistakes', 'cost', 'money.'];
 ---
 <header id="top" data-tone="light" class="hero adventure-hero has-wave-field">
   <WaveField variant="hero" avoid=".landing-companion" />
   <div class="wrap">
     <div class="hero-story">
-      <h1 class="h-giant" aria-label={heading.join(' ')}>{heading.map((word, index) => <><span class="hero-word-window" aria-hidden="true"><span class="hero-word">{word}</span></span>{index < 6 ? ' ' : ''}</>)}</h1>
-      <p class="hero-top"><span class="hero-copy-depth">I’m Shannon Hecker, a product designer in London. I lead design for FX and MarketsOne at Barclays. I build what I design.</span></p>
+      <p class="hero-role"><span>Product designer</span><span>London</span><span>Barclays</span></p>
+      <h1 class="h-giant" aria-label="Shannon Hecker"><span class="hero-word-window" aria-hidden="true"><span class="hero-word">Shannon</span></span> <span class="hero-word-window" aria-hidden="true"><span class="hero-word">Hecker</span></span></h1>
+      <p class="hero-top"><span class="hero-copy-depth">I design the tools traders and analysts use every day.</span></p>
+      <p class="hero-descriptor">I lead design for FX and MarketsOne at Barclays. Before that, I spent nine years at J.P. Morgan.</p>
       <a class="explore-work" href="#work">Explore my work<Icon name="arrow-down" /></a>
     </div>
     <LandingCompanion />
   </div>
 </header>
+<style>
+.hero-role{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin:0 0 clamp(20px,3vw,40px);font-size:14px;line-height:1.3;color:var(--fg-2)}
+.hero-role span+span{border-left:1px solid var(--hair);padding-left:12px;margin-left:12px}
+#top .hero-story .h-giant{font:400 clamp(52px,10.8vw,160px)/.99 'Noto Serif Display',Georgia,serif;text-transform:uppercase;letter-spacing:-.04em;max-width:none;margin:0}
+#top .hero-word-window{display:block;width:fit-content}
+#top .hero-story .hero-top{margin:clamp(24px,3vw,48px) 0 0;padding-top:20px;border-top:1px solid var(--hair);max-width:30ch;font:400 clamp(20px,2.25vw,36px)/1.28 var(--body);letter-spacing:-.025em}
+.hero-descriptor{margin:12px 0 0;max-width:54ch;font:400 clamp(15px,1.15vw,18px)/1.55 var(--body);color:var(--fg-2)}
+</style>

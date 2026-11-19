@@ -13,6 +13,7 @@ import OptionalAdventure from './OptionalAdventure.astro';
 <Nav />
 <main id="main">
   <Hero />
+  <div id="now-building" class="wrap building-note"><span>Now building</span><a href="/uoaui">uoaui.ai</a><p>A design canvas for comparing component libraries. In private alpha.</p></div>
   <Work />
   <section id="adventure" class="band adventure-hero" aria-label="Optional career adventure"><div class="wrap"><OptionalAdventure /></div></section>
   <HowIWork />
@@ -24,3 +25,9 @@ import OptionalAdventure from './OptionalAdventure.astro';
   import '../scripts/marquee.ts';
   import '../scripts/game-loader.ts';
 </script>
+
+<style>
+.building-note{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 20px;padding-block:24px}
+.building-note span,.building-note p{margin:0;color:var(--fg-2)}
+.building-note a{color:var(--fg);font-weight:500;text-underline-offset:4px}
+</style>

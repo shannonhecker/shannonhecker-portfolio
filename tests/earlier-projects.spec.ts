@@ -32,7 +32,7 @@ for (const slug of EARLIER_SLUGS) {
       const res = await open(page, path);
       expect(res.status()).toBe(200);
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.getByRole('heading', { level: 2, name: 'Outcomes', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { level: 3, name: 'Outcomes', exact: true })).toBeVisible();
       await expect(page.getByRole('region', { name: 'Outcomes' }).locator('li').first()).toBeVisible();
       const previewWidth = await page.locator('.earlier-cover picture').evaluate(async picture => {
         const background = getComputedStyle(picture).backgroundImage;

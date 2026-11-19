@@ -10,26 +10,25 @@ async function open(page: Page, path: string) {
 const navWork = (page: Page) => page.locator('.nav a.l', { hasText: /^Work$/ });
 
 test.describe('/work', () => {
-  test('has one Selected work heading and the Work page title', async ({ page }) => {
+  test('has one All work heading and the Work page title', async ({ page }) => {
     await open(page, '/work');
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.getByRole('heading', { level: 1, name: 'Selected work', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'All work', exact: true })).toBeVisible();
     await expect(page).toHaveTitle('Work · Shannon Hecker');
   });
 
   test('Selected lists the five cases in CASES order', async ({ page }) => {
     await open(page, '/work');
-    const links = page.getByRole('region', { name: 'Selected work' }).getByRole('link');
+    const links = page.locator('.all-gallery > .row');
     await expect(links).toHaveCount(5);
-    await expect(page.getByRole('region', { name: 'Selected work' }).getByRole('heading', { level: 2 })).toHaveCount(5);
-    await expect(page.getByText('5 of 15 projects', { exact: true })).toBeVisible();
+    await expect(page.locator('.all-gallery > .row h2')).toHaveCount(5);
+    await expect(page.getByText('15 projects', { exact: true })).toBeVisible();
     expect(await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))).toEqual(CASES.map((c) => c.href));
   });
 
   test('Earlier work lists the ten projects in EARLIER_SLUGS order', async ({ page }) => {
     await open(page, '/work');
-    await expect(page.getByRole('heading', { level: 2, name: 'Earlier work', exact: true })).toBeVisible();
-    const links = page.getByRole('region', { name: 'Earlier work' }).getByRole('link');
+    const links = page.locator('.all-gallery > .archive-card');
     await expect(links).toHaveCount(10);
     expect(await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))).toEqual(EARLIER_SLUGS.map((s) => `/work/${s}`));
   });
@@ -70,7 +69,7 @@ test.describe('/work', () => {
     for (const width of [1440, 1024, 768]) {
       await page.setViewportSize({ width, height: 900 });
       await open(page, '/work');
-      const tops = await page.locator('#work .index > .row').evaluateAll((rs) => rs.map((r) => { const b = r.getBoundingClientRect(); return [Math.round(b.top + scrollY), Math.round(b.left), Math.round(b.right)]; }));
+      const tops = await page.locator('#work .all-gallery > a').evaluateAll((rs) => rs.map((r) => { const b = r.getBoundingClientRect(); return [Math.round(b.top + scrollY), Math.round(b.left), Math.round(b.right)]; }));
       const rows = new Map<number, number[][]>();
       for (const t of tops) { const k = [...rows.keys()].find((y) => Math.abs(y - t[0]) < 4) ?? t[0]; rows.set(k, [...(rows.get(k) ?? []), t]); }
       for (const [, items] of rows) {
@@ -98,16 +97,28 @@ test.describe('/work', () => {
 });
 
 test.describe('home', () => {
-  test('keeps five case rows, with More work directly after the fifth', async ({ page }) => {
+  test('the featured lead fills two rows and sits beside four smaller projects', async ({page})=>{
+    await page.setViewportSize({width:1440,height:900});
+    await open(page,'/');
+    const tiles=page.locator('.featured-gallery > a');
+    const [lead,second,third,fourth,last]=await tiles.evaluateAll(links=>links.map(link=>link.getBoundingClientRect().toJSON()));
+    expect(lead.top).toBe(second.top);
+    expect(second.top).toBe(third.top);
+    expect(fourth.top).toBe(last.top);
+    expect(lead.bottom).toBe(last.bottom);
+    expect(lead.width).toBeGreaterThan(second.width*2);
+  });
+
+  test('keeps five case rows, with View all work directly after the fifth', async ({ page }) => {
     await open(page, '/');
     await expect(page.locator('#work .index .row')).toHaveCount(5);
-    const more = page.locator('#work').getByRole('link', { name: 'More work', exact: true });
+    const more = page.locator('#work').getByRole('link', { name: 'View all work', exact: true });
     await expect(more).toHaveCount(1);
     await expect(more).toHaveAttribute('href', '/work');
     const directlyAfter = await page.evaluate(() => {
       const index = document.querySelector('#work .index')!;
       const next = index.nextElementSibling;
-      return !!next && next.matches('a, :has(> a)') && next.textContent?.trim() === 'More work';
+      return !!next && next.matches('a, :has(> a)') && next.textContent?.trim() === 'View all work';
     });
     expect(directlyAfter).toBe(true);
   });
@@ -122,9 +133,9 @@ test.describe('nav current state on work pages', () => {
       await expect(page.locator('.nav a.l[aria-current="page"]')).toHaveCount(0);
     });
   }
-  test('the home page marks nothing current', async ({ page }) => {
+  test('the home page marks Intro current', async ({ page }) => {
     await open(page, '/');
-    await expect(page.locator('.nav a.l[aria-current]')).toHaveCount(0);
+    await expect(page.locator('.nav a.l[aria-current]')).toHaveText('Intro');
   });
 });
 
@@ -132,12 +143,12 @@ test.describe('links back to /work resolve', () => {
   test('earlier projects return to the archive and keep Work as their breadcrumb', async ({ page, request }) => {
     for (const slug of EARLIER_SLUGS) {
       await open(page, `/work/${slug}`);
-      await expect(page.locator('.earlier-eyebrow a').first()).toHaveAttribute('href', '/work#earlier-title');
+      await expect(page.getByRole('link',{ name:'Earlier work',exact:true })).toHaveAttribute('href', '/work#earlier-title');
       const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
       expect(ld.join('')).toContain('https://shannonhecker.com/work"');
     }
     await page.getByRole('link', {name: 'Earlier work', exact: true}).click();
-    await expect(page.getByRole('heading', {name: 'Earlier work', exact: true})).toBeInViewport();
+    await expect(page.locator('#earlier-title')).toBeInViewport();
     expect((await request.get('/work')).status()).toBe(200);
   });
 

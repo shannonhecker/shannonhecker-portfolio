@@ -43,18 +43,12 @@ test.describe('images are never shown wider than their own pixels', () => {
   }
 });
 
-test('the text column starts on one line on an earlier project, an essay and About at 1440', async ({ page }) => {
-  const left = async (path: string, selector: string) => {
+test('each editorial introduction shares its own content edge at 1440', async ({ page }) => {
+  for (const [path, body] of [['/writing/trust-surfaces-in-ai', '.essay-flow > p'], ['/about', '.about-approach .about-prose'], ['/writing', '.writing-list .title']]) {
     await open(page, path, 1440);
-    return page.locator(selector).first().evaluate((el) => el.getBoundingClientRect().left);
-  };
-  const b = await left('/writing/trust-surfaces-in-ai', '.essay-flow > p');
-  const c = await left('/about', '.about-approach .about-prose');
-  const d = await left('/privacy', '.privacy-text > p');
-  const e = await left('/writing', '.writing-list .title');
-  expect(Math.abs(c - b), `about ${c} vs essay ${b}`).toBeLessThanOrEqual(1);
-  expect(Math.abs(d - b), `privacy ${d} vs essay ${b}`).toBeLessThanOrEqual(1);
-  expect(Math.abs(e - b), `writing index ${e} vs essay ${b}`).toBeLessThanOrEqual(1);
+    const left = (selector: string) => page.locator(selector).first().evaluate(el => el.getBoundingClientRect().left);
+    expect(Math.abs(await left('main h1') - await left(body))).toBeLessThanOrEqual(1);
+  }
 });
 
 test.describe('earlier-project template, finding 4', () => {
@@ -109,9 +103,9 @@ test.describe('covers sit as framed cards', () => {
 });
 
 test.describe('About, finding 5', () => {
-  test('every section draws one unbroken rule across the label and the content at 1440', async ({ page }) => {
+  test('the supporting profile sections draw a continuous rule across their two columns', async ({ page }) => {
     await open(page, '/about', 1440);
-    const rules = await page.evaluate(() => [...document.querySelectorAll('.about-section')].map((sec) => {
+    const rules = await page.evaluate(() => [...document.querySelectorAll('.about-education, .about-now, .about-outside')].map((sec) => {
       const wrapEl = sec.querySelector('.wrap')!;
       const wrap = wrapEl.getBoundingClientRect();
       const wrapRight = wrap.right - parseFloat(getComputedStyle(wrapEl).paddingRight);
@@ -125,7 +119,7 @@ test.describe('About, finding 5', () => {
       const rows = w(content) > 0 ? [content] : [...content.children].filter((c) => w(c) > 0 && Math.abs(topOf(c) - topOf(label)) <= 1);
       return { name: sec.className, label: w(label), right: rows.length > 0, same: rows.length > 0, rightEdge: Math.round(Math.max(0, ...rows.map((r) => r.getBoundingClientRect().right))), wrapRight: Math.round(wrapRight) };
     }));
-    expect(rules).toHaveLength(6);
+    expect(rules).toHaveLength(3);
     for (const r of rules) {
       expect(r.label, r.name).toBe(1);
       expect(r.right, r.name).toBe(true);
@@ -133,13 +127,15 @@ test.describe('About, finding 5', () => {
       expect(r.rightEdge, r.name).toBe(r.wrapRight);
     }
   });
-  test('the six labels share one pattern: the heading first, a descriptor only under it', async ({ page }) => {
+  test('career and expertise headings lead their full-width lists', async ({ page }) => {
     await open(page, '/about', 1440);
-    const labels = await page.evaluate(() => [...document.querySelectorAll('.about-section .about-label')].map((l) => ({
-      first: l.firstElementChild!.tagName, h2Top: Math.round(l.querySelector('h2')!.getBoundingClientRect().top - l.getBoundingClientRect().top),
-    })));
-    expect(labels).toHaveLength(6);
-    for (const l of labels) { expect(l.first).toBe('H2'); expect(l.h2Top).toBe(labels[0].h2Top); }
+    for (const selector of ['.about-experience', '.about-expertise']) {
+      const sec = page.locator(selector);
+      const head = (await sec.getByRole('heading', { level: 2 }).boundingBox())!;
+      const list = (await sec.locator('.about-content').boundingBox())!;
+      expect(head.y + head.height).toBeLessThanOrEqual(list.y);
+      expect(Math.abs(head.x - list.x)).toBeLessThanOrEqual(1);
+    }
   });
 });
 
@@ -172,16 +168,13 @@ test.describe('Privacy, finding 6', () => {
     const hrefs = await page.locator('main a').evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href));
     expect(hrefs).toEqual(['https://policies.google.com/privacy', 'https://privacy.microsoft.com/privacystatement', 'https://www.linkedin.com/in/shannonhecker/']);
   });
-  test('the h2 is no louder than the essay h2 and the body is set as the essay body', async ({ page }) => {
-    const style = (sel: string) => page.locator(sel).first().evaluate((el) => { const cs = getComputedStyle(el); return { size: parseFloat(cs.fontSize), color: cs.color, line: cs.lineHeight, weight: cs.fontWeight }; });
-    await open(page, '/writing/trust-surfaces-in-ai', 1440);
-    const essayH2 = await style('.essay-sec > h2');
-    const essayP = await style('.essay-flow > p');
+  test('the privacy text uses the archived centred reading column', async ({ page }) => {
     await open(page, '/privacy', 1440);
-    const h2 = await style('.privacy-sec > h2');
-    const p = await style('.privacy-text > p');
-    expect(h2.size).toBeLessThanOrEqual(essayH2.size);
-    expect(p).toEqual(essayP);
+    const box = await page.locator('.privacy .wrap').boundingBox();
+    expect(box!.width).toBeLessThanOrEqual(760);
+    expect(Math.abs(box!.x * 2 + box!.width - 1440)).toBeLessThanOrEqual(1);
+    const body = await page.locator('.privacy-text p').first().evaluate(el => getComputedStyle(el).fontSize);
+    expect(parseFloat(body)).toBeGreaterThanOrEqual(16);
   });
   test('draws a hairline above every section and keeps the analytics control working', async ({ page }) => {
     await open(page, '/privacy', 1440);
@@ -196,11 +189,15 @@ test.describe('Privacy, finding 6', () => {
   });
 });
 
-test('Work, finding 7: the number sits level with the first line of every title', async ({ page }) => {
+test('Work: all fifteen captions stay inside their own link', async ({ page }) => {
   await open(page, '/work', 1440);
-  const offsets = await page.locator('#work .row').evaluateAll((rows) => rows.map((r) => Math.round(r.querySelector('.n')!.getBoundingClientRect().top - r.querySelector('h2')!.getBoundingClientRect().top)));
-  expect(offsets).toHaveLength(5);
-  for (const o of offsets) expect(o).toBe(offsets[0]);
+  const tiles=page.locator('.all-gallery > a');
+  await expect(tiles).toHaveCount(15);
+  for(const tile of await tiles.all()){
+    const card=(await tile.boundingBox())!, caption=(await tile.getByRole('heading').boundingBox())!;
+    expect(caption.y).toBeGreaterThanOrEqual(card.y);
+    expect(caption.y+caption.height).toBeLessThanOrEqual(card.y+card.height);
+  }
 });
 
 test.describe('Essays, findings 8 and 9', () => {
@@ -220,6 +217,6 @@ test.describe('Essays, findings 8 and 9', () => {
     await open(page, '/writing/trust-surfaces-in-ai', 1440);
     expect(await page.locator('.essay-flow > p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
     await open(page, '/work/tripup', 1440);
-    expect(await page.locator('.earlier-lead p').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
+    expect(await page.locator('.project-story-lead').first().evaluate((p) => getComputedStyle(p).textWrap)).toMatch(/pretty/);
   });
 });

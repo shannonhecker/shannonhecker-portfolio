@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  backLabel: string;
+  backHref: string;
+  facts?: { label: string; value: string }[];
+}
+const { title, backLabel, backHref, facts = [] } = Astro.props;
+---
+<header class="project-masthead">
+  <nav class="project-breadcrumb" aria-label="Breadcrumb">
+    <a href={backHref}>{backLabel}</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{title}</span>
+  </nav>
+  {facts.length > 0 && <dl class="project-facts" style={`--fact-count:${facts.length}`}>
+    {facts.map(fact => <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+  </dl>}
+</header>

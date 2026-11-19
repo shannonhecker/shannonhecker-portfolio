@@ -27,19 +27,9 @@ for (const path of PAGES) {
   });
 }
 
-test('/writing: essay titles are h3 under the Essays h2, at the same visual size', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
+test('/writing: the collection h1 is followed by three linked essay h2s', async ({ page }) => {
   await page.goto('/writing');
-  const titles = page.locator('main .writing-list a .title');
-  await expect(titles).toHaveCount(3);
-  for (let i = 0; i < 3; i++) await expect(titles.nth(i)).toHaveJSProperty('tagName', 'H3');
-  expect(await page.locator('main .writing-list h2').count()).toBe(0);
-  // Heading order: h1, then h2 "Essays", then the h3 titles inside it.
-  const levels = await page.locator('main h1, main h2, main h3').evaluateAll((hs) => hs.map((h) => h.tagName));
-  expect(levels[0]).toBe('H1');
-  const firstH3 = levels.indexOf('H3');
-  expect(levels.slice(0, firstH3)).toContain('H2');
-  // Visual size unchanged: the title keeps the display size set by .writing-list .title.
-  const size = await titles.first().evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
-  expect(size).toBeGreaterThanOrEqual(48);
+  const levels = await page.locator('main :is(h1,h2,h3)').evaluateAll(heads => heads.map(h => h.tagName));
+  expect(levels).toEqual(['H1', 'H2', 'H2', 'H2']);
+  await expect(page.locator('.writing-list a h2')).toHaveCount(3);
 });

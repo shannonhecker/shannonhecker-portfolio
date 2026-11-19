@@ -113,30 +113,26 @@ test('algo-center outcomes sit on one line at 1440', async ({ page }) => {
   expect(new Set(labels).size, 'labels share a line').toBe(1);
 });
 
-// /work: the three-up row's descriptions start on one line even when one title wraps.
-test('work selected row: descriptions share a top in each row', async ({ page }) => {
+test('the fifteen portfolio tiles form five desktop rows', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/work');
-  await page.evaluate(() => document.fonts.ready);
-  const tops = await page.locator('#work .index > .row .meta').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
-  expect(tops.length).toBe(5);
-  expect(tops[0]).toBe(tops[1]);
-  expect(new Set(tops.slice(2)).size, JSON.stringify(tops)).toBe(1);
+  const tops = await page.locator('.all-gallery > a').evaluateAll(tiles => tiles.map(tile => Math.round(tile.getBoundingClientRect().top)));
+  expect(tops).toHaveLength(15);
+  for (let i = 0; i < tops.length; i += 3) expect(new Set(tops.slice(i, i + 3)).size).toBe(1);
+  expect(new Set(tops).size).toBe(5);
 });
 
-// /work earlier list on a phone: each cover is the full row width, whole, and still lazy.
-test('work earlier covers fill the row on a phone and stay lazy', async ({ page }) => {
+test('archive artwork stays whole, full-width and lazy on phones', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/work');
-  const rows = await page.locator('.earlier-list li').evaluateAll((els) => els.map((li) => {
-    const a = li.querySelector('a')!.getBoundingClientRect();
-    const cover = li.querySelector('.row-cover')!;
-    const img = cover.querySelector('img')!;
-    const c = cover.getBoundingClientRect();
-    return { rowW: Math.round(a.width), coverW: Math.round(c.width), lazy: img.loading, fit: getComputedStyle(img).objectFit };
-  }));
-  expect(rows.length).toBe(10);
-  for (const r of rows) { expect(r.coverW).toBe(r.rowW); expect(r.lazy).toBe('lazy'); expect(r.fit).toBe('contain'); }
+  const tiles = page.locator('.archive-card');
+  await expect(tiles).toHaveCount(10);
+  for (const tile of await tiles.all()) {
+    const img = tile.locator('img');
+    await expect(img).toHaveAttribute('loading','lazy');
+    await expect(img).toHaveCSS('object-fit','contain');
+    expect((await img.boundingBox())!.width).toBe((await tile.boundingBox())!.width);
+  }
 });
 
 // A wide figure on a phone fades at the edge where more lies beyond; no fade when it all fits.
@@ -162,7 +158,7 @@ test('earlier facts fill the row at 1440 and 1180', async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     for (const slug of ['stock-dashboard', 'tripup', 'design-system']) {
       await page.goto(`/work/${slug}`);
-      const rect = await page.locator('.earlier-facts').evaluate((dl) => {
+      const rect = await page.locator('.project-facts').evaluate((dl) => {
         const box = dl.getBoundingClientRect();
         const rows = new Map<number, { l: number; r: number }>();
         [...dl.children].forEach((c) => { const r = c.getBoundingClientRect(); const k = Math.round(r.top); const cur = rows.get(k) ?? { l: 1e9, r: -1e9 }; rows.set(k, { l: Math.min(cur.l, r.left), r: Math.max(cur.r, r.right) }); });

@@ -6,6 +6,12 @@ for (const [path, project] of Object.entries(projectOverviews)) {
     await page.goto(path);
     const article = page.locator('main article');
     await expect(article.getByRole('heading', { level: 1 })).toBeVisible();
+    const order = await article.evaluate(el => {
+      const top = (selector: string) => el.querySelector(selector)!.getBoundingClientRect().top;
+      return [top('.project-breadcrumb'), top('.overview-art'), top('h1')];
+    });
+    expect(order[0]).toBeLessThan(order[1]);
+    expect(order[1]).toBeLessThan(order[2]);
     if ('nda' in project) {
       await expect(article).toContainText('This work is under NDA.');
       return;

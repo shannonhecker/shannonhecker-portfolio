@@ -5,7 +5,7 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-prac
 
 test('hero renders', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/I design tools\s*where mistakes\s*cost money\./);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Shannon Hecker');
   await expect(page.locator('.hero-art .game-poster img')).toBeVisible();
 });
 
@@ -20,7 +20,7 @@ test('header glass follows scrolling in both themes and keeps links usable', asy
     const theme = page.getByRole('switch', { name: 'Dark mode' });
     if (await theme.getAttribute('aria-checked') !== String(dark)) await theme.click();
     expect(await filter()).toBe('none');
-    const contact = nav.getByRole('link', { name: 'Contact', exact: true });
+    const contact = nav.getByRole('link', { name: 'Let’s Talk', exact: true });
     await contact.hover();
     expect((await new AxeBuilder({ page }).include('.nav .cta').withTags(WCAG).analyze()).violations).toEqual([]);
     await contact.focus();
