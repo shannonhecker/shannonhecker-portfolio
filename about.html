@@ -1271,6 +1271,8 @@
   <link rel="stylesheet" href="assets/typography-system.css" />
   <link rel="stylesheet" href="/assets/analytics-consent.css">
   <script defer src="/assets/analytics-consent.js"></script>
+  <link rel="stylesheet" href="assets/about-avatar.css">
+  <script src="assets/about-avatar.js" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1338,15 +1340,36 @@
         <span class="hero-name-line"><span class="hero-name-inner">About me.</span></span>
       </h1>
 
-      <div class="approach approach--merged" role="region" aria-labelledby="about-approach-heading">
-        <div class="sh sh--approach rv">
-          <div class="sh-row">
-            <span class="sh-text">My approach<span class="sh-period">.</span></span>
+      <div class="about-story">
+        <div class="approach approach--merged" role="region" aria-labelledby="about-approach-heading">
+          <div class="sh sh--approach rv">
+            <div class="sh-row">
+              <span class="sh-text">My approach<span class="sh-period">.</span></span>
+            </div>
           </div>
+          <h2 id="about-approach-heading" class="approach-headline rv" data-d="1">I design what traders<br/>and analysts use every day.<br/>Trading floors. AI tools.</h2>
+          <p class="approach-body rv" data-d="2">I put early prototypes in front of the people who will use them. I watch where they pause, then work through those decisions with product and engineering. When a pattern works in more than one place, I take it back to the design system.</p>
+          <p class="approach-body rv" data-d="3">On Fusion, I worked with an accessibility specialist on dashboard patterns other teams could reuse. On uoaui.ai, I explore how those choices change when the same screen uses a different design system. <a href="how-i-work.html" style="text-decoration:underline;text-underline-offset:.22em">How I work</a>.</p>
         </div>
-        <h2 id="about-approach-heading" class="approach-headline rv" data-d="1">I design what traders<br/>and analysts use every day.<br/>Trading floors. AI tools.</h2>
-        <p class="approach-body rv" data-d="2">I put early prototypes in front of the people who will use them. I watch where they pause, then work through those decisions with product and engineering. When a pattern works in more than one place, I take it back to the design system.</p>
-        <p class="approach-body rv" data-d="3">On Fusion, I worked with an accessibility specialist on dashboard patterns other teams could reuse. On uoaui.ai, I explore how those choices change when the same screen uses a different design system. <a href="how-i-work.html" style="text-decoration:underline;text-underline-offset:.22em">How I work</a>.</p>
+        <figure class="about-avatar" id="pixel-shannon">
+          <div class="avatar-scene" role="img" aria-label="Pixel-art Shannon in a cream jumper and pink trousers, with a journal and a star">
+            <img class="avatar-journal" src="assets/about-avatar/journal.webp" width="56" height="56" alt="" loading="lazy">
+            <img class="avatar-star" src="assets/about-avatar/star.webp" width="48" height="48" alt="" loading="lazy">
+            <div class="avatar-poses">
+              <img class="pose-idle" src="assets/about-avatar/idle.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-lift" src="assets/about-avatar/lift.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-wave" src="assets/about-avatar/wave.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-hand" src="assets/about-avatar/hand.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-half" src="assets/about-avatar/half.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-closed" src="assets/about-avatar/closed.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+              <img class="pose-smile" src="assets/about-avatar/smile.webp" width="320" height="480" alt="" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <figcaption>
+            <button class="avatar-motion" type="button" hidden>Pause motion</button>
+            <a href="game.html">Play my career story in Working Order</a>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -1779,7 +1802,7 @@
       if (e.target.tagName === 'IMG' || e.target.classList.contains('img-shield')) e.preventDefault();
     });
     document.querySelectorAll('img').forEach(function(img) {
-      if (img.closest('.nav-logo') || img.width < 40) return;
+      if (img.closest('.nav-logo, .about-avatar') || img.width < 40) return;
       var parent = img.parentElement;
       if (parent.style.position !== 'relative' && parent.style.position !== 'absolute') {
         parent.style.position = 'relative';
