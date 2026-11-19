@@ -18,12 +18,13 @@ test('the date display comes from one shared en-GB formatter', async ({ page }) 
   expect(text).toBe(new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso!)));
 });
 
-test('the earlier list says "2016 to 2018" for UI Toolkit, with no hyphenated range left', async ({ page }) => {
+test('the gallery leads to the UI Toolkit dates, written as a range', async ({ page }) => {
   await page.goto('/work');
   const row = page.locator('#earlier a[href="/work/ui-toolkit"], a[href="/work/ui-toolkit"]').first();
-  await expect(row).toContainText('2016 to 2018');
+  await expect(row).toBeVisible();
   expect(await page.locator('main').innerText()).not.toMatch(/\b\d{4}-\d{4}\b/);
-  await page.goto('/work/ui-toolkit');
+  await row.click();
+  await expect(page.locator('main')).toContainText('2016 to 2018');
   expect(await page.locator('main').innerText()).not.toMatch(/\b\d{4}-\d{4}\b/);
 });
 

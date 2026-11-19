@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import { getImage } from 'astro:assets';
 
-const files = import.meta.glob<{ default: ImageMetadata }>('../assets/img/**/*.{jpg,png}', { eager: true });
+const files = import.meta.glob<{ default: ImageMetadata }>(['../assets/img/**/*.{jpg,png}', '!../assets/img/**/*fx*', '!../assets/img/fx-figma/**'], { eager: true });
 
 /** Look up a source image by its prototype filename, e.g. "fx-cover.jpg". */
 export function img(name: string): ImageMetadata {

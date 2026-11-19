@@ -1,117 +1,47 @@
-/* Writing: the index (src/pages/writing/index.astro) and the essay page
-   (src/layouts/Article.astro). Same language as the case and Work pages: the page
-   tokens, one grotesk, hairlines, air. No serif, no shadows, no gradients.
-   Every selector hangs off .writing-index or .essay so nothing reaches other pages. */
-
-/* ------------------------------------------------------------------ the index */
-.writing-index{--g:clamp(16px,2vw,32px);padding-top:clamp(112px,10vw,160px)}
-
-/* Head: the Work page's scale. A very large title, its count at the foot, a hairline. */
-.writing-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:clamp(32px,4vw,56px)}
-.writing-index h1{margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(min(88px,20vw),15vw,224px);line-height:.86;letter-spacing:var(--track-head)}
-.writing-meta{margin:0;font:14px/1.6 var(--body);color:var(--fg-2)}
-.writing-head .writing-meta{padding-bottom:clamp(6px,1vw,14px)}
-
-/* Intro: the old page's own sentence, large, beside its note. */
-.writing-intro .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:28px;align-items:end;padding-top:clamp(48px,7vw,104px)}
-.writing-statement{grid-column:1/8;margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(34px,4.6vw,68px);line-height:1.06;letter-spacing:-.04em;max-width:15ch;text-wrap:balance}
-.writing-dek{grid-column:9/13;margin:0;font-size:clamp(16px,1.3vw,18px);line-height:1.7;color:var(--fg-2);max-width:42ch}
-
-/* The list: date, title, then a note and the way in. Hairline rows. */
-.writing-listing{padding-top:clamp(56px,8vw,112px);padding-bottom:clamp(96px,12vw,192px)}
-.writing-list{border-top:1px solid var(--hair);margin:0;padding:0;list-style:none}
-.writing-list a{display:grid;grid-template-columns:calc((100% - 3 * var(--g)) / 4) minmax(0,1fr) minmax(7.5rem,.5fr);column-gap:var(--g);row-gap:clamp(14px,1.6vw,22px);align-items:baseline;padding-block:clamp(32px,4.4vw,64px);border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
-.writing-list .date,.writing-list .read-time,.writing-list .read{font-size:14px;line-height:1.7;color:var(--fg-2);font-variant-numeric:tabular-nums}
-.writing-list .date{grid-column:1;grid-row:1}
-.writing-list .title{grid-column:2;grid-row:1;margin:0;font-family:var(--display,var(--body));font-weight:500;font-size:clamp(28px,3.7vw,56px);line-height:1.08;letter-spacing:-.035em;max-width:20ch;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}
-.writing-list .read-time{grid-column:3;grid-row:1;text-align:right}
-.writing-list .blurb{grid-column:2;grid-row:2;margin:0;font-size:clamp(16px,1.3vw,18px);line-height:1.7;color:var(--fg-2);max-width:54ch}
-.writing-list .read{grid-column:3;grid-row:2;text-align:right;color:var(--fg)}
-.writing-list .arrow{display:inline-block;transition:transform .3s}
-.writing-list a:hover .title,.writing-list a:focus-visible .title{text-decoration-color:currentColor}
-.writing-list a:hover .arrow,.writing-list a:focus-visible .arrow{transform:translateX(4px)}
-.writing-list a:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
-@media(max-width:900px){
-  .writing-intro .wrap{grid-template-columns:minmax(0,1fr);row-gap:24px;align-items:start}
-  .writing-statement,.writing-dek{grid-column:1}
-  .writing-list a{grid-template-columns:minmax(0,1fr) auto}
-  .writing-list .date{grid-column:1;grid-row:1}
-  .writing-list .read-time{grid-column:2;grid-row:1}
-  .writing-list .title{grid-column:1/-1;grid-row:2;max-width:none}
-  .writing-list .blurb{grid-column:1/-1;grid-row:3}
-  .writing-list .read{grid-column:1/-1;grid-row:4;text-align:left}
-}
-@media(max-width:760px){
-  .writing-head .wrap{flex-direction:column;align-items:flex-start;gap:12px}
-}
-@media(prefers-reduced-motion:reduce){.writing-list .arrow,.writing-list .title{transition:none}}
-
-/* ------------------------------------------------------------------ the essay */
-/* Emphasis is a true italic. The site's Inter is loaded upright only, so the italic
-   file is declared here and downloaded only on pages that use an italic. */
+/* The writing index and essays use the original reading columns and serif headlines. */
+.writing-index,.essay{--reading-serif:'Noto Serif Display',Georgia,serif;padding-top:clamp(116px,12vw,176px);padding-bottom:clamp(64px,8vw,112px)}
+.writing-index .wrap,.essay>.wrap{width:100%;margin-inline:auto;padding-inline:var(--gutter)}
+.writing-index .wrap{max-width:840px}
+.essay>.wrap{font-size:clamp(17px,1.6vw,19px);max-width:min(780px,calc(54ch + 2 * var(--gutter)))}
+.writing-head .wrap::after{content:none}
+.writing-meta,.essay-crumb{margin:0 0 24px;font:500 12px/1.5 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2)}
+.writing-index h1,.essay h1{margin:0 0 24px;font:400 clamp(40px,6vw,72px)/1.05 var(--reading-serif);letter-spacing:-.022em;text-wrap:balance}
+.writing-dek,.essay-dek{margin:0;font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:var(--fg-2);max-width:62ch;text-wrap:pretty}
+.writing-listing{margin-top:clamp(48px,7vw,96px)}
+.writing-list{margin:0;padding:0;list-style:none;border-top:1px solid var(--hair)}
+.writing-list li{border-bottom:1px solid var(--hair)}
+.writing-list a{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;row-gap:12px;align-items:baseline;padding-block:clamp(28px,4vw,48px);color:inherit;text-decoration:none}
+.writing-list .title{margin:0;font:500 clamp(22px,2.6vw,30px)/1.2 var(--reading-serif);letter-spacing:-.015em;text-wrap:balance}
+.writing-row-meta,.writing-list .read{font-size:13px;line-height:1.65;color:var(--fg-2)}
+.writing-row-meta{display:flex;flex-wrap:wrap;column-gap:8px}
+.writing-list .blurb,.writing-list .read{grid-column:1/-1}
+.writing-list .blurb{margin:0;max-width:62ch;font-size:16px;line-height:1.65;color:var(--fg-2)}
+.writing-list .read{color:var(--fg)}
+.writing-list a:where(:hover,:focus-visible) .title,.essay-pager a:hover .t,.essay-all a:hover .t{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em}
+.writing-list a:focus-visible,.essay :is(.essay-pager,.essay-all) a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media(max-width:620px){.writing-list a{grid-template-columns:1fr}.writing-row-meta{grid-row:2}}
 @font-face{font-family:'Inter';font-style:italic;font-display:swap;font-weight:400 600;src:url('@fontsource-variable/inter/files/inter-latin-wght-italic.woff2') format('woff2')}
-
-/* One column structure for the whole page. --g is the gutter. The head is twelve
-   columns; the body and the end are a label column of three columns and a text
-   column of nine, the first sized as (100% + g) / 4 so that it ends on the same line
-   as column 3 of the head. Title, facts and section labels start at the left edge;
-   the standfirst, the text, the author paragraph and the next-post rows start at
-   the text column's edge. Vertical rhythm: --section above each hairline, --rule
-   below it. */
-.essay{--g:clamp(16px,2vw,32px);--section:clamp(48px,5vw,72px);--rule:24px;--num:22px;--measure:52ch;padding-top:clamp(120px,11vw,168px)}
-
-/* Head: a way back, the title, then the facts in the label column and the
-   standfirst in the text column. */
-.essay-head{display:grid;gap:clamp(20px,3vw,32px)}
-.essay-crumb{margin:0;font-size:14px;line-height:1.6;color:var(--fg-2)}
-.essay-crumb a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none}
-.essay-crumb a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:4px}
-.essay h1{margin:0;font-size:clamp(40px,6.2vw,96px);line-height:1.04;letter-spacing:-.04em;max-width:16ch;text-wrap:balance}
-.essay-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:40px;align-items:start;margin-top:clamp(16px,3vw,40px)}
-.essay-dek{grid-column:4/13;grid-row:1;margin:0;font-size:clamp(19px,1.8vw,26px);line-height:1.5;max-width:34ch;text-wrap:pretty}
-.essay-facts{grid-column:1/4;grid-row:1;margin:0;border-bottom:1px solid var(--hair)}
-.essay-facts>div{display:grid;gap:2px;padding:14px 0;border-top:1px solid var(--hair)}
-.essay-facts dt{font-size:14px;line-height:1.7;color:var(--fg-2)}
-.essay-facts dd{margin:0;font-size:16px;line-height:1.6;font-variant-numeric:tabular-nums}
-.essay-facts .nb{white-space:nowrap}
-
-/* Body: the Markdown is cut at build time (Article.astro) into a lede and one
-   <section class="essay-sec"> per h2. At 1100px and wider a section is two columns, the label
-   (number and title) on the left and the text on the right, as on the case pages; the label is
-   sticky inside its own section only, so it lets go when the section ends and the next label
-   takes its place. Below 1100px the label sits above its text. The section numbers are a
-   counter, so they run 01, 02, ... as the old pages had them. The hairline belongs to the
-   section, so it never travels with the sticky label. The first paragraph is pushed down by
-   the height of the number, so its first line sits level with the title and not the number. */
-.essay-body{margin-top:clamp(32px,3vw,48px);counter-reset:section}
-.essay-flow>*{min-width:0;margin:1.25rem 0 0;padding-right:max(0px,calc(100% - var(--measure)));font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
-.essay-flow>:first-child{margin-top:0}
-.essay-flow>p{text-wrap:pretty}
-.essay-body strong{font-weight:600;color:var(--fg)}
-.essay-body em{font-style:italic;font-weight:400;color:var(--fg)}
-.essay-body a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+.essay{--measure:100%;--section:clamp(40px,5vw,64px);--rule:24px}
+.essay-crumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap;letter-spacing:.03em;text-transform:none}
+.essay-crumb a{display:inline-flex;align-items:center;min-height:32px;text-underline-offset:3px}
+.essay h1{font-size:clamp(36px,5.5vw,64px);line-height:1.08}
+.essay .essay-dek{font-size:clamp(18px,1.8vw,22px);max-width:none}
+.essay-facts{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:24px 0 0;padding-bottom:24px;border-bottom:1px solid var(--hair);font-size:14px;color:var(--fg-2)}
+.essay-facts strong{color:var(--fg);font-weight:500}
+.essay-body{margin-top:clamp(40px,5vw,64px);counter-reset:section}
+.essay-flow>*{min-width:0;margin:0 0 1.4em;font-size:clamp(17px,1.6vw,19px);line-height:1.75;color:var(--fg);text-wrap:pretty}
+.essay-flow>:last-child{margin-bottom:0}
+.essay-body strong{font-weight:600}
+.essay-body em{font-style:italic}
+.essay-body a,.essay-bio a{text-underline-offset:3px;text-decoration:underline}
+.essay-sec{margin-top:var(--section)}
+.essay-sec>h2{margin:0 0 20px;font:500 clamp(24px,2.6vw,30px)/1.2 var(--reading-serif);letter-spacing:-.015em;text-wrap:balance}
+.essay-sec>h2::before{counter-increment:section;content:counter(section,decimal-leading-zero);content:counter(section,decimal-leading-zero) / "";margin-right:12px;font:500 13px/1.5 var(--body);color:var(--fg-2)}
+.essay-flow>blockquote{margin-block:32px;padding-inline-start:20px;border-inline-start:2px solid var(--hair);font:400 clamp(21px,2.5vw,30px)/1.45 var(--reading-serif)}
+.essay-flow>blockquote p{margin:0}
 /* Code stays whole: the box moves to the next line before it ever splits, and only a
    token wider than the column itself may wrap. */
 .essay-body code{display:inline-block;max-width:100%;vertical-align:baseline;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;line-height:1.5;padding:.1em .45em;border-radius:var(--radius);background:var(--bg-2);color:var(--fg);overflow-wrap:anywhere}
-
-.essay-sec{margin-top:var(--section);padding-top:var(--rule);border-top:1px solid var(--hair)}
-.essay-lede+.essay-sec{margin-top:var(--section)}
-.essay-body>.essay-sec:first-child{margin-top:0}
-.essay-sec>h2{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(20px,1.7vw,24px);line-height:1.3;letter-spacing:-.02em;color:var(--fg);text-wrap:balance}
-.essay-sec>h2::before{counter-increment:section;content:counter(section,decimal-leading-zero);content:counter(section,decimal-leading-zero) / "";display:block;height:var(--num);margin-bottom:10px;font:500 14px/var(--num) var(--body);letter-spacing:0;color:var(--project-ink,var(--fg-2));font-variant-numeric:tabular-nums}
-.essay-sec-body{margin-top:16px}
-
-@media(min-width:1100px){
-  .essay-lede{margin-left:calc((100% + var(--g)) / 4)}
-  .essay-sec{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:start}
-  .essay-sec>h2{position:sticky;top:104px;padding-right:var(--g)}
-  .essay-sec-body{margin-top:0;padding-top:calc(var(--num) + 10px)}
-}
-
-/* A quote the essay leans on: set large, no rule. */
-.essay-flow>blockquote{margin-block:clamp(32px,4vw,56px) 0;padding-right:0;font-family:var(--display);font-weight:500;font-size:clamp(24px,2.5vw,36px);line-height:1.28;letter-spacing:-.025em;color:var(--fg);max-width:34ch;text-wrap:pretty}
-.essay-flow>blockquote>p{margin:0}
-.essay-flow>blockquote+p{margin-top:clamp(32px,4vw,56px)}
 
 /* The old callouts: a small label and its text, ruled like the facts in the head. */
 .essay-flow>.essay-terms{margin-block:2rem 0;padding-right:0;max-width:var(--measure);border-bottom:1px solid var(--hair)}
@@ -121,42 +51,12 @@
 .essay-terms dd{margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.7;color:var(--fg)}
 .essay-terms dd>p{margin:0;font-size:inherit;line-height:inherit;color:inherit;text-wrap:pretty}
 
-/* The end: who wrote it, then the neighbours, then the way back. The author
-   paragraph is set at the body's size and measure, so the close has weight. */
-.essay-end{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);margin-top:var(--section);margin-bottom:clamp(40px,5vw,72px)}
-.essay-bio{grid-column:2;margin:0;padding:var(--rule) 0 0;padding-right:max(0px,calc(100% - var(--measure)));border-top:1px solid var(--hair);font-size:clamp(17px,1.3vw,19px);line-height:1.75;color:var(--fg-2)}
-.essay-bio strong{font-weight:600;color:var(--fg)}
-.essay-bio a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
-.essay-pager,.essay-all{grid-column:1/-1;margin:0}
-.essay-pager{margin-top:var(--section);border-top:1px solid var(--hair)}
-.essay-pager a{padding-block:clamp(24px,3.2vw,44px)}
-.essay-all a{padding-block:20px}
-.essay-pager a,.essay-all a{display:grid;grid-template-columns:calc((100% + var(--g)) / 4) minmax(0,1fr);align-items:baseline;border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
-.essay-pager .kicker,.essay-all .kicker{font-size:14px;line-height:1.6;color:var(--fg-2)}
-.essay-pager .t,.essay-all .t{font-family:var(--display);font-weight:500;letter-spacing:-.03em;line-height:1.2;text-wrap:balance;text-decoration:underline 1px transparent;text-underline-offset:.16em;transition:text-decoration-color .25s}
-.essay-pager .t{font-size:clamp(22px,2.4vw,34px)}
-.essay-all .t{font-size:clamp(18px,1.6vw,22px);color:var(--fg-2)}
-.essay-pager .arrow,.essay-all .arrow{display:inline-block;margin-left:.4em;transition:transform .3s}
-.essay-pager a:hover .t,.essay-pager a:focus-visible .t,.essay-all a:hover .t,.essay-all a:focus-visible .t{text-decoration-color:currentColor}
-.essay-pager a:hover .arrow,.essay-all a:hover .arrow{transform:translateX(4px)}
-.essay-all a:hover .t{color:var(--fg)}
-.essay-pager a:focus-visible,.essay-all a:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
 
-@media(max-width:1099px){
-  .essay-end{grid-template-columns:minmax(0,1fr)}
-  .essay-bio{grid-column:1}
-}
-@media(max-width:900px){
-  .essay-intro{grid-template-columns:minmax(0,1fr);row-gap:32px}
-  .essay-dek,.essay-facts{grid-column:1;grid-row:auto}
-  .essay-facts>div{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:16px}
-  .essay-pager a,.essay-all a{grid-template-columns:minmax(0,1fr) minmax(0,3fr)}
-}
-@media(max-width:560px){
-  .essay-facts>div{grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr)}
-  .essay-terms>div{grid-template-columns:minmax(0,1fr);gap:6px}
-}
-@media(max-width:760px){
-  .essay-pager a,.essay-all a{grid-template-columns:minmax(0,1fr);row-gap:8px}
-}
-@media(prefers-reduced-motion:reduce){.essay-pager .arrow,.essay-pager .t,.essay-all .arrow,.essay-all .t{transition:none}}
+.essay-end{margin-top:var(--section)}
+.essay-bio{margin:0;padding-block:24px;border-top:1px solid var(--hair);font-size:16px;line-height:1.7;color:var(--fg-2)}
+.essay-pager a,.essay-all a{display:grid;gap:8px;padding-block:24px;border-top:1px solid var(--hair);color:inherit;text-decoration:none}
+.essay-all{margin:0}
+.essay-end .kicker{font-size:13px;color:var(--fg-2)}
+.essay-end .t{font:500 clamp(21px,2.5vw,28px)/1.25 var(--reading-serif)}
+.essay-end .arrow{margin-left:.4em}
+@media(max-width:560px){.essay-terms>div{grid-template-columns:1fr;gap:6px}}

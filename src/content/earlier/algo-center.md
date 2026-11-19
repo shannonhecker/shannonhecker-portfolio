@@ -26,23 +26,24 @@ tags:
   - "Dashboard"
   - "Monitoring"
 cover: ../../assets/earlier/algo-center/algo-banner.webp
+processFigure:
+  image: ../../assets/earlier/algo-center/algo02.webp
+  alt: "Execute Algo Center order analysis and market structure view"
 coverAlt: "Execute Algo Center"
 matte:
   - "algo-banner"
   - "algo02"
 ---
-## Project Summary
+### Project overview
 
 Algo trading desk operators were monitoring live strategies across disconnected screens with no single status view. When an algorithm drifted from expected behaviour, diagnosis and intervention were slow, in markets where milliseconds matter.
 
-## My Role
+### My role
 
 As **UI Designer**, I translated algorithmic trading workflows into precise, scannable interfaces. I owned interaction design, detailed Figma specifications, and visual QA through release, working closely with product and engineering.
 
-## Design Process
+### Design process
 
 I designed a **real-time monitoring cockpit**: one screen for all running strategies, anomaly highlights, and intervention controls.
 
 A **traffic-light status system** gave operators a quick read on portfolio health, then a clear path into the strategies needing attention. Critical actions stayed within two clicks.
-
-![Execute Algo Center order analysis and market structure view](../../assets/earlier/algo-center/algo02.webp)

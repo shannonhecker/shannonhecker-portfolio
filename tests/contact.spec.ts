@@ -37,7 +37,7 @@ for (const p of PAGES) {
         return !!(c.compareDocumentPosition(l) & Node.DOCUMENT_POSITION_FOLLOWING);
       });
       expect(order).toBe(true);
-      await expect(page.locator('.nav a.cta')).toHaveAttribute('href', '#contact');
+      await expect(page.locator('.nav a[href="#contact"]')).toHaveAttribute('href', '#contact');
     });
 
     test('Live links has an Email row with the same mailto, and the address is not shown as text', async ({ page }) => {
@@ -56,7 +56,7 @@ test('clicking Contact in the nav scrolls the block into view (desktop)', async 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/work');
-  await page.locator('.nav a.cta').click();
+  await page.locator('.nav a[href="#contact"]').click();
   await expect(page).toHaveURL(/#contact$/);
   await expect(page.locator('#contact h2')).toBeInViewport();
 });

@@ -30,7 +30,7 @@ async function beforeModules(page: Page, path: string, check: () => Promise<void
 test('a new phone visitor can read the headline and use the work link before modules arrive', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await beforeModules(page, '/', async () => {
-    const heading = page.getByRole('heading', { level: 1, name: 'I design tools where mistakes cost money.' });
+    const heading = page.getByRole('heading', { level: 1, name: 'Shannon Hecker' });
     const actionable = page.getByRole('link', { name: 'Explore my work' });
 
     for (const el of [heading, ...await heading.locator('.hero-word').all(), actionable]) {

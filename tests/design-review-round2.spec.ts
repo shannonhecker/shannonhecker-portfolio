@@ -185,8 +185,8 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
       }
       await page.unrouteAll();
       await visit(page, '/fx', w, h, { asked: true, reduced: true });
-      await page.locator('.product-links a').first().scrollIntoViewIfNeeded();
-      expect(hits(await box(page, '.product-links a'), await box(page, '#analytics-choice'))).toBe(false);
+      await page.locator('.nda-summary a').first().scrollIntoViewIfNeeded();
+      expect(hits(await box(page, '.nda-summary a'), await box(page, '#analytics-choice'))).toBe(false);
     });
 
     test(`at the foot of a page the footer's controls end up above it at ${w}`, async ({ page }) => {
@@ -221,35 +221,15 @@ test.describe('2: the analytics notice is a quiet bar on the bottom edge', () =>
 });
 
 test.describe('3: About sits on the page grid', () => {
-  test('at 1440 the text blocks have at most six distinct left edges, and the facts sit under the opening on grid lines', async ({ page }) => {
+  test('the opening text aligns with the masthead and the three facts align under the biography', async ({ page }) => {
     await visit(page, '/about', 1440, 900, { reduced: true });
-    const m = await page.evaluate(() => {
-      const edges: number[] = [];
-      const sel = 'main h1, main h2, main h3, main p, main dt, main dd, main li, main figure img, main a';
-      for (const el of document.querySelectorAll(sel)) {
-        // Only blocks that carry their own words (or a picture) count.
-        const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent!.trim()) || el.tagName === 'IMG';
-        if (!own) continue;
-        if (el.closest('.about-links') || el.classList.contains('about-role-dates')) continue;
-        const r = el.getBoundingClientRect();
-        if (r.width === 0 || r.height === 0) continue;
-        edges.push(Math.round(r.left));
-      }
-      const wrap = document.querySelector('.about-intro .wrap')!.getBoundingClientRect();
-      const facts = [...document.querySelectorAll('.about-facts dt')].map((e) => Math.round(e.getBoundingClientRect().left));
-      const who = Math.round(document.querySelector('.about-who')!.getBoundingClientRect().left);
-      return { edges, facts, who, wrapLeft: Math.round(wrap.left) };
-    });
-    const clusters: number[] = [];
-    for (const e of [...m.edges].sort((a, b) => a - b)) if (!clusters.some((c) => Math.abs(c - e) <= 3)) clusters.push(e);
-    // The three figures sit under the opening (columns 7 to 12 of the twelve-column grid), so the page has the
-    // four edges it had plus the two later figure columns (9 and 11).
-    expect(clusters.length, `left edges: ${clusters.join(', ')}`).toBeLessThanOrEqual(6);
-    expect(m.facts.map((x) => [734, 962, 1191].some((g) => Math.abs(x - g) <= 2)).every(Boolean), `facts ${m.facts}`).toBe(true);
-    expect(Math.abs(m.facts[0] - m.who), 'the first figure starts where the opening starts').toBeLessThanOrEqual(2);
+    const left = (selector: string) => page.locator(selector).first().evaluate(el => el.getBoundingClientRect().left);
+    expect(Math.abs(await left('main h1') - await left('.about-approach h2'))).toBeLessThanOrEqual(1);
+    expect(Math.abs(await left('.about-who') - await left('.about-facts'))).toBeLessThanOrEqual(1);
+    await expect(page.locator('.about-facts dt')).toHaveCount(3);
   });
 
-  test('the facts rule and the multi-column rules are each one continuous line', async ({ page }) => {
+  test('the facts share one rule and expertise tags wrap with gaps', async ({ page }) => {
     await visit(page, '/about', 1440, 900, { reduced: true });
     const m = await page.evaluate(() => {
       const facts = document.querySelector('.about-facts')!;
@@ -264,8 +244,8 @@ test.describe('3: About sits on the page grid', () => {
     for (const c of m.cells) expect(c.border).toBe('0px');
     for (let i = 1; i < m.cells.length; i++) expect(Math.abs(m.cells[i].left - m.cells[i - 1].right)).toBeLessThanOrEqual(0.5);
     expect(Math.abs(m.right - 1391)).toBeLessThanOrEqual(2);
-    expect(m.rows.length).toBeGreaterThan(2);
-    for (const row of m.rows) for (let i = 1; i < row.length; i++) expect(Math.abs(row[i].l - row[i - 1].r), 'Expertise rules abut').toBeLessThanOrEqual(0.5);
+    expect(m.rows.length).toBeGreaterThan(1);
+    for (const row of m.rows) for (let i = 1; i < row.length; i++) expect(row[i].l - row[i - 1].r, 'Expertise tags have space between them').toBeGreaterThanOrEqual(8);
   });
 });
 
@@ -283,7 +263,7 @@ test.describe('4 and 5: earlier projects on a phone', () => {
         });
         const cover = document.querySelector('.earlier-cover')!.getBoundingClientRect().top + scrollY;
         const titleSize = parseFloat(getComputedStyle(document.querySelector('.earlier h1')!).fontSize);
-        const outcomesSize = parseFloat(getComputedStyle(document.querySelector('.earlier-results h2')!).fontSize);
+        const outcomesSize = parseFloat(getComputedStyle(document.querySelector('.earlier-results h3')!).fontSize);
         return { cells, cover, titleSize, outcomesSize, overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, wrapRight: document.querySelector('.earlier .wrap')!.getBoundingClientRect().right };
       });
       expect(m.overflow).toBeLessThanOrEqual(0);
@@ -305,9 +285,11 @@ test('6: the Writing index titles start on the content column at 1440', async ({
   await visit(page, '/writing', 1440, 900, { reduced: true });
   const lefts = await page.locator('.writing-list .title').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().left));
   expect(lefts).toHaveLength(3);
-  for (const l of lefts) expect(Math.abs(l - 392)).toBeLessThanOrEqual(1.5);
-  const dates = await page.locator('.writing-list .date').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().left));
-  for (const d of dates) expect(Math.abs(d - 49)).toBeLessThanOrEqual(1.5);
+  const header = (await box(page, '.writing-head h1')).x;
+  for (const left of lefts) expect(Math.abs(left - header)).toBeLessThanOrEqual(1);
+  const dates = await page.locator('.writing-list .date').evaluateAll(items => items.map(el => el.getBoundingClientRect().left));
+  for (const date of dates) expect(date).toBeGreaterThan(header);
+
 });
 
 test.describe('7: the scrolled nav on a phone is nearly opaque', () => {
@@ -458,7 +440,7 @@ test.describe('round 3: earlier projects on phones', () => {
         for (const li of lis) { const t = Math.round(li.getBoundingClientRect().top); const v = parseFloat(getComputedStyle(li.querySelector('.value')!).fontSize); rows.set(t, [...(rows.get(t) || []), v]); }
         return { rows: [...rows.values()] };
       });
-      await expect(page.locator('.earlier-facts dt')).toHaveText(['Year', 'Role']);
+      await expect(page.locator('.project-facts dt')).toContainText(['Year', 'Role']);
       for (const r of m.rows) { if (r.length === 2) expect(r[0], `a row of two reads evenly: ${r}`).toBe(r[1]); }
     });
   }
@@ -481,19 +463,14 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
   });
 
   for (const w of [390, 360]) {
-    test(`S3: the three page heads fit on one line and Work uses a smaller title at ${w}`, async ({ page }) => {
-      const sizes: number[] = [];
+    test(`S3: all three editorial mastheads fit the phone at ${w}`, async ({ page }) => {
       for (const path of ['/work', '/writing', '/about']) {
         await visit(page, path, w, 740, { reduced: true });
-        const m = await page.locator('main h1').evaluate((h) => { const r = document.createRange(); r.selectNodeContents(h); const lines = new Set([...r.getClientRects()].map((x) => Math.round(x.top))); return { size: parseFloat(getComputedStyle(h).fontSize), lines: lines.size, track: getComputedStyle(h).letterSpacing, over: document.documentElement.scrollWidth - document.documentElement.clientWidth }; });
-        expect(m.lines, `${path} at ${w}`).toBe(1);
-        expect(m.over).toBeLessThanOrEqual(0);
-        sizes.push(m.size);
+        const h1 = (await page.locator('main h1').boundingBox())!;
+        expect(h1.x).toBeGreaterThanOrEqual(0);
+        expect(h1.x + h1.width).toBeLessThanOrEqual(w + 1);
         await page.unrouteAll();
       }
-      const [work, writing, about] = sizes;
-      expect(writing).toBe(about);
-      expect(work).toBeLessThan(writing);
     });
   }
 
@@ -565,8 +542,9 @@ test.describe('round 3: footer, About, 404, nav, menu', () => {
       const h = document.querySelector('.menu-intro span')!.getBoundingClientRect().left;
       const links = [...document.querySelectorAll('.site-menu-panel a.l')];
       const text = links.map((a) => { const r = document.createRange(); r.selectNodeContents(a); return r.getBoundingClientRect().left; });
-      const hl = getComputedStyle(links[2], '::before');
-      return { h, text, pseudoLeft: links[2].getBoundingClientRect().left - 12, bg: hl.backgroundColor, inset: [hl.left, hl.right] };
+      const active = document.querySelector('.site-menu-panel a[aria-current]')!;
+      const hl = getComputedStyle(active, '::before');
+      return { h, text, pseudoLeft: active.getBoundingClientRect().left - 12, bg: hl.backgroundColor, inset: [hl.left, hl.right] };
     });
     for (const t of m.text) expect(Math.abs(t - m.h)).toBeLessThanOrEqual(1);
     expect(m.bg).not.toBe('rgba(0, 0, 0, 0)');

@@ -51,18 +51,18 @@ const navWriting = (page: Page) => page.locator('.nav a.l', { hasText: /^Writing
 const stripPeriod = (s: string) => s.replace(/\.$/, '');
 
 test.describe('/writing', () => {
-  test('has one h1 "Writing" and the page title', async ({ page }) => {
+  test('has one collection h1 and the page title', async ({ page }) => {
     await open(page, '/writing');
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.getByRole('heading', { level: 1, name: 'Writing', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Essays on design, trust, and AI.', exact: true })).toBeVisible();
     await expect(page).toHaveTitle('Writing · Shannon Hecker');
   });
 
-  test('keeps the old index intro', async ({ page }) => {
+  test('uses the editorial collection title and updated introduction', async ({ page }) => {
     await open(page, '/writing');
     const text = await page.locator('main').innerText();
     expect(text).toContain('Essays on design, trust, and AI.');
-    expect(text).toContain('Notes from inside enterprise product design, and what AI is changing about the job. Written for designers and design leaders working out what comes next.');
+    expect(text).toContain('Notes on building enterprise tools and on the decisions designers make when AI can write the code.');
   });
 
   test('lists exactly three articles, newest first, each linking to /writing/<slug>', async ({ page }) => {
@@ -74,7 +74,7 @@ test.describe('/writing', () => {
     expect(dates).toEqual(ARTICLES.map((a) => a.date));
     expect([...dates].sort().reverse()).toEqual(dates);
     for (const [i, a] of ARTICLES.entries()) {
-      await expect(links.nth(i).getByRole('heading', { level: 3 })).toHaveText(`${a.title}.`);
+      await expect(links.nth(i).getByRole('heading', { level: 2 })).toHaveText(`${a.title}.`);
       // The date reads as "18 April 2026"; the ISO form stays in datetime.
       await expect(links.nth(i).locator('time')).toHaveText(a.shown);
     }
@@ -83,7 +83,7 @@ test.describe('/writing', () => {
   test('index reading times match each article, and come from its body', async ({ page }) => {
     for (const a of ARTICLES) {
       await open(page, `/writing/${a.slug}`);
-      const minutes = Number((await page.locator('.essay-facts').innerText()).match(/(\d+) minute read/)![1]);
+      const minutes = Number((await page.locator('.essay-head').innerText()).match(/(\d+) minute read/)![1]);
       await open(page, '/writing');
       const link = page.locator(`main .writing-list a[href="/writing/${a.slug}"]`);
       await expect(link.locator('.read-time')).toHaveText(`${minutes} min`);
@@ -145,7 +145,7 @@ for (const a of ARTICLES) {
     test('shows a word count within 50 of the real body, and a reading time that follows from it', async ({ page }) => {
       await open(page, path);
       const real = await page.locator('.essay-body').evaluate((el) => (el as HTMLElement).innerText.split(/\s+/).filter(Boolean).length);
-      const length = await page.locator('.essay-facts').innerText();
+      const length = await page.locator('.essay-head').innerText();
       const shown = Number(length.match(/([\d,]+) words/)![1].replace(/,/g, ''));
       const minutes = Number(length.match(/(\d+) minute read/)![1]);
       expect(Math.abs(shown - real), `shown ${shown}, real ${real}`).toBeLessThanOrEqual(50);
@@ -197,8 +197,7 @@ for (const a of ARTICLES) {
       }
     });
 
-    test('the head and the body share columns: title, facts and section labels on one edge, standfirst and text on another', async ({ page }) => {
-      // From 1100px a section is a label column and a text column; below that the label sits above its text.
+    test('the title, byline, section headings and text share one centred reading column', async ({ page }) => {
       for (const width of [1440, 1180]) {
         await page.setViewportSize({ width, height: 900 });
         await open(page, path);
@@ -211,24 +210,24 @@ for (const a of ARTICLES) {
         expect(Math.abs(x.h2 - x.h1), `section label vs title at ${width}`).toBeLessThanOrEqual(2);
         expect(Math.abs(x.dek - x.p), `standfirst vs body text at ${width}`).toBeLessThanOrEqual(2);
         expect(Math.abs(x.bio - x.p), `author paragraph vs body text at ${width}`).toBeLessThanOrEqual(2);
-        expect(x.dek, `body column is inset from the title at ${width}`).toBeGreaterThan(x.h1 + 150);
+        expect(Math.abs(x.dek - x.h1)).toBeLessThanOrEqual(2);
+        expect(x.h1).toBeGreaterThan(150);
       }
     });
 
-    test('the first paragraph of a section starts level with its title, not with its number', async ({ page }) => {
-      for (const width of [1440, 1180]) {
-        await page.setViewportSize({ width, height: 900 });
-        await open(page, path);
-        const d = await page.evaluate(() => {
-          const h2 = document.querySelector('.essay-sec>h2')!;
-          const p = h2.nextElementSibling!.firstElementChild!;
-          const top = (n: Node) => { const r = document.createRange(); r.selectNodeContents(n); return r.getClientRects()[0].top; };
-          const title = top(h2), para = top(p);
-          const number = parseFloat(getComputedStyle(h2, '::before').height);
-          return { title, para, number };
-        });
-        expect(Math.abs(d.para - d.title), `paragraph text vs title text at ${width}`).toBeLessThanOrEqual(10);
-        expect(d.number).toBeGreaterThan(10);
+    test('numbered headings introduce the text directly below', async ({ page }) => {
+      await open(page, path);
+      const heights = await page.locator('.essay-sec>h2').evaluateAll(items => items.map(el => ({
+        gap: el.nextElementSibling!.getBoundingClientRect().top - el.getBoundingClientRect().bottom,
+        number: getComputedStyle(el, '::before').content,
+        position: getComputedStyle(el).position,
+      })));
+      expect(heights.length).toBeGreaterThanOrEqual(4);
+      for (const item of heights) {
+        expect(item.gap).toBeGreaterThanOrEqual(12);
+        expect(item.gap).toBeLessThanOrEqual(32);
+        expect(item.number).toContain('counter(');
+        expect(item.position).toBe('static');
       }
     });
 
@@ -249,30 +248,6 @@ for (const a of ARTICLES) {
       });
       for (const g of gaps) { expect(g, `gap ${g}`).toBeGreaterThanOrEqual(56); expect(g, `gap ${g}`).toBeLessThanOrEqual(80); }
       expect(Math.max(...gaps) - Math.min(...gaps), 'every gap before a hairline is the same').toBeLessThanOrEqual(24);
-    });
-
-    test('on a wide screen the section labels take turns: no two overlap and at most one is stuck, inside sections 2, 3 and 4', async ({ page }) => {
-      await page.setViewportSize({ width: 1440, height: 900 });
-      await open(page, path);
-      const count = await page.locator('.essay-sec').count();
-      expect(count, 'sections').toBeGreaterThanOrEqual(4);
-      for (const n of [1, 2, 3]) {
-        await page.evaluate((i) => {
-          const s = document.querySelectorAll('.essay-sec')[i].getBoundingClientRect();
-          scrollTo(0, scrollY + s.top - 20); // the section's top is above the sticky line, its end still below it
-        }, n);
-        await page.waitForTimeout(150);
-        const m = await page.evaluate(() => {
-          const boxes = [...document.querySelectorAll('.essay-sec>h2')].map((h) => { const r = h.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, left: r.left, right: r.right, stuck: Math.abs(r.top - 104) < 1.5 }; });
-          return boxes;
-        });
-        for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++) {
-          const overlap = m[i].top < m[j].bottom && m[j].top < m[i].bottom && m[i].left < m[j].right && m[j].left < m[i].right;
-          expect(overlap, `labels ${i + 1} and ${j + 1} overlap while in section ${n + 1}`).toBe(false);
-        }
-        expect(m.filter((b) => b.stuck).length, `labels stuck while in section ${n + 1}`).toBeLessThanOrEqual(1);
-        expect(m[n].stuck, `label ${n + 1} is the stuck one inside its own section`).toBe(true);
-      }
     });
 
     test('callouts stack on a phone: the term above its text, the text wide enough to read', async ({ page }) => {

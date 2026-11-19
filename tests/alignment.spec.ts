@@ -57,13 +57,19 @@ async function edges(page: Page) {
 test.describe('B4: one gutter, one max width', () => {
   for (const w of WIDTHS) {
     for (const p of PAGES) {
-      test(`${p.type} (${p.path}) at ${w}: nav logo, h1 and content share one left edge`, async ({ page }) => {
+      const readingColumn = p.path.startsWith('/writing') || p.path === '/privacy';
+      test(`${p.type} (${p.path}) at ${w}: heading aligns with its content column`, async ({ page }) => {
         await page.setViewportSize({ width: w, height: 900 });
         await page.emulateMedia({ reducedMotion: 'reduce' });
         await page.goto(p.path);
         const e = await edges(page);
         expect(e.logoLeft, 'logo').not.toBeNull();
         expect(e.h1Left, 'h1').not.toBeNull();
+        if (readingColumn) {
+          expect(Math.abs(e.contentLeft! - e.h1Left!)).toBeLessThanOrEqual(1);
+          expect(e.contentLeft!).toBeGreaterThanOrEqual(e.logoLeft! - 1);
+          return;
+        }
         expect(Math.abs(e.logoLeft! - e.h1Left!), `logo ${e.logoLeft} vs h1 ${e.h1Left}`).toBeLessThanOrEqual(1);
         expect(Math.abs(e.logoLeft! - e.contentLeft!), `logo ${e.logoLeft} vs content ${e.contentLeft}`).toBeLessThanOrEqual(1);
       });
@@ -75,6 +81,11 @@ test.describe('B4: one gutter, one max width', () => {
         await page.goto(p.path);
         const e = await edges(page);
         expect(e.ctrlRight, 'nav control').not.toBeNull();
+        if (readingColumn) {
+          expect(Math.abs(e.contentLeft! + e.contentRight! - e.vw)).toBeLessThanOrEqual(1);
+          expect(e.contentRight!).toBeLessThanOrEqual(e.ctrlRight! + 1);
+          return;
+        }
         // At the max width both edges are centred by the same max, so they still agree.
         expect(Math.abs(e.ctrlRight! - e.contentRight!), `control ${e.ctrlRight} vs content ${e.contentRight}`).toBeLessThanOrEqual(1);
       });
@@ -86,7 +97,6 @@ test.describe('B4: one gutter, one max width', () => {
 // the same left as the logo and h1, the same right as the nav's right control.
 const HEADS = [
   { path: '/work', sel: '.work-head .wrap' },
-  { path: '/writing', sel: '.writing-head .wrap' },
   { path: '/about', sel: '.about-head .wrap' },
 ];
 for (const w of WIDTHS) {

@@ -1,24 +1,28 @@
 ---
+import ProjectMasthead from '../components/ProjectMasthead.astro';
 import Icon from '../components/Icon.astro';
-// Public project summary, original cover and recorded outcomes.
+// Public case studies use the imported narrative. Confidential entries use the approved summary.
 import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { Picture, getImage } from 'astro:assets';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
-import type { CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { imageWidths } from '../lib/image-widths';
 import '../styles/earlier.css';
+import '../styles/project-story.css';
 
 interface Props {
   entry: CollectionEntry<'earlier'>;
   next: CollectionEntry<'earlier'>;
 }
 const { entry, next } = Astro.props;
+const Narrative = entry.data.confidential ? undefined : (await render(entry)).Content;
 const { title, summary, role, dates, outcomes, tags, cover, coverAlt, matte } = entry.data;
 
+const processFigure = entry.data.confidential ? undefined : entry.data.processFigure;
 const page = new URL(`/work/${entry.id}`, Astro.site).href;
 const share = await getImage({ src: cover, width: Math.min(cover.width, 1600), format: 'webp' });
 // A value this short is a figure and is set large; a longer one is a phrase.
@@ -70,17 +74,11 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
   <Nav />
   <main id="main" class="earlier">
     <div class="wrap">
-      <header class="earlier-head">
-        <p class="earlier-eyebrow"><a href="/work#earlier-title">Earlier work</a></p>
-        <h1>{title}</h1>
-        <div class="earlier-intro">
-          <div class="earlier-lead"><p>{summary}</p>{entry.data.contribution && <p class="earlier-contribution">{entry.data.contribution}</p>}</div>
-          <dl class="earlier-facts">
-            <div><dt>Year</dt><dd>{dates}</dd></div>
-            <div><dt>Role</dt><dd>{role}</dd></div>
-          </dl>
-        </div>
-      </header>
+      <ProjectMasthead title={title} backHref="/work#earlier-title" backLabel="Earlier work" facts={[
+        ...entry.data.details,
+        { label: 'Year', value: dates },
+        { label: 'Role', value: role },
+      ]} />
 
       <figure class:list={['earlier-fig', 'earlier-cover', { 'is-wide': wide, 'is-matte': matte.includes(nameOf(cover)) }]} style={`--w:${cover.width}px;--pan:760px;--cover-preview:url(data:image/webp;base64,${preview.toString('base64')})`}>
         <div class="earlier-stage">
@@ -91,19 +89,31 @@ const nextMatte = next.data.matte.includes(nameOf(next.data.cover));
         <a class="earlier-fig-open" href={fullSize.src} target="_blank" rel="noopener noreferrer">Open full-size image<span class="vh"> (opens in new tab)</span></a>
       </figure>
 
-      <section class="earlier-results" aria-labelledby="earlier-results-title">
-        <h2 id="earlier-results-title" class="earlier-label">Outcomes</h2>
-        <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
-          {outcomes.map((o, i) => (
-            <li data-pair={pairOf(i)}>
-              <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
-              <span class="label" set:html={keepWords(o.label)} />
-            </li>
-          ))}
-        </ul>
+      <h1 class="project-story-title">{title}</h1>
+      <p class="project-story-lead">{summary}</p>
+      <section class="project-notes" aria-labelledby="project-about">
+        <h2 id="project-about">About this project</h2>
+        <div class="project-notes-body">
+          {Narrative ? <div class="earlier-narrative"><Narrative /></div> : (entry.data.contribution && <section><h3>My contribution</h3><p>{entry.data.contribution}</p></section>)}
+          {processFigure && <figure class="earlier-process-figure">
+            <Picture src={processFigure.image} alt={processFigure.alt} formats={['avif']} fallbackFormat="webp"
+              widths={imageWidths(processFigure.image.width)} sizes="(max-width:680px) calc(100vw - 48px), (min-width:1500px) 1068px, 72vw"
+              quality={85} loading="lazy" decoding="async" />
+          </figure>}
+          <section class="earlier-results" aria-labelledby="earlier-results-title">
+            <h3 id="earlier-results-title" class="earlier-label">Outcomes</h3>
+            <ul class="earlier-outcomes" style={`--n:${outcomes.length}`}>
+              {outcomes.map((o, i) => (
+                <li data-pair={pairOf(i)}>
+                  <span class:list={['value', { figure: isFigure(o.value) }]}>{o.value}</span>
+                  <span class="label" set:html={keepWords(o.label)} />
+                </li>
+              ))}
+            </ul>
+          </section>
+          {entry.data.confidential && <p>This project is under NDA.</p>}
+        </div>
       </section>
-
-      {entry.data.confidential && <p>This project is under NDA.</p>}
     </div>
 
     <section class="band next-case" aria-label="Next project">

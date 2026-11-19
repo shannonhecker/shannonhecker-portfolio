@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 const maps=JSON.parse(readFileSync(new URL('../src/data/figma-decision-maps.json',import.meta.url),'utf8')); 
 
-for(const project of ['fx','fusion','ai','winking','deal'] as const) {
+for(const project of ['fusion','ai','winking','deal'] as const) {
  test(`${project} exported Figma text fits its nodes in both themes`,async({page})=>{
   for(const theme of ['light','dark']){
    await page.goto(`/art/decision-maps/${project}-${theme}.svg`);

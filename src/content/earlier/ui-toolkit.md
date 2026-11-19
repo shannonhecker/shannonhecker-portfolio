@@ -31,19 +31,19 @@ coverAlt: "UI Toolkit"
 matte:
   - "uitkbanner"
 ---
-## Overview
+### Project overview
 
 Worked on the modernisation of a trading platform UI, bringing legacy interfaces into a shared Market UI standard. The goal was clarity and speed for traders working across multiple asset classes and execution workflows.
 
 The project covered pre-trade, execution, and post-trade activities, consolidating fragmented tools into one responsive experience across desktop and tablet.
 
-## My Role
+### My role
 
 As **UI Designer**, I modernised the trading UI with the UX team and kept the work aligned to Market UI. I designed scalable flows with product and engineering.
 
 Key responsibilities included order entry flows, price tile layouts, strategy builders, and real-time data displays, with performance and accessibility standards built in.
 
-## Key Focus Areas
+### Design process
 
 Real-time price tiles, order management grids, strategy configuration panels, and multi-asset trading views. Dense, but still readable.
 

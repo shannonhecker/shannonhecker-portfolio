@@ -1,4 +1,6 @@
 ---
+import '../styles/project-story.css';
+import ProjectMasthead from '../components/ProjectMasthead.astro';
 import Icon from '../components/Icon.astro';
 import Base from './Base.astro';
 import Nav from '../components/Nav.astro';
@@ -17,6 +19,7 @@ const description = CASES[i].meta;
 const level = href in CASE_WORLD ? CASE_WORLD[href] + 1 : 0;
 const overview = projectOverviews[href];
 const next = CASES[(i + 1) % CASES.length];
+const nextOverview = projectOverviews[next.href];
 ---
 <Base title={`${title} · Shannon Hecker`} description={description}>
   <div class="progress" aria-hidden="true"></div>
@@ -24,40 +27,53 @@ const next = CASES[(i + 1) % CASES.length];
   <Nav />
   <main id="main" class="case-page" data-project={href.slice(1)}>
     <article class="wrap project-overview">
-      <a class="work-back" href="/work">All projects</a>
-      <header>
-        <p class="project-context">{overview.context}</p>
-        <h1 style={`view-transition-name:t-${CASES[i].vt}`}>{title}</h1>
-        <p class="project-intro">{overview.lead}</p>
-        <p class="project-contribution">{overview.contribution}</p>
-      </header>
+      <ProjectMasthead title={title} backLabel="All projects" backHref="/work" facts={'nda' in overview ? [] : [
+        { label: 'Organisation', value: overview.organisation },
+        { label: 'Year', value: overview.period },
+        { label: 'Role', value: overview.role },
+      ]} />
       <div class="overview-art"><slot /></div>
-      <section class="project-outcome" aria-labelledby="outcome">
-        <h2 id="outcome">Outcome</h2>
-        <p>{overview.outcome}</p>
-        {overview.links.length > 0 && <div class="product-links">{overview.links.map(link => <a href={link.href} target="_blank" rel="noopener">{link.label}<Icon name="external" /><span class="vh"> (opens in new tab)</span></a>)}</div>}
-      </section>
+      <h1 class="project-story-title" style={`view-transition-name:t-${CASES[i].vt}`}>{title}</h1>
+      {!('nda' in overview) && <>
+        <p class="project-story-lead">{overview.lead}</p>
+        <section class="project-notes" aria-labelledby="project-about">
+          <h2 id="project-about">About this project</h2>
+          <div class="project-notes-body">
+            <section><h3>My contribution</h3><p>{overview.contribution}</p></section>
+            {overview.decisions.map(decision => (
+              <section>
+                <h3>{decision.title}</h3>
+                {decision.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+              </section>
+            ))}
+            <section class="project-outcome" aria-labelledby="outcome">
+              <h3 id="outcome">Outcome</h3>
+              <p>{overview.outcome}</p>
+              {overview.links.length > 0 && <div class="product-links">{overview.links.map(link => <a href={link.href} target="_blank" rel="noopener">{link.label}<Icon name="external" /><span class="vh"> (opens in new tab)</span></a>)}</div>}
+            </section>
+          </div>
+        </section>
+      </>}
+      <slot name="notice" />
     </article>
-    {level > 0 && (
+    {level > 0 && !('nda' in overview) && (
       <p class="wrap play-link"><a href={`/?level=${level}#adventure`}>Play this chapter in the game <Icon name="arrow-right" /></a></p>
     )}
     <section class="band next-case" aria-label="Next case">
-      <div class="wrap"><div class="index"><CaseRowLink c={next} description={projectOverviews[next.href].context} /></div></div>
+      <div class="wrap"><div class="index"><CaseRowLink c={next} description={`${nextOverview.organisation} · ${nextOverview.period}`} /></div></div>
     </section>
   </main>
   <Footer />
 </Base>
 <style>
 .project-overview{padding-top:clamp(100px,10vw,160px);padding-bottom:clamp(40px,5vw,80px)}
-.work-back,.product-links a{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--fg);text-underline-offset:4px}
-.project-context{margin:clamp(24px,4vw,64px) 0 16px;color:var(--fg-2);font-size:15px}
-.project-overview h1{max-width:19ch;font:500 clamp(44px,7vw,108px)/1.02 var(--display,var(--body));letter-spacing:-.045em;margin:0}
-.project-intro{max-width:48ch;margin:24px 0 0;font:400 clamp(20px,2.2vw,32px)/1.35 var(--body);color:var(--fg)}
-.project-contribution,.project-outcome p{max-width:61ch;font:400 17px/1.6 var(--body);color:var(--fg-2);margin:16px 0 0}
-.overview-art{margin:clamp(32px,5vw,72px) auto;max-width:1040px}
-.overview-art :global(.project-hero){margin:0 auto;width:100%}
-.project-outcome{border-top:1px solid var(--hair);padding-top:clamp(24px,3vw,48px)}
-.project-outcome h2{margin:0;font:500 clamp(26px,3vw,42px)/1.2 var(--body);letter-spacing:-.03em}
+.product-links a{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--fg);text-underline-offset:4px}
+.overview-art{width:100%;margin:0 auto}
+.overview-art :global(.project-hero),.overview-art :global(.product-capture){margin:0 auto;width:100%;max-width:760px}
+.overview-art :global(.fusion-hero){max-width:680px}
+.overview-art :global(.nda-cover){max-width:1040px;margin-inline:auto}
+.project-overview :global(.nda-summary){margin:clamp(24px,4vw,56px) 0 0}
+.project-notes-body p + p{margin-top:1em}
 .product-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px}
 </style>
 <script>

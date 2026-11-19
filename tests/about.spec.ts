@@ -21,23 +21,23 @@ const ABOUT_COPY = [
   'I build what I design.',
   'I put early prototypes in front of the people who use them. Then I work through their feedback with product and engineering.',
   // Experience
-  'Career', 'Experience',
+  'Experience',
   'uoaui.ai', 'Designer + Builder', '2026 to present',
-  'I designed and built a visual web builder for designers. Its UI Kit and private-preview Builder support Salt, Material 3, Fluent 2, Carbon and the uoaui system.',
+  'I built a canvas for comparing design systems. The UI Kit is public and the builder is in private alpha.',
   'Barclays, London',
-  'Sole designer on FX, covering trader, sales, ops, institutional and corporate-client surfaces. Leading a design system refactor across the platform. Most visual work is under NDA; happy to walk through it in an interview.',
+  'I lead product design for FX and MarketsOne. This work is under NDA.',
   'J.P. Morgan, London',
-  'I led UI for Fusion Analytics, defining components and accessibility patterns in Salt. Before Fusion, I led UI on Deal Model with two UX designers and teams across custody operations, sales, legal and product.',
+  'I led UI for Deal Model, then Fusion Analytics, where I built dashboard components and accessibility patterns on Salt.',
   'Pegasus Global Travel, London', 'Graphic Designer', '2015',
-  'Designed the company website end to end, plus promotional assets and video content. Brought the brand into one system across channels.',
+  'I designed the website and brought the company’s print, digital and video work into one identity.',
   'Genuine C&C Inc, Taiwan', 'Visual Designer & Web Developer', '2011 to 2015',
-  'Designed and maintained the B2B platform. Built the corporate website front-end. Led UI/UX direction for a client-facing network platform.',
+  'I designed the B2B platform and built the corporate website.',
   'Eastern Shine Production Co., Ltd.', 'Website Designer, Graphic Designer', '2011',
-  'Designed web platforms with a usability focus. Art-directed a government video project from concept to delivery.',
+  'I designed websites and art-directed a government video project.',
   'Reeborn Information Co., Ltd.', 'Website Designer', '2008 to 2010',
-  'Designed corporate visual identity and web platform interfaces. Produced digital content and product photography for e-commerce.',
+  'I designed brand identities and web interfaces, and photographed products for e-commerce.',
   // Expertise
-  'Capabilities', 'Expertise',
+  'Expertise',
   'AI-assisted product design', 'Design strategy for enterprise software', 'Visual design at high fidelity',
   'Design systems (advanced Figma)', 'Research with expert users', 'Design mentoring & leadership',
   'Multi-stakeholder design decisions', 'Accessibility (WCAG 2.1 AA)', 'Trading platform UI/UX', 'Data visualisation',
@@ -83,7 +83,7 @@ async function lineLength(page: Page) {
           if (line) line.n += 1; else perLine.push({ y, n: 1 });
         }
       }
-      if (perLine.length < 3) continue;
+      if (perLine.length < 2) continue;
       paragraphs += 1;
       for (const l of perLine.slice(0, -1)) full.push(l.n);
     }
@@ -99,13 +99,10 @@ test.describe('/about', () => {
     await expect(page).toHaveTitle('About me · Shannon Hecker');
   });
 
-  test('page head shares the large Writing title style', async ({ page }) => {
-    const sizes: Record<string, number> = {};
-    for (const path of ['/writing', '/about']) {
-      await open(page, path);
-      sizes[path] = await page.locator('main h1').evaluate((h) => parseFloat(getComputedStyle(h).fontSize));
-    }
-    expect(sizes['/about']).toBe(sizes['/writing']);
+  test('the approach shares the opening masthead', async ({ page }) => {
+    await open(page, '/about');
+    await expect(page.locator('.about-head')).toContainText('My approach');
+    await expect(page.locator('.about-head .about-prose')).toContainText('I build what I design.');
   });
 
   test('the opening introduces Shannon and her current work', async ({ page }) => {

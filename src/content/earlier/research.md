@@ -27,15 +27,15 @@ tags:
 cover: ../../assets/earlier/research/research-banner.webp
 coverAlt: "JPMM Research Platform"
 ---
-## Project Summary
+### Project overview
 
 Analysts and clients were trying to find relevant research inside a sprawling library of reports, notes, and data publications. Search was weak, personalisation was missing, and every user saw the same undifferentiated feed.
 
-## My Role
+### My role
 
 As **UI Designer**, I led visual and interaction design for the platform. I worked with product and engineering on workshops, Figma specifications, and handoff, with layouts built for fast scanning.
 
-## Design Process
+### Design process
 
 I worked through a **content audit and taxonomy redesign** with research authors, editorial staff, and end users. That classification system became the backbone of faceted search and filtering.
 

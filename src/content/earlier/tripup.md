@@ -28,19 +28,20 @@ tags:
   - "Travel"
   - "Expense Splitting"
 cover: ../../assets/earlier/tripup/tripup-banner.webp
+processFigure:
+  image: ../../assets/earlier/tripup/tripup02.webp
+  alt: "TripUp high-fidelity screens: active polls, log expenses, and trip expense hub"
 coverAlt: "TripUp wireflow: sixteen linked screens from launch through polls, itinerary, and expense splitting"
 ---
-## Project Overview
+### Project overview
 
-**The brief.** Improve TripUp for **group decision-making and expense tracking** during trips: quick polls, live vote feedback, itinerary updates, and easier settlement.
+A group could agree on dinner in one chat, record the cost in an expense app and still need to update a separate itinerary. I wanted a vote, the resulting plan and the cost to stay connected.
 
-**The core problem.** Group travel coordination is scattered across chat, expense apps, and separate itineraries. Users need one surface for decisions, payments, and plans.
-
-## My Role
+### My role
 
 I owned the design process from **user research and competitor analysis** through to wireflows, journey mapping, visual direction, and high-fidelity mobile UI. Deliverables included personas, a complete wireflow, colour and type, and polished iPhone 16 screens.
 
-## Design Process
+### Design process
 
 **User research.** I created two personas: the Organiser, who manages logistics, and the Participant, who wants to vote, pay, and stay updated with minimal effort. Key insight: trip decisions happen mid-flow, so the interface needed a **two-tap rule**.
 
@@ -49,5 +50,3 @@ I owned the design process from **user research and competitor analysis** throug
 **User journey mapping.** I mapped the flow from adding a friend through dinner polling, group voting, itinerary sync, expense logging, and settlement.
 
 **UI solution.** The final screens focused on three interactions: **Poll Creation**, **Live Voting View**, and **Expense Split**. Smart defaults kept the experience lightweight.
-
-![TripUp high-fidelity screens: active polls, log expenses, and trip expense hub](../../assets/earlier/tripup/tripup02.webp)

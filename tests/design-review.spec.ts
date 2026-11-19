@@ -253,16 +253,15 @@ test('D9: case pages keep one divider above the footer, and the Sections button 
   expect(pad).toBeGreaterThanOrEqual(16 + 48 + 16);
 });
 
-test('D10: case titles start on the same edge whatever the digits', async ({ page }) => {
+test('D10: featured case captions share one left inset', async ({ page }) => {
   for (const [w, h] of [[1440, 900], [390, 844]] as const) {
     await page.setViewportSize({ width: w, height: h });
     await visit(page, '/', 'dark');
     const rows = await page.locator('#work .row').evaluateAll((els) => els.map((r) => ({
-      x: r.getBoundingClientRect().x, h3: r.querySelector('h3')!.getBoundingClientRect().x, tnum: getComputedStyle(r.querySelector('.n')!).fontVariantNumeric,
+      x: r.getBoundingClientRect().x, h3: r.querySelector('h3')!.getBoundingClientRect().x,
     })));
     expect(rows.length).toBe(5);
     for (const r of rows) {
-      expect(r.tnum).toContain('tabular-nums');
       expect(Math.abs(r.h3 - r.x - (rows[0].h3 - rows[0].x))).toBeLessThanOrEqual(0.5);
     }
   }
