@@ -47,6 +47,9 @@ export async function siteRoutes(staticDir, environment) {
     'Permissions-Policy': 'camera=(), microphone=(self), geolocation=(), interest-cohort=()',
   };
   if (environment !== 'production') headers['X-Robots-Tag'] = 'noindex, nofollow';
+  const [themeCSS, themeJS] = await Promise.all(
+    ['dark-mode.css', 'dark-mode.js'].map(file => readFile(join(staticDir, 'assets', file), 'utf8'))
+  );
   const routes = [{ src: '/(.*)', headers, continue: true }];
   for (const file of (await readdir(staticDir)).filter(name => name.endsWith('.html')).sort()) {
     const name = file.slice(0, -5);
@@ -64,6 +67,10 @@ export async function siteRoutes(staticDir, environment) {
     // Directory-style aliases must resolve assets and links from the canonical page.
     const base = name === 'index' ? '/' : '/' + file;
     html = html.replace('<head>', '<head>\n  <base href="' + base + '">');
+    // Deliver the palette and its controls together, including on cold mobile visits.
+    html = html
+      .replace(/<link rel="stylesheet" href="\/?assets\/dark-mode\.css(?:\?[^"]*)?"\s*\/?>/, () => '<style>\n' + themeCSS + '\n</style>')
+      .replace(/<script src="\/?assets\/dark-mode\.js"(?: defer)?><\/script>/, () => '<script>\n' + themeJS + '\n</script>');
     if (name === 'index') {
       // Keep the opening layout intact even if a mobile stylesheet request fails.
       const layout = await readFile(join(staticDir, 'assets', 'portfolio.css'), 'utf8');

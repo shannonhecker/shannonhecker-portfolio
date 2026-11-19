@@ -1,40 +1,44 @@
-/* Dark mode – runs synchronously in <head> to prevent FOWT */
-(function() {
-  var stored = localStorage.getItem('theme');
-  var theme;
-  if (stored === 'dark' || stored === 'light') {
-    /* Saved preference always wins */
-    theme = stored;
-  } else {
-    /* No saved preference → default to dark for first-time visitors */
-    theme = 'dark';
+(function () {
+  function savedTheme() {
+    try {
+      return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+    } catch {
+      return document.documentElement.dataset.theme || 'dark';
+    }
   }
-  document.documentElement.setAttribute('data-theme', theme);
-  var meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', theme === 'dark' ? '#121212' : '#ffffff');
-})();
 
-/* Toggle – after DOM ready */
-document.addEventListener('DOMContentLoaded', function() {
-  var toggles = document.querySelectorAll('.theme-toggle');
-  /* Reflect theme state for assistive tech (WCAG 4.1.2): pressed = dark mode */
-  function syncPressed(isDark) {
-    toggles.forEach(function(btn) {
-      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  function apply(theme) {
+    var root = document.documentElement;
+    var changed = root.dataset.theme !== theme;
+    root.dataset.theme = theme;
+    document.querySelectorAll('.theme-toggle').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(theme === 'dark'));
     });
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'dark' ? '#121212' : '#ffffff';
+    if (changed) window.dispatchEvent(new CustomEvent('theme-changed'));
   }
-  syncPressed(document.documentElement.getAttribute('data-theme') === 'dark');
-  toggles.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var current = document.documentElement.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      syncPressed(next === 'dark');
-      var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', next === 'dark' ? '#121212' : '#ffffff');
-      /* Notify canvas code to rebuild gradients */
-      window.dispatchEvent(new CustomEvent('theme-changed'));
+
+  apply(savedTheme());
+  document.addEventListener('DOMContentLoaded', function () {
+    apply(savedTheme());
+    document.querySelectorAll('.theme-toggle').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        apply(next);
+        try {
+          localStorage.setItem('theme', next);
+        } catch {
+          // The current page still switches when browser storage is unavailable.
+        }
+      });
     });
   });
-});
+
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) apply(savedTheme());
+  });
+  window.addEventListener('storage', function (event) {
+    if (event.key === 'theme' || event.key === null) apply(savedTheme());
+  });
+})();
