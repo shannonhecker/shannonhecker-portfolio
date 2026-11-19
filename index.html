@@ -1896,8 +1896,8 @@
 
   <style>
     /* ============================================================
-       FEATURED-WORK · bento grid with uoaui hero (homepage only)
-       Hybrid layout: founder flagship spans 2×2, rest in static grid.
+       FEATURED-WORK · featured project grid (homepage only)
+       The first project spans two rows and columns on wide screens.
        Hover-reveal titles. Mixed rhythm via span variations.
        ============================================================ */
     .featured-bento {
@@ -1907,7 +1907,7 @@
       gap: clamp(12px, 1.5vw, 18px);
     }
 
-    /* Hero card: founder flagship. Spans 2 cols × 2 rows.
+    /* Leading project. Spans 2 cols × 2 rows.
        Visually dominant, reads as "lead project" at first glance. */
     .featured-bento .hero-card {
       grid-column: span 2;
@@ -2049,10 +2049,6 @@
         grid-column: 1 / -1;
         grid-row: span 1;
       }
-      .featured-bento .hero-card { order: 1; }
-      .featured-bento #featured-fx { order: 2; }
-      .featured-bento .featured-card--winkingstar { order: 3; }
-      .featured-bento > :not(.hero-card):not(#featured-fx):not(.featured-card--winkingstar) { order: 4; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2633,25 +2629,7 @@
 
       <div class="featured-bento" aria-label="Featured work, five selected projects">
 
-        <!-- Hero 2×2: Fusion Design System -->
-        <div class="bc-4 hero-card rv" data-d="1">
-          <article class="pcard-article"><a href="project-design-system.html" class="pcard">
-            <div class="pcard-img">
-              <img src="assets/system-1.webp" alt="Fusion Design System" loading="lazy" decoding="async" width="1200" height="720" />
-              <div class="ph ph-2" style="display:none;">Design System</div>
-              <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Fusion Design System</span></div>
-            </div>
-            <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">01 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
-              <div class="pcard-title" role="heading" aria-level="3">Fusion Design System</div>
-              <p class="pcard-desc">A shared design system for teams building data products on J.P. Morgan Fusion.</p>
-              <div class="pcard-tags"><span class="ptag">Design System</span><span class="ptag">Tokens</span><span class="ptag">Figma</span></div>
-            </div>
-          </a></article>
-        </div>
-
-        <!-- 1×1: FX execution analytics -->
-        <div class="bc-4 rv" id="featured-fx" data-d="2">
+        <div class="bc-4 hero-card rv" id="featured-fx" data-d="1">
           <article class="pcard-article"><a href="project-fx.html" class="pcard">
             <div class="pcard-img">
               <img src="assets/fx-execution-card-dark.webp" alt="My FX dashboard mockup showing sample trade prices and a venue breakdown" loading="lazy" decoding="async" width="1040" height="1040" />
@@ -2659,7 +2637,7 @@
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">FX execution analytics</span></div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">02 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">01 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title" role="heading" aria-level="3">FX execution analytics</div>
               <p class="pcard-desc">I lead product design for FX and MarketsOne at Barclays. This portfolio mockup uses sample data.</p>
               <div class="pcard-tags"><span class="ptag">Trading UX</span><span class="ptag">Under NDA</span></div>
@@ -2667,25 +2645,7 @@
           </a></article>
         </div>
 
-        <!-- 1×1: Execute Algo Center -->
-        <div class="bc-4 rv" data-d="3">
-          <article class="pcard-article"><a href="project-algo-center.html" class="pcard">
-            <div class="pcard-img">
-              <img src="assets/algocenter-1.webp" alt="Execute Algo Center" loading="lazy" decoding="async" width="800" height="450" />
-              <div class="ph ph-3" style="display:none;">Execute Algo Center</div>
-              <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Execute Algo Center</span></div>
-            </div>
-            <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">03 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
-              <div class="pcard-title" role="heading" aria-level="3">Execute Algo Center</div>
-              <p class="pcard-desc">A workspace where traders can monitor their running strategies and intervene when an order needs attention.</p>
-              <div class="pcard-tags"><span class="ptag">Trading UX</span><span class="ptag">Real-time Data</span></div>
-            </div>
-          </a></article>
-        </div>
-
-        <!-- 1×1: Winking Star (bottom-left of right column, next to Barclays' column) -->
-        <div class="bc-4 rv featured-card--winkingstar" data-d="4">
+        <div class="bc-4 rv" data-d="2">
           <article class="pcard-article"><a href="project-winkingstar.html" class="pcard">
             <div class="pcard-img pcard-img--winkingstar">
               <img class="winkingstar-thumb" src="assets/winkingstar-hero-banner.png" alt="Winking Star: native iOS habit tracker for families" loading="lazy" decoding="async" width="393" height="286" style="object-fit:cover;object-position:center;" />
@@ -2693,7 +2653,7 @@
               <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Winking Star</span></div>
             </div>
             <div class="pcard-body">
-              <div class="pcard-meta"><span class="pcard-num">04 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-meta"><span class="pcard-num">02 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
               <div class="pcard-title" role="heading" aria-level="3">Winking Star</div>
               <p class="pcard-desc">A shared routine board I designed for families. Children earn stars and grow a pet as they go.</p>
               <div class="pcard-tags"><span class="ptag">Mobile</span><span class="ptag">iOS</span><span class="ptag">Side Project</span></div>
@@ -2701,7 +2661,38 @@
           </a></article>
         </div>
 
-        <!-- 1×1: D&PS Brand Identity (bottom-right) -->
+        <div class="bc-4 rv" data-d="3">
+          <article class="pcard-article"><a href="project-design-system.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/system-1.webp" alt="Fusion Design System" loading="lazy" decoding="async" width="1200" height="720" />
+              <div class="ph ph-2" style="display:none;">Design System</div>
+              <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Fusion Design System</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta"><span class="pcard-num">03 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-title" role="heading" aria-level="3">Fusion Design System</div>
+              <p class="pcard-desc">A shared design system for teams building data products on J.P. Morgan Fusion.</p>
+              <div class="pcard-tags"><span class="ptag">Design System</span><span class="ptag">Tokens</span><span class="ptag">Figma</span></div>
+            </div>
+          </a></article>
+        </div>
+
+        <div class="bc-4 rv" data-d="4">
+          <article class="pcard-article"><a href="project-algo-center.html" class="pcard">
+            <div class="pcard-img">
+              <img src="assets/algocenter-1.webp" alt="Execute Algo Center" loading="lazy" decoding="async" width="800" height="450" />
+              <div class="ph ph-3" style="display:none;">Execute Algo Center</div>
+              <div class="pcard-caption" aria-hidden="true"><span class="pcard-caption-title">Execute Algo Center</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-meta"><span class="pcard-num">04 / 05</span><div class="pcard-arrow"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5V6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+              <div class="pcard-title" role="heading" aria-level="3">Execute Algo Center</div>
+              <p class="pcard-desc">A workspace where traders can monitor their running strategies and intervene when an order needs attention.</p>
+              <div class="pcard-tags"><span class="ptag">Trading UX</span><span class="ptag">Real-time Data</span></div>
+            </div>
+          </a></article>
+        </div>
+
         <div class="bc-4 rv" data-d="5">
           <article class="pcard-article"><a href="project-dps-brand.html" class="pcard">
             <div class="pcard-img">
