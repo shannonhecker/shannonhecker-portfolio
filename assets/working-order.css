@@ -8,8 +8,8 @@
 }
 .order-page { padding-block: calc(var(--nav) + clamp(40px, 7vw, 96px)) clamp(56px, 8vw, 112px); }
 .order-intro { margin-bottom: clamp(24px, 4vw, 48px); }
-.order-intro h1 { font: 400 clamp(48px, 8vw, 112px)/1.03 var(--font-display); letter-spacing: -.06em; }
-.order-intro p { max-width: 52ch; margin-top: 20px; font-size: var(--t-base); color: var(--c-mid); }
+.order-intro h1 { line-height: 1.03; }
+.order-intro p { max-width: 52ch; margin-top: 20px; color: var(--c-mid); }
 .order-page .adventure-hero { max-width: 960px; }
 .play {
   --radius: 4px;

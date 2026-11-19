@@ -123,6 +123,8 @@
 }
 
 .ask-chat {
+  --chat-text-size: 14px;
+  --chat-text-inset: 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -221,12 +223,12 @@
 .ask-msg {
   max-width: 88%;
   font-family: var(--font);
-  font-size: 14px;
+  font-size: var(--chat-text-size);
   font-weight: 300;
   line-height: 1.7;
   letter-spacing: -0.01em;
   border-radius: 16px;
-  padding: 14px 18px;
+  padding: 14px var(--chat-text-inset);
   opacity: 0;
   transform: translateY(8px);
   animation: askFadeIn 0.4s var(--ease, cubic-bezier(.22,1,.36,1)) forwards;
@@ -327,9 +329,7 @@
 }
 
 .ask-messages:not(:empty) ~ .ask-form {
-  padding-top: 16px;
-  border-top: 1px solid var(--c-rule, #E8E8E8);
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .ask-input {
@@ -340,7 +340,9 @@
   color: var(--c-ink, #0A0A0A);
   background: transparent;
   border: none;
-  padding: 10px 0;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 10px var(--chat-text-inset);
   outline: none;
   letter-spacing: -0.01em;
   resize: none;
@@ -360,11 +362,13 @@
 
 .ask-form:focus-within {
   outline: 2px solid var(--c-focus);
-  outline-offset: 4px;
-  border-radius: 6px;
+  outline-offset: 0;
+  border-radius: 10px;
 }
 
 .ask-input::placeholder {
+  font-size: var(--chat-text-size);
+  line-height: 1.7;
   color: var(--c-mid, #777);
   font-weight: 300;
   white-space: pre-wrap;
@@ -609,7 +613,8 @@
 @media (max-width: 600px) {
   .ask-chip { font-size: 11px; padding: 9px 16px; }
   .ask-disclaimer { font-size: 11px; }
-  .ask-msg { max-width: 92%; font-size: 13px; }
+  .ask-chat { --chat-text-size: 13px; }
+  .ask-msg { max-width: 92%; }
   .ask-panel { padding: 24px; }
   .ask-email-btn { font-size: 11px; padding: 8px 14px; }
   .ask-bottom-bar { flex-wrap: wrap; gap: 12px; }
@@ -617,7 +622,8 @@
 
 @media (max-width: 480px) {
   .ask-panel { padding: 20px; }
-  .ask-msg { max-width: 95%; font-size: 13px; padding: 12px 16px; border-radius: 14px; }
+  .ask-chat { --chat-text-inset: 16px; }
+  .ask-msg { max-width: 95%; padding: 12px var(--chat-text-inset); border-radius: 14px; }
   .ask-chip { font-size: 11px; padding: 8px 14px; }
   .ask-suggestions { gap: 8px; }
   .ask-send { width: 36px; height: 36px; }
